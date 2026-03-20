@@ -1,0 +1,3 @@
+export const SELECT_MAIL = "SELECT_MAIL";
+export const SELECT_ALL_MAIL = "SELECT_ALL_MAIL";
+export const DESELECT_ALL_MAIL = "DESELECT_ALL_MAIL";

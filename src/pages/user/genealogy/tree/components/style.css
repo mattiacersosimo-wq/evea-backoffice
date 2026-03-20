@@ -1,0 +1,98 @@
+.basic.tree {
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+}
+.basic .tree-node,
+.basic .tree-node-group {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.basic .tree-branch-wrapper,
+.basic .tree-node__leaf {
+  outline: none;
+}
+
+.basic .tree-node__branch {
+  display: block;
+}
+.basic .tree-node {
+  cursor: pointer;
+}
+
+/* ***************************************** */
+
+.cutomeTree li .tree-branch-wrapper .tree-node-group:nth-child(1n+1)
+{
+  position: relative;
+  margin-left: 0 !important;
+}
+
+.cutomeTree li ul > li:nth-child(1n+1) > div
+{
+  margin-left: 0 !important;
+}
+.cutomeTree >li
+{
+  margin-left: 0 !important;
+
+}
+.cutomeTree li:nth-child(1n+1)  
+{
+  position: relative;
+  margin-left: 70px;
+}
+
+.cutomeTree li ul > li > div::before
+{
+  content: "";
+  position: absolute;
+  border-left: 2px solid#c3cbdc;
+  border-bottom: 2px solid#c3cbdc;
+  left: -26px;
+  top: -3px;
+  height: 20px;
+  width: 17px;
+  border-radius: 0 0 0 7px;
+}
+.cutomeTree li .tree-branch-wrapper .tree-node-group li:nth-child(1n+1):last-child::before {
+  height: 20px;
+}
+
+.cutomeTree > li > ul > li
+{
+position: relative;
+}
+.cutomeTree > li ul > li::before {
+  content: '';
+    position: absolute;
+    top: -23px;
+    width: 1px;
+    height: calc(100% + 46px);
+    right: auto;
+    left: -26px;
+    border-left: 2px solid #c3cbdc;
+}
+.cutomeTree > li ul > li:last-child::before {
+  height: 20px 
+}
+.cutomeTree li ul > li::after {
+  content: '';
+    position: absolute;
+    top: 15px;
+    width: 17px;
+    height: 20px;
+    right: auto;
+    left: -20px;
+    border-top: 2px solid #c3cbdc;
+}
+.cutomeTree li div:hover+ul li::after, 
+.cutomeTree li div:hover+ul li::before, 
+.cutomeTree li div:hover+ul::before, 
+.cutomeTree li div:hover+ul ul::before,
+.cutomeTree li div:hover+ul > li > div::before,
+.cutomeTree li div:hover+ul ul> li > div::before
+{
+    border-color:  #6c4dff;
+}

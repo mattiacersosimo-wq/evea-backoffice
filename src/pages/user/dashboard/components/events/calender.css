@@ -1,0 +1,85 @@
+.custom__calender {
+  font-weight: bold;
+}
+
+.custom__calender .react-calendar__navigation {
+  text-align: center;
+}
+
+.custom__calender .react-calendar__navigation button {
+  color: #fff;
+  mix-blend-mode: difference;
+}
+
+.custom__calender .react-calendar__tile--active {
+  border-radius: 25%;
+  height: 46px;
+}
+
+.event {
+  border-radius: 3px;
+  position: relative;
+}
+
+.event::after {
+  content: "\A";
+  display: inline-block;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  background-color: #fff;
+  mix-blend-mode: difference;
+}
+
+.react-calendar__tile--active.event::after {
+  mix-blend-mode: normal;
+}
+
+.custom__calender .react-calendar__tile--active.react-calendar__tile abbr {
+  color: #fff;
+  mix-blend-mode: normal;
+}
+
+.custom__calender .react-calendar__month-view__weekdays__weekday {
+  text-align: center;
+}
+
+.custom__calender .react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none;
+}
+
+.custom__calender button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  padding: 10px;
+}
+
+.custom__calender .react-calendar__month-view__weekdays__weekday abbr {
+  font-size: 0.8rem;
+}
+
+.custom__calender .react-calendar__tile abbr,
+.custom__calender .react-calendar__decade-view__years__year,
+.custom__calender .react-calendar__century-view__decades__decade {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #fff;
+  mix-blend-mode: difference;
+}
+
+.custom__calender
+  .react-calendar__month-view__days__day--neighboringMonth
+  abbr {
+  color: #ffffff59;
+}
+
+.custom__calender button abbr {
+  pointer-events: none;
+}
+.css-1lwbda4-MuiStack-root > :not(style) + :not(style) {
+  margin-top: 0 !important;
+}

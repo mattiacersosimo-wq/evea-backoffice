@@ -1,0 +1,32 @@
+.rank .table > thead > tr > th {
+  padding: 8px !important;
+  font-size: 13.5px !important;
+  font-weight: 600;
+  background-color: #f4f6f8;
+  color: #637381;
+}
+.rank .table td,
+.table th,
+.table tr {
+  border: 1px solid rgba(107, 122, 144, 0.1) !important;
+}
+.rank .table > tbody > tr > td {
+  color: #222;
+  line-height: 21px;
+  padding: 8px !important;
+  font-size: 13.5px !important;
+}
+.rank .table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+  border-bottom: 1px solid rgba(107, 122, 144, 0.1) !important;
+}
+.css-1j6hc4w-MuiInputBase-input-MuiOutlinedInput-input {    
+  color: #6e6e6e !important;
+}
+.css-ce61bn-MuiNativeSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  color: #6e6e6e !important;
+}

@@ -1,0 +1,51 @@
+.user-calender table tr td:first-child,
+
+/* table tr th:first-child {
+  padding: 0px !important;
+} */
+.user-calender .fc-daygrid-day-frame,
+.fc-daygrid-day-events,
+.fc-daygrid-event-harness {
+  text-align: center;
+}
+.user-calender .css-ok29yv .fc .fc-event .fc-event-main {
+  padding: 0px 3px;
+}
+.user-calender .css-ok29yv .fc .fc-event .fc-event-main-frame {
+  font-size: 12px;
+  line-height: 15px;
+}
+.user-calender .fc-theme-standard td,
+.fc-theme-standard th {
+  border: none;
+}
+.user-calender .fc th,
+.fc td {
+  vertical-align: top;
+  padding: 0 !important;
+}
+.user-calender thead {
+  /* background-color: #fff; */
+}
+.fc-theme-standard .fc-scrollgrid {
+  border: none;
+}
+.css-rkdiqd .fc .fc-daygrid-day-number {
+  font-weight: 200 !important;
+  padding: 0px 40px 0px !important;
+}
+.fc-daygrid-day-frame.fc-scrollgrid-sync-inner {
+  height: 4rem;
+}
+.user-calender .fc-daygrid-day-frame.fc-scrollgrid-sync-inner {
+  height: 4rem;
+  background-color: #212b36;
+}
+
+a.fc-col-header-cell-cushion {
+  color: #919eab;
+}
+.event-dot {
+  width: 4px;
+  height: 4;
+}

@@ -1,0 +1,141 @@
+{
+  "tradingName": "Bpract LLP",
+  "id": "1",
+  "info": "test MLM bpract",
+  "img": "img url",
+  "userName": "Shibi",
+  "email": "shibi@gmail.com",
+  "jDate": "12-20-2022",
+  "rank": "One Bronze",
+  "totalLeft": "0",
+  "totalRight": "33",
+  "leftPoint": "68",
+  "rightPoint": "1350",
+  "sponsor": "11",
+  "leftUser": "2",
+  "rightUser": "6",
+  "account": [
+    {
+      "name": "Account 1",
+      "product": {
+        "name": "100 Plans"
+      }
+    }
+  ],
+  "organizationChildRelationship": [
+    {
+      "id": "2",
+      "tradingName": "MLM Bpract",
+      "info": "test MLM bpract",
+      "img": "img url",
+      "userName": "Sarath",
+      "email": "shibi@gmail.com",
+      "jDate": "12-20-2022",
+      "rank": "Bronze Executive",
+      "totalLeft": "3",
+      "totalRight": "5445",
+      "leftPoint": "787",
+      "rightPoint": "02",
+      "sponsor": "shibi",
+      "leftUser": "12",
+      "rightUser": "11",
+      "account": [
+        {
+          "name": "Account 2",
+          "product": {
+            "name": "200 Plans"
+          }
+        },
+        {
+          "name": "Account 3",
+          "product": {
+            "name": "300 Plans"
+          }
+        },
+        {
+          "name": "Account 4",
+          "product": {
+            "name": "300 Plans"
+          }
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "tradingName": "BTC bpract",
+      "info": "test MLM bpract",
+      "img": "img url",
+      "userName": "Sumesh",
+      "email": "shibi@gmail.com",
+      "jDate": "11-08-2021",
+      "rank": "Two Bronze",
+      "totalLeft": "321",
+      "totalRight": "23",
+      "leftPoint": "046",
+      "rightPoint": "699",
+      "sponsor": "shibi",
+      "leftUser": "3",
+      "rightUser": "1",
+      "account": [
+        {
+          "name": "Account 4",
+          "product": {
+            "name": "400 Plans"
+          }
+        }
+      ],
+      "organizationChildRelationship": [
+        {
+          "id": "4",
+          "tradingName": "Cyberpark bpract",
+          "info": "test MLM bpract",
+          "img": "img url",
+          "userName": "Jose",
+          "email": "shibi@gmail.com",
+          "jDate": "03-20-2023",
+          "rank": "Three Bronze",
+          "totalLeft": "7878",
+          "totalRight": "889",
+          "leftPoint": "39",
+          "rightPoint": "96",
+          "sponsor": "shibi",
+          "leftUser": "08",
+          "rightUser": "07",
+          "account": [
+            {
+              "name": "Account 5",
+              "product": {
+                "name": "500 Plans"
+              }
+            }
+          ]
+        },
+        {
+          "id": "5",
+          "tradingName": "Cyberpark",
+          "info": "test MLM bpract",
+          "img": "img url",
+          "userName": "Shibi",
+          "email": "shibi@gmail.com",
+          "jDate": "12-20-2022",
+          "rank": "Four Bronze",
+          "totalLeft": "999",
+          "totalRight": "547",
+          "leftPoint": "325",
+          "rightPoint": "15",
+          "sponsor": "shibi",
+          "leftUser": "4",
+          "rightUser": "6",
+          "account": [
+            {
+              "name": "Account 5",
+              "product": {
+                "name": "1000+ Plans"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

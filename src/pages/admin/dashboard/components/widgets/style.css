@@ -1,0 +1,8 @@
+#resp-mobile .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-left, .apexcharts-legend.apx-legend-position-top.apexcharts-align-left, .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left{
+    left: 0px !important;
+    top: 35px !important;
+}
+#resp-mobile .apexcharts-canvas .apexcharts-legend-text{
+    font-size: 13px !important;
+
+}

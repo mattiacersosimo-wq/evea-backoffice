@@ -1,0 +1,3275 @@
+{
+  "global": {
+    "subscription": "Sottoscrizione",
+    "business_volume": "Volume d'affari",
+    "update_card": "Aggiorna carta",
+    "recurring_enabled_on": "Ricorrenza abilitata il",
+    "recurring_enabled": "Ricorrenza abilitata",
+    "disable_recurring": "Disabilita ricorrenza",
+    "order_history": "Cronologia degli ordini",
+    "payout_method": "Metodo di pagamento",
+    "payout_info": "Informazioni sul pagamento",
+    "current_rank": "Grado attuale",
+    "users": "Utenti",
+    "total_tickets": "Biglietti totali",
+    "completed": "Completato",
+    "pending_payment": "Pagamento in sospeso",
+    "processing": "In elaborazione",
+    "on_hold": "In attesa",
+    "cancelled": "Annullato",
+    "refunded": "Rimborsato",
+    "failed": "Non riuscito",
+    "affiliate_dashboard": "Dashboard di affiliazione",
+    "bonus_value": "Valore bonus",
+    "qualification_value": "Valore di qualificazione",
+    "euro_value": "Euro Value",
+    "team_orders":"Pedidos de equipo",
+    "pendingcommissions":"Commissioni pendenti",
+    "reject":"Rifiutare",
+    "confirm":"Confermare",
+    "changedate":"Modifica data",
+    "country":"Paese",
+    "rank_achievers":" Rango de Logros",
+    "top_recruiters":" Mejores Reclutadores",
+    "top_earners":" Mejores Ganadores",
+    "pqv_required":" PQV obbligatorio",
+    "tv_required":" Televisore richiesto",
+    "gv_required":" GV Obbligatorio",
+    "name_package": "Nome/confezione/prodotto",
+    "sold_out": "Totale esaurito",
+    "amount_paid": "Importo pagato",
+    "order_id": "ID ordine",
+    "transactionsCan": "Le transazioni possono richiedere da 02 a 12 ore per la conferma",
+    "transaction_password": "Password di transazione",
+    "old_password": "Vecchia password",
+    "OrderApproval": "Approvazione dell'ordine",
+    "transaction": "Quando hai dimenticato la tua password di transazione,",
+    "sendMail": "clicca qui per inviare un'email.",
+    "kyc_details": "KYC Dettagli",
+    "email": "E-mail",
+    "users_join": "Utenti iscritti",
+    "Identity_proof": "Prova di identità",
+    "proof_of_address": "Prova di indirizzo",
+    "pending": "In attesa di",
+    "upload": "Caricamento",
+    "top_performers": "Migliori performer",
+    "scanThisCode": "Scansiona questo codice per pagare",
+    "Order": "Ordine",
+    "products": "Prodotti",
+    "pending_payments": "Pagamenti in sospeso",
+    "payment_status": "Stato del pagamento",
+    "total_members": "Totale membri",
+    "approve": "Approvare",
+    "reason": "Motivo *",
+    "kyc_pending": "La verifica KYC è in sospeso !",
+    "kyc_reject": "La verifica KYC viene respinta !",
+    "kyc_approved": "La verifica KYC è approvata !",
+
+    "your_password": "La tua nuova password",
+    "your_new_password": "Inserisci la tua nuova password !!!",
+    "back_to": "Torna al login",
+    "coin": "Indirizzo della moneta",
+    "update_coin": "Aggiorna il tuo indirizzo di moneta",
+    "account_login": "Blocca l'accesso dell'account",
+    "payout": "Bloccare il pagamento",
+    "fund_transfer": "Trasferimento di fondi a blocchi",
+    "referral": "Block Referral",
+    "edit_Video": "Modifica video",
+    "sponsor_information": "Informazioni sullo sponsor",
+    "View": "Visualizzazione",
+    "Video_title": "Titolo del video",
+    "coin_address": "Aggiorna le informazioni sul pagamento",
+    "bv_percentage": "Percentuale BV",
+    "days": "giorni",
+    "overdue": "Ticket scaduti",
+    "delete_blog": "Elimina blog",
+    "resolved": "Ticket risolti",
+    "inProgress": "Ticket in corso",
+    "responded": "Ticket risposti",
+    "Dates": "Date",
+    "package_add": "Aggiungi pacchetto",
+    "messageImage": "* Per favore, prova a caricare un'immagine di dimensioni inferiori a 200 KB per un'esperienza utente migliore * Oppure puoi utilizzare l'opzione di ritaglio.",
+    "imageValid": "* Quando carichi le immagini, puoi caricare immagini con dimensioni di 700 di larghezza e 410 di altezza (o mantenere questa proporzione 700 * 410)",
+    "max_size": "Dimensione massima",
+    "select_a_package": "Seleziona un pacchetto",
+    "enable_recurring": "Abilita pagamenti ricorrenti",
+    "dropSelected": "Lascia cadere i file qui o fai clic",
+    "deleteFaq": "Elimina le domande frequenti",
+    "rank_bonus": "Bonus di rango",
+    "weekly": "settimanalmente",
+    "addNewRank": "Aggiungi nuovo rango",
+    "impersonateText": "L'amministratore non può abilitare 2FA per un altro utenti",
+    "blocked": "Bloccata",
+    "rankName": "Nome del Grado",
+    "add_Rank": "Aggiungi Grado",
+    "Options": "Opzioni",
+    "Rank_Criteria": "Criteri del Grado",
+    "Referral_Package_Count": "Conteggio Pacchetti di Referral",
+    "Bonus_amount": "Importo del Bonus",
+    "Personal_Volume": "Volume Personale",
+    "Referral_Package": "Pacchetto di Referral",
+    "Referral_Count": "Conteggio Referral",
+    "Team_Volume": "Volume del Team",
+    "package": "Pacchetti",
+    "binary_matching_bonus_settings": "Impostazioni Bonus Binario di Corrispondenza",
+    "matchingBonus": "Bonus Binario di Corrispondenza",
+    "binary_bonus": "Bonus Binario",
+    "daily": "Giornaliero",
+    "monthly": "Mensile",
+    "instant": "Immediato",
+    "first_order_percentage": "Percentuale del primo ordine",
+    "remove": "Rimuovere",
+    "Binary_Criteria": "Criteri binari",
+    "fund_credit": "Credito di fondi",
+    "fund_debit": "addebito del fondo",
+    "home": "Casa",
+    "export": "Esporta",
+    "product": "Prodotto",
+    "dashboard": "Cruscotto",
+    "balance": "Saldo",
+    "product_name": "Nome Prodotto",
+    "product_one": "Prodotto",
+    "product_other": "Prodotti",
+    "category_one": "Categoria",
+    "category_other": "Categorie",
+    "search": "Ricerca",
+    "no_data": "Nessun dato disponibile",
+    "something_wrong": "Qualcosa è andato storto. Si prega di riprovare più tardi",
+    "oops": "Ops !!!",
+    "month": "Mese",
+    "review_one": "Recensione",
+    "review_other": "{{count}} Recensioni",
+    "document": "Documento",
+    "sample_document": "Documento di esempio",
+    "description": "Descrizione",
+    "question_one": "Domanda",
+    "question_other": "Domande",
+    "no": "No",
+    "invoice_id": "ID Fattura",
+    "payment_method": "Metodo di Pagamento",
+    "order_date": "Data Ordine",
+    "total_price": "Prezzo Totale",
+    "action": "Azione",
+    "notes": "Note",
+    "note": "Nota",
+    "continue": "Continua",
+    "cancel": "Annulla",
+    "title": "Titolo",
+    "comment": "Commento",
+    "all": "Tutto",
+    "view": "Vista",
+    "upcoming": "Prossimo",
+    "past": "Passato",
+    "reset": "Ripristina",
+    "amount": "Importo",
+    "e_wallet": "Portafoglio Elettronico",
+    "d_wallet": "Portafoglio Deposito",
+    "send": "Invia",
+    "request": "Richiedi",
+    "month_count": "{{count}} Mese",
+    "view_document": "Vedi Documento",
+    "comments": "Commenti",
+    "compose": "Componi",
+    "description_place_holder": "Scrivi qualcosa...",
+    "user": "Utente",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "username": "Nome utente",
+    "upload_profile": "Carica Foto",
+    "allowed": "Consentito",
+    "max": "Dimensione Massima",
+    "images": "Immagini",
+    "name": "Nome",
+    "total_commission": "Commissione Totale",
+    "total_payout": "Pagamento Totale",
+    "last_seen": "Ultima Visualizzazione",
+    "your_activity_history": "La Tua Cronologia Attività",
+    "referrals": "Riferimenti",
+    "logged_in": "Loggato",
+    "total_amount": "Importo Totale",
+    "payment_type": "Tipo di Pagamento",
+    "wallet_type": "Tipo di Portafoglio",
+    "credit": "Credito",
+    "debit": "Debito",
+    "deposit_wallet": "Portafoglio di Deposito",
+    "ewallet": "Ewallet",
+    "expense": "Spesa",
+    "total_credits": "Totale Crediti",
+    "user_type":"Tipo di utente",
+    "min_pqv":"PQV minimo"
+
+  },
+  "pendingranks": {
+    "table": {
+      "title": "Ranghi in sospeso",
+      "no": "No",
+      "user_name": "Nome utente",
+      "rankname": "Nome del rango",
+      "gv": "GV",
+      "tv": "TV",
+      "pqv": "PQV"
+    }
+  },
+
+  "email_template": {
+    "title": "Impostazioni del Modello Email",
+    "form": {
+      "subject": "Oggetto",
+      "email_template_id": "ID modello email SendGrid",
+      "content": "Contenuto",
+      "button": "aggiornamento"
+    }
+  },
+
+  "email_settings": {
+    "title": "Impostazioni del Modello Email",
+    "table": {
+      "no": "No",
+      "name": "Nome",
+      "template_id": "ID modello email SendGrid",
+      "language": "Lingua",
+      "subject": "Oggetto",
+      "edit_template": "Modifica Modello"
+    }
+  },
+  "register": {
+    "welcome": "Ciao, bentornato!",
+
+    "reset": "Reimposta Password",
+    "please": "Si prega di controllare la tua email.",
+    "request": "Richiesta inviata con successo",
+    "we_have": "Abbiamo inviato una email di conferma a",
+    "back": "Indietro",
+    "pls_enter": "Inserisci l'indirizzo email associato al tuo account e ti invieremo un link per reimpostare la password.",
+    "forgot_yur": "Hai dimenticato la tua password?",
+    "choose_plan": "Scegli il Piano",
+    "forgot": "Hai dimenticato la password?",
+    "remember": "Ricordami",
+    "register_new": "Registra Nuovo Membro",
+    "partner": "Inizia come partner di marketing",
+    "login": "Accesso",
+    "already": "Hai già un account",
+    "register": "Registrati",
+    "terms": "Termini di Servizio",
+    "policy": "Informativa sulla Privacy",
+    "referral": "ID referral (facoltativo)",
+    "re_enter_password": "Reinserisci la Password",
+    "password": "Password",
+    "username": "Nome utente",
+    "email": "Indirizzo Email",
+    "sign_to": "Accedi a",
+    "don't_have": "Non hai un account",
+    "get_started": "Inizia",
+    "welcome_back": "Ciao, bentornato"
+  },
+  "user_nav": {
+    "recurring_orders": "Ordini ricorrenti",
+    "pendingcommissions":"Commissioni pendenti",
+    "affiliate_dashboard": "Dashboard di affiliazione",
+    "coupons":{
+      "title": "Coupon",
+      "list": "I Miei Coupon"
+    },
+    "referals":"Referral",
+
+    "my_subscriptions": "Le Mie Iscrizioni",
+    "dashboard": "Cruscotto",
+    "join_telegram": "Unisciti a Telegram",
+    "online_store": {
+      "online_store": "Negozio Online",
+      "product": "Prodotti",
+      "my_orders": "I Miei Ordini",
+      "packages": "Pacchetti",
+      "subscriptions": "Iscrizioni"
+    },
+    "genealogy": {
+      "list": "Lista",
+      "genealogy": "Genealogia",
+      "binary": "Binario",
+      "sponsor": "Sponsor",
+      "tree": "Albero",
+      "matrix": "Matrice",
+      "affiliate_dashboard": "Cruscotto Affiliato",
+      "binary_leg_settings": "Impostazioni Gamba Binaria"
+    },
+    "financial": {
+      "financial": "Finanza",
+      "my_eWallet": "Il Mio Ewallet",
+      "deposit_wallet": "Portafoglio Deposito",
+      "fund_transfer": "Trasferimento Fondi",
+      "request_payout": "Richiedi Pagamento"
+    },
+    "business_builder": {
+      "business_builder": "Costruttore di Business",
+      "subscriptions": "Iscrizioni",
+      "materials": "Materiali"
+    },
+    "my_profile": "Il Mio Profilo",
+    "blogs": "Blog",
+    "help_center": {
+      "help_center": "Centro Assistenza",
+      "faqs": "Domande Frequenti",
+      "knowledge_base": "Base di Conoscenza",
+      "emails": "Email",
+      "support_tickets": "Ticket di Supporto",
+      "documents": "Documenti",
+      "videos": "Video"
+    },
+    "income_report": "Rapporto di Guadagno",
+    "leads": "Prospects"
+  },
+  "affiliate_dashboard": {
+    "previous_month_pending_commission": "Commissione in sospeso del mese precedente",
+    "package_purchased": "Pacchetto acquistato",
+    "first_generation": "Prima Generazione",
+    "second_generation": "Seconda Generazione",
+    "third_generation": "Terza Generazione",
+    "total_bonus": "Bonus totale",
+    "levels": "Livelli",
+    "username": "Nome utente",
+    "dsp_ends_in": "IL BOOST DEL BONUS VENDITE DIRETTE TERMINA TRA",
+    "current_period_ends_in": "IL PERIODO CORRENTE TERMINA IN",
+    "recognition_rank": "RANGO DI RICONOSCIMENTO",
+    "achieved_rank": "RANGO ALCANZADO",
+    "currentRank": "RANGO CORRENTE",
+    "qv": "QV",
+    "rank": "Rango",
+    "bonus_amount": "Importo del bonus",
+    "eveolving_bonus": "Bonus di evoluzione",
+    "achieved_count": "Numero raggiunto",
+    "current_percentage": "Percentuale attuale",
+    "level_1": "Livello 1",
+    "level_2": "Livello 2",
+    "leader_name": "Nome del leader",
+    "rank_name": "Nome del rango",
+    "team_bv": "BV del team",
+    "bonus_percentage": "Percentuale del bonus",
+    "pending_bonus": "Bonus in sospeso",
+    "generation_1": "Generazione 1",
+    "generation_2": "Generazione 2",
+    "eligible": "Idoneo",
+    "amount_payable": "Importo da pagare",
+    "from_user": "Da utente",
+    "current_month_commissions": "Commissioni del mese corrente",
+    "unlocked_levels": "Livelli sbloccati",
+    "first_generation_promoters": "Promotori di prima generazione",
+    "second_generation_promoters": "Promotori di seconda generazione",
+    "third_generation_promoters": "Promotori di terza generazione",
+    "min_personal_qualifying_volume": "Volume minimo di qualificazione personale",
+    "direct_promoter_assigned": "Promotore diretto assegnato",
+    "mvp_status_attained_through_direct_promoter": "Stato MVP ottenuto tramite un promotore diretto",
+    "previous_month": "Mese precedente",
+    "largest_order_details": "Dettagli dell’ordine più grande",
+    "euro_value": "Valore in euro",
+    "personal_order_qv": "QV dell’ordine personale",
+    "current_month": "Mese corrente",
+    "pending_amount": "Importo in sospeso",
+    "personal_order_qv_in_current_month": "QV dell’ordine personale nel mese corrente",
+    "months_required_to_earn_bonus": "Mesi necessari per ottenere il bonus",
+    "order_date": "Data dell’ordine",
+    "commission": "Commissione",
+    "bv": "BV",
+    "customer_name": "Nome del cliente",
+    "customer_details": "Dettagli del cliente",
+    "corresponding_percentage": "Percentuale corrispondente",
+    "customers_who_placed_orders": "Clienti che hanno effettuato ordini",
+    "current_package": "Pacchetto attuale",
+    "remaining_days_in_go_mvp": "Giorni rimanenti in Go MVP",
+    "eligibility_period_for_additional_bonus": "Periodo di idoneità per un bonus aggiuntivo (in mesi)",
+    "month": "Mese",
+    "monthly_qualification_status": "Stato di qualificazione mensile",
+    "personally_enrolled_customers": "Clienti iscritti personalmente" ,
+    "eveolution_rewards": "Ricompense di evoluzione",
+    "direct_qualifying_volume": "Volume di qualificazione diretta",
+    "required_customers": "Clienti richiesti",
+    "qualification_days": "Giorni di qualificazione",
+    "no_of_customers_with_30_qv": "Numero di clienti con 30 QV",
+    "personally_enrolled_customers_with_30_qv": "Clienti iscritti personalmente con 30 QV",
+    "personal_qualifying_volume": "Volume di qualificazione personale",
+    "team_volume": "Volume del team",
+    "group_volume": "Volume del gruppo",
+    "s_no": "N.",
+    "team": "Team",
+    "percentage": "Percentuale",
+    "gv_taken": "GV conteggiato",
+    "current_rank": "Rango attuale",
+    "next_rank": "Rango successivo",
+    "sixty_percent_rule": "Regola del sessanta per cento",
+    "pending_commission": "Commissioni pendenti",
+    "qualifiers": "Qualificatori",
+    "requirements": "Requisiti",
+    "progress": "Progressi",
+    "nextRank": "Prossimo Rango",
+    "paidAsRankLastWeek": "Pagato come rango la settimana scorsa",
+    "highestRankAchieved": "Rango più alto raggiunto",
+    "current_paid": "Rango attuale pagato",
+    "activeBusiness": "Costruttore di Business Attivo",
+    "bronze": "Bronzo",
+    "sliverExecutive": "Esecutivo di Argento",
+    "startup": "Avvio",
+    "activeCustomer": "Cliente Attivo",
+    "customer": "Cliente",
+    "weekly": "Storico BV Settimanale (Gamba Minore)",
+    "total": "Totale",
+    "aquired": "BV Acquisito",
+    "required": "BV Richiesto",
+    "upcoming_week": "Prossima Settimana",
+    "binary_bonus": "Bonus Binario",
+    "no": "No",
+    "active_products": "Prodotto Attivo",
+    "user_name": "Nome Utente",
+    "email": "Email",
+    "active": "Attivo",
+    "total_numberL": "Numero Totale Vendite (Sinistra)",
+    "total_numberR": "Numero Totale Vendite (Destra)",
+    "total_teamL": "Vendite Totali del Team (Sinistra)",
+    "total_teamR": "Vendite Totali del Team (Destra)",
+    "weeklyL": "BV Settimanale (Sinistra)",
+    "weeklyR": "BV Settimanale (Destra)",
+    "left_team": "Team Sinistro",
+    "left": "Sinistra",
+    "right": "Destra",
+    "right_team": "Team Destro",
+    "affiliate": "Affiliato",
+    "personal_sales": "Vendite Personali BV",
+    "team_sales": "Vendite del Team BV",
+    "network_bonus": "Bonus di Rete",
+    "referral_bonus": "Bonus di Riferimento",
+    "referrals": "Riferimenti",
+    "weekly_payout": "Il Ciclo di Pagamento Settimanale Termina In"
+  },
+  "user_dashboard": {
+    "residual_bonus": "Progresso bonus residuo",
+    "leadership_rewards": "Ricompense di leadership",
+    "indirect_sales_bonus": "Avanzamento del bonus vendite indirette",
+    "residual_rewards": "Ricompense residue",
+    "leadership_bonus": "Avanzamento del bonus di leadership",
+    "residual_matching_bonus": "Avanzamento del bonus di abbinamento residuo",
+    "rock_solid_bonus": "Avanzamento del bonus Rock Solid",
+    "gameplay_rewards": "Ricompense di gioco",
+    "eveolving_bonus": "Progresso bonus in evoluzione",
+    "rock_solid_mvp_bonus": "Avanzamento del bonus Rock Solid MVP",
+    "mvp_mentor_bonus": "Avanzamento del bonus mentore MVP" ,
+    "direct_sales_bonus": "Avanzamento del bonus sulle vendite dirette",
+    "rob_bonus": "Progresso bonus ordine ricorrente",
+    "3_FF_Progress": "3 Per il progresso libero",
+    "achieved_rank":"Grado raggiunto",
+    "current_rank":"Grado attuale",
+
+    "go_MVP_bonus": "Vai al progresso bonus MVP",
+    "rank_progress_bar": "Barra di avanzamento del grado",
+    "income": "Entrate",
+    "incomeTitle": "Questa Settimana",
+    "payout": "Entrate Totali",
+    "payoutTitle": "Questa Settimana",
+    "balance": "Bilancio Totale",
+    "balanceTitle": "Questa Settimana",
+    "referrals": "Totale Referral",
+    "referralsTitle": "Questa Settimana",
+    "downline": "Conteggio Team Downline",
+    "downlineTitle": "Questa Settimana",
+    "incomeInfo": "Entrate",
+    "payoutInfo": "Pagamento",
+    "payout_graph": "Panoramica dei Pagamenti delle Entrate",
+    "network": {
+      "title": "Rete",
+      "overview": "Panoramica della partecipazione degli utenti"
+    },
+
+    "events": {
+      "title": "Eventi"
+    },
+
+    "team_performance": {
+      "table": {
+        "user": "Utente",
+        "referrals": "Referral",
+        "earnings": "Guadagni"
+      },
+      "title": "Performance del Team"
+    },
+
+    "referrals_table": {
+      "table": {
+        "user": "Utente",
+        "date": "Data",
+        "action": "Azione"
+      },
+      "title": "Referral"
+    },
+    "referral_menu": {
+      "binary": "Binario",
+      "matrix": "Matrice",
+      "sponsor": "Sponsor",
+      "mono_line": "Linea Mono"
+    },
+    "nextlevelTitle": "Il prossimo livello è tuo da raggiungere!",
+    "nextlevelSubTitle": "Raggiungi un nuovo rango e sblocca infinite possibilità.",
+    "currentrank": "Rango Attuale",
+    "nextrank": "Prossimo Rango"
+  },
+
+  "nav": {
+    "dashboard": {
+      "title": "Cruscotto",
+      "business": "Attività",
+      "network": "Rete"
+    },
+    "genealogy": {
+      "title": "Genealogia",
+      "matrix": "Matrice",
+      "binary": "Binario",
+      "sponsor": "Sponsor",
+      "tree": "Albero",
+      "list": "Lista",
+      "mono_line": "Mono Linea"
+    },
+    "financial": {
+      "title": "Finanziario",
+      "e_wallet": "Portafoglio Elettronico",
+      "d_wallet": "Portafoglio Deposito",
+      "fund_credit": "Fondi Credito",
+      "payout": "Pagamento",
+      "pendingcommission":"Commissione pendente"
+
+    },
+    "pendingranks": {
+      "title": "Ranghi in sospeso",
+      "pending_ranks": "Ranghi in sospeso"
+    },
+    "communication": {
+      "title": "Comunicazione",
+      "blog": "Blog",
+      "faqs": "FAQ",
+      "mails": "Email",
+      "help_center": "Centro Assistenza",
+      "article": "Articolo"
+    },
+    "tools": {
+      "title": "Strumenti",
+      "documents": "Documenti",
+      "videos": "Video"
+    },
+    "members": {
+      "title": "Gestione Membri",
+      "network": "Membri Network",
+      "holding": "Holding Tank",
+      "kyc_details": "Dettagli KYC"
+    },
+    "sub_admin": {
+      "title": "Sotto Amministratori",
+      "sub_admins": "Sotto Amministratori"
+    },
+    "store": {
+      "packages": "Pacchetti",
+      "choose_payments": "Scegli i Metodi da Abilitare",
+      "title": "Negozio",
+      "products": "Prodotti",
+      "materials": "Materiali",
+      "events": "Eventi",
+      "coupons": "Coupon",
+      "user_review": "Recensioni Utenti",
+      "assign": "Assegna Abbonamenti",
+      "bb_sales": "Vendite Abbonamenti Business Builder",
+      "payment_methods": "Metodi di Pagamento",
+      "subscriptions": "Abbonamenti"
+    },
+    "settings": {
+      "title": "Impostazioni",
+      "brand": "Marca",
+      "bb": "Business Builder",
+      "network": "Network",
+      "withdrawal": "Prelievo",
+      "currency": "Valuta",
+      "mail": "Modello di posta",
+      "advanced": "Impostazioni avanzate"
+    },
+    "reports": {
+      "title": "Rapporti",
+      "builder": "Abbonamento Business Builder",
+      "fund_credit": "Fondi Credito",
+      "joining": "Rapporto di Adesione",
+      "members": "Guadagno Membro",
+      "payout": "Pagamento",
+      "point": "Storico Punti",
+      "sales": "Vendite",
+      "top": "Top Guadagnatori"
+    },
+    "my_orders": {
+      "titile": "I Miei Ordini",
+      "orders": "Ordini",
+      "completed_orders": "Ordini Completati",
+      "view_order": "Visualizza Ordine"
+    }
+  },
+  "header_menus": {
+    "home": "Home",
+    "profile": "Profilo",
+    "logout": "Esci"
+  },
+  "image_upload": {
+    "drop_file": "Rilascia o Seleziona il file",
+    "through": "attraverso la tua macchina",
+    "browse": "sfoglia"
+  },
+  "genders": {
+    "male": "Maschio",
+    "female": "Femmina",
+    "other": "Altro"
+  },
+  "status": {
+    "enabled": "Abilitato",
+    "disabled": "Disabilitato"
+  },
+  "report": {
+    "get": "Ottieni",
+    "get_report": "Ottieni Rapporto"
+  },
+  "impersonate": {
+    "heads": "Attenzione! Ora sei loggato come ",
+    "click": "Clicca qui",
+    "toGo": "per tornare all'account admin"
+  },
+  "amount_types": {
+    "all": "Tutto",
+    "r_bonus": "Bonus di Referral",
+    "deducted_by_admin": "Deducuto dall'Amministratore",
+    "credited_by_admin": "Accreditato dall'Amministratore",
+    "fund_transfer": "Trasferimento Fondi",
+    "roi_commission": "Commissione ROI",
+    "a_bonus": "Bonus di Realizzazione",
+    "first_order_bonus": "Bonus Primo Ordine",
+    "level_commission": "Commissione Livello",
+    "b_bonus": "Bonus Binario",
+    "deposit_wallet": "Portafoglio Deposito",
+    "product_purchased": "Prodotto Acquistato",
+    "rank_bonus": "Bonus Rango",
+    "m_bonus": "Bonus Binario di Corrispondenza",
+    "go_mvp_bonus": "Vai al bonus MVP",
+    "eveolving_bonus": "Bonus in evoluzione",
+    "rock_solid_bonus": "Bonus solido come la roccia",
+    "rock_solid_mvp_bonus": "Bonus MVP solido come la roccia",
+    "rock_solid_mvp_additional_bonus": "Bonus aggiuntivo Rock Solid MVP",
+    "direct_sales_bonus": "Bonus vendite dirette",
+    "pmb_bonus": "Bonus di manutenzione della posizione",
+    "indirect_sales_bonus": "Bonus sulle vendite indirette",
+    "leadership_bonus": "Bonus di leadership",
+    "residual_bonus": "Bonus residuo",
+    "residual_matching": "Corrispondenza residua"
+
+  },
+  "tools": {
+    "videos": {
+      "areYouSure": "Sei sicuro di voler continuare, questa azione non può essere annullata",
+      "deleteVideos": "Elimina Video",
+      "videos_tool": "Video | Strumento",
+      "video": "Video",
+      "addVideo": "Aggiungi Video",
+      "title": "Titolo *",
+      "videoURLs": "URL Video *",
+      "close": "Chiudi",
+      "submit": "Invia",
+      "edit": "Modifica",
+      "delete": "Elimina",
+      "update": "Aggiorna",
+      "cancel": "Annulla",
+      "edit_video": "Modifica video"
+    },
+    "documents": {
+      "areYousure": "Sei sicuro di voler continuare, questa azione non può essere annullata",
+      "deleteDocument": "Elimina Documento",
+      "submit": "Invia",
+      "close": "Chiudi",
+      "docTitle": "Titolo Documento",
+      "sortOrders": "Ordina Ordini",
+      "uploadDocument": "Carica Documento",
+      "updateDocument": "Aggiorna Documento",
+      "addDocument": "Aggiungi Documento",
+      "documents_title": "Documenti | Strumenti",
+      "documents": "Documenti",
+      "no": "No",
+      "fileTitle": "Titolo File",
+      "sortOrder": "Ordine di Sorteggio",
+      "download": "Scarica",
+      "created": "Data di Creazione",
+      "action": "Azione",
+      "fileUpload": "Carica File",
+      "edit": "Modifica",
+      "delete": "Elimina",
+      "cancel": "Annulla"
+    }
+  },
+  "businessBuilder": {
+    "no": "No",
+    "amount": "Importo",
+    "date": "Data",
+    "effectiveUntil": "Valido Fino a",
+    "pickStartDate": "Seleziona Data di Inizio",
+    "pickEndDate": "Seleziona Data di Fine",
+    "userName": "Nome Utente",
+    "email": "Email",
+    "totalAmount": "Importo Totale",
+    "thisWeekEnd": "Fine Settimana Corrente",
+    "recurringCancelled": "Ricorrente Annullato",
+    "recurringEnabled": "Ricorrente Abilitato",
+    "businessBuilderTitle": "Business Builder | Negozio",
+    "business_builder_subscriptions_sales": "Vendite Abbonamenti Business Builder"
+  },
+
+  "assign_subscriptions": {
+    "areYouSure": "Sei sicuro di voler continuare, questa azione non può essere annullata",
+    "delete_category": "Elimina Categoria",
+    "edit_category": "Modifica Categoria",
+    "delete": "Elimina",
+    "permissions": "Permessi",
+    "edit": "Modifica",
+    "impersonate": "Assumi Identità",
+    "profile": "Profilo",
+    "submit": "Invia",
+    "close": "Chiudi",
+    "category_description": "Descrizione Categoria",
+    "category_name": "Nome Categoria",
+    "add_category": "Aggiungi Categoria",
+    "createdDate": "Data di Creazione",
+    "editSubscription": "Modifica Abbonamento",
+    "products": "Prodotti",
+    "trashed": "Eliminato",
+    "category": "Categoria",
+    "totalAmount": "Importo Totale",
+    "cancel": "Annulla",
+    "add": "Aggiungi",
+    "giveProductMaterials": "Assegna prodotto con materiali",
+    "giveProduct": "Assegna prodotto con commissioni",
+    "categories": "Categorie",
+    "certified_date": "Data di Certificazione (opzionale)",
+    "addProduct": "Assegna Prodotto",
+    "pickStartDate": "Seleziona Data di Inizio",
+    "pickEndDate": "Seleziona Data di Fine",
+    "user": "Utente",
+    "email": "Email",
+    "productss": "Prodotti",
+    "no": "No",
+    "action": "Azione",
+    "assigned_on": "Assegnato il",
+    "userName": "Nome Utente",
+    "product": "Prodotto",
+    "categoryy": "Categoria",
+    "note": "Nota",
+    "certifiedDate": "Data di Certificazione",
+    "effectiveUntil": "Valido Fino a",
+    "subscriptionsList": "Lista Abbonamenti",
+    "assignSubscriptionsTitle": "Assegna Abbonamenti | Negozio",
+    "assign_subscriptions": "Assegna Abbonamenti"
+  },
+  "sub_admin": {
+    "delete_at": "Elimina A",
+    "reasons": "Motivi",
+    "block": "Blocca",
+    "un_block": "Sblocca",
+    "block_sub_admin": "Blocca Sotto Amministratore",
+    "edit_sub_admin": "Modifica Sotto Amministratore",
+    "reason": "Motivo",
+    "are_you_sure": "Sei sicuro di voler continuare, questa azione non può essere annullata",
+    "delete_sub_admin": "Elimina Sotto Amministratore",
+    "un_block_user": "Sblocca Utente",
+    "block_user": "Blocca Utente",
+    "profile": "Profilo",
+    "edit": "Modifica",
+    "password": "Password",
+    "re_enter_password": "Reinserisci Password",
+    "enable": "Abilita",
+    "disable": "Disabilita",
+    "enable_impersonation": "Abilita l'Assunzione d'Identità",
+    "departments": "Dipartimenti",
+    "excluded_products": "Prodotti Esclusi",
+    "products": "Prodotti",
+    "mobile": "Cellulare *",
+    "names": "Nomi *",
+    "add_sub_admin": "Aggiungi Sotto Amministratore",
+    "sub_admins_title": "Sotto Amministratori : Aggiungi Sotto Amministratore",
+    "delete": "Elimina",
+    "reversed": "Sei sicuro di voler continuare, questa azione non può essere annullata?",
+    "sub_admin_delete": "Elimina Gruppo Sotto Amministratore ",
+    "submit": "Invia",
+    "description": "Descrizione",
+    "cancel": "Annulla",
+    "group": "Gruppo",
+    "add_user_group": "Aggiungi Gruppo Utente",
+    "impersonate": "Assumi Identità",
+    "sub_admins": "Sotto Amministratori",
+    "user_group": "Gruppo Utente",
+    "sub_admin": "Sotto Amministratore",
+    "active": "Attivo",
+    "inactive": "Inattivo",
+    "trashed": "Eliminato",
+    "no": "No",
+    "name": "Nome",
+    "userName": "Nome Utente",
+    "email": "Email",
+    "created": "Data di Creazione",
+    "action": "Azione",
+    "createdAt": "Creato Il"
+  },
+
+  "holding_tank": {
+    "cancel": "Annulla",
+    "are_you_sure": "Sei sicuro di voler continuare, questa azione non può essere annullata",
+    "delete_holding_tank": "Elimina Holding Tank",
+    "impersonation": "Assunzione d'Identità",
+    "delete": "Elimina",
+    "profile": "Profilo",
+    "permissions": "Permessi",
+    "holding_tank": "Holding Tank",
+    "no": "No",
+    "userName": "Nome Utente",
+    "email": "Email",
+    "paidActive": "Attivo Pagato",
+    "joinedAt": "Unisciti A",
+    "add_to_binary": "Aggiungi al Binario",
+    "action": "Azione",
+    "add_to_network": "Aggiungi alla Rete",
+    "network": "Rete",
+    "account_status": "Stato dell'Account",
+    "active": "Attivo",
+    "blocked": "Bloccato",
+    "add": "Aggiungi",
+    "close": "Chiudi",
+    "turn_off_email": "Spegni Email",
+    "turn_on_email": "Accendi Email"
+  },
+
+  "network_members": {
+    "user_type": "Tipo Utente",
+    "promoter": "Promotore",
+    "unique_id": "ID univoco",
+    "engagedstatus": "Stato Coinvolgimento",
+    "choose_payments": "Scegli Metodi da Abilitare",
+    "update_permissions": "Aggiorna Permessi",
+    "turn_off_mail": "Spegni Email",
+    "are_you_sure": "Sei sicuro di voler continuare, questa azione non può essere annullata",
+    "cancel": "Annulla",
+    "verify_mail": "Verifica Email",
+    "update": "Aggiorna",
+    "current_user_name": "Nome Utente Attuale",
+    "new_user_name": "Nuovo Nome Utente",
+    "change_user_name": "Cambia Nome Utente",
+    "close": "Chiudi",
+    "confirm_password": "Conferma Password",
+    "change_password": "Cambia Password",
+    "permissions": "Permessi",
+    "turn_off_email": "Spegni Email",
+    "turn_on_email": "Accendi Email",
+    "password": "Password",
+    "profile": "Profilo",
+    "verify": "Verifica",
+    "username": "Nome Utente",
+    "impersonate": "Assumi Identità",
+    "account_status": "Stato dell'Account",
+    "active": "Attivo",
+    "blocked": "Bloccato",
+    "network_members": "Membri della Rete",
+    "no": "No",
+    "email": "Email",
+    "rank": "Rango",
+    "paidActive": "Attivo Pagato",
+    "createdAt": "Creato Il",
+    "action": "Azione",
+    "customer": "Cliente",
+    "activeCustomer": "Cliente Attivo",
+    "businessBuilder": "Business Builder",
+    "bronzeExecutive": "Esecutivo Bronzo",
+    "silverExecutive": "Esecutivo Argento",
+    "goldExecutive": "Esecutivo Oro",
+    "emeraldExecutive": "Esecutivo Smeraldo",
+    "usertype": "Tipo di Utente",
+    "smart_ship_status": "Stato Smart Ship",
+    "is_smartship_customer": "È un cliente Smart Ship",
+    "yes": "Sì",
+    "engaged_status":"Stato impegnato",
+    "true":"VERO",
+    "false":"Falso"
+
+  },
+
+  "network": {
+    "right_team": "Squadra Destra",
+    "left_team": "Squadra Sinistra",
+    "top_recruiters": "Migliori Reclutatori",
+    "latest_registrations": "Ultimi Registrazioni",
+    "yearly_sales_report": "Rapporto Annuale delle Vendite",
+    "network_joining": "Iscrizioni Rete",
+    "membersMap": "Mappa Membri",
+    "registeredMembersThisMonth": "Membri Registrati Questo Mese",
+    "holdingTank": "Holding Tank",
+    "networkMembers": "Membri della Rete",
+    "businessBuilder": "Business Builder",
+    "registeredMembers": "Membri Registrati",
+    "tickets": "Ticket",
+    "openTickets": "Ticket Aperti",
+    "closedTickets": "Ticket Chiusi",
+    "total_network_bonus": "Bonus Totale Rete",
+    "total_payout": "Pagamento Totale",
+    "upcoming_week": "Prossima Settimana",
+    "binary_bonus": "Bonus Binario",
+    "history": "Cronologia Rete",
+    "network_bonus": "Bonus Rete",
+    "support_tickets": "Ticket"
+  },
+  "business": {
+    "month": "Mese",
+    "bitcoinConference": "Conferenza su Bitcoin",
+    "on_bitcoin": "Sul trading e previsioni di Bitcoin",
+    "productsActive": "Prodotti e abbonamenti attivi",
+    "topSellingProduct": "Prodotto più venduto",
+    "userName": "Nome utente",
+    "product": "Prodotto",
+    "price": "Prezzo",
+    "date": "Data",
+    "latestSales": "Ultime vendite",
+    "invoice": "Fattura",
+    "active": "Attivo",
+    "customers": "Clienti",
+    "total_customers": "Clienti totali",
+    "active_customers": "Clienti attivi",
+    "payout": "Pagamento",
+    "sales": "Vendite",
+    "overallStatus": "Stato generale",
+    "allIncomeAndExpense": "Tutti i ricavi",
+    "salesOverTheTime": "Vendite nel tempo",
+    "thenLastMonth": "rispetto al mese scorso",
+    "select_option": "Seleziona un'opzione",
+    "latest_registrations": "Rendimento delle vendite",
+    "total_sales": "Vendite totali",
+    "total_expense": "Spesa totale",
+    "total_profit": "Profitto totale",
+    "network_bonus": "Bonus di rete",
+    "balance": "Bilancio",
+    "income": "Ricavo",
+    "expense": "Spesa",
+    "salesOverView": "Panoramica delle vendite",
+    "salesgraph": "Grafico delle vendite",
+    "topSellingProducts": "Prodotti più venduti",
+    "today": "Oggi",
+    "thisWeek": "Questa settimana",
+    "pastWeek": "Settimana scorsa",
+    "thisMonth": "Questo mese",
+    "pastMonth": "Mese scorso",
+    "thisYear": "Quest'anno"
+  },
+
+  "date": {
+    "start": "Seleziona Data Inizio",
+    "end": "Seleziona Data Fine",
+    "valid_start": "La data di inizio non dovrebbe essere maggiore della data di fine",
+    "valid_end": "La data di fine non dovrebbe essere maggiore della data di inizio"
+  },
+
+  "scope": {
+    "all": "Tutto",
+    "public": "Pubblico",
+    "private": "Privato"
+  },
+
+  "search": {
+    "user": "Cerca Utente",
+    "amount_type": "Tipo di Importo",
+    "search": "Cerca",
+    "product": "Seleziona Prodotto",
+    "category": "Seleziona Categoria",
+    "department": "Seleziona Dipartimento",
+    "priority": "Seleziona Priorità",
+    "status": "Stato",
+    "ticket": "ID Ticket",
+    "title": "Titolo",
+    "scope": "Ambito"
+  },
+
+  "payout_status": {
+    "approved": "Approvato",
+    "rejected": "Respinto"
+  },
+
+  "fin_pay": {
+    "address": "Indirizzo",
+    "country": "Paese",
+    "state": "Stato",
+    "zip_code": "CAP",
+    "city": "Città",
+    "card_details": "Dettagli Carta",
+    "holder_name": "Nome del Titolare della Carta",
+    "number": "Numero Carta",
+    "expiry": "Scadenza Carta",
+    "cvv": "CVC/CVV Carta",
+    "product_recurring_enabled": "Questo prodotto ha l'opzione di ricorrenza abilitata. Deseleziona per disabilitarla."
+  },
+
+  "genealogy": {
+    "matrix": {
+      "name": "Nome",
+      "user_name": "Nome Utente",
+      "current_rank": "Rango Attuale",
+      "date": "Data"
+    },
+    "binary": {
+      "title": "Binario: Genealogia"
+    },
+    "sponsor": {
+      "title": "Sponsor: Genealogia"
+    },
+    "tree": {
+      "title": "Albero: Genealogia"
+    },
+    "leg_settings": {
+      "title": "Impostazioni Gamba Binaria",
+      "bp": "In base ai Punti (BV) - I Referral saranno Collocati nella Tua Squadra Gamba Più Debole",
+      "br": "In Base ai Referral - I Referral Saranno Nella Tua Squadra con un Numero Minore di Tuoi Referral",
+      "lr": "Sinistra - I Referral Saranno Collocati Nella Tua Squadra Sinistra",
+      "rr": "Destra - I Referral Saranno Collocati Nella Tua Squadra Destra",
+      "current_leg": "GAMBA ATTUALE",
+      "base_on": "BASE SU"
+    },
+    "legends": {
+      "name": "Nome",
+      "uname": "Nome Utente",
+      "current_rank": "Rango Attuale",
+      "doj": "Data di Ingresso",
+      "w_bv_l": "BV Settimanale (sinistra)",
+      "w_bv_r": "BV Settimanale (destra)",
+      "t_bv_l": "BV Totale (sinistra)",
+      "t_bv_r": "BV Totale (destra)",
+      "t_l_users": "Totale Utenti Sinistra",
+      "t_r_users": "Totale Utenti Destra",
+      "bv": "BV",
+      "ev":"QUESTO",
+      "qv":"QV",
+      "dqv":"DYAKOV",
+      "pqv":"PQV",
+      "tv":"TV",
+      "gv":"GV",
+      "smartship_status":"Stato Smartship",
+      "user_type":"Tipo di Utente"
+
+    },
+
+    "mono_line": {
+      "title": "Linea Singola: Genealogia"
+    },
+    "list": {
+      "title": "Lista: Genealogia",
+      "table": {
+        "no": "No",
+        "u_name": "Nome Utente",
+        "level": "Livello",
+        "doj": "Data di Ingresso"
+      }
+    }
+  },
+
+  "financial": {
+    "pendingcommission":{
+            "title":"Commissione pendente"
+        },
+    "e_wallet": {
+      "amount_type": "Tipo di Importo",
+      "title": "Portafoglio Elettronico",
+      "history": "Cronologia",
+      "cards": {
+        "balance": "Saldo",
+        "transfer": "Trasferimento Uscita",
+        "payout": "Pagamento Totale",
+        "bonus": "Bonus"
+      },
+      "table": {
+        "no": "No",
+        "from": "Da Utente",
+        "user_name": "Nome Utente",
+        "amount_type": "Tipo di Importo",
+        "payment_type": "Tipo di Pagamento",
+        "amount": "Importo",
+        "date": "Data"
+      }
+    },
+    "deposit_wallet": {
+      "title": "Portafoglio Depositi",
+      "history": "Cronologia",
+      "cards": {
+        "balance": "Saldo",
+        "transfer": "Trasferimento Uscita",
+        "credited_by_admin": "Accreditato da Amministratore"
+      },
+      "table": {
+        "no": "No",
+        "user": "Nome Utente",
+        "from": "Da Utente",
+        "amount_type": "Tipo di Importo",
+        "payment_type": "Tipo di Pagamento",
+        "amount": "Importo Pagamento",
+        "date": "Data"
+      },
+      "pay_now": {
+        "amount": "Importo ({{symbol}})",
+        "add": "Aggiungi Credito"
+      }
+    },
+    "fund_credit": {
+      "title": "Crediti del Fondo",
+      "form": {
+        "amount": "Importo ({{symbol}})",
+        "to": "A",
+        "note": "Nota",
+        "deduct": "Detrazione Fondo",
+        "add": "Aggiungi Importo"
+      },
+      "table": {
+        "no": "No",
+        "user": "Nome Utente",
+        "wallet_type": "Tipo di Portafoglio",
+        "payment_type": "Tipo di Pagamento",
+        "notes": "Note",
+        "amount": "Importo",
+        "date": "Data"
+      }
+    },
+
+    "fund_transfer": {
+      "title": "Trasferimento Fondi",
+      "cards": {
+        "e_balance": "Saldo E-Wallet",
+        "d_balance": "Saldo Portafoglio Depositi"
+      },
+      "send": {
+        "title": "Modulo Invio",
+        "from": "Invia Da"
+      },
+      "table": {
+        "no": "No",
+        "user": "Nome Utente",
+        "amount_type": "Tipo di Importo",
+        "payment_type": "Tipo di Pagamento",
+        "amount": "Importo Pagamento",
+        "date": "Data",
+        "wallet_type": "Tipo di Portafoglio",
+        "to_user": "A Utenti",
+        "payment_status": "Stato Pagamento"
+      }
+    },
+
+    "payout": {
+      "admin": {
+        "title": "Pagamento",
+        "tabs": {
+          "request": "Richiesta Pagamento",
+          "history": "Cronologia Pagamenti"
+        },
+        "request": {
+          "table": {
+            "no": "No",
+            "user_name": "Nome Utente",
+            "user_balance": "Saldo Utente",
+            "payout_info": "Informazioni sul pagamento",
+            "payout_method": "Metodo di pagamento",
+            "wallet_address": "Indirizzo Portafoglio",
+            "date": "Data",
+            "requested": "Importo Richiesto",
+            "admin_fee": "Commissione Amministrativa Detratta",
+            "released": "Importo Rilasciato",
+            "action": "Azione"
+          },
+          "approve": "Approvare",
+          "reject": "Rifiutare"
+        },
+        "history": {
+          "table": {
+            "no": "No",
+            "user_name": "Nome Utente",
+            "user_balance": "Saldo Utente",
+            "wallet_address": "Indirizzo Portafoglio",
+            "coin": "Criptovaluta",
+            "email": "Email",
+            "date": "Data",
+            "requested": "Importo Richiesto",
+            "admin_fee": "Commissione Amministrativa Detratta",
+            "released": "Importo Rilasciato",
+            "action": "Azione",
+            "status": "Stato"
+          }
+        }
+      },
+      "title": "Richiesta Pagamento",
+      "cards": {
+        "balance": "Saldo Disponibile",
+        "min": "Prelievo Minimo"
+      },
+      "request": {
+        "title": "Richiesta Pagamento",
+        "amount": "Importo Richiesto",
+        "coin": "Tipo di Criptovaluta",
+        "methods": "Metodi di pagamento"
+      },
+      "table": {
+        "no": "No",
+        "amount": "Importo",
+        "date": "Data",
+        "wallet_address": "Indirizzo Portafoglio",
+        "coin": "Criptovaluta",
+        "status": "Stato"
+      }
+    }
+  },
+  "business_builder": {
+    "subscriptions": {
+      "title": "Business Builder",
+      "filter": {
+        "amount": "Importo ({{symbol}})",
+        "builder": "Business Builder",
+        "period": "Scegli Periodo"
+      },
+      "table": {
+        "no": "No",
+        "amount": "Importo",
+        "date": "Data di Acquisto",
+        "effective": "Fino a",
+        "method": "Metodo di Pagamento",
+        "view": "Visualizza"
+      }
+    },
+    "materials": {
+      "title": "Materiali",
+      "menu": {
+        "video": "Video",
+        "document": "Documenti"
+      }
+    }
+  },
+
+  "actions": {
+    "edit": "Modifica",
+    "delete": "Elimina",
+    "publish": "Pubblica"
+  },
+
+  "blogs": {
+    "title": "Blog",
+    "tabs": {
+      "published": "Pubblicati",
+      "drafts": "Bozze"
+    },
+    "categories": {
+      "title": "Categorie del Blog",
+      "table": {
+        "no": "No",
+        "name": "Nome Categoria",
+        "desc": "Descrizione",
+        "action": "Azioni"
+      },
+      "create": {
+        "edit": { "title": "Aggiorna Categoria", "submit": "Aggiorna" },
+        "title": "Aggiungi Categoria",
+        "name": "Nome Categoria",
+        "desc": "Descrizione",
+        "submit": "Aggiungi",
+        "close": "Annulla"
+      },
+      "delete": {
+        "title": "Elimina Categoria",
+        "message": "Sei sicuro di voler continuare? Questa azione non può essere annullata.",
+        "submit": "Elimina",
+        "close": "Annulla"
+      }
+    },
+    "create": {
+      "new_post": "Crea Post",
+      "categories": "Categorie",
+      "category": "Categoria",
+      "table": {
+        "no": "No",
+        "img": "Immagine",
+        "title": "Titolo Blog",
+        "desc": "Descrizione Blog",
+        "scope": "Ambito",
+        "date": "Data Blog",
+        "action": "Azioni"
+      },
+      "form": {
+        "add_title": "Aggiungi Blog",
+        "edit_title": "Modifica Blog",
+        "type": "Tipo",
+        "blog_title": "Titolo Blog",
+        "category": "Categoria Blog",
+        "product": "Prodotto",
+        "meta_key": "Meta Keywords",
+        "meta_desc": "Meta Description",
+        "content": "Contenuto",
+        "short_desc": "Descrizione Breve",
+        "add_doc": "Aggiungi Documento",
+        "save_as_draft": "Salva Come Bozza",
+        "submit": "Invia"
+      }
+    },
+    "view": {
+      "title": "Post del Blog",
+      "add_comment": {
+        "title": "Aggiungi Commento",
+        "rating": "Valutazione",
+        "comment_title": "Titolo",
+        "post": "Invia Commento"
+      },
+      "recent": "Ultimi Post",
+      "latest_category": "Ultima Categoria del Blog"
+    }
+  },
+
+  "faq": {
+    "title": "Domande Frequenti (FAQ)",
+    "tabs": {
+      "faq": "FAQ",
+      "categories": "Categorie"
+    },
+    "categories": {
+      "add": "Categoria FAQ",
+      "table": {
+        "no": "No",
+        "name": "Nome Categoria",
+        "desc": "Descrizione",
+        "action": "Azioni"
+      },
+      "dialog": {
+        "add": "Aggiungi Categoria FAQ",
+        "edit": "Modifica Categoria FAQ"
+      },
+      "form": {
+        "name": "Nome Categoria",
+        "desc": "Descrizione",
+        "status": "Stato",
+        "cancel": "Annulla",
+        "add": "Aggiungi",
+        "edit": "Aggiorna"
+      },
+      "delete": {
+        "title": "Elimina Categoria FAQ",
+        "message": "Sei sicuro di voler continuare? Questa azione non può essere annullata.",
+        "cancel": "Annulla",
+        "submit": "Elimina"
+      }
+    },
+    "faqs": {
+      "add": "FAQ",
+      "table": {
+        "no": "No",
+        "question": "Domanda",
+        "answer": "Risposta",
+        "action": "Azioni"
+      },
+
+      "form": {
+        "add_title": "Aggiungi FAQ",
+        "edit_title": "Modifica FAQ",
+        "category": "Categoria FAQ",
+        "questions": "Domande",
+        "answer": "Risposta",
+        "cancel": "Annulla",
+        "add": "Aggiungi",
+        "update": "Aggiorna"
+      }
+    },
+    "browse_categories": "Sfoglia per categorie",
+    "looking_for": "Non trovi la risposta che cerchi?",
+    "looking_for_message": "Crea un ticket tramite il nostro Centro di supporto e uno dei nostri membri del team ti risponderà entro 24 ore.",
+    "create": "Crea un Ticket"
+  },
+  "knowledge_base": {
+    "title": "Knowledge Base"
+  },
+  "emails": { "title": "Email" },
+  "admin_email": {
+    "compose": {
+      "title": "Nuovo Messaggio",
+      "subject": "Oggetto",
+      "users": "Utenti",
+      "send": "Invia"
+    }
+  },
+  "help_center": {
+    "view": {
+      "view_attachments": "Visualizza allegati",
+      "created": "Data di creazione",
+      "last_response": "Ultima risposta",
+      "actions": {
+        "impersonate": "Assumi l'identità",
+        "edit": "Modifica Profilo"
+      },
+      "reply_form": {
+        "title": "Modulo di risposta",
+        "response": "Risposta predefinita",
+        "questions": "Domande FAQ",
+        "name": "Titolo",
+        "description": "Descrizione",
+        "submit": "Invia Risposta"
+      },
+      "info_card": {
+        "status": "Stato",
+        "priority": "Priorità",
+        "department": "Dipartimento",
+        "email": "Email",
+        "category": "Categoria",
+        "username": "Nome utente",
+        "last_message": "Ultimo messaggio"
+      },
+      "tkt_id": "ID Ticket",
+      "dialog": {
+        "update_status": {
+          "title": "Cambiare stato?",
+          "cancel": "Annulla",
+          "submit": "Sì, cambia stato a {{status}}"
+        }
+      }
+    },
+    "status": {
+      "open": "Aperto",
+      "overdue": "In ritardo",
+      "resolved": "Risolto",
+      "closed": "Chiuso",
+      "archived": "Archiviato",
+      "deleted": "Eliminato",
+      "unverified": "Non verificato",
+      "request_approval": "Richiedi approvazione",
+      "in_progress": "In corso",
+      "responded": "Risposto"
+    },
+    "department": {
+      "add_button": "Dipartimento",
+      "table": {
+        "no": "No",
+        "name": "Nome",
+        "status": "Stato",
+        "desc": "Descrizione",
+        "actions": "Azioni"
+      },
+      "actions": {
+        "edit": "Modifica",
+        "delete": "Elimina"
+      },
+      "dialog": {
+        "delete": {
+          "title": "Elimina Dipartimento",
+          "msg": "Sei sicuro di voler continuare? Questa azione non può essere annullata.",
+          "submit": "Elimina",
+          "cancel": "Annulla"
+        },
+        "edit": {
+          "title": "Modifica Dipartimento",
+          "name": "Nome Dipartimento",
+          "desc": "Descrizione",
+          "status": "Stato",
+          "sort_order": "Ordinamento",
+          "submit": "Aggiorna",
+          "cancel": "Annulla"
+        },
+        "add": {
+          "submit": "Crea",
+          "title": "Aggiungi Dipartimento"
+        }
+      }
+    },
+    "categories": {
+      "add_button": "Categoria",
+      "table": {
+        "no": "No",
+        "name": "Categoria",
+        "status": "Stato",
+        "desc": "Descrizione",
+        "actions": "Azioni"
+      },
+      "actions": {
+        "edit": "Modifica",
+        "delete": "Elimina"
+      },
+      "dialog": {
+        "delete": {
+          "title": "Elimina Categoria",
+          "msg": "Sei sicuro di voler continuare? Questa azione non può essere annullata.",
+          "submit": "Elimina",
+          "cancel": "Annulla"
+        },
+        "edit": {
+          "title": "Modifica Categoria",
+          "name": "Nome Categoria",
+          "desc": "Descrizione",
+          "status": "Stato",
+          "sort_order": "Ordinamento",
+          "submit": "Aggiorna",
+          "cancel": "Annulla"
+        },
+        "add": {
+          "submit": "Crea",
+          "title": "Aggiungi Categoria"
+        }
+      }
+    },
+    "canned_response": {
+      "add_button": "Risposta predefinita",
+      "table": {
+        "no": "No",
+        "name": "Titolo",
+        "subject": "Oggetto",
+        "actions": "Azioni"
+      },
+      "actions": {
+        "edit": "Modifica",
+        "delete": "Elimina"
+      },
+      "dialog": {
+        "delete": {
+          "title": "Elimina Risposta predefinita",
+          "msg": "Sei sicuro di voler continuare? Questa azione non può essere annullata.",
+          "submit": "Elimina",
+          "cancel": "Annulla"
+        },
+        "edit": {
+          "title": "Modifica Risposta predefinita",
+          "name": "Titolo Risposta predefinita",
+          "sub": "Oggetto",
+          "placeholder": "Messaggio Risposta predefinita",
+          "submit": "Aggiorna",
+          "cancel": "Annulla"
+        },
+        "add": {
+          "submit": "Crea",
+          "title": "Aggiungi Risposta predefinita"
+        }
+      }
+    },
+
+    "priorities": {
+      "add_button": "Priorità",
+      "table": {
+        "no": "No",
+        "name": "Priorità",
+        "desc": "Descrizione Priorità",
+        "color": "Colore Priorità",
+        "status": "Stato",
+        "actions": "Azioni"
+      },
+      "actions": {
+        "edit": "Modifica",
+        "delete": "Elimina"
+      },
+      "dialog": {
+        "delete": {
+          "title": "Elimina Priorità",
+          "msg": "Sei sicuro di voler continuare? Questa azione non può essere annullata.",
+          "submit": "Elimina",
+          "cancel": "Annulla"
+        },
+        "edit": {
+          "title": "Modifica Priorità",
+          "name": "Priorità",
+          "color": "Colore",
+          "desc": "Descrizione",
+          "submit": "Aggiorna",
+          "cancel": "Annulla"
+        },
+        "add": {
+          "submit": "Crea",
+          "title": "Aggiungi Priorità"
+        }
+      }
+    },
+    "form": {
+      "ticket_id": "ID Ticket",
+      "subject": "Oggetto",
+      "description": "Descrizione",
+      "priority": "Priorità",
+      "department": "Dipartimento",
+      "category": "Categoria",
+      "status": "Stato",
+      "document": "Documento",
+      "add": "Aggiungi",
+      "update": "Aggiorna"
+    },
+    "actions": {
+      "view": "Vista",
+      "impersonate": "Assumi l'identità",
+      "edit": "Modifica",
+      "delete": "Elimina"
+    },
+    "title": "Centro Assistenza",
+    "create": "Crea Ticket",
+    "side_bar": {
+      "dashboard": "Dashboard Ticket",
+      "all": "Tutti i ticket",
+      "overdue": "In ritardo",
+      "open": "Aperti",
+      "resolved": "Risolti",
+      "closed": "Chiusi",
+      "in_progress": "In corso",
+      "responded": "Risposti",
+      "departments": "Dipartimenti",
+      "categories": "Categorie",
+      "canned_response": "Risposta predefinita",
+      "priorities": "Priorità"
+    },
+    "filter": {
+      "department": "Dipartimenti",
+      "priority": "Priorità",
+      "status": "Stato",
+      "category": "Categoria",
+      "tkt_id": "ID Ticket",
+      "user": "Cerca Utente",
+      "overdue": "Mostra Solo Elementi in Ritardo"
+    },
+    "table": {
+      "no": "No",
+      "tkt_no": "Numero Ticket",
+      "tkt_from": "Ticket Da",
+      "date": "Data",
+      "subject": "Oggetto",
+      "status": "Stato",
+      "priority": "Priorità",
+      "department": "Dipartimento",
+      "category": "Categoria",
+      "action": "Azioni"
+    },
+    "document": {
+      "title": "Documento",
+      "created_at": "Creato il",
+      "view": "Vedi"
+    },
+    "video": { "title": "Video" }
+  },
+
+  "articles": {
+    "title": "Articoli",
+    "options": {
+      "title": "Knowledge Base",
+      "articles": "Articoli",
+      "categories": "Categorie Articolo"
+    },
+    "articles": {
+      "title": "Tutti gli Articoli",
+      "add_button": "Articolo",
+      "form": {
+        "add_title": "Aggiungi Articolo",
+        "edit_title": "Modifica Articolo",
+        "name": "Nome",
+        "category": "Categoria",
+        "description": "Descrizioni",
+        "cancel": "Annulla",
+        "submit_add": "Aggiungi",
+        "submit_edit": "Aggiungi"
+      },
+      "delete": {
+        "title": "Elimina Articolo",
+        "msg": "Sei sicuro di voler continuare? Questa azione non può essere annullata.",
+        "cancel": "Annulla",
+        "submit": "Elimina"
+      },
+      "actions": {
+        "edit": "Modifica",
+        "delete": "Elimina"
+      },
+      "table": {
+        "no": "No",
+        "title": "Titolo Articoli",
+        "time": "Ora di Pubblicazione",
+        "actions": "Azioni"
+      }
+    },
+    "categories": {
+      "title": "Tutte le Categorie",
+      "add_button": "Categoria",
+      "form": {
+        "add_title": "Aggiungi Categoria",
+        "edit_title": "Modifica Categoria",
+        "name": "Nome",
+        "category": "Categoria",
+        "description": "Descrizioni",
+        "cancel": "Annulla",
+        "submit_add": "Aggiungi",
+        "submit_edit": "Aggiorna"
+      },
+      "delete": {
+        "title": "Elimina Categoria",
+        "msg": "Sei sicuro di voler continuare? Questa azione non può essere annullata.",
+        "cancel": "Annulla",
+        "submit": "Elimina"
+      },
+      "actions": {
+        "edit": "Modifica",
+        "delete": "Elimina"
+      },
+      "table": {
+        "no": "No",
+        "title": "Nome Categoria",
+        "time": "Creato il",
+        "actions": "Azioni"
+      }
+    }
+  },
+  "settings": {
+    "title": "Impostazioni",
+    "mode": "Modalità",
+    "direction": "Direzione",
+    "layout": "Layout",
+    "presets": "Preimpostazioni",
+    "stretch": "Espandi",
+    "full_screen": {
+      "enter": "Schermo Intero",
+      "exit": "Esci dallo Schermo Intero"
+    },
+    "advanced_settings": {
+      "title": "Impostazioni Avanzate",
+      "kyc": {
+        "show": "Mostra KYC",
+        "update": "Aggiorna",
+        "message": "Attivando il KYC, gli utenti dovranno caricare i loro documenti"
+      },
+      "leads": {
+        "show": "Mostra Potenziali Clienti",
+        "update": "Aggiorna"
+      },
+      "2fa": {
+        "show": "Abilita Autenticazione a Due Fattori",
+        "update": "Aggiorna",
+        "message": "Attivando l'autenticazione a due fattori, gli utenti avranno l'opzione di abilitarla dalle impostazioni del loro profilo. Se è abilitata, all'utente sarà richiesto di inserire un OTP prima di accedere."
+      },
+      "package": {
+        "show": "Acquisto Pacchetto Richiesto",
+        "update": "Aggiorna"
+      },
+      "mail": {
+        "show": "Verifica Email Richiesta",
+        "update": "Aggiorna"
+      },
+      "membership_packages": {
+        "show": "Data di Nascita Richiesta",
+        "minimum": "Età Minima Richiesta",
+        "update": "Aggiorna"
+      },
+      "tabs": {
+        "currency": "Valuta",
+        "kyc": "KYC",
+        "leads": "Potenziali Clienti",
+        "payments": "Pagamenti",
+        "dob": "Data di Nascita",
+        "membership_packages": "Pacchetti di Iscrizione",
+        "membership_settings": "Impostazioni di Iscrizione",
+        "2fa": "Autenticazione a Due Fattori",
+        "email_verify": "Verifica Email",
+        "package_purchase": "Acquisto Pacchetto"
+      }
+    },
+    "brand": {
+      "deleteSection": "Elimina Sezione",
+      "editSection": "Modifica Sezione",
+      "edit": "Modifica",
+      "cancel": "Annulla",
+      "delete": "Elimina",
+      "areYouSure": "Sei sicuro di voler continuare? Questa azione non può essere annullata.",
+      "deleteArticles": "Elimina Articolo",
+      "editArticles": "Modifica Articolo",
+      "submit": "Invia",
+      "update": "Aggiorna",
+      "close": "Chiudi",
+      "blogTitle": "Titolo Blog",
+      "description": "Descrizione",
+      "addArticles": "Aggiungi Articoli",
+      "no": "No",
+      "article_name": "Nome Articolo",
+      "menu_name": "Nome Menu",
+      "action": "Azione",
+      "sectionName": "Nome Sezione",
+      "sortOrder": "Ordinamento",
+      "addSection": "Aggiungi Sezione",
+      "section": "Sezione",
+      "articles": "Articoli",
+      "save": "Salva",
+      "email": "Email",
+      "company_address": "Indirizzo Aziendale",
+      "company_name": "Nome Azienda",
+      "change_your_logo_icon": "Cambia la tua icona logo",
+      "sidebar_corner_logo": "Logo Angolare nella Barra Laterale",
+      "change_your_logo": "Cambia il tuo logo",
+      "change_logo": "Cambia Logo",
+      "title": "Brand: Impostazioni",
+      "brand": "Impostazioni Brand",
+      "company_details": "Dettagli Aziendali",
+      "get_started": "Inizia",
+      "user_guidance": "Guida Utente",
+      "allowed": "Consentito",
+      "size": "dimensione massima di"
+    },
+    "business_builder": {
+      "edit": "Modifica",
+      "delete": "Elimina",
+      "areYouSure": "Sei sicuro di voler continuare? Questa azione non può essere annullata.",
+      "cancel": "Annulla",
+      "close": "Chiudi",
+      "submit": "Invia",
+      "addBusinessBuilder": "Aggiungi Business Builder",
+      "editBusinessBuilder": "Modifica Business Builder",
+      "no": "No",
+      "name": "Nome",
+      "amount": "Importo",
+      "bv": "BV",
+      "add": "Aggiungi",
+      "action": "Azione",
+      "title": "Business Builder: Impostazioni",
+      "business_builder": "Business Builder",
+      "deleteBusinessBuilder": "Elimina Business Builder"
+    },
+    "withdrawal": {
+      "title": "Ritiro",
+      "available_payouts": "Pagamento disponibile"
+    },
+    "network": {
+      "min_required_rank": "Grado minimo richiesto",
+      "required_rank": "Grado richiesto",
+      "level_1_rank": "Grado di livello 1",
+      "level_2_rank": "Grado di livello 2",
+      "level_3_rank": "Grado di livello 3",
+      "levels_unlocked": "Livelli sbloccati",
+      "placement_lounge_settings": "Impostazioni della lounge di posizionamento",
+      "eveolving_bonus_settings": "Impostazioni bonus in evoluzione",
+      "rocksolid_bonus_settings": "Impostazioni bonus solide come la roccia",
+      "is_bonus_settings": "Impostazioni del bonus sulle vendite indirette",
+      "leadership_bonus": "Impostazioni del bonus di leadership",
+      "rob_bonus_settings": "Impostazioni bonus ordine ricorrente",
+      "residual_matching": "Impostazioni del bonus di abbinamento residuo",
+      "three_ff_bonus_settings": "3 Per le impostazioni del programma gratuito",
+      "residual_bonus": "Impostazioni del bonus residuo",
+      "rock_solid_mvp_bonus": "Impostazioni bonus MVP solidissime",
+      "withdrawal_text": "Testo Prelievo da Visualizzare sulla Pagina Membri",
+      "withdrawal_admin": "Percentuale Spese Amministrative Prelievo: %",
+      "open_withdrawals_on": "Apri Prelievi in questi giorni",
+      "monday": "Lunedì",
+      "tuesday": "Martedì",
+      "wednesday": "Mercoledì",
+      "thursday": "Giovedì",
+      "friday": "Venerdì",
+      "sunday": "Domenica",
+      "saturday": "Sabato",
+      "available_coins": "Monete Disponibili",
+      "min_amount": "Importo Minimo per Prelievo:",
+      "withdrawal_title": "Prelievo: Impostazioni",
+      "withdrawal": "Prelievo",
+      "level": "Livello",
+      "percentage": "Percentuale",
+      "products": "Prodotti",
+      "month": "Mese",
+      "referral_bonus": "Bonus Referral",
+      "update": "Aggiorna",
+      "rank_name": "Nome Grado",
+      "personally_enrolled_rank": "Grado Personalmente Iscritto",
+      "count": "Conteggio",
+      "team_volume": "Volume Squadra",
+      "title": "Impostazioni Rete: Impostazioni",
+      "network": "Impostazioni Rete",
+      "binary_bonus_settings": "Impostazioni Bonus Binario",
+      "rank_settings": "Impostazioni Grado",
+      "referral_commission_settings": "Impostazioni Commissione di Riferimento",
+      "first_order_bonus": "Bonus Primo Ordine",
+      "level_bonus": "Bonus Livello",
+      "roi_settings": "Impostazioni ROI",
+      "rank": "Grado",
+      "bv_capping": "BV Capping",
+      "binary_bonus_capping": "Limite Bonus Binario",
+      "binary_matching": "Corrispondenza Binaria (%)",
+      "go_mvp_bonus_settings": "Vai alle Impostazioni Bonus MVP",
+      "min_dqv": "Il mio DQV",
+      "min_qv_per_customer": "QV minimo per cliente",
+      "qualification_days": "Giorni di qualificazione",
+      "min_pqv": "Minimo PQV",
+      "minimum_pqv": "PQV minimo",
+      "active": "Attivo",
+      "circle_of_evelution": "Circle of Evolution",
+      "required_dqv": "DQV richiesto",
+      "min_customer_qv":"QV minimo del cliente",
+      "monthly_bonus_amount":"Importo del bonus mensile",
+      "consecutive_months_bonus_trigger":"Attivazione bonus per mesi consecutivi",
+      "consecutive_bonus_amount":"Importo del bonus consecutivo",
+      "rsp_bonus_settings":"Impostazioni bonus RSP",
+      "direct_sales_bonus_settings":"Impostazioni del bonus per le vendite dirette",
+      "min_pqv_previous_month":"PQV minimo mese precedente",
+      "bonus_percentage":"Percentuale di bonus",
+      "discount_percentage":"Percentuale di sconto",
+      "required_consecutive_months":"Mesi consecutivi richiesti",
+      "bonus_coupon_value":"Valore del coupon bonus",
+      "personal_order_qv":"Ordine personale QV",
+      "required_customers":"Clienti richiesti",
+      "customer_min_qv":"Cliente in QB",
+      "max_bonus_value":"Valore massimo del bonus",
+      "min_rank_required":"Grado minimo richiesto",
+      "max_generations":"Generazioni massime",
+      "generation_1_percentage":"Percentuale di prima generazione",
+      "generation_1_required_rank":"Grado richiesto di prima generazione",
+      "generation_2_percentage":"Percentuale di seconda generazione",
+      "generation_2_required_rank":"Grado richiesto di seconda generazione",
+      "pmb_bonus_settings":"Impostazioni del bonus mentore MVP",
+      "max_level":"Livelli massimi",
+      "level_1_percentage":"Percentuale di livello 1",
+      "level_2_percentage":"Percentuale di livello 2",
+      "level_3_percentage":"Percentuale di livello 3",
+      "bonus_amount":"Importo del bonus",
+      "packages_name":"Nome dei pacchetti",
+      "required_personal_volume":"PQV richiesto",
+      "minimumpqv":"PQV minimo",
+      "months":"Mesi",
+      "placement_launch_settings":"Impostazioni di avvio del posizionamento",
+      "min_qv":"QV minimo"
+
+
+
+    },
+    "currency": {
+      "are_you": "Sei sicuro di voler continuare? Questa azione non può essere annullata?",
+      "delete_dialog": "Elimina Dialogo",
+      "cancel": "Annulla",
+      "currency": "Valuta",
+      "add": "Aggiungi",
+      "edit": "Modifica",
+      "delete": "Elimina",
+      "no": "No",
+      "name": "Nome",
+      "code": "Codice",
+      "symbol": "Simbolo",
+      "status": "Stato",
+      "exchange_rate": "Tasso di Cambio",
+      "action": "Azione",
+      "add_dialog": "Aggiungi Dialogo",
+      "enabled": "Abilitato",
+      "disabled": "Disabilitato"
+    },
+
+    "reports": {
+      "pv": "PV",
+      "leg": "Gamba",
+      "type": "Tipo",
+      "coin": "Moneta",
+      "fullName": "Nome Completo",
+      "status": "Stato",
+      "adminFeeDeducted": "Commissione Amministrativa Detratta",
+      "amountReleased": "Importo Rilasciato",
+      "requestedAmount": "Importo Richiesto",
+      "walletAddress": "Indirizzo del Portafoglio",
+      "bonusType": "Tipo di Bonus",
+      "credit": "Credito",
+      "note": "Nota",
+      "date": "Data",
+      "payment_method": "Metodo di Pagamento",
+      "no": "No",
+      "username": "Nome Utente",
+      "email": "Email",
+      "amount": "Importo",
+      "dateJoined": "Data di Registrazione",
+      "sales": "Report Vendite",
+      "top_earners": "Report Top Earners",
+      "point_history": "Report Storico Punti",
+      "payout_report": "Report Pagamenti",
+      "member_income": "Report Entrate Membro",
+      "joining_report": "Report Iscrizioni",
+      "fund_transfer": "Report Trasferimenti Fondi",
+      "business_builder": "Report Business Builder"
+    }
+  },
+
+  "support_tickets": {
+    "title": "Ticket di Supporto",
+    "create": "Crea Ticket",
+    "side_bar": {
+      "all": "Tutti",
+      "open": "Aperti",
+      "resolved": "Risolti",
+      "closed": "Chiusi",
+      "in_progress": "In Corso",
+      "responded": "Risposti"
+    },
+    "table": {
+      "no": "Numero Ticket",
+      "date": "Data",
+      "subject": "Oggetto",
+      "status": "Stato",
+      "priority": "Priorità",
+      "department": "Reparto",
+      "category": "Categoria",
+      "actions": "Azioni"
+    },
+    "contact_support": {
+      "title": "Crea Ticket",
+      "create_card": {
+        "title": "Crea Ticket",
+        "category": "Seleziona Categoria",
+        "department": "Seleziona Reparto",
+        "priority": "Seleziona Priorità",
+        "subject": "Oggetto",
+        "file": "Allega File",
+        "submit": "Invia Richiesta"
+      }
+    },
+    "view": {
+      "title": "Visualizza Ticket",
+      "pill": "ID Ticket",
+      "created": "Data Creazione",
+      "last": "Ultima Risposta",
+      "about": {
+        "status": "Stato",
+        "priority": "Priorità",
+        "department": "Reparto",
+        "email": "Email",
+        "category": "Categoria",
+        "username": "Nome Utente"
+      },
+      "reply_form": {
+        "title": "Modulo di Risposta",
+        "submit": "Invia Risposta",
+        "faq_title": "Titolo"
+      }
+    }
+  },
+  "profile": {
+    "tax_code": "Codice Fiscale",
+    "vat_number": "Partita IVA",
+    "your_notes": "Tue Note",
+    "no": "No",
+    "userName": "Nome Utente",
+    "email": "Email",
+    "active": "Attivo",
+    "dateJoined": "Data di Registrazione",
+    "businessBuilder": "Business Builder",
+    "socialMediaScope": "Ambito Social Media",
+    "save_changes": "Salva Modifiche",
+    "medium": "Medio",
+    "email_address": "Indirizzo Email",
+    "phone_numbers": "Numeri di Telefono",
+    "address": "Indirizzo",
+    "state_region": "Stato/Regione",
+    "city": "Città",
+    "zip_codes": "Codice Postale",
+    "male": "Maschio",
+    "female": "Femmina",
+    "other": "Altro",
+    "balance": "Bilancio",
+    "your_activity_history": "La Tua Storia delle Attività",
+    "last_seen": "Ultima Connessione",
+    "allowed": "Permessi",
+    "max_size": "Dimensione Massima",
+    "first_name": "Nome",
+    "last_name": "Cognome",
+    "gender": "Genere",
+    "public_private": "Pubblico/Privato",
+    "choose_country": "Scegli Paese",
+    "account_settings": "Impostazioni Account",
+    "new_passwords": "Nuova Password",
+    "confirm_new_passwords": "Conferma Nuova Password",
+    "twoStepAuthentication": "Autenticazione a Due Passaggi",
+    "twoStep": "Autenticazione a Due Passaggi (2FA)",
+    "emailNotificationSettings": "Impostazioni Notifiche Email",
+    "materialAdd": "Aggiunta Materiale",
+    "productBusiness": "Notifiche Scadenza Fee Prodotto & Business Builder",
+    "blog": "Blog",
+    "rankachieved": "Raggiunto Grado",
+    "paymentCompleted": "Pagamento Completato",
+    "newUserAdded": "Nuovo Utente Aggiunto alla Rete Binaria",
+    "accountUpdate": "Aggiornamento Account",
+    "friendRegisterMail": "Email Registrazione Amico",
+    "telegramInstructionMails": "Email Istruzioni Telegram",
+    "mailsFromAdmin": "Email dall'Amministratore",
+    "title": "Profilo",
+    "referrals": "Referral",
+    "total_payout": "Pagamento Totale",
+    "total_commission": "Commissione Totale",
+    "tabs": {
+      "profile": "Profilo",
+      "edit": "Modifica Info",
+      "settings": "Impostazioni",
+      "referral": "Rinvio",
+      "note": "Nota",
+      "payout": "Pagamento"
+    },
+    "profile": {
+      "commission": "Commissione Totale",
+      "payout": "Pagamento Totale",
+      "referrals": "Referral",
+      "balance": "Bilancio",
+      "last_seen": "Ultima Connessione",
+      "activity_history": "La Tua Storia delle Attività"
+    },
+    "referral": {
+      "title": "Rinvio",
+      "table": {
+        "no": "No",
+        "user": "Nome Utente",
+        "email": "Email",
+        "active": "Attivo",
+        "business_builder": "Business Builder",
+        "date": "Data di Registrazione"
+      }
+    },
+    "settings": {
+      "bank_account": {
+        "title": "Aggiorna le informazioni sul pagamento diretto"
+      },
+      "bitaps": {
+        "title": "Aggiorna l'indirizzo Bitcoin"
+      },
+      "bank": {
+        "title": "Aggiorna i dettagli bancari",
+        "save": "Salva modifiche"
+      },
+      "stripe": {
+        "title": "Aggiorna le informazioni sul pagamento online",
+        "form": {
+          "first_name": "Nome di battesimo",
+          "last_name": "Cognome",
+          "currency": "Valuta",
+          "account_holder_name": "Nome del titolare del conto",
+          "account_holder_type": "Tipo di titolare del conto",
+          "routing_number": "Numero di instradamento",
+          "account_number": "Numero di conto",
+          "country": "Paese",
+          "id_number": "Numero identificativo",
+          "phone": "Telefono",
+          "gender": "Genere",
+          "dob": "Data di nascita",
+          "line1": "Indirizzo Linea 1",
+          "line2": "Riga indirizzo 2",
+          "city": "Città",
+          "state": "Stato",
+          "postal_code": "Codice Postale"
+        }
+      },
+      "password": {
+        "title": "Impostazioni Account",
+        "new_password": "Nuova Password",
+        "confirm": "Conferma Nuova Password",
+        "save": "Salva Modifiche"
+      },
+      "address": {
+        "title": "Cambia Indirizzo Coin",
+        "save": "Salva"
+      },
+      "2fa": {
+        "title": "Autenticazione a Due Passaggi (2FA)",
+        "enable_message": "Il primo passo è scaricare l'app Google Authenticator sul tuo dispositivo Android o iOS. Se hai bisogno di aiuto per iniziare, consulta la pagina di supporto di Google. Se non hai accesso al mercato Android o all'App Store, ci sono altre opzioni per ottenere Google Authenticator: Download per Android, Plugin Google Chrome o iTunes App Store.",
+        "post_script": "Il token non verrà mostrato di nuovo dopo l'attivazione del 2FA. Se hai più dispositivi, aggiungi il token del tuo account a tutti prima di fare clic su abilita. (Nota: Il tuo token dell'account cambierà ogni volta che ricarichi il tuo browser.)",
+        "button": "Verifica",
+        "otp": "Inserisci OTP"
+      },
+      "cache": {
+        "title": "Privacy e Sicurezza",
+        "body": "Cancella dati di navigazione",
+        "sub": "Cancella cronologia, cookie, cache e altro",
+        "dialog": {
+          "title": "Cancella dati di navigazione",
+          "body": "Dopo aver cancellato la cronologia di navigazione, verrai disconnesso da questa pagina.",
+          "cancel": "Annulla",
+          "save": "Cancella"
+        }
+      }
+    },
+    "notes": {
+      "button": "Note",
+      "dialog": {
+        "add": {
+          "title": "Aggiungi Note",
+          "submit": "Invia",
+          "cancel": "Chiudi"
+        },
+        "delete": {
+          "title": "Elimina Nota",
+          "message": "Sei sicuro di voler continuare? Questa azione non può essere annullata.",
+          "submit": "Elimina",
+          "cancel": "Annulla"
+        },
+        "edit": {
+          "title": "Modifica Nota",
+          "submit": "Aggiorna",
+          "cancel": "Annulla"
+        }
+      }
+    },
+    "edit": {
+      "tax_code": "Codice Fiscale",
+      "vat_number": "Partita IVA",
+      "first_name": "Nome",
+      "last_name": "Cognome",
+      "gender": "Genere",
+      "country": "Paese",
+      "state": "Stato/Regione",
+      "city": "Città",
+      "pin": "CAP",
+      "address": "Indirizzo",
+      "mobile": "Numero di Telefono",
+      "mail": "Indirizzo Email",
+      "social": {
+        "phone": "Telefono",
+        "mail": "Email",
+        "fb": "Facebook",
+        "x": "X",
+        "whatsapp": "Whatsapp",
+        "insta": "Instagram",
+        "tele": "Telegram",
+        "medium": "Medium"
+      },
+      "status": "Pubblico / Privato",
+      "social_scope": "Ambito Social Media",
+      "update": "Salva Modifiche"
+    }
+  },
+
+  "user": {
+    "recurring_order": {
+      "title": "Ordine ricorrente",
+      "disable_recurring": "Disabilita ricorrente",
+      "recurring_enabled": "Ricorrente abilitato",
+      "enable_on": "Ricorrente abilitato su",
+      "update_card": "Aggiorna scheda"
+    },
+    "online_store": {
+      "team_orders":{
+        "title":"Ordini del Team"
+    },
+
+      "select_month": "Seleziona Mese",
+      "buy_now": "Acquista Ora",
+      "cart": "Aggiungi al Carrello",
+      "subscription": "Abbonamento",
+      "write_review": "Scrivi la tua recensione",
+      "product_details": {
+        "title": "Dettagli del Prodotto",
+        "review_other": "Recensioni ({{count}})",
+        "average_rating": "Valutazione Media"
+      },
+      "product": {
+        "title": "Abbonamento al Prodotto",
+        "quantity": "Quantità",
+        "amount": "Importo",
+        "complete_order": "Completa Ordine",
+        "balance": "Saldo Disponibile",
+        "back": "Indietro",
+        "payment_options": "Opzioni di Pagamento",
+        "subscription": "Abbonamento",
+        "price": "Prezzo",
+        "product": "Prodotto",
+        "coupon": "Codice Coupon",
+        "apply": "Applica",
+        "order_summary": "Riepilogo Ordine",
+        "sub_total": "Sub Totale",
+        "discount": "Sconto",
+        "total": "Totale",
+        "continue": "Continua Shopping",
+        "look_like": "Sembra che non ci siano articoli nel tuo carrello.",
+        "cart_is_empty": "Il carrello è vuoto",
+        "cart": "carrello",
+        "checkout": "Checkout"
+      },
+      "my_orders": {
+        "title": "I Miei Ordini",
+        "details": {
+          "title": "Dettagli della Fattura",
+          "invoiced_date": "Data della Fattura",
+          "question": "Hai una domanda?",
+          "foot_note": "Siamo felici di ricevere il tuo feedback. Grazie per il tuo business e il tuo supporto. Si prega di effettuare un pagamento immediato. Se hai domande su questa fattura, non esitare a contattarci."
+        },
+        "invoice_details": {
+          "iva_price": "Iva Price",
+          "my_orders_titile": "I Miei Ordini: Negozio Online",
+          "my_orders": "I Miei Ordini",
+          "subscription": "Abbonamento",
+          "no": "No",
+          "invoice_id": "Numero Fattura",
+          "payment_method": "Metodo di Pagamento",
+          "order_date": "Data dell'Ordine",
+          "total_price": "Prezzo Totale",
+          "action": "Azione",
+          "combo": "Combo",
+          "view": "Vista",
+          "invoice_titile": "Fattura: Vista",
+          "invoice_details": "Dettagli Fattura",
+          "invoices": "Fatture",
+          "date_invoice": "Data della Fattura:",
+          "product": "Prodotto",
+          "type": "Tipo",
+          "bv": "BV",
+          "price": "Prezzo",
+          "notes": "NOTE",
+          "have_question": "Hai una Domanda?",
+          "item": "Articolo",
+          "sub_total": "Subtotale",
+          "discount": "Sconto",
+          "taxes": "Tasse",
+          "total": "Totale",
+          "support_mail": "support@cloudmlm.com",
+          "shipping": "Spedizione",
+          "quantity":"Quantità",
+          "qv":"QV",
+          "ev":"EV",
+          "coupon_discount":"Sconto buono",
+          "consequtive":"Sconto per mese consecutivo"
+
+
+        }
+      }
+    },
+    "subscriptions": {
+      "title": "I Miei Abbonamenti",
+      "active_only": "Mostra Solo Abbonamenti Attivi?",
+      "purchase_date": "Data di Acquisto",
+      "expiry_date": "Scadenza il",
+      "enable_recurring": "Abilita Ricorrenza",
+      "recurring_not_enabled": "Ricorrenza Non Abilitata",
+      "recurring_cancelled_on": "Ricorrenza Annullata il",
+      "stripe_recurring_enable_message": "Continuando, stai abilitando il rinnovo automatico di questo abbonamento utilizzando la tua carta Stripe.",
+      "recurring_payment": "Abilita Pagamento Ricorrente",
+      "paypal_recurring_enable_message": "Continuando, stai abilitando il pagamento ricorrente per questo prodotto tramite PAYPAL.",
+      "your_review": "La tua recensione su questo prodotto",
+      "submit_review": "Invia Commento",
+      "list_public_events": "Elenca Eventi Pubblici",
+      "labels": {
+        "review": "Aggiungi Recensione",
+        "blog": "Blog",
+        "events": "Eventi",
+        "documents": "Documenti",
+        "videos": "Video",
+        "view": "Visualizza"
+      }
+    },
+    "income_report": {
+      "title": "Rapporto di Entrate",
+      "table": {
+        "no": "N°",
+        "from": "Da Nome",
+        "amount_type": "Tipo di Importo",
+        "credit": "Credito",
+        "created": "Creato"
+      }
+    }
+  },
+  "admin": {},
+  "products": {
+    "title": {
+      "subscriptions": "Abbonamenti",
+      "product_and_pack": "Prodotti e Pacchetti",
+      "add": "Aggiungi",
+      "category_name": "Nome Categoria",
+      "product": "Prodotto",
+      "package": "Pacchetto",
+      "video_edit": "Visualizza / Modifica Video",
+      "document_view_edit": "Visualizza / Modifica Documento",
+      "questions_view_edit": "Visualizza / Modifica Domande",
+      "sample_document_view_edit": "Visualizza / Modifica Documento di Esempio",
+      "product_view_edit": "Visualizza / Modifica Prodotto",
+      "delete": "Elimina",
+      "package_add": "Aggiungi Pacchetto",
+      "product_add": "Aggiungi Prodotto",
+      "package_edit": "Modifica pacchetto",
+      "product_edit": "Modifica prodotto",
+      "subscription_edit": "Modifica abbonamento",
+      "subscription_view_edit": "Visualizza/modifica abbonamento"
+    },
+    "add": {
+      "package_name": "Nome Pacchetto",
+      "product_name": "Nome Prodotto",
+      "meta_keywords": "Meta Keywords",
+      "meta_description": "Meta Descrizione",
+      "short_description": "Breve Descrizione",
+      "title": "Titolo",
+      "description": "Descrizione",
+      "product_page_url": "URL Pagina Prodotto",
+      "images": "Immagini",
+      "status": "Stato",
+      "accessFrom": "Accesso Da",
+      "accessTo": "Accesso A",
+      "product_available": "Prodotto Disponibile",
+      "package_available": "Pacchetto Disponibile",
+      "submit": "Invia",
+      "reset": "Reset",
+      "add_price": "Aggiungi Prezzo",
+      "subscription": "Abbonamento",
+      "one_off_payment": "Pagamento Singolo",
+      "addVimeoVideo": "Aggiungi URL Video Vimeo (opzionale)",
+      "subscription_or": "Abbonamento O Pagamento Singolo",
+      "add_doc": "Aggiungi Documento",
+      "add_sample_doc": "Aggiungi Documento di Esempio",
+      "remove_all": "Rimuovi Tutto"
+    },
+    "video": {
+      "update": "Aggiorna",
+      "edit_video": "Modifica Video",
+      "cancel": "Annulla",
+      "areYouSure": "Sei sicuro di voler continuare? Questa azione non può essere annullata",
+      "deleteVideo": "Elimina Video",
+      "title": "Video",
+      "product": "Prodotti e Pacchetti",
+      "add": "Aggiungi",
+      "addVideo": "Aggiungi Video",
+      "videoURL": "URL Video",
+      "close": "Chiudi",
+      "delete": "Elimina",
+      "edit": "Modifica"
+    },
+    "category": {
+      "add": "Aggiungi Categoria",
+      "edit_cat": "Modifica Categoria",
+      "product_categories_store": "Categorie Prodotti: Store",
+      "product_categories": "Categorie Prodotti",
+      "category_name": "Nome Categoria Prodotto",
+      "add_category": "Aggiungi Categoria",
+      "status": "Stato",
+      "enabled": "Abilitato",
+      "disabled": "Disabilitato",
+      "close": "Chiudi",
+      "submit": "Invia",
+      "edit": "Modifica",
+      "delete": "Elimina",
+      "total_products": "Totale Prodotti",
+      "delete_product_category": "Elimina Categoria Prodotto",
+      "delete_msg": "Sei sicuro di voler continuare? Questa azione non può essere annullata"
+    },
+    "document": {
+      "delete_document": "Elimina Documento",
+      "areYouSure": "Sei sicuro di voler continuare? Questa azione non può essere annullata",
+      "close": "Chiudi",
+      "update": "Aggiorna",
+      "edit_document": "Modifica Documento",
+      "uploadDocument": "Carica Documento",
+      "upload": "Carica",
+      "cancel": "Annulla",
+      "add_sample_document": "Aggiungi Documento di Esempio",
+      "products": "Prodotti",
+      "title": "Documento | Store",
+      "document": "Documento",
+      "add": "Aggiungi",
+      "edit": "Modifica",
+      "delete": "Elimina",
+      "view": "Visualizza",
+      "createdAt": "Creato il"
+    },
+    "question": {
+      "cancel": "Annulla",
+      "delete": "Elimina",
+      "areYouSure": "Sei sicuro di voler continuare? Questa azione non può essere annullata",
+      "delete_product_questions": "Elimina Domande Prodotto",
+      "add_product_question": "Aggiungi Domanda Prodotto",
+      "edit_product_questions": "Modifica Domande Prodotto",
+      "no": "N°",
+      "add_question": "Aggiungi Domanda",
+      "action": "Azione",
+      "description": "Descrizione",
+      "titles": "Titolo",
+      "title": "Domanda | Store",
+      "question": "Domanda",
+      "products": "Prodotti e Pacchetti",
+      "answer": "Risposta",
+      "close": "Chiudi",
+      "submit": "Invia"
+    },
+    "sample_doc": {
+      "title": "Documento di Esempio | Store",
+      "sample_doc": "Documento di Esempio",
+      "products": "Prodotti e Pacchetti",
+      "add": "Aggiungi"
+    },
+    "edit": {
+      "title": "Modifica Prodotto | Store",
+      "edit": "Modifica Prodotto",
+      "products": "Prodotti e Pacchetti"
+    },
+    "delete": {
+      "areYouSure": "Sei sicuro di voler continuare? Questa azione non può essere annullata",
+      "delete_product": "Elimina Prodotto",
+      "cancel": "Annulla",
+      "delete": "Elimina"
+    }
+  },
+  "material": {
+    "action": "Azione",
+    "category": "Categoria",
+    "sort_order": "Ordine di Ordinamento",
+    "title": "Prodotti | Store",
+    "materials": "Materiali",
+    "material": "Materiale",
+    "material_categories": "Categorie di Materiali",
+    "no": "N°",
+    "product_name": "Nome Prodotto",
+    "doc_count": "Conteggio Documenti",
+    "video_count": "Conteggio Video",
+    "view": "Visualizza",
+    "add": "Aggiungi",
+    "add_material": {
+      "submit": "Invia",
+      "choose_product": "Scegli Prodotto",
+      "material_category": "Categoria Materiale",
+      "description": "Descrizione",
+      "add_video": "Aggiungi Video",
+      "URL": "URL",
+      "title": "Titolo",
+      "expiry_date": "Data di Scadenza",
+      "add_document": "Aggiungi Documento"
+    }
+  },
+  "events": {
+    "events_title": "Eventi | Store",
+    "events": "Eventi",
+    "no": "N°",
+    "image": "Immagine",
+    "product": "Prodotto",
+    "events_type": "Tipo di Evento",
+    "scope": "Ambito",
+    "URL": "URL",
+    "zoom_password": "Password Zoom",
+    "from": "Da",
+    "time": "Orario",
+    "duration": "Durata",
+    "host": "Host",
+    "topic": "Argomento",
+    "action": "Azione",
+    "add": "Aggiungi",
+    "edit": "Modifica Evento",
+    "delete": "Elimina Evento",
+    "are_you_sure": "Sei sicuro di voler continuare? Questa azione non può essere annullata",
+    "add_event": {
+      "private": "Privato",
+      "public": "Pubblico",
+      "access_scope": "Ambito di Accesso",
+      "zoomPassword": "Password Zoom",
+      "location_Zoom": "Luogo / URL Zoom",
+      "event_type": "Tipo di Evento",
+      "description": "Descrizione",
+      "when": "Quando",
+      "date": "Data",
+      "time": "Orario",
+      "duration": "Durata",
+      "time_zone": "Fuso Orario",
+      "host_details": "Dettagli Host",
+      "host": "Host",
+      "topic": "Argomento",
+      "submit": "Invia",
+      "edit": "Visualizza / Modifica",
+      "delete": "Elimina",
+      "cancel": "Annulla",
+      "status": "Stato",
+      "hours": "Ore",
+      "minutes": "Minuti"
+    }
+  },
+  "user_review": {
+    "edit_review": "Modifica Recensione",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "are_you_sure": "Sei sicuro di voler continuare? Questa azione non può essere annullata",
+    "delete_review": "Elimina Recensione",
+    "review_view": "Visualizzazione Recensione",
+    "user_name": "Nome Utente",
+    "comment": "Commento",
+    "action": "Azione",
+    "review_view_title": "Visualizzazione Recensione | Store",
+    "back": "Indietro",
+    "products": "Prodotti",
+    "post_review": "Pubblica Recensione",
+    "title": "Titolo",
+    "review": "Recensione",
+    "your_review_about": "La tua recensione su questo prodotto:",
+    "user_review_title": "Recensioni Utente | Store",
+    "user_review": "Recensioni Utente",
+    "add_review": "Recensione",
+    "no": "N°",
+    "product": "Prodotto",
+    "total_review": "Recensioni Totali",
+    "rating": "Valutazione",
+    "view": "Visualizza",
+    "review_add_title": "Aggiungi Recensione",
+    "leave_a_comment": "Lascia un commento"
+  },
+  "coupons": {
+    "edit_coupon": "Modifica Coupon",
+    "edit_coupon_title": "Modifica Coupon | Store",
+    "deleteCoupon": "Elimina Coupon",
+    "areYouSure": "Sei sicuro di voler continuare? Questa azione non può essere annullata",
+    "cancel": "Annulla",
+    "edit": "Modifica",
+    "delete": "Elimina",
+    "coupon_title": "Coupon | Store",
+    "coupon": "Coupon",
+    "add_coupon": "Aggiungi Coupon",
+    "no": "N°",
+    "couponName": "Nome Coupon",
+    "code": "Codice",
+    "type": "Tipo",
+    "used_available": "Utilizzati / Disponibili",
+    "discountFix": "Sconto (Fisso/%)",
+    "startDate": "Data di Inizio",
+    "endDate": "Data di Fine",
+    "active": "Attivo",
+    "created_at": "Creato il",
+    "action": "Azione",
+    "add_coupon_title": "Aggiungi Coupon : Store",
+    "add": "Aggiungi",
+    "add_form": {
+      "coupon_name": "Nome Coupon",
+      "code": "Codice",
+      "type": "Tipo",
+      "fixed_amount": "Importo Fisso",
+      "percentage": "Percentuale",
+      "total_amount": "Importo Totale",
+      "discount": "Sconto",
+      "status": "Stato",
+      "enabled": "Abilitato",
+      "disabled": "Disabilitato",
+      "usesPerCoupon": "Utilizzi per Coupon",
+      "usesPerCustomer": "Utilizzi per Cliente",
+      "from": "Da",
+      "to": "A",
+      "submit": "Invia"
+    }
+  },
+
+  "lead_capture": {
+    "enter_details": "Inserisci Dettagli",
+    "lead": "Lead",
+    "no": "N°",
+    "name": "Nome",
+    "email": "Email",
+    "mobile": "Numero di Telefono",
+    "created_at": "Creato il",
+    "edit": "Modifica",
+    "cancel": "Annulla",
+    "submit": "Invia",
+    "edit_lead": "Modifica Lead"
+  },
+  "errors": {
+    "lead_capture": {
+      "email": {
+        "required": "L'email deve essere un indirizzo valido"
+      },
+      "username": {
+        "required": "Il nome utente è obbligatorio"
+      },
+      "mobile": {
+        "required": "Il numero di telefono è obbligatorio"
+      }
+    },
+    "financial": {
+      "pay_now": {
+        "valid": "Inserisci un importo valido",
+        "min": "L'importo deve essere almeno 1",
+        "limit": "Non hai abbastanza saldo",
+        "required": "L'importo è obbligatorio"
+      },
+      "fund_transfer": {
+        "wallet": {
+          "required": "Scegli un portafoglio di origine"
+        },
+        "amount": {
+          "min": "L'importo minimo deve essere 1",
+          "type": "L'importo è obbligatorio",
+          "required": "Scegli un importo"
+        },
+        "user_id": {
+          "type": "Seleziona un utente",
+          "required": "Seleziona un utente"
+        }
+      },
+      "payout": {
+        "amount": {
+          "type": "L'importo è obbligatorio",
+          "min": "Assicurati di aver inserito l'importo minimo di prelievo",
+          "required": "L'importo è obbligatorio"
+        },
+        "coin_id": "È richiesto il tipo di criptovaluta"
+      },
+      "fund_credit": {
+        "user_id": { "required": "Il nome è obbligatorio" },
+        "amount": {
+          "required": "L'importo è obbligatorio",
+          "type": "L'importo è obbligatorio"
+        },
+        "wallet_type": {
+          "required": "Il portafoglio è obbligatorio"
+        }
+      }
+    },
+    "help_center": {
+      "department": {
+        "name": {
+          "required": "Il nome del dipartimento è obbligatorio"
+        },
+        "description": {
+          "required": "La descrizione del dipartimento è obbligatoria"
+        },
+        "active": {
+          "required": "Lo stato è obbligatorio"
+        },
+        "sort_order": {
+          "required": "L'ordine di ordinamento è obbligatorio"
+        }
+      },
+      "categories": {
+        "name": {
+          "required": "Il nome è obbligatorio"
+        },
+        "description": {
+          "required": "La descrizione è obbligatoria"
+        },
+        "active": {
+          "required": "Lo stato è obbligatorio"
+        }
+      },
+      "canned_response": {
+        "name": { "required": "Il nome del titolo è obbligatorio" },
+        "subject": { "required": "Il soggetto è obbligatorio" },
+        "message": {
+          "required": "La descrizione è obbligatoria"
+        }
+      },
+      "priorities": {
+        "name": { "required": "Il nome è obbligatorio" },
+        "description": { "required": "La descrizione è obbligatoria" },
+        "color": { "required": "Il colore è obbligatorio" }
+      },
+      "add_ticket": {
+        "description": {
+          "required": "Il nome della descrizione è obbligatorio"
+        },
+        "priority_id": { "required": "La priorità è obbligatoria" },
+        "department_id": { "required": "Il dipartimento è obbligatorio" },
+        "category_id": { "required": "La categoria è obbligatoria" },
+        "subject": { "required": "Il soggetto è obbligatorio" },
+        "user_id": {
+          "required": "L'utente è obbligatorio",
+          "type": "L'utente è obbligatorio"
+        },
+        "status": {
+          "required": "Lo stato è obbligatorio"
+        }
+      },
+      "reply_form": {
+        "title": {
+          "required": "Il titolo è obbligatorio"
+        },
+        "body": {
+          "required": "La descrizione è obbligatoria"
+        }
+      }
+    },
+    "products": {
+      "add": {
+        "product_name": { "required": "Il nome del prodotto è obbligatorio" },
+        "active": {
+          "required": "Lo stato è obbligatorio"
+        },
+        "price": {
+          "required": "È richiesto il prezzo",
+          "typeError": "È richiesto il prezzo",
+          "min": "Il prezzo non può essere 0"
+        },
+        "product_description": {
+          "required": "La descrizione del prodotto è obbligatoria"
+        },
+        "meta_description": {
+          "required": "La meta descrizione è obbligatoria"
+        },
+        "meta_keywords": {
+          "required": "Le meta parole chiave sono obbligatorie"
+        },
+        "title": { "required": "Il titolo è obbligatorio" },
+        "product_category_id": {
+          "required": "La categoria del prodotto è obbligatoria",
+          "type": "La categoria del prodotto è obbligatoria"
+        },
+        "bv_percentage": {
+          "required": "La percentuale BV è obbligatoria",
+          "type": "La percentuale BV è obbligatoria",
+          "test": "Inserisci un valore percentuale valido"
+        },
+        "euro_value": {
+          "required": "Il valore in euro è obbligatorio",
+          "type": "Il valore in euro è obbligatorio"
+        },
+        "qualification_value": {
+          "required": "Il valore di qualificazione è obbligatorio",
+          "type": "Il valore di qualificazione è obbligatorio"
+        },
+        "business_volume": {
+          "required": "È richiesto il volume d'affari",
+          "type": "È richiesto il volume d'affari"
+        },
+        "product_url": { "required": "L'URL del prodotto è obbligatorio" },
+        "video": { "required": "Inserisci un URL valido" },
+        "image": { "test": "Seleziona un'immagine" },
+        "doc": { "test": "Seleziona un documento" },
+        "sample_doc": { "test": "Seleziona un documento di esempio" }
+      },
+      "category": {
+        "name": {
+          "required": "Il nome della categoria del prodotto è obbligatorio"
+        },
+        "status": { "required": "Lo stato è obbligatorio" }
+      }
+    },
+    "faqs": {
+      "category_id": {
+        "required": "Il nome della categoria è obbligatorio"
+      },
+      "question": {
+        "required": "La domanda è obbligatoria"
+      },
+      "answer": {
+        "required": "La risposta è obbligatoria"
+      }
+    },
+    "faq_categories": {
+      "name": { "required": "Il nome della categoria è obbligatorio" },
+      "description": { "required": "La descrizione è obbligatoria" }
+    },
+    "articles": {
+      "add": {
+        "title": { "required": "Il titolo è obbligatorio" },
+        "description": { "required": "La descrizione è obbligatoria" },
+        "category_id": { "required": "La categoria è obbligatoria" },
+        "name": {
+          "required": "Il nome della categoria dell'articolo è obbligatorio"
+        }
+      }
+    },
+    "blogs": {
+      "add": {
+        "title": { "required": "Il titolo è obbligatorio" },
+        "content": { "required": "Il contenuto è obbligatorio" },
+        "category_id": { "min": "La categoria è obbligatoria" },
+        "meta_keywords": {
+          "required": "Le meta parole chiave sono obbligatorie"
+        },
+        "meta_description": {
+          "required": "Le meta parole chiave sono obbligatorie"
+        },
+        "short_description": {
+          "required": "La breve descrizione è obbligatoria"
+        },
+        "image": { "required": "L'immagine è obbligatoria" },
+        "product_id": {
+          "required": "Il prodotto è obbligatorio",
+          "min": "Il prodotto è obbligatorio"
+        }
+      },
+      "categories": {
+        "name": { "required": "Il nome è obbligatorio" },
+        "desc": {
+          "required": "La descrizione è obbligatoria"
+        }
+      },
+      "add_comment": {
+        "comment": {
+          "required": "Il commento è obbligatorio"
+        },
+        "title": {
+          "required": "Il titolo è obbligatorio"
+        },
+        "rating": {
+          "max": "La valutazione massima possibile è 5",
+          "required": "L'email è obbligatoria"
+        }
+      }
+    },
+    "tickets": {
+      "reply_form": {
+        "body": {
+          "required": "Il messaggio è obbligatorio"
+        },
+        "title": {
+          "required": "Il titolo è obbligatorio"
+        }
+      },
+      "create_form": {
+        "department_id": {
+          "type": "Seleziona un dipartimento",
+          "required": "Seleziona un dipartimento"
+        },
+        "priority_id": {
+          "type": "Seleziona una priorità",
+          "required": "Seleziona una priorità"
+        },
+        "category_id": {
+          "type": "Seleziona una categoria",
+          "required": "Seleziona una categoria"
+        },
+        "subject": {
+          "required": "Seleziona un oggetto"
+        },
+        "description": {
+          "required": "Seleziona una descrizione"
+        }
+      }
+    },
+    "profile": {
+      "edit": {
+        "first_name": {
+          "required": "Il nome è obbligatorio",
+          "matches": "Deve contenere solo lettere dell'alfabeto"
+        },
+        "last_name": {
+          "required": "Il cognome è obbligatorio",
+          "matches": "Deve contenere solo lettere dell'alfabeto"
+        },
+        "mobile": {
+          "required": "Il numero di telefono è obbligatorio",
+          "type": "Inserisci un numero di telefono valido"
+        },
+        "gender": {
+          "required": "Il genere è obbligatorio"
+        },
+        "zipcode": {
+          "required": "Il codice postale è obbligatorio"
+        },
+        "address": {
+          "required": "L'indirizzo è obbligatorio"
+        },
+        "country": {
+          "required": "Il paese è obbligatorio"
+        },
+        "state": {
+          "required": "Lo stato è obbligatorio",
+          "matches": "Deve contenere solo lettere dell'alfabeto"
+        },
+        "city": {
+          "required": "La città è obbligatoria",
+          "matches": "Deve contenere solo lettere dell'alfabeto"
+        },
+        "medium": {
+          "url": "Inserisci un URL valido"
+        },
+        "fb": {
+          "url": "Inserisci un URL valido"
+        },
+        "x": {
+          "url": "Inserisci un URL valido"
+        },
+        "insta": {
+          "url": "Inserisci un URL valido"
+        },
+        "profile_image": {
+          "required": "L'avatar è obbligatorio"
+        }
+      },
+      "notes": {
+        "note": {
+          "required": "Le note sono obbligatorie"
+        }
+      }
+    },
+    "product": {},
+
+    "brand": {
+      "name": {
+        "required": "Il nome dell'azienda è obbligatorio"
+      },
+      "address": {
+        "required": "L'indirizzo è obbligatorio"
+      },
+      "email": {
+        "required": "L'indirizzo email è obbligatorio",
+        "email": "L'indirizzo email è obbligatorio"
+      },
+      "sort_order": {
+        "required": "L'ordine di ordinamento è obbligatorio",
+        "type": "L'ordine di ordinamento è obbligatorio"
+      },
+      "section_id": {
+        "required": "La sezione è obbligatoria"
+      },
+      "menu_name": {
+        "required": "Il nome del menu è obbligatorio"
+      },
+      "title": {
+        "required": "Il titolo è obbligatorio"
+      },
+      "url": {
+        "required": "L'URL è obbligatorio"
+      },
+      "description": {
+        "required": "La descrizione è obbligatoria"
+      }
+    },
+    "user_review": {
+      "rating": {
+        "required": "La valutazione è obbligatoria"
+      },
+      "product_id": {
+        "required": "Seleziona un prodotto"
+      },
+      "comment": {
+        "required": "La recensione è obbligatoria"
+      },
+      "title": {
+        "required": "Il titolo è obbligatorio"
+      },
+      "username": {
+        "required": "Il nome utente è obbligatorio"
+      }
+    },
+    "coupons": {
+      "name": {
+        "required": "Il nome del coupon è obbligatorio"
+      },
+      "type": {
+        "required": "Il tipo di coupon è obbligatorio"
+      },
+      "code": {
+        "required": "Il codice è obbligatorio",
+        "matches": "Il codice può contenere solo lettere, numeri, trattini e underscore"
+      },
+      "discount": {
+        "required": "Lo sconto è obbligatorio",
+        "type": "Lo sconto è obbligatorio",
+        "min": "L'importo deve essere almeno zero",
+        "maxi": "Dovrebbe essere inferiore all'importo totale",
+        "max": "La percentuale non deve essere superiore al 100"
+      },
+      "uses_per_coupon": {
+        "required": "Utenti per coupon è obbligatorio",
+        "type": "Utenti per coupon è obbligatorio",
+        "min": "L'importo deve essere almeno uno",
+        "integer": "Non deve contenere valori decimali"
+      },
+      "uses_per_customer": {
+        "required": "Usi per cliente è obbligatorio",
+        "type": "Usi per cliente è obbligatorio",
+        "min": "L'importo deve essere almeno uno",
+        "integer": "Non deve contenere valori decimali",
+        "max": "Dovrebbe essere inferiore o uguale agli utilizzi per coupon"
+      },
+      "total_amount": {
+        "required": "L'importo totale è obbligatorio",
+        "type": "L'importo totale è obbligatorio",
+        "min": "L'importo deve essere almeno zero"
+      },
+      "start_date": {
+        "test": "Inserisci una data valida",
+        "valid": "La data di inizio non deve essere successiva alla data di fine"
+      },
+      "end_date": {
+        "test": "Inserisci una data valida",
+        "valid": "La data di fine non deve essere precedente alla data di inizio"
+      }
+    },
+    "events": {
+      "product_id": {
+        "required": "Il prodotto è obbligatorio",
+        "min": "Il prodotto è obbligatorio"
+      },
+      "event_type": {
+        "required": "Il tipo di evento è obbligatorio"
+      },
+      "location_url": {
+        "required": "La posizione è obbligatoria"
+      },
+      "description": {
+        "required": "La descrizione è obbligatoria"
+      },
+      "time": {
+        "required": "L'orario è obbligatorio"
+      },
+      "hr": {
+        "required": "L'ora è obbligatoria"
+      },
+      "min": {
+        "required": "Il minuto è obbligatorio"
+      },
+      "timezone": {
+        "required": "Il fuso orario è obbligatorio"
+      },
+      "host": {
+        "required": "Il nome dell'host è obbligatorio"
+      },
+      "topic": {
+        "required": "Il tema è obbligatorio"
+      },
+      "zoom_password": {
+        "required": "La password di Zoom è obbligatoria"
+      }
+    },
+    "date": {
+      "valid_start": {
+        "test": "La data di inizio non dovrebbe essere maggiore della data di fine"
+      },
+      "valid_end": {
+        "test": "La data di fine non dovrebbe essere maggiore della data di inizio"
+      },
+      "valid_date": {
+        "test": "Inserisci una data valida"
+      }
+    },
+    "material": {
+      "product_list": {
+        "min": "Seleziona almeno un prodotto"
+      },
+      "category_id": {
+        "required": "Seleziona una categoria"
+      },
+      "video": {
+        "matches": "Aggiungi un video o un documento",
+        "url": "Inserisci un URL valido, per favore"
+      },
+      "video_title": {
+        "required": "Il titolo del video è obbligatorio"
+      },
+      "video_access_time": {
+        "required": "È necessaria la data di scadenza del video",
+        "test": "Inserisci una data valida",
+        "type": "È necessaria la data di scadenza del video"
+      },
+      "doc": {
+        "test": "Aggiungi un video o un documento"
+      },
+      "doc_title": {
+        "required": "Il titolo del documento è obbligatorio"
+      },
+      "user_id": {
+        "required": "È necessario l'utente"
+      },
+      "option_value": {
+        "required": "È necessario il prodotto"
+      },
+      "rank_value": {
+        "required": "È necessario il rango"
+      },
+      "doc_access_time": {
+        "test": "Inserisci una data valida",
+        "type": "È necessaria la data di scadenza del documento",
+        "required": "È necessaria la data di scadenza del documento"
+      }
+    },
+    "material_categories": {
+      "name": {
+        "required": "È necessario il nome della categoria"
+      },
+      "sort_order": {
+        "required": "È necessario l'ordine di classificazione"
+      }
+    },
+    "product_document": {
+      "sample_doc": {
+        "required": "Seleziona un documento"
+      },
+      "doc": {
+        "required": "Seleziona un documento"
+      }
+    },
+    "product_question": {
+      "title": {
+        "required": "È necessario il titolo"
+      },
+      "description": {
+        "required": "È necessaria la descrizione"
+      }
+    },
+    "register": {
+      "email": {
+        "email": "L'email deve essere un indirizzo email valido",
+        "required": "L'email è obbligatoria"
+      },
+      "username": {
+        "required": "Il nome utente è obbligatorio",
+        "matches": "Questo campo non può contenere caratteri speciali o spazi bianchi"
+      },
+      "password": {
+        "required": "La nuova password è obbligatoria",
+        "min": "La password deve contenere almeno 8 caratteri"
+      },
+      "repassword": {
+        "oneOf": "La password deve corrispondere"
+      }
+    },
+    "login": {
+      "email": {
+        "email": "L'email deve essere un indirizzo email valido",
+        "required": "L'email è obbligatoria"
+      },
+      "password": {
+        "required": "La password è obbligatoria"
+      }
+    },
+    "sub_admin": {
+      "name": {
+        "required": "Il nome è obbligatorio"
+      },
+      "reason": {
+        "required": "È richiesta la ragione"
+      },
+      "description": {
+        "required": "La descrizione è obbligatoria"
+      },
+      "username": {
+        "required": "Il nome utente è obbligatorio"
+      },
+      "group_id": {
+        "required": "Il gruppo utente è obbligatorio"
+      },
+      "mobile": {
+        "required": "Il numero di cellulare è obbligatorio",
+        "matches": "Deve contenere solo cifre"
+      },
+      "email": {
+        "required": "L'indirizzo email è obbligatorio",
+        "email": "Inserisci un indirizzo email valido"
+      },
+      "is_impersonation": {
+        "required": "L'impersonificazione è obbligatoria",
+        "typeError": "Scegli un valore"
+      }
+    },
+    "email": {
+      "subject": {
+        "required": "Il soggetto non può essere vuoto"
+      },
+      "message": {
+        "required": "Il corpo dell'email non può essere vuoto"
+      },
+      "to_users_id": {
+        "min": "Seleziona almeno un utente"
+      }
+    },
+    "tools": {
+      "title": {
+        "required": "Il titolo del documento è obbligatorio"
+      },
+      "sort_order": {
+        "required": "L'ordine di ordinamento è obbligatorio",
+        "integer": "L'ordine di ordinamento deve essere un numero intero",
+        "typeError": "Deve essere un numero"
+      },
+      "document_url": {
+        "test": "Il documento è obbligatorio"
+      },
+      "video": {
+        "title": {
+          "required": "Il titolo è obbligatorio"
+        },
+        "video_tool_url": {
+          "required": "L'URL del video è obbligatorio",
+          "matches": "Questo campo supporta solo URL di Vimeo o un URL valido"
+        }
+      }
+    },
+    "member": {
+      "password": {
+        "username": {
+          "required": "Il nome utente è obbligatorio"
+        },
+        "password": {
+          "required": "La password è obbligatoria",
+          "min": "La password deve contenere almeno 8 caratteri"
+        },
+        "confirmPassword": {
+          "oneOf": "Le password devono coincidere",
+          "required": "Conferma password obbligatoria"
+        }
+      },
+      "username": {
+        "new_username": {
+          "required": "Il nuovo nome utente è obbligatorio"
+        }
+      }
+    }
+  }
+}

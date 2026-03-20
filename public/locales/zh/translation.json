@@ -1,0 +1,3217 @@
+{
+  "global": {
+    "subscription": "订阅",
+    "business_volume": "业务量",
+    "update_card": "更新卡片",
+    "recurring_enabled_on": "循环启用日期",
+    "recurring_enabled": "循环已启用",
+    "disable_recurring": "禁用循环",
+    "order_history": "订单记录",
+    "payout_method": "支付方式",
+    "payout_info": "支付信息",
+    "current_rank": "目前排名",
+    "pending": "待办的",
+    "proof_of_address": "地址证明",
+    "Identity_proof": "身份证明",
+    "users": "用户",
+    "total_tickets": "总门票数",
+    "completed": "完全的",
+    "pending_payment": "待付款",
+    "processing": "处理中",
+    "on_hold": "已暂停",
+    "cancelled": "已取消",
+    "refunded": "已退款",
+    "failed": "失败",
+    "affiliate_dashboard": "联盟仪表板",
+    "bonus_value": "奖金价值",
+    "qualification_value": "资质值",
+    "euro_value": "欧元价值",
+    "team_orders":"团队订单",
+    "pendingcommissions":"待定佣金",
+    "reject":"拒绝",
+    "confirm":"确认新密码",
+    "approve":"批准",
+    "changedate":"更改日期",
+    "country":"国家",
+    "rank_achievers":" 等级成就者",
+    "top_recruiters":" 顶级招聘人员",
+    "top_earners":" 顶级收入者",
+    "pqv_required":"需要 PQV",
+    "tv_required":" 需要电视",
+    "gv_required":" 需要 GV",
+    "pending_payments":"待处理付款",
+    "OrderApproval": "订单批准",
+    "name_package": "名称/包装/产品",
+    "sold_out": "总售罄",
+    "amount_paid": "支付金额",
+    "order_id": "订单编号",
+    "coin": "硬币地址",
+    "update_coin": "更新您的硬币地址",
+    "account_login": "块帐户登录",
+    "payout": "块支付",
+    "fund_transfer": "集体基金转移",
+    "referral": "块推荐",
+    "edit_Video": "编辑视频",
+    "View": "看法",
+    "users_join": "加入的用户",
+    "top_performers": "顶尖表现者",
+    "Video_title": "视频标题",
+    "bv_percentage": "BV百分比",
+    "sponsor_information": "赞助商信息",
+    "coin_address": "更新支付信息",
+    "days": "天",
+    "total_members": "总会员数",
+    "overdue": "逾期工单",
+    "delete_blog": "删除博客",
+    "resolved": "已解决工单",
+    "inProgress": "进行中工单",
+    "responded": "已响应工单",
+    "Dates": "日期",
+    "package_add": "添加套餐",
+    "messageImage": "* 请尝试上传大小在200 kb以下的图像，以获得更好的用户体验 * 或者您可以使用裁剪选项。",
+    "imageValid": "* 当上传图片时，您可以上传尺寸为700宽和410高的图片（或保持此比例700 * 410）",
+    "max_size": "最大尺寸",
+    "select_a_package": "选择一个套餐",
+    "enable_recurring": "启用循环",
+    "dropSelected": "在这里放置文件或单击",
+    "deleteFaq": "删除常见问题",
+    "rank_bonus": "排名奖金",
+    "weekly": "每周",
+    "addNewRank": "添加新等级",
+    "impersonateText": "管理员不能为其他用户启用2FA",
+    "blocked": "阻止",
+    "rankName": "等级名称",
+    "add_Rank": "添加等级",
+    "Options": "选项",
+    "Rank_Criteria": "等级标准",
+    "Referral_Package_Count": "推荐套餐数量",
+    "Bonus_amount": "奖金金额",
+    "Personal_Volume": "个人销售额",
+    "Referral_Package": "推荐套餐",
+    "Referral_Count": "推荐计数",
+    "Team_Volume": "团队销售额",
+    "package": "套餐",
+    "binary_matching_bonus_settings": "二进制匹配奖金设置",
+    "matchingBonus": "二进制匹配奖金",
+    "binary_bonus": "二进制奖金",
+    "daily": "每日",
+    "monthly": "每月",
+    "instant": "即时",
+    "first_order_percentage": "一阶百分比",
+    "remove": "消除",
+    "Binary_Criteria": "二进制标准",
+    "fund_credit": "基金信用",
+    "fund_debit": "基金借记",
+    "home": "首页",
+    "export": "导出",
+    "product": "产品",
+    "dashboard": "仪表板",
+    "balance": "余额",
+    "product_name": "产品名称",
+    "product_one": "产品",
+    "product_other": "产品",
+    "category_one": "类别",
+    "category_other": "类别",
+    "search": "搜索",
+    "no_data": "无可用数据",
+    "something_wrong": "出了些问题，请稍后重试",
+    "oops": "哎呀！",
+    "month": "月份",
+    "review_one": "评论",
+    "review_other": "评论",
+    "document": "文件",
+    "sample_document": "示例文件",
+    "description": "描述",
+    "question_one": "问题",
+    "question_other": "问题",
+    "no": "否",
+    "invoice_id": "发票号",
+    "payment_method": "付款方式",
+    "order_date": "订单日期",
+    "total_price": "总价",
+    "action": "操作",
+    "notes": "备注",
+    "note": "备注",
+    "continue": "继续",
+    "cancel": "取消",
+    "title": "标题",
+    "comment": "评论",
+    "all": "全部",
+    "view": "查看",
+    "upcoming": "即将到来",
+    "past": "过去",
+    "reset": "重置",
+    "amount": "金额",
+    "e_wallet": "电子钱包",
+    "d_wallet": "存款钱包",
+    "send": "发送",
+    "request": "请求",
+    "month_count": "{{count}} 月",
+    "view_document": "查看文件",
+    "comments": "评论",
+    "compose": "撰写",
+    "description_place_holder": "写点什么...",
+    "user": "用户",
+    "delete": "删除",
+    "edit": "编辑",
+    "username": "用户名",
+    "upload_profile": "上传照片",
+    "allowed": "允许",
+    "max": "最大尺寸",
+    "images": "图片",
+    "name": "姓名",
+    "total_commission": "总佣金",
+    "total_payout": "总支付",
+    "last_seen": "上次在线",
+    "your_activity_history": "您的活动历史",
+    "referrals": "推荐",
+    "logged_in": "已登录",
+    "total_amount": "总金额",
+    "payment_type": "支付类型",
+    "wallet_type": "钱包类型",
+    "credit": "信用",
+    "debit": "借记",
+    "deposit_wallet": "存款钱包",
+    "ewallet": "电子钱包",
+    "expense": "支出",
+    "total_credits": "总信用额",
+    "user_type":"用户类型",
+    "min_pqv":"最低 PQV"
+
+  },
+  "pendingranks": {
+    "table": {
+      "title": "待处理等级",
+      "no": "编号",
+      "user_name": "用户名",
+      "rankname": "等级名称",
+      "gv": "GV",
+      "tv": "TV",
+      "pqv": "PQV"
+    }
+  },
+
+  "email_template": {
+    "title": "电子邮件模板设置",
+    "form": {
+      "subject": "主题",
+      "email_template_id": "SendGrid 电子邮件模板 ID",
+      "content": "内容",
+      "button": "更新"
+    }
+  },
+
+  "email_settings": {
+    "title": "电子邮件模板设置",
+    "table": {
+      "no": "编号",
+      "name": "名称",
+      "template_id": "SendGrid 电子邮件模板 ID",
+      "language": "语言",
+      "subject": "主题",
+      "edit_template": "编辑模板"
+    }
+  },
+
+  "register": {
+    "welcome": "您好，欢迎回来！",
+
+    "reset": "重设密码",
+    "please": "请检查您的电子邮件。",
+    "request": "请求已成功发送",
+    "we_have": "我们已向以下电子邮件发送了确认邮件",
+    "back": "返回",
+    "pls_enter": "请输入与您的帐户关联的电子邮件地址，我们将通过电子邮件向您发送重设密码的链接。",
+    "forgot_yur": "忘记密码了吗？",
+    "choose_plan": "选择计划",
+    "forgot": "忘记密码？",
+    "remember": "记住我",
+    "register_new": "注册新会员",
+    "partner": "开始作为营销合作伙伴",
+    "login": "登录",
+    "already": "已经有一个帐户",
+    "register": "注册",
+    "terms": "服务条款",
+    "policy": "隐私政策",
+    "referral": "推荐人 ID（可选）",
+    "re_enter_password": "重新输入密码",
+    "password": "密码",
+    "username": "用户名",
+    "email": "电子邮件地址",
+    "sign_to": "登录到",
+    "don't_have": "没有帐户",
+    "get_started": "开始"
+  },
+  "user_nav": {
+    "recurring_orders": "重复订单",
+    "pendingcommissions":"待定佣金",
+    "affiliate_dashboard": "联盟仪表板",
+    "coupons":{
+      "title": "优惠券",
+      "list": "我的优惠券"
+    },
+    "referals":"推荐人",
+
+    "my_subscriptions": "我的订阅",
+    "dashboard": "仪表板",
+    "join_telegram": "加入 Telegram",
+    "online_store": {
+      "online_store": "在线商店",
+      "product": "产品",
+      "my_orders": "我的订单",
+      "packages": "套餐",
+      "subscriptions": "订阅"
+    },
+    "genealogy": {
+      "list": "列表",
+      "genealogy": "家谱",
+      "binary": "二进制",
+      "sponsor": "赞助商",
+      "matrix": "矩阵",
+      "tree": "树",
+      "affiliate_dashboard": "会员面板",
+      "binary_leg_settings": "二进制腿设置"
+    },
+    "financial": {
+      "financial": "财务",
+      "my_eWallet": "我的电子钱包",
+      "deposit_wallet": "存款钱包",
+      "fund_transfer": "资金转账",
+      "request_payout": "请求支付"
+    },
+    "business_builder": {
+      "business_builder": "业务构建器",
+      "subscriptions": "订阅",
+      "materials": "材料"
+    },
+    "my_profile": "我的个人资料",
+    "blogs": "博客",
+    "help_center": {
+      "help_center": "帮助中心",
+      "faqs": "常见问题",
+      "knowledge_base": "知识库",
+      "emails": "电子邮件",
+      "support_tickets": "支持票",
+      "documents": "文档",
+      "videos": "视频"
+    },
+    "income_report": "收入报告",
+    "leads": "潜在客户"
+  },
+  "affiliate_dashboard": {
+    "previous_month_pending_commission": "上个月的待处理佣金",
+    "package_purchased": "已购买套餐",
+    "first_generation": "第一代",
+    "second_generation": "第二代",
+    "third_generation": "第三代",
+    "total_bonus": "总奖金",
+    "levels": "级别",
+    "username": "用户名",
+    "dsp_ends_in": "直接销售奖金增长结束",
+    "current_period_ends_in": "当前周期结束于",
+    "recognition_rank": "认可等级",
+    "achieved_rank": "已达成等级",
+    "currentRank": "当前等级",
+    "qv": "QV",
+    "rank": "等级",
+    "bonus_amount": "奖金金额",
+    "eveolving_bonus": "进化奖金",
+    "achieved_count": "达成次数",
+    "current_percentage": "当前百分比",
+    "level_1": "等级 1",
+    "level_2": "等级 2",
+    "leader_name": "领导姓名",
+    "rank_name": "等级名称",
+    "team_bv": "团队 BV",
+    "bonus_percentage": "奖金百分比",
+    "pending_bonus": "待发奖金",
+    "generation_1": "第 1 代",
+    "generation_2": "第 2 代",
+    "eligible": "符合条件",
+    "amount_payable": "应付金额",
+    "from_user": "来自用户",
+    "current_month_commissions": "本月佣金",
+    "unlocked_levels": "已解锁等级",
+    "first_generation_promoters": "第一代推广员",
+    "second_generation_promoters": "第二代推广员",
+    "third_generation_promoters": "第三代推广员",
+    "min_personal_qualifying_volume": "最低个人资格量",
+    "direct_promoter_assigned": "分配的直接推广员",
+    "mvp_status_attained_through_direct_promoter": "通过直接推广员获得的 MVP 状态",
+    "previous_month": "上个月",
+    "largest_order_details": "最大订单详情",
+    "euro_value": "欧元价值",
+    "personal_order_qv": "个人订单 QV",
+    "current_month": "本月",
+    "pending_amount": "待处理金额",
+    "personal_order_qv_in_current_month": "本月个人订单 QV",
+    "months_required_to_earn_bonus": "获得奖金所需的月份数",
+    "order_date": "订单日期",
+    "commission": "佣金",
+    "bv": "BV",
+    "customer_name": "客户姓名",
+    "customer_details": "客户详情",
+    "corresponding_percentage": "对应百分比",
+    "customers_who_placed_orders": "下单客户",
+    "current_package": "当前套餐",
+    "remaining_days_in_go_mvp": "Go MVP 剩余天数",
+    "eligibility_period_for_additional_bonus": "额外奖金的资格期限（按月）",
+    "month": "月份",
+    "monthly_qualification_status": "月度资格状态",
+    "personally_enrolled_customers": "个人注册的客户",
+    "eveolution_rewards": "进化奖励",
+    "direct_qualifying_volume": "直接资格量",
+    "required_customers": "所需客户数",
+    "qualification_days": "资格天数",
+    "no_of_customers_with_30_qv": "拥有 30 QV 的客户数量",
+    "personally_enrolled_customers_with_30_qv": "个人注册客户拥有 30 QV",
+    "personal_qualifying_volume": "个人资格量",
+    "team_volume": "团队量",
+    "group_volume": "群组量",
+    "s_no": "序号",
+    "team": "团队",
+    "percentage": "百分比",
+    "gv_taken": "已计入的 GV",
+    "current_rank": "当前等级",
+    "next_rank": "下一等级",
+    "sixty_percent_rule": "60% 规则",
+    "pending_commission": "待定佣金",
+    "qualifiers": "预选赛",
+    "requirements": "要求",
+    "progress": "进步",
+    "nextRank": "下一个级别",
+    "paidAsRankLastWeek": "上周支付等级",
+    "highestRankAchieved": "最高达到的等级",
+    "current_paid": "当前已支付等级",
+    "activeBusiness": "活跃业务构建器",
+    "bronze": "青铜",
+    "sliverExecutive": "白银执行者",
+    "startup": "初创",
+    "activeCustomer": "活跃客户",
+    "customer": "客户",
+    "weekly": "每周 BV 历史记录（较小团队）",
+    "total": "总计",
+    "aquired": "已获得的 BV",
+    "required": "所需 BV",
+    "upcoming_week": "下周",
+    "binary_bonus": "二进制奖金",
+    "no": "否",
+    "active_products": "活跃产品",
+    "user_name": "用户名",
+    "email": "电子邮件",
+    "active": "活跃",
+    "total_numberL": "总销售数量（左侧）",
+    "total_numberR": "总销售数量（右侧）",
+    "total_teamL": "团队总销售额（左侧）",
+    "total_teamR": "团队总销售额（右侧）",
+    "weeklyL": "每周 BV（左侧）",
+    "weeklyR": "每周 BV（右侧）",
+    "left_team": "左侧团队",
+    "left": "左",
+    "right": "右",
+    "right_team": "右侧团队",
+    "affiliate": "会员",
+    "personal_sales": "个人销售 BV",
+    "team_sales": "团队销售 BV",
+    "network_bonus": "网络奖金",
+    "referral_bonus": "推荐奖金",
+    "referrals": "推荐",
+    "weekly_payout": "每周支付周期结束于"
+  },
+  "user_dashboard": {
+    "residual_bonus": "剩余奖金进度",
+    "leadership_rewards": "领导力奖励",
+    "indirect_sales_bonus": "间接销售奖金进度",
+    "residual_rewards": "剩余奖励",
+    "leadership_bonus": "领导力奖金进度",
+    "residual_matching_bonus": "剩余匹配奖金进度",
+    "rock_solid_bonus": "Rock Solid 奖金进度",
+    "gameplay_rewards": "游戏奖励",
+    "eveolving_bonus": "不断变化的奖金进度",
+    "rock_solid_mvp_bonus": "Rock Solid MVP 奖金进度",
+    "mvp_mentor_bonus": "MVP 导师奖金进度",
+    "direct_sales_bonus": "直销奖金进度",
+    "rob_bonus": "经常性订单奖金进度",
+    "3_FF_Progress": "3 自由进步",
+    "achieved_rank":"获得排名",
+    "current_rank":"目前排名",
+
+    "go_MVP_bonus": "Go MVP 奖励进度",
+    "rank_progress_bar": "排名进度条",
+    "income": "收入",
+    "incomeTitle": "本周",
+    "payout": "总收入",
+    "payoutTitle": "本周",
+    "balance": "总余额",
+    "balanceTitle": "本周",
+    "referrals": "总推荐",
+    "referralsTitle": "本周",
+    "downline": "下线团队人数",
+    "downlineTitle": "本周",
+    "incomeInfo": "收入",
+    "payoutInfo": "支出",
+    "payout_graph": "收入支出概览",
+    "network": { "title": "网络", "overview": "用户参与概览" },
+
+    "events": {
+      "title": "事件"
+    },
+
+    "team_performance": {
+      "table": {
+        "user": "用户",
+        "referrals": "推荐",
+        "earnings": "收益"
+      },
+      "title": "团队表现"
+    },
+
+    "referrals_table": {
+      "table": {
+        "user": "用户",
+        "date": "日期",
+        "action": "动作"
+      },
+      "title": "推荐"
+    },
+    "referral_menu": {
+      "binary": "二进制",
+      "matrix": "矩阵",
+      "sponsor": "赞助商",
+      "mono_line": "单线"
+    },
+    "nextlevelTitle": "下一个级别等待您的达成！",
+    "nextlevelSubTitle": "达到新的等级，解锁无限的可能性。",
+    "currentrank": "当前等级",
+    "nextrank": "下一个等级"
+  },
+  "nav": {
+
+    "dashboard": {
+      "title": "仪表板",
+      "business": "业务",
+      "network": "网络"
+    },
+    "genealogy": {
+      "title": "家谱",
+      "matrix": "矩阵",
+      "binary": "二进制",
+      "sponsor": "赞助商",
+      "tree": "树",
+      "list": "列表",
+      "mono_line": "单线"
+    },
+    "financial": {
+      "title": "财务",
+      "e_wallet": "电子钱包",
+      "d_wallet": "存款钱包",
+      "fund_credit": "资金信用",
+      "payout": "支付",
+      "pendingcommission":"待定佣金"
+
+    },
+    "pendingranks": {
+      "title": "待处理等级",
+      "pending_ranks": "待处理等级"
+    },
+    "communication": {
+      "title": "通讯",
+      "blog": "博客",
+      "faqs": "常见问题",
+      "mails": "电子邮件",
+      "help_center": "帮助中心",
+      "article": "文章"
+    },
+    "tools": {
+      "title": "工具",
+      "documents": "文档",
+      "videos": "视频"
+    },
+    "members": {
+      "title": "会员管理",
+      "network": "网络会员",
+      "holding": "暂存池",
+      "kyc_details": "了解您的客户详细信息"
+    },
+    "sub_admin": {
+      "title": "子管理员",
+      "sub_admins": "子管理员"
+    },
+    "store": {
+      "packages": "软件包",
+      "choose_payments": "选择启用的支付方式",
+      "title": "商店",
+      "products": "产品",
+      "materials": "材料",
+      "events": "活动",
+      "coupons": "优惠券",
+      "user_review": "用户评价",
+      "assign": "分配订阅",
+      "bb_sales": "业务构建器订阅销售",
+      "payment_methods": "支付方式",
+      "subscriptions": "订阅"
+    },
+    "settings": {
+      "title": "设置",
+      "brand": "品牌",
+      "bb": "业务构建器",
+      "network": "网络",
+      "withdrawal": "提款",
+      "currency": "货币",
+      "mail": "邮件模板",
+      "advanced": "高级设置"
+    },
+    "reports": {
+      "title": "报告",
+      "builder": "构建器订阅",
+      "fund_credit": "资金信用",
+      "joining": "加入报告",
+      "members": "会员收入",
+      "payout": "支付",
+      "point": "积分历史",
+      "sales": "销售",
+      "top": "最高收入者"
+    },
+    "my_orders": {
+      "titile": "我的订单",
+      "orders": "订单",
+      "completed_orders": "已完成的订单",
+      "view_order": "查看订单"
+    }
+  },
+  "header_menus": {
+    "home": "首页",
+    "profile": "个人资料",
+    "logout": "退出"
+  },
+  "image_upload": {
+    "drop_file": "拖放或选择文件",
+    "through": "通过您的计算机",
+    "browse": "浏览"
+  },
+  "genders": {
+    "male": "男性",
+    "female": "女性",
+    "other": "其他"
+  },
+  "status": {
+    "enabled": "已启用",
+    "disabled": "已禁用"
+  },
+  "report": {
+    "get": "获取",
+    "get_report": "获取报告"
+  },
+  "impersonate": {
+    "heads": "注意！您现在以 ",
+    "click": "点击这里",
+    "toGo": "返回管理员帐户"
+  },
+  "amount_types": {
+    "all": "全部",
+    "r_bonus": "推荐奖金",
+    "deducted_by_admin": "由管理员扣除",
+    "credited_by_admin": "由管理员记入",
+    "fund_transfer": "资金转移",
+    "roi_commission": "ROI佣金",
+    "a_bonus": "成就奖金",
+    "first_order_bonus": "首单奖金",
+    "level_commission": "层级佣金",
+    "b_bonus": "二进制奖金",
+    "deposit_wallet": "存款钱包",
+    "product_purchased": "购买的产品",
+    "rank_bonus": "级别奖金",
+    "m_bonus": "二进制匹配奖金",
+    "go_mvp_bonus": "GO MVP 奖金",
+    "eveolving_bonus": "进化奖金",
+    "rock_solid_bonus": "坚如磐石奖金",
+    "rock_solid_mvp_bonus": "坚如磐石 MVP 奖金",
+    "rock_solid_mvp_additional_bonus": "坚如磐石 MVP 额外奖金",
+    "direct_sales_bonus": "直接销售奖金",
+    "pmb_bonus": "MVP 导师奖金",
+    "indirect_sales_bonus": "间接销售奖金",
+    "leadership_bonus": "领导力奖金",
+    "residual_bonus": "剩余奖金",
+    "residual_matching":"剩余匹配奖金"
+  },
+  "tools": {
+    "videos": {
+      "areYouSure": "您确定要继续吗？此操作无法撤销",
+      "deleteVideos": "删除视频",
+      "videos_tool": "视频 | 工具",
+      "video": "视频",
+      "addVideo": "添加视频",
+      "title": "标题 *",
+      "videoURLs": "视频链接 *",
+      "close": "关闭",
+      "submit": "提交",
+      "edit": "编辑",
+      "delete": "删除",
+      "update": "更新",
+      "cancel": "取消",
+      "edit_video": "編輯影片"
+    },
+    "documents": {
+      "areYousure": "您确定要继续吗？此操作无法撤销",
+      "deleteDocument": "删除文档",
+      "submit": "提交",
+      "close": "关闭",
+      "docTitle": "文档标题",
+      "sortOrders": "排序顺序",
+      "uploadDocument": "上传文档",
+      "updateDocument": "更新文档",
+      "addDocument": "添加文档",
+      "documents_title": "文档 | 工具",
+      "documents": "文档",
+      "no": "否",
+      "fileTitle": "文件标题",
+      "sortOrder": "排序顺序",
+      "download": "下载",
+      "created": "创建日期",
+      "action": "操作",
+      "fileUpload": "文件上传",
+      "edit": "编辑",
+      "delete": "删除",
+      "cancel": "取消"
+    }
+  },
+  "businessBuilder": {
+    "no": "编号",
+    "amount": "金额",
+    "date": "日期",
+    "effectiveUntil": "有效期至",
+    "pickStartDate": "选择开始日期",
+    "pickEndDate": "选择结束日期",
+    "userName": "用户名",
+    "email": "电子邮件",
+    "totalAmount": "总金额",
+    "thisWeekEnd": "本周结束",
+    "recurringCancelled": "循环取消",
+    "recurringEnabled": "循环启用",
+    "businessBuilderTitle": "业务构建器 | 商店",
+    "business_builder_subscriptions_sales": "业务构建器订阅销售"
+  },
+
+  "assign_subscriptions": {
+    "areYouSure": "您确定要继续吗？此操作无法撤销",
+    "delete_category": "删除类别",
+    "edit_category": "编辑类别",
+    "delete": "删除",
+    "permissions": "权限",
+    "edit": "编辑",
+    "impersonate": "冒充",
+    "profile": "个人资料",
+    "submit": "提交",
+    "close": "关闭",
+    "category_description": "类别描述",
+    "category_name": "类别名称",
+    "add_category": "添加类别",
+    "createdDate": "创建日期",
+    "editSubscription": "编辑订阅",
+    "products": "产品",
+    "trashed": "已删除",
+    "category": "类别",
+    "totalAmount": "总金额",
+    "cancel": "取消",
+    "add": "添加",
+    "giveProductMaterials": "提供带有材料的产品",
+    "giveProduct": "提供带有佣金的产品",
+    "categories": "类别",
+    "certified_date": "认证日期（可选）",
+    "addProduct": "分配产品",
+    "pickStartDate": "选择开始日期",
+    "pickEndDate": "选择结束日期",
+    "user": "用户",
+    "email": "电子邮件",
+    "productss": "产品",
+    "no": "编号",
+    "action": "操作",
+    "assigned_on": "分配于",
+    "userName": "用户名",
+    "product": "产品",
+    "categoryy": "类别",
+    "note": "备注",
+    "certifiedDate": "认证日期",
+    "effectiveUntil": "有效期至",
+    "subscriptionsList": "订阅列表",
+    "assignSubscriptionsTitle": "分配订阅 | 商店",
+    "assign_subscriptions": "分配订阅"
+  },
+
+  "sub_admin": {
+    "delete_at": "删除于",
+    "reasons": "原因",
+    "block": "阻止",
+    "un_block": "取消阻止",
+    "block_sub_admin": "阻止子管理员",
+    "edit_sub_admin": "编辑子管理员",
+    "reason": "原因",
+    "are_you_sure": "您确定要继续吗？此操作无法撤销",
+    "delete_sub_admin": "删除子管理员",
+    "un_block_user": "取消阻止用户",
+    "block_user": "阻止用户",
+    "profile": "个人资料",
+    "edit": "编辑",
+    "password": "密码",
+    "re_enter_password": "重新输入密码",
+    "enable": "启用",
+    "disable": "禁用",
+    "enable_impersonation": "启用冒充",
+    "departments": "部门",
+    "excluded_products": "排除的产品",
+    "products": "产品",
+    "mobile": "手机 *",
+    "names": "姓名 *",
+    "add_sub_admin": "添加子管理员",
+    "sub_admins_title": "子管理员：添加子管理员",
+    "delete": "删除",
+    "reversed": "您确定要继续吗？此操作无法撤销",
+    "sub_admin_delete": "删除子管理员组",
+    "submit": "提交",
+    "description": "描述",
+    "cancel": "取消",
+    "group": "组",
+    "add_user_group": "添加用户组",
+    "impersonate": "冒充",
+    "sub_admins": "子管理员",
+    "user_group": "用户组",
+    "sub_admin": "子管理员",
+    "active": "活跃",
+    "inactive": "不活跃",
+    "trashed": "已删除",
+    "no": "编号",
+    "name": "姓名",
+    "userName": "用户名",
+    "email": "电子邮件",
+    "created": "创建日期",
+    "action": "操作",
+    "createdAt": "创建于"
+  },
+
+  "holding_tank": {
+    "cancel": "取消",
+    "are_you_sure": "您确定要继续吗？此操作无法撤销",
+    "delete_holding_tank": "删除暂存池",
+    "impersonation": "冒充",
+    "delete": "删除",
+    "profile": "个人资料",
+    "permissions": "权限",
+    "holding_tank": "暂存池",
+    "no": "编号",
+    "userName": "用户名",
+    "email": "电子邮件",
+    "paidActive": "已付费激活",
+    "joinedAt": "加入于",
+    "add_to_binary": "添加到二进制",
+    "action": "操作",
+    "add_to_network": "添加到网络",
+    "network": "网络",
+    "account_status": "帐户状态",
+    "active": "活跃",
+    "blocked": "已阻止",
+    "add": "添加",
+    "close": "关闭",
+    "turn_off_email": "关闭电子邮件",
+    "turn_on_email": "打开电子邮件"
+  },
+  "network_members": {
+    "user_type": "用户类型",
+    "promoter": "推广员",
+    "unique_id": "唯一ID",
+    "engagedstatus": "参与状态",
+    "choose_payments": "选择启用的方法",
+    "update_permissions": "更新权限",
+    "turn_off_mail": "关闭邮件",
+    "are_you_sure": "您确定要继续吗？此操作无法撤销",
+    "cancel": "取消",
+    "verify_mail": "验证邮件",
+    "update": "更新",
+    "current_user_name": "当前用户名",
+    "new_user_name": "新用户名",
+    "change_user_name": "更改用户名",
+    "close": "关闭",
+    "confirm_password": "确认密码",
+    "change_password": "更改密码",
+    "permissions": "权限",
+    "turn_off_email": "关闭电子邮件",
+    "turn_on_email": "打开电子邮件",
+    "password": "密码",
+    "profile": "个人资料",
+    "verify": "验证",
+    "username": "用户名",
+    "impersonate": "冒充",
+    "account_status": "账户状态",
+    "active": "活跃",
+    "blocked": "已阻止",
+    "network_members": "网络成员",
+    "no": "编号",
+    "email": "电子邮件",
+    "rank": "等级",
+    "paidActive": "已付费激活",
+    "createdAt": "创建于",
+    "action": "操作",
+    "customer": "客户",
+    "activeCustomer": "活跃客户",
+    "businessBuilder": "业务构建器",
+    "bronzeExecutive": "铜执行官",
+    "silverExecutive": "银执行官",
+    "goldExecutive": "金执行官",
+    "emeraldExecutive": "翡翠执行官",
+    "usertype": "用户类型",
+    "smart_ship_status": "智能船状态",
+    "is_smartship_customer": "是智能船客户",
+    "yes": "是",
+    "engaged_status":"订婚状态",
+    "true":"真的",
+    "false":"错误的"
+
+  },
+  "network": {
+    "right_team": "右队",
+    "left_team": "左队",
+    "top_recruiters": "顶级招聘人员",
+    "latest_registrations": "最新注册",
+    "yearly_sales_report": "年度销售报告",
+    "network_joining": "网络加入",
+    "membersMap": "成员地图",
+    "registeredMembersThisMonth": "本月注册会员",
+    "holdingTank": "暂存池",
+    "networkMembers": "网络成员",
+    "businessBuilder": "业务构建器",
+    "registeredMembers": "注册会员",
+    "tickets": "票",
+    "openTickets": "未完成的票",
+    "closedTickets": "已完成的票",
+    "total_network_bonus": "总网络奖金",
+    "total_payout": "总支付",
+    "upcoming_week": "下周",
+    "binary_bonus": "二进制奖金",
+    "history": "网络历史",
+    "network_bonus": "网络奖金",
+    "support_tickets": "支持票"
+  },
+  "business": {
+    "month": "月",
+    "bitcoinConference": "比特币会议",
+    "on_bitcoin": "关于比特币交易和预测",
+    "productsActive": "产品与活跃订阅",
+    "topSellingProduct": "畅销产品",
+    "userName": "用户名",
+    "product": "产品",
+    "price": "价格",
+    "date": "日期",
+    "latestSales": "最新销售",
+    "invoice": "发票",
+    "active": "活跃",
+    "customers": "客户",
+    "total_customers": "总客户数",
+    "active_customers": "活跃客户",
+    "payout": "支付",
+    "sales": "销售",
+    "overallStatus": "总体状态",
+    "allIncomeAndExpense": "所有收入",
+    "salesOverTheTime": "随时间推移的销售情况",
+    "thenLastMonth": "比上个月",
+    "select_option": "选择选项",
+    "latest_registrations": "销售业绩",
+    "total_sales": "总销售额",
+    "total_expense": "总支出",
+    "total_profit": "总利润",
+    "network_bonus": "网络奖金",
+    "balance": "余额",
+    "income": "收入",
+    "expense": "支出",
+    "salesOverView": "销售概况",
+    "salesgraph": " 銷售圖表",
+    "topSellingProducts": "畅销产品",
+    "today": "今天",
+    "thisWeek": "本周",
+    "pastWeek": "上周",
+    "thisMonth": "本月",
+    "pastMonth": "上个月",
+    "thisYear": "今年"
+  },
+  "date": {
+    "start": "选择开始日期",
+    "end": "选择结束日期"
+  },
+  "scope": {
+    "all": "全部",
+    "public": "公共",
+    "private": "私人"
+  },
+  "search": {
+    "user": "搜索用户",
+    "amount_type": "金额类型",
+    "search": "搜索",
+    "product": "选择产品",
+    "category": "选择类别",
+    "department": "选择部门",
+    "priority": "选择优先级",
+    "status": "状态",
+    "ticket": "票号",
+    "title": "标题",
+    "scope": "范围"
+  },
+  "payout_status": {
+    "approved": "已批准",
+    "rejected": "已拒绝"
+  },
+  "fin_pay": {
+    "address": "地址",
+    "country": "国家",
+    "state": "州",
+    "zip_code": "邮政编码",
+    "city": "城市",
+    "card_details": "卡详细信息",
+    "holder_name": "持卡人姓名",
+    "number": "卡号",
+    "expiry": "卡到期",
+    "cvv": "卡CSC/CVM",
+    "product_recurring_enabled": "此产品已启用重复。取消选中以禁用它。"
+  },
+  "genealogy": {
+    "matrix": {
+      "name": "姓名",
+      "user_name": "用户名",
+      "current_rank": "当前级别",
+      "date": "日期"
+    },
+    "binary": {
+      "title": "二进制：家谱"
+    },
+    "sponsor": {
+      "title": "赞助商：家谱"
+    },
+    "tree": {
+      "title": "树：家谱"
+    },
+    "leg_settings": {
+      "title": "二进制腿设置",
+      "bp": "基于点数（BV） - 推荐将放置在您的较弱的腿团队中",
+      "br": "基于推荐 - 推荐将放在您的推荐人数较少的团队中",
+      "lr": "左 - 推荐将放在您的左团队中",
+      "rr": "右 - 推荐将放在您的右团队中",
+      "current_leg": "当前腿",
+      "base_on": "基于"
+    },
+    "legends": {
+      "name": "姓名",
+      "uname": "用户名",
+      "current_rank": "当前级别",
+      "doj": "加入日期",
+      "w_bv_l": "每周BV（左）",
+      "w_bv_r": "每周BV（右）",
+      "t_bv_l": "总BV（左）",
+      "t_bv_r": "总BV（右）",
+      "t_l_users": "左侧总用户数",
+      "t_r_users": "右侧总用户数",
+      "bv": "细菌病毒",
+      "ev":"这",
+      "qv":"QV",
+      "dqv":"迪亚科夫",
+      "pqv":"PQV",
+      "tv":"电视",
+      "gv":"总体积",
+      "smartship_status":"智能船状态",
+      "user_type":"用户类型"
+
+    },
+    "mono_line": {
+      "title": "单线: 家谱"
+    },
+    "list": {
+      "title": "列表: 家谱",
+      "table": {
+        "no": "编号",
+        "u_name": "用户名",
+        "level": "级别",
+        "doj": "加入日期"
+      }
+    }
+  },
+  "financial": {
+    "pendingcommission":{
+            "title":"待定佣金"
+        },
+    "e_wallet": {
+      "amount_type": "金额类型",
+      "title": "电子钱包",
+      "history": "历史",
+      "cards": {
+        "balance": "余额",
+        "transfer": "转出",
+        "payout": "总支付",
+        "bonus": "奖金"
+      },
+      "table": {
+        "no": "编号",
+        "from": "来自用户",
+        "user_name": "用户名",
+        "amount_type": "金额类型",
+        "payment_type": "支付类型",
+        "amount": "金额",
+        "date": "日期"
+      }
+    },
+    "deposit_wallet": {
+      "title": "存款钱包",
+      "history": "历史",
+      "cards": {
+        "balance": "余额",
+        "transfer": "转出",
+        "credited_by_admin": "管理员入账"
+      },
+      "table": {
+        "no": "编号",
+        "user": "用户名",
+        "from": "来自用户",
+        "amount_type": "金额类型",
+        "payment_type": "支付类型",
+        "amount": "付款金额",
+        "date": "日期"
+      },
+      "pay_now": {
+        "amount": "金额（{{symbol}}）",
+        "add": "添加信用"
+      }
+    },
+
+    "fund_credit": {
+      "title": "资金信用",
+      "form": {
+        "amount": "金额（{{symbol}}）",
+        "to": "收款方",
+        "note": "备注",
+        "deduct": "扣除资金",
+        "add": "添加金额"
+      },
+      "table": {
+        "no": "编号",
+        "user": "用户名",
+        "wallet_type": "钱包类型",
+        "payment_type": "支付类型",
+        "notes": "备注",
+        "amount": "金额",
+        "date": "日期"
+      }
+    },
+
+    "fund_transfer": {
+      "title": "资金转账",
+      "cards": {
+        "e_balance": "电子钱包余额",
+        "d_balance": "存款钱包余额"
+      },
+      "send": {
+        "title": "发送表单",
+        "from": "发送自"
+      },
+      "table": {
+        "no": "编号",
+        "user": "用户名",
+        "amount_type": "金额类型",
+        "payment_type": "支付类型",
+        "amount": "付款金额",
+        "date": "日期",
+        "wallet_type": "钱包类型",
+        "to_user": "接收用户",
+        "payment_status": "支付状态"
+      }
+    },
+    "payout": {
+      "admin": {
+        "title": "支付",
+        "tabs": {
+          "request": "支付请求",
+          "history": "支付历史"
+        },
+        "request": {
+          "table": {
+            "no": "编号",
+            "user_name": "用户名",
+            "user_balance": "用户余额",
+            "payout_method": "付款方式",
+            "payout_info": "付款信息",
+            "wallet_address": "钱包地址",
+            "date": "日期",
+            "requested": "请求金额",
+            "admin_fee": "管理员费用扣除",
+            "released": "释放的金额",
+            "action": "操作"
+          },
+          "approve": "批准",
+          "reject": "拒绝"
+        },
+        "history": {
+          "table": {
+            "no": "编号",
+            "user_name": "用户名",
+            "user_balance": "用户余额",
+            "wallet_address": "钱包地址",
+            "coin": "币种",
+            "email": "电子邮件",
+            "date": "日期",
+            "requested": "请求金额",
+            "admin_fee": "管理员费用扣除",
+            "released": "释放的金额",
+            "action": "操作",
+            "status": "状态"
+          }
+        }
+      },
+      "title": "请求支付",
+      "cards": {
+        "balance": "可用余额",
+        "min": "最低提现"
+      },
+      "request": {
+        "title": "支付请求",
+        "amount": "请求金额 ",
+        "coin": "币种",
+        "methods": "支付方式"
+      },
+      "table": {
+        "no": "编号",
+        "amount": "金额",
+        "date": "日期",
+        "wallet_address": "钱包地址",
+        "coin": "币种",
+        "status": "状态"
+      }
+    }
+  },
+  "business_builder": {
+    "subscriptions": {
+      "title": "业务建设者",
+      "filter": {
+        "amount": "金额（{{symbol}}）",
+        "builder": "业务建设者",
+        "period": "选择周期"
+      },
+      "table": {
+        "no": "编号",
+        "amount": "金额",
+        "date": "购买日期",
+        "effective": "生效截止日期",
+        "method": "支付方式",
+        "view": "查看"
+      }
+    },
+    "materials": {
+      "title": "材料",
+      "menu": {
+        "video": "视频",
+        "document": "文档"
+      }
+    }
+  },
+
+  "actions": {
+    "edit": "编辑",
+    "delete": "删除",
+    "publish": "发布"
+  },
+
+  "blogs": {
+    "title": "博客",
+    "tabs": {
+      "published": "已发布",
+      "drafts": "草稿"
+    },
+    "categories": {
+      "title": "博客分类",
+      "table": {
+        "no": "编号",
+        "name": "分类名称",
+        "desc": "描述",
+        "action": "操作"
+      },
+      "create": {
+        "edit": { "title": "更新分类", "submit": "更新" },
+        "title": "添加分类",
+        "name": "分类名称",
+        "desc": "描述",
+        "submit": "添加",
+        "close": "取消"
+      },
+      "delete": {
+        "title": "删除分类",
+        "message": "您确定要继续此操作，此操作无法撤销。",
+        "submit": "删除",
+        "close": "取消"
+      }
+    },
+    "create": {
+      "new_post": "创建帖子",
+      "categories": "分类",
+      "category": "分类",
+      "table": {
+        "no": "编号",
+        "img": "图像",
+        "title": "博客标题",
+        "desc": "博客描述",
+        "scope": "范围",
+        "date": "博客日期",
+        "action": "操作"
+      },
+      "form": {
+        "add_title": "添加博客",
+        "edit_title": "编辑博客",
+        "type": "类型",
+        "blog_title": "标题",
+        "category": "博客分类",
+        "product": "产品",
+        "meta_key": "元关键字",
+        "meta_desc": "元描述",
+        "content": "内容",
+        "short_desc": "简短描述",
+        "add_doc": "添加文档",
+        "save_as_draft": "另存为草稿",
+        "submit": "提交"
+      }
+    },
+    "view": {
+      "title": "博客帖子",
+      "add_comment": {
+        "title": "添加评论",
+        "rating": "评分",
+        "comment_title": "标题",
+        "post": "发表评论"
+      },
+      "recent": "最新帖子",
+      "latest_category": "最新博客分类"
+    }
+  },
+  "faq": {
+    "title": "常见问题",
+    "tabs": {
+      "faq": "常见问题",
+      "categories": "分类"
+    },
+
+    "categories": {
+      "add": "FAQ分类",
+      "table": {
+        "no": "编号",
+        "name": "分类名称",
+        "desc": "描述",
+        "action": "操作"
+      },
+      "dialog": {
+        "add": "添加FAQ分类",
+        "edit": "编辑FAQ分类"
+      },
+      "form": {
+        "name": "分类名称",
+        "desc": "描述",
+        "status": "状态",
+        "cancel": "取消",
+        "add": "添加",
+        "edit": "更新"
+      },
+      "delete": {
+        "title": "删除FAQ分类",
+        "message": "您确定要继续此操作，此操作无法撤销。",
+        "cancel": "取消",
+        "submit": "删除"
+      }
+    },
+    "faqs": {
+      "add": "FAQ",
+      "table": {
+        "no": "编号",
+        "question": "问题",
+        "answer": "答案",
+        "action": "操作"
+      },
+      "form": {
+        "add_title": "添加FAQ",
+        "edit_title": "编辑FAQ",
+        "category": "FAQ分类",
+        "questions": "问题",
+        "answer": "答案",
+        "cancel": "取消",
+        "add": "添加",
+        "update": "更新"
+      }
+    },
+    "browse_categories": "按分类浏览",
+    "looking_for": "找不到您要找的答案？",
+    "looking_for_message": "通过我们的支持中心创建一个工单，我们的团队成员将在24小时内回复您。",
+    "create": "创建工单"
+  },
+  "knowledge_base": {
+    "title": "知识库"
+  },
+  "emails": {
+    "title": "电子邮件"
+  },
+  "admin_email": {
+    "compose": {
+      "title": "新消息",
+      "subject": "主题",
+      "users": "用户",
+      "send": "发送"
+    }
+  },
+  "help_center": {
+    "view": {
+      "view_attachments": "查看附件",
+      "created": "创建日期",
+      "last_response": "最后回复",
+      "actions": {
+        "impersonate": "冒充",
+        "edit": "编辑个人资料"
+      },
+      "reply_form": {
+        "title": "回复表单",
+        "response": "常用回复",
+        "questions": "FAQ 问题",
+        "name": "标题",
+        "description": "描述",
+        "submit": "发布回复"
+      },
+      "info_card": {
+        "status": "状态",
+        "priority": "优先级",
+        "department": "部门",
+        "email": "电子邮件",
+        "category": "类别",
+        "username": "用户名",
+        "last_message": "最后消息"
+      },
+      "tkt_id": "工单 ID",
+      "dialog": {
+        "update_status": {
+          "title": "更改状态？",
+          "cancel": "取消",
+          "submit": "是的，将状态更改为 {{status}}"
+        }
+      }
+    },
+    "status": {
+      "open": "打开",
+      "overdue": "逾期",
+      "resolved": "已解决",
+      "closed": "已关闭",
+      "archived": "已存档",
+      "deleted": "已删除",
+      "unverified": "未验证",
+      "request_approval": "请求批准",
+      "in_progress": "进行中",
+      "responded": "已响应"
+    },
+    "department": {
+      "add_button": "部门",
+      "table": {
+        "no": "编号",
+        "name": "名称",
+        "status": "状态",
+        "desc": "描述",
+        "actions": "操作"
+      },
+      "actions": {
+        "edit": "编辑",
+        "delete": "删除"
+      },
+      "dialog": {
+        "delete": {
+          "title": "删除部门",
+          "msg": "您确定要继续吗？此操作无法撤消",
+          "submit": "删除",
+          "cancel": "取消"
+        },
+        "edit": {
+          "title": "编辑部门",
+          "name": "部门名称",
+          "desc": "描述",
+          "status": "状态",
+          "sort_order": "排序顺序",
+          "submit": "更新",
+          "cancel": "取消"
+        },
+        "add": {
+          "submit": "创建",
+          "title": "添加部门"
+        }
+      }
+    },
+    "categories": {
+      "add_button": "分类",
+      "table": {
+        "no": "编号",
+        "name": "分类",
+        "status": "状态",
+        "desc": "描述",
+        "actions": "操作"
+      },
+      "actions": {
+        "edit": "编辑",
+        "delete": "删除"
+      },
+      "dialog": {
+        "delete": {
+          "title": "删除分类",
+          "msg": "您确定要继续吗？此操作无法撤消",
+          "submit": "删除",
+          "cancel": "取消"
+        },
+        "edit": {
+          "title": "编辑分类",
+          "name": "分类名称",
+          "desc": "描述",
+          "status": "状态",
+          "sort_order": "排序顺序",
+          "submit": "更新",
+          "cancel": "取消"
+        },
+        "add": {
+          "submit": "创建",
+          "title": "添加分类"
+        }
+      }
+    },
+    "canned_response": {
+      "add_button": "常用回复",
+      "table": {
+        "no": "编号",
+        "name": "标题",
+        "subject": "主题",
+        "actions": "操作"
+      },
+      "actions": {
+        "edit": "编辑",
+        "delete": "删除"
+      },
+      "dialog": {
+        "delete": {
+          "title": "删除常用回复",
+          "msg": "您确定要继续吗？此操作无法撤消",
+          "submit": "删除",
+          "cancel": "取消"
+        },
+        "edit": {
+          "title": "编辑常用回复",
+          "name": "常用回复标题",
+          "sub": "主题",
+          "placeholder": "常用回复消息",
+          "submit": "更新",
+          "cancel": "取消"
+        },
+        "add": {
+          "submit": "创建",
+          "title": "添加常用回复"
+        }
+      }
+    },
+    "priorities": {
+      "add_button": "优先级",
+      "table": {
+        "no": "编号",
+        "name": "优先级",
+        "desc": "优先级描述",
+        "color": "优先级颜色",
+        "status": "状态",
+        "actions": "操作"
+      },
+      "actions": {
+        "edit": "编辑",
+        "delete": "删除"
+      },
+      "dialog": {
+        "delete": {
+          "title": "删除优先级",
+          "msg": "您确定要继续吗？此操作无法撤消",
+          "submit": "删除",
+          "cancel": "取消"
+        },
+        "edit": {
+          "title": "编辑优先级",
+          "name": "优先级",
+          "color": "颜色",
+          "desc": "描述",
+          "submit": "更新",
+          "cancel": "取消"
+        },
+        "add": {
+          "submit": "创建",
+          "title": "添加优先级"
+        }
+      }
+    },
+    "form": {
+      "ticket_id": "工单编号",
+      "subject": "主题",
+      "description": "描述",
+      "priority": "优先级",
+      "department": "部门",
+      "category": "分类",
+      "status": "状态",
+      "document": "文件",
+      "add": "添加",
+      "update": "更新"
+    },
+    "actions": {
+      "view": "查看",
+      "impersonate": "冒充",
+      "edit": "编辑",
+      "delete": "删除"
+    },
+    "title": "帮助中心",
+    "create": "创建工单",
+    "side_bar": {
+      "dashboard": "工单仪表板",
+      "all": "所有工单",
+      "overdue": "逾期",
+      "open": "打开",
+      "resolved": "已解决",
+      "closed": "已关闭",
+      "in_progress": "进行中",
+      "responded": "已响应",
+      "departments": "部门",
+      "categories": "分类",
+      "canned_response": "常用回复",
+      "priorities": "优先级"
+    },
+    "filter": {
+      "department": "部门",
+      "priority": "优先级",
+      "status": "状态",
+      "category": "分类",
+      "tkt_id": "工单编号",
+      "user": "搜索用户",
+      "overdue": "仅显示逾期项目"
+    },
+    "table": {
+      "no": "编号",
+      "tkt_no": "工单编号",
+      "tkt_from": "工单来源",
+      "date": "日期",
+      "subject": "主题",
+      "status": "状态",
+      "priority": "优先级",
+      "department": "部门",
+      "category": "分类",
+      "action": "操作"
+    },
+    "document": {
+      "title": "文档",
+      "created_at": "创建于",
+      "view": "查看"
+    },
+    "video": {
+      "title": "视频"
+    }
+  },
+  "articles": {
+    "title": "文章",
+    "options": {
+      "title": "知识库",
+      "articles": "文章",
+      "categories": "文章分类"
+    },
+    "articles": {
+      "title": "所有文章",
+      "add_button": "添加文章",
+      "form": {
+        "add_title": "添加文章",
+        "edit_title": "编辑文章",
+        "name": "名称",
+        "category": "分类",
+        "description": "描述",
+        "cancel": "取消",
+        "submit_add": "添加",
+        "submit_edit": "添加"
+      },
+      "delete": {
+        "title": "删除文章",
+        "msg": "您确定要继续吗？此操作无法撤销",
+        "cancel": "取消",
+        "submit": "删除"
+      },
+      "actions": {
+        "edit": "编辑",
+        "delete": "删除"
+      },
+      "table": {
+        "no": "编号",
+        "title": "文章标题",
+        "time": "发布时间",
+        "actions": "操作"
+      }
+    },
+    "categories": {
+      "title": "所有分类",
+      "add_button": "添加分类",
+      "form": {
+        "add_title": "添加分类",
+        "edit_title": "编辑分类",
+        "name": "名称",
+        "category": "分类",
+        "description": "描述",
+        "cancel": "取消",
+        "submit_add": "添加",
+        "submit_edit": "更新"
+      },
+      "delete": {
+        "title": "删除分类",
+        "msg": "您确定要继续吗？此操作无法撤销",
+        "cancel": "取消",
+        "submit": "删除"
+      },
+      "actions": {
+        "edit": "编辑",
+        "delete": "删除"
+      },
+      "table": {
+        "no": "编号",
+        "title": "分类名称",
+        "time": "创建时间",
+        "actions": "操作"
+      }
+    }
+  },
+  "settings": {
+    "title": "设置",
+    "mode": "模式",
+    "direction": "方向",
+    "layout": "布局",
+    "presets": "预设",
+    "stretch": "拉伸",
+    "full_screen": { "enter": "全屏", "exit": "退出全屏" },
+    "advanced_settings": {
+      "title": "高级设置",
+      "kyc": {
+        "show": "显示KYC",
+        "update": "更新",
+        "message": "开启KYC后，用户将需要上传他们的文件"
+      },
+      "leads": {
+        "show": "显示潜在客户",
+        "update": "更新"
+      },
+      "2fa": {
+        "show": "启用双因素认证",
+        "update": "更新",
+        "message": "开启双因素认证后，用户可以从其个人资料设置中启用双因素认证选项。如果启用了双因素认证，则用户在登录前需要输入OTP。"
+      },
+      "package": {
+        "show": "需要购买套餐",
+        "update": "更新"
+      },
+      "mail": {
+        "show": "需要邮件验证",
+        "update": "更新"
+      },
+      "membership_packages": {
+        "show": "需要出生日期",
+        "minimum": "需要的最低年龄",
+        "update": "更新"
+      },
+      "tabs": {
+        "currency": "货币",
+        "kyc": "KYC",
+        "leads": "潜在客户",
+        "payments": "支付",
+        "dob": "出生日期",
+        "membership_packages": "会员套餐",
+        "membership_settings": "会员设置",
+        "2fa": "双因素认证",
+        "email_verify": "验证邮箱",
+        "package_purchase": "购买套餐"
+      }
+    },
+    "brand": {
+      "deleteSection": "删除部分",
+      "editSection": "编辑部分",
+      "edit": "编辑",
+      "cancel": "取消",
+      "delete": "删除",
+      "areYouSure": "您确定要继续吗？此操作无法撤销",
+      "deleteArticles": "删除文章",
+      "editArticles": "编辑文章",
+      "submit": "提交",
+      "update": "更新",
+      "close": "关闭",
+      "blogTitle": "博客标题",
+      "description": "描述",
+      "addArticles": "添加文章",
+      "no": "编号",
+      "article_name": "文章名称",
+      "menu_name": "菜单名称",
+      "action": "操作",
+      "sectionName": "部分名称",
+      "sortOrder": "排序顺序",
+      "addSection": "添加部分",
+      "section": "部分",
+      "articles": "文章",
+      "save": "保存",
+      "email": "电子邮件",
+      "company_address": "公司地址",
+      "company_name": "公司名称",
+      "change_your_logo_icon": "更改您的Logo图标",
+      "sidebar_corner_logo": "侧边栏角标",
+      "change_your_logo": "更改您的Logo",
+      "change_logo": "更改Logo",
+      "title": "品牌：设置",
+      "brand": "品牌设置",
+      "company_details": "公司详情",
+      "get_started": "入门",
+      "user_guidance": "用户指南",
+      "allowed": "允许",
+      "size": "最大尺寸"
+    },
+    "business_builder": {
+      "edit": "编辑",
+      "delete": "删除",
+      "areYouSure": "您确定要继续吗？此操作无法撤销",
+      "cancel": "取消",
+      "close": "关闭",
+      "submit": "提交",
+      "addBusinessBuilder": "添加业务构建器",
+      "editBusinessBuilder": "编辑业务构建器",
+      "no": "编号",
+      "name": "名称",
+      "amount": "金额",
+      "bv": "BV",
+      "add": "添加",
+      "action": "操作",
+      "title": "业务构建器 | 设置",
+      "business_builder": "业务构建器",
+      "deleteBusinessBuilder": "删除业务构建器"
+    },
+    "withdrawal": {
+      "title": "提款",
+      "available_payouts": "可用支付"
+    },
+    "network": {
+      "min_required_rank": "最低等级要求",
+      "required_rank": "所需等级",
+      "level_1_rank": "1级排名",
+      "level_2_rank": "2级排名",
+      "level_3_rank": "3级排名",
+      "levels_unlocked": "解锁关卡",
+      "placement_lounge_settings": "安置休息室设置",
+      "eveolving_bonus_settings": "不断变化的奖金设置",
+      "rocksolid_bonus_settings": "坚如磐石的奖金设置",
+      "is_bonus_settings": "间接销售奖金设置",
+      "leadership_bonus": "领导力奖金设置",
+      "rob_bonus_settings": "循环订单奖金设置",
+      "residual_matching": "剩余匹配奖金设置",
+      "three_ff_bonus_settings": "3 免费程序设置",
+      "residual_bonus": "剩余奖金设置",
+      "rock_solid_mvp_bonus": "坚如磐石的 MVP 奖金设置",
+      "withdrawal_text": "在会员页面上显示的提款文本",
+      "withdrawal_admin": "提款行政费用百分比：% ",
+      "open_withdrawals_on": "在这些日子开放提款",
+      "monday": "星期一",
+      "tuesday": "星期二",
+      "wednesday": "星期三",
+      "thursday": "星期四",
+      "friday": "星期五",
+      "sunday": "星期日",
+      "saturday": "星期六",
+      "available_coins": "可用硬币",
+      "min_amount": "提款的最低金额：",
+      "withdrawal_title": "提款 | 设置",
+      "withdrawal": "提款",
+      "level": "等级",
+      "percentage": "百分比",
+      "products": "产品",
+      "month": "月",
+      "referral_bonus": "推荐奖金",
+      "update": "更新",
+      "rank_name": "等级名称",
+      "personally_enrolled_rank": "个人招募等级",
+      "count": "计数",
+      "team_volume": "团队体量",
+      "title": "网络设置：设置",
+      "network": "网络设置",
+      "binary_bonus_settings": "二进制奖金设置",
+      "rank_settings": "等级设置",
+      "referral_commission_settings": "推荐佣金设置",
+      "first_order_bonus": "首单奖金",
+      "level_bonus": "级别奖金",
+      "roi_settings": "ROI设置",
+      "rank": "等级",
+      "bv_capping": "BV封顶",
+      "binary_bonus_capping": "二进制奖金封顶",
+      "binary_matching": "二进制匹配（%）",
+      "go_mvp_bonus_settings": "Go MVP 奖金设置",
+      "min_dqv": "我的DQV",
+      "min_qv_per_customer": "每个客户的最低 QV",
+      "qualification_days": "资格日",
+      "min_pqv": "最低 PQV",
+      "minimum_pqv":"最低 PQV",
+      "active": "积极的",
+      "circle_of_evelution": "进化圈",
+      "required_dqv": "所需的 DQV",
+      "min_customer_qv":"最低客户 QV",
+      "monthly_bonus_amount":"每月奖金金额",
+      "consecutive_months_bonus_trigger":"连续几个月奖金触发",
+      "consecutive_bonus_amount":"连续奖金金额",
+      "rsp_bonus_settings":"RSP 奖金设置",
+      "direct_sales_bonus_settings":"直销奖金设置",
+      "min_pqv_previous_month":"上个月最低 PQV",
+      "bonus_percentage":"奖金比例",
+      "discount_percentage":"折扣比例",
+      "required_consecutive_months":"所需的连续月份",
+      "bonus_coupon_value":"奖金优惠券价值",
+      "personal_order_qv":"个人订单QV",
+      "required_customers":"所需客户",
+      "customer_min_qv":"客户在 QB",
+      "max_bonus_value":"最大奖金价值",
+      "min_rank_required":"最低等级要求",
+      "max_generation":"最大代数",
+      "generation_1_percentage":"第一代百分比",
+      "generation_1_required_rank":"第一代所需等级",
+      "generation_2_percentage":"第 2 代百分比",
+      "generation_2_required_rank":"第 2 代所需等级",
+      "pmb_bonus_settings":"MVP 导师奖金设置",
+      "max_level":"最高等级",
+      "level_1_percentage":"1 级百分比",
+      "level_2_percentage":"2 级百分比",
+      "level_3_percentage":"3级百分比",
+      "bonus_amount":"奖金金额",
+      "packages_name":"套餐名称",
+      "required_personal_volume":"所需个人体量",
+      "minimumpqv":"最低 PQV",
+      "months":"几个月",
+      "placement_launch_settings":"展示位置启动设置",
+      "min_qv":"最低 QV"
+
+
+
+    },
+    "currency": {
+      "are_you": "您确定要继续吗？此操作无法撤销？",
+      "delete_dialog": "删除对话框",
+      "cancel": "取消",
+      "currency": "货币",
+      "add": "添加",
+      "edit": "编辑",
+      "delete": "删除",
+      "no": "编号",
+      "name": "名称",
+      "code": "代码",
+      "symbol": "符号",
+      "status": "状态",
+      "exchange_rate": "汇率",
+      "action": "操作",
+      "add_dialog": "添加对话框",
+      "enabled": "已启用",
+      "disabled": "已禁用"
+    },
+    "reports": {
+      "pv": "PV",
+      "leg": "腿",
+      "type": "类型",
+      "coin": "硬币",
+      "fullName": "全名",
+      "status": "状态",
+      "adminFeeDeducted": "扣除的行政费用",
+      "amountReleased": "发布的金额",
+      "requestedAmount": "请求的金额",
+      "walletAddress": "钱包地址",
+      "bonusType": "奖金类型",
+      "credit": "信用",
+      "note": "注释",
+      "date": "日期",
+      "payment_method": "付款方式",
+      "no": "编号",
+      "username": "用户名",
+      "email": "电子邮件",
+      "amount": "金额",
+      "dateJoined": "入职日期",
+      "sales": "销售报告",
+      "top_earners": "最赚钱的人报告",
+      "point_history": "积分历史报告",
+      "payout_report": "支付报告",
+      "member_income": "会员收入报告",
+      "joining_report": "入职报告",
+      "fund_transfer": "资金转移报告",
+      "business_builder": "业务构建器报告"
+    }
+  },
+  "support_tickets": {
+    "title": "支持工单",
+    "create": "创建工单",
+    "side_bar": {
+      "all": "全部",
+      "open": "打开",
+      "resolved": "已解决",
+      "closed": "已关闭",
+      "in_progress": "进行中",
+      "responded": "已回复"
+    },
+    "table": {
+      "no": "工单编号",
+      "date": "日期",
+      "subject": "主题",
+      "status": "状态",
+      "priority": "优先级",
+      "department": "部门",
+      "category": "类别",
+      "actions": "操作"
+    },
+    "contact_support": {
+      "title": "创建工单",
+      "create_card": {
+        "title": "创建工单",
+        "category": "选择类别",
+        "department": "选择部门",
+        "priority": "选择优先级",
+        "subject": "主题",
+        "file": "附加文件",
+        "submit": "发送请求"
+      }
+    },
+    "view": {
+      "title": "工单查看",
+      "pill": "工单ID",
+      "created": "创建日期",
+      "last": "最后回复",
+      "about": {
+        "status": "状态",
+        "priority": "优先级",
+        "department": "部门",
+        "email": "电子邮件",
+        "category": "类别",
+        "username": "用户名"
+      },
+      "reply_form": {
+        "title": "回复表单",
+        "submit": "发布回复",
+        "faq_title": "标题"
+      }
+    }
+  },
+  "profile": {
+    "tax_code": "税码",
+    "vat_number": "增值税号",
+    "your_notes": "您的笔记",
+    "no": "编号",
+    "userName": "用户名",
+    "email": "电子邮件",
+    "active": "激活",
+    "dateJoined": "加入日期",
+    "businessBuilder": "业务构建者",
+    "socialMediaScope": "社交媒体范围",
+    "save_changes": "保存更改",
+    "medium": "媒介",
+    "email_address": "电子邮件地址",
+    "phone_numbers": "电话号码",
+    "address": "地址",
+    "state_region": "州/地区",
+    "city": "城市",
+    "zip_codes": "邮政编码",
+    "male": "男性",
+    "female": "女性",
+    "other": "其他",
+    "balance": "余额",
+    "your_activity_history": "您的活动历史",
+    "last_seen": "上次在线",
+    "allowed": "允许",
+    "max_size": "最大尺寸",
+    "first_name": "名字",
+    "last_name": "姓氏",
+    "gender": "性别",
+    "public_private": "公开/私密",
+    "choose_country": "选择国家",
+    "account_settings": "帐户设置",
+    "new_passwords": "新密码",
+    "confirm_new_passwords": "确认新密码",
+    "twoStepAuthentication": "两步验证",
+    "twoStep": "两步验证 (2FA)",
+    "emailNotificationSettings": "电子邮件通知设置",
+    "materialAdd": "材料添加",
+    "productBusiness": "产品和业务构建器费到期通知",
+    "blog": "博客",
+    "rankachieved": "达到的等级",
+    "paymentCompleted": "支付完成",
+    "newUserAdded": "新增到二进制网络的新用户",
+    "accountUpdate": "帐户更新",
+    "friendRegisterMail": "朋友注册邮件",
+    "telegramInstructionMails": "Telegram 指令邮件",
+    "mailsFromAdmin": "来自管理员的邮件",
+    "title": "个人资料",
+    "referrals": "推荐",
+    "total_payout": "总支出",
+    "total_commission": "总佣金",
+    "tabs": {
+      "profile": "个人资料",
+      "edit": "编辑信息",
+      "settings": "设置",
+      "referral": "推荐",
+      "note": "笔记",
+      "payout": "支出"
+    },
+    "profile": {
+      "commission": "总佣金",
+      "payout": "总支出",
+      "referrals": "推荐",
+      "balance": "余额",
+      "last_seen": "上次在线",
+      "activity_history": "您的活动历史"
+    },
+    "referral": {
+      "title": "推荐",
+      "table": {
+        "no": "编号",
+        "user": "用户名",
+        "email": "电子邮件",
+        "active": "激活",
+        "business_builder": "业务构建者",
+        "date": "加入日期"
+      }
+    },
+    "settings": {
+      "bank_account": {
+        "title": "更新直接付款信息"
+      },
+      "bitaps": {
+        "title": "更新比特币地址"
+      },
+      "bank": {
+        "title": "更新银行详细信息",
+        "save": "保存更改"
+      },
+      "stripe": {
+        "title": "更新在线支付信息",
+        "form": {
+          "first_name": "名",
+          "last_name": "姓",
+          "currency": "货币",
+          "account_holder_name": "账户持有人姓名",
+          "account_holder_type": "账户持有人类型",
+          "routing_number": "路由号码",
+          "account_number": "帐号",
+          "country": "国家",
+          "id_number": "身份证号码",
+          "phone": "电话",
+          "gender": "性别",
+          "dob": "出生日期",
+          "line1": "地址第一行",
+          "line2": "地址行 2",
+          "city": "城市",
+          "state": "状态",
+          "postal_code": "邮政编码"
+        }
+      },
+      "password": {
+        "title": "帐户设置",
+        "new_password": "新密码",
+        "confirm": "确认新密码",
+        "save": "保存更改"
+      },
+      "address": {
+        "title": "更改货币地址",
+        "save": "保存"
+      },
+      "2fa": {
+        "title": "两步验证 (2FA)",
+        "enable_message": "第一步是在您的安卓或iOS设备上下载Google Authenticator应用程序。如果您需要帮助入门，请参阅Google支持页面。如果您无法访问安卓市场或应用商店，还有其他获取Google Authenticator的选项：安卓下载、Google Chrome插件或iTunes应用商店。",
+        "post_script": "启用2FA后，令牌将不再显示。如果您有多台设备，请在单击启用之前将您的帐户令牌添加到所有设备上。（注意：重新加载浏览器后，您的帐户令牌将更改。）",
+        "button": "验证",
+        "otp": "输入OTP"
+      },
+      "cache": {
+        "title": "隐私和安全",
+        "body": "清除浏览数据",
+        "sub": "清除历史记录、Cookie、缓存等",
+        "dialog": {
+          "title": "清除浏览数据",
+          "body": "清除浏览历史后，您将从此页面注销。",
+          "cancel": "取消",
+          "save": "清除"
+        }
+      }
+    },
+    "notes": {
+      "button": "笔记",
+      "dialog": {
+        "add": { "title": "添加笔记", "submit": "提交", "cancel": "关闭" },
+        "delete": {
+          "title": "删除笔记",
+          "message": "您确定要继续吗，此操作无法撤销",
+          "submit": "删除",
+          "cancel": "取消"
+        },
+        "edit": { "title": "编辑笔记", "submit": "更新", "cancel": "取消" }
+      }
+    },
+    "edit": {
+      "tax_code": "税码",
+      "vat_number": "增值税号",
+      "first_name": "名字",
+      "last_name": "姓氏",
+      "gender": "性别",
+      "country": "国家",
+      "state": "州/地区",
+      "city": "城市",
+      "pin": "邮政编码",
+      "address": "地址",
+      "mobile": "电话号码",
+      "mail": "电子邮件地址",
+      "social": {
+        "phone": "电话",
+        "mail": "电子邮件",
+        "fb": "Facebook",
+        "x": "X",
+        "whatsapp": "Whatsapp",
+        "insta": "Instagram",
+        "tele": "Telegram",
+        "medium": "Medium"
+      },
+      "status": "公开/私密",
+      "social_scope": "社交媒体范围",
+      "update": "保存更改"
+    }
+  },
+  "user": {
+    "recurring_order": {
+      "title": "重复订单",
+      "disable_recurring": "禁用重复",
+      "recurring_enabled": "重复启用",
+      "enable_on": "重复启用日期",
+      "update_card": "更新卡"
+        },
+    "online_store": {
+      "team_orders":{
+        "title":"团队订单"
+    },
+
+      "select_month": "选择月份",
+      "buy_now": "立即购买",
+      "cart": "加入购物车",
+      "subscription": "订阅",
+      "write_review": "撰写您的评论",
+      "product_details": {
+        "title": "产品详情",
+        "review_other": "评论 ({{count}})",
+        "average_rating": "平均评分"
+      },
+      "product": {
+        "title": "产品订阅",
+        "quantity": "数量",
+        "amount": "金额",
+        "complete_order": "完成订单",
+        "balance": "可用余额",
+        "back": "返回",
+        "payment_options": "付款选项",
+        "subscription": "订阅",
+        "price": "价格",
+        "product": "产品",
+        "coupon": "优惠券代码",
+        "apply": "应用",
+        "order_summary": "订单摘要",
+        "sub_total": "小计",
+        "discount": "折扣",
+        "total": "总计",
+        "continue": "继续购物",
+        "look_like": "看起来您的购物车中没有任何商品。",
+        "cart_is_empty": "购物车是空的",
+        "cart": "购物车",
+        "checkout": "结账"
+      },
+      "my_orders": {
+        "title": "我的订单",
+        "details": {
+          "title": "发票详情",
+          "invoiced_date": "发票日期",
+          "question": "有问题吗？",
+          "foot_note": "我们很高兴听到您的反馈。感谢您的业务和支持。请立即付款。如果您对此发票有任何疑问，请随时与我们联系。"
+        },
+        "invoice_details": {
+          "iva_price": "伊娃·普赖斯",
+          "my_orders_titile": "オンラインストアのマイオーダー",
+          "my_orders": "マイオーダー",
+          "subscription": "サブスクリプション",
+          "no": "いいえ",
+          "invoice_id": "請求書ID",
+          "payment_method": "支払い方法",
+          "order_date": "注文日",
+          "total_price": "合計金額",
+          "action": "アクション",
+          "combo": "コンボ",
+          "view": "表示",
+          "invoice_titile": "請求書の表示",
+          "invoice_details": "請求書の詳細",
+          "invoices": "請求書",
+          "date_invoice": "請求書の日付",
+          "product": "製品",
+          "type": "タイプ",
+          "bv": "BV",
+          "price": "価格",
+          "notes": "メモ",
+          "have_question": "質問がありますか？",
+          "item": "アイテム",
+          "sub_total": "小计",
+          "discount": "折扣",
+          "taxes": "税收",
+          "total": "总计",
+          "support_mail": "support@cloudmlm.com",
+          "shipping": "配送先",
+          "quantity":"数量",
+          "qv":"QV",
+          "ev":"这",
+          "coupon_discount":"优惠券折扣",
+          "consequtive":"连续一个月折扣"
+
+
+        }
+      }
+    },
+    "subscriptions": {
+      "title": "我的订阅",
+      "active_only": "仅列出活跃的订阅？",
+      "purchase_date": "购买日期",
+      "expiry_date": "到期日",
+      "enable_recurring": "启用定期付款",
+      "recurring_not_enabled": "未启用定期付款",
+      "recurring_cancelled_on": "定期付款已取消",
+      "stripe_recurring_enable_message": "继续操作即可使用您的Stripe卡启用此订阅的自动续订。",
+      "recurring_payment": "启用定期付款",
+      "paypal_recurring_enable_message": "继续操作即可通过PAYPAL启用此产品的定期付款。",
+      "your_review": "您对此产品的评论",
+      "submit_review": "发布评论",
+      "list_public_events": "列出公共活动",
+      "labels": {
+        "review": "添加评论",
+        "blog": "博客",
+        "events": "事件",
+        "documents": "文件",
+        "videos": "视频",
+        "view": "查看"
+      }
+    },
+
+    "income_report": {
+      "title": "收入报告",
+      "table": {
+        "no": "编号",
+        "from": "发起人",
+        "amount_type": "金额类型",
+        "credit": "信用",
+        "created": "创建日期"
+      }
+    }
+  },
+  "admin": {},
+  "products": {
+    "title": {
+      "subscriptions": "产品订阅|商店",
+      "product_and_pack": "产品和套餐",
+      "add": "添加",
+      "category_name": "类别名称",
+      "product": "产品",
+      "package": "套餐",
+      "category": "类别",
+      "video_edit": "视频查看/编辑",
+      "document_view_edit": "文档查看/编辑",
+      "questions_view_edit": "问题查看/编辑",
+      "sample_document_view_edit": "示例文档查看/编辑",
+      "product_view_edit": "产品查看/编辑",
+      "delete": "删除",
+      "package_add": "添加套餐",
+      "product_add": "添加产品",
+      "package_edit": "包编辑",
+      "product_edit": "产品编辑",
+      "subscription_edit": "订阅 编辑",
+      "subscription_view_edit": "订阅查看/编辑"
+    },
+    "add": {
+      "package_name": "套餐名称",
+      "product_name": "产品名称",
+      "meta_keywords": "元数据关键词",
+      "meta_description": "元数据描述",
+      "short_description": "简短描述",
+      "title": "标题",
+      "description": "描述",
+      "product_page_url": "产品页面URL",
+      "images": "图片",
+      "status": "状态",
+      "accessFrom": "访问从",
+      "accessTo": "访问到",
+      "product_available": "产品可用",
+      "package_available": "套餐可用",
+      "submit": "提交",
+      "reset": "重置",
+      "add_price": "添加价格",
+      "subscription": "订阅",
+      "one_off_payment": "一次性支付",
+      "addVimeoVideo": "添加Vimeo视频URL（可选）",
+      "subscription_or": "订阅或一次性支付",
+      "add_doc": "添加文档",
+      "add_sample_doc": "添加示例文档",
+      "remove_all": "全部删除"
+    },
+    "video": {
+      "update": "更新",
+      "edit_video": "编辑视频",
+      "cancel": "取消",
+      "areYouSure": "您确定要继续吗？此操作无法撤销",
+      "deleteVideo": "删除视频",
+      "title": "视频",
+      "product": "产品和套餐",
+      "add": "添加",
+      "addVideo": "添加视频",
+      "videoURL": "视频URL",
+      "close": "关闭",
+      "delete": "删除",
+      "edit": "编辑"
+    },
+    "category": {
+      "add": "添加类别",
+      "edit_cat": "编辑类别",
+      "product_categories_store": "产品类别：商店",
+      "product_categories": "产品类别",
+      "category_name": "产品类别名称",
+      "add_category": "添加类别",
+      "status": "状态",
+      "enabled": "启用",
+      "disabled": "禁用",
+      "close": "关闭",
+      "submit": "提交",
+      "edit": "编辑",
+      "delete": "删除",
+      "total_products": "总产品数",
+      "delete_product_category": "删除产品类别",
+      "delete_msg": "您确定要继续吗？此操作无法撤销"
+    },
+    "document": {
+      "delete_document": "删除文档",
+      "areYouSure": "您确定要继续吗？此操作无法撤销",
+      "close": "关闭",
+      "update": "更新",
+      "edit_document": "编辑文档",
+      "uploadDocument": "上传文档",
+      "upload": "上传",
+      "cancel": "取消",
+      "add_sample_document": "添加示例文档",
+      "products": "产品",
+      "title": "文档|商店",
+      "document": "文档",
+      "add": "添加",
+      "edit": "编辑",
+      "delete": "删除",
+      "view": "查看",
+      "createdAt": "创建于"
+    },
+    "question": {
+      "cancel": "取消",
+      "delete": "删除",
+      "areYouSure": "您确定要继续吗？此操作无法撤销",
+      "delete_product_questions": "删除产品问题",
+      "add_product_question": "添加产品问题",
+      "edit_product_questions": "编辑产品问题",
+      "no": "否",
+      "add_question": "添加问题",
+      "action": "动作",
+      "description": "描述",
+      "titles": "标题",
+      "title": "问题|商店",
+      "question": "问题",
+      "products": "产品和套餐",
+      "answer": "答案",
+      "close": "关闭",
+      "submit": "提交"
+    },
+    "sample_doc": {
+      "title": "示例文档|商店",
+      "sample_doc": "示例文档",
+      "products": "产品和套餐",
+      "add": "添加"
+    },
+    "edit": {
+      "title": "产品编辑|商店",
+      "edit": "产品编辑",
+      "products": "产品和套餐"
+    },
+    "delete": {
+      "areYouSure": "您确定要继续吗？此操作无法撤销",
+      "delete_product": "删除产品",
+      "cancel": "取消",
+      "delete": "删除"
+    }
+  },
+  "material": {
+    "action": "操作",
+    "category": "类别",
+    "sort_order": "排序顺序",
+    "title": "产品 | 商店",
+    "materials": "材料",
+    "material": "材料",
+    "material_categories": "材料类别",
+    "no": "编号",
+    "product_name": "产品名称",
+    "doc_count": "文档数量",
+    "video_count": "视频数量",
+    "view": "查看",
+    "add": "添加",
+    "add_material": {
+      "submit": "提交",
+      "choose_product": "选择产品",
+      "material_category": "材料类别",
+      "description": "描述",
+      "add_video": "添加视频",
+      "URL": "URL",
+      "title": "标题",
+      "expiry_date": "过期日期",
+      "add_document": "添加文档"
+    }
+  },
+  "events": {
+    "events_title": "活动 | 商店",
+    "events": "活动",
+    "no": "编号",
+    "image": "图片",
+    "product": "产品",
+    "events_type": "活动类型",
+    "scope": "范围",
+    "URL": "URL",
+    "zoom_password": "Zoom密码",
+    "from": "从",
+    "time": "时间",
+    "duration": "持续时间",
+    "host": "主持人",
+    "topic": "主题",
+    "action": "操作",
+    "add": "添加",
+    "edit": "编辑活动",
+    "delete": "删除活动",
+    "are_you_sure": "您确定要继续吗？此操作无法撤销",
+
+    "add_event": {
+      "private": "私人",
+      "public": "公共",
+      "access_scope": "访问范围",
+      "zoomPassword": "Zoom密码",
+      "location_Zoom": "地点/Zoom URL",
+      "event_type": "活动类型",
+      "description": "描述",
+      "when": "何时",
+      "date": "日期",
+      "time": "时间",
+      "duration": "持续时间",
+      "time_zone": "时区",
+      "host_details": "主持人详情",
+      "host": "主持人",
+      "topic": "主题",
+      "submit": "提交",
+      "edit": "查看/编辑",
+      "delete": "删除",
+      "cancel": "取消",
+      "status": "状态",
+      "hours": "小时",
+      "minutes": "分钟"
+    }
+  },
+  "user_review": {
+    "edit_review": "编辑评论",
+    "cancel": "取消",
+    "delete": "删除",
+    "are_you_sure": "您确定要继续吗？此操作无法撤销",
+    "delete_review": "删除评论",
+    "review_view": "评论查看",
+    "user_name": "用户名",
+    "comment": "评论",
+    "action": "操作",
+    "review_view_title": "评论查看 | 商店",
+    "back": "返回",
+    "products": "产品",
+    "post_review": "发表评论",
+    "title": "标题",
+    "review": "评论",
+    "your_review_about": "您对此产品的评论：",
+    "user_review_title": "用户评论 | 商店",
+    "user_review": "用户评论",
+    "add_review": "评论",
+    "no": "编号",
+    "product": "产品",
+    "total_review": "总评论数",
+    "rating": "评分",
+    "view": "查看",
+    "review_add_title": "添加评论",
+    "leave_a_comment": "留下评论"
+  },
+
+  "coupons": {
+    "edit_coupon": "编辑优惠券",
+    "edit_coupon_title": "编辑优惠券 | 商店",
+    "deleteCoupon": "删除优惠券",
+    "areYouSure": "您确定要继续吗？此操作无法撤销",
+    "cancel": "取消",
+    "edit": "编辑",
+    "delete": "删除",
+    "coupon_title": "优惠券 | 商店",
+    "coupon": "优惠券",
+    "add_coupon": "添加优惠券",
+    "no": "编号",
+    "couponName": "优惠券名称",
+    "code": "代码",
+    "type": "类型",
+    "used_available": "已使用/可用",
+    "discountFix": "折扣（固定/百分比）",
+    "startDate": "开始日期",
+    "endDate": "结束日期",
+    "active": "激活",
+    "created_at": "创建于",
+    "action": "操作",
+    "add_coupon_title": "添加优惠券：商店",
+    "add": "添加",
+    "add_form": {
+      "coupon_name": "优惠券名称",
+      "code": "代码",
+      "type": "类型",
+      "fixed_amount": "固定金额",
+      "percentage": "百分比",
+      "total_amount": "总金额",
+      "discount": "折扣",
+      "status": "状态",
+      "enabled": "启用",
+      "disabled": "禁用",
+      "usesPerCoupon": "每个优惠券使用次数",
+      "usesPerCustomer": "每个客户使用次数",
+      "from": "从",
+      "to": "至",
+      "submit": "提交"
+    }
+  },
+  "lead_capture": {
+    "enter_details": "输入详细信息",
+    "lead": "潜在客户",
+    "no": "编号",
+    "name": "姓名",
+    "email": "电子邮件",
+    "mobile": "手机号码",
+    "created_at": "创建于",
+    "edit": "编辑",
+    "cancel": "取消",
+    "submit": "提交",
+    "edit_lead": "编辑潜在客户"
+  },
+
+  "errors": {
+    "lead_capture": {
+      "email": {
+        "required": "电子邮件必须是有效的电子邮件地址"
+      },
+      "username": {
+        "required": "用户名是必需的"
+      },
+      "mobile": {
+        "required": "手机号码是必需的"
+      }
+    },
+    "financial": {
+      "pay_now": {
+        "valid": "输入有效金额",
+        "min": "金额应至少为1",
+        "limit": "您的余额不足",
+        "required": "金额是必需的"
+      },
+      "fund_transfer": {
+        "wallet": {
+          "required": "请选择一个来源钱包"
+        },
+        "amount": {
+          "min": "最小金额应为1",
+          "type": "金额是必需的",
+          "required": "请选择一个金额"
+        },
+        "user_id": {
+          "type": "请选择一个用户",
+          "required": "请选择一个用户"
+        }
+      },
+      "payout": {
+        "amount": {
+          "type": "金额是必需的",
+          "min": "确保您已输入最低提现金额",
+          "required": "金额是必需的"
+        },
+        "coin_id": "币种是必需的"
+      },
+
+      "fund_credit": {
+        "user_id": { "required": "姓名是必需的" },
+        "amount": {
+          "required": "金额是必需的",
+          "type": "金额是必需的"
+        },
+        "wallet_type": {
+          "required": "钱包是必需的"
+        }
+      }
+    },
+    "help_center": {
+      "department": {
+        "name": {
+          "required": "部门名称是必需的"
+        },
+        "description": {
+          "required": "部门描述是必需的"
+        },
+        "active": {
+          "required": "状态是必需的"
+        },
+        "sort_order": {
+          "required": "排序顺序是必需的"
+        }
+      },
+      "categories": {
+        "name": {
+          "required": "名称是必需的"
+        },
+        "description": {
+          "required": "描述是必需的"
+        },
+        "active": {
+          "required": "状态是必需的"
+        }
+      },
+      "canned_response": {
+        "name": { "required": "标题名称是必需的" },
+        "subject": { "required": "主题是必需的" },
+        "message": {
+          "required": "描述是必需的"
+        }
+      },
+      "priorities": {
+        "name": { "required": "名称是必需的" },
+        "description": { "required": "描述是必需的" },
+        "color": { "required": "颜色是必需的" }
+      },
+      "add_ticket": {
+        "description": { "required": "描述名称是必需的" },
+        "priority_id": { "required": "优先级是必需的" },
+        "department_id": { "required": "部门是必需的" },
+        "category_id": { "required": "类别是必需的" },
+        "subject": { "required": "主题是必需的" },
+        "user_id": {
+          "required": "用户是必需的",
+          "type": "用户是必需的"
+        },
+        "status": {
+          "required": "状态是必需的"
+        }
+      },
+      "reply_form": {
+        "title": {
+          "required": "标题是必需的"
+        },
+        "body": {
+          "required": "描述是必需的"
+        }
+      }
+    },
+    "products": {
+      "add": {
+        "product_name": { "required": "产品名称是必需的" },
+        "active": {
+          "required": "激活是必需的"
+        },
+        "price": {
+          "required": "需要价格",
+          "typeError": "需要价格",
+          "min": "价格不能 0"
+        },
+        "product_description": {
+          "required": "产品描述是必需的"
+        },
+        "meta_description": { "required": "元描述是必需的" },
+        "meta_keywords": {
+          "required": "元关键字是必需的"
+        },
+        "title": { "required": "标题是必需的" },
+        "product_category_id": {
+          "required": "产品类别是必需的",
+          "type": "产品类别是必需的"
+        },
+        "bv_percentage": {
+          "required": "BV百分比是必需的",
+          "type": "BV百分比是必需的",
+          "test": "请输入有效的百分比值"
+        },
+        "euro_value": {
+          "required": "欧元价值为必填项",
+          "type": "欧元价值为必填项"
+        },
+        "qualification_value": {
+          "required": "资格值是必填项",
+          "type": "资格值是必填项"
+        },
+        "business_volume": {
+          "required": "业务量为必填项",
+          "type": "业务量为必填项"
+        },
+        "product_url": { "required": "产品URL是必需的" },
+        "video": { "required": "请输入有效的URL" },
+        "image": { "test": "请选择一张图片" },
+        "doc": { "test": "请选择一个文档" },
+        "sample_doc": { "test": "请选择一个示例文档" }
+      },
+      "category": {
+        "name": { "required": "产品类别名称是必需的" },
+        "status": { "required": "状态是必需的" }
+      }
+    },
+
+    "faqs": {
+      "category_id": {
+        "required": "类别名称是必需的"
+      },
+      "question": {
+        "required": "问题是必需的"
+      },
+      "answer": {
+        "required": "答案是必需的"
+      }
+    },
+
+    "faq_categories": {
+      "name": { "required": "类别名称是必需的" },
+      "description": { "required": "描述是必需的" }
+    },
+
+    "articles": {
+      "add": {
+        "title": { "required": "标题是必需的" },
+        "description": { "required": "描述是必需的" },
+        "category_id": { "required": "类别是必需的" },
+        "name": { "required": "文章类别名称是必需的" }
+      }
+    },
+
+    "blogs": {
+      "add": {
+        "title": { "required": "标题是必需的" },
+        "content": { "required": "内容是必需的" },
+        "category_id": { "min": "类别是必需的" },
+        "meta_keywords": { "required": "元关键字是必需的" },
+        "meta_description": { "required": "元关键字是必需的" },
+        "short_description": { "required": "简短描述是必需的" },
+        "image": { "required": "图片是必需的" },
+        "product_id": {
+          "required": "产品是必需的",
+          "min": "产品是必需的"
+        }
+      },
+      "categories": {
+        "name": { "required": "名称是必需的" },
+        "desc": {
+          "required": "描述是必需的"
+        }
+      },
+
+      "add_comment": {
+        "comment": {
+          "required": "评论是必需的"
+        },
+        "title": {
+          "required": "标题是必需的"
+        },
+        "rating": {
+          "max": "最大可能评分为5",
+          "required": "电子邮件是必需的"
+        }
+      }
+    },
+    "tickets": {
+      "reply_form": {
+        "body": {
+          "required": "消息是必需的"
+        },
+        "title": {
+          "required": "标题是必需的"
+        }
+      },
+      "create_form": {
+        "department_id": {
+          "type": "请选择一个部门",
+          "required": "请选择一个部门"
+        },
+        "priority_id": {
+          "type": "请选择一个优先级",
+          "required": "请选择一个优先级"
+        },
+        "category_id": {
+          "type": "请选择一个类别",
+          "required": "请选择一个类别"
+        },
+        "subject": {
+          "required": "请选择一个主题"
+        },
+        "description": {
+          "required": "请选择一个描述"
+        }
+      }
+    },
+
+    "profile": {
+      "edit": {
+        "first_name": {
+          "required": "名字是必需的",
+          "matches": "只能包含字母"
+        },
+        "last_name": {
+          "required": "姓氏是必需的",
+          "matches": "只能包含字母"
+        },
+        "mobile": {
+          "required": "手机号码是必需的",
+          "type": "输入有效的手机号码"
+        },
+        "gender": {
+          "required": "性别是必需的"
+        },
+        "zipcode": {
+          "required": "邮政编码是必需的"
+        },
+        "address": {
+          "required": "地址是必需的"
+        },
+        "country": {
+          "required": "国家是必需的"
+        },
+        "state": {
+          "required": "州/省是必需的",
+          "matches": "只能包含字母"
+        },
+        "city": {
+          "required": "城市是必需的",
+          "matches": "只能包含字母"
+        },
+        "medium": {
+          "url": "请输入有效的URL"
+        },
+        "fb": {
+          "url": "请输入有效的URL"
+        },
+        "x": {
+          "url": "请输入有效的URL"
+        },
+        "insta": {
+          "url": "请输入有效的URL"
+        },
+        "profile_image": {
+          "required": "头像是必需的"
+        }
+      },
+      "notes": {
+        "note": {
+          "required": "注释是必需的"
+        }
+      }
+    },
+    "brand": {
+      "name": {
+        "required": "公司名称是必需的"
+      },
+      "address": {
+        "required": "地址是必需的"
+      },
+      "email": {
+        "required": "电子邮件是必需的",
+        "email": "电子邮件是必需的"
+      },
+      "sort_order": {
+        "required": "排序顺序是必需的",
+        "type": "排序顺序是必需的"
+      },
+      "section_id": {
+        "required": "部分是必需的"
+      },
+      "menu_name": {
+        "required": "菜单名称是必需的"
+      },
+      "title": {
+        "required": "标题是必需的"
+      },
+      "url": {
+        "required": "URL是必需的"
+      },
+      "description": { "required": "描述是必需的" }
+    },
+
+    "user_review": {
+      "rating": {
+        "required": "评分是必需的"
+      },
+      "product_id": {
+        "required": "请选择一个产品"
+      },
+      "comment": {
+        "required": "评论是必需的"
+      },
+      "title": {
+        "required": "标题是必需的"
+      },
+      "username": {
+        "required": "用户名是必需的"
+      }
+    },
+
+    "coupons": {
+      "name": {
+        "required": "优惠券名称是必需的"
+      },
+      "type": {
+        "required": "优惠券类型是必需的"
+      },
+      "code": {
+        "required": "代码是必需的",
+        "matches": "代码只能包含字母、数字、破折号和下划线"
+      },
+      "discount": {
+        "required": "折扣是必需的",
+        "type": "折扣是必需的",
+        "min": "金额应至少为零",
+        "maxi": "应小于总金额",
+        "max": "百分比不应大于100"
+      },
+      "uses_per_coupon": {
+        "required": "每张优惠券的用户数是必需的",
+        "type": "每张优惠券的用户数是必需的",
+        "min": "金额应至少为一",
+        "integer": "不应包含小数值"
+      },
+      "uses_per_customer": {
+        "required": "每位客户使用次数是必需的",
+        "type": "每位客户使用次数是必需的",
+        "min": "金额应至少为一",
+        "integer": "不应包含小数值",
+        "max": "应小于或等于每张优惠券的使用次数"
+      },
+      "total_amount": {
+        "required": "总金额是必需的",
+        "type": "总金额是必需的",
+        "min": "金额应至少为零"
+      },
+      "start_date": {
+        "test": "输入有效的日期",
+        "valid": "开始日期不应大于结束日期"
+      },
+      "end_date": {
+        "test": "输入有效的日期",
+        "valid": "结束日期不应小于开始日期"
+      }
+    },
+
+    "events": {
+      "product_id": {
+        "required": "产品是必需的",
+        "min": "产品是必需的"
+      },
+      "event_type": {
+        "required": "事件类型是必需的"
+      },
+      "location_url": {
+        "required": "位置是必需的"
+      },
+      "description": {
+        "required": "描述是必需的"
+      },
+      "time": {
+        "required": "时间是必需的"
+      },
+      "hr": {
+        "required": "小时是必需的"
+      },
+      "min": {
+        "required": "分钟是必需的"
+      },
+      "timezone": {
+        "required": "时区是必需的"
+      },
+      "host": {
+        "required": "主持人名称是必需的"
+      },
+      "topic": {
+        "required": "主题是必需的"
+      },
+      "zoom_password": {
+        "required": "Zoom密码是必需的"
+      }
+    },
+    "product": {},
+    "date": {
+      "valid_start": { "test": "开始日期不应大于结束日期" },
+      "valid_end": { "test": "结束日期不应大于开始日期" },
+      "valid_date": {
+        "test": "输入一个有效日期"
+      }
+    },
+    "material": {
+      "product_list": {
+        "min": "至少选择一个产品"
+      },
+      "category_id": {
+        "required": "请选择一个类别"
+      },
+      "video": {
+        "matches": "添加视频或文档",
+        "url": "请输入有效的URL"
+      },
+      "video_title": {
+        "required": "视频标题是必需的"
+      },
+      "video_access_time": {
+        "required": "视频到期日期是必需的",
+        "test": "请输入有效日期",
+        "type": "视频到期日期是必需的"
+      },
+      "doc": {
+        "test": "添加视频或文档"
+      },
+      "doc_title": {
+        "required": "文档标题是必需的"
+      },
+      "user_id": {
+        "required": "用户是必需的"
+      },
+      "option_value": {
+        "required": "产品是必需的"
+      },
+      "rank_value": {
+        "required": "等级是必需的"
+      },
+      "doc_access_time": {
+        "test": "请输入有效日期",
+        "type": "文档到期日期是必需的",
+        "required": "文档到期日期是必需的"
+      }
+    },
+    "material_categories": {
+      "name": {
+        "required": "类别名称是必需的"
+      },
+      "sort_order": {
+        "required": "排序顺序是必需的"
+      }
+    },
+    "product_document": {
+      "sample_doc": {
+        "required": "选择一个文档"
+      },
+      "doc": {
+        "required": "选择一个文档"
+      }
+    },
+    "product_question": {
+      "title": {
+        "required": "标题是必需的"
+      },
+      "description": {
+        "required": "描述是必需的"
+      }
+    },
+    "register": {
+      "email": {
+        "email": "电子邮件必须是有效的电子邮件地址",
+        "required": "电子邮件是必填项"
+      },
+      "username": {
+        "required": "用户名是必填项",
+        "matches": "该字段不能包含特殊字符或空格"
+      },
+      "password": {
+        "required": "新密码是必填项",
+        "min": "密码必须至少为8个字符"
+      },
+      "repassword": {
+        "oneOf": "密码必须匹配"
+      }
+    },
+    "login": {
+      "email": {
+        "email": "电子邮件必须是有效的电子邮件地址",
+        "required": "电子邮件是必填项"
+      },
+      "password": {
+        "required": "密码是必填项"
+      }
+    },
+    "sub_admin": {
+      "name": {
+        "required": "姓名不能为空"
+      },
+      "description": {
+        "required": "描述不能为空"
+      },
+      "username": {
+        "required": "用户名不能为空"
+      },
+      "group_id": {
+        "required": "用户组不能为空"
+      },
+      "mobile": {
+        "required": "手机号码不能为空",
+        "matches": "必须是数字"
+      },
+      "email": {
+        "required": "电子邮件地址不能为空",
+        "email": "请输入有效的电子邮件地址"
+      },
+      "is_impersonation": {
+        "required": "模拟是必需的",
+        "typeError": "请选择一个值"
+      }
+    },
+    "email": {
+      "subject": {
+        "required": "主题不能为空"
+      },
+      "message": {
+        "required": "邮件正文不能为空"
+      },
+      "to_users_id": {
+        "min": "至少选择一个用户"
+      }
+    },
+    "tools": {
+      "title": {
+        "required": "文档标题不能为空"
+      },
+      "sort_order": {
+        "required": "排序顺序不能为空",
+        "integer": "排序顺序必须是整数",
+        "typeError": "应为数字"
+      },
+      "document_url": {
+        "test": "文档是必需的"
+      },
+      "video": {
+        "title": {
+          "required": "标题不能为空"
+        },
+        "video_tool_url": {
+          "required": "视频链接不能为空",
+          "matches": "此字段仅支持 Vimeo 链接或有效链接"
+        }
+      }
+    },
+    "member": {
+      "password": {
+        "username": {
+          "required": "用户名不能为空"
+        },
+        "password": {
+          "required": "密码不能为空",
+          "min": "密码必须至少有 8 个字符"
+        },
+        "confirmPassword": {
+          "oneOf": "密码必须匹配",
+          "required": "确认密码不能为空"
+        }
+      },
+      "username": {
+        "new_username": {
+          "required": "新用户名不能为空"
+        }
+      }
+    }
+  }
+}

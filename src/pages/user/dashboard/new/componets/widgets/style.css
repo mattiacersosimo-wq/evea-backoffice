@@ -1,0 +1,37 @@
+.ref-card {
+  position: relative;
+  border-radius: 0;
+}
+.ref-card::before {
+  content: "";
+  position: absolute;
+  height: 84px;
+  width: 100%;
+  border-radius: 0;
+  top: 0px;
+  left: 0;
+  border-radius: 10px;
+}
+.rfrlCntnt {
+  position: relative;
+  z-index: 1;
+  margin-top: -15px;
+  padding-top: 35px;
+}
+.s2 {
+  list-style-type: circle;
+  list-style-position: inside;
+  margin-left: 1rem;
+  padding: 10px;
+}
+.s2 li::marker {
+  font-size: 1.2em;
+  color: #0052bd;
+}
+.RankStyle {
+  color: #000;
+  text-align: right;
+  margin: 3rem 2rem 0px 0px !important;
+  position: absolute;
+  right: 0;
+}

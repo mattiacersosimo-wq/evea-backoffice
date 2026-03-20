@@ -1,0 +1,3217 @@
+{
+  "global": {
+    "subscription": "Подписка",
+    "business_volume": "Объем бизнеса",
+    "update_card": "Обновить карту",
+    "recurring_enabled_on": "Регулярные платежи включены",
+    "recurring_enabled": "Регулярные платежи включены",
+    "disable_recurring": "Отключить регулярные платежи",
+    "order_history": "История заказов",
+    "payout_method": "Метод выплаты",
+    "payout_info": "Информация о выплате",
+    "current_rank": "Текущий рейтинг",
+    "users": "Пользователи",
+    "total_tickets": "Всего билетов",
+    "completed": "Завершенный",
+    "pending_payment": "Ожидающий платёж",
+    "processing": "В обработке",
+    "on_hold": "Приостановлено",
+    "cancelled": "Отменено",
+    "refunded": "Возвращено",
+    "failed": "Не удалось",
+    "affiliate_dashboard": "Партнерская панель",
+    "bonus_value": "Бонусная стоимость",
+    "qualification_value": "Значение квалификации",
+    "euro_value": "Стоимость евро",
+    "team_orders":"Заказы команды",
+    "pendingcommissions":"Ожидаемые комиссии",
+    "confirm":"Подтверждать",
+    "changedate":"Изменить дату",
+    "country":"Страна",
+    "rank_achievers":" Герои ранга",
+    "top_recruiters":" Лучшие рекрутеры",
+    "top_earners":" Лучшие зарабатывающие",
+    "pqv_required":" Требуется PQV",
+    "tv_required":" Требуется телевизор",
+    "gv_required":" Требуется ГВ",
+    "name_package": "Название/упаковка/продукт",
+    "sold_out": "Всего распродано",
+    "amount_paid": "Оплаченная сумма",
+    "order_id": "Идентификатор заказа",
+    "transactionsCan": "Транзакции могут занимать от 02 до 12 часов на подтверждение",
+    "transaction_password": "Пароль транзакции",
+    "old_password": "Старый пароль",
+    "transaction": "Когда вы забыли свой пароль транзакции,",
+    "sendMail": "нажмите здесь, чтобы отправить письмо.",
+    "kyc_details": "KYC Подробности",
+    "email": "Электронная почта",
+    "Identity_proof": "Доказательство личности",
+    "proof_of_address": "Подтверждение адреса",
+    "pending": "В ожидании",
+    "upload": "Загрузить",
+    "users_join": "Присоединившиеся пользователи",
+    "top_performers": "Лучшие исполнители",
+    "scanThisCode": "Отсканируйте этот код для оплаты",
+    "OrderApproval": "Подтверждение заказа",
+    "Order": "Заказ",
+    "products": "Товары",
+    "pending_payments": "Ожидающие платежи",
+    "payment_status": "Статус платежа",
+    "total_members": "Всего участников",
+    "approve": "Утвердить",
+    "reject": "Отклонять",
+    "reason": "Причина *",
+    "kyc_pending": "Проверка KYC находится на рассмотрении !",
+    "kyc_reject": "Проверка KYC отклоняется !",
+    "kyc_approved": "Проверка KYC утверждена !",
+
+    "your_password": "Ваш новый пароль",
+    "your_new_password": "Пожалуйста, введите свой новый пароль !!!",
+    "back_to": "Вернуться на страницу авторизации",
+    "coin": "Адрес монеты",
+    "update_coin": "Обновите свой адрес монеты",
+    "edit_Video": "Редактировать видео",
+    "account_login": "Блок учетной записи входит в систему",
+    "payout": "Блок выплаты",
+    "fund_transfer": "Блок фонда перевод",
+    "referral": "Блок реферал",
+    "sponsor_information": "Информация о спонсоре",
+    "View": "Вид",
+    "Video_title": "Название видео",
+    "coin_address": "Обновить информацию о выплате",
+    "bv_percentage": "BV Процент",
+    "days": "Дни",
+    "overdue": "Просроченные заявки",
+    "delete_blog": "Удалить блог",
+    "resolved": "Решенные заявки",
+    "inProgress": "Заявки в процессе выполнения",
+    "responded": "Заявки с ответом",
+    "Dates": "Даты",
+    "package_add": "Добавить пакет",
+    "messageImage": "* Пожалуйста, попробуйте загрузить изображение размером менее 200 КБ для лучшего пользовательского опыта * Или вы можете использовать функцию обрезки.",
+    "imageValid": "* При загрузке изображений вы можете загружать изображения с размерами 700 ширина и 410 высота (или сохранить эту пропорцию 700 * 410)",
+    "max_size": "Максимальный размер",
+    "select_a_package": "Выберите пакет",
+    "enable_recurring": "Включить повторяющиеся платежи",
+    "dropSelected": "Отбросить файлы здесь или нажмите",
+    "deleteFaq": "Удалить FAQ",
+    "rank_bonus": "Ранг бонус",
+    "impersonateText": "Администратор не может включить 2FA для других пользователей",
+    "blocked": "Заблокированный",
+    "weekly": "Еженедельно",
+    "addNewRank": "Добавить новый звание",
+    "rankName": "Имя ранга",
+    "add_Rank": "Добавить ранг",
+    "Options": "Опции",
+    "Rank_Criteria": "Критерии ранга",
+    "Referral_Package_Count": "Количество пакетов рекомендаций",
+    "Bonus_amount": "Сумма бонуса",
+    "Personal_Volume": "Личный объем",
+    "Referral_Package": "Пакет рекомендаций",
+    "Referral_Count": "Количество рекомендаций",
+    "Team_Volume": "Объем команды",
+    "package": "Пакеты",
+    "binary_matching_bonus_settings": "Настройки двоичного бонуса за совпадение",
+    "matchingBonus": "Двоичный бонус за совпадение",
+    "binary_bonus": "Двоичный бонус",
+    "daily": "Ежедневно",
+    "monthly": "Ежемесячно",
+    "instant": "Мгновенно",
+    "first_order_percentage": "Процент первого порядка",
+    "remove": "Удалять",
+    "Binary_Criteria": "Бинарные критерии",
+    "fund_credit": "Фонд кредита",
+    "fund_debit": "Фонд дебет",
+    "home": "Главная",
+    "export": "Экспорт",
+    "product": "Продукт",
+    "dashboard": "Панель управления",
+    "balance": "Баланс",
+    "product_name": "Название продукта",
+    "product_one": "Продукт",
+    "product_other": "Продукты",
+    "category_one": "Категория",
+    "category_other": "Категории",
+    "search": "Поиск",
+    "no_data": "Данные отсутствуют",
+    "something_wrong": "Что-то пошло не так. Пожалуйста, попробуйте позже",
+    "oops": "Упс !!!",
+    "month": "Месяц",
+    "review_one": "Обзор",
+    "review_other": "Отзывы",
+    "document": "Документ",
+    "sample_document": "Пример документа",
+    "description": "Описание",
+    "question_one": "Вопрос",
+    "question_other": "Вопросы",
+    "no": "Нет",
+    "invoice_id": "Идентификатор счета",
+    "payment_method": "Метод оплаты",
+    "order_date": "Дата заказа",
+    "total_price": "Общая стоимость",
+    "action": "Действие",
+    "notes": "Примечания",
+    "note": "Примечание",
+    "continue": "Продолжить",
+    "cancel": "Отмена",
+    "title": "Заголовок",
+    "comment": "Комментарий",
+    "all": "Все",
+    "view": "Просмотр",
+    "upcoming": "Предстоящие",
+    "past": "Прошлые",
+    "reset": "Сбросить",
+    "amount": "Сумма",
+    "e_wallet": "Электронный кошелек",
+    "d_wallet": "Депозитный кошелек",
+    "send": "Отправить",
+    "request": "Запросить",
+    "month_count": "{{count}} месяц",
+    "view_document": "Просмотреть документ",
+    "comments": "Комментарии",
+    "compose": "Создать",
+    "description_place_holder": "Напишите что-нибудь...",
+    "user": "Пользователь",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "username": "Имя пользователя",
+    "upload_profile": "Загрузить фото",
+    "allowed": "Разрешено",
+    "max": "Максимальный размер",
+    "images": "Изображения",
+    "name": "Имя",
+    "total_commission": "Общая комиссия",
+    "total_payout": "Общий выход",
+    "last_seen": "Последний вход",
+    "your_activity_history": "История вашей активности",
+    "referrals": "Рефералы",
+    "logged_in": "Вошел в систему",
+    "total_amount": "Общая сумма",
+    "payment_type": "Тип платежа",
+    "wallet_type": "Тип кошелька",
+    "credit": "Кредит",
+    "debit": "Дебет",
+    "deposit_wallet": "Кошелек для депозита",
+    "ewallet": "Электронный кошелек",
+    "expense": "Расход",
+    "total_credits": "Общий кредит",
+    "user_type":"Тип пользователя",
+    "min_pqv":"Минимальное ПКВ"
+
+  },
+  "pendingranks": {
+    "table": {
+      "title": "Ожидающие ранги",
+      "no": "№",
+      "user_name": "Имя пользователя",
+      "rankname": "Название ранга",
+      "gv": "ГВ",
+      "tv": "ТВ",
+      "pqv": "ПКВ"
+    }
+  },
+
+  "email_template": {
+    "title": "Настройки шаблона электронного письма",
+    "form": {
+      "subject": "Тема",
+      "email_template_id": "Идентификатор шаблона электронной почты SendGrid",
+      "content": "Содержание",
+      "button": "обновлять"
+    }
+  },
+
+  "email_settings": {
+    "title": "Настройки шаблона электронной почты",
+    "table": {
+      "no": "№",
+      "name": "Имя",
+      "template_id": "Идентификатор шаблона электронной почты SendGrid",
+      "language": "Язык",
+      "subject": "Тема",
+      "edit_template": "Редактировать шаблон"
+    }
+  },
+  "register": {
+    "welcome": "Привет, с возвращением!",
+
+    "reset": "Сбросить пароль",
+    "please": "Пожалуйста, проверьте свою электронную почту.",
+    "request": "Запрос успешно отправлен",
+    "we_have": "Мы отправили подтверждение на электронную почту",
+    "back": "Назад",
+    "pls_enter": "Введите адрес электронной почты, связанный с вашим аккаунтом, и мы вышлем вам ссылку для сброса пароля.",
+    "forgot_yur": "Забыли пароль?",
+    "choose_plan": "Выберите план",
+    "forgot": "Забыли пароль?",
+    "remember": "Запомнить меня",
+    "register_new": "Зарегистрировать нового участника",
+    "partner": "Начать работу партнером по маркетингу",
+    "login": "Вход",
+    "already": "Уже есть аккаунт",
+    "register": "Зарегистрироваться",
+    "terms": "Условия обслуживания",
+    "policy": "Политика конфиденциальности",
+    "referral": "Идентификатор реферала (необязательно)",
+    "re_enter_password": "Повторите пароль",
+    "password": "Пароль",
+    "username": "Имя пользователя",
+    "email": "Адрес электронной почты",
+    "sign_to": "Войти в",
+    "don't_have": "Нет аккаунта",
+    "get_started": "Начать",
+    "welcome_back": "Привет, с возвращением"
+  },
+  "user_nav": {
+    "recurring_orders": "Повторяющиеся заказы",
+    "pendingcommissions":"Ожидаемые комиссии",
+    "affiliate_dashboard": "Партнерская панель",
+    "coupons":{
+      "title": "Купоны",
+      "list": "Мои купоны"
+    },
+    "referals":"Рефералы",
+
+    "my_subscriptions": "Мои подписки",
+    "dashboard": "Панель управления",
+    "join_telegram": "Присоединяйтесь к Telegram",
+    "online_store": {
+      "online_store": "Онлайн-магазин",
+      "product": "Продукты",
+      "my_orders": "Мои заказы",
+      "packages": "Пакеты",
+      "subscriptions": "Подписки"
+    },
+    "genealogy": {
+      "list": "Список",
+      "genealogy": "Генеалогия",
+      "binary": "Двоичная",
+      "sponsor": "Спонсор",
+      "tree": "Дерево",
+      "matrix": "Матрица",
+      "affiliate_dashboard": "Партнерская панель управления",
+      "binary_leg_settings": "Настройки двоичной ноги"
+    },
+    "financial": {
+      "financial": "Финансы",
+      "my_eWallet": "Мой электронный кошелек",
+      "deposit_wallet": "Депозитный кошелек",
+      "fund_transfer": "Перевод средств",
+      "request_payout": "Запрос выплаты"
+    },
+    "business_builder": {
+      "business_builder": "Строитель бизнеса",
+      "subscriptions": "Подписки",
+      "materials": "Материалы"
+    },
+    "my_profile": "Мой профиль",
+    "blogs": "Блоги",
+    "help_center": {
+      "help_center": "Центр помощи",
+      "faqs": "Часто задаваемые вопросы",
+      "knowledge_base": "База знаний",
+      "emails": "Электронные письма",
+      "support_tickets": "Тикеты поддержки",
+      "documents": "Документы",
+      "videos": "Видео"
+    },
+    "income_report": "Отчет о доходах",
+    "leads": "Лиды"
+  },
+  "affiliate_dashboard": {
+    "previous_month_pending_commission": "Ожидаемая комиссия за предыдущий месяц",
+    "package_purchased": "Пакет куплен",
+    "first_generation": "Первая генерация",
+    "second_generation": "Вторая генерация",
+    "third_generation": "Третья генерация",
+    "total_bonus": "Общий бонус",
+    "levels": "Уровни",
+    "username": "Имя пользователя",
+    "dsp_ends_in": "УВЕЛИЧЕНИЕ БОНУСОВ ЗА ПРЯМЫЕ ПРОДАЖИ ЗАКАНЧИВАЕТСЯ",
+    "current_period_ends_in": "ТЕКУЩИЙ ПЕРИОД ЗАКАНЧИВАЕТСЯ ЧЕРЕЗ",
+    "recognition_rank": "РАНГ ПО РАСПОЗНАВАНИЮ",
+    "achieved_rank": "ДОСТИГНУТЫЙ РАНГ",
+    "currentRank": "ТЕКУЩИЙ РАНГ",
+    "qv": "QV",
+    "rank": "Ранг",
+    "bonus_amount": "Сумма бонуса",
+    "eveolving_bonus": "Бонус за развитие",
+    "achieved_count": "Количество достижений",
+    "current_percentage": "Текущий процент",
+    "level_1": "Уровень 1",
+    "level_2": "Уровень 2",
+    "leader_name": "Имя лидера",
+    "rank_name": "Название ранга",
+    "team_bv": "BV команды",
+    "bonus_percentage": "Процент бонуса",
+    "pending_bonus": "Ожидаемый бонус",
+    "generation_1": "Поколение 1",
+    "generation_2": "Поколение 2",
+    "eligible": "Подходит",
+    "amount_payable": "Сумма к выплате",
+    "from_user": "От пользователя",
+    "current_month_commissions": "Комиссии текущего месяца",
+    "unlocked_levels": "Разблокированные уровни",
+    "first_generation_promoters": "Промоутеры первого поколения",
+    "second_generation_promoters": "Промоутеры второго поколения",
+    "third_generation_promoters": "Промоутеры третьего поколения",
+    "min_personal_qualifying_volume": "Минимальный личный квалификационный объём",
+    "direct_promoter_assigned": "Назначен прямой промоутер",
+    "mvp_status_attained_through_direct_promoter": "Статус MVP, полученный через прямого промоутера",
+    "previous_month": "Предыдущий месяц",
+    "largest_order_details": "Детали крупнейшего заказа",
+    "euro_value": "Стоимость в евро",
+    "personal_order_qv": "Личный QV заказа",
+    "current_month": "Текущий месяц",
+    "pending_amount": "Ожидаемая сумма",
+    "personal_order_qv_in_current_month": "Личный QV заказа в текущем месяце",
+    "months_required_to_earn_bonus": "Месяцы, необходимые для получения бонуса",
+    "order_date": "Дата заказа",
+    "commission": "Комиссия",
+    "bv": "BV",
+    "customer_name": "Имя клиента",
+    "customer_details": "Детали клиента",
+    "corresponding_percentage": "Соответствующий процент",
+    "customers_who_placed_orders": "Клиенты, сделавшие заказы",
+    "current_package": "Текущий пакет",
+    "remaining_days_in_go_mvp": "Оставшиеся дни в Go MVP",
+    "eligibility_period_for_additional_bonus": "Период права на дополнительный бонус (в месяцах)",
+    "month": "Месяц",
+    "monthly_qualification_status": "Ежемесячный статус квалификации",
+    "personally_enrolled_customers": "Лично зарегистрированные клиенты",
+    "eveolution_rewards": "Награды за развитие",
+    "direct_qualifying_volume": "Прямой квалификационный объём",
+    "required_customers": "Требуемые клиенты",
+    "qualification_days": "Дни квалификации",
+    "no_of_customers_with_30_qv": "Количество клиентов с 30 QV",
+    "personally_enrolled_customers_with_30_qv": "Персонально зарегистрированные клиенты с 30 QV",
+    "personal_qualifying_volume": "Личный квалификационный объем",
+    "team_volume": "Командный объем",
+    "group_volume": "Групповой объем",
+    "s_no": "№",
+    "team": "Команда",
+    "percentage": "Процент",
+    "gv_taken": "Учтённый GV",
+    "current_rank": "Текущий ранг",
+    "next_rank": "Следующий ранг",
+    "sixty_percent_rule": "Правило шестидесяти процентов",
+    "pending_commission": "Ожидаемые комиссии",
+    "qualifiers": "Квалификации",
+    "requirements": "Требования",
+    "progress": "Прогресс",
+    "nextRank": "Следующий ранг",
+    "paidAsRankLastWeek": "Оплачено как ранг на прошлой неделе",
+    "highestRankAchieved": "Достигнут самый высокий ранг",
+    "current_paid": "Текущий оплаченный ранг",
+    "activeBusiness": "Активный бизнес-строитель",
+    "bronze": "Бронзовый",
+    "sliverExecutive": "Серебряный исполнитель",
+    "startup": "Стартап",
+    "activeCustomer": "Активный клиент",
+    "customer": "Клиент",
+    "weekly": "Еженедельный исторический BV (меньшая нога)",
+    "total": "Всего",
+    "aquired": "Полученный BV",
+    "required": "Требуемый BV",
+    "upcoming_week": "Следующая неделя",
+    "binary_bonus": "Бинарный бонус",
+    "no": "Нет",
+    "active_products": "Активный продукт",
+    "user_name": "Имя пользователя",
+    "email": "Электронная почта",
+    "active": "Активный",
+    "total_numberL": "Общее количество продаж (слева)",
+    "total_numberR": "Общее количество продаж (справа)",
+    "total_teamL": "Общие продажи команды (слева)",
+    "total_teamR": "Общие продажи команды (справа)",
+    "weeklyL": "Еженедельный BV (слева)",
+    "weeklyR": "Еженедельный BV (справа)",
+    "left_team": "Команда слева",
+    "left": "Слева",
+    "right": "Справа",
+    "right_team": "Команда справа",
+    "affiliate": "Партнер",
+    "personal_sales": "Личные продажи BV",
+    "team_sales": "Продажи команды BV",
+    "network_bonus": "Бонус сети",
+    "referral_bonus": "Реферальный бонус",
+    "referrals": "Рефералы",
+    "weekly_payout": "Недельный цикл выплат завершается"
+  },
+  "user_dashboard": {
+    "residual_bonus": "Прогресс остаточного бонуса",
+    "leadership_rewards": "Награды за лидерство",
+    "indirect_sales_bonus": "Прогресс бонуса за косвенные продажи",
+    "residual_rewards": "Остаточные награды",
+    "leadership_bonus": "Прогресс бонуса за лидерство",
+    "residual_matching_bonus": "Прогресс бонуса остаточного соответствия",
+    "rock_solid_bonus": "Прогресс бонуса Rock Solid",
+    "gameplay_rewards": "Игровые награды",
+    "eveolving_bonus": "Развивающийся бонусный прогресс",
+    "rock_solid_mvp_bonus": "Прогресс бонуса Rock Solid MVP",
+    "mvp_mentor_bonus": "Прогресс бонуса наставника MVP",
+    "direct_sales_bonus": "Бонус прямых продаж",
+    "rob_bonus": "Бонус за регулярный заказ",
+    "3_FF_Progress": "3. За свободный прогресс",
+    "achieved_rank":"Достигнутый ранг",
+    "current_rank":"Текущий рейтинг",
+
+    "go_MVP_bonus": "Бонусный прогресс Go MVP",
+    "rank_progress_bar": "Индикатор прогресса ранга",
+    "income": "Доход",
+    "incomeTitle": "На этой неделе",
+    "payout": "Общий доход",
+    "payoutTitle": "На этой неделе",
+    "balance": "Общий баланс",
+    "balanceTitle": "На этой неделе",
+    "referrals": "Общее количество рефералов",
+    "referralsTitle": "На этой неделе",
+    "downline": "Количество участников в команде",
+    "downlineTitle": "На этой неделе",
+    "incomeInfo": "Доход",
+    "payoutInfo": "Выплата",
+    "payout_graph": "Обзор выплат по доходам",
+    "network": {
+      "title": "Сеть",
+      "overview": "Обзор подключенных пользователей"
+    },
+
+    "events": {
+      "title": "События"
+    },
+
+    "team_performance": {
+      "table": {
+        "user": "Пользователь",
+        "referrals": "Рефералы",
+        "earnings": "Заработок"
+      },
+      "title": "Эффективность команды"
+    },
+
+    "referrals_table": {
+      "table": {
+        "user": "Пользователь",
+        "date": "Дата",
+        "action": "Действие"
+      },
+      "title": "Рефералы"
+    },
+    "referral_menu": {
+      "binary": "Двоичная",
+      "matrix": "Матрица",
+      "sponsor": "Спонсор",
+      "mono_line": "Моно-линия"
+    },
+    "nextlevelTitle": "Следующий уровень ждет вас!",
+    "nextlevelSubTitle": "Достигните нового ранга и откройте бесконечные возможности.",
+    "currentrank": "Текущий ранг",
+    "nextrank": "Следующий ранг"
+  },
+  "nav": {
+    "dashboard": {
+      "title": "Панель управления",
+      "business": "Бизнес",
+      "network": "Сеть"
+    },
+    "genealogy": {
+      "title": "Генеалогия",
+      "matrix": "Матрица",
+      "binary": "Бинарный",
+      "sponsor": "Спонсор",
+      "tree": "Древо",
+      "list": "Список",
+      "mono_line": "Моно линия"
+    },
+    "financial": {
+      "title": "Финансы",
+      "e_wallet": "Электронный кошелек",
+      "d_wallet": "Депозитный кошелек",
+      "fund_credit": "Кредит средств",
+      "payout": "Выплата",
+      "pendingcommission":"Ожидаемая комиссия"
+
+    },
+    "pendingranks": {
+      "title": "Ожидающие ранги",
+      "pending_ranks": "Ожидающие ранги"
+    },
+    "communication": {
+      "title": "Коммуникация",
+      "blog": "Блог",
+      "faqs": "Часто задаваемые вопросы",
+      "mails": "Электронные письма",
+      "help_center": "Центр помощи",
+      "article": "Статья"
+    },
+    "tools": {
+      "title": "Инструменты",
+      "documents": "Документы",
+      "videos": "Видео"
+    },
+    "members": {
+      "title": "Управление участниками",
+      "network": "Участники сети",
+      "holding": "Холдинг-танк",
+      "kyc_details": "Детали KYC"
+    },
+    "sub_admin": {
+      "title": "Субадминистратор",
+      "sub_admins": "Субадминистраторы"
+    },
+    "store": {
+      "packages": "Пакеты",
+      "choose_payments": "Выберите методы для включения",
+      "title": "Магазин",
+      "products": "Продукты",
+      "materials": "Материалы",
+      "events": "События",
+      "coupons": "Купоны",
+      "user_review": "Отзывы пользователей",
+      "assign": "Назначить подписки",
+      "bb_sales": "Продажи подписок Business Builder",
+      "payment_methods": "Способы оплаты",
+      "subscriptions": "Подписки"
+    },
+    "settings": {
+      "title": "Настройки",
+      "brand": "Бренд",
+      "bb": "Business Builder",
+      "network": "Сеть",
+      "withdrawal": "Вывод средств",
+      "currency": "Валюта",
+      "mail": "Шаблон письма",
+      "advanced": "Расширенные настройки"
+    },
+    "reports": {
+      "title": "Отчеты",
+      "builder": "Подписка билдера",
+      "fund_credit": "Кредит средств",
+      "joining": "Отчет о присоединении",
+      "members": "Доход участника",
+      "payout": "Выплата",
+      "point": "История баллов",
+      "sales": "Продажи",
+      "top": "Топ заработавши"
+    },
+    "my_orders": {
+      "titile": "Мои Заказы",
+      "orders": "Заказы",
+      "completed_orders": "Завершенные заказы",
+      "view_order": "Просмотреть Заказ"
+    }
+  },
+  "header_menus": {
+    "home": "Главная",
+    "profile": "Профиль",
+    "logout": "Выйти"
+  },
+  "image_upload": {
+    "drop_file": "Перетащите или выберите файл",
+    "through": "через ваш компьютер",
+    "browse": "просмотр"
+  },
+  "genders": {
+    "male": "Мужской",
+    "female": "Женский",
+    "other": "Другой"
+  },
+  "status": {
+    "enabled": "Включено",
+    "disabled": "Отключено"
+  },
+  "report": {
+    "get": "Получить",
+    "get_report": "Получить отчет"
+  },
+  "impersonate": {
+    "heads": "Внимание! Вы вошли как ",
+    "click": "Нажмите здесь",
+    "toGo": "чтобы вернуться в учетную запись администратора"
+  },
+
+  "amount_types": {
+    "all": "Все",
+    "r_bonus": "Реферальный бонус",
+    "deducted_by_admin": "Удержано администратором",
+    "credited_by_admin": "Зачислено администратором",
+    "fund_transfer": "Перевод средств",
+    "roi_commission": "Комиссия по ROI",
+    "a_bonus": "Бонус за достижение",
+    "first_order_bonus": "Бонус за первый заказ",
+    "level_commission": "Комиссия по уровню",
+    "b_bonus": "Бинарный бонус",
+    "deposit_wallet": "Кошелек депозита",
+    "product_purchased": "Купленный продукт",
+    "rank_bonus": "Бонус за ранг",
+    "m_bonus": "Бинарный бонус за соответствие",
+    "go_mvp_bonus": "Бонус Go MVP",
+    "eveolving_bonus": "Бонус за развитие",
+    "rock_solid_bonus": "Бонус Rock Solid",
+    "rock_solid_mvp_bonus": "Бонус Rock Solid MVP",
+    "rock_solid_mvp_additional_bonus": "Дополнительный бонус Rock Solid MVP",
+    "direct_sales_bonus": "Бонус за прямые продажи",
+    "pmb_bonus": "Бонус за прогресс MVP",
+    "indirect_sales_bonus": "Бонус за косвенные продажи",
+    "leadership_bonus": "Бонус за лидерство",
+    "residual_bonus": "Остаточный бонус",
+    "residual_matching":"Остаточный бонус за соответствие"
+  },
+  "tools": {
+    "videos": {
+      "areYouSure": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+      "deleteVideos": "Удалить видео",
+      "videos_tool": "Видео | Инструмент",
+      "video": "Видео",
+      "addVideo": "Добавить видео",
+      "title": "Название *",
+      "videoURLs": "URL видео *",
+      "close": "Закрыть",
+      "submit": "Отправить",
+      "edit": "Редактировать",
+      "delete": "Удалить",
+      "update": "Обновить",
+      "cancel": "Отменить",
+      "edit_video": "Редактировать видео"
+    },
+    "documents": {
+      "areYousure": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+      "deleteDocument": "Удалить документ",
+      "submit": "Отправить",
+      "close": "Закрыть",
+      "docTitle": "Название документа",
+      "sortOrders": "Порядок сортировки",
+      "uploadDocument": "Загрузить документ",
+      "updateDocument": "Обновить документ",
+      "addDocument": "Добавить документ",
+      "documents_title": "Документы | Инструменты",
+      "documents": "Документы",
+      "no": "Нет",
+      "fileTitle": "Название файла",
+      "sortOrder": "Порядок сортировки",
+      "download": "Скачать",
+      "created": "Дата создания",
+      "action": "Действие",
+      "fileUpload": "Загрузка файла",
+      "edit": "Редактировать",
+      "delete": "Удалить",
+      "cancel": "Отменить"
+    }
+  },
+  "businessBuilder": {
+    "no": "Нет",
+    "amount": "Сумма",
+    "date": "Дата",
+    "effectiveUntil": "Действительно до",
+    "pickStartDate": "Выберите начальную дату",
+    "pickEndDate": "Выберите конечную дату",
+    "userName": "Имя пользователя",
+    "email": "Электронная почта",
+    "totalAmount": "Общая сумма",
+    "thisWeekEnd": "Завершение недели",
+    "recurringCancelled": "Повторяющиеся отменены",
+    "recurringEnabled": "Повторяющиеся включены",
+    "businessBuilderTitle": "Бизнес-строитель | Магазин",
+    "business_builder_subscriptions_sales": "Продажи подписок Business Builder"
+  },
+
+  "assign_subscriptions": {
+    "areYouSure": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+    "delete_category": "Удалить категорию",
+    "edit_category": "Изменить категорию",
+    "delete": "Удалить",
+    "permissions": "Разрешения",
+    "edit": "Изменить",
+    "impersonate": "Принять чужую личность",
+    "profile": "Профиль",
+    "submit": "Отправить",
+    "close": "Закрыть",
+    "category_description": "Описание категории",
+    "category_name": "Название категории",
+    "add_category": "Добавить категорию",
+    "createdDate": "Дата создания",
+    "editSubscription": "Изменить подписку",
+    "products": "Продукты",
+    "trashed": "Удалено",
+    "category": "Категория",
+    "totalAmount": "Общая сумма",
+    "cancel": "Отменить",
+    "add": "Добавить",
+    "giveProductMaterials": "Дать продукт с материалами",
+    "giveProduct": "Дать продукт с комиссиями",
+    "categories": "Категории",
+    "certified_date": "Дата сертификации (по желанию)",
+    "addProduct": "Назначить продукт",
+    "pickStartDate": "Выберите начальную дату",
+    "pickEndDate": "Выберите конечную дату",
+    "user": "Пользователь",
+    "email": "Электронная почта",
+    "productss": "Продукты",
+    "no": "Нет",
+    "action": "Действие",
+    "assigned_on": "Назначено на",
+    "userName": "Имя пользователя",
+    "product": "Продукт",
+    "categoryy": "Категория",
+    "note": "Примечание",
+    "certifiedDate": "Дата сертификации",
+    "effectiveUntil": "Действительно до",
+    "subscriptionsList": "Список подписок",
+    "assignSubscriptionsTitle": "Назначить подписки | Магазин",
+    "assign_subscriptions": "Назначить подписки"
+  },
+
+  "sub_admin": {
+    "delete_at": "Удалить через",
+    "reasons": "Причины",
+    "block": "Заблокировать",
+    "un_block": "Разблокировать",
+    "block_sub_admin": "Заблокировать субадминистратора",
+    "edit_sub_admin": "Изменить субадминистратора",
+    "reason": "Причина",
+    "are_you_sure": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+    "delete_sub_admin": "Удалить субадминистратора",
+    "un_block_user": "Разблокировать пользователя",
+    "block_user": "Заблокировать пользователя",
+    "profile": "Профиль",
+    "edit": "Изменить",
+    "password": "Пароль",
+    "re_enter_password": "Повторите пароль",
+    "enable": "Включить",
+    "disable": "Отключить",
+    "enable_impersonation": "Включить подражание",
+    "departments": "Отделы",
+    "excluded_products": "Исключенные продукты",
+    "products": "Продукты",
+    "mobile": "Мобильный *",
+    "names": "Имена *",
+    "add_sub_admin": "Добавить субадминистратора",
+    "sub_admins_title": "Субадминистраторы: Добавить субадминистратора",
+    "delete": "Удалить",
+    "reversed": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+    "sub_admin_delete": "Удалить группу субадминистраторов",
+    "submit": "Отправить",
+    "description": "Описание",
+    "cancel": "Отменить",
+    "group": "Группа",
+    "add_user_group": "Добавить группу пользователей",
+    "impersonate": "Принять чужую личность",
+    "sub_admins": "Субадминистраторы",
+    "user_group": "Группа пользователей",
+    "sub_admin": "Субадминистратор",
+    "active": "Активен",
+    "inactive": "Неактивен",
+    "trashed": "Удалено",
+    "no": "Нет",
+    "name": "Имя",
+    "userName": "Имя пользователя",
+    "email": "Электронная почта",
+    "created": "Дата создания",
+    "action": "Действие",
+    "createdAt": "Создано"
+  },
+  "holding_tank": {
+    "cancel": "Отмена",
+    "are_you_sure": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+    "delete_holding_tank": "Удалить Холдинг Танк",
+    "impersonation": "Принятие чужой личности",
+    "delete": "Удалить",
+    "profile": "Профиль",
+    "permissions": "Разрешения",
+    "holding_tank": "Холдинг Танк",
+    "no": "Нет",
+    "userName": "Имя пользователя",
+    "email": "Электронная почта",
+    "paidActive": "Оплачено Активно",
+    "joinedAt": "Присоединено к",
+    "add_to_binary": "Добавить в Бинарный",
+    "action": "Действие",
+    "add_to_network": "Добавить в Сеть",
+    "network": "Сеть",
+    "account_status": "Статус учетной записи",
+    "active": "Активно",
+    "blocked": "Заблокировано",
+    "add": "Добавить",
+    "close": "Закрыть",
+    "turn_off_email": "Отключить электронную почту",
+    "turn_on_email": "Включить электронную почту"
+  },
+  "network_members": {
+    "user_type": "Тип пользователя",
+    "promoter": "Промоутер",
+    "unique_id": "Уникальный идентификатор",
+    "engagedstatus": "Статус вовлеченности",
+    "choose_payments": "Выберите методы для включения",
+    "update_permissions": "Обновить разрешения",
+    "turn_off_mail": "Отключить почту",
+    "are_you_sure": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+    "cancel": "Отмена",
+    "verify_mail": "Подтвердить почту",
+    "update": "Обновить",
+    "current_user_name": "Текущее имя пользователя",
+    "new_user_name": "Новое имя пользователя",
+    "change_user_name": "Изменить имя пользователя",
+    "close": "Закрыть",
+    "confirm_password": "Подтвердите пароль",
+    "change_password": "Изменить пароль",
+    "permissions": "Разрешения",
+    "turn_off_email": "Отключить электронную почту",
+    "turn_on_email": "Включить электронную почту",
+    "password": "Пароль",
+    "profile": "Профиль",
+    "verify": "Проверить",
+    "username": "Имя пользователя",
+    "impersonate": "Принять чужую личность",
+    "account_status": "Статус учетной записи",
+    "active": "Активно",
+    "blocked": "Заблокировано",
+    "network_members": "Участники сети",
+    "no": "Нет",
+    "email": "Электронная почта",
+    "rank": "Ранг",
+    "paidActive": "Оплачено Активно",
+    "createdAt": "Создано",
+    "action": "Действие",
+    "customer": "Клиент",
+    "activeCustomer": "Активный клиент",
+    "businessBuilder": "Бизнес-строитель",
+    "bronzeExecutive": "Бронзовый исполнитель",
+    "silverExecutive": "Серебряный исполнитель",
+    "goldExecutive": "Золотой исполнитель",
+    "emeraldExecutive": "Изумрудный исполнитель",
+    "usertype": "Тип пользователя",
+    "smart_ship_status": "Статус Smart Ship",
+    "is_smartship_customer": "Является ли клиентом Smart Ship",
+    "yes": "Да",
+    "engaged_status":"Статус вовлеченности",
+    "true":"Истинный",
+    "false":"ЛОЖЬ"
+
+  },
+
+  "network": {
+    "right_team": "Правая команда",
+    "left_team": "Левая команда",
+    "top_recruiters": "Топ-рекрутеры",
+    "latest_registrations": "Последние регистрации",
+    "yearly_sales_report": "Годовой отчет о продажах",
+    "network_joining": "Присоединение к сети",
+    "membersMap": "Карта участников",
+    "registeredMembersThisMonth": "Зарегистрированные участники в этом месяце",
+    "holdingTank": "Холдинг танк",
+    "networkMembers": "Участники сети",
+    "businessBuilder": "Бизнес-строитель",
+    "registeredMembers": "Зарегистрированные участники",
+    "tickets": "Билеты",
+    "openTickets": "Открытые билеты",
+    "closedTickets": "Закрытые билеты",
+    "total_network_bonus": "Общий бонус сети",
+    "total_payout": "Общая выплата",
+    "upcoming_week": "Предстоящая неделя",
+    "binary_bonus": "Бинарный бонус",
+    "history": "История сети",
+    "network_bonus": "Бонус сети",
+    "support_tickets": "Билеты поддержки"
+  },
+  "business": {
+    "month": "Месяц",
+    "bitcoinConference": "Конференция по биткоину",
+    "on_bitcoin": "О торговле и прогнозах по биткоину",
+    "productsActive": "Продукты и активные подписки",
+    "topSellingProduct": "Топ-продукт по продажам",
+    "userName": "Имя пользователя",
+    "product": "Продукт",
+    "price": "Цена",
+    "date": "Дата",
+    "latestSales": "Последние продажи",
+    "invoice": "Счет-фактура",
+    "active": "Активный",
+    "customers": "Клиенты",
+    "total_customers": "Всего клиентов",
+    "active_customers": "Активные клиенты",
+    "payout": "Выплата",
+    "sales": "Продажи",
+    "overallStatus": "Общий статус",
+    "allIncomeAndExpense": "Все доходы",
+    "salesOverTheTime": "Продажи со временем",
+    "salesgraph": "График продаж",
+    "thenLastMonth": "чем в прошлом месяце",
+    "select_option": "Выберите опцию",
+    "latest_registrations": "Эффективность продаж",
+    "total_sales": "Общие продажи",
+    "total_expense": "Общие расходы",
+    "total_profit": "Общая прибыль",
+    "network_bonus": "Сетевой бонус",
+    "balance": "Баланс",
+    "income": "Доход",
+    "expense": "Расход",
+    "salesOverView": "Обзор продаж",
+    "topSellingProducts": "Топ-продаваемые продукты",
+    "today": "Сегодня",
+    "thisWeek": "На этой неделе",
+    "pastWeek": "На прошлой неделе",
+    "thisMonth": "В этом месяце",
+    "pastMonth": "В прошлом месяце",
+    "thisYear": "В этом году"
+  },
+
+  "date": {
+    "start": "Выберите начальную дату",
+    "end": "Выберите конечную дату",
+    "valid_start": "Дата начала не должна быть больше, чем дата окончания",
+    "valid_end": "Дата окончания не должна быть больше, чем дата начала"
+  },
+
+  "scope": {
+    "all": "Все",
+    "public": "Общедоступное",
+    "private": "Частное"
+  },
+
+  "search": {
+    "user": "Поиск пользователя",
+    "amount_type": "Тип суммы",
+    "search": "Поиск",
+    "product": "Выберите продукт",
+    "category": "Выберите категорию",
+    "department": "Выберите отдел",
+    "priority": "Выберите приоритет",
+    "status": "Статус",
+    "ticket": "Идентификатор билета",
+    "title": "Название",
+    "scope": "Область"
+  },
+
+  "payout_status": {
+    "approved": "Утверждено",
+    "rejected": "Отклонено"
+  },
+
+  "fin_pay": {
+    "address": "Адрес",
+    "country": "Страна",
+    "state": "Штат",
+    "zip_code": "Почтовый индекс",
+    "city": "Город",
+    "card_details": "Детали карты",
+    "holder_name": "Имя держателя карты",
+    "number": "Номер карты",
+    "expiry": "Срок действия карты",
+    "cvv": "Код безопасности карты",
+    "product_recurring_enabled": "У этого продукта включена повторяющаяся оплата. Снимите флажок, чтобы отключить ее."
+  },
+  "genealogy": {
+    "matrix": {
+      "name": "Имя",
+      "user_name": "Имя пользователя",
+      "current_rank": "Текущий ранг",
+      "date": "Дата"
+    },
+    "binary": {
+      "title": "Бинар: Генеалогия"
+    },
+    "sponsor": {
+      "title": "Спонсор: Генеалогия"
+    },
+    "tree": {
+      "title": "Дерево: Генеалогия"
+    },
+    "leg_settings": {
+      "title": "Настройки бинарной ноги",
+      "bp": "На основе баллов (BV) - Рефералы будут размещены в вашей слабой левой ноге",
+      "br": "На основе рефералов - Рефералы будут в вашей команде с меньшим количеством ваших рефералов",
+      "lr": "Слева - Рефералы будут размещены в вашей левой команде",
+      "rr": "Справа - Рефералы будут размещены в вашей правой команде",
+      "current_leg": "ТЕКУЩАЯ НОГА",
+      "base_on": "БАЗА НА"
+    },
+    "legends": {
+      "name": "Имя",
+      "uname": "Имя пользователя",
+      "current_rank": "Текущий ранг",
+      "doj": "Дата вступления",
+      "w_bv_l": "Недельный BV (левый)",
+      "w_bv_r": "Недельный BV (правый)",
+      "t_bv_l": "Общий BV (левый)",
+      "t_bv_r": "Общий BV (правый)",
+      "t_l_users": "Всего пользователей слева",
+      "t_r_users": "Всего пользователей справа",
+      "bv": "БВ",
+      "ev":"ЭТОТ",
+      "qv":"QV",
+      "dqv":"ДЬЯКОВ",
+      "pqv":"ПКВ",
+      "tv":"ТВ",
+      "gv":"ГВ",
+      "smartship_status":"Статус Smartship",
+      "user_type":"Тип пользователя"
+
+    },
+
+    "mono_line": {
+      "title": "Моно-линия: Генеалогия"
+    },
+    "list": {
+      "title": "Список: Генеалогия",
+      "table": {
+        "no": "Нет",
+        "u_name": "Имя пользователя",
+        "level": "Уровень",
+        "doj": "Дата вступления"
+      }
+    }
+  },
+  "financial": {
+    "pendingcommission":{
+            "title":"Ожидаемая комиссия"
+        },
+    "e_wallet": {
+      "amount_type": "Тип суммы",
+      "title": "E-кошелек",
+      "history": "История",
+      "cards": {
+        "balance": "Баланс",
+        "transfer": "Перевод",
+        "payout": "Всего выплат",
+        "bonus": "Бонус"
+      },
+      "table": {
+        "no": "№",
+        "from": "От пользователя",
+        "user_name": "Имя пользователя",
+        "amount_type": "Тип суммы",
+        "payment_type": "Тип платежа",
+        "amount": "Сумма",
+        "date": "Дата"
+      }
+    },
+    "deposit_wallet": {
+      "title": "Депозитный кошелек",
+      "history": "История",
+      "cards": {
+        "balance": "Баланс",
+        "transfer": "Перевод",
+        "credited_by_admin": "Зачислено администратором"
+      },
+      "table": {
+        "no": "№",
+        "user": "Имя пользователя",
+        "from": "От пользователя",
+        "amount_type": "Тип суммы",
+        "payment_type": "Тип платежа",
+        "amount": "Сумма платежа",
+        "date": "Дата"
+      },
+      "pay_now": {
+        "amount": "Сумма ({{symbol}})",
+        "add": "Добавить кредит"
+      }
+    },
+    "fund_credit": {
+      "title": "Финансовые кредиты",
+      "form": {
+        "amount": "Сумма ({{symbol}})",
+        "to": "Для",
+        "note": "Примечание",
+        "deduct": "Удержать средства",
+        "add": "Добавить сумму"
+      },
+      "table": {
+        "no": "№",
+        "user": "Имя пользователя",
+        "wallet_type": "Тип кошелька",
+        "payment_type": "Тип платежа",
+        "notes": "Примечания",
+        "amount": "Сумма",
+        "date": "Дата"
+      }
+    },
+    "fund_transfer": {
+      "title": "Перевод средств",
+      "cards": {
+        "e_balance": "Баланс E-кошелька",
+        "d_balance": "Баланс депозитного кошелька"
+      },
+      "send": {
+        "title": "Форма отправки",
+        "from": "Отправить от"
+      },
+      "table": {
+        "no": "№",
+        "user": "Имя пользователя",
+        "amount_type": "Тип суммы",
+        "payment_type": "Тип платежа",
+        "amount": "Сумма платежа",
+        "date": "Дата",
+        "wallet_type": "Тип кошелька",
+        "to_user": "Пользователям",
+        "payment_status": "Статус платежа"
+      }
+    },
+    "payout": {
+      "admin": {
+        "title": "Выплата",
+        "tabs": {
+          "request": "Запрос выплаты",
+          "history": "История выплат"
+        },
+        "request": {
+          "table": {
+            "no": "№",
+            "user_name": "Имя пользователя",
+            "user_balance": "Баланс пользователя",
+            "payout_method": "Метод выплаты",
+            "payout_info": "Информация о выплате",
+            "wallet_address": "Адрес кошелька",
+            "date": "Дата",
+            "requested": "Запрошенная сумма",
+            "admin_fee": "Административный сбор",
+            "released": "Выплаченная сумма",
+            "action": "Действие"
+          },
+          "approve": "Утвердить",
+          "reject": "Отклонить"
+        },
+        "history": {
+          "table": {
+            "no": "№",
+            "user_name": "Имя пользователя",
+            "user_balance": "Баланс пользователя",
+            "wallet_address": "Адрес кошелька",
+            "coin": "Монета",
+            "email": "Электронная почта",
+            "date": "Дата",
+            "requested": "Запрошенная сумма",
+            "admin_fee": "Административный сбор",
+            "released": "Выплаченная сумма",
+            "action": "Действие",
+            "status": "Статус"
+          }
+        }
+      },
+      "title": "Запрос выплаты",
+      "cards": {
+        "balance": "Доступный баланс",
+        "min": "Минимальная сумма вывода"
+      },
+      "request": {
+        "title": "Запрос на выплату",
+        "amount": "Сумма запроса",
+        "coin": "Тип монеты",
+        "methods": "Способы выплаты"
+      },
+      "table": {
+        "no": "№",
+        "amount": "Сумма",
+        "date": "Дата",
+        "wallet_address": "Адрес кошелька",
+        "coin": "Монета",
+        "status": "Статус"
+      }
+    }
+  },
+  "business_builder": {
+    "subscriptions": {
+      "title": "Строитель бизнеса",
+      "filter": {
+        "amount": "Сумма ({{symbol}})",
+        "builder": "Бизнес-строитель",
+        "period": "Выберите период"
+      },
+      "table": {
+        "no": "№",
+        "amount": "Сумма",
+        "date": "Дата покупки",
+        "effective": "Действительно до",
+        "method": "Метод оплаты",
+        "view": "Просмотр"
+      }
+    },
+    "materials": {
+      "title": "Материалы",
+      "menu": {
+        "video": "Видео",
+        "document": "Документы"
+      }
+    }
+  },
+
+  "actions": {
+    "edit": "Изменить",
+    "delete": "Удалить",
+    "publish": "Опубликовать"
+  },
+
+  "blogs": {
+    "title": "Блоги",
+    "tabs": {
+      "published": "Опубликованные",
+      "drafts": "Черновики"
+    },
+    "categories": {
+      "title": "Категории блога",
+      "table": {
+        "no": "№",
+        "name": "Название категории",
+        "desc": "Описание",
+        "action": "Действия"
+      },
+
+      "create": {
+        "edit": { "title": "Обновить категорию", "submit": "Обновить" },
+        "title": "Добавить категорию",
+        "name": "Название категории",
+        "desc": "Описание",
+        "submit": "Добавить",
+        "close": "Отменить"
+      },
+      "delete": {
+        "title": "Удалить категорию",
+        "message": "Вы уверены, что хотите продолжить? Это действие нельзя отменить.",
+        "submit": "Удалить",
+        "close": "Отменить"
+      }
+    },
+
+    "create": {
+      "new_post": "Создать пост",
+      "categories": "Категории",
+      "category": "Категория",
+      "table": {
+        "no": "№",
+        "img": "Изображение",
+        "title": "Название блога",
+        "desc": "Описание блога",
+        "scope": "Область",
+        "date": "Дата блога",
+        "action": "Действия"
+      },
+      "form": {
+        "add_title": "Добавить блог",
+        "edit_title": "Редактировать блог",
+        "type": "Тип",
+        "blog_title": "Заголовок блога",
+        "category": "Категория блога",
+        "product": "Продукт",
+        "meta_key": "Мета-ключи",
+        "meta_desc": "Мета-описание",
+        "content": "Контент",
+        "short_desc": "Краткое описание",
+        "add_doc": "Добавить документ",
+        "save_as_draft": "Сохранить как черновик",
+        "submit": "Отправить"
+      }
+    },
+    "view": {
+      "title": "Пост блога",
+      "add_comment": {
+        "title": "Добавить комментарий",
+        "rating": "Рейтинг",
+        "comment_title": "Заголовок",
+        "post": "Опубликовать комментарий"
+      },
+      "recent": "Последние посты",
+      "latest_category": "Последняя категория блога"
+    }
+  },
+  "faq": {
+    "title": "ЧАВО",
+    "tabs": {
+      "faq": "ЧАВО",
+      "categories": "Категории"
+    },
+
+    "categories": {
+      "add": "Категория ЧАВО",
+      "table": {
+        "no": "№",
+        "name": "Название категории",
+        "desc": "Описание",
+        "action": "Действия"
+      },
+      "dialog": {
+        "add": "Добавить категорию ЧАВО",
+        "edit": "Редактировать категорию ЧАВО"
+      },
+      "form": {
+        "name": "Название категории",
+        "desc": "Описание",
+        "status": "Статус",
+        "cancel": "Отмена",
+        "add": "Добавить",
+        "edit": "Обновить"
+      },
+      "delete": {
+        "title": "Удалить категорию ЧАВО",
+        "message": "Вы уверены, что хотите продолжить? Это действие нельзя отменить.",
+        "cancel": "Отмена",
+        "submit": "Удалить"
+      }
+    },
+    "faqs": {
+      "add": "ЧАВО",
+      "table": {
+        "no": "№",
+        "question": "Вопрос",
+        "answer": "Ответ",
+        "action": "Действия"
+      },
+      "form": {
+        "add_title": "Добавить ЧАВО",
+        "edit_title": "Редактировать ЧАВО",
+        "category": "Категория ЧАВО",
+        "questions": "Вопросы",
+        "answer": "Ответ",
+        "cancel": "Отмена",
+        "add": "Добавить",
+        "update": "Обновить"
+      }
+    },
+    "browse_categories": "Просмотреть по категориям",
+    "looking_for": "Не можете найти ответ, который ищете?",
+    "looking_for_message": "Создайте запрос через наш Центр поддержки, и один из наших сотрудников ответит вам в течение 24 часов.",
+    "create": "Создать запрос"
+  },
+
+  "knowledge_base": {
+    "title": "База знаний"
+  },
+  "emails": { "title": "Электронные письма" },
+  "admin_email": {
+    "compose": {
+      "title": "Новое сообщение",
+      "subject": "Тема",
+      "users": "Пользователи",
+      "send": "Отправить"
+    }
+  },
+  "help_center": {
+    "view": {
+      "view_attachments": "Просмотр вложений",
+      "created": "Дата создания",
+      "last_response": "Последний ответ",
+      "actions": {
+        "impersonate": "Выдать себя за",
+        "edit": "Редактировать профиль"
+      },
+      "reply_form": {
+        "title": "Форма ответа",
+        "response": "Готовый ответ",
+        "questions": "Вопросы ЧАВО",
+        "name": "Название",
+        "description": "Описание",
+        "submit": "Опубликовать ответ"
+      },
+      "info_card": {
+        "status": "Статус",
+        "priority": "Приоритет",
+        "department": "Отдел",
+        "email": "Электронная почта",
+        "category": "Категория",
+        "username": "Имя пользователя",
+        "last_message": "Последнее сообщение"
+      },
+      "tkt_id": "ID запроса",
+      "dialog": {
+        "update_status": {
+          "title": "Изменить статус?",
+          "cancel": "Отмена",
+          "submit": "Да, изменить статус на {{status}}"
+        }
+      }
+    },
+    "status": {
+      "open": "Открыт",
+      "overdue": "Просрочен",
+      "resolved": "Решен",
+      "closed": "Закрыт",
+      "archived": "Архивирован",
+      "deleted": "Удален",
+      "unverified": "Непроверен",
+      "request_approval": "Запрос на утверждение",
+      "in_progress": "В процессе",
+      "responded": "Отвечено"
+    },
+    "department": {
+      "add_button": "Отдел",
+      "table": {
+        "no": "№",
+        "name": "Название",
+        "status": "Статус",
+        "desc": "Описание",
+        "actions": "Действия"
+      },
+      "actions": {
+        "edit": "Редактировать",
+        "delete": "Удалить"
+      },
+      "dialog": {
+        "delete": {
+          "title": "Удалить отдел",
+          "msg": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+          "submit": "Удалить",
+          "cancel": "Отмена"
+        },
+        "edit": {
+          "title": "Редактировать отдел",
+          "name": "Название отдела",
+          "desc": "Описание",
+          "status": "Статус",
+          "sort_order": "Порядок сортировки",
+          "submit": "Обновить",
+          "cancel": "Отмена"
+        },
+        "add": {
+          "submit": "Создать",
+          "title": "Добавить отдел"
+        }
+      }
+    },
+    "categories": {
+      "add_button": "Категория",
+      "table": {
+        "no": "№",
+        "name": "Категория",
+        "status": "Статус",
+        "desc": "Описание",
+        "actions": "Действия"
+      },
+      "actions": {
+        "edit": "Редактировать",
+        "delete": "Удалить"
+      },
+      "dialog": {
+        "delete": {
+          "title": "Удалить категорию",
+          "msg": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+          "submit": "Удалить",
+          "cancel": "Отмена"
+        },
+        "edit": {
+          "title": "Редактировать готовый ответ",
+          "name": "Название готового ответа",
+          "sub": "Тема",
+          "placeholder": "Сообщение готового ответа",
+          "submit": "Обновить",
+          "cancel": "Отмена"
+        },
+        "add": {
+          "submit": "Создать",
+          "title": "Добавить готовый ответ"
+        }
+      }
+    },
+    "priorities": {
+      "add_button": "Приоритет",
+      "table": {
+        "no": "№",
+        "name": "Приоритет",
+        "desc": "Описание приоритета",
+        "color": "Цвет приоритета",
+        "status": "Статус",
+        "actions": "Действия"
+      },
+      "actions": {
+        "edit": "Редактировать",
+        "delete": "Удалить"
+      },
+      "dialog": {
+        "delete": {
+          "title": "Удалить приоритет",
+          "msg": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+          "submit": "Удалить",
+          "cancel": "Отмена"
+        },
+        "edit": {
+          "title": "Редактировать приоритет",
+          "name": "Приоритет",
+          "color": "Цвет",
+          "desc": "Описание",
+          "submit": "Обновить",
+          "cancel": "Отмена"
+        },
+        "add": {
+          "submit": "Создать",
+          "title": "Добавить приоритет"
+        }
+      }
+    },
+    "form": {
+      "ticket_id": "Номер заявки",
+      "subject": "Тема",
+      "description": "Описание",
+      "priority": "Приоритет",
+      "department": "Отдел",
+      "category": "Категория",
+      "status": "Статус",
+      "document": "Документ",
+      "add": "Добавить",
+      "update": "Обновить"
+    },
+    "actions": {
+      "view": "Просмотр",
+      "impersonate": "Принять чужую роль",
+      "edit": "Редактировать",
+      "delete": "Удалить"
+    },
+    "title": "Центр поддержки",
+    "create": "Создать заявку",
+    "side_bar": {
+      "dashboard": "Панель управления заявками",
+      "all": "Все заявки",
+      "overdue": "Просроченные",
+      "open": "Открытые",
+      "resolved": "Решенные",
+      "closed": "Закрытые",
+      "in_progress": "В процессе",
+      "responded": "Отвеченные",
+      "departments": "Отделы",
+      "categories": "Категории",
+      "canned_response": "Готовые ответы",
+      "priorities": "Приоритеты"
+    },
+    "filter": {
+      "department": "Отделы",
+      "priority": "Приоритет",
+      "status": "Статус",
+      "category": "Категория",
+      "tkt_id": "Номер заявки",
+      "user": "Поиск пользователя",
+      "overdue": "Показать только просроченные"
+    },
+    "table": {
+      "no": "№",
+      "tkt_no": "Номер заявки",
+      "tkt_from": "От кого",
+      "date": "Дата",
+      "subject": "Тема",
+      "status": "Статус",
+      "priority": "Приоритет",
+      "department": "Отдел",
+      "category": "Категория",
+      "action": "Действия"
+    },
+    "document": {
+      "title": "Документ",
+      "created_at": "Создан",
+      "view": "Просмотр"
+    },
+    "video": { "title": "Видео" }
+  },
+  "articles": {
+    "title": "Статьи",
+    "options": {
+      "title": "База знаний",
+      "articles": "Статьи",
+      "categories": "Категории статей"
+    },
+    "articles": {
+      "title": "Все статьи",
+      "add_button": "Статья",
+      "form": {
+        "add_title": "Добавить статью",
+        "edit_title": "Редактировать статью",
+        "name": "Название",
+        "category": "Категория",
+        "description": "Описание",
+        "cancel": "Отмена",
+        "submit_add": "Добавить",
+        "submit_edit": "Обновить"
+      },
+      "delete": {
+        "title": "Удалить статью",
+        "msg": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+        "cancel": "Отмена",
+        "submit": "Удалить"
+      },
+      "actions": {
+        "edit": "Редактировать",
+        "delete": "Удалить"
+      },
+      "table": {
+        "no": "№",
+        "title": "Название статьи",
+        "time": "Время публикации",
+        "actions": "Действия"
+      }
+    },
+    "categories": {
+      "title": "Все категории",
+      "add_button": "Категория",
+      "form": {
+        "add_title": "Добавить категорию",
+        "edit_title": "Редактировать категорию",
+        "name": "Название",
+        "category": "Категория",
+        "description": "Описание",
+        "cancel": "Отмена",
+        "submit_add": "Добавить",
+        "submit_edit": "Обновить"
+      },
+      "delete": {
+        "title": "Удалить категорию",
+        "msg": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+        "cancel": "Отмена",
+        "submit": "Удалить"
+      },
+      "actions": {
+        "edit": "Редактировать",
+        "delete": "Удалить"
+      },
+      "table": {
+        "no": "№",
+        "title": "Название категории",
+        "time": "Создано",
+        "actions": "Действия"
+      }
+    }
+  },
+  "settings": {
+    "title": "Настройки",
+    "mode": "Режим",
+    "direction": "Направление",
+    "layout": "Макет",
+    "presets": "Предустановки",
+    "stretch": "Растянуть",
+    "full_screen": {
+      "enter": "На полный экран",
+      "exit": "Выйти из полноэкранного режима"
+    },
+    "advanced_settings": {
+      "title": "Расширенные настройки",
+      "kyc": {
+        "show": "Показать KYC",
+        "update": "Обновить",
+        "message": "При включении KYC пользователи должны будут загрузить свои документы"
+      },
+      "leads": {
+        "show": "Показать Лиды",
+        "update": "Обновить"
+      },
+      "2fa": {
+        "show": "Включить Двухфакторную Аутентификацию",
+        "update": "Обновить",
+        "message": "При включении двухфакторной аутентификации пользователи смогут включить ее в настройках своего профиля. Если она включена, пользователю будет необходимо ввести OTP перед входом."
+      },
+      "package": {
+        "show": "Требуется Покупка Пакета",
+        "update": "Обновить"
+      },
+      "mail": {
+        "show": "Требуется Проверка Электронной Почты",
+        "update": "Обновить"
+      },
+      "membership_packages": {
+        "show": "Требуется Дата Рождения",
+        "minimum": "Минимальный Возраст Требуется",
+        "update": "Обновить"
+      },
+      "tabs": {
+        "currency": "Валюта",
+        "kyc": "KYC",
+        "leads": "Лиды",
+        "payments": "Платежи",
+        "dob": "Дата Рождения",
+        "membership_packages": "Пакеты Участия",
+        "membership_settings": "Настройки Участия",
+        "2fa": "Двухфакторная Аутентификация",
+        "email_verify": "Проверка Электронной Почты",
+        "package_purchase": "Покупка Пакета"
+      }
+    },
+    "brand": {
+      "deleteSection": "Удалить раздел",
+      "editSection": "Редактировать раздел",
+      "edit": "Редактировать",
+      "cancel": "Отмена",
+      "delete": "Удалить",
+      "areYouSure": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+      "deleteArticles": "Удалить статью",
+      "editArticles": "Редактировать статью",
+      "submit": "Отправить",
+      "update": "Обновить",
+      "close": "Закрыть",
+      "blogTitle": "Название блога",
+      "description": "Описание",
+      "addArticles": "Добавить статьи",
+      "no": "№",
+      "article_name": "Название статьи",
+      "menu_name": "Название меню",
+      "action": "Действие",
+      "sectionName": "Название раздела",
+      "sortOrder": "Порядок сортировки",
+      "addSection": "Добавить раздел",
+      "section": "Раздел",
+      "articles": "Статьи",
+      "save": "Сохранить",
+      "email": "Эл. почта",
+      "company_address": "Адрес компании",
+      "company_name": "Название компании",
+      "change_your_logo_icon": "Изменить иконку логотипа",
+      "sidebar_corner_logo": "Логотип в углу боковой панели",
+      "change_your_logo": "Изменить логотип",
+      "change_logo": "Изменить логотип",
+      "title": "Бренд: Настройки",
+      "brand": "Настройки бренда",
+      "company_details": "Детали компании",
+      "get_started": "Начать",
+      "user_guidance": "Руководство пользователя",
+      "allowed": "Разрешено",
+      "size": "максимальный размер"
+    },
+    "business_builder": {
+      "edit": "Редактировать",
+      "delete": "Удалить",
+      "areYouSure": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+      "cancel": "Отмена",
+      "close": "Закрыть",
+      "submit": "Отправить",
+      "addBusinessBuilder": "Добавить бизнес-строитель",
+      "editBusinessBuilder": "Редактировать бизнес-строитель",
+      "no": "№",
+      "name": "Имя",
+      "amount": "Сумма",
+      "bv": "БВ",
+      "add": "Добавить",
+      "action": "Действие",
+      "title": "Бизнес-строитель | Настройки",
+      "business_builder": "Бизнес-строитель",
+      "deleteBusinessBuilder": "Удалить бизнес-строитель"
+    },
+    "withdrawal": {
+      "title": "Снятие",
+      "available_payouts": "Доступная выплата"
+    },
+    "network": {
+      "min_required_rank": "Минимально необходимый ранг",
+      "required_rank": "Требуемый ранг",
+      "level_1_rank": "Уровень 1 Ранг",
+      "level_2_rank": "Уровень 2 Ранг",
+      "level_3_rank": "Уровень 3 Ранг",
+      "levels_unlocked": "Уровни разблокированы",
+      "placement_lounge_settings": "Настройки зала размещения",
+      "eveolving_bonus_settings": "Развитие настроек бонусов",
+      "rocksolid_bonus_settings": "Надежные настройки бонусов",
+      "is_bonus_settings": "Настройки бонуса за косвенные продажи",
+      "leadership_bonus": "Настройки бонуса за лидерство",
+      "rob_bonus_settings": "Настройки бонуса за регулярный заказ",
+      "residual_matching": "Настройки остаточного бонуса за соответствие",
+      "three_ff_bonus_settings": "3 Для бесплатных настроек программы",
+      "residual_bonus": "Остаточные настройки бонуса",
+      "rock_solid_mvp_bonus": "Надежные настройки бонусов для MVP",
+      "withdrawal_text": "Текст вывода на странице участников",
+      "withdrawal_admin": "Процент административного сбора за вывод: %",
+      "open_withdrawals_on": "Открыть вывод в эти дни",
+      "monday": "Понедельник",
+      "tuesday": "Вторник",
+      "wednesday": "Среда",
+      "thursday": "Четверг",
+      "friday": "Пятница",
+      "sunday": "Воскресенье",
+      "saturday": "Суббота",
+      "available_coins": "Доступные монеты",
+      "min_amount": "Минимальная сумма для вывода:",
+      "withdrawal_title": "Вывод | Настройки",
+      "withdrawal": "Вывод",
+      "level": "Уровень",
+      "percentage": "Процент",
+      "products": "Продукты",
+      "month": "Месяц",
+      "referral_bonus": "Бонус за рефералов",
+      "update": "Обновить",
+      "rank_name": "Название ранга",
+      "personally_enrolled_rank": "Лично зарегистрированный ранг",
+      "count": "Количество",
+      "team_volume": "Объем команды",
+      "title": "Настройки сети: Настройки",
+      "network": "Настройки сети",
+      "binary_bonus_settings": "Настройки двоичного бонуса",
+      "rank_settings": "Настройки ранга",
+      "referral_commission_settings": "Настройки комиссии за рефералов",
+      "first_order_bonus": "Бонус за первый заказ",
+      "level_bonus": "Бонус за уровень",
+      "roi_settings": "Настройки ROI",
+      "rank": "Ранг",
+      "bv_capping": "Ограничение БВ",
+      "binary_bonus_capping": "Ограничение двоичного бонуса",
+      "binary_matching": "Двоичное соответствие (%)",
+      "go_mvp_bonus_settings": "Перейти к настройкам бонуса MVP",
+      "min_dqv": "Мой DQV",
+      "min_qv_per_customer": "Минимальное количество QV на клиента",
+      "qualification_days": "Квалификационные дни",
+      "min_pqv": "Минимальный PQV",
+      "minimum_pqv": "Минимальный PQV",
+      "active": "Активный",
+      "circle_of_evelution": "Круг эволюции",
+      "required_dqv": "Требуется DQV",
+      "min_customer_qv":"Минимальное количество клиентов",
+      "monthly_bonus_amount":"Ежемесячная сумма бонуса",
+      "consecutive_months_bonus_trigger":"Триггер бонуса за последовательные месяцы",
+      "consecutive_bonus_amount":"Последовательная сумма бонуса",
+      "rsp_bonus_settings":"Настройки бонуса RSP",
+      "direct_sales_bonus_settings":"Настройки бонуса прямых продаж",
+      "min_pqv_previous_month":"Минимальное PQV за предыдущий месяц",
+      "bonus_percentage":"Бонусный процент",
+      "discount_percentage":"Процент скидки",
+      "required_consecutive_months":"Требуемые последовательные месяцы",
+      "bonus_coupon_value":"Стоимость бонусного купона",
+      "personal_order_qv":"Персональный заказ QV",
+      "required_customers":"Требуемые клиенты",
+      "customer_min_qv":"Клиент в QB",
+      "max_bonus_value":"Максимальная сумма бонуса",
+      "min_rank_required":"Требуется минимальный ранг",
+      "max_generations":"Макс. поколение",
+      "generation_1_percentage":"Поколение 1 в процентах",
+      "generation_1_required_rank":"Требуемый ранг поколения 1",
+      "generation_2_percentage":"Процент поколения 2",
+      "generation_2_required_rank":"Требуемый ранг поколения 2",
+      "pmb_bonus_settings":"Настройки бонуса наставника MVP",
+      "max_level":"Максимальные уровни",
+      "level_1_percentage":"Уровень 1 Процент",
+      "level_2_percentage":"Уровень 2 Процент",
+      "level_3_percentage":"Уровень 3 Процент",
+      "bonus_amount":"Сумма бонуса",
+      "packages_name":"Название пакета",
+      "required_personal_volume":"Требуемый личный объем",
+      "minimumpqv":"Минимальный PQV",
+      "months":"Месяцы",
+      "placement_launch_settings":"Настройки запуска плейсмента",
+      "min_qv":"Мин. QV"
+
+
+
+    },
+    "currency": {
+      "are_you": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+      "delete_dialog": "Диалог удаления",
+      "cancel": "Отмена",
+      "currency": "Валюта",
+      "add": "Добавить",
+      "edit": "Редактировать",
+      "delete": "Удалить",
+      "no": "№",
+      "name": "Название",
+      "code": "Код",
+      "symbol": "Символ",
+      "status": "Статус",
+      "exchange_rate": "Обменный курс",
+      "action": "Действие",
+      "add_dialog": "Диалог добавления",
+      "enabled": "Включено",
+      "disabled": "Отключено"
+    },
+    "reports": {
+      "pv": "PV",
+      "leg": "Нога",
+      "type": "Тип",
+      "coin": "Монета",
+      "fullName": "Полное имя",
+      "status": "Статус",
+      "adminFeeDeducted": "Административный сбор вычтен",
+      "amountReleased": "Выпущенная сумма",
+      "requestedAmount": "Запрошенная сумма",
+      "walletAddress": "Адрес кошелька",
+      "bonusType": "Тип бонуса",
+      "credit": "Кредит",
+      "note": "Примечание",
+      "date": "Дата",
+      "payment_method": "Метод оплаты",
+      "no": "№",
+      "username": "Имя пользователя",
+      "email": "Эл. почта",
+      "amount": "Сумма",
+      "dateJoined": "Дата регистрации",
+      "sales": "Отчет о продажах",
+      "top_earners": "Отчет о лучших заработках",
+      "point_history": "Отчет о истории баллов",
+      "payout_report": "Отчет о выплатах",
+      "member_income": "Отчет о доходах участника",
+      "joining_report": "Отчет о регистрации",
+      "fund_transfer": "Отчет об переводах средств",
+      "business_builder": "Отчет о бизнес-строителе"
+    }
+  },
+  "support_tickets": {
+    "title": "Техническая поддержка",
+    "create": "Создать заявку",
+    "side_bar": {
+      "all": "Все",
+      "open": "Открытые",
+      "resolved": "Решенные",
+      "closed": "Закрытые",
+      "in_progress": "В процессе",
+      "responded": "Отвечено"
+    },
+    "table": {
+      "no": "Номер заявки",
+      "date": "Дата",
+      "subject": "Тема",
+      "status": "Статус",
+      "priority": "Приоритет",
+      "department": "Отдел",
+      "category": "Категория",
+      "actions": "Действия"
+    },
+    "contact_support": {
+      "title": "Создать заявку",
+      "create_card": {
+        "title": "Создать заявку",
+        "category": "Выберите категорию",
+        "department": "Выберите отдел",
+        "priority": "Выберите приоритет",
+        "subject": "Тема",
+        "file": "Прикрепить файл",
+        "submit": "Отправить запрос"
+      }
+    },
+    "view": {
+      "title": "Просмотр заявки",
+      "pill": "ID заявки",
+      "created": "Дата создания",
+      "last": "Последний ответ",
+      "about": {
+        "status": "Статус",
+        "priority": "Приоритет",
+        "department": "Отдел",
+        "email": "Эл. почта",
+        "category": "Категория",
+        "username": "Имя пользователя"
+      },
+      "reply_form": {
+        "title": "Форма ответа",
+        "submit": "Отправить ответ",
+        "faq_title": "Заголовок"
+      }
+    }
+  },
+
+  "profile": {
+    "tax_code": "Налоговый кодекс",
+    "vat_number": "Номер НДС",
+    "your_notes": "Ваши заметки",
+    "no": "№",
+    "userName": "Имя пользователя",
+    "email": "Эл. почта",
+    "active": "Активный",
+    "dateJoined": "Дата регистрации",
+    "businessBuilder": "Бизнес-строитель",
+    "socialMediaScope": "Охват в социальных сетях",
+    "save_changes": "Сохранить изменения",
+    "medium": "Среда",
+    "email_address": "Адрес эл. почты",
+    "phone_numbers": "Номера телефонов",
+    "address": "Адрес",
+    "state_region": "Штат/Регион",
+    "city": "Город",
+    "zip_codes": "Почтовый индекс",
+    "male": "Мужской",
+    "female": "Женский",
+    "other": "Другое",
+    "balance": "Баланс",
+    "your_activity_history": "История вашей активности",
+    "last_seen": "Последний вход",
+    "allowed": "Разрешено",
+    "max_size": "Максимальный размер",
+    "first_name": "Имя",
+    "last_name": "Фамилия",
+    "gender": "Пол",
+    "public_private": "Публичный/Приватный",
+    "choose_country": "Выберите страну",
+    "account_settings": "Настройки аккаунта",
+    "new_passwords": "Новый пароль",
+    "confirm_new_passwords": "Подтвердите новый пароль",
+    "twoStepAuthentication": "Двухэтапная аутентификация",
+    "twoStep": "Двухэтапная аутентификация (2FA)",
+    "emailNotificationSettings": "Настройки уведомлений по эл. почте",
+    "materialAdd": "Добавление материала",
+    "productBusiness": "Уведомления об истечении срока продукта и бизнес-строителя",
+    "blog": "Блог",
+    "rankachieved": "Достигнутый ранг",
+    "paymentCompleted": "Оплата завершена",
+    "newUserAdded": "Новый пользователь добавлен в бинарную сеть",
+    "accountUpdate": "Обновление аккаунта",
+    "friendRegisterMail": "Почта регистрации друга",
+    "telegramInstructionMails": "Почта с инструкциями для Telegram",
+    "mailsFromAdmin": "Письма от администратора",
+    "title": "Профиль",
+    "referrals": "Рефералы",
+    "total_payout": "Общая выплата",
+    "total_commission": "Общая комиссия",
+    "tabs": {
+      "profile": "Профиль",
+      "edit": "Редактировать информацию",
+      "settings": "Настройки",
+      "referral": "Реферал",
+      "note": "Заметки",
+      "payout": "Выплата"
+    },
+    "profile": {
+      "commission": "Общая комиссия",
+      "payout": "Общая выплата",
+      "referrals": "Рефералы",
+      "balance": "Баланс",
+      "last_seen": "Последний вход",
+      "activity_history": "История вашей активности"
+    },
+    "referral": {
+      "title": "Рефералы",
+      "table": {
+        "no": "№",
+        "user": "Имя пользователя",
+        "email": "Эл. почта",
+        "active": "Активный",
+        "business_builder": "Бизнес-строитель",
+        "date": "Дата регистрации"
+      }
+    },
+    "settings": {
+      "bank_account": {
+        "title": "Обновить информацию о прямом платеже"
+      },
+      "bitaps": {
+        "title": "Обновить биткойн-адрес"
+      },
+      "bank": {
+        "title": "Обновить банковские реквизиты",
+        "save": "Сохранить изменения"
+      },
+      "stripe": {
+        "title": "Обновить информацию об онлайн-платеже",
+        "form": {
+          "first_name": "Имя",
+          "last_name": "Фамилия",
+          "currency": "Валюта",
+          "account_holder_name": "Имя владельца счета",
+          "account_holder_type": "Тип владельца счета",
+          "routing_number": "Маршрутный номер",
+          "account_number": "Номер счета",
+          "country": "Страна",
+          "id_number": "Идентификационный номер",
+          "phone": "Телефон",
+          "gender": "Пол",
+          "dob": "Дата рождения",
+          "line1": "Адресная строка 1",
+          "line2": "Адресная строка 2",
+          "city": "Город",
+          "state": "Состояние",
+          "postal_code": "Почтовый индекс"
+        }
+      },
+      "password": {
+        "title": "Настройки аккаунта",
+        "new_password": "Новый пароль",
+        "confirm": "Подтвердите новый пароль",
+        "save": "Сохранить изменения"
+      },
+      "address": {
+        "title": "Изменить адрес кошелька",
+        "save": "Сохранить"
+      },
+      "2fa": {
+        "title": "Двухэтапная аутентификация (2FA)",
+        "enable_message": "Первый шаг - скачать приложение Google Authenticator для вашего устройства Android или iOS. Если вам нужна помощь в начале работы, обратитесь на страницу поддержки Google. Если у вас нет доступа к Android Market или App Store, есть другие варианты для получения Google Authenticator: загрузка для Android, плагин Google Chrome или App Store для iTunes",
+        "post_script": "Токен не будет отображаться после включения 2FA. Если у вас несколько устройств, добавьте свой токен учетной записи на все из них, прежде чем нажать «Включить». (Примечание: ваш токен учетной записи будет изменяться каждый раз при перезагрузке браузера.)",
+        "button": "Подтвердить",
+        "otp": "Введите OTP"
+      },
+      "cache": {
+        "title": "Конфиденциальность и безопасность",
+        "body": "Очистить данные браузера",
+        "sub": "Очистить историю, файлы cookie, кеш и другие данные",
+        "dialog": {
+          "title": "Очистить данные браузера",
+          "body": "После очистки истории браузера вы будете выведены из системы с этой страницы.",
+          "cancel": "Отмена",
+          "save": "Очистить"
+        }
+      }
+    },
+    "notes": {
+      "button": "Заметки",
+      "dialog": {
+        "add": {
+          "title": "Добавить заметку",
+          "submit": "Отправить",
+          "cancel": "Закрыть"
+        },
+        "delete": {
+          "title": "Удалить заметку",
+          "message": "Вы уверены, что хотите продолжить? Это действие нельзя отменить.",
+          "submit": "Удалить",
+          "cancel": "Отмена"
+        },
+        "edit": {
+          "title": "Редактировать заметку",
+          "submit": "Обновить",
+          "cancel": "Отмена"
+        }
+      }
+    },
+    "edit": {
+      "tax_code": "Налоговый кодекс",
+      "vat_number": "Номер НДС",
+      "first_name": "Имя",
+      "last_name": "Фамилия",
+      "gender": "Пол",
+      "country": "Страна",
+      "state": "Штат/Регион",
+      "city": "Город",
+      "pin": "Почтовый индекс",
+      "address": "Адрес",
+      "mobile": "Номер телефона",
+      "mail": "Адрес эл. почты",
+      "social": {
+        "phone": "Телефон",
+        "mail": "Адрес эл. почты",
+        "fb": "Facebook",
+        "x": "X",
+        "whatsapp": "Whatsapp",
+        "insta": "Instagram",
+        "tele": "Telegram",
+        "medium": "Medium"
+      },
+      "status": "Публичный / Приватный",
+      "social_scope": "Охват в социальных сетях",
+      "update": "Сохранить изменения"
+    }
+  },
+  "user": {
+    "recurring_order": {
+      "title": "Повторяющийся заказ",
+      "disable_recurring": "Отключить повторяющееся",
+      "recurring_enabled": "Повторяющийся включен",
+      "enable_on": "Повторяющееся включено",
+      "update_card": "Обновить карту"
+    },
+    "online_store": {
+      "team_orders":{
+        "title":"Заказы команды"
+    },
+
+      "select_month": "Выберите месяц",
+      "buy_now": "Купить сейчас",
+      "cart": "Добавить в корзину",
+      "subscription": "Подписка",
+      "write_review": "Напишите свой отзыв",
+      "product_details": {
+        "title": "Детали продукта",
+        "review_other": "Отзывы ({{count}})",
+        "average_rating": "Средний рейтинг"
+      },
+      "product": {
+        "title": "Подписка на продукт",
+        "quantity": "Количество",
+        "amount": "Сумма",
+        "complete_order": "Завершить заказ",
+        "balance": "Доступный баланс",
+        "back": "Назад",
+        "payment_options": "Варианты оплаты",
+        "subscription": "Подписка",
+        "price": "Цена",
+        "product": "Продукт",
+        "coupon": "Промокод",
+        "apply": "Применить",
+        "order_summary": "Сводка заказа",
+        "sub_total": "Подытог",
+        "discount": "Скидка",
+        "total": "Итого",
+        "continue": "Продолжить покупки",
+        "look_like": "Похоже, у вас нет товаров в корзине.",
+        "cart_is_empty": "Корзина пуста",
+        "cart": "корзина",
+        "checkout": "Оформить заказ"
+      },
+      "my_orders": {
+        "title": "Мои заказы",
+        "details": {
+          "title": "Детали счета",
+          "invoiced_date": "Дата выставления счета",
+          "question": "Есть вопрос?",
+          "foot_note": "Мы рады услышать ваши отзывы. Спасибо за ваш бизнес и поддержку. Пожалуйста, произведите немедленную оплату. Если у вас есть какие-либо вопросы по поводу этого счета, не стесняйтесь связаться с нами."
+        },
+        "invoice_details": {
+          "iva_price": "Ива Прайс",
+          "my_orders_titile": "Мои заказы: Интернет-магазин",
+          "my_orders": "Мои заказы",
+          "subscription": "Подписка",
+          "no": "Нет",
+          "invoice_id": "Номер счета",
+          "payment_method": "Способ оплаты",
+          "order_date": "Дата заказа",
+          "total_price": "Общая стоимость",
+          "action": "Действие",
+          "combo": "Комбо",
+          "view": "Просмотр",
+          "invoice_titile": "Счет: Просмотр",
+          "invoice_details": "Детали счета",
+          "invoices": "Счета",
+          "date_invoice": "Дата счета:",
+          "product": "Продукт",
+          "type": "Тип",
+          "bv": "BV",
+          "price": "Цена",
+          "notes": "ЗАМЕТКИ",
+          "have_question": "Есть вопрос?",
+          "item": "Товар",
+          "sub_total": "Итого",
+          "discount": "Скидка",
+          "taxes": "Налоги",
+          "total": "Общий итог",
+          "support_mail": "support@cloudmlm.com",
+          "shipping": "Доставка: Бесплатно",
+          "quantity":"Pacchetto",
+          "qv":"QV",
+          "ev":"ЭТОТ",
+          "coupon_discount":"Купон Скидка",
+          "consequtive":"Скидка за месяц подряд"
+
+
+        }
+      }
+    },
+    "subscriptions": {
+      "title": "Мои подписки",
+      "active_only": "Показывать только активные подписки?",
+      "purchase_date": "Дата покупки",
+      "expiry_date": "Истекает",
+      "enable_recurring": "Включить повторение",
+      "recurring_not_enabled": "Повторение не включено",
+      "recurring_cancelled_on": "Повторение отменено",
+      "stripe_recurring_enable_message": "Продолжая, вы включаете автоматическое продление этой подписки с использованием вашей карты Stripe.",
+      "recurring_payment": "Включить повторные платежи",
+      "paypal_recurring_enable_message": "Продолжая, вы включаете повторные платежи для этого продукта через PAYPAL.",
+      "your_review": "Ваш отзыв о продукте",
+      "submit_review": "Оставить комментарий",
+      "list_public_events": "Список публичных событий",
+      "labels": {
+        "review": "Добавить отзыв",
+        "blog": "Блог",
+        "events": "События",
+        "documents": "Документы",
+        "videos": "Видео",
+        "view": "Посмотреть"
+      }
+    },
+
+    "income_report": {
+      "title": "Отчет о доходах",
+      "table": {
+        "no": "Нет",
+        "from": "От имени",
+        "amount_type": "Тип суммы",
+        "credit": "Кредит",
+        "created": "Создан"
+      }
+    }
+  },
+  "products": {
+    "title": {
+      "subscriptions": "Подписки",
+      "product_and_pack": "Товары и пакеты",
+      "add": "Добавить",
+      "category_name": "Название категории",
+      "product": "Товар",
+      "package": "Пакет",
+      "category": "Категория",
+      "video_edit": "Просмотр / Редактирование видео",
+      "document_view_edit": "Просмотр / Редактирование документов",
+      "questions_view_edit": "Просмотр / Редактирование вопросов",
+      "sample_document_view_edit": "Просмотр / Редактирование образца документа",
+      "product_view_edit": "Просмотр / Редактирование товара",
+      "delete": "Удалить",
+      "package_add": "Добавить пакет",
+      "product_add": "Добавить товар",
+      "package_edit": "Пакет Править",
+      "product_edit": "Продукт Редактировать",
+      "subscription_edit": "Подписка Править",
+      "subscription_view_edit": "Подписка Просмотр/Редактирование"
+    },
+    "add": {
+      "package_name": "Название пакета",
+      "product_name": "Название товара",
+      "meta_keywords": "Мета-ключи",
+      "meta_description": "Мета-описание",
+      "short_description": "Краткое описание",
+      "title": "Заголовок",
+      "description": "Описание",
+      "product_page_url": "URL страницы товара",
+      "images": "Изображения",
+      "status": "Статус",
+      "accessFrom": "Доступ с",
+      "accessTo": "Доступ до",
+      "product_available": "Товар доступен",
+      "package_available": "Пакет доступен",
+      "submit": "Отправить",
+      "reset": "Сбросить",
+      "add_price": "Добавить цену",
+      "subscription": "Подписка",
+      "one_off_payment": "Одноразовый платеж",
+      "addVimeoVideo": "Добавить URL-адрес Vimeo-видео (необязательно)",
+      "subscription_or": "Подписка ИЛИ Одноразовый платеж",
+      "add_doc": "Добавить документ",
+      "add_sample_doc": "Добавить образец документа",
+      "remove_all": "Удалить все"
+    },
+    "video": {
+      "update": "Обновить",
+      "edit_video": "Редактировать видео",
+      "cancel": "Отмена",
+      "areYouSure": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+      "deleteVideo": "Удалить видео",
+      "title": "Видео",
+      "product": "Товары и пакеты",
+      "add": "Добавить",
+      "addVideo": "Добавить видео",
+      "videoURL": "URL видео",
+      "close": "Закрыть",
+      "delete": "Удалить",
+      "edit": "Редактировать"
+    },
+    "category": {
+      "add": "Добавить категорию",
+      "edit_cat": "Редактировать категорию",
+      "product_categories_store": "Категории товаров: Магазин",
+      "product_categories": "Категории товаров",
+      "category_name": "Название категории товара",
+      "add_category": "Добавить категорию",
+      "status": "Статус",
+      "enabled": "Включено",
+      "disabled": "Отключено",
+      "close": "Закрыть",
+      "submit": "Отправить",
+      "edit": "Редактировать",
+      "delete": "Удалить",
+      "total_products": "Всего товаров",
+      "delete_product_category": "Удалить категорию товара",
+      "delete_msg": "Вы уверены, что хотите продолжить? Это действие нельзя отменить"
+    },
+    "document": {
+      "delete_document": "Удалить документ",
+      "areYouSure": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+      "close": "Закрыть",
+      "update": "Обновить",
+      "edit_document": "Редактировать документ",
+      "uploadDocument": "Загрузить документ",
+      "upload": "Загрузить",
+      "cancel": "Отмена",
+      "add_sample_document": "Добавить образец документа",
+      "products": "Товары",
+      "title": "Документ | Магазин",
+      "document": "Документ",
+      "add": "Добавить",
+      "edit": "Редактировать",
+      "delete": "Удалить",
+      "view": "Просмотр",
+      "createdAt": "Создано"
+    },
+    "question": {
+      "cancel": "Отмена",
+      "delete": "Удалить",
+      "areYouSure": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+      "delete_product_questions": "Удалить вопросы о продукте",
+      "add_product_question": "Добавить вопрос о продукте",
+      "edit_product_questions": "Редактировать вопросы о продукте",
+      "no": "Нет",
+      "add_question": "Добавить вопрос",
+      "action": "Действие",
+      "description": "Описание",
+      "titles": "Заголовок",
+      "title": "Вопрос | Магазин",
+      "question": "Вопрос",
+      "products": "Товары и пакеты",
+      "answer": "Ответ",
+      "close": "Закрыть",
+      "submit": "Отправить"
+    },
+    "sample_doc": {
+      "title": "Образец документа | Магазин",
+      "sample_doc": "Образец документа",
+      "products": "Товары и пакеты",
+      "add": "Добавить"
+    },
+    "edit": {
+      "title": "Редактирование товара | Магазин",
+      "edit": "Редактировать товар",
+      "products": "Товары и пакеты"
+    },
+    "delete": {
+      "areYouSure": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+      "delete_product": "Удалить товар",
+      "cancel": "Отмена",
+      "delete": "Удалить"
+    }
+  },
+  "material": {
+    "action": "Действие",
+    "category": "Категория",
+    "sort_order": "Порядок сортировки",
+    "title": "Товары | Магазин",
+    "materials": "Материалы",
+    "material": "Материал",
+    "material_categories": "Категории материалов",
+    "no": "Нет",
+    "product_name": "Название товара",
+    "doc_count": "Количество документов",
+    "video_count": "Количество видео",
+    "view": "Просмотр",
+    "add": "Добавить",
+    "add_material": {
+      "submit": "Отправить",
+      "choose_product": "Выбрать товар",
+      "material_category": "Категория материала",
+      "description": "Описание",
+      "add_video": "Добавить видео",
+      "URL": "URL",
+      "title": "Название",
+      "expiry_date": "Дата истечения срока",
+      "add_document": "Добавить документ"
+    }
+  },
+  "events": {
+    "events_title": "События | Магазин",
+    "events": "События",
+    "no": "Нет",
+    "image": "Изображение",
+    "product": "Товар",
+    "events_type": "Тип события",
+    "scope": "Область",
+    "URL": "URL",
+    "zoom_password": "Пароль Zoom",
+    "from": "От",
+    "time": "Время",
+    "duration": "Длительность",
+    "host": "Хост",
+    "topic": "Тема",
+    "action": "Действие",
+    "add": "Добавить",
+    "edit": "Редактирование события",
+    "delete": "Удалить событие",
+    "are_you_sure": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+    "add_event": {
+      "private": "Приватное",
+      "public": "Публичное",
+      "access_scope": "Область доступа",
+      "zoomPassword": "Пароль Zoom",
+      "location_Zoom": "Местоположение / URL Zoom",
+      "event_type": "Тип события",
+      "description": "Описание",
+      "when": "Когда",
+      "date": "Дата",
+      "time": "Время",
+      "duration": "Длительность",
+      "time_zone": "Часовой пояс",
+      "host_details": "Детали хоста",
+      "host": "Хост",
+      "topic": "Тема",
+      "submit": "Отправить",
+      "edit": "Просмотр / Редактирование",
+      "delete": "Удалить",
+      "cancel": "Отмена",
+      "status": "Статус",
+      "hours": "Часы",
+      "minutes": "Минуты"
+    }
+  },
+  "user_review": {
+    "edit_review": "Редактировать отзыв",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "are_you_sure": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+    "delete_review": "Удалить отзыв",
+    "review_view": "Просмотр отзыва",
+    "user_name": "Имя пользователя",
+    "comment": "Комментарий",
+    "action": "Действие",
+    "review_view_title": "Просмотр отзыва | Магазин",
+    "back": "Назад",
+    "products": "Товары",
+    "post_review": "Оставить отзыв",
+    "title": "Название",
+    "review": "Отзыв",
+    "your_review_about": "Ваш отзыв о продукте:",
+    "user_review_title": "Отзыв пользователя | Магазин",
+    "user_review": "Отзывы пользователей",
+    "add_review": "Отзыв",
+    "no": "Нет",
+    "product": "Товар",
+    "total_review": "Общий обзор",
+    "rating": "Рейтинг",
+    "view": "Просмотр",
+    "review_add_title": "Добавить отзыв",
+    "leave_a_comment": "Оставьте комментарий"
+  },
+  "coupons": {
+    "edit_coupon": "Редактировать купон",
+    "edit_coupon_title": "Редактировать купон | Магазин",
+    "deleteCoupon": "Удалить купон",
+    "areYouSure": "Вы уверены, что хотите продолжить? Это действие нельзя отменить",
+    "cancel": "Отмена",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "coupon_title": "Купон | Магазин",
+    "coupon": "Купоны",
+    "add_coupon": "Добавить купон",
+    "no": "Нет",
+    "couponName": "Название купона",
+    "code": "Код",
+    "type": "Тип",
+    "used_available": "Использовано / Доступно",
+    "discountFix": "Скидка (Фиксированная/%)",
+    "startDate": "Дата начала",
+    "endDate": "Дата окончания",
+    "active": "Активен",
+    "created_at": "Создан",
+    "action": "Действие",
+    "add_coupon_title": "Добавить купон: Магазин",
+    "add": "Добавить",
+    "add_form": {
+      "coupon_name": "Название купона",
+      "code": "Код",
+      "type": "Тип",
+      "fixed_amount": "Фиксированная сумма",
+      "percentage": "Процент",
+      "total_amount": "Общая сумма",
+      "discount": "Скидка",
+      "status": "Статус",
+      "enabled": "Активен",
+      "disabled": "Отключен",
+      "usesPerCoupon": "Использований на купон",
+      "usesPerCustomer": "Использований на клиента",
+      "from": "С",
+      "to": "По",
+      "submit": "Отправить"
+    }
+  },
+  "lead_capture": {
+    "enter_details": "Введите данные",
+    "lead": "Лид",
+    "no": "Нет",
+    "name": "Имя",
+    "email": "Электронная почта",
+    "mobile": "Номер телефона",
+    "created_at": "Создано",
+    "edit": "Редактировать",
+    "cancel": "Отмена",
+    "submit": "Отправить",
+    "edit_lead": "Редактировать лид"
+  },
+  "errors": {
+    "lead_capture": {
+      "email": {
+        "required": "Необходимо ввести действительный адрес электронной почты"
+      },
+      "username": {
+        "required": "Требуется имя пользователя"
+      },
+      "mobile": {
+        "required": "Требуется мобильный номер"
+      }
+    },
+    "financial": {
+      "pay_now": {
+        "valid": "Введите действительную сумму",
+        "min": "Сумма должна быть не менее 1",
+        "limit": "У вас недостаточно средств",
+        "required": "Требуется указать сумму"
+      },
+      "fund_transfer": {
+        "wallet": {
+          "required": "Выберите кошелек"
+        },
+        "amount": {
+          "min": "Минимальная сумма должна быть 1",
+          "type": "Требуется указать сумму",
+          "required": "Выберите сумму"
+        },
+        "user_id": {
+          "type": "Выберите пользователя",
+          "required": "Выберите пользователя"
+        }
+      },
+      "payout": {
+        "amount": {
+          "type": "Требуется указать сумму",
+          "min": "Убедитесь, что указали минимальную сумму для вывода",
+          "required": "Требуется указать сумму"
+        },
+        "coin_id": "Требуется указать тип монеты"
+      },
+      "fund_credit": {
+        "user_id": { "required": "Требуется указать имя" },
+        "amount": {
+          "required": "Требуется указать сумму",
+          "type": "Требуется указать сумму"
+        },
+        "wallet_type": {
+          "required": "Требуется указать кошелек"
+        }
+      }
+    },
+    "help_center": {
+      "department": {
+        "name": {
+          "required": "Требуется указать название отдела"
+        },
+        "description": {
+          "required": "Требуется указать описание отдела"
+        },
+        "active": {
+          "required": "Требуется указать статус"
+        },
+        "sort_order": {
+          "required": "Требуется указать порядок сортировки"
+        }
+      },
+      "categories": {
+        "name": {
+          "required": "Требуется указать название"
+        },
+        "description": {
+          "required": "Требуется указать описание"
+        },
+        "active": {
+          "required": "Требуется указать статус"
+        }
+      },
+      "canned_response": {
+        "name": { "required": "Требуется указать название заголовка" },
+        "subject": { "required": "Требуется указать тему" },
+        "message": {
+          "required": "Требуется указать описание"
+        }
+      },
+      "priorities": {
+        "name": { "required": "Требуется указать название" },
+        "description": { "required": "Требуется указать описание" },
+        "color": { "required": "Требуется указать цвет" }
+      },
+      "add_ticket": {
+        "description": { "required": "Требуется указать описание" },
+        "priority_id": { "required": "Требуется указать приоритет" },
+        "department_id": { "required": "Требуется указать отдел" },
+        "category_id": { "required": "Требуется указать категорию" },
+        "subject": { "required": "Требуется указать тему" },
+        "user_id": {
+          "required": "Требуется указать пользователя",
+          "type": "Требуется указать пользователя"
+        },
+        "status": {
+          "required": "Требуется указать статус"
+        }
+      },
+      "reply_form": {
+        "title": {
+          "required": "Требуется указать заголовок"
+        },
+        "body": {
+          "required": "Требуется указать описание"
+        }
+      }
+    },
+    "products": {
+      "add": {
+        "product_name": { "required": "Требуется указать название продукта" },
+        "active": {
+          "required": "Требуется указать статус"
+        },
+        "price": {
+          "required": "Цена требуется",
+          "typeError": "Цена требуется",
+          "min": "Цена не может быть 0"
+        },
+        "product_description": {
+          "required": "Требуется указать описание продукта"
+        },
+        "meta_description": { "required": "Требуется указать мета-описание" },
+        "meta_keywords": {
+          "required": "Требуется указать мета-ключевые слова"
+        },
+        "title": { "required": "Требуется указать заголовок" },
+        "product_category_id": {
+          "required": "Требуется указать категорию продукта",
+          "type": "Требуется указать категорию продукта"
+        },
+        "bv_percentage": {
+          "required": "Требуется указать процент BV",
+          "type": "Требуется указать процент BV",
+          "test": "Введите корректное значение процента"
+        },
+        "euro_value": {
+          "required": "Требуется значение в евро.",
+          "type": "Требуется значение в евро."
+        },
+        "qualification_value": {
+          "required": "Требуется значение квалификации",
+          "type": "Требуется значение квалификации"
+        },
+        "business_volume": {
+          "required": "Требуется объем бизнеса",
+          "type": "Требуется объем бизнеса"
+        },
+        "product_url": { "required": "Требуется указать URL продукта" },
+        "video": { "required": "Введите корректный URL видео" },
+        "image": { "test": "Выберите изображение" },
+        "doc": { "test": "Выберите документ" },
+        "sample_doc": { "test": "Выберите образец документа" }
+      },
+      "category": {
+        "name": { "required": "Требуется указать название категории продукта" },
+        "status": { "required": "Требуется указать статус" }
+      }
+    },
+
+    "faqs": {
+      "category_id": {
+        "required": "Требуется указать название категории"
+      },
+      "question": {
+        "required": "Требуется указать вопрос"
+      },
+      "answer": {
+        "required": "Требуется указать ответ"
+      }
+    },
+
+    "faq_categories": {
+      "name": { "required": "Требуется указать название категории" },
+      "description": { "required": "Требуется указать описание" }
+    },
+
+    "articles": {
+      "add": {
+        "title": { "required": "Требуется указать заголовок" },
+        "description": { "required": "Требуется указать описание" },
+        "category_id": { "required": "Требуется указать категорию" },
+        "name": { "required": "Требуется указать название категории статьи" }
+      }
+    },
+    "blogs": {
+      "add": {
+        "title": { "required": "Заголовок обязателен" },
+        "content": { "required": "Контент обязателен" },
+        "category_id": { "min": "Категория обязательна" },
+        "meta_keywords": { "required": "Мета-ключевые слова обязательны" },
+        "meta_description": { "required": "Мета-описание обязательно" },
+        "short_description": { "required": "Краткое описание обязательно" },
+        "image": { "required": "Изображение обязательно" },
+        "product_id": {
+          "required": "Продукт обязателен",
+          "min": "Продукт обязателен"
+        }
+      },
+      "categories": {
+        "name": { "required": "Название обязательно" },
+        "desc": { "required": "Описание обязательно" }
+      },
+      "add_comment": {
+        "comment": { "required": "Комментарий обязателен" },
+        "title": { "required": "Заголовок обязателен" },
+        "rating": {
+          "max": "Максимальная возможная оценка - 5",
+          "required": "Email обязателен"
+        }
+      }
+    },
+
+    "tickets": {
+      "reply_form": {
+        "body": {
+          "required": "Сообщение обязательно"
+        },
+        "title": {
+          "required": "Заголовок обязателен"
+        }
+      },
+      "create_form": {
+        "department_id": {
+          "type": "Пожалуйста, выберите отдел",
+          "required": "Пожалуйста, выберите отдел"
+        },
+        "priority_id": {
+          "type": "Пожалуйста, выберите приоритет",
+          "required": "Пожалуйста, выберите приоритет"
+        },
+        "category_id": {
+          "type": "Пожалуйста, выберите категорию",
+          "required": "Пожалуйста, выберите категорию"
+        },
+        "subject": {
+          "required": "Пожалуйста, выберите тему"
+        },
+        "description": {
+          "required": "Пожалуйста, выберите описание"
+        }
+      }
+    },
+
+    "profile": {
+      "edit": {
+        "first_name": {
+          "required": "Имя обязательно",
+          "matches": "Должно содержать только буквы"
+        },
+        "last_name": {
+          "required": "Фамилия обязательна",
+          "matches": "Должна содержать только буквы"
+        },
+        "mobile": {
+          "required": "Номер телефона обязателен",
+          "type": "Введите действительный номер телефона"
+        },
+        "gender": {
+          "required": "Пол обязателен"
+        },
+        "zipcode": {
+          "required": "Почтовый индекс обязателен"
+        },
+        "address": {
+          "required": "Адрес обязателен"
+        },
+        "country": {
+          "required": "Страна обязательна"
+        },
+        "state": {
+          "required": "Область обязательна",
+          "matches": "Должна содержать только буквы"
+        },
+        "city": {
+          "required": "Город обязателен",
+          "matches": "Должен содержать только буквы"
+        },
+        "medium": {
+          "url": "Введите действительный URL"
+        },
+        "fb": {
+          "url": "Введите действительный URL"
+        },
+        "x": {
+          "url": "Введите действительный URL"
+        },
+        "insta": {
+          "url": "Введите действительный URL"
+        },
+        "profile_image": {
+          "required": "Аватар обязателен"
+        }
+      },
+      "notes": {
+        "note": {
+          "required": "Примечание обязательно"
+        }
+      }
+    },
+    "brand": {
+      "name": {
+        "required": "Название компании обязательно"
+      },
+      "address": {
+        "required": "Адрес обязателен"
+      },
+      "email": {
+        "required": "Электронная почта обязательна",
+        "email": "Введите действительный адрес электронной почты"
+      },
+      "sort_order": {
+        "required": "Порядок сортировки обязателен",
+        "type": "Порядок сортировки должен быть числом"
+      },
+      "section_id": {
+        "required": "Раздел обязателен"
+      },
+      "menu_name": {
+        "required": "Имя меню обязательно"
+      },
+      "title": {
+        "required": "Заголовок обязателен"
+      },
+      "url": {
+        "required": "URL обязателен"
+      },
+      "description": {
+        "required": "Описание обязательно"
+      }
+    },
+
+    "user_review": {
+      "rating": {
+        "required": "Рейтинг обязателен"
+      },
+      "product_id": {
+        "required": "Выберите продукт"
+      },
+      "comment": {
+        "required": "Отзыв обязателен"
+      },
+      "title": {
+        "required": "Заголовок обязателен"
+      },
+      "username": {
+        "required": "Имя пользователя обязательно"
+      }
+    },
+    "coupons": {
+      "name": {
+        "required": "Название купона обязательно"
+      },
+      "type": {
+        "required": "Тип купона обязателен"
+      },
+      "code": {
+        "required": "Код обязателен",
+        "matches": "Код может содержать только буквы, цифры, тире и подчеркивания"
+      },
+      "discount": {
+        "required": "Скидка обязательна",
+        "type": "Скидка обязательна",
+        "min": "Сумма должна быть не менее нуля",
+        "maxi": "Должна быть меньше общей суммы",
+        "max": "Процент не должен превышать 100"
+      },
+      "uses_per_coupon": {
+        "required": "Использование на купон обязательно",
+        "type": "Использование на купон обязательно",
+        "min": "Количество должно быть не менее одного",
+        "integer": "Не должно содержать десятичное значение"
+      },
+      "uses_per_customer": {
+        "required": "Использование на клиента обязательно",
+        "type": "Использование на клиента обязательно",
+        "min": "Количество должно быть не менее одного",
+        "integer": "Не должно содержать десятичное значение",
+        "max": "Должно быть не более чем использование на купон"
+      },
+      "total_amount": {
+        "required": "Общая сумма обязательна",
+        "type": "Общая сумма обязательна",
+        "min": "Сумма должна быть не менее нуля"
+      },
+      "start_date": {
+        "test": "Введите действительную дату",
+        "valid": "Дата начала не должна быть больше даты окончания"
+      },
+      "end_date": {
+        "test": "Введите действительную дату",
+        "valid": "Дата окончания не должна быть меньше даты начала"
+      }
+    },
+    "events": {
+      "product_id": {
+        "required": "Продукт обязателен",
+        "min": "Продукт обязателен"
+      },
+      "event_type": {
+        "required": "Тип события обязателен"
+      },
+      "location_url": {
+        "required": "Местоположение обязательно"
+      },
+      "description": {
+        "required": "Описание обязательно"
+      },
+      "time": {
+        "required": "Время обязательно"
+      },
+      "hr": {
+        "required": "Часы обязательны"
+      },
+      "min": {
+        "required": "Минуты обязательны"
+      },
+      "timezone": {
+        "required": "Часовой пояс обязателен"
+      },
+      "host": {
+        "required": "Имя хоста обязательно"
+      },
+      "topic": {
+        "required": "Тема обязательна"
+      },
+      "zoom_password": {
+        "required": "Пароль Zoom обязателен"
+      }
+    },
+    "date": {
+      "valid_start": {
+        "test": "Дата начала не должна быть больше, чем дата окончания"
+      },
+      "valid_end": {
+        "test": "Дата окончания не должна быть больше, чем дата начала"
+      },
+      "valid_date": {
+        "test": "Введите правильную дату"
+      }
+    },
+    "material": {
+      "product_list": {
+        "min": "Выберите хотя бы один продукт"
+      },
+      "category_id": {
+        "required": "Выберите категорию"
+      },
+      "video": {
+        "matches": "Добавьте видео или документ",
+        "url": "Пожалуйста, введите корректный URL"
+      },
+      "video_title": {
+        "required": "Заголовок видео обязателен"
+      },
+      "video_access_time": {
+        "required": "Требуется указать срок действия видео",
+        "test": "Введите корректную дату",
+        "type": "Требуется указать срок действия видео"
+      },
+      "doc": {
+        "test": "Добавьте видео или документ"
+      },
+      "doc_title": {
+        "required": "Заголовок документа обязателен"
+      },
+      "user_id": {
+        "required": "Требуется указать пользователя"
+      },
+      "option_value": {
+        "required": "Требуется указать продукт"
+      },
+      "rank_value": {
+        "required": "Требуется указать ранг"
+      },
+      "doc_access_time": {
+        "test": "Введите корректную дату",
+        "type": "Требуется указать срок действия документа",
+        "required": "Требуется указать срок действия документа"
+      }
+    },
+    "material_categories": {
+      "name": {
+        "required": "Требуется указать название категории"
+      },
+      "sort_order": {
+        "required": "Требуется указать порядок сортировки"
+      }
+    },
+    "product_document": {
+      "sample_doc": {
+        "required": "Выберите документ"
+      },
+      "doc": {
+        "required": "Выберите документ"
+      }
+    },
+    "product_question": {
+      "title": {
+        "required": "Требуется указать заголовок"
+      },
+      "description": {
+        "required": "Требуется указать описание"
+      }
+    },
+    "register": {
+      "email": {
+        "email": "Электронная почта должна быть действительным адресом электронной почты",
+        "required": "Электронная почта обязательна"
+      },
+      "username": {
+        "required": "Имя пользователя обязательно",
+        "username": "Это поле не может содержать специальные символы или пробелы."
+      },
+      "password": {
+        "required": "Новый пароль обязателен",
+        "min": "Пароль должен содержать как минимум 8 символов"
+      },
+      "repassword": {
+        "oneOf": "Пароли должны совпадать"
+      }
+    },
+    "login": {
+      "email": {
+        "email": "Электронная почта должна быть действительным адресом электронной почты",
+        "required": "Электронная почта обязательна"
+      },
+      "password": {
+        "required": "Пароль обязателен"
+      }
+    },
+    "sub_admin": {
+      "name": {
+        "required": "Имя обязательно"
+      },
+      "reason": {
+        "required": "Причина требуется"
+      },
+      "description": {
+        "required": "Описание обязательно"
+      },
+      "username": {
+        "required": "Имя пользователя обязательно"
+      },
+      "group_id": {
+        "required": "Группа пользователя обязательна"
+      },
+      "mobile": {
+        "required": "Мобильный номер обязателен",
+        "matches": "Должен содержать только цифры"
+      },
+      "email": {
+        "required": "Адрес электронной почты обязателен",
+        "email": "Введите действительный адрес электронной почты"
+      },
+      "is_impersonation": {
+        "required": "Имитация обязательна",
+        "typeError": "Выберите значение"
+      }
+    },
+    "email": {
+      "subject": {
+        "required": "Тема не может быть пустой"
+      },
+      "message": {
+        "required": "Тело письма не может быть пустым"
+      },
+      "to_users_id": {
+        "min": "Выберите хотя бы одного пользователя"
+      }
+    },
+    "tools": {
+      "title": {
+        "required": "Название документа обязательно"
+      },
+      "sort_order": {
+        "required": "Порядок сортировки обязателен",
+        "integer": "Порядок сортировки должен быть целым числом",
+        "typeError": "Должно быть числом"
+      },
+      "document_url": {
+        "test": "Документ обязателен"
+      },
+      "video": {
+        "title": {
+          "required": "Заголовок обязателен"
+        },
+        "video_tool_url": {
+          "required": "URL видео обязателен",
+          "matches": "Это поле поддерживает только URL Vimeo или действительный URL"
+        }
+      }
+    },
+    "member": {
+      "password": {
+        "username": {
+          "required": "Имя пользователя обязательно"
+        },
+        "password": {
+          "required": "Пароль обязателен",
+          "min": "Пароль должен содержать как минимум 8 символов"
+        },
+        "confirmPassword": {
+          "oneOf": "Пароли должны совпадать",
+          "required": "Подтвердите пароль"
+        }
+      },
+      "username": {
+        "new_username": {
+          "required": "Новое имя пользователя обязательно"
+        }
+      }
+    }
+  }
+}

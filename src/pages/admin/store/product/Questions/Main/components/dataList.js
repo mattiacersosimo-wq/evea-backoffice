@@ -1,0 +1,27 @@
+import React from "react";
+import { IconButton, TableCell, TableRow } from "@mui/material";
+import Iconify from "src/components/Iconify";
+const DataList = ({ question, handleOpenMenu, rowNumber }) => {
+  const { id, title, description } = question;
+  return (
+    <>
+      <TableRow key={id}>
+        <TableCell>{rowNumber}</TableCell>
+        <TableCell>{title}</TableCell>
+        <TableCell>{description?.slice(0, 80)}</TableCell>
+        <TableCell>
+          <IconButton onClick={handleOpenMenu(id)} name="more-button">
+            <Iconify
+              icon={"eva:more-vertical-fill"}
+              width={20}
+              height={20}
+              name="more-button"
+            />
+          </IconButton>
+        </TableCell>
+      </TableRow>
+    </>
+  );
+};
+
+export default DataList;

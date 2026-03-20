@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1002.06 618.23">
+            <defs>
+                <linearGradient id="BG1" x1="100%" x2="50%" y1="9.946%" y2="50%">
+                    <stop offset="0%" stopColor={PRIMARY_DARK} />
+                    <stop offset="100%" stopColor={PRIMARY_MAIN} />
+                  </linearGradient>
+                  <linearGradient id="BG2" x1="50%" x2="50%" y1="0%" y2="100%">
+                    <stop offset="0%" stopColor={PRIMARY_LIGHT} />
+                    <stop offset="100%" stopColor={PRIMARY_MAIN} />
+                  </linearGradient>
+                  <linearGradient id="BG3" x1="50%" x2="50%" y1="0%" y2="100%">
+                    <stop offset="0%" stopColor={PRIMARY_LIGHT} />
+                    <stop offset="100%" stopColor={PRIMARY_MAIN} />
+                  </linearGradient>
+            </defs>
+            <g id="Layer_2" data-name="Layer 2" fill={PRIMARY_MAIN} fillRule="evenodd" stroke="none" strokeWidth="1">
+              <g id="Layer_1-2" data-name="Layer 1" fill={PRIMARY_WARNING} fillRule="evenodd" stroke="none" strokeWidth="1">
+                <path className="cls-1" d="M150,613.42c17.13,1.28,34.42.8,51.72.8h638c15,0,29.21-1,43.75-4.84a162.38,162.38,0,0,0,59.76-29.51c24.54-19.57,41.49-46.69,50.51-76.61a189.6,189.6,0,0,0,7.31-35.51c2-20.34,1.64-38.66-5.45-57.95a212.51,212.51,0,0,0-15.18-32.59c-15.94-27.76-38.66-51.57-67.11-66.59-19.63-10.37-41.32-16.27-63.37-18.35,0,0,67.07-156.1-79.27-258.54,0,0-128-91.46-261,26.83,0,0-50-52.44-129.27-34.15,0,0-86.59,25.61-90.25,114.64,0,0-161,3.66-140.24,147.56,0,0-149.89,20.73-149.89,175.61,0,10,2.4,20.42,4.87,30,5.79,22.48,15.9,44,30.45,62.13,20.3,25.35,48.6,42.52,79.72,51.26A177.26,177.26,0,0,0,150,613.42Z"/>
+                <path className="cls-2" d="M111.2,606.49s51.53-120.71,174.35-98.82c0,0,4.24-103.77,84-142.59,0,0,110.12-58.59,197.65,31.06,0,0,115.76-117.18,247.06-69.88,0,0,151.06,43.47,178.59,179.71,0,0-23.34,99.51-140.87,108.34s-668.82,0-668.82,0S144.42,616,111.2,606.49Z"/>
+              </g>
+            </g>
+        </svg>

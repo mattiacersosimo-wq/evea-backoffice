@@ -1,0 +1,3192 @@
+{
+  "global": {
+    "subscription": "الاشتراك",
+    "business_volume": "حجم الأعمال",
+    "update_card": "تحديث البطاقة",
+    "recurring_enabled_on": "تم تمكين التكرار في",
+    "recurring_enabled": "تم تمكين التكرار",
+    "disable_recurring": "تعطيل التكرار",
+    "order_history": "تاريخ الطلب",
+    "payout_method": "طريقة الدفع",
+    "payout_info": "معلومات الدفع",
+    "current_rank": "الرتبة الحالية",
+    "users": "المستخدمين",
+    "total_tickets": "إجمالي التذاكر",
+    "completed": "مكتمل",
+    "pending_payment": "الدفع المعلق",
+    "processing": "قيد المعالجة",
+    "on_hold": "قيد الانتظار",
+    "cancelled": "ملغي",
+    "refunded": "تم الاسترداد",
+    "failed": "فشل",
+    "affiliate_dashboard": "لوحة القيادة التابعة",
+    "bonus_value": "قيمة المكافأة",
+    "qualification_value": "قيمة المؤهل",
+    "euro_value": "قيمة اليورو",
+    "team_orders":"طلبات الفريق",
+    "pendingcommissions":"اللجان المعلقة",
+    "confirm":"تأكيد كلمة المرور الجديدة",
+    "changedate":"تغيير التاريخ",
+    "country":"البلد",
+    "rank_achievers": " الأبطال الرتبة",
+    "top_recruiters": " أفضل المجندين",
+    "top_earners": " أعلى الكسب",
+    "pqv_required":" مطلوب PQV",
+    "tv_required":" مطلوب تلفزيون",
+    "gv_required":" الأصوات العالمية مطلوبة",
+    "name_package": "الاسم/الحزمة/المنتج",
+    "sold_out": "إجمالي المبيعات",
+    "amount_paid": "المبلغ المدفوع",
+    "order_id": "معرف الطلب",
+    "transaction_password": "كلمة مرور المعاملات",
+    "old_password": "كلمة المرور القديمة",
+    "transaction": "عندما تنسى كلمة مرور المعاملات الخاصة بك،",
+    "sendMail": "انقر هنا لإرسال بريد إلكتروني.",
+    "scanThisCode": "مسح هذا الرمز للدفع",
+    "transactionsCan": "قد تستغرق المعاملات ما يصل إلى 02-12 ساعة للتأكيد",
+    "OrderApproval": "موافقة الطلب",
+    "Order": "الطلب",
+    "products": "المنتجات",
+    "top_performers": "أفضل المؤدين",
+    "pending_payments": "المدفوعات المعلقة",
+    "payment_status": "حالة الدفع",
+    "kyc_details": "KYC تفاصيل",
+    "email": "بريد إلكتروني",
+    "Identity_proof": "إثبات الهوية",
+    "proof_of_address": "إثبات العنوان",
+    "pending": "قيد الانتظار",
+    "upload": "رفع",
+    "total_members": "إجمالي الأعضاء",
+    "approve": "يعتمد",
+    "reject": "يرفض",
+    "reason": "سبب *",
+    "kyc_pending": "التحقق من KYC معلق !",
+    "kyc_reject": "تم رفض التحقق من KYC !",
+    "kyc_approved": "تمت الموافقة على التحقق من KYC !",
+    "users_join": "المستخدمون المنضمون",
+    "your_password": "كلمة سرك الجديدة",
+    "your_new_password": "الرجاء إدخال كلمة المرور الجديدة الخاصة بك !!!",
+    "back_to": "العودة إلى تسجيل الدخول",
+    "coin": "عنوان العملة",
+    "update_coin": "قم بتحديث عنوان العملة الخاصة بك",
+    "account_login": "حظر تسجيل الدخول إلى حساب",
+    "payout": "حظر الدفع",
+    "fund_transfer": "كتلة تحويل الصندوق",
+    "referral": "كتلة الإحالة",
+    "edit_Video": "تحرير الفيديو",
+    "sponsor_information": "معلومات الراعي",
+    "View": "منظر",
+    "Video_title": "عنوان مقطع الفيديو",
+    "bv_percentage": "نسبة BV",
+    "coin_address": "تحديث معلومات الدفع",
+    "days": "أيام",
+    "overdue": "التذاكر المتأخرة",
+    "delete_blog": "حذف المدونة",
+    "resolved": "التذاكر المحلولة",
+    "inProgress": "التذاكر قيد التنفيذ",
+    "responded": "التذاكر المستجابة",
+    "Dates": "التواريخ",
+    "package_add": "إضافة حزمة",
+    "messageImage": "* يرجى محاولة تحميل صورة بحجم أقل من 200 كيلوبايت لتجربة مستخدم أفضل * أو يمكنك استخدام خيار القص.",
+    "imageValid": "* عند تحميل الصور ، يمكنك إما تحميل الصور بأبعاد 700 عرض و 410 ارتفاع (أو الاحتفاظ بهذه النسبة 700 * 410)",
+    "max_size": "الحجم الأقصى",
+    "select_a_package": "اختر حزمة",
+    "enable_recurring": "تمكين التكرار",
+    "dropSelected": "إسقاط الملفات هنا أو انقر فوق",
+    "deleteFaq": "حذف الأسئلة الشائعة",
+    "rank_bonus": "رتبة مكافأة",
+    "weekly": "أسبوعي",
+    "addNewRank": "أضف رتبة جديدة",
+    "impersonateText": "لا يمكن للمسؤول تمكين 2FA لمستخدمين آخرين",
+    "blocked": "محظور",
+    "rankName": "اسم الترتيب",
+    "add_Rank": "إضافة الترتيب",
+    "Options": "خيارات",
+    "Rank_Criteria": "معايير الترتيب",
+    "Referral_Package_Count": "عدد حزم الإحالة",
+    "Bonus_amount": "مبلغ العلاوة",
+    "Personal_Volume": "الحجم الشخصي",
+    "Referral_Package": "حزمة الإحالة",
+    "Referral_Count": "عدد الإحالات",
+    "Team_Volume": "حجم الفريق",
+    "package": "حزم",
+    "binary_matching_bonus_settings": "إعدادات مكافأة التطابق الثنائية",
+    "matchingBonus": "مكافأة التطابق الثنائية",
+    "binary_bonus": "مكافأة ثنائية",
+    "daily": "يومياً",
+    "monthly": "شهرياً",
+    "instant": "فوري",
+    "first_order_percentage": "نسبة الدرجة الأولى",
+    "remove": "يزيل",
+    "Binary_Criteria": "المعايير الثنائية",
+    "fund_credit": "تمويل الائتمان",
+    "fund_debit": "صناديق الخصم",
+    "home": "الرئيسية",
+    "export": "تصدير",
+    "product": "المنتج",
+    "dashboard": "لوحة التحكم",
+    "balance": "الرصيد",
+    "product_name": "اسم المنتج",
+    "product_one": "منتج",
+    "product_other": "منتجات",
+    "category_one": "فئة",
+    "category_other": "فئات",
+    "search": "بحث",
+    "no_data": "لا توجد بيانات متاحة",
+    "something_wrong": "حدث خطأ. الرجاء المحاولة مرة أخرى لاحقًا",
+    "oops": "عذرًا !!!",
+    "month": "شهر",
+    "review_one": "تقييم",
+    "review_other": "تقييمات",
+    "document": "وثيقة",
+    "sample_document": "وثيقة عينية",
+    "description": "الوصف",
+    "question_one": "سؤال",
+    "question_other": "أسئلة",
+    "no": "لا",
+    "invoice_id": "رقم الفاتورة",
+    "payment_method": "طريقة الدفع",
+    "order_date": "تاريخ الطلب",
+    "total_price": "السعر الإجمالي",
+    "action": "العملية",
+    "notes": "ملاحظات",
+    "note": "مذكرة",
+    "continue": "استمر",
+    "cancel": "إلغاء",
+    "title": "العنوان",
+    "comment": "تعليق",
+    "all": "الكل",
+    "view": "عرض",
+    "upcoming": "القادمة",
+    "past": "السابقة",
+    "reset": "إعادة تعيين",
+    "amount": "المبلغ",
+    "e_wallet": "المحفظة الإلكترونية",
+    "d_wallet": "المحفظة الودائع",
+    "send": "إرسال",
+    "request": "طلب",
+    "month_count": "{{count}} شهر",
+    "view_document": "عرض الوثيقة",
+    "comments": "تعليقات",
+    "compose": "كتابة",
+    "description_place_holder": "اكتب شيئًا...",
+    "user": "المستخدم",
+    "delete": "حذف",
+    "edit": "تحرير",
+    "username": "اسم المستخدم",
+    "upload_profile": "رفع الصورة الشخصية",
+    "allowed": "مسموح",
+    "max": "الحد الأقصى",
+    "images": "الصور",
+    "name": "اسم",
+    "total_commission": "إجمالي العمولة",
+    "total_payout": "إجمالي المدفوعات",
+    "last_seen": "آخر ظهور",
+    "your_activity_history": "تاريخ نشاطك",
+    "referrals": "الإحالات",
+    "logged_in": "تم تسجيل الدخول",
+    "total_amount": "المبلغ الإجمالي",
+    "payment_type": "نوع الدفع",
+    "wallet_type": "نوع المحفظة",
+    "credit": "ائتمان",
+    "debit": "دَين",
+    "deposit_wallet": "المحفظة الودائع",
+    "ewallet": "المحفظة الإلكترونية",
+    "expense": "المصروف",
+    "total_credits": "إجمالي الائتمان",
+    "user_type":"نوع المستخدم",
+    "min_pqv":"الحد الأدنى من PQV"
+
+  },
+  "pendingranks": {
+    "table": {
+      "title": "الرتب المعلقة",
+      "no": "لا",
+      "user_name": "اسم المستخدم",
+      "rankname": "اسم الترتيب",
+      "gv": "GV",
+      "tv": "TV",
+      "pqv": "PQV"
+    }
+  },
+  "email_template": {
+    "title": "إعدادات قالب البريد الإلكتروني",
+    "form": {
+      "subject": "الموضوع",
+      "email_template_id": "معرف قالب البريد الإلكتروني لـ SendGrid",
+      "content": "المحتوى",
+      "button": "تحديث"
+    }
+  },
+  "email_settings": {
+    "title": "إعدادات قالب البريد الإلكتروني",
+    "table": {
+      "no": "لا",
+      "name": "الاسم",
+      "template_id": "معرف قالب البريد الإلكتروني لـ SendGrid",
+      "language": "اللغة",
+      "subject": "الموضوع",
+      "edit_template": "تحرير القالب"
+    }
+  },
+  "register": {
+    "welcome": "مرحبًا، مرحبًا بعودتك!",
+
+    "reset": "إعادة تعيين كلمة المرور",
+    "please": "يرجى التحقق من بريدك الإلكتروني.",
+    "request": "تم إرسال الطلب بنجاح",
+    "we_have": "لقد قمنا بإرسال رسالة تأكيد إلى",
+    "back": "رجوع",
+    "pls_enter": "الرجاء إدخال عنوان البريد الإلكتروني المرتبط بحسابك وسنقوم بإرسال رابط لإعادة تعيين كلمة المرور إليك.",
+    "forgot_yur": "هل نسيت كلمة المرور؟",
+    "choose_plan": "اختر الخطة",
+    "forgot": "نسيت كلمة المرور؟",
+    "remember": "تذكرني",
+    "register_new": "تسجيل عضو جديد",
+    "partner": "ابدأ كشريك تسويق",
+    "login": "تسجيل الدخول",
+    "already": "لديك حساب بالفعل",
+    "register": "التسجيل",
+    "terms": "شروط الخدمة",
+    "policy": "سياسة الخصوصية",
+    "referral": "معرف الإحالة (اختياري)",
+    "re_enter_password": "إعادة إدخال كلمة المرور",
+    "password": "كلمة المرور",
+    "username": "اسم المستخدم",
+    "email": "عنوان البريد الإلكتروني",
+    "sign_to": "تسجيل الدخول إلى",
+    "don't_have": "ليس لديك حساب",
+    "get_started": "البدء",
+    "welcome_back": "مرحبًا، مرحبًا مرة أخرى"
+  },
+  "user_nav": {
+    "recurring_orders": "الطلبات المتكررة",
+    "pendingcommissions":"اللجان المعلقة",
+    "affiliate_dashboard": "لوحة القيادة التابعة",
+    "coupons":{
+      "title": "القسائم",
+      "list": "قسائمي"
+    },
+    "referals":"الإحالات",
+
+    "my_subscriptions": "اشتراكاتي",
+    "dashboard": "لوحة التحكم",
+    "join_telegram": "انضم إلى تليجرام",
+    "online_store": {
+      "online_store": "المتجر الإلكتروني",
+      "product": "المنتجات",
+      "my_orders": "طلباتي",
+      "packages": "الحزم",
+      "subscriptions": "الاشتراكات"
+    },
+    "genealogy": {
+      "list": "القائمة",
+      "genealogy": "النسب",
+      "binary": "ثنائي",
+      "sponsor": "الراعي",
+      "tree": "شجرة",
+      "matrix": "المصفوفة",
+      "affiliate_dashboard": "لوحة تحكم الشركاء",
+      "binary_leg_settings": "إعدادات الساق الثنائية"
+    },
+    "financial": {
+      "financial": "المالية",
+      "my_eWallet": "محفظتي الإلكترونية",
+      "deposit_wallet": "المحفظة الودائع",
+      "fund_transfer": "تحويل الأموال",
+      "request_payout": "طلب السحب"
+    },
+    "business_builder": {
+      "business_builder": "بناء الأعمال",
+      "subscriptions": "الاشتراكات",
+      "materials": "المواد"
+    },
+    "my_profile": "ملفي الشخصي",
+    "blogs": "المدونات",
+    "help_center": {
+      "help_center": "مركز المساعدة",
+      "faqs": "الأسئلة الشائعة",
+      "knowledge_base": "قاعدة المعرفة",
+      "emails": "الرسائل الإلكترونية",
+      "support_tickets": "تذاكر الدعم",
+      "documents": "المستندات",
+      "videos": "الفيديوهات"
+    },
+    "income_report": "تقرير الدخل",
+    "leads": "العملاء المحتملين"
+  },
+  "affiliate_dashboard": {
+    "previous_month_pending_commission": "اللجنة المعلقة للشهر السابق",
+    "package_purchased": "تم شراء الحزمة",
+    "first_generation": "الجيل الأول",
+    "second_generation": "الجيل الثاني",
+    "third_generation": "الجيل الثالث",
+    "total_bonus": "إجمالي المكافأة",
+    "levels": "المستويات",
+    "username": "اسم المستخدم",
+    "dsp_ends_in": "مكافأة المبيعات المباشرة تنتهي في",
+    "current_period_ends_in": "الفترة الحالية تنتهي في",
+    "recognition_rank": "الرتبة المعترف بها",
+    "achieved_rank": "الرتبة المحققة",
+    "currentRank": "الرتبة الحالية",
+    "qv": "QV",
+    "rank": "الرتبة",
+    "bonus_amount": "قيمة المكافأة",
+    "eveolving_bonus": "مكافأة التطور",
+    "achieved_count": "عدد مرات الإنجاز",
+    "current_percentage": "النسبة الحالية",
+    "level_1": "المستوى 1",
+    "level_2": "المستوى 2",
+    "leader_name": "اسم القائد",
+    "rank_name": "اسم الرتبة",
+    "team_bv": "BV الفريق",
+    "bonus_percentage": "نسبة المكافأة",
+    "pending_bonus": "المكافأة المعلقة",
+    "generation_1": "الجيل 1",
+    "generation_2": "الجيل 2",
+    "eligible": "مؤهل",
+    "amount_payable": "المبلغ المستحق",
+    "from_user": "من المستخدم",
+    "current_month_commissions": "عمولات الشهر الحالي",
+    "unlocked_levels": "المستويات المفتوحة",
+    "first_generation_promoters": "مروّجو الجيل الأول",
+    "second_generation_promoters": "مروّجو الجيل الثاني",
+    "third_generation_promoters": "مروّجو الجيل الثالث",
+    "min_personal_qualifying_volume": "الحد الأدنى للحجم التأهيلي الشخصي",
+    "direct_promoter_assigned": "المروّج المباشر المعين",
+    "mvp_status_attained_through_direct_promoter": "تم الحصول على حالة MVP من خلال المروّج المباشر",
+    "previous_month": "الشهر السابق",
+    "largest_order_details": "تفاصيل أكبر طلب",
+    "euro_value": "القيمة باليورو",
+    "personal_order_qv": "حجم الطلب التأهيلي الشخصي",
+    "current_month": "الشهر الحالي",
+    "pending_amount": "المبلغ المعلق",
+    "personal_order_qv_in_current_month": "حجم الطلب التأهيلي الشخصي في الشهر الحالي",
+    "months_required_to_earn_bonus": "الأشهر المطلوبة لكسب المكافأة",
+    "order_date": "تاريخ الطلب",
+    "commission": "العمولة",
+    "bv": "BV",
+    "customer_name": "اسم العميل",
+    "customer_details": "تفاصيل العميل",
+    "corresponding_percentage": "النسبة المقابلة",
+    "customers_who_placed_orders": "العملاء الذين قاموا بتقديم الطلبات",
+    "current_package": "الباقة الحالية",
+    "remaining_days_in_go_mvp": "الأيام المتبقية في Go MVP",
+    "eligibility_period_for_additional_bonus": "فترة الأهلية للمكافأة الإضافية (بالأشهر)",
+    "month": "الشهر",
+    "monthly_qualification_status": "حالة التأهل الشهرية",
+    "personally_enrolled_customers": "العملاء المسجلون شخصيًا",
+    "eveolution_rewards": "مكافآت التطور",
+    "direct_qualifying_volume": "الحجم التأهيلي المباشر",
+    "required_customers": "العملاء المطلوبون",
+    "qualification_days": "أيام التأهيل",
+    "no_of_customers_with_30_qv": "عدد العملاء الذين لديهم 30 حجم تأهيلي",
+    "personally_enrolled_customers_with_30_qv": "العملاء المسجلون شخصيًا بـ 30 QV",
+    "personal_qualifying_volume": "الحجم التأهيلي الشخصي",
+    "team_volume": "حجم الفريق",
+    "group_volume": "حجم المجموعة",
+    "s_no": "الرقم التسلسلي",
+    "team": "الفريق",
+    "percentage": "النسبة المئوية",
+    "gv_taken": "GV المحسوب",
+    "current_rank": "الرتبة الحالية",
+    "next_rank": "الرتبة التالية",
+    "sixty_percent_rule": "قاعدة الستين بالمئة",
+    "pending_commission": "اللجان المعلقة",
+    "qualifiers": "التصفيات",
+    "requirements": "متطلبات",
+    "progress": "تقدم",
+    "nextRank": "الرتبة القادمة",
+    "paidAsRankLastWeek": "دفع كرتبة الأسبوع الماضي",
+    "highestRankAchieved": "أعلى رتبة تم التحقيق بها",
+    "current_paid": "الرتبة الحالية المدفوعة",
+    "activeBusiness": "بناء الأعمال النشط",
+    "bronze": "برونز",
+    "silverExecutive": "تنفيذي فضي",
+    "startup": "بداية",
+    "activeCustomer": "عميل نشط",
+    "customer": "عميل",
+    "weekly": "سجل BV الأسبوعي (الساق الصغيرة)",
+    "total": "المجموع",
+    "acquired": "BV المكتسب",
+    "required": "BV المطلوب",
+    "upcoming_week": "الأسبوع القادم",
+    "binary_bonus": "مكافأة ثنائية",
+    "no": "لا",
+    "active_products": "منتج نشط",
+    "user_name": "اسم المستخدم",
+    "email": "البريد الإلكتروني",
+    "active": "نشط",
+    "total_numberL": "إجمالي عدد المبيعات (اليسار)",
+    "total_numberR": "إجمالي عدد المبيعات (اليمين)",
+    "total_teamL": "إجمالي مبيعات الفريق (اليسار)",
+    "total_teamR": "إجمالي مبيعات الفريق (اليمين)",
+    "weeklyL": "BV الأسبوعي (اليسار)",
+    "weeklyR": "BV الأسبوعي (اليمين)",
+    "left_team": "الفريق الأيسر",
+    "left": "يسار",
+    "right": "يمين",
+    "right_team": "الفريق الأيمن",
+    "affiliate": "الشريك",
+    "personal_sales": "مبيعات شخصية BV",
+    "team_sales": "مبيعات الفريق BV",
+    "network_bonus": "مكافأة الشبكة",
+    "referral_bonus": "مكافأة الإحالة",
+    "referrals": "الإحالات",
+    "weekly_payout": "ينتهي دورة الدفع الأسبوعية في"
+  },
+  "user_dashboard": {
+    "residual_bonus": "تقدم المكافأة المتبقية",
+    "leadership_rewards": "مكافآت القيادة",
+    "indirect_sales_bonus": "تقدم مكافأة المبيعات غير المباشرة",
+    "residual_rewards": "المكافآت المتبقية",
+    "leadership_bonus": "تقدم مكافأة القيادة",
+    "residual_matching_bonus": "تقدم مكافأة المطابقة المتبقية",
+    "rock_solid_bonus": "تقدم مكافأة روك سوليد",
+    "gameplay_rewards": "مكافآت جيم بلاي",
+    "eveolving_bonus": "تطور تقدم المكافأة",
+    "rock_solid_mvp_bonus": "تقدم مكافأة روك سوليد MVP",
+    "mvp_mentor_bonus": "تقدم مكافأة مرشد MVP",
+    "direct_sales_bonus": "تقدم مكافأة المبيعات المباشرة",
+    "rob_bonus": "تقدم مكافأة الطلب المتكرر",
+    "3_FF_Progress": "3 للتقدم الحر",
+    "achieved_rank":"الرتبة الحاصلة",
+    "current_rank":"الرتبة الحالية",
+
+    "go_MVP_bonus": "انتقل إلى تقدم مكافأة MVP",
+    "rank_progress_bar": "شريط تقدم الرتبة",
+    "income": "الدخل",
+    "incomeTitle": "هذا الأسبوع",
+    "payout": "إجمالي الدخل",
+    "payoutTitle": "هذا الأسبوع",
+    "balance": "الرصيد الإجمالي",
+    "balanceTitle": "هذا الأسبوع",
+    "referrals": "إجمالي الإحالات",
+    "referralsTitle": "هذا الأسبوع",
+    "downline": "عدد الفريق الفرعي",
+    "downlineTitle": "هذا الأسبوع",
+    "incomeInfo": "الدخل",
+    "payoutInfo": "المدفوعات",
+    "payout_graph": "نظرة عامة على مدفوعات الدخل",
+    "network": {
+      "title": "الشبكة",
+      "overview": "نظرة عامة على انضمام المستخدم"
+    },
+
+    "events": {
+      "title": "الفعاليات"
+    },
+
+    "team_performance": {
+      "table": {
+        "user": "المستخدم",
+        "referrals": "الإحالات",
+        "earnings": "الأرباح"
+      },
+      "title": "أداء الفريق"
+    },
+
+    "referrals_table": {
+      "table": {
+        "user": "المستخدم",
+        "date": "التاريخ",
+        "action": "الإجراء"
+      },
+      "title": "الإحالات"
+    },
+    "referral_menu": {
+      "binary": "ثنائي",
+      "matrix": "مصفوفة",
+      "sponsor": "الراعي",
+      "mono_line": "خط واحد"
+    },
+    "nextlevelTitle": "المستوى التالي لك لتحقيقه!",
+    "nextlevelSubTitle": "حقق رتبة جديدة وفتح أفقًا لا حصر لها.",
+    "currentrank": "الرتبة الحالية",
+    "nextrank": "الرتبة التالية"
+  },
+  "nav": {
+    "dashboard": {
+      "title": "لوحة القيادة",
+      "business": "الأعمال التجارية",
+      "network": "الشبكة"
+    },
+    "genealogy": {
+      "title": "الأنساب",
+      "matrix": "مصفوفة",
+      "binary": "ثنائي",
+      "sponsor": "راعي",
+      "tree": "شجرة",
+      "list": "قائمة",
+      "mono_line": "خط واحد"
+    },
+    "financial": {
+      "title": "المالية",
+      "e_wallet": "المحفظة الإلكترونية",
+      "d_wallet": "الوديعة المالية",
+      "fund_credit": "رصيد الصندوق",
+      "payout": "الدفع"
+    },
+    "pendingranks": {
+      "title": "الرتب المعلقة",
+      "pending_ranks": "الرتب المعلقة"
+    },
+    "communication": {
+      "title": "الاتصالات",
+      "blog": "المدونة",
+      "faqs": "الأسئلة الشائعة",
+      "mails": "البريد الإلكتروني",
+      "help_center": "مركز المساعدة",
+      "article": "مقال"
+    },
+    "tools": {
+      "title": "الأدوات",
+      "documents": "المستندات",
+      "videos": "الفيديوهات"
+    },
+    "members": {
+      "title": "إدارة الأعضاء",
+      "network": "أعضاء الشبكة",
+      "holding": "صندوق الانتظار",
+      "kyc_details": "تفاصيل اعرف عميلك"
+    },
+    "sub_admin": {
+      "title": "المسؤول الفرعي",
+      "sub_admins": "المسؤولين الفرعيين"
+    },
+    "store": {
+      "packages": "الحزم",
+      "choose_payments": "اختر الطرق لتمكينها",
+      "title": "المتجر",
+      "products": "المنتجات",
+      "materials": "المواد",
+      "events": "الفعاليات",
+      "coupons": "القسائم",
+      "user_review": "آراء المستخدمين",
+      "assign": "تخصيص الاشتراكات",
+      "bb_sales": "مبيعات اشتراك بناء الأعمال",
+      "payment_methods": "طرق الدفع",
+      "subscriptions": "الاشتراكات"
+    },
+    "settings": {
+      "title": "الإعدادات",
+      "brand": "العلامة التجارية",
+      "bb": "بناء الأعمال",
+      "network": "الشبكة",
+      "withdrawal": "السحب",
+      "currency": "العملة",
+      "mail": "قالب البريد",
+      "advanced": "الإعدادات المتقدمة"
+    },
+    "reports": {
+      "title": "التقارير",
+      "builder": "تقرير الاشتراك في البناء",
+      "fund_credit": "رصيد الصندوق",
+      "joining": "تقرير الانضمام",
+      "members": "دخل العضو",
+      "payout": "الدفع",
+      "point": "تاريخ النقاط",
+      "sales": "المبيعات",
+      "top": "أعلى الربحين"
+    },
+    "my_orders": {
+      "titile": "طلباتي",
+      "orders": "الطلبات",
+      "completed_orders": "الطلبات المكتملة",
+      "view_order": "عرض الطلب"
+    }
+  },
+  "header_menus": {
+    "home": "الصفحة الرئيسية",
+    "profile": "الملف الشخصي",
+    "logout": "تسجيل الخروج"
+  },
+  "image_upload": {
+    "drop_file": "إسقاط أو تحديد الملف",
+    "through": "عبر جهازك",
+    "browse": "تصفح"
+  },
+  "genders": {
+    "male": "ذكر",
+    "female": "أنثى",
+    "other": "آخر"
+  },
+  "status": {
+    "enabled": "مفعل",
+    "disabled": "معطل"
+  },
+  "report": {
+    "get": "الحصول على",
+    "get_report": "الحصول على تقرير"
+  },
+  "impersonate": {
+    "heads": "تنبيه! أنت الآن مسجل دخولك كـ",
+    "click": "انقر هنا",
+    "toGo": "للعودة إلى حساب المشرف"
+  },
+  "amount_types": {
+    "all": "الكل",
+    "r_bonus": "مكافأة الإحالة",
+    "deducted_by_admin": "مخصومة من قبل المسؤول",
+    "credited_by_admin": "مُعتمَدة من قبل المسؤول",
+    "fund_transfer": "تحويل الأموال",
+    "roi_commission": "عمولة العائد على الاستثمار",
+    "a_bonus": "مكافأة التحقيق",
+    "first_order_bonus": "مكافأة الطلب الأول",
+    "level_commission": "عمولة المستوى",
+    "b_bonus": "مكافأة الثنائية",
+    "deposit_wallet": "محفظة الإيداع",
+    "product_purchased": "المنتج المشترى",
+    "rank_bonus": "مكافأة الترتيب",
+    "m_bonus": "مكافأة التطابق الثنائي",
+    "go_mvp_bonus": "مكافأة الذهاب MVP",
+    "eveolving_bonus": "مكافأة التطور",
+    "rock_solid_bonus": "مكافأة الصلابة",
+    "rock_solid_mvp_bonus": "مكافأة MVP الصلبة كالصخر",
+    "rock_solid_mvp_additional_bonus": "مكافأة MVP الصلبة كالصخر الإضافية",
+    "direct_sales_bonus": "مكافأة المبيعات المباشرة",
+    "pmb_bonus": "مكافأة MVP Mentor",
+    "indirect_sales_bonus": "مكافأة المبيعات غير المباشرة",
+    "leadership_bonus": "مكافأة القيادة",
+    "residual_bonus": "مكافأة متبقية",
+    "residual_matching":"مكافأة المطابقة المتبقية"
+  },
+  "tools": {
+    "videos": {
+      "areYouSure": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء",
+      "deleteVideos": "حذف الفيديوهات",
+      "videos_tool": "الفيديوهات | أداة",
+      "video": "الفيديوهات",
+      "addVideo": "إضافة فيديو",
+      "title": "العنوان *",
+      "videoURLs": "رابط الفيديو *",
+      "close": "إغلاق",
+      "submit": "إرسال",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "update": "تحديث",
+      "cancel": "إلغاء",
+      "edit_video": "تحرير الفيديو"
+    },
+    "documents": {
+      "areYousure": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء",
+      "deleteDocument": "حذف المستند",
+      "submit": "إرسال",
+      "close": "إغلاق",
+      "docTitle": "عنوان المستند",
+      "sortOrders": "ترتيب العرض",
+      "uploadDocument": "رفع المستند",
+      "updateDocument": "تحديث المستند",
+      "addDocument": "إضافة مستند",
+      "documents_title": "المستندات | الأدوات",
+      "documents": "المستندات",
+      "no": "لا",
+      "fileTitle": "عنوان الملف",
+      "sortOrder": "ترتيب العرض",
+      "download": "تحميل",
+      "created": "تاريخ الإنشاء",
+      "action": "العملية",
+      "fileUpload": "رفع الملف",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "cancel": "إلغاء"
+    }
+  },
+  "businessBuilder": {
+    "no": "لا",
+    "amount": "المبلغ",
+    "date": "التاريخ",
+    "effectiveUntil": "صالحة حتى",
+    "pickStartDate": "اختر تاريخ البداية",
+    "pickEndDate": "اختر تاريخ الانتهاء",
+    "userName": "اسم المستخدم",
+    "email": "البريد الإلكتروني",
+    "totalAmount": "المبلغ الإجمالي",
+    "thisWeekEnd": "نهاية هذا الأسبوع",
+    "recurringCancelled": "تم إلغاء التكرار",
+    "recurringEnabled": "تم تمكين التكرار",
+    "businessBuilderTitle": "بناء الأعمال | المتجر",
+    "business_builder_subscriptions_sales": "مبيعات اشتراكات بناء الأعمال"
+  },
+  "assign_subscriptions": {
+    "areYouSure": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء",
+    "delete_category": "حذف الفئة",
+    "edit_category": "تعديل الفئة",
+    "delete": "حذف",
+    "permissions": "الصلاحيات",
+    "edit": "تعديل",
+    "impersonate": "تقليد",
+    "profile": "الملف الشخصي",
+    "submit": "إرسال",
+    "close": "إغلاق",
+    "category_description": "وصف الفئة",
+    "category_name": "اسم الفئة",
+    "add_category": "إضافة فئة",
+    "createdDate": "تاريخ الإنشاء",
+    "editSubscription": "تعديل الاشتراك",
+    "products": "المنتجات",
+    "trashed": "محذوف",
+    "category": "الفئة",
+    "totalAmount": "المبلغ الإجمالي",
+    "cancel": "إلغاء",
+    "add": "إضافة",
+    "giveProductMaterials": "منح المنتج مع المواد",
+    "giveProduct": "منح المنتج بالعمولات",
+    "categories": "الفئات",
+    "certified_date": "تاريخ الشهادة (اختياري)",
+    "addProduct": "تعيين المنتج",
+    "pickStartDate": "اختر تاريخ البداية",
+    "pickEndDate": "اختر تاريخ الانتهاء",
+    "user": "المستخدم",
+    "email": "البريد الإلكتروني",
+    "productss": "المنتجات",
+    "no": "لا",
+    "action": "العملية",
+    "assigned_on": "تم التعيين في",
+    "userName": "اسم المستخدم",
+    "product": "المنتج",
+    "categoryy": "الفئة",
+    "note": "ملاحظة",
+    "certifiedDate": "تاريخ الشهادة",
+    "effectiveUntil": "صالح حتى",
+    "subscriptionsList": "قائمة الاشتراكات",
+    "assignSubscriptionsTitle": "تعيين الاشتراكات | المتجر",
+    "assign_subscriptions": "تعيين الاشتراكات"
+  },
+  "sub_admin": {
+    "delete_at": "حذف في",
+    "reasons": "الأسباب",
+    "block": "حظر",
+    "un_block": "رفع الحظر",
+    "block_sub_admin": "حظر المسؤول الفرعي",
+    "edit_sub_admin": "تعديل المسؤول الفرعي",
+    "reason": "السبب",
+    "are_you_sure": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء",
+    "delete_sub_admin": "حذف المسؤول الفرعي",
+    "un_block_user": "رفع حظر المستخدم",
+    "block_user": "حظر المستخدم",
+    "profile": "الملف الشخصي",
+    "edit": "تعديل",
+    "password": "كلمة المرور",
+    "re_enter_password": "إعادة إدخال كلمة المرور",
+    "enable": "تمكين",
+    "disable": "تعطيل",
+    "enable_impersonation": "تمكين التقليد",
+    "departments": "الأقسام",
+    "excluded_products": "المنتجات المستبعدة",
+    "products": "المنتجات",
+    "mobile": "الجوال *",
+    "names": "الأسماء",
+    "add_sub_admin": "إضافة مسؤول فرعي",
+    "sub_admins_title": "المسؤولون الفرعيون: إضافة مسؤول فرعي",
+    "delete": "حذف",
+    "reversed": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء؟",
+    "sub_admin_delete": "حذف مجموعة المسؤول الفرعي",
+    "submit": "إرسال",
+    "description": "الوصف",
+    "cancel": "إلغاء",
+    "group": "المجموعة",
+    "add_user_group": "إضافة مجموعة مستخدمين",
+    "impersonate": "التقليد",
+    "sub_admins": "المسؤولون الفرعيون",
+    "user_group": "مجموعة المستخدمين",
+    "sub_admin": "المسؤول الفرعي",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "trashed": "تم حذفه",
+    "no": "لا",
+    "name": "الاسم",
+    "userName": "اسم المستخدم",
+    "email": "البريد الإلكتروني",
+    "created": "تاريخ الإنشاء",
+    "action": "العملية",
+    "createdAt": "تم الإنشاء في"
+  },
+  "holding_tank": {
+    "cancel": "إلغاء",
+    "are_you_sure": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء",
+    "delete_holding_tank": "حذف صندوق الانتظار",
+    "impersonation": "التقليد",
+    "delete": "حذف",
+    "profile": "الملف الشخصي",
+    "permissions": "الصلاحيات",
+    "holding_tank": "صندوق الانتظار",
+    "no": "لا",
+    "userName": "اسم المستخدم",
+    "email": "البريد الإلكتروني",
+    "paidActive": "نشط بعد الدفع",
+    "joinedAt": "انضم في",
+    "add_to_binary": "إضافة إلى النظام الثنائي",
+    "action": "العملية",
+    "add_to_network": "إضافة إلى الشبكة",
+    "network": "الشبكة",
+    "account_status": "حالة الحساب",
+    "active": "نشط",
+    "blocked": "محظور",
+    "add": "إضافة",
+    "close": "إغلاق",
+    "turn_off_email": "إيقاف البريد الإلكتروني",
+    "turn_on_email": "تشغيل البريد الإلكتروني"
+  },
+
+  "network_members": {
+    "user_type": "نوع المستخدم",
+    "promoter": "المروج",
+    "unique_id": "معرف فريد",
+    "engagedstatus": "حالة المشاركة",
+    "choose_payments": "اختر طرق الدفع للتمكين",
+    "update_permissions": "تحديث الصلاحيات",
+    "turn_off_mail": "إيقاف البريد",
+    "are_you_sure": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء",
+    "cancel": "إلغاء",
+    "verify_mail": "تحقق من البريد",
+    "update": "تحديث",
+    "current_user_name": "اسم المستخدم الحالي",
+    "new_user_name": "اسم المستخدم الجديد",
+    "change_user_name": "تغيير اسم المستخدم",
+    "close": "إغلاق",
+    "confirm_password": "تأكيد كلمة المرور",
+    "change_password": "تغيير كلمة المرور",
+    "permissions": "الصلاحيات",
+    "turn_off_email": "إيقاف البريد الإلكتروني",
+    "turn_on_email": "تشغيل البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "profile": "الملف الشخصي",
+    "verify": "التحقق",
+    "username": "اسم المستخدم",
+    "impersonate": "التقليد",
+    "account_status": "حالة الحساب",
+    "active": "نشط",
+    "blocked": "محظور",
+    "network_members": "أعضاء الشبكة",
+    "no": "لا",
+    "email": "البريد الإلكتروني",
+    "rank": "الرتبة",
+    "paidActive": "نشط بعد الدفع",
+    "createdAt": "تاريخ الإنشاء",
+    "action": "العملية",
+    "customer": "العميل",
+    "activeCustomer": "العميل النشط",
+    "businessBuilder": "بناء الأعمال",
+    "bronzeExecutive": "تنفيذي برونزي",
+    "silverExecutive": "تنفيذي فضي",
+    "goldExecutive": "تنفيذي ذهبي",
+    "emeraldExecutive": "تنفيذي إمرالد",
+    "usertype": "نوع المستخدم",
+    "smart_ship_status": "حالة الشحن الذكي",
+    "is_smartship_customer": "هل هو عميل شحن ذكي؟",
+    "yes": "نعم",
+    "engaged_status":"حالة المشاركة",
+    "true":"حقيقي",
+    "false":"خطأ شنيع"
+
+  },
+  "network": {
+    "right_team": "الفريق الأيمن",
+    "left_team": "الفريق الأيسر",
+    "top_recruiters": "أفضل المجندين",
+    "latest_registrations": "أحدث التسجيلات",
+    "yearly_sales_report": "تقرير المبيعات السنوي",
+    "network_joining": "انضمام إلى الشبكة",
+    "membersMap": "خريطة الأعضاء",
+    "registeredMembersThisMonth": "الأعضاء المسجلين هذا الشهر",
+    "holdingTank": "صندوق الانتظار",
+    "networkMembers": "أعضاء الشبكة",
+    "businessBuilder": "بناء الأعمال",
+    "registeredMembers": "الأعضاء المسجلين",
+    "tickets": "تذاكر",
+    "openTickets": "تذاكر مفتوحة",
+    "closedTickets": "تذاكر مغلقة",
+    "total_network_bonus": "إجمالي مكافأة الشبكة",
+    "total_payout": "إجمالي الدفع",
+    "upcoming_week": "الأسبوع القادم",
+    "binary_bonus": "مكافأة ثنائية",
+    "history": "تاريخ الشبكة",
+    "network_bonus": "مكافأة الشبكة",
+    "support_tickets": "تذاكر الدعم"
+  },
+
+  "business": {
+    "month": "شهر",
+    "bitcoinConference": "مؤتمر بيتكوين",
+    "on_bitcoin": "تداول وتوقعات بيتكوين",
+    "productsActive": "المنتجات والاشتراكات النشطة",
+    "topSellingProduct": "أفضل منتج مبيعًا",
+    "userName": "اسم المستخدم",
+    "product": "المنتج",
+    "price": "السعر",
+    "date": "التاريخ",
+    "latestSales": "أحدث المبيعات",
+    "invoice": "فاتورة",
+    "active": "نشط",
+    "customers": "العملاء",
+    "total_customers": "إجمالي العملاء",
+    "active_customers": "العملاء النشطين",
+    "payout": "الدفع",
+    "sales": "المبيعات",
+    "overallStatus": "الحالة العامة",
+    "allIncomeAndExpense": "كل الإيرادات",
+    "salesOverTheTime": "المبيعات على مر الزمن",
+    "thenLastMonth": "من الشهر الماضي",
+    "select_option": "اختر خيارًا",
+    "latest_registrations": "أداء المبيعات",
+    "total_sales": "إجمالي المبيعات",
+    "total_expense": "إجمالي المصروف",
+    "total_profit": "إجمالي الربح",
+    "network_bonus": "مكافأة الشبكة",
+    "balance": "الرصيد",
+    "income": "الإيراد",
+    "expense": "المصروف",
+    "salesOverView": "نظرة عامة على المبيعات",
+    "salesgraph": "الرسم البياني للمبيعات",
+    "topSellingProducts": "أفضل المنتجات مبيعًا",
+    "today": "اليوم",
+    "thisWeek": "هذا الأسبوع",
+    "pastWeek": "الأسبوع الماضي",
+    "thisMonth": "هذا الشهر",
+    "pastMonth": "الشهر الماضي",
+    "thisYear": "هذا العام"
+  },
+
+  "date": {
+    "start": "اختر تاريخ البداية",
+    "end": "اختر تاريخ الانتهاء"
+  },
+
+  "scope": {
+    "all": "الكل",
+    "public": "عام",
+    "private": "خاص"
+  },
+  "search": {
+    "user": "البحث عن مستخدم",
+    "amount_type": "نوع المبلغ",
+    "search": "بحث",
+    "product": "اختيار المنتج",
+    "category": "اختيار الفئة",
+    "department": "اختيار القسم",
+    "priority": "اختيار الأولوية",
+    "status": "الحالة",
+    "ticket": "رقم التذكرة",
+    "title": "العنوان",
+    "scope": "النطاق"
+  },
+
+  "payout_status": {
+    "approved": "تمت الموافقة عليه",
+    "rejected": "تم الرفض"
+  },
+
+  "fin_pay": {
+    "address": "العنوان",
+    "country": "البلد",
+    "state": "الولاية",
+    "zip_code": "الرمز البريدي",
+    "city": "المدينة",
+    "card_details": "تفاصيل البطاقة",
+    "holder_name": "اسم حامل البطاقة",
+    "number": "رقم البطاقة",
+    "expiry": "انتهاء الصلاحية",
+    "cvv": "رمز الأمان (CVV)",
+    "product_recurring_enabled": "هذا المنتج مفعل للتكرار. قم بإلغاء التحديد لتعطيله."
+  },
+
+  "genealogy": {
+    "matrix": {
+      "name": "الاسم",
+      "user_name": "اسم المستخدم",
+      "current_rank": "الرتبة الحالية",
+      "date": "التاريخ"
+    },
+    "binary": {
+      "title": "ثنائي: النسب"
+    },
+    "sponsor": {
+      "title": "راعي: النسب"
+    },
+    "tree": {
+      "title": "شجرة: النسب"
+    },
+    "leg_settings": {
+      "title": "إعدادات الساق الثنائية",
+      "bp": "بناءً على النقاط (BV) - سيتم وضع الإحالات في فريق الساق الضعيفة لديك",
+      "br": "بناءً على الإحالات - ستكون الإحالات في فريقك الذي يحتوي على عدد أقل من الإحالات الخاصة بك",
+      "lr": "اليسار - سيتم وضع الإحالات في فريق اليسار الخاص بك",
+      "rr": "اليمين - سيتم وضع الإحالات في فريق اليمين الخاص بك",
+      "current_leg": "الساق الحالية",
+      "base_on": "بناء على"
+    },
+    "legends": {
+      "name": "الاسم",
+      "uname": "اسم المستخدم",
+      "current_rank": "الرتبة الحالية",
+      "doj": "تاريخ الانضمام",
+      "w_bv_l": "BV الأسبوعي (اليسار)",
+      "w_bv_r": "BV الأسبوعي (اليمين)",
+      "t_bv_l": "إجمالي BV (اليسار)",
+      "t_bv_r": "إجمالي BV (اليمين)",
+      "t_l_users": "إجمالي المستخدمين اليسار",
+      "t_r_users": "إجمالي المستخدمين اليمين",
+      "bv": "BV",
+      "ev":"هذا",
+      "qv":"ربع",
+      "dqv":"نصف سنوي",
+      "pqv":"سنوي",
+      "gv":"المجموع",
+      "tv":"المجموع الكلي",
+      "smartship_status":"حالة الشحن الذكي",
+      "user_type":"نوع المستخدم"
+    },
+
+    "mono_line": {
+      "title": "مونو لاين: النسب"
+    },
+    "list": {
+      "title": "قائمة: النسب",
+      "table": {
+        "no": "لا",
+        "u_name": "اسم المستخدم",
+        "level": "المستوى",
+        "doj": "تاريخ الانضمام"
+      }
+    }
+  },
+  "financial": {
+    "pendingcommission":{
+            "title":"في انتظار اللجنة"
+        },
+    "e_wallet": {
+      "amount_type": "نوع المبلغ",
+      "title": "المحفظة الإلكترونية",
+      "history": "التاريخ",
+      "cards": {
+        "balance": "الرصيد",
+        "transfer": "تحويل للخارج",
+        "payout": "مجموع الدفعات",
+        "bonus": "المكافأة"
+      },
+      "table": {
+        "no": "لا",
+        "from": "من المستخدم",
+        "user_name": "اسم المستخدم",
+        "amount_type": "نوع المبلغ",
+        "payment_type": "نوع الدفع",
+        "amount": "المبلغ",
+        "date": "التاريخ"
+      }
+    },
+    "deposit_wallet": {
+      "title": "محفظة الإيداع",
+      "history": "التاريخ",
+      "cards": {
+        "balance": "الرصيد",
+        "transfer": "تحويل للخارج",
+        "credited_by_admin": "محدد بواسطة المشرف"
+      },
+      "table": {
+        "no": "لا",
+        "user": "اسم المستخدم",
+        "from": "من المستخدم",
+        "amount_type": "نوع المبلغ",
+        "payment_type": "نوع الدفع",
+        "amount": "مبلغ الدفع",
+        "date": "التاريخ"
+      },
+      "pay_now": {
+        "amount": "المبلغ ({{symbol}})",
+        "add": "إضافة ائتمان"
+      }
+    },
+    "fund_credit": {
+      "title": "رصيد الصندوق",
+      "form": {
+        "amount": "المبلغ ({{symbol}})",
+        "to": "إلى",
+        "note": "ملاحظة",
+        "deduct": "خصم الأموال",
+        "add": "إضافة المبلغ"
+      },
+      "table": {
+        "no": "لا",
+        "user": "اسم المستخدم",
+        "wallet_type": "نوع المحفظة",
+        "payment_type": "نوع الدفع",
+        "notes": "ملاحظات",
+        "amount": "المبلغ",
+        "date": "التاريخ"
+      }
+    },
+    "fund_transfer": {
+      "title": "تحويل الأموال",
+      "cards": {
+        "e_balance": "رصيد المحفظة الإلكترونية",
+        "d_balance": "رصيد محفظة الإيداع"
+      },
+      "send": {
+        "title": "نموذج الإرسال",
+        "from": "إرسال من"
+      },
+      "table": {
+        "no": "لا",
+        "user": "اسم المستخدم",
+        "amount_type": "نوع المبلغ",
+        "payment_type": "نوع الدفع",
+        "amount": "مبلغ الدفع",
+        "date": "التاريخ",
+        "wallet_type": "نوع المحفظة",
+        "to_user": "إلى المستخدمين",
+        "payment_status": "حالة الدفع"
+      }
+    },
+    "payout": {
+      "admin": {
+        "title": "سداد",
+        "tabs": {
+          "request": "طلب السداد",
+          "history": "سجل السداد"
+        },
+        "request": {
+          "table": {
+            "no": "لا",
+            "user_name": "اسم المستخدم",
+            "user_balance": "رصيد المستخدم",
+            "payout_method": "طريقة الدفع",
+            "payout_info": "معلومات الدفع",
+            "wallet_address": "عنوان المحفظة",
+            "date": "التاريخ",
+            "requested": "المبلغ المطلوب",
+            "admin_fee": "رسوم الإدارة المخصومة",
+            "released": "المبلغ المفرج عنه",
+            "action": "الإجراء"
+          },
+          "approve": "الموافقة",
+          "reject": "رفض"
+        },
+        "history": {
+          "table": {
+            "no": "لا",
+            "user_name": "اسم المستخدم",
+            "user_balance": "رصيد المستخدم",
+            "wallet_address": "عنوان المحفظة",
+            "coin": "عملة",
+            "email": "البريد الإلكتروني",
+            "date": "التاريخ",
+            "requested": "المبلغ المطلوب",
+            "admin_fee": "رسوم الإدارة المخصومة",
+            "released": "المبلغ المفرج عنه",
+            "action": "الإجراء",
+            "status": "الحالة"
+          }
+        }
+      },
+      "title": "طلب السداد",
+      "cards": {
+        "balance": "الرصيد المتاح",
+        "min": "الحد الأدنى للسحب"
+      },
+      "request": {
+        "title": "طلب السداد",
+        "amount": "مبلغ الطلب",
+        "coin": "نوع العملة",
+        "methods": "طرق الدفع"
+      },
+      "table": {
+        "no": "لا",
+        "amount": "المبلغ",
+        "date": "التاريخ",
+        "wallet_address": "عنوان المحفظة",
+        "coin": "نوع العملة",
+        "status": "الحالة"
+      }
+    }
+  },
+
+  "business_builder": {
+    "subscriptions": {
+      "title": "بناء الأعمال",
+      "filter": {
+        "amount": "المبلغ ({{symbol}})",
+        "builder": "بناء الأعمال",
+        "period": "اختر الفترة"
+      },
+      "table": {
+        "no": "لا",
+        "amount": "المبلغ",
+        "date": "تاريخ الشراء",
+        "effective": "صالحة حتى",
+        "method": "طريقة الدفع",
+        "view": "عرض"
+      }
+    },
+    "materials": {
+      "title": "المواد",
+      "menu": {
+        "video": "مقاطع الفيديو",
+        "document": "المستندات"
+      }
+    }
+  },
+
+  "actions": {
+    "edit": "تحرير",
+    "delete": "حذف",
+    "publish": "نشر"
+  },
+  "blogs": {
+    "title": "المدونات",
+    "tabs": {
+      "published": "نُشرت",
+      "drafts": "مسودات"
+    },
+    "categories": {
+      "title": "تصنيفات المدونة",
+      "table": {
+        "no": "رقم",
+        "name": "اسم التصنيف",
+        "desc": "الوصف",
+        "action": "الإجراءات"
+      },
+      "create": {
+        "edit": { "title": "تحديث التصنيف", "submit": "تحديث" },
+        "title": "إضافة تصنيف",
+        "name": "اسم التصنيف",
+        "desc": "الوصف",
+        "submit": "إضافة",
+        "close": "إلغاء"
+      },
+      "delete": {
+        "title": "حذف التصنيف",
+        "message": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء.",
+        "submit": "حذف",
+        "close": "إلغاء"
+      }
+    },
+    "create": {
+      "new_post": "إنشاء مشاركة",
+      "categories": "تصنيفات",
+      "category": "تصنيف",
+      "table": {
+        "no": "رقم",
+        "img": "صورة",
+        "title": "عنوان المدونة",
+        "desc": "وصف المدونة",
+        "scope": "النطاق",
+        "date": "تاريخ المدونة",
+        "action": "الإجراءات"
+      },
+      "form": {
+        "add_title": "إضافة مدونة",
+        "edit_title": "تحرير المدونة",
+        "type": "النوع",
+        "blog_title": "عنوان المدونة",
+        "category": "تصنيف المدونة",
+        "product": "المنتج",
+        "meta_key": "الكلمات الرئيسية للبحث",
+        "meta_desc": "وصف البحث",
+        "content": "المحتوى",
+        "short_desc": "وصف قصير",
+        "add_doc": "إضافة وثيقة",
+        "save_as_draft": "حفظ كمسودة",
+        "submit": "إرسال"
+      }
+    },
+    "view": {
+      "title": "مدونة",
+      "add_comment": {
+        "title": "إضافة تعليق",
+        "rating": "التقييم",
+        "comment_title": "عنوان التعليق",
+        "post": "نشر التعليق"
+      },
+      "recent": "أحدث المشاركات",
+      "latest_category": "أحدث تصنيف في المدونة"
+    }
+  },
+  "faq": {
+    "title": "الأسئلة الشائعة",
+    "tabs": {
+      "faq": "الأسئلة الشائعة",
+      "categories": "التصنيفات"
+    },
+    "categories": {
+      "add": "تصنيف الأسئلة الشائعة",
+      "table": {
+        "no": "رقم",
+        "name": "اسم التصنيف",
+        "desc": "الوصف",
+        "action": "الإجراءات"
+      },
+      "dialog": {
+        "add": "إضافة تصنيف الأسئلة الشائعة",
+        "edit": "تحرير تصنيف الأسئلة الشائعة"
+      },
+      "form": {
+        "name": "اسم التصنيف",
+        "desc": "الوصف",
+        "status": "الحالة",
+        "cancel": "إلغاء",
+        "add": "إضافة",
+        "edit": "تحديث"
+      },
+      "delete": {
+        "title": "حذف تصنيف الأسئلة الشائعة",
+        "message": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء.",
+        "cancel": "إلغاء",
+        "submit": "حذف"
+      }
+    },
+    "faqs": {
+      "add": "الأسئلة الشائعة",
+      "table": {
+        "no": "رقم",
+        "question": "السؤال",
+        "answer": "الجواب",
+        "action": "الإجراءات"
+      },
+      "form": {
+        "add_title": "إضافة الأسئلة الشائعة",
+        "edit_title": "تحرير الأسئلة الشائعة",
+        "category": "تصنيف الأسئلة الشائعة",
+        "questions": "الأسئلة",
+        "answer": "الجواب",
+        "cancel": "إلغاء",
+        "add": "إضافة",
+        "update": "تحديث"
+      }
+    },
+    "browse_categories": "تصفح حسب التصنيفات",
+    "looking_for": "لا تستطيع العثور على الإجابة التي تبحث عنها؟",
+    "looking_for_message": "أنشئ تذكرة عبر مركز الدعم الخاص بنا وسيقوم أحد أعضاء فريقنا بالرد خلال 24 ساعة.",
+    "create": "إنشاء تذكرة"
+  },
+  "knowledge_base": {
+    "title": "قاعدة المعرفة"
+  },
+  "emails": { "title": "الرسائل البريدية" },
+  "admin_email": {
+    "compose": {
+      "title": "رسالة جديدة",
+      "subject": "الموضوع",
+      "users": "المستخدمون",
+      "send": "إرسال"
+    }
+  },
+  "help_center": {
+    "view": {
+      "view_attachments": "عرض المرفقات",
+      "created": "تاريخ الإنشاء",
+      "last_response": "آخر رد",
+      "actions": {
+        "impersonate": "تقمص الهوية",
+        "edit": "تحرير الملف الشخصي"
+      },
+      "reply_form": {
+        "title": "نموذج الرد",
+        "response": "رد جاهز",
+        "questions": "أسئلة الأسئلة الشائعة",
+        "name": "العنوان",
+        "description": "الوصف",
+        "submit": "نشر الرد"
+      },
+      "info_card": {
+        "status": "الحالة",
+        "priority": "الأولوية",
+        "department": "القسم",
+        "email": "البريد الإلكتروني",
+        "category": "التصنيف",
+        "username": "اسم المستخدم",
+        "last_message": "آخر رسالة"
+      },
+      "tkt_id": "معرف التذكرة",
+      "dialog": {
+        "update_status": {
+          "title": "تغيير الحالة؟",
+          "cancel": "إلغاء",
+          "submit": "نعم، غيّر الحالة إلى {{status}}"
+        }
+      }
+    },
+    "status": {
+      "open": "مفتوحة",
+      "overdue": "متأخرة",
+      "resolved": "تم الحل",
+      "closed": "مغلقة",
+      "archived": "مؤرشفة",
+      "deleted": "محذوفة",
+      "unverified": "غير موثقة",
+      "request_approval": "طلب الموافقة",
+      "in_progress": "قيد التنفيذ",
+      "responded": "تم الرد"
+    },
+    "department": {
+      "add_button": "القسم",
+      "table": {
+        "no": "رقم",
+        "name": "الاسم",
+        "status": "الحالة",
+        "desc": "الوصف",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "edit": "تحرير",
+        "delete": "حذف"
+      },
+      "dialog": {
+        "delete": {
+          "title": "حذف القسم",
+          "msg": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء.",
+          "submit": "حذف",
+          "cancel": "إلغاء"
+        },
+        "edit": {
+          "title": "تحرير القسم",
+          "name": "اسم القسم",
+          "desc": "الوصف",
+          "status": "الحالة",
+          "sort_order": "ترتيب الفرز",
+          "submit": "تحديث",
+          "cancel": "إلغاء"
+        },
+        "add": {
+          "submit": "إنشاء",
+          "title": "إضافة القسم"
+        }
+      }
+    },
+    "categories": {
+      "add_button": "التصنيف",
+      "table": {
+        "no": "رقم",
+        "name": "التصنيف",
+        "status": "الحالة",
+        "desc": "الوصف",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "edit": "تحرير",
+        "delete": "حذف"
+      },
+      "dialog": {
+        "delete": {
+          "title": "حذف التصنيف",
+          "msg": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء.",
+          "submit": "حذف",
+          "cancel": "إلغاء"
+        },
+        "edit": {
+          "title": "تحرير التصنيف",
+          "name": "اسم التصنيف",
+          "desc": "الوصف",
+          "status": "الحالة",
+          "sort_order": "ترتيب الفرز",
+          "submit": "تحديث",
+          "cancel": "إلغاء"
+        },
+        "add": {
+          "submit": "إنشاء",
+          "title": "إضافة التصنيف"
+        }
+      }
+    },
+    "canned_response": {
+      "add_button": "الردود الجاهزة",
+      "table": {
+        "no": "رقم",
+        "name": "العنوان",
+        "subject": "الموضوع",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "edit": "تحرير",
+        "delete": "حذف"
+      },
+      "dialog": {
+        "delete": {
+          "title": "حذف الرد الجاهز",
+          "msg": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء.",
+          "submit": "حذف",
+          "cancel": "إلغاء"
+        },
+        "edit": {
+          "title": "تحرير الرد الجاهز",
+          "name": "عنوان الرد الجاهز",
+          "sub": "الموضوع",
+          "placeholder": "رسالة الرد الجاهز",
+          "submit": "تحديث",
+          "cancel": "إلغاء"
+        },
+        "add": {
+          "submit": "إنشاء",
+          "title": "إضافة رد جاهز"
+        }
+      }
+    },
+    "priorities": {
+      "add_button": "الأولوية",
+      "table": {
+        "no": "رقم",
+        "name": "الأولوية",
+        "desc": "وصف الأولوية",
+        "color": "لون الأولوية",
+        "status": "الحالة",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "edit": "تحرير",
+        "delete": "حذف"
+      },
+      "dialog": {
+        "delete": {
+          "title": "حذف الأولوية",
+          "msg": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء.",
+          "submit": "حذف",
+          "cancel": "إلغاء"
+        },
+        "edit": {
+          "title": "تحرير الأولوية",
+          "name": "الأولوية",
+          "color": "اللون",
+          "desc": "الوصف",
+          "submit": "تحديث",
+          "cancel": "إلغاء"
+        },
+        "add": {
+          "submit": "إنشاء",
+          "title": "إضافة أولوية"
+        }
+      }
+    },
+    "form": {
+      "ticket_id": "رقم التذكرة",
+      "subject": "الموضوع",
+      "description": "الوصف",
+      "priority": "الأولوية",
+      "department": "القسم",
+      "category": "التصنيف",
+      "status": "الحالة",
+      "document": "المستند",
+      "add": "إضافة",
+      "update": "تحديث"
+    },
+    "actions": {
+      "view": "عرض",
+      "impersonate": "تمثيل",
+      "edit": "تحرير",
+      "delete": "حذف"
+    },
+    "title": "مركز المساعدة",
+    "create": "إنشاء تذكرة",
+    "side_bar": {
+      "dashboard": "لوحة تحكم التذاكر",
+      "all": "كل التذاكر",
+      "overdue": "متأخرة",
+      "open": "مفتوحة",
+      "resolved": "تم الحل",
+      "closed": "مغلقة",
+      "in_progress": "قيد التنفيذ",
+      "responded": "تم الرد",
+      "departments": "الأقسام",
+      "categories": "التصنيفات",
+      "canned_response": "الردود الجاهزة",
+      "priorities": "الأولويات"
+    },
+    "filter": {
+      "department": "الأقسام",
+      "priority": "الأولوية",
+      "status": "الحالة",
+      "category": "التصنيف",
+      "tkt_id": "رقم التذكرة",
+      "user": "بحث عن مستخدم",
+      "overdue": "عرض العناصر المتأخرة فقط"
+    },
+    "table": {
+      "no": "رقم",
+      "tkt_no": "رقم التذكرة",
+      "tkt_from": "مرسلة من",
+      "date": "التاريخ",
+      "subject": "الموضوع",
+      "status": "الحالة",
+      "priority": "الأولوية",
+      "department": "القسم",
+      "category": "التصنيف",
+      "action": "الإجراءات"
+    },
+    "document": {
+      "title": "المستند",
+      "created_at": "تم الإنشاء في",
+      "view": "عرض"
+    },
+    "video": {
+      "title": "فيديو"
+    }
+  },
+  "articles": {
+    "title": "المقالات",
+    "options": {
+      "title": "قاعدة المعرفة",
+      "articles": "المقالات",
+      "categories": "فئات المقال"
+    },
+    "articles": {
+      "title": "جميع المقالات",
+      "add_button": "مقال",
+      "form": {
+        "add_title": "إضافة مقال",
+        "edit_title": "تحرير المقال",
+        "name": "الاسم",
+        "category": "الفئة",
+        "description": "الوصف",
+        "cancel": "إلغاء",
+        "submit_add": "إضافة",
+        "submit_edit": "إضافة"
+      },
+      "delete": {
+        "title": "حذف المقال",
+        "msg": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء.",
+        "cancel": "إلغاء",
+        "submit": "حذف"
+      },
+      "actions": {
+        "edit": "تحرير",
+        "delete": "حذف"
+      },
+      "table": {
+        "no": "رقم",
+        "title": "عنوان المقالات",
+        "time": "وقت النشر",
+        "actions": "الإجراءات"
+      }
+    },
+    "categories": {
+      "title": "جميع الفئات",
+      "add_button": "فئة",
+      "form": {
+        "add_title": "إضافة فئة",
+        "edit_title": "تحرير الفئة",
+        "name": "الاسم",
+        "category": "الفئة",
+        "description": "الوصف",
+        "cancel": "إلغاء",
+        "submit_add": "إضافة",
+        "submit_edit": "تحديث"
+      },
+      "delete": {
+        "title": "حذف الفئة",
+        "msg": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء.",
+        "cancel": "إلغاء",
+        "submit": "حذف"
+      },
+      "actions": {
+        "edit": "تحرير",
+        "delete": "حذف"
+      },
+      "table": {
+        "no": "رقم",
+        "title": "اسم الفئة",
+        "time": "تم الإنشاء في",
+        "actions": "الإجراءات"
+      }
+    }
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "mode": "الوضع",
+    "direction": "الاتجاه",
+    "layout": "التخطيط",
+    "presets": "التحضيرات",
+    "stretch": "تمدد",
+    "full_screen": {
+      "enter": "دخول الشاشة الكاملة",
+      "exit": "الخروج من الشاشة الكاملة"
+    },
+
+    "advanced_settings": {
+      "title": "الإعدادات المتقدمة",
+      "kyc": {
+        "show": "عرض التحقق من الهوية",
+        "update": "تحديث",
+        "message": "بتشغيل التحقق من الهوية، سيتعين على المستخدمين تحميل مستنداتهم"
+      },
+      "leads": {
+        "show": "عرض العملاء المتوقعين",
+        "update": "تحديث"
+      },
+      "2fa": {
+        "show": "تمكين المصادقة الثنائية العاملة",
+        "update": "تحديث",
+        "message": "بتشغيل المصادقة الثنائية العاملة، سيكون لدى المستخدمين الخيار لتمكين المصادقة الثنائية العاملة من إعدادات ملفهم الشخصي. إذا تم تمكينها، سيتعين على المستخدم إدخال رمز مكون من أرقام واحدة قبل تسجيل الدخول."
+      },
+      "package": {
+        "show": "شراء الحزمة مطلوب",
+        "update": "تحديث"
+      },
+      "mail": {
+        "show": "تحقق من البريد الإلكتروني مطلوب",
+        "update": "تحديث"
+      },
+      "membership_packages": {
+        "show": "تاريخ الميلاد مطلوب",
+        "minimum": "العمر الأدنى المطلوب",
+        "update": "تحديث"
+      },
+      "tabs": {
+        "currency": "العملة",
+        "kyc": "التحقق من الهوية",
+        "leads": "العملاء المتوقعين",
+        "payments": "المدفوعات",
+        "dob": "تاريخ الميلاد",
+        "membership_packages": "حزم العضوية",
+        "membership_settings": "إعدادات العضوية",
+        "2fa": "المصادقة الثنائية العاملة",
+        "email_verify": "تحقق من البريد الإلكتروني",
+        "package_purchase": "شراء الحزمة"
+      }
+    },
+    "brand": {
+      "deleteSection": "حذف القسم",
+      "editSection": "تحرير القسم",
+      "edit": "تحرير",
+      "cancel": "إلغاء",
+      "delete": "حذف",
+      "areYouSure": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء.",
+      "deleteArticles": "حذف المقال",
+      "editArticles": "تحرير المقال",
+      "submit": "إرسال",
+      "update": "تحديث",
+      "close": "إغلاق",
+      "blogTitle": "عنوان المدونة",
+      "description": "الوصف",
+      "addArticles": "إضافة مقالات",
+      "no": "رقم",
+      "article_name": "اسم المقال",
+      "menu_name": "اسم القائمة",
+      "action": "الإجراء",
+      "sectionName": "اسم القسم",
+      "sortOrder": "ترتيب الفرز",
+      "addSection": "إضافة قسم",
+      "section": "القسم",
+      "articles": "المقالات",
+      "save": "حفظ",
+      "email": "البريد الإلكتروني",
+      "company_address": "عنوان الشركة",
+      "company_name": "اسم الشركة",
+      "change_your_logo_icon": "تغيير رمز الشعار الخاص بك",
+      "sidebar_corner_logo": "شعار الزاوية الجانبية",
+      "change_your_logo": "تغيير شعارك",
+      "change_logo": "تغيير الشعار",
+      "title": "العلامة التجارية: الإعدادات",
+      "brand": "إعدادات العلامة التجارية",
+      "company_details": "تفاصيل الشركة",
+      "get_started": "البداية",
+      "user_guidance": "إرشاد المستخدم",
+      "allowed": "مسموح",
+      "size": "الحجم الأقصى لل"
+    },
+    "business_builder": {
+      "edit": "تحرير",
+      "delete": "حذف",
+      "areYouSure": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء",
+      "cancel": "إلغاء",
+      "close": "إغلاق",
+      "submit": "إرسال",
+      "addBusinessBuilder": "إضافة مُنشئ أعمال",
+      "editBusinessBuilder": "تحرير مُنشئ الأعمال",
+      "no": "لا",
+      "name": "الاسم",
+      "amount": "المبلغ",
+      "bv": "نقاط القيمة الثنائية",
+      "add": "إضافة",
+      "action": "إجراء",
+      "title": "مُنشئ الأعمال | الإعدادات",
+      "business_builder": "مُنشئ الأعمال",
+      "deleteBusinessBuilder": "حذف مُنشئ الأعمال"
+    },
+    "withdrawal": {
+      "title": "انسحاب",
+      "available_payouts": "الدفع المتاح"
+    },
+    "network": {
+      "min_required_rank": "الحد الأدنى المطلوب للرتبة",
+      "required_rank": "الرتبة المطلوبة",
+      "level_1_rank": "رتبة المستوى 1",
+      "level_2_rank": "رتبة المستوى 2",
+      "level_3_rank": "رتبة المستوى 3",
+      "levels_unlocked": "المستويات المفتوحة",
+      "placement_lounge_settings": "إعدادات صالة التنسيب",
+      "eveolving_bonus_settings": "تطور إعدادات المكافأة",
+      "rocksolid_bonus_settings": "إعدادات المكافأة الصلبة",
+      "is_bonus_settings": "إعدادات مكافأة المبيعات غير المباشرة",
+      "leadership_bonus": "إعدادات مكافأة القيادة",
+      "rob_bonus_settings": "إعدادات مكافأة الطلب المتكرر",
+      "residual_matching": "إعدادات المكافأة المطابقة المتبقية",
+      "three_ff_bonus_settings": "3 لإعدادات البرنامج المجانية",
+      "residual_bonus": "إعدادات المكافأة المتبقية",
+      "rock_solid_mvp_bonus": "إعدادات مكافأة Rock Solid MVP",
+      "withdrawal_text": "نص السحب لعرضه في صفحة الأعضاء",
+      "withdrawal_admin": "نسبة رسوم السحب للمشرف: %",
+      "open_withdrawals_on": "فتح عمليات السحب في هذه الأيام",
+      "monday": "الاثنين",
+      "tuesday": "الثلاثاء",
+      "wednesday": "الأربعاء",
+      "thursday": "الخميس",
+      "friday": "الجمعة",
+      "sunday": "الأحد",
+      "saturday": "السبت",
+      "available_coins": "العملات المتاحة",
+      "min_amount": "الحد الأدنى للسحب:",
+      "withdrawal_title": "إعدادات السحب | الإعدادات",
+      "withdrawal": "السحب",
+      "level": "المستوى",
+      "percentage": "النسبة المئوية",
+      "products": "المنتجات",
+      "month": "الشهر",
+      "referral_bonus": "مكافأة الإحالة",
+      "update": "تحديث",
+      "personally_enrolled_rank": "الرتبة المسجل بها شخصيًا",
+      "count": "العدد",
+      "team_volume": "حجم الفريق",
+      "title": "إعدادات الشبكة: الإعدادات",
+      "network": "إعدادات الشبكة",
+      "binary_bonus_settings": "إعدادات المكافأة الثنائية",
+      "rank_settings": "إعدادات الرتبة",
+      "referral_commission_settings": "إعدادات عمولة الإحالة",
+      "first_order_bonus": "مكافأة الطلب الأول",
+      "level_bonus": "مكافأة المستوى",
+      "roi_settings": "إعدادات ROI",
+      "rank": "الرتبة",
+      "bv_capping": "قفل نقاط القيمة الثنائية",
+      "binary_bonus_capping": "قفل مكافأة الباينري",
+      "binary_matching": "مطابقة الباينري (%)",
+      "go_mvp_bonus_settings": "انتقل إلى إعدادات مكافأة MVP",
+      "min_dqv": "بلدي DQV",
+      "min_qv_per_customer": "الحد الأدنى للحجم QV لكل عميل",
+      "qualification_days": "أيام التأهيل",
+      "min_pqv": "الحد الأدنى من PQV",
+      "minimum_pqv":"الحد الأدنى من PQV",
+      "active": "نشيط",
+      "circle_of_evelution": "دائرة التطور",
+      "required_dqv": "مطلوب DQV",
+      "min_customer_qv":"الحد الأدنى للقيمة الكمية للعميل",
+      "monthly_bonus_amount":"مبلغ المكافأة الشهرية",
+      "consecutive_months_bonus_trigger":"تفعيل مكافأة الأشهر المتتالية",
+      "consecutive_bonus_amount":"مبلغ المكافأة المتتالية",
+      "rsp_bonus_settings":"إعدادات مكافأة RSP",
+      "direct_sales_bonus_settings":"إعدادات مكافأة المبيعات المباشرة",
+      "min_pqv_previous_month":"الحد الأدنى من PQV الشهر الماضي",
+      "bonus_percentage":"نسبة المكافأة",
+      "discount_percentage":"نسبة الخصم",
+      "required_consecutive_months":"الأشهر المتتالية المطلوبة",
+      "bonus_coupon_value":"قيمة قسيمة المكافأة",
+      "personal_order_qv":"الطلب الشخصي QV",
+      "required_customers":"العملاء المطلوبين",
+      "customer_min_qv":"العميل في QB",
+      "max_bonus_value":"أقصى قيمة للمكافأة",
+      "min_rank_required":"الحد الأدنى للرتبة المطلوبة",
+      "max_generations":"أجيال ماكس",
+      "generation_1_percentage":"نسبة الجيل 1",
+      "generation_1_required_rank":"الجيل 1 الرتبة المطلوبة",
+      "generation_2_percentage":"نسبة الجيل 2",
+      "generation_2_required_rank":"الجيل 2 الرتبة المطلوبة",
+      "pmb_bonus_settings":"إعدادات مكافأة MVP Mentor",
+      "max_level":"ماكس المستويات",
+      "level_1_percentage":"النسبة المئوية للمستوى 1",
+      "level_2_percentage":"النسبة المئوية للمستوى 2",
+      "level_3_percentage":"النسبة المئوية للمستوى 3",
+      "rank_name":"اسم الرتبة",
+      "bonus_amount":"مبلغ المكافأة",
+      "packages_name":"اسم الحزم",
+      "required_personal_volume":"الحجم الشخصي المطلوب",
+      "minimumpqv":"الحد الأدنى من PQV",
+      "months":"شهور",
+      "placement_launch_settings":"إعدادات تشغيل الموضع",
+      "min_qv":"الحد الأدنى من QV"
+
+
+
+
+    },
+    "currency": {
+      "are_you": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن عكس هذا الإجراء",
+      "delete_dialog": "حذف الحوار",
+      "cancel": "إلغاء",
+      "currency": "العملة",
+      "add": "إضافة",
+      "edit": "تحرير",
+      "delete": "حذف",
+      "no": "لا",
+      "name": "الاسم",
+      "code": "الرمز",
+      "symbol": "الرمز",
+      "status": "الحالة",
+      "exchange_rate": "سعر الصرف",
+      "action": "الإجراء",
+      "add_dialog": "إضافة الحوار",
+      "enabled": "تمكين",
+      "disabled": "تعطيل"
+    },
+    "reports": {
+      "pv": "نقاط التحقق",
+      "leg": "الساق",
+      "type": "النوع",
+      "coin": "العملة",
+      "fullName": "الاسم الكامل",
+      "status": "الحالة",
+      "adminFeeDeducted": "تم خصم رسوم المشرف",
+      "amountReleased": "المبلغ المفرج عنه",
+      "requestedAmount": "المبلغ المطلوب",
+      "walletAddress": "عنوان المحفظة",
+      "bonusType": "نوع المكافأة",
+      "credit": "الائتمان",
+      "note": "ملاحظة",
+      "date": "التاريخ",
+      "payment_method": "طريقة الدفع",
+      "no": "لا",
+      "username": "اسم المستخدم",
+      "email": "البريد الإلكتروني",
+      "amount": "المبلغ",
+      "dateJoined": "تاريخ الانضمام",
+      "sales": "تقرير المبيعات",
+      "top_earners": "تقرير أفضل الربح",
+      "point_history": "تقرير تاريخ النقاط",
+      "payout_report": "تقرير السحب",
+      "member_income": "تقرير دخل العضو",
+      "joining_report": "تقرير الانضمام",
+      "fund_transfer": "تقرير تحويل الأموال",
+      "business_builder": "تقرير مُنشئ الأعمال"
+    }
+  },
+  "support_tickets": {
+    "title": "تذاكر الدعم",
+    "create": "إنشاء تذكرة",
+    "side_bar": {
+      "all": "الكل",
+      "open": "مفتوحة",
+      "resolved": "تم الحل",
+      "closed": "مغلقة",
+      "in_progress": "قيد التقدم",
+      "responded": "تم الرد"
+    },
+    "table": {
+      "no": "رقم التذكرة",
+      "date": "التاريخ",
+      "subject": "الموضوع",
+      "status": "الحالة",
+      "priority": "الأولوية",
+      "department": "القسم",
+      "category": "الفئة",
+      "actions": "الإجراءات"
+    },
+    "contact_support": {
+      "title": "إنشاء تذكرة",
+      "create_card": {
+        "title": "إنشاء تذكرة",
+        "category": "اختر الفئة",
+        "department": "اختر القسم",
+        "priority": "اختر الأولوية",
+        "subject": "الموضوع",
+        "file": "الملف المرفق",
+        "submit": "إرسال الطلب"
+      }
+    },
+    "view": {
+      "title": "عرض التذاكر",
+      "pill": "رقم التذكرة",
+      "created": "تاريخ الإنشاء",
+      "last": "آخر رد",
+      "about": {
+        "status": "الحالة",
+        "priority": "الأولوية",
+        "department": "القسم",
+        "email": "البريد الإلكتروني",
+        "category": "الفئة",
+        "username": "اسم المستخدم"
+      },
+      "reply_form": {
+        "title": "نموذج الرد",
+        "submit": "نشر الرد",
+        "faq_title": "العنوان"
+      }
+    }
+  },
+  "profile": {
+    "tax_code": "قانون الضرائب",
+    "vat_number": "رقم ضريبة القيمة المضافة",
+    "your_notes": "ملاحظاتك",
+    "no": "لا",
+    "userName": "اسم المستخدم",
+    "email": "البريد الإلكتروني",
+    "active": "نشط",
+    "dateJoined": "تاريخ الانضمام",
+    "businessBuilder": "بناء الأعمال",
+    "socialMediaScope": "نطاق وسائل التواصل الاجتماعي",
+    "save_changes": "حفظ التغييرات",
+    "medium": "متوسط",
+    "email_address": "عنوان البريد الإلكتروني",
+    "phone_numbers": "أرقام الهاتف",
+    "address": "العنوان",
+    "state_region": "الولاية/المنطقة",
+    "city": "المدينة",
+    "zip_codes": "الرموز البريدية",
+    "male": "ذكر",
+    "female": "أنثى",
+    "other": "آخر",
+    "balance": "الرصيد",
+    "your_activity_history": "تاريخ نشاطك",
+    "last_seen": "آخر ظهور",
+    "allowed": "مسموح",
+    "max_size": "الحد الأقصى للحجم",
+    "first_name": "الاسم الأول",
+    "last_name": "الاسم الأخير",
+    "gender": "الجنس",
+    "public_private": "عام/خاص",
+    "choose_country": "اختر البلد",
+    "account_settings": "إعدادات الحساب",
+    "new_passwords": "كلمات المرور الجديدة",
+    "confirm_new_passwords": "تأكيد كلمة المرور الجديدة",
+    "twoStepAuthentication": "المصادقة الثنائية",
+    "twoStep": "المصادقة الثنائية (2FA)",
+    "emailNotificationSettings": "إعدادات الإشعار عبر البريد الإلكتروني",
+    "materialAdd": "إضافة مواد",
+    "productBusiness": "إخطارات انتهاء المنتج ورسوم بناء الأعمال",
+    "blog": "المدونة",
+    "rankachieved": "تحقيق الترتيب",
+    "paymentCompleted": "اكتمال الدفع",
+    "newUserAdded": "تمت إضافة مستخدم جديد إلى الشبكة الثنائية",
+    "accountUpdate": "تحديث الحساب",
+    "friendRegisterMail": "بريد تسجيل الصديق",
+    "telegramInstructionMails": "بريد تعليمات التليجرام",
+    "mailsFromAdmin": "رسائل من الإدارة",
+    "title": "الملف الشخصي",
+    "referrals": "الإحالات",
+    "total_payout": "إجمالي المدفوعات",
+    "total_commission": "إجمالي العمولة",
+    "tabs": {
+      "profile": "الملف الشخصي",
+      "edit": "تحرير المعلومات",
+      "settings": "الإعدادات",
+      "referral": "الإحالة",
+      "note": "الملاحظات",
+      "payout": "الدفع"
+    },
+    "profile_info": {
+      "commission": "إجمالي العمولة",
+      "payout": "إجمالي المدفوعات",
+      "referrals": "الإحالات",
+      "balance": "الرصيد",
+      "last_seen": "آخر ظهور",
+      "activity_history": "تاريخ نشاطك"
+    },
+    "referral": {
+      "title": "الإحالات",
+      "table": {
+        "no": "لا",
+        "user": "اسم المستخدم",
+        "email": "البريد الإلكتروني",
+        "active": "نشط",
+        "business_builder": "بناء الأعمال",
+        "date": "تاريخ الانضمام"
+      }
+    },
+    "settings": {
+      "bank_account": {
+        "title": "تحديث معلومات الدفع المباشر"
+      },
+      "bitaps": {
+        "title": "تحديث عنوان البيتكوين"
+      },
+      "bank": {
+        "title": "تحديث تفاصيل البنك",
+        "save": "حفظ التغييرات"
+      },
+      "stripe": {
+        "title": "تحديث معلومات الدفع عبر الإنترنت",
+        "form": {
+          "first_name": "الاسم الأول",
+          "last_name": "اسم العائلة",
+          "currency": "عملة",
+          "account_holder_name": "اسم صاحب الحساب",
+          "account_holder_type": "نوع صاحب الحساب",
+          "routing_number": "رقم التوجيه",
+          "account_number": "رقم الحساب",
+          "country": "دولة",
+          "id_number": "رقم الهوية",
+          "phone": "هاتف",
+          "gender": "جنس",
+          "dob": "تاريخ الميلاد",
+          "line1": "العنوان سطر 1",
+          "line2": "سطر العنوان 2",
+          "city": "مدينة",
+          "state": "ولاية",
+          "postal_code": "رمز بريدي"
+        }
+      },
+      "password": {
+        "title": "إعدادات الحساب",
+        "new_password": "كلمة المرور الجديدة",
+        "confirm": "تأكيد كلمة المرور الجديدة",
+        "save": "حفظ التغييرات"
+      },
+      "address": {
+        "title": "تغيير عنوان العملة",
+        "save": "حفظ"
+      },
+      "2fa": {
+        "title": "المصادقة الثنائية (2FA)",
+        "enable_message": "الخطوة الأولى هي تحميل تطبيق Google Authenticator على جهاز Android أو iOS الخاص بك. إذا كنت بحاجة إلى مساعدة للبدء، يرجى زيارة صفحة دعم Google. إذا لم يكن لديك وصول إلى Android Market أو App Store، هناك خيارات أخرى للحصول على Google Authenticator: تنزيل Android، إضافة Google Chrome، أو iTunes App Store",
+        "post_script": "لن يتم عرض الرمز مرة أخرى بعد تمكين المصادقة الثنائية. إذا كان لديك عدة أجهزة، قم بإضافة رمز حسابك إلى جميعها قبل النقر فوق التمكين. (ملاحظة: سيتغير رمز حسابك في كل مرة تقوم فيها بإعادة تحميل المتصفح.)",
+        "button": "تحقق",
+        "otp": "أدخل OTP"
+      },
+      "cache": {
+        "title": "الخصوصية والأمان",
+        "body": "مسح بيانات التصفح",
+        "sub": "مسح التاريخ، الكوكيز، ذاكرة التخزين المؤقت، وأكثر",
+        "dialog": {
+          "title": "مسح بيانات التصفح",
+          "body": "بعد مسح تاريخ التصفح، سيتم تسجيل خروجك من هذه الصفحة.",
+          "cancel": "إلغاء",
+          "save": "مسح"
+        }
+      }
+    },
+    "notes": {
+      "button": "ملاحظات",
+      "dialog": {
+        "add": {
+          "title": "إضافة ملاحظة",
+          "submit": "إرسال",
+          "cancel": "إغلاق"
+        },
+        "delete": {
+          "title": "حذف الملاحظة",
+          "message": "هل أنت متأكد أنك تريد الاستمرار؟ لا يمكن عكس هذا الإجراء",
+          "submit": "حذف",
+          "cancel": "إلغاء"
+        },
+        "edit": {
+          "title": "تحرير الملاحظة",
+          "submit": "تحديث",
+          "cancel": "إلغاء"
+        }
+      }
+    },
+    "edit": {
+      "tax_code": "قانون الضرائب",
+      "vat_number": "رقم ضريبة القيمة المضافة",
+      "first_name": "الاسم الأول",
+      "last_name": "الاسم الأخير",
+      "gender": "الجنس",
+      "country": "البلد",
+      "state": "الولاية/المنطقة",
+      "city": "المدينة",
+      "pin": "الرمز البريدي",
+      "address": "العنوان",
+      "mobile": "رقم الهاتف",
+      "mail": "عنوان البريد الإلكتروني",
+      "social": {
+        "phone": "الهاتف",
+        "mail": "البريد الإلكتروني",
+        "fb": "فيسبوك",
+        "x": "X",
+        "whatsapp": "واتساب",
+        "insta": "إنستجرام",
+        "tele": "تليجرام",
+        "medium": "متوسط"
+      },
+      "status": "عام/خاص",
+      "social_scope": "نطاق وسائل التواصل الاجتماعي",
+      "update": "حفظ التغييرات"
+    }
+  },
+  "user": {
+    "recurring_order": {
+      "title": "أمر متكرر",
+      "disable_recurring": "تعطيل التكرار",
+      "recurring_enabled": "تمكين المتكررة",
+      "enable_on": "متكرر ممكن على",
+      "update_card": "تحديث البطاقة"
+    },
+    "online_store": {
+      "team_orders":{
+        "title":"طلبات الفريق"
+    },
+
+      "select_month": "اختر الشهر",
+      "buy_now": "شراء الآن",
+      "cart": "أضف إلى السلة",
+      "subscription": "الاشتراك",
+      "write_review": "كتابة تقييمك",
+      "product_details": {
+        "title": "تفاصيل المنتج",
+        "review_other": "التقييمات ({{count}})",
+        "average_rating": "التقييم المتوسط"
+      },
+      "product": {
+        "title": "اشتراك المنتج",
+        "quantity": "كمية",
+        "amount": "المبلغ",
+        "complete_order": "إتمام الطلب",
+        "balance": "الرصيد المتاح",
+        "back": "رجوع",
+        "payment_options": "خيارات الدفع",
+        "subscription": "الاشتراك",
+        "price": "السعر",
+        "product": "المنتج",
+        "coupon": "رمز القسيمة",
+        "apply": "تطبيق",
+        "order_summary": "ملخص الطلب",
+        "sub_total": "المجموع الفرعي",
+        "discount": "الخصم",
+        "total": "المجموع",
+        "continue": "متابعة التسوق",
+        "look_like": "يبدو أنك ليس لديك أي عناصر في سلة التسوق الخاصة بك.",
+        "cart_is_empty": "السلة فارغة",
+        "cart": "السلة",
+        "checkout": "الدفع"
+      },
+      "my_orders": {
+        "title": "طلباتي",
+        "details": {
+          "title": "تفاصيل الفاتورة",
+          "invoiced_date": "تاريخ الفاتورة",
+          "question": "هل لديك سؤال؟",
+          "foot_note": "نحن مسرورون بسماع آرائك. شكرًا لدعمك وتعاونك. يرجى القيام بالدفع الفوري. إذا كانت لديك أي استفسارات حول هذه الفاتورة، فلا تتردد في الاتصال بنا."
+        },
+        "invoice_details": {
+          "iva_price": "إيفا برايس",
+          "my_orders_titile": "طلباتي: المتجر عبر الإنترنت",
+          "my_orders": "طلباتي",
+          "subscription": "الاشتراك",
+          "no": "لا",
+          "invoice_id": "رقم الفاتورة",
+          "payment_method": "طريقة الدفع",
+          "order_date": "تاريخ الطلب",
+          "total_price": "السعر الإجمالي",
+          "action": "إجراء",
+          "combo": "كومبو",
+          "view": "عرض",
+          "invoice_titile": "الفاتورة: عرض",
+          "invoice_details": "تفاصيل الفاتورة",
+          "invoices": "الفواتير",
+          "date_invoice": "تاريخ الفاتورة:",
+          "product": "المنتج",
+          "type": "النوع",
+          "bv": "القيمة النقطية",
+          "price": "السعر",
+          "notes": "ملاحظات",
+          "have_question": "هل لديك سؤال؟",
+          "item": "العنصر",
+          "sub_total": "الإجمالي الفرعي",
+          "discount": "خصم",
+          "taxes": "الضرائب",
+          "total": "الإجمالي",
+          "support_mail": "support@cloudmlm.com",
+          "shipping": "الشحن",
+          "quantity":"كمية",
+          "qv":"كيو في",
+          "ev":"هذا",
+          "coupon_discount":"خصم القسيمة",
+          "consequtive":"خصم شهر متتالي"
+
+
+        }
+      }
+    },
+    "subscriptions": {
+      "title": "اشتراكاتي",
+      "active_only": "قائمة الاشتراكات النشطة فقط؟",
+      "purchase_date": "تاريخ الشراء",
+      "expiry_date": "تاريخ انتهاء الصلاحية",
+      "enable_recurring": "تمكين التكرار",
+      "recurring_not_enabled": "التكرار غير ممكن",
+      "recurring_cancelled_on": "تم إلغاء التكرار في",
+      "stripe_recurring_enable_message": "من خلال الاستمرار، ستقوم بتمكين التجديد التلقائي لهذا الاشتراك باستخدام بطاقتك عبر Stripe.",
+      "recurring_payment": "تمكين الدفع التكراري",
+      "paypal_recurring_enable_message": "من خلال الاستمرار، ستقوم بتمكين التكرار لهذا المنتج عبر PAYPAL.",
+      "your_review": "رأيك حول هذا المنتج",
+      "submit_review": "نشر التعليق",
+      "list_public_events": "عرض الفعاليات العامة",
+      "labels": {
+        "review": "إضافة تقييم",
+        "blog": "مدونة",
+        "events": "فعاليات",
+        "documents": "مستندات",
+        "videos": "فيديوهات",
+        "view": "عرض"
+      }
+    },
+    "income_report": {
+      "title": "تقرير الدخل",
+      "table": {
+        "no": "رقم",
+        "from": "من الاسم",
+        "amount_type": "نوع المبلغ",
+        "credit": "ائتمان",
+        "created": "تم الإنشاء"
+      }
+    }
+  },
+  "products": {
+    "title": {
+      "subscriptions": "الاشتراكات",
+      "product_and_pack": "المنتجات والحزم",
+      "add": "إضافة",
+      "category_name": "اسم الفئة",
+      "product": "المنتج",
+      "package": "الحزمة",
+      "category": "الفئة",
+      "video_edit": "عرض / تحرير الفيديو",
+      "document_view_edit": "عرض / تحرير الوثيقة",
+      "questions_view_edit": "عرض / تحرير الأسئلة",
+      "sample_document_view_edit": "عرض / تحرير الوثيقة العينية",
+      "product_view_edit": "عرض / تحرير المنتج",
+      "delete": "حذف",
+      "package_add": "إضافة حزمة",
+      "product_add": "إضافة منتج",
+      "package_edit": "تحرير الحزمة",
+      "product_edit": "تحرير المنتج",
+      "subscription_edit": "تحرير الاشتراك",
+      "subscription_view_edit": "عرض /تحرير الاشتراك"
+    },
+    "add": {
+      "package_name": "اسم الحزمة",
+      "product_name": "اسم المنتج",
+      "meta_keywords": "الكلمات الرئيسية",
+      "meta_description": "الوصف الفعلي",
+      "short_description": "وصف قصير",
+      "title": "عنوان",
+      "description": "وصف",
+      "product_page_url": "عنوان صفحة المنتج",
+      "images": "الصور",
+      "status": "الحالة",
+      "accessFrom": "الوصول من",
+      "accessTo": "الوصول إلى",
+      "product_available": "المنتج متاح",
+      "package_available": "الحزمة متاحة",
+      "submit": "إرسال",
+      "reset": "إعادة تعيين",
+      "add_price": "إضافة السعر",
+      "subscription": "اشتراك",
+      "one_off_payment": "دفعة واحدة",
+      "addVimeoVideo": "إضافة عنوان Vimeo للفيديو (اختياري)",
+      "subscription_or": "اشتراك أو دفعة واحدة",
+      "add_doc": "إضافة وثيقة",
+      "add_sample_doc": "إضافة وثيقة عينية",
+      "remove_all": "إزالة الكل"
+    },
+    "video": {
+      "update": "تحديث",
+      "edit_video": "تحرير الفيديو",
+      "cancel": "إلغاء",
+      "areYouSure": "هل أنت متأكد أنك تريد الاستمرار؟ لا يمكن التراجع عن هذا الإجراء",
+      "deleteVideo": "حذف الفيديو",
+      "title": "الفيديوهات",
+      "product": "المنتجات والحزم",
+      "add": "إضافة",
+      "addVideo": "إضافة فيديو",
+      "videoURL": "عنوان الفيديو",
+      "close": "إغلاق",
+      "delete": "حذف",
+      "edit": "تحرير"
+    },
+    "category": {
+      "add": "إضافة فئة",
+      "edit_cat": "تحرير الفئة",
+      "product_categories_store": "فئات المنتجات: المتجر",
+      "product_categories": "فئات المنتجات",
+      "category_name": "اسم فئة المنتج",
+      "add_category": "إضافة فئة",
+      "status": "الحالة",
+      "enabled": "مفعل",
+      "disabled": "معطل",
+      "close": "إغلاق",
+      "submit": "إرسال",
+      "edit": "تحرير",
+      "delete": "حذف",
+      "total_products": "إجمالي المنتجات",
+      "delete_product_category": "حذف فئة المنتج",
+      "delete_msg": "هل أنت متأكد أنك تريد الاستمرار؟ لا يمكن التراجع عن هذا الإجراء"
+    },
+    "document": {
+      "delete_document": "حذف الوثيقة",
+      "areYouSure": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن التراجع عن هذا الإجراء",
+      "close": "إغلاق",
+      "update": "تحديث",
+      "edit_document": "تحرير الوثيقة",
+      "uploadDocument": "رفع الوثيقة",
+      "upload": "رفع",
+      "cancel": "إلغاء",
+      "add_sample_document": "إضافة وثيقة عينية",
+      "products": "المنتجات",
+      "title": "الوثيقة | المتجر",
+      "document": "الوثيقة",
+      "add": "إضافة",
+      "edit": "تحرير",
+      "delete": "حذف",
+      "view": "عرض",
+      "createdAt": "تم الإنشاء في"
+    },
+    "question": {
+      "cancel": "إلغاء",
+      "delete": "حذف",
+      "areYouSure": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن التراجع عن هذا الإجراء",
+      "delete_product_questions": "حذف أسئلة المنتج",
+      "add_product_question": "إضافة سؤال للمنتج",
+      "edit_product_questions": "تحرير أسئلة المنتج",
+      "no": "لا",
+      "add_question": "إضافة سؤال",
+      "action": "إجراء",
+      "description": "الوصف",
+      "titles": "العنوان",
+      "title": "السؤال | المتجر",
+      "question": "السؤال",
+      "products": "المنتجات والحزم",
+      "answer": "الإجابة",
+      "close": "إغلاق",
+      "submit": "إرسال"
+    },
+    "sample_doc": {
+      "title": "وثيقة عينية | المتجر",
+      "sample_doc": "وثيقة عينية",
+      "products": "المنتجات والحزم",
+      "add": "إضافة"
+    },
+    "edit": {
+      "title": "تحرير المنتج | المتجر",
+      "edit": "تحرير المنتج",
+      "products": "المنتجات والحزم"
+    },
+    "delete": {
+      "areYouSure": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن التراجع عن هذا الإجراء",
+      "delete_product": "حذف المنتج",
+      "cancel": "إلغاء",
+      "delete": "حذف"
+    }
+  },
+  "material": {
+    "action": "الإجراء",
+    "category": "الفئة",
+    "sort_order": "ترتيب الفرز",
+    "title": "المنتجات | المتجر",
+    "materials": "المواد",
+    "material": "المادة",
+    "material_categories": "فئات المواد",
+    "no": "لا",
+    "product_name": "اسم المنتج",
+    "doc_count": "عدد الوثائق",
+    "video_count": "عدد الفيديوهات",
+    "view": "عرض",
+    "add": "إضافة",
+    "add_material": {
+      "submit": "إرسال",
+      "choose_product": "اختيار المنتج",
+      "material_category": "فئة المواد",
+      "description": "الوصف",
+      "add_video": "إضافة فيديو",
+      "URL": "رابط",
+      "title": "العنوان",
+      "expiry_date": "تاريخ الانتهاء",
+      "add_document": "إضافة وثيقة"
+    }
+  },
+  "events": {
+    "events_title": "الفعاليات | المتجر",
+    "events": "الفعاليات",
+    "no": "لا",
+    "image": "الصورة",
+    "product": "المنتج",
+    "events_type": "نوع الفعالية",
+    "scope": "النطاق",
+    "URL": "الرابط",
+    "zoom_password": "كلمة مرور الزووم",
+    "from": "من",
+    "time": "الوقت",
+    "duration": "المدة",
+    "host": "المضيف",
+    "topic": "الموضوع",
+    "action": "الإجراء",
+    "add": "إضافة",
+    "edit": "تحرير الفعالية",
+    "delete": "حذف الفعالية",
+    "are_you_sure": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن التراجع عن هذا الإجراء",
+    "add_event": {
+      "private": "خاص",
+      "public": "عام",
+      "access_scope": "نطاق الوصول",
+      "zoomPassword": "كلمة مرور الزووم",
+      "location_Zoom": "الموقع / رابط الزووم",
+      "event_type": "نوع الفعالية",
+      "description": "الوصف",
+      "when": "عندما",
+      "date": "التاريخ",
+      "time": "الوقت",
+      "duration": "المدة",
+      "time_zone": "التوقيت",
+      "host_details": "تفاصيل المضيف",
+      "host": "المضيف",
+      "topic": "الموضوع",
+      "submit": "إرسال",
+      "edit": "عرض / تحرير",
+      "delete": "حذف",
+      "cancel": "إلغاء",
+      "status": "الحالة",
+      "hours": "ساعات",
+      "minutes": "دقائق"
+    }
+  },
+  "user_review": {
+    "edit_review": "تعديل التقييم",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "are_you_sure": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن التراجع عن هذا الإجراء",
+    "delete_review": "حذف التقييم",
+    "review_view": "عرض التقييم",
+    "user_name": "اسم المستخدم",
+    "comment": "تعليق",
+    "action": "الإجراء",
+    "review_view_title": "عرض التقييم | المتجر",
+    "back": "رجوع",
+    "products": "المنتجات",
+    "post_review": "نشر تقييم",
+    "title": "العنوان",
+    "review": "تقييم",
+    "your_review_about": "تقييمك حول هذا المنتج:",
+    "user_review_title": "تقييمات المستخدمين | المتجر",
+    "user_review": "تقييمات المستخدمين",
+    "add_review": "تقييم",
+    "no": "لا",
+    "product": "المنتج",
+    "total_review": "مجموع التقييمات",
+    "rating": "التقييم",
+    "view": "عرض",
+    "review_add_title": "إضافة تقييم",
+    "leave_a_comment": "اترك تعليقاً"
+  },
+  "coupons": {
+    "edit_coupon": "تعديل الكوبون",
+    "edit_coupon_title": "تعديل الكوبون | المتجر",
+    "deleteCoupon": "حذف الكوبون",
+    "areYouSure": "هل أنت متأكد أنك تريد المتابعة؟ لا يمكن التراجع عن هذا الإجراء",
+    "cancel": "إلغاء",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "coupon_title": "الكوبون | المتجر",
+    "coupon": "الكوبونات",
+    "add_coupon": "إضافة كوبون",
+    "no": "لا",
+    "couponName": "اسم الكوبون",
+    "code": "الكود",
+    "type": "النوع",
+    "used_available": "المستخدم / المتاح",
+    "discountFix": "التخفيض (ثابت/٪)",
+    "startDate": "تاريخ البدء",
+    "endDate": "تاريخ الانتهاء",
+    "active": "نشط",
+    "created_at": "تم الإنشاء في",
+    "action": "الإجراء",
+    "add_coupon_title": "إضافة كوبون : المتجر",
+    "add": "إضافة",
+    "add_form": {
+      "coupon_name": "اسم الكوبون",
+      "code": "الكود",
+      "type": "النوع",
+      "fixed_amount": "المبلغ الثابت",
+      "percentage": "النسبة المئوية",
+      "total_amount": "المبلغ الإجمالي",
+      "discount": "التخفيض",
+      "status": "الحالة",
+      "enabled": "مفعل",
+      "disabled": "معطل",
+      "usesPerCoupon": "عدد استخدامات الكوبون",
+      "usesPerCustomer": "عدد استخدامات العميل",
+      "from": "من",
+      "to": "إلى",
+      "submit": "إرسال"
+    }
+  },
+  "lead_capture": {
+    "enter_details": "أدخل التفاصيل",
+    "lead": "تحصيل",
+    "no": "لا",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "mobile": "رقم الهاتف",
+    "created_at": "تم الإنشاء في",
+    "edit": "تعديل",
+    "cancel": "إلغاء",
+    "submit": "إرسال",
+    "edit_lead": "تعديل التحصيل"
+  },
+  "errors": {
+    "lead_capture": {
+      "email": {
+        "required": "يجب أن يكون البريد الإلكتروني عنوان بريد إلكتروني صالح"
+      },
+      "username": {
+        "required": "اسم المستخدم مطلوب"
+      },
+      "mobile": {
+        "required": "رقم الجوال مطلوب"
+      }
+    },
+    "financial": {
+      "pay_now": {
+        "valid": "أدخل مبلغًا صحيحًا",
+        "min": "يجب أن يكون المبلغ على الأقل 1",
+        "limit": "ليس لديك رصيد كافٍ",
+        "required": "المبلغ مطلوب"
+      },
+      "fund_transfer": {
+        "wallet": {
+          "required": "يرجى اختيار المحفظة المصدر"
+        },
+        "amount": {
+          "min": "يجب أن يكون المبلغ الأدنى 1",
+          "type": "المبلغ مطلوب",
+          "required": "يرجى اختيار المبلغ"
+        },
+        "user_id": {
+          "type": "الرجاء اختيار مستخدم",
+          "required": "الرجاء تحديد مستخدم"
+        }
+      },
+      "payout": {
+        "amount": {
+          "type": "المبلغ مطلوب",
+          "min": "تأكد من إدخال الحد الأدنى للانسحاب",
+          "required": "المبلغ مطلوب"
+        },
+        "coin_id": "نوع العملة مطلوب"
+      },
+      "fund_credit": {
+        "user_id": { "required": "الاسم مطلوب" },
+        "amount": {
+          "required": "المبلغ مطلوب",
+          "type": "المبلغ مطلوب"
+        },
+        "wallet_type": {
+          "required": "المحفظة مطلوبة"
+        }
+      }
+    },
+    "help_center": {
+      "department": {
+        "name": {
+          "required": "اسم القسم مطلوب"
+        },
+        "description": {
+          "required": "وصف القسم مطلوب"
+        },
+        "active": {
+          "required": "الحالة مطلوبة"
+        },
+        "sort_order": {
+          "required": "ترتيب الفرز مطلوب"
+        }
+      },
+      "categories": {
+        "name": {
+          "required": "الاسم مطلوب"
+        },
+        "description": {
+          "required": "الوصف مطلوب"
+        },
+        "active": {
+          "required": "الحالة مطلوبة"
+        }
+      },
+      "canned_response": {
+        "name": { "required": "اسم العنوان مطلوب" },
+        "subject": { "required": "الموضوع مطلوب" },
+        "message": {
+          "required": "الوصف مطلوب"
+        }
+      },
+      "priorities": {
+        "name": { "required": "الاسم مطلوب" },
+        "description": { "required": "الوصف مطلوب" },
+        "color": { "required": "اللون مطلوب" }
+      },
+      "add_ticket": {
+        "description": { "required": "اسم الوصف مطلوب" },
+        "priority_id": { "required": "الأولوية مطلوبة" },
+        "department_id": { "required": "القسم مطلوب" },
+        "category_id": { "required": "الفئة مطلوبة" },
+        "subject": { "required": "الموضوع مطلوب" },
+        "user_id": {
+          "required": "المستخدم مطلوب",
+          "type": "المستخدم مطلوب"
+        },
+        "status": {
+          "required": "الحالة مطلوبة"
+        }
+      },
+      "reply_form": {
+        "title": {
+          "required": "العنوان مطلوب"
+        },
+        "body": {
+          "required": "الوصف مطلوب"
+        }
+      }
+    },
+    "products": {
+      "add": {
+        "product_name": { "required": "اسم المنتج مطلوب" },
+        "active": { "required": "الحالة مطلوبة" },
+        "product_description": { "required": "وصف المنتج مطلوب" },
+        "meta_description": { "required": "وصف الفهرسة مطلوب" },
+        "meta_keywords": { "required": "الكلمات الرئيسية للفهرسة مطلوبة" },
+        "title": { "required": "العنوان مطلوب" },
+        "product_category_id": {
+          "required": "فئة المنتج مطلوبة",
+          "type": "فئة المنتج مطلوبة"
+        },
+        "price": {
+          "required": "السعر مطلوب",
+          "typeError": "السعر مطلوب",
+          "min": "لا يمكن أن يكون السعر 0"
+        },
+        "bv_percentage": {
+          "required": "نسبة BV مطلوبة",
+          "type": "نسبة BV مطلوبة",
+          "test": "أدخل قيمة نسبية صالحة"
+        },
+        "euro_value": {
+          "required": "قيمة اليورو مطلوبة",
+          "type": "قيمة اليورو مطلوبة"
+        },
+        "qualification_value": {
+          "required": "قيمة المؤهل مطلوبة",
+          "type": "قيمة المؤهل مطلوبة"
+        },
+        "business_volume": {
+          "required": "حجم الأعمال مطلوب",
+          "type": "حجم الأعمال مطلوب"
+        },
+        "product_url": { "required": "رابط المنتج مطلوب" },
+        "video": { "required": "أدخل رابطًا صالحًا" },
+        "image": { "test": "حدد صورة" },
+        "doc": { "test": "حدد وثيقة" },
+        "sample_doc": { "test": "حدد مستندًا عينيًا" }
+      },
+      "category": {
+        "name": { "required": "اسم فئة المنتج مطلوب" },
+        "status": { "required": "الحالة مطلوبة" }
+      }
+    },
+    "faqs": {
+      "category_id": { "required": "اسم الفئة مطلوب" },
+      "question": { "required": "السؤال مطلوب" },
+      "answer": { "required": "الإجابة مطلوبة" }
+    },
+
+    "faq_categories": {
+      "name": { "required": "اسم الفئة مطلوب" },
+      "description": { "required": "الوصف مطلوب" }
+    },
+
+    "articles": {
+      "add": {
+        "title": { "required": "العنوان مطلوب" },
+        "description": { "required": "الوصف مطلوب" },
+        "category_id": { "required": "الفئة مطلوبة" },
+        "name": { "required": "اسم فئة المقالة مطلوب" }
+      }
+    },
+    "blogs": {
+      "add": {
+        "title": { "required": "العنوان مطلوب" },
+        "content": { "required": "المحتوى مطلوب" },
+        "category_id": { "min": "الفئة مطلوبة" },
+        "meta_keywords": { "required": "الكلمات الرئيسية للبحث مطلوبة" },
+        "meta_description": { "required": "وصف الكلمات الرئيسية مطلوب" },
+        "short_description": { "required": "وصف قصير مطلوب" },
+        "image": { "required": "الصورة مطلوبة" },
+        "product_id": { "required": "المنتج مطلوب", "min": "المنتج مطلوب" }
+      },
+      "categories": {
+        "name": { "required": "الاسم مطلوب" },
+        "desc": { "required": "الوصف مطلوب" }
+      },
+      "add_comment": {
+        "comment": { "required": "التعليق مطلوب" },
+        "title": { "required": "العنوان مطلوب" },
+        "rating": {
+          "max": "التقييم الأقصى المسموح به هو 5",
+          "required": "التقييم مطلوب"
+        }
+      }
+    },
+    "tickets": {
+      "reply_form": {
+        "body": { "required": "الرسالة مطلوبة" },
+        "title": { "required": "العنوان مطلوب" }
+      },
+      "create_form": {
+        "department_id": {
+          "type": "الرجاء تحديد قسم",
+          "required": "الرجاء تحديد قسم"
+        },
+        "priority_id": {
+          "type": "الرجاء تحديد أولوية",
+          "required": "الرجاء تحديد أولوية"
+        },
+        "category_id": {
+          "type": "الرجاء تحديد فئة",
+          "required": "الرجاء تحديد فئة"
+        },
+        "subject": { "required": "الرجاء تحديد موضوع" },
+        "description": { "required": "الرجاء تحديد وصف" }
+      }
+    },
+    "profile": {
+      "edit": {
+        "first_name": {
+          "required": "الاسم الأول مطلوب",
+          "matches": "يجب أن يحتوي على أحرف الأبجدية فقط"
+        },
+        "last_name": {
+          "required": "اسم العائلة مطلوب",
+          "matches": "يجب أن يحتوي على أحرف الأبجدية فقط"
+        },
+        "mobile": {
+          "required": "رقم الهاتف مطلوب",
+          "type": "أدخل رقم هاتف صحيح"
+        },
+        "gender": { "required": "الجنس مطلوب" },
+        "zipcode": { "required": "الرمز البريدي مطلوب" },
+        "address": { "required": "العنوان مطلوب" },
+        "country": { "required": "البلد مطلوب" },
+        "state": {
+          "required": "الولاية مطلوبة",
+          "matches": "يجب أن تحتوي على أحرف الأبجدية فقط"
+        },
+        "city": {
+          "required": "المدينة مطلوبة",
+          "matches": "يجب أن تحتوي على أحرف الأبجدية فقط"
+        },
+        "medium": { "url": "أدخل عنوان URL صحيح" },
+        "fb": { "url": "أدخل عنوان URL صحيح" },
+        "x": { "url": "أدخل عنوان URL صحيح" },
+        "insta": { "url": "أدخل عنوان URL صحيح" },
+        "profile_image": { "required": "الصورة الرمزية مطلوبة" }
+      },
+      "notes": { "note": { "required": "الملاحظات مطلوبة" } }
+    },
+    "product": {},
+    "brand": {
+      "name": {
+        "required": "اسم الشركة مطلوب"
+      },
+      "address": {
+        "required": "العنوان مطلوب"
+      },
+      "email": {
+        "required": "البريد الإلكتروني مطلوب",
+        "email": "البريد الإلكتروني مطلوب"
+      },
+      "sort_order": {
+        "required": "ترتيب الفرز مطلوب",
+        "type": "ترتيب الفرز مطلوب"
+      },
+      "section_id": {
+        "required": "القسم مطلوب"
+      },
+      "menu_name": {
+        "required": "اسم القائمة مطلوب"
+      },
+      "title": {
+        "required": "العنوان مطلوب"
+      },
+      "url": {
+        "required": "عنوان URL مطلوب"
+      },
+      "description": { "required": "الوصف مطلوب" }
+    },
+
+    "user_review": {
+      "rating": {
+        "required": "التقييم مطلوب"
+      },
+      "product_id": {
+        "required": "يرجى تحديد منتج"
+      },
+      "comment": {
+        "required": "المراجعة مطلوبة"
+      },
+      "title": {
+        "required": "العنوان مطلوب"
+      },
+      "username": {
+        "required": "اسم المستخدم مطلوب"
+      }
+    },
+
+    "coupons": {
+      "name": {
+        "required": "اسم القسيمة مطلوب"
+      },
+      "type": {
+        "required": "نوع القسيمة مطلوب"
+      },
+      "code": {
+        "required": "الرمز مطلوب",
+        "matches": "يجب أن يحتوي الرمز فقط على الحروف والأرقام والشرطات والشرطات السفلية"
+      },
+      "discount": {
+        "required": "الخصم مطلوب",
+        "type": "الخصم مطلوب",
+        "min": "يجب أن يكون المبلغ على الأقل صفر",
+        "maxi": "يجب أن يكون أقل من المبلغ الإجمالي",
+        "max": "النسبة يجب ألا تتجاوز 100"
+      },
+      "uses_per_coupon": {
+        "required": "عدد المستخدمين لكل قسيمة مطلوب",
+        "type": "عدد المستخدمين لكل قسيمة مطلوب",
+        "min": "يجب أن يكون المبلغ على الأقل واحدًا",
+        "integer": "لا يجب أن يحتوي على قيمة عشرية"
+      },
+      "uses_per_customer": {
+        "required": "عدد الاستخدامات لكل عميل مطلوب",
+        "type": "عدد الاستخدامات لكل عميل مطلوب",
+        "min": "يجب أن يكون المبلغ على الأقل واحدًا",
+        "integer": "لا يجب أن يحتوي على قيمة عشرية",
+        "max": "يجب أن يكون أقل من أو يساوي استخدامات كل قسيمة"
+      },
+      "total_amount": {
+        "required": "المبلغ الإجمالي مطلوب",
+        "type": "المبلغ الإجمالي مطلوب",
+        "min": "يجب أن يكون المبلغ على الأقل صفر"
+      },
+      "start_date": {
+        "test": "أدخل تاريخًا صالحًا",
+        "valid": "يجب ألا يكون تاريخ البداية أكبر من تاريخ الانتهاء"
+      },
+      "end_date": {
+        "test": "أدخل تاريخًا صالحًا",
+        "valid": "يجب ألا يكون تاريخ الانتهاء أقل من تاريخ البداية"
+      }
+    },
+
+    "events": {
+      "product_id": {
+        "required": "المنتج مطلوب",
+        "min": "المنتج مطلوب"
+      },
+      "event_type": {
+        "required": "نوع الحدث مطلوب"
+      },
+      "location_url": {
+        "required": "الموقع مطلوب"
+      },
+      "description": {
+        "required": "الوصف مطلوب"
+      },
+      "time": {
+        "required": "الوقت مطلوب"
+      },
+      "hr": {
+        "required": "الساعة مطلوبة"
+      },
+      "min": {
+        "required": "الدقيقة مطلوبة"
+      },
+      "timezone": {
+        "required": "التوقيت مطلوب"
+      },
+      "host": {
+        "required": "اسم المضيف مطلوب"
+      },
+      "topic": {
+        "required": "الموضوع مطلوب"
+      },
+      "zoom_password": {
+        "required": "كلمة مرور Zoom مطلوبة"
+      }
+    },
+    "date": {
+      "valid_start": {
+        "test": "يجب ألا يكون تاريخ البدء أكبر من تاريخ النهاية"
+      },
+      "valid_end": {
+        "test": "لا ينبغي أن يكون تاريخ الانتهاء أكبر من تاريخ البدء"
+      },
+      "valid_date": {
+        "test": "أدخل تاريخًا صالحًا"
+      }
+    },
+    "material": {
+      "product_list": {
+        "min": "اختر على الأقل منتجًا واحدًا"
+      },
+      "category_id": {
+        "required": "اختر فئة"
+      },
+      "video": {
+        "matches": "أضف فيديو أو مستندًا",
+        "url": "الرجاء إدخال عنوان URL صحيح"
+      },
+      "video_title": {
+        "required": "اسم الفيديو مطلوب"
+      },
+      "video_access_time": {
+        "required": "تاريخ انتهاء الفيديو مطلوب",
+        "test": "أدخل تاريخ صحيح",
+        "type": "تاريخ انتهاء الفيديو مطلوب"
+      },
+      "doc": {
+        "test": "أضف فيديو أو مستندًا"
+      },
+      "doc_title": {
+        "required": "اسم المستند مطلوب"
+      },
+      "user_id": {
+        "required": "المستخدم مطلوب"
+      },
+      "option_value": {
+        "required": "المنتج مطلوب"
+      },
+      "rank_value": {
+        "required": "الرتبة مطلوبة"
+      },
+      "doc_access_time": {
+        "test": "أدخل تاريخ صحيح",
+        "type": "تاريخ انتهاء المستند مطلوب",
+        "required": "تاريخ انتهاء المستند مطلوب"
+      }
+    },
+    "material_categories": {
+      "name": {
+        "required": "اسم الفئة مطلوب"
+      },
+      "sort_order": {
+        "required": "ترتيب الفرز مطلوب"
+      }
+    },
+    "product_document": {
+      "sample_doc": {
+        "required": "حدد مستندًا"
+      },
+      "doc": {
+        "required": "حدد مستندًا"
+      }
+    },
+    "product_question": {
+      "title": {
+        "required": "العنوان مطلوب"
+      },
+      "description": {
+        "required": "الوصف مطلوب"
+      }
+    },
+    "register": {
+      "email": {
+        "email": "يجب أن يكون البريد الإلكتروني عنوان بريد إلكتروني صالح",
+        "required": "البريد الإلكتروني مطلوب"
+      },
+      "username": {
+        "required": "اسم المستخدم مطلوب",
+        "matches": "لا يمكن أن يحتوي هذا الحقل على أحرف خاصة أو مسافات بيضاء"
+      },
+      "password": {
+        "required": "كلمة المرور الجديدة مطلوبة",
+        "min": "يجب أن تكون كلمة المرور على الأقل 8 أحرف"
+      },
+      "repassword": {
+        "oneOf": "يجب أن تتطابق كلمة المرور"
+      }
+    },
+    "login": {
+      "email": {
+        "email": "يجب أن يكون البريد الإلكتروني عنوان بريد إلكتروني صالح",
+        "required": "البريد الإلكتروني مطلوب"
+      },
+      "password": {
+        "required": "كلمة المرور مطلوبة"
+      }
+    },
+    "sub_admin": {
+      "name": {
+        "required": "الاسم مطلوب"
+      },
+      "reason": {
+        "required": "السبب مطلوب"
+      },
+      "description": {
+        "required": "الوصف مطلوب"
+      },
+      "username": {
+        "required": "اسم المستخدم مطلوب"
+      },
+      "group_id": {
+        "required": "مجموعة المستخدم مطلوبة"
+      },
+      "mobile": {
+        "required": "رقم الجوال مطلوب",
+        "matches": "يجب أن يحتوي على أرقام فقط"
+      },
+      "email": {
+        "required": "عنوان البريد الإلكتروني مطلوب",
+        "email": "أدخل عنوان بريد إلكتروني صالح"
+      },
+      "is_impersonation": {
+        "required": "التمثيل مطلوب",
+        "typeError": "اختر قيمة"
+      }
+    },
+    "email": {
+      "subject": {
+        "required": "لا يمكن أن يكون الموضوع فارغاً"
+      },
+      "message": {
+        "required": "لا يمكن أن يكون جسم البريد الإلكتروني فارغاً"
+      },
+      "to_users_id": {
+        "min": "اختر مستخدم واحد على الأقل"
+      }
+    },
+    "tools": {
+      "title": {
+        "required": "عنوان الوثيقة مطلوب"
+      },
+      "sort_order": {
+        "required": "ترتيب الفرز مطلوب",
+        "integer": "يجب أن يكون ترتيب الفرز عدد صحيح",
+        "typeError": "يجب أن يكون رقمًا"
+      },
+      "document_url": {
+        "test": "الوثيقة مطلوبة"
+      },
+      "video": {
+        "title": {
+          "required": "العنوان مطلوب"
+        },
+        "video_tool_url": {
+          "required": "رابط الفيديو مطلوب",
+          "matches": "هذا الحقل يدعم روابط Vimeo فقط أو رابط صالح"
+        }
+      }
+    },
+    "member": {
+      "password": {
+        "username": {
+          "required": "اسم المستخدم مطلوب"
+        },
+        "password": {
+          "required": "كلمة المرور مطلوبة",
+          "min": "يجب أن تكون كلمة المرور على الأقل 8 أحرف"
+        },
+        "confirmPassword": {
+          "oneOf": "يجب أن تتطابق كلمات المرور",
+          "required": "تأكيد كلمة المرور مطلوب"
+        }
+      },
+      "username": {
+        "new_username": {
+          "required": "اسم المستخدم الجديد مطلوب"
+        }
+      }
+    }
+  }
+}

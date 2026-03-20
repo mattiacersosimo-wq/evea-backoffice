@@ -1,0 +1,3267 @@
+{
+  "global": {
+    "subscription": "サブスクリプション",
+    "business_volume": "業務量",
+    "update_card": "カードを更新",
+    "recurring_enabled_on": "定期支払いが有効になった日",
+    "recurring_enabled": "定期支払いが有効",
+    "disable_recurring": "定期支払いを無効にする",
+    "order_history": "注文履歴",
+    "payout_method": "支払い方法",
+    "payout_info": "支払い情報",
+    "current_rank": "現在のランク",
+    "users": "ユーザー",
+    "total_tickets": "合計チケット数",
+    "completed": "完了しました",
+    "pending_payment": "保留中の支払い",
+    "processing": "処理中",
+    "on_hold": "保留",
+    "cancelled": "キャンセル済み",
+    "refunded": "返金済み",
+    "failed": "失敗",
+    "affiliate_dashboard": "アフィリエイトダッシュボード",
+    "bonus_value": "ボーナス値",
+    "qualification_value": "資格の価値",
+    "euro_value": "ユーロの価値",
+    "team_orders":"チーム注文",
+    "pendingcommissions":"保留中のコミッション",
+    "confirm":"確認する",
+    "changedate":"変更日",
+    "country":"国",
+    "rank_achievers":" ランク達成者",
+    "top_recruiters":" トップリクルーター",
+    "top_earners":" トップアーナー",
+    "pqv_required":" PQV が必要です",
+    "tv_required":"テレビが必要です",
+    "gv_required":" GV が必要です",
+    "name_package": "品名/パッケージ/商品名",
+    "sold_out": "合計完売",
+    "amount_paid": "支払金額",
+    "order_id": "注文ID",
+    "transactionsCan": "取引の確認には最大で 02 ～ 12 時間かかる場合があります",
+    "transaction_password": "取引パスワード",
+    "old_password": "古いパスワード",
+    "transaction": "取引パスワードを忘れた場合、",
+    "sendMail": "メールを送信するにはここをクリックしてください。",
+    "scanThisCode": "このコードをスキャンして支払います",
+    "top_performers": "トップパフォーマー",
+    "kyc_details": "KYC 詳細",
+    "email": "Eメール",
+    "users_join": "参加したユーザー",
+    "Identity_proof": "身元証明",
+    "proof_of_address": "住所の証明",
+    "pending": "保留中",
+    "upload": "アップロード",
+    "total_members": "総メンバー数",
+    "OrderApproval": "注文承認",
+    "Order": "注文",
+    "products": "製品",
+    "pending_payments": "未払いの支払い",
+    "payment_status": "支払い状況",
+
+    "approve": "承認する",
+    "reject": "拒否する",
+    "reason": "理由 *",
+    "kyc_pending": "KYCの検証は保留中です !",
+    "kyc_reject": "KYC検証は拒否されます !",
+    "kyc_approved": "KYC検証が承認されています !",
+
+    "your_password": "新しいパスワード",
+    "your_new_password": "新しいパスワードを入力してください !!!",
+    "back_to": "ログインに戻る",
+    "coin": "コインアドレス",
+    "update_coin": "コインアドレスを更新します",
+    "account_login": "ブロックアカウントログイン",
+    "payout": "ブロックペイアウト",
+    "fund_transfer": "ブロックファンド移転",
+    "referral": "ブロック紹介",
+    "edit_Video": "ビデオを編集します",
+    "sponsor_information": "スポンサー情報",
+    "View": "ビュー",
+    "Video_title": "ビデオタイトル",
+    "coin_address": "ペイアウト情報を更新します",
+    "bv_percentage": "BVパーセンテージ",
+    "days": "日々",
+    "overdue": "期限切れチケット",
+    "delete_blog": "ブログを削除する",
+    "resolved": "解決済みチケット",
+    "inProgress": "進行中のチケット",
+    "responded": "応答済みチケット",
+    "Dates": "日付",
+    "package_add": "パッケージ追加",
+    "messageImage": "* より良いユーザーエクスペリエンスのために、サイズが200 KB未満の画像をアップロードしてみてください * または、切り取りオプションを使用できます。",
+    "imageValid": "* 画像をアップロードする際は、幅700、高さ410の寸法の画像をアップロードできます（またはこの比率を維持してください700 * 410）",
+    "max_size": "最大サイズ",
+    "select_a_package": "パッケージを選択",
+    "enable_recurring": "繰り返し支払いを有効にする",
+    "dropSelected": "ここでファイルをドロップするか、クリックします",
+    "deleteFaq": "FAQを削除します",
+    "rank_bonus": "ランクボーナス",
+    "weekly": "毎週",
+    "addNewRank": "新しいランクを追加します",
+    "impersonateText": "管理者は、他のユーザーに2FAを有効にすることはできません",
+    "blocked": "ブロックされています",
+    "rankName": "ランク名",
+    "add_Rank": "ランクを追加",
+    "Options": "オプション",
+    "Rank_Criteria": "ランクの基準",
+    "Referral_Package_Count": "紹介パッケージの数",
+    "Bonus_amount": "ボーナス金額",
+    "Personal_Volume": "個人の売上高",
+    "Referral_Package": "紹介パッケージ",
+    "Referral_Count": "紹介の数",
+    "Team_Volume": "チームの売上高",
+    "package": "パッケージ",
+    "binary_matching_bonus_settings": "バイナリマッチングボーナスの設定",
+    "matchingBonus": "バイナリマッチングボーナス",
+    "binary_bonus": "バイナリボーナス",
+    "daily": "毎日",
+    "monthly": "毎月",
+    "instant": "即時",
+    "first_order_percentage": "一次率",
+    "remove": "取り除く",
+    "Binary_Criteria": "バイナリ基準",
+    "fund_credit": "資金クレジット",
+    "fund_debit": "ファンドデビット",
+    "home": "ホーム",
+    "export": "エクスポート",
+    "product": "製品",
+    "dashboard": "ダッシュボード",
+    "balance": "残高",
+    "product_name": "製品名",
+    "product_one": "製品",
+    "product_other": "製品",
+    "category_one": "カテゴリ",
+    "category_other": "カテゴリ",
+    "search": "検索",
+    "no_data": "データなし",
+    "something_wrong": "何かがうまくいかなかった。後でもう一度お試しください。",
+    "oops": "おっと！",
+    "month": "月",
+    "review_one": "レビュー",
+    "review_other": "{{count}} レビュー",
+    "document": "ドキュメント",
+    "sample_document": "サンプルドキュメント",
+    "description": "説明",
+    "question_one": "質問",
+    "question_other": "質問",
+    "no": "いいえ",
+    "invoice_id": "請求書ID",
+    "payment_method": "支払い方法",
+    "order_date": "注文日",
+    "total_price": "合計金額",
+    "action": "アクション",
+    "notes": "メモ",
+    "note": "メモ",
+    "continue": "続ける",
+    "cancel": "キャンセル",
+    "title": "タイトル",
+    "comment": "コメント",
+    "all": "すべて",
+    "view": "表示",
+    "upcoming": "今後",
+    "past": "過去",
+    "reset": "リセット",
+    "amount": "金額",
+    "e_wallet": "電子ウォレット",
+    "d_wallet": "デポジットウォレット",
+    "send": "送信",
+    "request": "リクエスト",
+    "month_count": "{{count}} 月",
+    "view_document": "ドキュメントを表示",
+    "comments": "コメント",
+    "compose": "作成",
+    "description_place_holder": "何かを書いてください...",
+    "user": "ユーザー",
+    "delete": "削除",
+    "edit": "編集",
+    "username": "ユーザー名",
+    "upload_profile": "写真をアップロード",
+    "allowed": "許可",
+    "max": "最大サイズ",
+    "images": "画像",
+    "name": "名前",
+    "total_commission": "総手数料",
+    "total_payout": "総支払い",
+    "last_seen": "最終ログイン",
+    "your_activity_history": "あなたの活動履歴",
+    "referrals": "紹介",
+    "logged_in": "ログイン中",
+    "total_amount": "合計金額",
+    "payment_type": "支払いの種類",
+    "wallet_type": "ウォレットタイプ",
+    "credit": "クレジット",
+    "debit": "デビット",
+    "deposit_wallet": "デポジットウォレット",
+    "ewallet": "電子ウォレット",
+    "expense": "支出",
+    "total_credits": "合計クレジット",
+    "user_type":"ユーザータイプ",
+    "min_pqv":"最小PQV"
+
+  },
+  "pendingranks": {
+    "table": {
+      "title": "保留中のランク",
+      "no": "番号",
+      "user_name": "ユーザー名",
+      "rankname": "ランク名",
+      "gv": "GV",
+      "tv": "テレビ",
+      "pqv": "PQV"
+    }
+  },
+
+  "email_template": {
+    "title": "メールテンプレート設定",
+    "form": {
+      "subject": "件名",
+      "email_template_id": "SendGrid メール テンプレート ID",
+      "content": "内容",
+      "button": "アップデート"
+    }
+  },
+  "email_settings": {
+    "title": "メールテンプレート設定",
+    "table": {
+      "no": "番号",
+      "name": "名前",
+      "template_id": "SendGrid メール テンプレート ID",
+      "language": "言語",
+      "subject": "件名",
+      "edit_template": "テンプレートの編集"
+    }
+  },
+
+  "register": {
+    "welcome": "こんにちは、おかえりなさい！",
+
+    "reset": "パスワードをリセット",
+    "please": "メールを確認してください。",
+    "request": "リクエストが正常に送信されました",
+    "we_have": "確認メールを送信しました",
+    "back": "戻る",
+    "pls_enter": "アカウントに関連するメールアドレスを入力してください。パスワードをリセットするリンクをメールでお送りします。",
+    "forgot_yur": "パスワードをお忘れですか？",
+    "choose_plan": "プランを選択",
+    "forgot": "パスワードをお忘れですか？",
+    "remember": "私を覚えてますか",
+    "register_new": "新しいメンバーを登録",
+    "partner": "マーケティングパートナーを始める",
+    "login": "ログイン",
+    "already": "すでにアカウントをお持ちですか",
+    "register": "登録",
+    "terms": "利用規約",
+    "policy": "プライバシーポリシー",
+    "referral": "紹介ID (オプション)",
+    "re_enter_password": "パスワードを再入力",
+    "password": "パスワード",
+    "username": "ユーザー名",
+    "email": "メールアドレス",
+    "sign_to": "サインイン",
+    "don't_have": "アカウントをお持ちでない場合",
+    "get_started": "始める",
+    "welcome_back": "こんにちは、おかえりなさい"
+  },
+  "user_nav": {
+    "recurring_orders": "定期的な注文",
+    "pendingcommissions":"保留中のコミッション",
+    "affiliate_dashboard": "アフィリエイトダッシュボード",
+    "coupons":{
+      "title": "クーポン",
+      "list": "マイクーポン"
+    },
+    "referals":"紹介",
+
+    "my_subscriptions": "マイサブスクリプション",
+    "dashboard": "ダッシュボード",
+    "join_telegram": "Telegramに参加",
+    "online_store": {
+      "online_store": "オンラインストア",
+      "product": "製品",
+      "my_orders": "マイオーダー",
+      "packages": "パッケージ",
+      "subscriptions": "サブスクリプション"
+    },
+    "genealogy": {
+      "list": "リスト",
+      "genealogy": "系図",
+      "binary": "バイナリ",
+      "sponsor": "スポンサー",
+      "matrix": "マトリックス",
+      "tree": "ツリー",
+      "affiliate_dashboard": "アフィリエイトダッシュボード",
+      "binary_leg_settings": "バイナリレッグ設定"
+    },
+    "financial": {
+      "financial": "財務",
+      "my_eWallet": "私のEウォレット",
+      "deposit_wallet": "デポジットウォレット",
+      "fund_transfer": "資金の転送",
+      "request_payout": "ペイアウトのリクエスト"
+    },
+    "business_builder": {
+      "business_builder": "ビジネスビルダー",
+      "subscriptions": "サブスクリプション",
+      "materials": "資料"
+    },
+    "my_profile": "私のプロフィール",
+    "blogs": "ブログ",
+    "help_center": {
+      "help_center": "ヘルプセンター",
+      "faqs": "FAQ",
+      "knowledge_base": "知識ベース",
+      "emails": "メール",
+      "support_tickets": "サポートチケット",
+      "documents": "ドキュメント",
+      "videos": "動画"
+    },
+    "income_report": "収益レポート",
+    "leads": "リード"
+  },
+  "affiliate_dashboard": {
+    "previous_month_pending_commission": "前月の保留中のコミッション",
+    "package_purchased": "購入したパッケージ",
+    "first_generation": "第一世代",
+    "second_generation": "第二世代",
+    "third_generation": "第三世代",
+    "total_bonus": "合計ボーナス",
+    "levels": "レベル",
+    "username": "ユーザー名",
+    "dsp_ends_in": "直接販売ボーナスブーストは に終了します",
+    "current_period_ends_in": "現在の期間は終了します",
+    "recognition_rank": "認識ランク",
+    "achieved_rank": "達成ランク",
+    "currentRank": "現在のランク",
+    "qv": "QV",
+    "rank": "ランク",
+    "bonus_amount": "ボーナス金額",
+    "eveolving_bonus": "進化ボーナス",
+    "achieved_count": "達成回数",
+    "current_percentage": "現在の割合",
+    "level_1": "レベル 1",
+    "level_2": "レベル 2",
+    "leader_name": "リーダー名",
+    "rank_name": "ランク名",
+    "team_bv": "チームBV",
+    "bonus_percentage": "ボーナス割合",
+    "pending_bonus": "保留中のボーナス",
+    "generation_1": "第1世代",
+    "generation_2": "第2世代",
+    "eligible": "対象",
+    "amount_payable": "支払額",
+    "from_user": "ユーザーから",
+    "current_month_commissions": "当月のコミッション",
+    "unlocked_levels": "解除されたレベル",
+    "first_generation_promoters": "第一世代プロモーター",
+    "second_generation_promoters": "第二世代プロモーター",
+    "third_generation_promoters": "第三世代プロモーター",
+    "min_personal_qualifying_volume": "最低個人資格ボリューム",
+    "direct_promoter_assigned": "直接プロモーターが割り当てられました",
+    "mvp_status_attained_through_direct_promoter": "直接プロモーターを通じて達成されたMVPステータス",
+    "previous_month": "前月",
+    "largest_order_details": "最大注文の詳細",
+    "euro_value": "ユーロ額",
+    "personal_order_qv": "個人注文QV",
+    "current_month": "今月",
+    "pending_amount": "保留中の金額",
+    "personal_order_qv_in_current_month": "当月の個人注文QV",
+    "months_required_to_earn_bonus": "ボーナス獲得に必要な月数",
+    "order_date": "注文日",
+    "commission": "コミッション",
+    "bv": "BV",
+    "customer_name": "顧客名",
+    "customer_details": "顧客詳細",
+    "corresponding_percentage": "対応する割合",
+    "customers_who_placed_orders": "注文を行った顧客",
+    "current_package": "現在のパッケージ",
+    "remaining_days_in_go_mvp": "Go MVP の残り日数",
+    "eligibility_period_for_additional_bonus": "追加ボーナスの資格期間（か月）",
+    "month": "月",
+    "monthly_qualification_status": "月次資格ステータス",
+    "personally_enrolled_customers": "個人的に登録した顧客",
+    "eveolution_rewards": "進化報酬",
+    "direct_qualifying_volume": "直接資格ボリューム",
+    "required_customers": "必要な顧客数",
+    "qualification_days": "資格取得日数",
+    "no_of_customers_with_30_qv": "30 QV を持つ顧客数",
+    "personally_enrolled_customers_with_30_qv": "30 QV を持つ個人登録顧客",
+    "personal_qualifying_volume": "個人資格ボリューム",
+    "team_volume": "チームボリューム",
+    "group_volume": "グループボリューム",
+    "s_no": "番号",
+    "team": "チーム",
+    "percentage": "割合",
+    "gv_taken": "計上されたGV",
+    "current_rank": "現在のランク",
+    "next_rank": "次のランク",
+    "sixty_percent_rule": "60％ルール",
+    "pending_commission": "保留中のコミッション",
+    "qualifiers": "予選",
+    "requirements": "要件",
+    "progress": "進捗",
+    "nextRank": "次のランク",
+    "paidAsRankLastWeek": "先週のランクで支払われた",
+    "highestRankAchieved": "最高ランク達成",
+    "current_paid": "現在の支払いランク",
+    "activeBusiness": "アクティブなビジネスビルダー",
+    "bronze": "ブロンズ",
+    "silverExecutive": "シルバーエグゼクティブ",
+    "startup": "スタートアップ",
+    "activeCustomer": "アクティブな顧客",
+    "customer": "顧客",
+    "weekly": "週間BV履歴（小さい方の脚）",
+    "total": "合計",
+    "acquired": "取得したBV",
+    "required": "必要なBV",
+    "upcoming_week": "来週",
+    "binary_bonus": "バイナリボーナス",
+    "no": "いいえ",
+    "active_products": "アクティブな製品",
+    "user_name": "ユーザー名",
+    "email": "電子メール",
+    "active": "アクティブ",
+    "total_numberL": "合計販売数（左）",
+    "total_numberR": "合計販売数（右）",
+    "total_teamL": "チームの総売上（左）",
+    "total_teamR": "チームの総売上（右）",
+    "weeklyL": "週間BV（左）",
+    "weeklyR": "週間BV（右）",
+    "left_team": "左のチーム",
+    "left": "左",
+    "right": "右",
+    "right_team": "右のチーム",
+    "affiliate": "アフィリエイト",
+    "personal_sales": "個人の販売BV",
+    "team_sales": "チームの販売BV",
+    "network_bonus": "ネットワークボーナス",
+    "referral_bonus": "紹介ボーナス",
+    "referrals": "紹介",
+    "weekly_payout": "週次の支払いサイクル終了"
+  },
+  "user_dashboard": {
+    "residual_bonus": "残りのボーナスの進行状況",
+    "leadership_rewards": "リーダーシップ報酬",
+    "indirect_sales_bonus": "間接販売ボーナスの進捗",
+    "residual_rewards": "残存報酬",
+    "leadership_bonus": "リーダーシップボーナスの進捗",
+    "residual_matching_bonus": "残存マッチングボーナスの進捗",
+    "rock_solid_bonus": "ロックソリッドボーナスの進捗",
+    "gameplay_rewards": "ゲームプレイ報酬",
+    "eveolving_bonus": "進化するボーナスの進行状況",
+    "rock_solid_mvp_bonus": "ロックソリッドMVPボーナスの進捗",
+    "mvp_mentor_bonus": "MVPメンターボーナスの進捗",
+    "direct_sales_bonus": "直販ボーナスの進捗状況",
+    "rob_bonus": "定期注文ボーナスの進捗状況",
+    "3_FF_Progress": "3 無料で進行",
+    "achieved_rank":"達成ランク",
+    "current_rank":"現在のランク",
+
+    "go_MVP_bonus": "Go MVP ボーナスの進行状況",
+    "rank_progress_bar": "ランクプログレスバー",
+    "income": "収入",
+    "incomeTitle": "今週",
+    "payout": "総収入",
+    "payoutTitle": "今週",
+    "balance": "総残高",
+    "balanceTitle": "今週",
+    "referrals": "総紹介",
+    "referralsTitle": "今週",
+    "downline": "ダウンライン チーム数",
+    "downlineTitle": "今週",
+    "incomeInfo": "収入",
+    "payoutInfo": "支払い",
+    "payout_graph": "収入支払い概要",
+    "network": { "title": "ネットワーク", "overview": "ユーザー参加の概要" },
+
+    "events": {
+      "title": "イベント"
+    },
+
+    "team_performance": {
+      "table": {
+        "user": "ユーザー",
+        "referrals": "紹介",
+        "earnings": "収益"
+      },
+      "title": "チームのパフォーマンス"
+    },
+
+    "referrals_table": {
+      "table": {
+        "user": "ユーザー",
+        "date": "日付",
+        "action": "アクション"
+      },
+      "title": "紹介"
+    },
+    "referral_menu": {
+      "binary": "バイナリー",
+      "matrix": "マトリックス",
+      "sponsor": "スポンサー",
+      "mono_line": "モノライン"
+    },
+    "nextlevelTitle": "次のレベルはあなたのものです！",
+    "nextlevelSubTitle": "新しいランクに到達して、無限の可能性を開放してください。",
+    "currentrank": "現在のランク",
+    "nextrank": "次のランク"
+  },
+  "nav": {
+    "dashboard": {
+      "title": "ダッシュボード",
+      "business": "ビジネス",
+      "network": "ネットワーク"
+    },
+    "genealogy": {
+      "title": "系図",
+      "matrix": "マトリックス",
+      "binary": "バイナリ",
+      "sponsor": "スポンサー",
+      "tree": "ツリー",
+      "list": "リスト",
+      "mono_line": "モノライン"
+    },
+    "financial": {
+      "title": "財務",
+      "e_wallet": "Eウォレット",
+      "d_wallet": "デポジットウォレット",
+      "fund_credit": "ファンドクレジット",
+      "payout": "支払い",
+      "pendingcommission":"保留中のコミッション"
+
+    },
+    "pendingranks": {
+      "title": "保留中のランク",
+      "pending_ranks": "保留中のランク"
+    },
+    "communication": {
+      "title": "コミュニケーション",
+      "blog": "ブログ",
+      "faqs": "FAQ",
+      "mails": "メール",
+      "help_center": "ヘルプセンター",
+      "article": "記事"
+    },
+    "tools": {
+      "title": "ツール",
+      "documents": "ドキュメント",
+      "videos": "動画"
+    },
+    "members": {
+      "title": "メンバー管理",
+      "network": "ネットワークメンバー",
+      "holding": "保留タンク",
+      "kyc_details": "KYCの詳細"
+    },
+    "sub_admin": {
+      "title": "サブ管理者",
+      "sub_admins": "サブ管理者"
+    },
+    "store": {
+      "packages": "パッケージ",
+      "choose_payments": "有効にする支払い方法を選択",
+      "title": "ストア",
+      "products": "製品",
+      "materials": "資料",
+      "events": "イベント",
+      "coupons": "クーポン",
+      "user_review": "ユーザーレビュー",
+      "assign": "サブスクリプションを割り当てる",
+      "bb_sales": "ビジネスビルダーサブスクリプションセールス",
+      "payment_methods": "支払い方法",
+      "subscriptions": "サブスクリプション"
+    },
+    "settings": {
+      "title": "設定",
+      "brand": "ブランド",
+      "bb": "ビジネスビルダー",
+      "network": "ネットワーク",
+      "withdrawal": "引き出し",
+      "currency": "通貨",
+      "mail": "メールテンプレート",
+      "advanced": "高度な設定"
+    },
+    "reports": {
+      "title": "レポート",
+      "builder": "ビルダーサブスクリプション",
+      "fund_credit": "ファンドクレジット",
+      "joining": "参加レポート",
+      "members": "メンバー収入",
+      "payout": "支払い",
+      "point": "ポイント履歴",
+      "sales": "販売",
+      "top": "トップアーナー"
+    },
+    "my_orders": {
+      "titile": "私の注文",
+      "orders": "注文",
+      "completed_orders": "完了した注文",
+      "view_order": "注文の表示"
+    }
+  },
+  "header_menus": {
+    "home": "ホーム",
+    "profile": "プロフィール",
+    "logout": "ログアウト"
+  },
+  "image_upload": {
+    "drop_file": "ファイルをドロップまたは選択",
+    "through": "マシンを介して",
+    "browse": "ブラウズ"
+  },
+  "genders": {
+    "male": "男性",
+    "female": "女性",
+    "other": "その他"
+  },
+  "status": {
+    "enabled": "有効",
+    "disabled": "無効"
+  },
+  "report": {
+    "get": "取得",
+    "get_report": "レポートを取得"
+  },
+  "impersonate": {
+    "heads": "注意！現在、次のユーザーとしてログインしています：",
+    "click": "こちらをクリック",
+    "toGo": "管理者アカウントに戻るため"
+  },
+
+  "amount_types": {
+    "all": "すべて",
+    "r_bonus": "紹介ボーナス",
+    "deducted_by_admin": "管理者によって差し引かれました",
+    "credited_by_admin": "管理者によってクレジット",
+    "fund_transfer": "資金移動",
+    "roi_commission": "ROIコミッション",
+    "a_bonus": "アチーブメントボーナス",
+    "first_order_bonus": "初回注文ボーナス",
+    "level_commission": "レベルコミッション",
+    "b_bonus": "バイナリーボーナス",
+    "deposit_wallet": "デポジットウォレット",
+    "product_purchased": "購入した商品",
+    "rank_bonus": "ランクボーナス",
+    "m_bonus": "バイナリーマッチングボーナス",
+    "go_mvp_bonus": "GO MVP ボーナス"       ,
+    "eveolving_bonus": "進化するボーナス",
+    "rock_solid_bonus": "Rock Solid ボーナス",
+    "rock_solid_mvp_bonus": "Rock Solid MVP ボーナス",
+    "rock_solid_mvp_additional_bonus": "Rock Solid MVP 追加ボーナス",
+    "direct_sales_bonus":"直接販売ボーナス",
+    "pmb_bonus":"定期注文ボーナス",
+    "indirect_sales_bonus":"間接販売ボーナス",
+    "leadership_bonus":"リーダーシップボーナス",
+    "residual_bonus":"残留ボーナス",
+    "residual_matching":"残留マッチングボーナス"
+  },
+  "tools": {
+    "videos": {
+      "areYouSure": "続行してもよろしいですか？このアクションは取り消せません",
+      "deleteVideos": "ビデオを削除",
+      "videos_tool": "ビデオ | ツール",
+      "video": "ビデオ",
+      "addVideo": "ビデオを追加",
+      "title": "タイトル *",
+      "videoURLs": "ビデオのURL *",
+      "close": "閉じる",
+      "submit": "提出",
+      "edit": "編集",
+      "delete": "削除",
+      "update": "更新",
+      "cancel": "キャンセル",
+      "edit_video": "ビデオを編集する"
+    },
+    "documents": {
+      "areYousure": "続行してもよろしいですか？このアクションは取り消せません",
+      "deleteDocument": "ドキュメントを削除",
+      "submit": "提出",
+      "close": "閉じる",
+      "docTitle": "ドキュメントのタイトル",
+      "sortOrders": "ソートオーダー",
+      "uploadDocument": "ドキュメントをアップロード",
+      "updateDocument": "ドキュメントを更新",
+      "addDocument": "ドキュメントを追加",
+      "documents_title": "ドキュメント | ツール",
+      "documents": "ドキュメント",
+      "no": "いいえ",
+      "fileTitle": "ファイルのタイトル",
+      "sortOrder": "ソートオーダー",
+      "download": "ダウンロード",
+      "created": "作成日",
+      "action": "アクション",
+      "fileUpload": "ファイルのアップロード",
+      "edit": "編集",
+      "delete": "削除",
+      "cancel": "キャンセル"
+    }
+  },
+  "businessBuilder": {
+    "no": "いいえ",
+    "amount": "金額",
+    "date": "日付",
+    "effectiveUntil": "有効期限",
+    "pickStartDate": "開始日を選択",
+    "pickEndDate": "終了日を選択",
+    "userName": "ユーザー名",
+    "email": "電子メール",
+    "totalAmount": "合計金額",
+    "thisWeekEnd": "今週の終わり",
+    "recurringCancelled": "定期支払いキャンセル",
+    "recurringEnabled": "定期支払い有効",
+    "businessBuilderTitle": "ビジネスビルダー | ストア",
+    "business_builder_subscriptions_sales": "ビジネスビルダーサブスクリプションセールス"
+  },
+  "assign_subscriptions": {
+    "areYouSure": "この操作を続行してもよろしいですか？このアクションは取り消せません",
+    "delete_category": "カテゴリを削除",
+    "edit_category": "カテゴリを編集",
+    "delete": "削除",
+    "permissions": "権限",
+    "edit": "編集",
+    "impersonate": "偽装",
+    "profile": "プロフィール",
+    "submit": "提出",
+    "close": "閉じる",
+    "category_description": "カテゴリの説明",
+    "category_name": "カテゴリ名",
+    "add_category": "カテゴリを追加",
+    "createdDate": "作成日",
+    "editSubscription": "サブスクリプションを編集",
+    "products": "製品",
+    "trashed": "廃棄",
+    "category": "カテゴリ",
+    "totalAmount": "合計金額",
+    "cancel": "キャンセル",
+    "add": "追加",
+    "giveProductMaterials": "製品と資料を提供",
+    "giveProduct": "製品と手数料を提供",
+    "categories": "カテゴリ",
+    "certified_date": "認定日（オプション）",
+    "addProduct": "製品を割り当てる",
+    "pickStartDate": "開始日を選択",
+    "pickEndDate": "終了日を選択",
+    "user": "ユーザー",
+    "email": "メール",
+    "productss": "製品",
+    "no": "いいえ",
+    "action": "アクション",
+    "assigned_on": "割り当て日",
+    "userName": "ユーザー名",
+    "product": "製品",
+    "categoryy": "カテゴリ",
+    "note": "ノート",
+    "certifiedDate": "認定日",
+    "effectiveUntil": "有効期限",
+    "subscriptionsList": "サブスクリプションリスト",
+    "assignSubscriptionsTitle": "サブスクリプションの割り当て | ストア",
+    "assign_subscriptions": "サブスクリプションの割り当て"
+  },
+
+  "sub_admin": {
+    "delete_at": "削除日時",
+    "reasons": "理由",
+    "block": "ブロック",
+    "un_block": "ブロック解除",
+    "block_sub_admin": "サブ管理者をブロック",
+    "edit_sub_admin": "サブ管理者を編集",
+    "reason": "理由",
+    "are_you_sure": "この操作を続行してもよろしいですか？このアクションは取り消せません",
+    "delete_sub_admin": "サブ管理者を削除",
+    "un_block_user": "ユーザーのブロック解除",
+    "block_user": "ユーザーをブロック",
+    "profile": "プロフィール",
+    "edit": "編集",
+    "password": "パスワード",
+    "re_enter_password": "パスワードを再入力",
+    "enable": "有効化",
+    "disable": "無効化",
+    "enable_impersonation": "偽装を有効化",
+    "departments": "部門",
+    "excluded_products": "除外された製品",
+    "products": "製品",
+    "mobile": "携帯電話 *",
+    "names": "名前 *",
+    "add_sub_admin": "サブ管理者を追加",
+    "sub_admins_title": "サブ管理者：サブ管理者を追加",
+    "delete": "削除",
+    "reversed": "この操作を続行してもよろしいですか？これは取り消せません",
+    "sub_admin_delete": "サブ管理者グループを削除",
+    "submit": "提出",
+    "description": "説明",
+    "cancel": "キャンセル",
+    "group": "グループ",
+    "add_user_group": "ユーザーグループを追加",
+    "impersonate": "偽装",
+    "sub_admins": "サブ管理者",
+    "user_group": "ユーザーグループ",
+    "sub_admin": "サブ管理者",
+    "active": "有効",
+    "inactive": "無効",
+    "trashed": "廃棄",
+    "no": "いいえ",
+    "name": "名前",
+    "userName": "ユーザー名",
+    "email": "メール",
+    "created": "作成日",
+    "action": "アクション",
+    "createdAt": "作成日時"
+  },
+
+  "holding_tank": {
+    "cancel": "キャンセル",
+    "are_you_sure": "この操作を続行してもよろしいですか？このアクションは取り消せません",
+    "delete_holding_tank": "ホールディングタンクを削除",
+    "impersonation": "偽装",
+    "delete": "削除",
+    "profile": "プロフィール",
+    "permissions": "権限",
+    "holding_tank": "ホールディングタンク",
+    "no": "いいえ",
+    "userName": "ユーザー名",
+    "email": "メール",
+    "paidActive": "有料アクティブ",
+    "joinedAt": "参加日",
+    "add_to_binary": "バイナリに追加",
+    "action": "アクション",
+    "add_to_network": "ネットワークに追加",
+    "network": "ネットワーク",
+    "account_status": "アカウントステータス",
+    "active": "有効",
+    "blocked": "ブロック済み",
+    "add": "追加",
+    "close": "閉じる",
+    "turn_off_email": "メールをオフにします",
+    "turn_on_email": "電子メールをオンにします"
+  },
+  "network_members": {
+    "user_type": "ユーザータイプ",
+    "promoter": "プロモーター",
+    "unique_id": "固有のID",
+    "engagedstatus": "エンゲージメントステータス",
+    "choose_payments": "有効にする支払い方法を選択",
+    "update_permissions": "権限を更新",
+    "turn_off_mail": "メールをオフにする",
+    "are_you_sure": "この操作を続行してもよろしいですか？このアクションは取り消せません",
+    "cancel": "キャンセル",
+    "verify_mail": "メールを確認",
+    "update": "更新",
+    "current_user_name": "現在のユーザー名",
+    "new_user_name": "新しいユーザー名",
+    "change_user_name": "ユーザー名を変更",
+    "close": "閉じる",
+    "confirm_password": "パスワードを確認",
+    "change_password": "パスワードを変更",
+    "permissions": "権限",
+    "turn_off_email": "メールをオフにする",
+    "turn_on_email": "メールをオンにする",
+    "password": "パスワード",
+    "profile": "プロフィール",
+    "verify": "確認",
+    "username": "ユーザー名",
+    "impersonate": "偽装",
+    "account_status": "アカウントステータス",
+    "active": "有効",
+    "blocked": "ブロック済み",
+    "network_members": "ネットワークメンバー",
+    "no": "いいえ",
+    "email": "メール",
+    "rank": "ランク",
+    "paidActive": "有料アクティブ",
+    "createdAt": "作成日時",
+    "action": "アクション",
+    "customer": "顧客",
+    "activeCustomer": "アクティブな顧客",
+    "businessBuilder": "ビジネスビルダー",
+    "bronzeExecutive": "ブロンズエグゼクティブ",
+    "silverExecutive": "シルバーエグゼクティブ",
+    "goldExecutive": "ゴールドエグゼクティブ",
+    "emeraldExecutive": "エメラルドエグゼクティブ",
+    "usertype": "ユーザータイプ",
+    "smart_ship_status": "スマートシップステータス",
+    "is_smartship_customer": "スマートシップ顧客ですか？",
+    "yes": "はい",
+    "engaged_status":"エンゲージメントステータス",
+    "true":"真実",
+    "false":"間違い"
+
+  },
+
+  "network": {
+    "right_team": "右のチーム",
+    "left_team": "左のチーム",
+    "top_recruiters": "トップリクルーター",
+    "latest_registrations": "最新の登録",
+    "yearly_sales_report": "年次売上レポート",
+    "network_joining": "ネットワーク参加",
+    "membersMap": "メンバーマップ",
+    "registeredMembersThisMonth": "今月の登録メンバー",
+    "holdingTank": "保留タンク",
+    "networkMembers": "ネットワークメンバー",
+    "businessBuilder": "ビジネスビルダー",
+    "registeredMembers": "登録メンバー",
+    "tickets": "チケット",
+    "openTickets": "オープンチケット",
+    "closedTickets": "クローズドチケット",
+    "total_network_bonus": "トータルネットワークボーナス",
+    "total_payout": "トータルペイアウト",
+    "upcoming_week": "来週",
+    "binary_bonus": "バイナリボーナス",
+    "history": "ネットワーク履歴",
+    "network_bonus": "ネットワークボーナス",
+    "support_tickets": "サポートチケット"
+  },
+  "business": {
+    "month": "月",
+    "bitcoinConference": "ビットコインカンファレンス",
+    "on_bitcoin": "ビットコイン取引と予測について",
+    "productsActive": "製品とアクティブなサブスクリプション",
+    "topSellingProduct": "トップセリング商品",
+    "userName": "ユーザー名",
+    "product": "製品",
+    "price": "価格",
+    "date": "日付",
+    "latestSales": "最新の売上",
+    "invoice": "請求書",
+    "active": "アクティブ",
+    "customers": "顧客",
+    "total_customers": "総顧客数",
+    "active_customers": "アクティブな顧客",
+    "payout": "支払い",
+    "sales": "売上",
+    "overallStatus": "全体のステータス",
+    "allIncomeAndExpense": "すべての収入",
+    "salesOverTheTime": "時間経過による売上",
+    "thenLastMonth": "前月より",
+    "select_option": "オプションを選択",
+    "latest_registrations": "売上のパフォーマンス",
+    "total_sales": "総売上",
+    "total_expense": "総費用",
+    "total_profit": "総利益",
+    "network_bonus": "ネットワークボーナス",
+    "balance": "残高",
+    "income": "収入",
+    "expense": "費用",
+    "salesOverView": "売上の概要",
+    "salesgraph": "売上グラフ",
+    "topSellingProducts": "トップセリング商品",
+    "today": "今日",
+    "thisWeek": "今週",
+    "pastWeek": "先週",
+    "thisMonth": "今月",
+    "pastMonth": "先月",
+    "thisYear": "今年"
+  },
+
+  "date": {
+    "start": "開始日を選択",
+    "end": "終了日を選択",
+    "valid_start": "開始日は終了日より大きくはありません",
+    "valid_end": "終了日は開始日より大きくはありません"
+  },
+
+  "scope": {
+    "all": "すべて",
+    "public": "公開",
+    "private": "非公開"
+  },
+
+  "search": {
+    "user": "ユーザーを検索",
+    "amount_type": "金額の種類",
+    "search": "検索",
+    "product": "商品を選択",
+    "category": "カテゴリを選択",
+    "department": "部門を選択",
+    "priority": "優先度を選択",
+    "status": "ステータス",
+    "ticket": "チケットID",
+    "title": "タイトル",
+    "scope": "範囲"
+  },
+
+  "payout_status": {
+    "approved": "承認済み",
+    "rejected": "拒否済み"
+  },
+
+  "fin_pay": {
+    "address": "住所",
+    "country": "国",
+    "state": "州",
+    "zip_code": "郵便番号",
+    "city": "市",
+    "card_details": "カードの詳細",
+    "holder_name": "カード保持者の名前",
+    "number": "カード番号",
+    "expiry": "カード有効期限",
+    "cvv": "カードCSC/CVM",
+    "product_recurring_enabled": "この製品は定期的な支払いが有効です。無効にするにはチェックを外してください。"
+  },
+
+  "genealogy": {
+    "matrix": {
+      "name": "名前",
+      "user_name": "ユーザー名",
+      "current_rank": "現在のランク",
+      "date": "日付"
+    },
+    "binary": {
+      "title": "バイナリ：家系"
+    },
+    "sponsor": {
+      "title": "スポンサー：家系"
+    },
+    "tree": {
+      "title": "ツリー：家系"
+    },
+    "leg_settings": {
+      "title": "バイナリレッグ設定",
+      "bp": "ポイント（BV）に基づく - 紹介は弱いレッグチームに配置されます",
+      "br": "紹介に基づく - 紹介は紹介数が少ないチームに配置されます",
+      "lr": "左 - 紹介は左のチームに配置されます",
+      "rr": "右 - 紹介は右のチームに配置されます",
+      "current_leg": "現在のレッグ",
+      "base_on": "ベースオン"
+    },
+    "legends": {
+      "name": "名前",
+      "uname": "ユーザー名",
+      "current_rank": "現在のランク",
+      "doj": "参加日",
+      "w_bv_l": "週次BV（左）",
+      "w_bv_r": "週次BV（右）",
+      "t_bv_l": "合計BV（左）",
+      "t_bv_r": "合計BV（右）",
+      "t_l_users": "合計左のユーザー",
+      "t_r_users": "合計右のユーザー",
+      "bv": "BV",
+      "ev":"これ",
+      "qv":"QV",
+      "dqv":"ジャコフ",
+      "pqv":"PQV",
+      "tv":"テレビ",
+      "gv":"GV",
+      "smartship_status":"スマートシップステータス",
+      "user_type":"ユーザータイプ"
+
+    },
+
+    "mono_line": {
+      "title": "モノライン：家系"
+    },
+    "list": {
+      "title": "リスト：家系",
+      "table": {
+        "no": "番号",
+        "u_name": "ユーザー名",
+        "level": "レベル",
+        "doj": "参加日"
+      }
+    }
+  },
+
+  "financial": {
+    "pendingcommission":{
+            "title":"保留中のコミッション"
+        },
+    "e_wallet": {
+      "amount_type": "金額の種類",
+      "title": "E-ウォレット",
+      "history": "履歴",
+      "cards": {
+        "balance": "残高",
+        "transfer": "送金",
+        "payout": "総ペイアウト",
+        "bonus": "ボーナス"
+      },
+      "table": {
+        "no": "番号",
+        "from": "送信元ユーザー",
+        "user_name": "ユーザー名",
+        "amount_type": "金額の種類",
+        "payment_type": "支払いの種類",
+        "amount": "金額",
+        "date": "日付"
+      }
+    },
+    "deposit_wallet": {
+      "title": "デポジットウォレット",
+      "history": "履歴",
+      "cards": {
+        "balance": "残高",
+        "transfer": "送金",
+        "credited_by_admin": "管理者による入金"
+      },
+      "table": {
+        "no": "番号",
+        "user": "ユーザー名",
+        "from": "送信元ユーザー",
+        "amount_type": "金額の種類",
+        "payment_type": "支払いの種類",
+        "amount": "支払い金額",
+        "date": "日付"
+      },
+      "pay_now": {
+        "amount": "金額 ({{symbol}})",
+        "add": "クレジットを追加"
+      }
+    },
+
+    "fund_credit": {
+      "title": "ファンドクレジット",
+      "form": {
+        "amount": "金額 ({{symbol}})",
+        "to": "宛先",
+        "note": "備考",
+        "deduct": "ファンドを差し引く",
+        "add": "金額を追加"
+      },
+      "table": {
+        "no": "番号",
+        "user": "ユーザー名",
+        "wallet_type": "ウォレットの種類",
+        "payment_type": "支払いの種類",
+        "notes": "備考",
+        "amount": "金額",
+        "date": "日付"
+      }
+    },
+
+    "fund_transfer": {
+      "title": "ファンド転送",
+      "cards": {
+        "e_balance": "E-ウォレット残高",
+        "d_balance": "デポジットウォレット残高"
+      },
+      "send": {
+        "title": "送信フォーム",
+        "from": "送信元"
+      },
+      "table": {
+        "no": "番号",
+        "user": "ユーザー名",
+        "amount_type": "金額の種類",
+        "payment_type": "支払いの種類",
+        "amount": "支払い金額",
+        "date": "日付",
+        "wallet_type": "ウォレットの種類",
+        "to_user": "宛先ユーザー",
+        "payment_status": "支払いステータス"
+      }
+    },
+    "payout": {
+      "admin": {
+        "title": "ペイアウト",
+        "tabs": {
+          "request": "ペイアウトリクエスト",
+          "history": "ペイアウト履歴"
+        },
+        "request": {
+          "table": {
+            "no": "番号",
+            "user_name": "ユーザー名",
+            "user_balance": "ユーザー残高",
+            "payout_method": "支払い方法",
+            "payout_info": "支払い情報",
+            "wallet_address": "ウォレットアドレス",
+            "date": "日付",
+            "requested": "リクエストされた金額",
+            "admin_fee": "管理者手数料差し引き",
+            "released": "リリースされた金額",
+            "action": "アクション"
+          },
+          "approve": "承認",
+          "reject": "却下"
+        },
+        "history": {
+          "table": {
+            "no": "番号",
+            "user_name": "ユーザー名",
+            "user_balance": "ユーザー残高",
+            "wallet_address": "ウォレットアドレス",
+            "coin": "コイン",
+            "email": "メール",
+            "date": "日付",
+            "requested": "リクエストされた金額",
+            "admin_fee": "管理者手数料差し引き",
+            "released": "リリースされた金額",
+            "action": "アクション",
+            "status": "ステータス"
+          }
+        }
+      },
+      "title": "ペイアウトリクエスト",
+      "cards": {
+        "balance": "利用可能な残高",
+        "min": "最小引き出し額"
+      },
+      "request": {
+        "title": "ペイアウトリクエスト",
+        "amount": "リクエスト金額",
+        "coin": "コインタイプ",
+        "methods": "支払い方法"
+      },
+      "table": {
+        "no": "番号",
+        "amount": "金額",
+        "date": "日付",
+        "wallet_address": "ウォレットアドレス",
+        "coin": "コイン",
+        "status": "ステータス"
+      }
+    }
+  },
+
+  "business_builder": {
+    "subscriptions": {
+      "title": "ビジネスビルダー",
+      "filter": {
+        "amount": "金額 ({{symbol}})",
+        "builder": "ビジネスビルダー",
+        "period": "期間を選択"
+      },
+      "table": {
+        "no": "番号",
+        "amount": "金額",
+        "date": "購入日",
+        "effective": "有効期限",
+        "method": "支払い方法",
+        "view": "表示"
+      }
+    },
+    "materials": {
+      "title": "資料",
+      "menu": {
+        "video": "ビデオ",
+        "document": "ドキュメント"
+      }
+    }
+  },
+
+  "actions": {
+    "edit": "編集",
+    "delete": "削除",
+    "publish": "公開"
+  },
+
+  "blogs": {
+    "title": "ブログ",
+    "tabs": {
+      "published": "公開済み",
+      "drafts": "下書き"
+    },
+    "categories": {
+      "title": "ブログカテゴリ",
+      "table": {
+        "no": "番号",
+        "name": "カテゴリ名",
+        "desc": "説明",
+        "action": "アクション"
+      },
+
+      "create": {
+        "edit": { "title": "カテゴリの更新", "submit": "更新" },
+        "title": "カテゴリの追加",
+        "name": "カテゴリ名",
+        "desc": "説明",
+        "submit": "追加",
+        "close": "キャンセル"
+      },
+      "delete": {
+        "title": "カテゴリの削除",
+        "message": "このアクションを続行してもよろしいですか？これは取り消せません。",
+        "submit": "削除",
+        "close": "キャンセル"
+      }
+    },
+
+    "create": {
+      "new_post": "投稿の作成",
+      "categories": "カテゴリ",
+      "category": "カテゴリ",
+      "table": {
+        "no": "番号",
+        "img": "画像",
+        "title": "ブログタイトル",
+        "desc": "ブログ説明",
+        "scope": "スコープ",
+        "date": "ブログ日付",
+        "action": "アクション"
+      },
+      "form": {
+        "add_title": "ブログの追加",
+        "edit_title": "ブログの編集",
+        "type": "タイプ",
+        "blog_title": "タイトル",
+        "category": "ブログカテゴリ",
+        "product": "製品",
+        "meta_key": "メタキーワード",
+        "meta_desc": "メタ説明",
+        "content": "コンテンツ",
+        "short_desc": "短い説明",
+        "add_doc": "ドキュメントの追加",
+        "save_as_draft": "下書きとして保存",
+        "submit": "送信"
+      }
+    },
+    "view": {
+      "title": "ブログ投稿",
+      "add_comment": {
+        "title": "コメントの追加",
+        "rating": "評価",
+        "comment_title": "タイトル",
+        "post": "コメントを投稿"
+      },
+      "recent": "最近の投稿",
+      "latest_category": "最新のブログカテゴリ"
+    }
+  },
+  "faq": {
+    "title": "FAQ",
+    "tabs": {
+      "faq": "FAQ",
+      "categories": "カテゴリ"
+    },
+
+    "categories": {
+      "add": "FAQ カテゴリ",
+      "table": {
+        "no": "番号",
+        "name": "カテゴリ名",
+        "desc": "説明",
+        "action": "アクション"
+      },
+      "dialog": {
+        "add": "FAQ カテゴリの追加",
+        "edit": "FAQ カテゴリの編集"
+      },
+      "form": {
+        "name": "カテゴリ名",
+        "desc": "説明",
+        "status": "ステータス",
+        "cancel": "キャンセル",
+        "add": "追加",
+        "edit": "更新"
+      },
+      "delete": {
+        "title": "FAQ カテゴリの削除",
+        "message": "このアクションを続行してもよろしいですか？これは取り消せません。",
+        "cancel": "キャンセル",
+        "submit": "削除"
+      }
+    },
+    "faqs": {
+      "add": "FAQ",
+      "table": {
+        "no": "番号",
+        "question": "質問",
+        "answer": "回答",
+        "action": "アクション"
+      },
+      "form": {
+        "add_title": "FAQの追加",
+        "edit_title": "FAQの編集",
+        "category": "FAQ カテゴリ",
+        "questions": "質問",
+        "answer": "回答",
+        "cancel": "キャンセル",
+        "add": "追加",
+        "update": "更新"
+      }
+    },
+    "browse_categories": "カテゴリで閲覧",
+    "looking_for": "探している回答が見つかりませんか？",
+    "looking_for_message": "サポートセンターを通じてチケットを作成し、チームのメンバーのうちの1人が24時間以内に返信します。",
+    "create": "チケットを作成"
+  },
+
+  "knowledge_base": {
+    "title": "ナレッジベース"
+  },
+  "emails": { "title": "メール" },
+  "admin_email": {
+    "compose": {
+      "title": "新しいメッセージ",
+      "subject": "件名",
+      "users": "ユーザー",
+      "send": "送信"
+    }
+  },
+  "help_center": {
+    "view": {
+      "view_attachments": "添付ファイルを表示",
+      "created": "作成日",
+      "last_response": "最終応答",
+      "actions": {
+        "impersonate": "偽装",
+        "edit": "プロフィールを編集"
+      },
+      "reply_form": {
+        "title": "返信フォーム",
+        "response": "定型応答",
+        "questions": "FAQの質問",
+        "name": "タイトル",
+        "description": "説明",
+        "submit": "返信を投稿"
+      },
+      "info_card": {
+        "status": "ステータス",
+        "priority": "優先度",
+        "department": "部門",
+        "email": "メール",
+        "category": "カテゴリ",
+        "username": "ユーザー名",
+        "last_message": "最終メッセージ"
+      },
+      "tkt_id": "チケットID",
+      "dialog": {
+        "update_status": {
+          "title": "ステータスを変更しますか？",
+          "cancel": "キャンセル",
+          "submit": "{{status}}にステータスを変更します"
+        }
+      }
+    },
+    "status": {
+      "open": "オープン",
+      "overdue": "期限切れ",
+      "resolved": "解決済み",
+      "closed": "クローズ",
+      "archived": "アーカイブ",
+      "deleted": "削除済み",
+      "unverified": "未検証",
+      "request_approval": "承認リクエスト",
+      "in_progress": "進行中",
+      "responded": "応答済み"
+    },
+    "department": {
+      "add_button": "部門",
+      "table": {
+        "no": "番号",
+        "name": "名前",
+        "status": "ステータス",
+        "desc": "説明",
+        "actions": "アクション"
+      },
+      "actions": {
+        "edit": "編集",
+        "delete": "削除"
+      },
+      "dialog": {
+        "delete": {
+          "title": "部門の削除",
+          "msg": "このアクションを続行してもよろしいですか？これは取り消せません。",
+          "submit": "削除",
+          "cancel": "キャンセル"
+        },
+        "edit": {
+          "title": "部門の編集",
+          "name": "部門名",
+          "desc": "説明",
+          "status": "ステータス",
+          "sort_order": "並び替え順序",
+          "submit": "更新",
+          "cancel": "キャンセル"
+        },
+        "add": {
+          "submit": "作成",
+          "title": "部門の追加"
+        }
+      }
+    },
+    "categories": {
+      "add_button": "カテゴリ",
+      "table": {
+        "no": "番号",
+        "name": "カテゴリ",
+        "status": "ステータス",
+        "desc": "説明",
+        "actions": "アクション"
+      },
+      "actions": {
+        "edit": "編集",
+        "delete": "削除"
+      },
+      "dialog": {
+        "delete": {
+          "title": "カテゴリの削除",
+          "msg": "このアクションを続行してもよろしいですか？これは取り消せません。",
+          "submit": "削除",
+          "cancel": "キャンセル"
+        },
+        "edit": {
+          "title": "カテゴリの編集",
+          "name": "カテゴリ名",
+          "desc": "説明",
+          "status": "ステータス",
+          "sort_order": "並び替え順序",
+          "submit": "更新",
+          "cancel": "キャンセル"
+        },
+        "add": {
+          "submit": "作成",
+          "title": "カテゴリの追加"
+        }
+      }
+    },
+    "canned_response": {
+      "add_button": "定型応答",
+      "table": {
+        "no": "番号",
+        "name": "タイトル",
+        "subject": "件名",
+        "actions": "アクション"
+      },
+      "actions": {
+        "edit": "編集",
+        "delete": "削除"
+      },
+      "dialog": {
+        "delete": {
+          "title": "定型応答の削除",
+          "msg": "このアクションを続行してもよろしいですか？これは取り消せません。",
+          "submit": "削除",
+          "cancel": "キャンセル"
+        },
+        "edit": {
+          "title": "定型応答の編集",
+          "name": "定型応答タイトル",
+          "sub": "件名",
+          "placeholder": "定型応答メッセージ",
+          "submit": "更新",
+          "cancel": "キャンセル"
+        },
+        "add": {
+          "submit": "作成",
+          "title": "定型応答の追加"
+        }
+      }
+    },
+    "priorities": {
+      "add_button": "優先度",
+      "table": {
+        "no": "番号",
+        "name": "優先度",
+        "desc": "優先度の説明",
+        "color": "優先度の色",
+        "status": "ステータス",
+        "actions": "アクション"
+      },
+      "actions": {
+        "edit": "編集",
+        "delete": "削除"
+      },
+      "dialog": {
+        "delete": {
+          "title": "優先度の削除",
+          "msg": "このアクションを続行してもよろしいですか？これは取り消せません。",
+          "submit": "削除",
+          "cancel": "キャンセル"
+        },
+        "edit": {
+          "title": "優先度の編集",
+          "name": "優先度",
+          "color": "色",
+          "desc": "説明",
+          "submit": "更新",
+          "cancel": "キャンセル"
+        },
+        "add": {
+          "submit": "作成",
+          "title": "優先度の追加"
+        }
+      }
+    },
+    "form": {
+      "ticket_id": "チケットID",
+      "subject": "件名",
+      "description": "説明",
+      "priority": "優先度",
+      "department": "部門",
+      "category": "カテゴリ",
+      "status": "ステータス",
+      "document": "ドキュメント",
+      "add": "追加",
+      "update": "更新"
+    },
+    "actions": {
+      "view": "表示",
+      "impersonate": "なりすまし",
+      "edit": "編集",
+      "delete": "削除"
+    },
+    "title": "ヘルプセンター",
+    "create": "チケット作成",
+    "side_bar": {
+      "dashboard": "チケットダッシュボード",
+      "all": "すべてのチケット",
+      "overdue": "期限切れ",
+      "open": "オープン",
+      "resolved": "解決済み",
+      "closed": "クローズ",
+      "in_progress": "進行中",
+      "responded": "応答済み",
+      "departments": "部門",
+      "categories": "カテゴリ",
+      "canned_response": "定型応答",
+      "priorities": "優先度"
+    },
+    "filter": {
+      "department": "部門",
+      "priority": "優先度",
+      "status": "ステータス",
+      "category": "カテゴリ",
+      "tkt_id": "チケットID",
+      "user": "ユーザー検索",
+      "overdue": "期限切れアイテムのみ表示"
+    },
+    "table": {
+      "no": "番号",
+      "tkt_no": "チケット番号",
+      "tkt_from": "チケット元",
+      "date": "日付",
+      "subject": "件名",
+      "status": "ステータス",
+      "priority": "優先度",
+      "department": "部門",
+      "category": "カテゴリ",
+      "action": "アクション"
+    },
+    "document": {
+      "title": "ドキュメント",
+      "created_at": "作成日",
+      "view": "表示"
+    },
+    "video": { "title": "ビデオ" }
+  },
+  "articles": {
+    "title": "記事",
+    "options": {
+      "title": "ナレッジベース",
+      "articles": "記事",
+      "categories": "記事カテゴリ"
+    },
+    "articles": {
+      "title": "すべての記事",
+      "add_button": "記事",
+      "form": {
+        "add_title": "記事の追加",
+        "edit_title": "記事の編集",
+        "name": "名前",
+        "category": "カテゴリ",
+        "description": "説明",
+        "cancel": "キャンセル",
+        "submit_add": "追加",
+        "submit_edit": "追加"
+      },
+      "delete": {
+        "title": "記事の削除",
+        "msg": "このアクションを続行してもよろしいですか？これは取り消せません。",
+        "cancel": "キャンセル",
+        "submit": "削除"
+      },
+      "actions": {
+        "edit": "編集",
+        "delete": "削除"
+      },
+      "table": {
+        "no": "番号",
+        "title": "記事のタイトル",
+        "time": "公開時間",
+        "actions": "アクション"
+      }
+    },
+    "categories": {
+      "title": "すべてのカテゴリ",
+      "add_button": "カテゴリ",
+      "form": {
+        "add_title": "カテゴリの追加",
+        "edit_title": "カテゴリの編集",
+        "name": "名前",
+        "category": "カテゴリ",
+        "description": "説明",
+        "cancel": "キャンセル",
+        "submit_add": "追加",
+        "submit_edit": "更新"
+      },
+      "delete": {
+        "title": "カテゴリの削除",
+        "msg": "このアクションを続行してもよろしいですか？これは取り消せません。",
+        "cancel": "キャンセル",
+        "submit": "削除"
+      },
+      "actions": {
+        "edit": "編集",
+        "delete": "削除"
+      },
+      "table": {
+        "no": "番号",
+        "title": "カテゴリ名",
+        "time": "作成日",
+        "actions": "アクション"
+      }
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "mode": "モード",
+    "direction": "方向",
+    "layout": "レイアウト",
+    "presets": "プリセット",
+    "stretch": "ストレッチ",
+    "full_screen": {
+      "enter": "フルスクリーン",
+      "exit": "フルスクリーンを終了"
+    },
+    "advanced_settings": {
+      "title": "高度な設定",
+      "kyc": {
+        "show": "KYCの表示",
+        "update": "更新",
+        "message": "KYCをオンにすると、ユーザーは自分の書類をアップロードする必要があります"
+      },
+      "leads": {
+        "show": "リードの表示",
+        "update": "更新"
+      },
+      "2fa": {
+        "show": "二要素認証の有効化",
+        "update": "更新",
+        "message": "二要素認証をオンにすると、ユーザーはプロフィール設定から二要素認証を有効にするオプションがあります。有効にすると、ユーザーはログインする前にOTPを入力する必要があります。"
+      },
+      "package": {
+        "show": "パッケージ購入が必要です",
+        "update": "更新"
+      },
+      "mail": {
+        "show": "メールの確認が必要です",
+        "update": "更新"
+      },
+      "membership_packages": {
+        "show": "生年月日が必要です",
+        "minimum": "最低年齢が必要です",
+        "update": "更新"
+      },
+      "tabs": {
+        "currency": "通貨",
+        "kyc": "KYC",
+        "leads": "リード",
+        "payments": "支払い",
+        "dob": "生年月日",
+        "membership_packages": "メンバーシップパッケージ",
+        "membership_settings": "メンバーシップ設定",
+        "2fa": "二要素認証",
+        "email_verify": "メール確認",
+        "package_purchase": "パッケージ購入"
+      }
+    },
+    "brand": {
+      "deleteSection": "セクションの削除",
+      "editSection": "セクションの編集",
+      "edit": "編集",
+      "cancel": "キャンセル",
+      "delete": "削除",
+      "areYouSure": "続行してもよろしいですか？このアクションは取り消せません",
+      "deleteArticles": "記事の削除",
+      "editArticles": "記事の編集",
+      "submit": "提出",
+      "update": "更新",
+      "close": "閉じる",
+      "blogTitle": "ブログのタイトル",
+      "description": "説明",
+      "addArticles": "記事の追加",
+      "no": "番号",
+      "article_name": "記事名",
+      "menu_name": "メニュー名",
+      "action": "アクション",
+      "sectionName": "セクション名",
+      "sortOrder": "並び替え順",
+      "addSection": "セクションの追加",
+      "section": "セクション",
+      "articles": "記事",
+      "save": "保存",
+      "email": "メール",
+      "company_address": "会社の住所",
+      "company_name": "会社名",
+      "change_your_logo_icon": "ロゴアイコンの変更",
+      "sidebar_corner_logo": "サイドバーのコーナーロゴ",
+      "change_your_logo": "ロゴの変更",
+      "change_logo": "ロゴの変更",
+      "title": "ブランド：設定",
+      "brand": "ブランドの設定",
+      "company_details": "会社の詳細",
+      "get_started": "はじめに",
+      "user_guidance": "ユーザーガイダンス",
+      "allowed": "許可",
+      "size": "最大サイズ"
+    },
+    "business_builder": {
+      "edit": "編集",
+      "delete": "削除",
+      "areYouSure": "続行してもよろしいですか？このアクションは取り消せません",
+      "cancel": "キャンセル",
+      "close": "閉じる",
+      "submit": "提出",
+      "addBusinessBuilder": "ビジネスビルダーの追加",
+      "editBusinessBuilder": "ビジネスビルダーの編集",
+      "no": "番号",
+      "name": "名前",
+      "amount": "金額",
+      "bv": "BV",
+      "add": "追加",
+      "action": "アクション",
+      "title": "ビジネスビルダー | 設定",
+      "business_builder": "ビジネスビルダー",
+      "deleteBusinessBuilder": "ビジネスビルダーの削除"
+    },
+    "withdrawal": {
+      "title": "出金",
+      "available_payouts": "利用可能な支払い"
+    },
+    "network": {
+      "min_required_rank": "最低限必要なランク",
+      "required_rank": "必要ランク",
+      "level_1_rank": "レベル1ランク",
+      "level_2_rank": "レベル2ランク",
+      "level_3_rank": "レベル3ランク",
+      "levels_unlocked": "レベルのロックが解除されました",
+      "placement_lounge_settings": "配置ラウンジの設定",
+      "eveolving_bonus_settings": "進化するボーナス設定",
+      "rocksolid_bonus_settings": "Rock Solid ボーナス設定",
+      "is_bonus_settings": "間接販売ボーナスの設定",
+      "leadership_bonus": "リーダーシップボーナスの設定",
+      "rob_bonus_settings": "定期注文ボーナスの設定",
+      "residual_matching": "残差マッチングボーナス設定",
+      "three_ff_bonus_settings": "3 無料プログラム設定の場合",
+      "residual_bonus": "残存ボーナス設定",
+      "rock_solid_mvp_bonus": "Rock Solid MVP ボーナス設定",
+      "withdrawal_text": "メンバーページに表示する引き出しテキスト",
+      "withdrawal_admin": "引き出し手数料のパーセント：% ",
+      "open_withdrawals_on": "この日に引き出しを開始",
+      "monday": "月曜日",
+      "tuesday": "火曜日",
+      "wednesday": "水曜日",
+      "thursday": "木曜日",
+      "friday": "金曜日",
+      "sunday": "日曜日",
+      "saturday": "土曜日",
+      "available_coins": "利用可能なコイン",
+      "min_amount": "引き出しの最小金額：",
+      "withdrawal_title": "引き出し | 設定",
+      "withdrawal": "引き出し",
+      "level": "レベル",
+      "percentage": "パーセンテージ",
+      "products": "製品",
+      "month": "月",
+      "referral_bonus": "紹介ボーナス",
+      "update": "更新",
+      "rank_name": "ランク名",
+      "personally_enrolled_rank": "個人的に登録されたランク",
+      "count": "カウント",
+      "team_volume": "チームボリューム",
+      "title": "ネットワーク設定：設定",
+      "network": "ネットワーク設定",
+      "binary_bonus_settings": "バイナリボーナスの設定",
+      "rank_settings": "ランクの設定",
+      "referral_commission_settings": "紹介手数料の設定",
+      "first_order_bonus": "初回ボーナス",
+      "level_bonus": "レベルボーナス",
+      "roi_settings": "ROIの設定",
+      "rank": "ランク",
+      "bv_capping": "BVキャッピング",
+      "binary_bonus_capping": "バイナリボーナスキャッピング",
+      "binary_matching": "バイナリマッチング（％）",
+      "go_mvp_bonus_settings": "Go MVP ボーナス設定",
+      "min_dqv": "私のDQV",
+      "required_customers": "必須のお客様",
+      "min_qv_per_customer": "顧客あたりの最小 QV",
+      "qualification_days": "資格取得日",
+      "min_pqv": "最小 PQV",
+      "minimum_pqv": "最小 PQV",
+      "active": "アクティブ",
+      "circle_of_evelution": "進化の輪",
+      "required_dqv": "必須DQV",
+      "min_customer_qv":"最小顧客 QV",
+      "monthly_bonus_amount":"月間ボーナス額",
+      "consecutive_months_bonus_trigger":"連続月ボーナストリガー",
+      "consecutive_bonus_amount":"連続ボーナス額",
+      "rsp_bonus_settings":"RSPボーナス設定",
+      "direct_sales_bonus_settings":"直販ボーナス設定",
+      "min_pqv_previous_month":"前月の最小 PQV",
+      "bonus_percentage":"ボーナスの割合",
+      "discount_percentage":"割引率",
+      "required_consecutive_months":"連続して必要な月数",
+      "bonus_coupon_value":"ボーナスクーポンの価値",
+      "personal_order_qv":"パーソナルオーダー QV",
+      "customer_min_qv":"QB の顧客",
+      "max_bonus_value":"最大ボーナス値",
+      "min_rank_required":"必要な最小ランク",
+      "max_generations":"最大世代数",
+      "generation_1_percentage":"第 1 世代の割合",
+      "generation_1_required_rank":"第 1 世代の必要ランク",
+      "generation_2_percentage":"第 2 世代の割合",
+      "generation_2_required_rank":"第2世代の必要ランク",
+      "pmb_bonus_settings":"MVP メンター ボーナスの設定",
+      "max_level":"最大レベル",
+      "level_1_percentage":"レベル 1 の割合",
+      "level_2_percentage":"レベル 2 の割合",
+      "level_3_percentage":"レベル 3 の割合",
+      "bonus_amount":"ボーナス額",
+      "packages_name":"パッケージ名",
+      "required_personal_volume":"必要な個人ボリューム",
+      "minimumpqv":"最小 PQV",
+      "months":"月",
+      "placement_launch_settings":"配置起動設定",
+      "min_qv":"最小 QV"
+
+
+
+    },
+    "currency": {
+      "are_you": "このアクションを続行してもよろしいですか？これは取り消せません。",
+      "delete_dialog": "削除のダイアログ",
+      "cancel": "キャンセル",
+      "currency": "通貨",
+      "add": "追加",
+      "edit": "編集",
+      "delete": "削除",
+      "no": "番号",
+      "name": "名前",
+      "code": "コード",
+      "symbol": "シンボル",
+      "status": "ステータス",
+      "exchange_rate": "為替レート",
+      "action": "アクション",
+      "add_dialog": "追加のダ",
+      "enabled": "有効になっています",
+      "disabled": "無効"
+    },
+    "reports": {
+      "pv": "PV",
+      "leg": "Leg",
+      "type": "タイプ",
+      "coin": "コイン",
+      "fullName": "フルネーム",
+      "status": "ステータス",
+      "adminFeeDeducted": "管理手数料控除",
+      "amountReleased": "解放された金額",
+      "requestedAmount": "リクエストされた金額",
+      "walletAddress": "ウォレットアドレス",
+      "bonusType": "ボーナスタイプ",
+      "credit": "クレジット",
+      "note": "ノート",
+      "date": "日付",
+      "payment_method": "支払い方法",
+      "no": "いいえ",
+      "username": "ユーザー名",
+      "email": "メール",
+      "amount": "金額",
+      "dateJoined": "参加日",
+      "sales": "販売レポート",
+      "top_earners": "トップアーナー レポート",
+      "point_history": "ポイント履歴レポート",
+      "payout_report": "支払いレポート",
+      "member_income": "メンバー収入レポート",
+      "joining_report": "参加レポート",
+      "fund_transfer": "資金移動レポート",
+      "business_builder": "ビジネスビルダーレポート"
+    }
+  },
+
+  "support_tickets": {
+    "title": "サポートチケット",
+    "create": "チケット作成",
+    "side_bar": {
+      "all": "全て",
+      "open": "オープン",
+      "resolved": "解決済み",
+      "closed": "クローズ",
+      "in_progress": "進行中",
+      "responded": "応答済み"
+    },
+
+    "table": {
+      "no": "チケット番号",
+      "date": "日付",
+      "subject": "件名",
+      "status": "ステータス",
+      "priority": "優先度",
+      "department": "部門",
+      "category": "カテゴリ",
+      "actions": "アクション"
+    },
+
+    "contact_support": {
+      "title": "チケット作成",
+      "create_card": {
+        "title": "チケット作成",
+        "category": "カテゴリを選択",
+        "department": "部門を選択",
+        "priority": "優先度を選択",
+        "subject": "件名",
+        "file": "添付ファイル",
+        "submit": "リクエストを送信"
+      }
+    },
+
+    "view": {
+      "title": "チケット表示",
+      "pill": "チケットID",
+      "created": "作成日",
+      "last": "最終応答",
+      "about": {
+        "status": "ステータス",
+        "priority": "優先度",
+        "department": "部門",
+        "email": "メール",
+        "category": "カテゴリ",
+        "username": "ユーザー名"
+      },
+      "reply_form": {
+        "title": "返信フォーム",
+        "submit": "返信投稿",
+        "faq_title": "タイトル"
+      }
+    }
+  },
+  "profile": {
+    "tax_code": "税法",
+    "vat_number": "付加価値税番号",
+    "your_notes": "あなたのメモ",
+    "no": "いいえ",
+    "userName": "ユーザー名",
+    "email": "Eメール",
+    "active": "アクティブ",
+    "dateJoined": "参加日",
+    "businessBuilder": "ビジネスビルダー",
+    "socialMediaScope": "ソーシャルメディアの範囲",
+    "save_changes": "変更を保存",
+    "medium": "中",
+    "email_address": "Eメールアドレス",
+    "phone_numbers": "電話番号",
+    "address": "住所",
+    "state_region": "州/地域",
+    "city": "市",
+    "zip_codes": "郵便番号",
+    "male": "男性",
+    "female": "女性",
+    "other": "その他",
+    "balance": "残高",
+    "your_activity_history": "あなたのアクティビティ履歴",
+    "last_seen": "最終アクセス",
+    "allowed": "許可",
+    "max_size": "最大サイズ",
+    "first_name": "名",
+    "last_name": "姓",
+    "gender": "性別",
+    "public_private": "公共/非公共",
+    "choose_country": "国を選択",
+    "account_settings": "アカウント設定",
+    "new_passwords": "新しいパスワード",
+    "confirm_new_passwords": "新しいパスワードの確認",
+    "twoStepAuthentication": "二段階認証",
+    "twoStep": "二段階認証 (2FA)",
+    "emailNotificationSettings": "Eメール通知設定",
+    "materialAdd": "素材の追加",
+    "productBusiness": "製品とビジネスビルダーの手数料有効期限通知",
+    "blog": "ブログ",
+    "rankachieved": "達成したランク",
+    "paymentCompleted": "支払い完了",
+    "newUserAdded": "バイナリネットワークに新しいユーザーが追加されました",
+    "accountUpdate": "アカウントの更新",
+    "friendRegisterMail": "友達の登録メール",
+    "telegramInstructionMails": "Telegramの指示メール",
+    "mailsFromAdmin": "管理者からのメール",
+    "title": "プロフィール",
+    "referrals": "紹介",
+    "total_payout": "総支払い",
+    "total_commission": "総手数料",
+    "tabs": {
+      "profile": "プロフィール",
+      "edit": "情報を編集",
+      "settings": "設定",
+      "referral": "紹介",
+      "note": "メモ",
+      "payout": "支払い"
+    },
+    "profile": {
+      "commission": "総手数料",
+      "payout": "総支払い",
+      "referrals": "紹介",
+      "balance": "残高",
+      "last_seen": "最終アクセス",
+      "activity_history": "あなたのアクティビティ履歴"
+    },
+
+    "referral": {
+      "title": "紹介",
+      "table": {
+        "no": "いいえ",
+        "user": "ユーザー名",
+        "email": "Eメール",
+        "active": "アクティブ",
+        "business_builder": "ビジネスビルダー",
+        "date": "参加日"
+      }
+    },
+
+    "settings": {
+      "bank_account": {
+        "title": "直接支払い情報の更新"
+      },
+      "bitaps": {
+        "title": "ビットコインアドレスを更新する"
+      },
+      "bank": {
+        "title": "銀行詳細の更新",
+        "save": "変更を保存"
+      },
+      "stripe": {
+        "title": "オンライン支払い情報の更新",
+        "form": {
+          "first_name": "ファーストネーム",
+          "last_name": "苗字",
+          "currency": "通貨",
+          "account_holder_name": "口座名義人名",
+          "account_holder_type": "口座名義人の種類",
+          "routing_number": "ルーティング番号",
+          "account_number": "口座番号",
+          "country": "国",
+          "id_number": "ID番号",
+          "phone": "電話",
+          "gender": "性別",
+          "dob": "生年月日",
+          "line1": "住所1",
+          "line2": "住所 2 行目",
+          "city": "市",
+          "state": "州",
+          "postal_code": "郵便番号"
+        }
+      },
+      "password": {
+        "title": "アカウント設定",
+        "new_password": "新しいパスワード",
+        "confirm": "新しいパスワードの確認",
+        "save": "変更を保存"
+      },
+      "address": {
+        "title": "コインアドレスの変更",
+        "save": "保存"
+      },
+      "2fa": {
+        "title": "二段階認証 (2FA)",
+        "enable_message": "最初にAndriodまたはiOSデバイス用のGoogle Authenticatorアプリをダウンロードしてください。始めるのにヘルプが必要な場合は、Googleサポートページを参照してください。Andriod MarketまたはApp Storeにアクセスできない場合は、Google Authenticatorを取得する他のオプションがあります。: Andriodダウンロード、Google Chromeプラグイン、またはiTunes App Store",
+        "post_script": "2FAが有効になると、トークンは再表示されません。複数のデバイスをお持ちの場合は、有効にする前にすべてのデバイスにアカウントトークンを追加してください。（注意：ブラウザをリロードするたびにアカウントトークンが変わります。）",
+        "button": "検証",
+        "otp": "OTPを入力"
+      },
+      "cache": {
+        "title": "プライバシーとセキュリティ",
+        "body": "ブラウジングデータをクリア",
+        "sub": "履歴、クッキー、キャッシュなどをクリア",
+        "dialog": {
+          "title": "ブラウジングデータをクリア",
+          "body": "ブラウジング履歴をクリアすると、このページからログアウトされます。",
+          "cancel": "キャンセル",
+          "save": "クリア"
+        }
+      }
+    },
+    "notes": {
+      "button": "メモ",
+      "dialog": {
+        "add": { "title": "メモの追加", "submit": "提出", "cancel": "閉じる" },
+
+        "delete": {
+          "title": "メモの削除",
+          "message": "本当に続行しますか？このアクションは元に戻せません",
+          "submit": "削除",
+          "cancel": "キャンセル"
+        },
+        "edit": {
+          "title": "メモの編集",
+          "submit": "更新",
+          "cancel": "キャンセル"
+        }
+      }
+    },
+
+    "edit": {
+      "tax_code": "税法",
+      "vat_number": "付加価値税番号",
+      "first_name": "名",
+      "last_name": "姓",
+      "gender": "性別",
+      "country": "国",
+      "state": "州/地域",
+      "city": "市",
+      "pin": "郵便番号",
+      "address": "住所",
+      "mobile": "電話番号",
+      "mail": "Eメールアドレス",
+      "social": {
+        "phone": "電話",
+        "mail": "Eメール",
+        "fb": "フェイスブック",
+        "x": "X",
+        "whatsapp": "ワッツアップ",
+        "insta": "インスタグラム",
+        "tele": "電報",
+        "medium": "中くらい"
+      },
+      "status": "公開/非公開",
+      "social_scope": "ソーシャルメディアの範囲",
+      "update": "変更を保存"
+    }
+  },
+  "user": {
+    "recurring_order": {
+      "title": "定期的な注文",
+      "disable_recurring": "繰り返しを無効にする",
+      "recurring_enabled": "定期的な有効化",
+      "enable_on": "定期的に有効になった日",
+      "update_card": "アップデートカード"
+    },
+    "online_store": {
+      "team_orders":{
+        "title":"チーム注文"
+    },
+
+      "select_month": "月を選択",
+      "buy_now": "今すぐ購入",
+      "cart": "カートに追加",
+      "subscription": "サブスクリプション",
+      "write_review": "レビューを書く",
+      "product_details": {
+        "title": "製品の詳細",
+        "review_other": "レビュー（{{count}}）",
+        "average_rating": "平均評価"
+      },
+      "product": {
+        "title": "製品サブスクリプション",
+        "quantity": "量",
+        "amount": "金額",
+        "complete_order": "注文を完了",
+        "balance": "利用可能な残高",
+        "back": "戻る",
+        "payment_options": "支払いオプション",
+        "subscription": "サブスクリプション",
+        "price": "価格",
+        "product": "製品",
+        "coupon": "クーポンコード",
+        "apply": "適用",
+        "order_summary": "注文の概要",
+        "sub_total": "小計",
+        "discount": "割引",
+        "total": "合計",
+        "continue": "買い物を続ける",
+        "look_like": "ショッピングカートにアイテムがないようです。",
+        "cart_is_empty": "カートは空です",
+        "cart": "カート",
+        "checkout": "チェックアウト"
+      },
+      "my_orders": {
+        "title": "私の注文",
+        "details": {
+          "title": "請求書の詳細",
+          "invoiced_date": "請求書の日付",
+          "question": "質問がありますか？",
+          "foot_note": "フィードバックを聞けて嬉しいです。ご愛顧とサポート、ありがとうございます。即座にお支払いいただけますと幸いです。この請求書に関するお問い合わせがある場合は、お気軽にお知らせください。"
+        },
+        "invoice_details": {
+          "iva_price": "イヴァ・プライス",
+          "my_orders_titile": "オンラインストアの注文",
+          "my_orders": "マイオーダー",
+          "subscription": "サブスクリプション",
+          "no": "いいえ",
+          "invoice_id": "請求書ID",
+          "payment_method": "支払い方法",
+          "order_date": "注文日",
+          "total_price": "合計金額",
+          "action": "アクション",
+          "combo": "コンボ",
+          "view": "表示",
+          "invoice_titile": "請求書の表示",
+          "invoice_details": "請求書の詳細",
+          "invoices": "請求書",
+          "date_invoice": "請求書の日付",
+          "product": "製品",
+          "type": "タイプ",
+          "bv": "BV",
+          "price": "価格",
+          "notes": "ノート",
+          "have_question": "質問がありますか？",
+          "item": "アイテム",
+          "sub_total": "小計",
+          "discount": "割引",
+          "taxes": "税金",
+          "total": "合計",
+          "support_mail": "support@cloudmlm.com",
+          "shipping": "配送先",
+          "quantity":"量",
+          "qv":"QV",
+          "ev":"これ",
+          "coupon_discount":"クーポン割引",
+          "consequtive":"連続月割引"
+
+        }
+      }
+    },
+    "subscriptions": {
+      "title": "私のサブスクリプション",
+      "active_only": "アクティブなサブスクリプションのみをリストアップ？",
+      "purchase_date": "購入日",
+      "expiry_date": "有効期限",
+      "enable_recurring": "定期購読を有効にする",
+      "recurring_not_enabled": "定期購読は無効です",
+      "recurring_cancelled_on": "定期購読のキャンセル日",
+      "stripe_recurring_enable_message": "続行すると、ストライプカードを使用してこのサブスクリプションを自動更新します。",
+      "recurring_payment": "定期購読支払いを有効にする",
+      "paypal_recurring_enable_message": "続行すると、PAYPALを介してこの製品の定期購読を有効にします。",
+      "your_review": "この製品に関するあなたのレビュー",
+      "submit_review": "コメントを投稿",
+      "list_public_events": "公開イベントの一覧",
+      "labels": {
+        "review": "レビューを追加",
+        "blog": "ブログ",
+        "events": "イベント",
+        "documents": "ドキュメント",
+        "videos": "ビデオ",
+        "view": "表示"
+      }
+    },
+
+    "income_report": {
+      "title": "収益レポート",
+      "table": {
+        "no": "いいえ",
+        "from": "差出人",
+        "amount_type": "金額のタイプ",
+        "credit": "クレジット",
+        "created": "作成日"
+      }
+    }
+  },
+  "admin": {},
+
+  "products": {
+    "title": {
+      "subscriptions": "サブスクリプション製品",
+      "product_and_pack": "製品とパッケージ",
+      "add": "追加",
+      "category_name": "カテゴリ名",
+      "product": "製品",
+      "package": "パッケージ",
+      "category": "カテゴリ",
+      "video_edit": "ビデオ表示/編集",
+      "document_view_edit": "ドキュメント表示/編集",
+      "questions_view_edit": "質問表示/編集",
+      "sample_document_view_edit": "サンプルドキュメント表示/編集",
+      "product_view_edit": "製品表示/編集",
+      "delete": "削除",
+      "package_add": "パッケージ追加",
+      "product_add": "製品追加",
+      "package_edit": "パッケージ編集",
+      "product_edit": "製品編集",
+      "subscription_edit": "購読編集",
+      "subscription_view_edit": "購読の表示/編集"
+    },
+    "add": {
+      "package_name": "パッケージ名",
+      "product_name": "製品名",
+      "meta_keywords": "メタキーワード",
+      "meta_description": "メタディスクリプション",
+      "short_description": "短い説明",
+      "title": "タイトル",
+      "description": "説明",
+      "product_page_url": "製品ページのURL",
+      "images": "画像",
+      "status": "ステータス",
+      "accessFrom": "アクセス開始",
+      "accessTo": "アクセス終了",
+      "product_available": "製品利用可能",
+      "package_available": "パッケージ利用可能",
+      "submit": "提出",
+      "reset": "リセット",
+      "add_price": "価格を追加",
+      "subscription": "サブスクリプション",
+      "one_off_payment": "一回の支払い",
+      "addVimeoVideo": "VimeoビデオURLを追加（オプション）",
+      "subscription_or": "サブスクリプション または 一回の支払い",
+      "add_doc": "ドキュメントを追加",
+      "add_sample_doc": "サンプルドキュメントを追加",
+      "remove_all": "すべて削除"
+    },
+    "video": {
+      "update": "更新",
+      "edit_video": "ビデオ編集",
+      "cancel": "キャンセル",
+      "areYouSure": "続行してもよろしいですか？このアクションは元に戻せません",
+      "deleteVideo": "ビデオを削除",
+      "title": "ビデオ",
+      "product": "製品とパッケージ",
+      "add": "追加",
+      "addVideo": "ビデオを追加",
+      "videoURL": "ビデオURL",
+      "close": "閉じる",
+      "delete": "削除",
+      "edit": "編集"
+    },
+    "category": {
+      "add": "カテゴリを追加",
+      "edit_cat": "カテゴリを編集",
+      "product_categories_store": "製品カテゴリ：ストア",
+      "product_categories": "製品カテゴリ",
+      "category_name": "製品カテゴリ名",
+      "add_category": "カテゴリを追加",
+      "status": "ステータス",
+      "enabled": "有効",
+      "disabled": "無効",
+      "close": "閉じる",
+      "submit": "提出",
+      "edit": "編集",
+      "delete": "削除",
+      "total_products": "総製品数",
+      "delete_product_category": "製品カテゴリを削除",
+      "delete_msg": "続行してもよろしいですか？このアクションは元に戻せません"
+    },
+    "document": {
+      "delete_document": "ドキュメントを削除",
+      "areYouSure": "続行してもよろしいですか？このアクションは元に戻せません",
+      "close": "閉じる",
+      "update": "更新",
+      "edit_document": "ドキュメントを編集",
+      "uploadDocument": "ドキュメントをアップロード",
+      "upload": "アップロード",
+      "cancel": "キャンセル",
+      "add_sample_document": "サンプルドキュメントを追加",
+      "products": "製品",
+      "title": "ドキュメント | ストア",
+      "document": "ドキュメント",
+      "add": "追加",
+      "edit": "編集",
+      "delete": "削除",
+      "view": "表示",
+      "createdAt": "作成日"
+    },
+    "question": {
+      "cancel": "キャンセル",
+      "delete": "削除",
+      "areYouSure": "続行してもよろしいですか？このアクションは元に戻せません",
+      "delete_product_questions": "製品の質問を削除",
+      "add_product_question": "製品の質問を追加",
+      "edit_product_questions": "製品の質問を編集",
+      "no": "いいえ",
+      "add_question": "質問を追加",
+      "action": "アクション",
+      "description": "説明",
+      "titles": "タイトル",
+      "title": "質問 | ストア",
+      "question": "質問",
+      "products": "製品とパッケージ",
+      "answer": "回答",
+      "close": "閉じる",
+      "submit": "提出"
+    },
+    "sample_doc": {
+      "title": "サンプルドキュメント | ストア",
+      "sample_doc": "サンプルドキュメント",
+      "products": "製品とパッケージ",
+      "add": "追加"
+    },
+    "edit": {
+      "title": "製品編集 | ストア",
+      "edit": "製品の編集",
+      "products": "製品とパッケージ"
+    },
+
+    "delete": {
+      "areYouSure": "本当に続行しますか？このアクションは元に戻せません",
+      "delete_product": "製品を削除",
+      "cancel": "キャンセル",
+      "delete": "削除"
+    }
+  },
+  "material": {
+    "action": "アクション",
+    "category": "カテゴリ",
+    "sort_order": "並べ替え順",
+    "title": "製品 | ストア",
+    "materials": "素材",
+    "material": "素材",
+    "material_categories": "素材カテゴリ",
+    "no": "いいえ",
+    "product_name": "製品名",
+    "doc_count": "ドキュメント数",
+    "video_count": "ビデオ数",
+    "view": "表示",
+    "add": "追加",
+    "add_material": {
+      "submit": "提出",
+      "choose_product": "製品を選択",
+      "material_category": "素材カテゴリ",
+      "description": "説明",
+      "add_video": "ビデオを追加",
+      "URL": "URL",
+      "title": "タイトル",
+      "expiry_date": "有効期限",
+      "add_document": "ドキュメントを追加"
+    }
+  },
+
+  "events": {
+    "events_title": "イベント | ストア",
+    "events": "イベント",
+    "no": "いいえ",
+    "image": "画像",
+    "product": "製品",
+    "events_type": "イベントタイプ",
+    "scope": "範囲",
+    "URL": "URL",
+    "zoom_password": "Zoomパスワード",
+    "from": "開始日",
+    "time": "時間",
+    "duration": "期間",
+    "host": "ホスト",
+    "topic": "トピック",
+    "action": "アクション",
+    "add": "追加",
+    "edit": "イベント編集",
+    "delete": "イベントを削除",
+    "are_you_sure": "本当に続行しますか？このアクションは元に戻せません",
+
+    "add_event": {
+      "private": "プライベート",
+      "public": "パブリック",
+      "access_scope": "アクセス範囲",
+      "zoomPassword": "Zoomパスワード",
+      "location_Zoom": "場所 / Zoom URL",
+      "event_type": "イベントタイプ",
+      "description": "説明",
+      "when": "いつ",
+      "date": "日付",
+      "time": "時間",
+      "duration": "期間",
+      "time_zone": "タイムゾーン",
+      "host_details": "ホストの詳細",
+      "host": "ホスト",
+      "topic": "トピック",
+      "submit": "提出",
+      "edit": "表示 / 編集",
+      "delete": "削除",
+      "cancel": "キャンセル",
+      "status": "状態",
+      "hours": "時間",
+      "minutes": "分"
+    }
+  },
+
+  "user_review": {
+    "edit_review": "レビューの編集",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "are_you_sure": "本当に続行しますか？このアクションは元に戻せません",
+    "delete_review": "レビューを削除",
+    "review_view": "レビューの表示",
+    "user_name": "ユーザー名",
+    "comment": "コメント",
+    "action": "アクション",
+    "review_view_title": "レビューの表示 | ストア",
+    "back": "戻る",
+    "products": "製品",
+    "post_review": "レビューを投稿",
+    "title": "タイトル",
+    "review": "レビュー",
+    "your_review_about": "この製品に対するあなたのレビュー:",
+    "user_review_title": "ユーザーレビュー | ストア",
+    "user_review": "ユーザーレビュー",
+    "add_review": "レビュー",
+    "no": "いいえ",
+    "product": "製品",
+    "total_review": "総レビュー数",
+    "rating": "評価",
+    "view": "表示",
+    "review_add_title": "レビューの追加",
+    "leave_a_comment": "コメントを残す"
+  },
+
+  "coupons": {
+    "edit_coupon": "クーポンの編集",
+    "edit_coupon_title": "クーポンの編集 | ストア",
+    "deleteCoupon": "クーポンを削除",
+    "areYouSure": "本当に続行しますか？このアクションは元に戻せません",
+    "cancel": "キャンセル",
+    "edit": "編集",
+    "delete": "削除",
+    "coupon_title": "クーポン | ストア",
+    "coupon": "クーポン",
+    "add_coupon": "クーポンの追加",
+    "no": "いいえ",
+    "couponName": "クーポン名",
+    "code": "コード",
+    "type": "タイプ",
+    "used_available": "使用済み / 利用可能",
+    "discountFix": "割引（固定率/％）",
+    "startDate": "開始日",
+    "endDate": "終了日",
+    "active": "有効",
+    "created_at": "作成日",
+    "action": "アクション",
+    "add_coupon_title": "クーポンの追加：ストア",
+    "add": "追加",
+    "add_form": {
+      "coupon_name": "クーポン名",
+      "code": "コード",
+      "type": "タイプ",
+      "fixed_amount": "固定金額",
+      "percentage": "パーセンテージ",
+      "total_amount": "合計金額",
+      "discount": "割引",
+      "status": "ステータス",
+      "enabled": "有効",
+      "disabled": "無効",
+      "usesPerCoupon": "クーポンごとの使用回数",
+      "usesPerCustomer": "顧客ごとの使用回数",
+      "from": "開始日",
+      "to": "終了日",
+      "submit": "提出"
+    }
+  },
+  "lead_capture": {
+    "enter_details": "詳細を入力",
+    "lead": "リード",
+    "no": "いいえ",
+    "name": "名前",
+    "email": "メール",
+    "mobile": "電話番号",
+    "created_at": "作成日",
+    "edit": "編集",
+    "cancel": "キャンセル",
+    "submit": "提出",
+    "edit_lead": "リードの編集"
+  },
+
+  "errors": {
+    "lead_capture": {
+      "email": {
+        "required": "有効なメールアドレスを入力してください"
+      },
+      "username": {
+        "required": "ユーザー名が必要です"
+      },
+      "mobile": {
+        "required": "電話番号が必要です"
+      }
+    },
+    "financial": {
+      "pay_now": {
+        "valid": "有効な金額を入力してください",
+        "min": "金額は少なくとも1である必要があります",
+        "limit": "残高が不足しています",
+        "required": "金額が必要です"
+      },
+      "fund_transfer": {
+        "wallet": {
+          "required": "送金元のウォレットを選択してください"
+        },
+        "amount": {
+          "min": "最小金額は1である必要があります",
+          "type": "金額が必要です",
+          "required": "金額を選択してください"
+        },
+        "user_id": {
+          "type": "ユーザーを選択してください",
+          "required": "ユーザーを選択してください"
+        }
+      },
+      "payout": {
+        "amount": {
+          "type": "金額が必要です",
+          "min": "最小引き出し金額を入力してください",
+          "required": "金額が必要です"
+        },
+        "coin_id": "コインの種類が必要です"
+      },
+      "fund_credit": {
+        "user_id": { "required": "名前が必要です" },
+        "amount": {
+          "required": "金額が必要です",
+          "type": "金額が必要です"
+        },
+        "wallet_type": {
+          "required": "ウォレットが必要です"
+        }
+      }
+    },
+    "help_center": {
+      "department": {
+        "name": {
+          "required": "部門名は必須です"
+        },
+        "description": {
+          "required": "部門の説明は必須です"
+        },
+        "active": {
+          "required": "ステータスは必須です"
+        },
+        "sort_order": {
+          "required": "ソート順序は必須です"
+        }
+      },
+      "categories": {
+        "name": {
+          "required": "名前は必須です"
+        },
+        "description": {
+          "required": "説明は必須です"
+        },
+        "active": {
+          "required": "ステータスは必須です"
+        }
+      },
+      "canned_response": {
+        "name": { "required": "タイトル名は必須です" },
+        "subject": { "required": "サブジェクトは必須です" },
+        "message": {
+          "required": "説明は必須です"
+        }
+      },
+      "priorities": {
+        "name": { "required": "名前は必須です" },
+        "description": { "required": "説明は必須です" },
+        "color": { "required": "色は必須です" }
+      },
+      "add_ticket": {
+        "description": { "required": "説明名は必須です" },
+        "priority_id": { "required": "優先度は必須です" },
+        "department_id": { "required": "部門は必須です" },
+        "category_id": { "required": "カテゴリは必須です" },
+        "subject": { "required": "サブジェクトは必須です" },
+        "user_id": {
+          "required": "ユーザーは必須です",
+          "type": "ユーザーは必須です"
+        },
+        "status": {
+          "required": "ステータスは必須です"
+        }
+      },
+      "reply_form": {
+        "title": {
+          "required": "タイトルは必須です"
+        },
+        "body": {
+          "required": "説明は必須です"
+        }
+      }
+    },
+    "products": {
+      "add": {
+        "product_name": { "required": "製品名は必須です" },
+        "active": {
+          "required": "アクティブは必須です"
+        },
+        "product_description": {
+          "required": "製品の説明は必須です"
+        },
+        "price": {
+          "required": "価格が必要です",
+          "typeError": "価格が必要です",
+          "min": "価格はできません 0"
+        },
+        "meta_description": { "required": "メタ説明は必須です" },
+        "meta_keywords": {
+          "required": "メタキーワードは必須です"
+        },
+        "title": { "required": "タイトルは必須です" },
+        "product_category_id": {
+          "required": "製品カテゴリは必須です",
+          "type": "製品カテゴリは必須です"
+        },
+        "bv_percentage": {
+          "required": "BVパーセンテージは必須です",
+          "type": "BVパーセンテージは必須です",
+          "test": "有効なパーセンテージの値を入力してください"
+        },
+        "euro_value": {
+          "required": "ユーロ価値は必須です",
+          "type": "ユーロ価値は必須です"
+        },
+        "qualification_value": {
+          "required": "資格値は必須です",
+          "type": "資格値は必須です"
+        },
+        "business_volume": {
+          "required": "ビジネスボリュームは必須です",
+          "type": "ビジネスボリュームは必須です"
+        },
+        "product_url": { "required": "製品URLは必須です" },
+        "video": { "required": "有効なURLを入力してください" },
+        "image": { "test": "画像を選択してください" },
+        "doc": { "test": "ドキュメントを選択してください" },
+        "sample_doc": { "test": "サンプルドキュメントを選択してください" }
+      },
+      "category": {
+        "name": { "required": "製品カテゴリ名は必須です" },
+        "status": { "required": "ステータスは必須です" }
+      }
+    },
+
+    "faqs": {
+      "category_id": {
+        "required": "カテゴリ名は必須です"
+      },
+      "question": {
+        "required": "質問は必須です"
+      },
+      "answer": {
+        "required": "回答は必須です"
+      }
+    },
+    "faq_categories": {
+      "name": { "required": "カテゴリ名は必須です" },
+      "description": { "required": "説明は必須です" }
+    },
+
+    "articles": {
+      "add": {
+        "title": { "required": "タイトルは必須です" },
+        "description": { "required": "説明は必須です" },
+        "category_id": { "required": "カテゴリは必須です" },
+        "name": { "required": "記事カテゴリ名は必須です" }
+      }
+    },
+    "blogs": {
+      "add": {
+        "title": { "required": "タイトルは必須です" },
+        "content": { "required": "コンテンツは必須です" },
+        "category_id": { "min": "カテゴリは必須です" },
+        "meta_keywords": { "required": "メタキーワードは必須です" },
+        "meta_description": { "required": "メタ説明は必須です" },
+        "short_description": { "required": "短い説明は必須です" },
+        "image": { "required": "画像は必須です" },
+        "product_id": {
+          "required": "製品は必須です",
+          "min": "製品は必須です"
+        }
+      },
+      "categories": {
+        "name": { "required": "名前は必須です" },
+        "desc": {
+          "required": "説明は必須です"
+        }
+      },
+      "add_comment": {
+        "comment": {
+          "required": "コメントは必須です"
+        },
+        "title": {
+          "required": "タイトルは必須です"
+        },
+        "rating": {
+          "max": "最大評価は5です",
+          "required": "評価は必須です"
+        }
+      }
+    },
+    "tickets": {
+      "reply_form": {
+        "body": {
+          "required": "メッセージは必須です"
+        },
+        "title": {
+          "required": "タイトルは必須です"
+        }
+      },
+      "create_form": {
+        "department_id": {
+          "type": "部門を選択してください",
+          "required": "部門を選択してください"
+        },
+        "priority_id": {
+          "type": "優先度を選択してください",
+          "required": "優先度を選択してください"
+        },
+        "category_id": {
+          "type": "カテゴリを選択してください",
+          "required": "カテゴリを選択してください"
+        },
+        "subject": {
+          "required": "件名を選択してください"
+        },
+        "description": {
+          "required": "説明を選択してください"
+        }
+      }
+    },
+    "profile": {
+      "edit": {
+        "first_name": {
+          "required": "名は必須です",
+          "matches": "アルファベットのみ含む必要があります"
+        },
+        "last_name": {
+          "required": "姓は必須です",
+          "matches": "アルファベットのみ含む必要があります"
+        },
+        "mobile": {
+          "required": "電話番号は必須です",
+          "type": "有効な電話番号を入力してください"
+        },
+        "gender": {
+          "required": "性別は必須です"
+        },
+        "zipcode": {
+          "required": "郵便番号は必須です"
+        },
+        "address": {
+          "required": "住所は必須です"
+        },
+        "country": {
+          "required": "国は必須です"
+        },
+        "state": {
+          "required": "都道府県は必須です",
+          "matches": "アルファベットのみ含む必要があります"
+        },
+        "city": {
+          "required": "市区町村は必須です",
+          "matches": "アルファベットのみ含む必要があります"
+        },
+        "medium": {
+          "url": "有効なURLを入力してください"
+        },
+        "fb": {
+          "url": "有効なURLを入力してください"
+        },
+        "x": {
+          "url": "有効なURLを入力してください"
+        },
+        "insta": {
+          "url": "有効なURLを入力してください"
+        },
+        "profile_image": {
+          "required": "アバターは必須です"
+        }
+      },
+      "notes": {
+        "note": {
+          "required": "ノートは必須です"
+        }
+      }
+    },
+    "product": {},
+    "brand": {
+      "name": {
+        "required": "会社名は必須です"
+      },
+      "address": {
+        "required": "住所は必須です"
+      },
+      "email": {
+        "required": "メールアドレスは必須です",
+        "email": "メールアドレスは必須です"
+      },
+      "sort_order": {
+        "required": "並べ替え順は必須です",
+        "type": "並べ替え順は必須です"
+      },
+      "section_id": {
+        "required": "セクションは必須です"
+      },
+      "menu_name": {
+        "required": "メニュー名は必須です"
+      },
+      "title": {
+        "required": "タイトルは必須です"
+      },
+      "url": {
+        "required": "URLは必須です"
+      },
+      "description": {
+        "required": "説明は必須です"
+      }
+    },
+    "user_review": {
+      "rating": {
+        "required": "評価は必須です"
+      },
+      "product_id": {
+        "required": "製品を選択してください"
+      },
+      "comment": {
+        "required": "レビューは必須です"
+      },
+      "title": {
+        "required": "タイトルは必須です"
+      },
+      "username": {
+        "required": "ユーザー名は必須です"
+      }
+    },
+    "coupons": {
+      "name": {
+        "required": "クーポン名は必須です"
+      },
+      "type": {
+        "required": "クーポンの種類は必須です"
+      },
+      "code": {
+        "required": "コードは必須です",
+        "matches": "コードは英字、数字、ダッシュ、アンダースコアのみを含む必要があります"
+      },
+      "discount": {
+        "required": "割引は必須です",
+        "type": "割引は必須です",
+        "min": "金額は少なくともゼロである必要があります",
+        "maxi": "合計金額よりも少なくする必要があります",
+        "max": "パーセンテージは100を超えてはいけません"
+      },
+      "uses_per_coupon": {
+        "required": "クーポンごとの利用者数は必須です",
+        "type": "クーポンごとの利用者数は必須です",
+        "min": "金額は少なくとも1である必要があります",
+        "integer": "小数点を含んではいけません"
+      },
+      "uses_per_customer": {
+        "required": "顧客ごとの利用回数は必須です",
+        "type": "顧客ごとの利用回数は必須です",
+        "min": "金額は少なくとも1である必要があります",
+        "integer": "小数点を含んではいけません",
+        "max": "クーポンごとの利用回数以下である必要があります"
+      },
+      "total_amount": {
+        "required": "合計金額は必須です",
+        "type": "合計金額は必須です",
+        "min": "金額は少なくともゼロである必要があります"
+      },
+      "start_date": {
+        "test": "有効な日付を入力してください",
+        "valid": "開始日は終了日よりも後にしてください"
+      },
+      "end_date": {
+        "test": "有効な日付を入力してください",
+        "valid": "終了日は開始日よりも前にしてください"
+      }
+    },
+    "events": {
+      "product_id": {
+        "required": "製品は必須です",
+        "min": "製品は必須です"
+      },
+      "event_type": {
+        "required": "イベントのタイプは必須です"
+      },
+      "location_url": {
+        "required": "場所は必須です"
+      },
+      "description": {
+        "required": "説明は必須です"
+      },
+      "time": {
+        "required": "時間は必須です"
+      },
+      "hr": {
+        "required": "時間は必須です"
+      },
+      "min": {
+        "required": "分は必須です"
+      },
+      "timezone": {
+        "required": "タイムゾーンは必須です"
+      },
+      "host": {
+        "required": "ホスト名は必須です"
+      },
+      "topic": {
+        "required": "トピックは必須です"
+      },
+      "zoom_password": {
+        "required": "Zoomのパスワードは必須です"
+      }
+    },
+    "date": {
+      "valid_start": {
+        "test": "開始日は終了日より大きくはありません"
+      },
+      "valid_end": {
+        "test": "終了日は開始日より大きくはありません"
+      },
+      "valid_date": {
+        "test": "有効な日付を入力してください"
+      }
+    },
+    "material": {
+      "product_list": {
+        "min": "少なくとも1つの製品を選択してください"
+      },
+      "category_id": {
+        "required": "カテゴリを選択してください"
+      },
+      "video": {
+        "matches": "ビデオまたはドキュメントを追加してください",
+        "url": "有効なURLを入力してください"
+      },
+      "video_title": {
+        "required": "ビデオのタイトルは必須です"
+      },
+      "video_access_time": {
+        "required": "ビデオの有効期限日が必要です",
+        "test": "有効な日付を入力してください",
+        "type": "ビデオの有効期限日が必要です"
+      },
+      "doc": {
+        "test": "ビデオまたはドキュメントを追加してください"
+      },
+      "doc_title": {
+        "required": "ドキュメントのタイトルは必須です"
+      },
+      "user_id": {
+        "required": "ユーザーが必要です"
+      },
+      "option_value": {
+        "required": "製品が必要です"
+      },
+      "rank_value": {
+        "required": "ランクが必要です"
+      },
+      "doc_access_time": {
+        "test": "有効な日付を入力してください",
+        "type": "ドキュメントの有効期限日が必要です",
+        "required": "ドキュメントの有効期限日が必要です"
+      }
+    },
+    "material_categories": {
+      "name": {
+        "required": "カテゴリ名が必要です"
+      },
+      "sort_order": {
+        "required": "並べ替え順序が必要です"
+      }
+    },
+    "product_document": {
+      "sample_doc": {
+        "required": "ドキュメントを選択してください"
+      },
+      "doc": {
+        "required": "ドキュメントを選択してください"
+      }
+    },
+    "product_question": {
+      "title": {
+        "required": "タイトルが必要です"
+      },
+      "description": {
+        "required": "説明が必要です"
+      }
+    },
+    "register": {
+      "email": {
+        "email": "メールアドレスは有効なメールアドレスである必要があります",
+        "required": "メールアドレスは必須です"
+      },
+      "username": {
+        "required": "ユーザー名は必須です",
+        "matches": "このフィールドには特殊文字や空白を含めることはできません"
+      },
+      "password": {
+        "required": "新しいパスワードは必須です",
+        "min": "パスワードは少なくとも8文字である必要があります"
+      },
+      "repassword": {
+        "oneOf": "パスワードが一致する必要があります"
+      }
+    },
+    "login": {
+      "email": {
+        "email": "メールアドレスは有効なメールアドレスである必要があります",
+        "required": "メールアドレスは必須です"
+      },
+      "password": {
+        "required": "パスワードは必須です"
+      }
+    },
+    "sub_admin": {
+      "name": {
+        "required": "名前は必須です"
+      },
+      "reason": {
+        "required": "理由が必要です"
+      },
+      "description": {
+        "required": "説明は必須です"
+      },
+      "username": {
+        "required": "ユーザー名は必須です"
+      },
+      "group_id": {
+        "required": "ユーザーグループは必須です"
+      },
+      "mobile": {
+        "required": "携帯電話番号は必須です",
+        "matches": "数字のみを含めてください"
+      },
+      "email": {
+        "required": "メールアドレスは必須です",
+        "email": "有効なメールアドレスを入力してください"
+      },
+      "is_impersonation": {
+        "required": "偽装は必須です",
+        "typeError": "値を選択してください"
+      }
+    },
+    "email": {
+      "subject": {
+        "required": "件名は空にできません"
+      },
+      "message": {
+        "required": "メール本文は空にできません"
+      },
+      "to_users_id": {
+        "min": "少なくとも1人のユーザーを選択してください"
+      }
+    },
+    "tools": {
+      "title": {
+        "required": "文書のタイトルは必須です"
+      },
+      "sort_order": {
+        "required": "並べ替え順は必須です",
+        "integer": "並べ替え順は整数でなければなりません",
+        "typeError": "数値である必要があります"
+      },
+      "document_url": {
+        "test": "文書が必要です"
+      },
+      "video": {
+        "title": {
+          "required": "タイトルは必須です"
+        },
+        "video_tool_url": {
+          "required": "ビデオURLが必要です",
+          "matches": "このフィールドはVimeoのURLまたは有効なURLのみをサポートしています"
+        }
+      }
+    },
+    "member": {
+      "password": {
+        "username": {
+          "required": "ユーザー名は必須です"
+        },
+        "password": {
+          "required": "パスワードは必須です",
+          "min": "パスワードは少なくとも8文字である必要があります"
+        },
+        "confirmPassword": {
+          "oneOf": "パスワードが一致している必要があります",
+          "required": "パスワードの確認が必要です"
+        }
+      },
+      "username": {
+        "new_username": {
+          "required": "新しいユーザー名は必須です"
+        }
+      }
+    }
+  }
+}

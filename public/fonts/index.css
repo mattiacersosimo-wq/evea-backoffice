@@ -1,0 +1,433 @@
+@font-face {
+  font-family: "CircularStd";
+  font-weight: 400;
+  font-style: normal;
+  src: local("CircularStd"), url("CircularStd-Book.otf") format("opentype");
+}
+@font-face {
+  font-family: "CircularStd";
+  font-weight: 500;
+  font-style: normal;
+  src: local("CircularStd"), url("CircularStd-Medium.otf") format("opentype");
+}
+@font-face {
+  font-family: "CircularStd";
+  font-weight: 700;
+  font-style: normal;
+  src: local("CircularStd"), url("CircularStd-Bold.otf") format("opentype");
+}
+
+.MuiTableContainer-root::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.MuiTableContainer-root::-webkit-scrollbar-thumb {
+  background-color: #b3b5b7; /* Thumb color */
+  border-radius: 8px;
+}
+
+.MuiTableContainer-root::-webkit-scrollbar-track {
+  background-color: transparent; /* Track color */
+}
+table tr td,
+table tr th {
+  padding: 8px !important;
+}
+table tr td:first-child,
+table tr th:first-child {
+  padding-left: 20px !important;
+}
+table tr td:last-child,
+table tr th:last-child {
+  padding-right: 20px !important;
+}
+.fc .fc-scrollgrid-section td:first-child,
+.fc .fc-scrollgrid-section th:first-child {
+  padding-left: 0px !important;
+}
+.fc .fc-scrollgrid-section td:last-child,
+.fc .fc-scrollgrid-section th:last-child {
+  padding-right: 0px !important;
+}
+.fc-day-other {
+  background-color: #f9f9f9;
+}
+.fc-day-today {
+  background-color: rgba(136, 55, 246, 0.08) !important;
+}
+.fc .fc-day-today a {
+  color: #7558a7 !important;
+}
+.fc table tr td,
+.fc table tr th {
+  padding: inherit !important;
+}
+.flexBoxCustome,
+.NetworkDashbrd {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 16px 0px 0px 16px;
+}
+.userDashbodFlex {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 16px 0px 0px 0px;
+}
+.confrnceBox,
+.prdctActvBox,
+.NetworkDashbrdRight {
+  width: 384px;
+}
+.adminLogin,
+.latestSale,
+.NetworkDashbrdLeft {
+  width: calc(100% - 400px);
+  margin-right: 16px;
+}
+.userDashbodLeft {
+  width: calc(50% - 16px);
+  margin-right: 16px;
+}
+.userDashbodRight {
+  width: 50%;
+}
+/* .MuiOutlinedInput-root
+{
+  border-radius: 4px !important;
+}
+.MuiButton-root
+{
+  border-radius: 4px !important;
+  box-shadow: 0 8px 16px 0 rgb(136 55 246 / 15%) !important;
+  font-weight:  600 !important;
+  padding: 6px 10px !important;
+}
+.prListPage .MuiButton-root
+{
+  box-shadow: none !important;
+}
+.MuiButton-text
+{
+  box-shadow: none !important;
+  padding: 6px 10px !important;
+}
+.MuiTypography-h4 {
+  font-size: 1.2rem !important;
+}
+.MuiPaper-rounded
+{
+  border-radius: 8px !important;
+} */
+.adminDashboardBusinessProdctName {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 250px;
+  overflow: hidden;
+}
+.adminDashboardBusinessUserName {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 130px;
+  overflow: hidden;
+}
+
+.eventDetailsPopup .MuiTypography-body2 {
+  word-wrap: break-word;
+}
+.userPrdctList {
+  display: flex;
+  flex-wrap: wrap;
+}
+.useDashbrdPrdctTileBox {
+  width: calc(100% - 155px);
+}
+.useDashbrdPrdctCntnt {
+  max-height: 50px;
+  min-height: 45px;
+  font-size: 0.8rem !important;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  line-height: 21px;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+}
+.statusList {
+  border-radius: 4px;
+  padding: 10px;
+  transition: 0.4s;
+}
+.statusList:hover {
+  margin-left: 5px;
+}
+.statusListNamePrice {
+  width: calc(100% - 50px);
+  margin-left: 10px;
+  flex-direction: row !important;
+  justify-content: space-between;
+}
+.statusList img {
+  border-radius: 4px;
+  padding: 10px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+}
+.actvSubscrpn {
+  padding: 10px 15px;
+}
+
+.fadeopacity {
+  opacity: 0.2;
+}
+.busnssBuidrScroll {
+  height: 205px;
+  overflow-y: auto;
+}
+.activeUsersHieght {
+  min-height: 250px;
+  border-radius: 7px !important;
+}
+
+.css-1w6s0xp .simplebar-track.simplebar-horizontal .simplebar-scrollbar {
+  height: 1vh !important;
+}
+.FaqCatgryBox {
+  width: 400px;
+  margin-right: 15px;
+}
+.FaqqustnAnswerBox {
+  width: calc(100% - 415px);
+  padding: 20px;
+}
+.faqAccidn {
+  box-shadow: none;
+  margin-bottom: 5px !important;
+}
+.faqAccidn.Mui-expanded {
+  box-shadow: none !important;
+}
+
+.faqAccidn .ql-editor p {
+  font-size: 14px;
+}
+
+.ql-tooltip {
+  left: 0 !important;
+}
+.faqAccidn .ql-container.ql-disabled .ql-tooltip,
+.replayBox .ql-container.ql-disabled .ql-tooltip {
+  display: none;
+}
+.faqAccidn .Mui-expanded.MuiAccordionSummary-gutters {
+  min-height: auto;
+}
+.faqAccidn .MuiAccordionSummary-contentGutters {
+  margin: 12px 0 !important;
+}
+.ticketCatgryFiltrBtn {
+  position: absolute !important;
+  margin-left: 20px !important;
+  display: none !important;
+}
+.blogCntnt {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-height: 23px;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 15px;
+  height: 46px;
+}
+.hoverBeforeEffect,
+.liStyle li {
+  position: relative;
+  transition: 0.4s;
+}
+.hoverBeforeEffect::before,
+.liStyle li:before {
+  content: "";
+  position: absolute;
+  height: 84%;
+  top: 7%;
+  width: 0px;
+  background-color: #a465f8;
+  left: 0;
+}
+.hoverBeforeEffect:hover::before,
+.liStyle li:hover::before {
+  width: 2px;
+}
+.liStyle li:hover {
+  padding-left: 10px;
+}
+.MuiTable-stickyHeader {
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #bdbdbd #ffffff; /* Track color, thumb color */
+}
+
+.MuiTable-stickyHeader::-webkit-scrollbar {
+  width: 12px;
+}
+
+th {
+  font-weight: 400 !important;
+}
+.darkeditor .ql-editor p,
+.darkeditor .ql-editor span {
+  color: #c5c5c5 !important;
+}
+.darkeditor .ql-editor strong,
+.darkeditor .ql-editor h1,
+.darkeditor .ql-editor h2,
+.darkeditor .ql-editor h3,
+.darkeditor .ql-editor h4,
+.darkeditor .ql-editor h5,
+.darkeditor .ql-editor h6, 
+.darkeditor .ql-editor a, 
+.darkeditor .ql-editor b{
+  color: #fff !important;
+}
+/* ************************************************************ */
+@media (max-width: 1370px) {
+  
+}
+/* ************************************************************ */
+@media (max-width: 1200px) {
+  /* .activeUsersHieght {
+    min-height: 390px;
+  } */
+}
+/* ************************************************************ */
+@media (max-width: 991px) {
+  .userDashbodFlex {
+    padding: 5px;
+    width: calc(100% - 10px);
+    margin: auto;
+  }
+  .userDashbodLeft {
+    width: calc(100% - 0px);
+    margin-right: 0px;
+  }
+  .userDashbodRight {
+    width: 100%;
+  }
+  .confrnceBox,
+  .prdctActvBox,
+  .NetworkDashbrdRight {
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 16px;
+  }
+  .adminLogin,
+  .latestSale,
+  .NetworkDashbrdLeft {
+    width: calc(100% - 0px);
+    margin-right: 0px;
+  }
+  .FaqCatgryBox {
+    width: 100%;
+    margin-right: 0px;
+  }
+  .FaqqustnAnswerBox {
+    width: calc(100% - 0px);
+    margin-top: 15px;
+  }
+}
+/* ************************************************************ */
+@media (max-width: 900px) {
+  .ticketCatgryFiltrBtn {
+    display: block !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .busnssBuidrScroll {
+    height: auto;
+  }
+  .activeUsersHieght {
+    min-height: auto;
+  }
+}
+
+/*! Generated by Font Squirrel (https://www.fontsquirrel.com) on June 29, 2023 */
+/*! Generated by Font Squirrel (https://www.fontsquirrel.com) on July 3, 2023 */
+/* 
+@font-face {
+  font-family: "poppinsblack";
+  src: url("./poppins-black-webfont.woff2") format("woff2"),
+    url("./poppins-black-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "poppinsbold";
+  src: url("./poppins-bold-webfont.woff2") format("woff2"),
+    url("./poppins-bold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "poppinsextrabold";
+  src: url("./poppins-extrabold-webfont.woff2") format("woff2"),
+    url("./poppins-extrabold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "poppinsextralight";
+  src: url("./poppins-extralight-webfont.woff2") format("woff2"),
+    url("./poppins-extralight-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "poppinslight";
+  src: url("./poppins-light-webfont.woff2") format("woff2"),
+    url("./poppins-light-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "poppinsmedium";
+  src: url("./poppins-medium-webfont.woff2") format("woff2"),
+    url("./poppins-medium-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "poppinsregular";
+  src: url("./poppins-regular-webfont.woff2") format("woff2"),
+    url("./poppins-regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "poppinssemibold";
+  src: url("./poppins-semibold-webfont.woff2") format("woff2"),
+    url("./poppins-semibold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "poppinsthin";
+  src: url("./poppins-thin-webfont.woff2") format("woff2"),
+    url("./poppins-thin-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+} */

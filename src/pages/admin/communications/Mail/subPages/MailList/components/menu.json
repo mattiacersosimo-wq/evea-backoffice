@@ -1,0 +1,95 @@
+[
+  {
+    "items": [
+      {
+        "title": "communication",
+        "icon": "/icons/ic_chat.svg",
+        "path": "/admin/communication",
+        "placement": 2,
+        "children": [
+          {
+            "title": "faqs",
+            "path": "/admin/communication/faqs",
+            "parent": "communication",
+            "placement": 1,
+            "actions": ["add-edit", "delete_faq"]
+          },
+          {
+            "title": "blog",
+            "path": "/admin/communication/blog/posts/published",
+            "parent": "communication",
+            "placement": 0,
+            "actions": ["add", "draft", "edit"]
+          }
+        ]
+      },
+      {
+        "title": "store",
+        "icon": "/icons/ic_store.svg",
+        "path": "/admin/store",
+        "placement": 10,
+        "children": [
+          {
+            "title": "e-comManager",
+            "path": "/admin/store/products",
+            "parent": "store",
+            "placement": 0,
+            "actions": ["videos", "document", "sample", "edit", "questions"]
+          },
+          {
+            "title": "material",
+            "path": "/admin/store/materials",
+            "parent": "store",
+            "placement": 1,
+            "actions": [
+              "add",
+              "view",
+              "delete-material",
+              "edit-document-video",
+              "delete-video",
+              "delete-document",
+              "view-document",
+              "material-categories"
+            ]
+          },
+          {
+            "title": "events",
+            "path": "/admin/store/events",
+            "parent": "store",
+            "placement": 2,
+            "actions": ["add", "delete", "view"]
+          },
+          {
+            "title": "userReviews",
+            "path": "/admin/store/reviews",
+            "parent": "store",
+            "placement": 4,
+            "actions": ["view"]
+          }
+        ]
+      },
+      {
+        "title": "tools",
+        "icon": "/icons/ic_tools.svg",
+        "path": "/admin/tools",
+        "placement": 11,
+        "children": [
+          {
+            "title": "documents",
+            "path": "/admin/tools/documents",
+            "parent": "tools",
+            "placement": 0,
+            "actions": ["upload-edit", "view", "delete"]
+          },
+          {
+            "title": "videos",
+            "path": "/admin/tools/videos",
+            "parent": "tools",
+            "placement": 1,
+            "actions": ["add-edit", "delete"]
+          }
+        ]
+      }
+    ]
+  }
+]

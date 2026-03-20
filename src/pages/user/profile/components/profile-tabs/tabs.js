@@ -1,0 +1,60 @@
+const TABS = [
+  {
+    label: "profile.tabs.profile",
+    icon: "carbon:user-avatar-filled-alt",
+    href: "activity",
+    name: "profile",
+    is_holding: false,
+    isKyc: false,
+  },
+  {
+    label: "profile.tabs.edit",
+    icon: "bx:comment-edit",
+    href: "edit",
+    name: "edit-info",
+    is_holding: false,
+    isKyc: false,
+  },
+  {
+    label: "profile.tabs.settings",
+    icon: "clarity:settings-solid-badged",
+    href: "settings",
+    name: "settings",
+    is_holding: false,
+    isKyc: false,
+  },
+  {
+    label: "profile.tabs.payout",
+    icon: "ic:outline-payments",
+    name: "payout",
+    href: "payout",
+    is_holding: false,
+    isKyc: false,
+  },
+  {
+    label: "profile.tabs.referral",
+    icon: "icon-park-solid:message-sent",
+    href: "referrals",
+    name: "referrals",
+    is_holding: true,
+    isKyc: false,
+  },
+  {
+    label: "profile.tabs.note",
+    icon: "fluent:clipboard-note-20-filled",
+    href: "notes",
+    name: "notes",
+    is_holding: false,
+    isKyc: false,
+  },
+  {
+    label: "kyc",
+    icon: "basil:document-solid",
+    href: "kyc",
+    name: "kyc",
+    is_holding: false,
+    isKyc: true,
+  },
+];
+
+export default TABS;

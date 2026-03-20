@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28" height="18.67" viewBox="0 0 28 18.67">
+  <defs>
+    <pattern id="pattern" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" viewBox="0 0 275 183">
+      <image width="275" height="183" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAGFBMVEX////VKx4AOab2+f0AN6UEOaPOKxwFPKiWjACKAAAA+UlEQVR4nO3QsQGDAAzAsFCg/P8xezyxSydoBgAAAAAAAAAAAAAAAAAAAOCjk20etrnY5sfmpJyUk3JSTspJOSkn5aSclJNyUk7KSTkpJ+WknJSTclJOykk5KSflpJyUk3JSTspJOSkn5aSclJNyUk7KSTkpJ+WknJSTclJOykk5KSflpJyUk3JSTspJOSkn5aTmZps/2xxsTspJOSkn5aSclJNyUk7KSTkpJ+WknJSTclJOykk5KSflpJyUk3JSTspJOSkn5aSclJNyUk7KSTkpJ+WknJSTclJOykk5KSflpJyUk3JSTspJOSkn5aSclJNyUk7KSTmpFw4O1+wE1Ff8AAAAAElFTkSuQmCC"/>
+    </pattern>
+  </defs>
+  <rect id="russia" width="28" height="18.67" fill="url(#pattern)"/>
+</svg>

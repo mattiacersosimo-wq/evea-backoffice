@@ -1,0 +1,21 @@
+
+.dropzone {
+    text-align: center;
+    padding: 20px;
+    border: 2px dashed #eeeeee;
+    background-color: #fefefe;
+    color: #a9a9a9;
+    margin-bottom: 0.5rem;
+  }
+  
+  .accept {
+    border-color: #107c10 !important;
+  }
+  
+  .reject {
+    border-color: #d83b01 !important;
+  }
+  .drag-drop {
+      font-size: 0.8rem;
+  }
+  
