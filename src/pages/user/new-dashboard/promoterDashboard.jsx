@@ -1,5 +1,5 @@
 import {
-  Avatar, Box, Button, Card, Chip, Grid, IconButton,
+  Avatar, Box, Button, Card, Chip, Divider, Grid, IconButton,
   LinearProgress, Skeleton, Stack, Tooltip, Typography,
 } from "@mui/material";
 import { alpha, keyframes } from "@mui/material/styles";
@@ -177,7 +177,7 @@ const HeroCard = () => {
                 ID: {hero?.unique_id || user?.unique_id || user?.id}
               </Typography>
               <Typography sx={{ fontSize: "0.75rem", color: alpha("#fff", 0.5) }}>
-                User: @{hero?.username || user?.username}
+                User: {hero?.username || user?.username}
               </Typography>
               <Typography sx={{ fontSize: "0.75rem", color: alpha("#fff", 0.5) }}>
                 Sponsor: {hero?.sponsor || "—"}
@@ -221,19 +221,25 @@ const scroll = keyframes`0% { transform: translateX(0); } 100% { transform: tran
 const TickerBar = () => {
   const ticker = useTicker();
   if (!ticker) return null;
-  const items = [...(ticker.sales || []), ...(ticker.new_members || [])].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  const items = [...(ticker.sales || []), ...(ticker.new_members || []), ...(ticker.ranks || [])].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   if (!items.length) return null;
   return (
-    <Box sx={{ bgcolor: ESPRESSO, borderRadius: 2, overflow: "hidden", py: 0.8 }}>
-      <Box sx={{ display: "flex", animation: `${scroll} ${Math.max(items.length * 5, 20)}s linear infinite`, width: "max-content" }}>
-        {[...items, ...items].map((it, i) => (
-          <Stack key={i} direction="row" alignItems="center" spacing={0.8} sx={{ px: 2.5, flexShrink: 0 }}>
-            <Chip label={it.type === "sale" ? "Vendita" : "Nuovo"} size="small" sx={{ height: 18, fontSize: "0.65rem", fontWeight: 700, bgcolor: it.type === "sale" ? alpha("#4CAF50", 0.2) : alpha("#2196F3", 0.2), color: it.type === "sale" ? "#4CAF50" : "#2196F3" }} />
-            <Typography sx={{ fontSize: "0.8rem", color: "#fff", fontWeight: 600 }}>@{it.username}</Typography>
-            {it.product && <Typography sx={{ fontSize: "0.75rem", color: alpha("#fff", 0.5) }}>{it.product}</Typography>}
-            {it.amount && <Typography sx={{ fontSize: "0.8rem", color: ORO, fontWeight: 700 }}>€{it.amount}</Typography>}
-          </Stack>
-        ))}
+    <Box sx={{ bgcolor: "#fff", borderRadius: 2, overflow: "hidden", border: `1px solid ${alpha(ORO, 0.15)}` }}>
+      <Box sx={{ px: 2, py: 0.5, borderBottom: `1px solid ${alpha(ORO, 0.1)}` }}>
+        <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: ORO, letterSpacing: 1 }}>EVEA LIVE</Typography>
+      </Box>
+      <Box sx={{ py: 0.6, overflow: "hidden" }}>
+        <Box sx={{ display: "flex", animation: `${scroll} ${Math.max(items.length * 5, 20)}s linear infinite`, width: "max-content" }}>
+          {[...items, ...items].map((it, i) => (
+            <Stack key={i} direction="row" alignItems="center" spacing={0.8} sx={{ px: 2.5, flexShrink: 0 }}>
+              <Chip label={it.type === "sale" ? "Vendita" : it.type === "rank" ? "Qualifica" : it.is_promoter ? "Nuovo Promoter" : "Nuovo Cliente"} size="small" sx={{ height: 18, fontSize: "0.65rem", fontWeight: 700, bgcolor: it.type === "sale" ? alpha("#4CAF50", 0.1) : it.type === "rank" ? alpha(ORO, 0.1) : alpha("#2196F3", 0.1), color: it.type === "sale" ? "#4CAF50" : it.type === "rank" ? ORO : "#2196F3" }} />
+              <Typography sx={{ fontSize: "0.8rem", color: ESPRESSO, fontWeight: 600 }}>{it.username}</Typography>
+              {it.product && <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>{it.product}</Typography>}
+              {it.rank && <Typography sx={{ fontSize: "0.75rem", color: ORO, fontWeight: 700 }}>{it.rank}</Typography>}
+              {it.amount && <Typography sx={{ fontSize: "0.8rem", color: ORO, fontWeight: 700 }}>€{it.amount}</Typography>}
+            </Stack>
+          ))}
+        </Box>
       </Box>
     </Box>
   );
@@ -297,41 +303,25 @@ const EarningsSection = () => {
     </Card>
   );
 
-  const pqvReq = Number(rank?.next_rank_pqv || 0);
-  const pqvCur = Number(rank?.current_pqv || 0);
-  const bvReq = Number(rank?.next_rank_bv || 0);
-  const bvCur = Number(rank?.current_bv || 0);
-
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={4}><PendingCard label="Pending Settimanali" icon="mdi:calendar-week" color="#4CAF50" value={bonus?.weekly || 0} /></Grid>
       <Grid item xs={12} md={4}><PendingCard label="Pending Mensili" icon="mdi:calendar-month" color={ORO} value={bonus?.monthly || 0} /></Grid>
       <Grid item xs={12} md={4}>
         <Card sx={{ ...cardSx, p: 2.5, height: "100%" }}>
-          <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: MUTED, textTransform: "uppercase", mb: 1.5 }}>Avanzamento Rank</Typography>
+          <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: MUTED, textTransform: "uppercase", mb: 1.5 }}>Rank</Typography>
           {rLoad ? <Skeleton height={60} /> : (
             <Stack spacing={1.5}>
-              {pqvReq > 0 && (
-                <Box>
-                  <Stack direction="row" justifyContent="space-between" mb={0.3}>
-                    <Typography sx={{ fontSize: "0.8rem", color: TEXT, fontWeight: 600 }}>QV Team</Typography>
-                    <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>{pqvCur}/{pqvReq}</Typography>
-                  </Stack>
-                  <LinearProgress variant="determinate" value={pqvReq > 0 ? Math.min(100, (pqvCur / pqvReq) * 100) : 0} sx={{ height: 6, borderRadius: 3, bgcolor: SABBIA, "& .MuiLinearProgress-bar": { bgcolor: ORO, borderRadius: 3 } }} />
-                </Box>
-              )}
-              {bvReq > 0 && (
-                <Box>
-                  <Stack direction="row" justifyContent="space-between" mb={0.3}>
-                    <Typography sx={{ fontSize: "0.8rem", color: TEXT, fontWeight: 600 }}>BV Personale</Typography>
-                    <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>{bvCur}/{bvReq}</Typography>
-                  </Stack>
-                  <LinearProgress variant="determinate" value={bvReq > 0 ? Math.min(100, (bvCur / bvReq) * 100) : 0} sx={{ height: 6, borderRadius: 3, bgcolor: SABBIA, "& .MuiLinearProgress-bar": { bgcolor: "#4CAF50", borderRadius: 3 } }} />
-                </Box>
-              )}
-              {pqvReq > 0 && pqvCur < pqvReq && (
-                <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>Mancano <b style={{ color: ORO }}>{(pqvReq - pqvCur).toFixed(0)} QV</b> al prossimo rank</Typography>
-              )}
+              {[
+                { label: "Current Rank", value: rank?.current_rank || "—" },
+                { label: "Achievement Rank", value: rank?.achieved_rank || "—" },
+                { label: "Recognition Rank", value: rank?.paid_rank || "—" },
+              ].map((r) => (
+                <Stack key={r.label} direction="row" justifyContent="space-between" alignItems="center">
+                  <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>{r.label}</Typography>
+                  <Chip label={r.value} size="small" sx={{ height: 22, fontWeight: 700, fontSize: "0.72rem", bgcolor: alpha(ORO, 0.1), color: ORO }} />
+                </Stack>
+              ))}
             </Stack>
           )}
         </Card>
@@ -511,61 +501,123 @@ const QvAndStats = () => {
 };
 
 // ═══════════════════════════════════════
-// 10. 3FF + ROB mini
+// 10. 3FF + ROB (full customer-style)
 // ═══════════════════════════════════════
-const ThreeFFMini = () => {
-  const { data: ff, loading } = useThreeFF();
+const ThreeFFCard = () => {
   const { user } = useAuth();
+  const { data: ff, loading } = useThreeFF();
   const { enqueueSnackbar } = useSnackbar();
-  const copy = async () => { const link = `${WP_URL}?ref=${user?.username}`; if (link) { await navigator.clipboard.writeText(link); enqueueSnackbar("Link copiato!"); } };
-  if (loading) return <Card sx={{ ...cardSx, p: 2.5 }}><Skeleton height={80} /></Card>;
-  if (!ff) return null;
-  const req = ff?.required_customers || 3;
-  const cur = ff?.current_qualified_customer_count || 0;
+  const referralLink = user?.username ? `${WP_URL}?ref=${user.username}` : "";
+  const copy = async () => { if (referralLink) { await navigator.clipboard.writeText(referralLink); enqueueSnackbar("Link copiato!"); } };
+  const required = ff?.required_customers || 3;
+  const current = ff?.current_qualified_customer_count || 0;
+  const bonus = ff?.current_bonus_amount || 0;
   const customers = ff?.current_customers_largest_orders || [];
-  const slots = Array.from({ length: req }, (_, i) => customers[i] || null);
+  const slots = Array.from({ length: required }, (_, i) => customers[i] || null);
   return (
-    <Card sx={{ ...cardSx, p: 2.5, height: "100%" }}>
-      <Stack direction="row" alignItems="center" spacing={1} mb={2}>
-        <Box sx={{ width: 30, height: 30, borderRadius: 2, bgcolor: alpha("#E91E63", 0.08), display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <Iconify icon="mdi:gift-outline" width={16} sx={{ color: "#E91E63" }} />
+    <Card sx={{ ...cardSx, p: 3 }}>
+      <Stack direction="row" alignItems="center" spacing={1} mb={2.5}>
+        <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <Iconify icon="mdi:gift-outline" width={20} sx={{ color: ORO }} />
         </Box>
-        <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: TEXT }}>3 For Free</Typography>
-        <Chip label={`${cur}/${req}`} size="small" sx={{ ml: "auto", height: 20, fontSize: "0.7rem", fontWeight: 700, bgcolor: cur >= req ? alpha("#4CAF50", 0.1) : alpha(ORO, 0.1), color: cur >= req ? "#4CAF50" : ORO }} />
+        <Box>
+          <Typography variant="subtitle2" fontWeight={700} color={ESPRESSO}>Regala EVEA</Typography>
+          <Typography variant="caption" sx={{ color: MUTED, lineHeight: 1 }}>Bonus 3 For Free</Typography>
+        </Box>
       </Stack>
-      <Stack direction="row" spacing={2} justifyContent="center" mb={2}>
-        {slots.map((c, i) => (
-          <Avatar key={i} sx={{ width: 40, height: 40, bgcolor: c ? alpha(ORO, 0.12) : "#f5f5f5", color: c ? ORO : "#ccc", border: c ? `2px solid ${ORO}` : "2px dashed #ddd" }}>
-            {c ? <Iconify icon="mdi:check-bold" width={18} /> : <Iconify icon="mdi:account-plus-outline" width={18} />}
-          </Avatar>
-        ))}
-      </Stack>
-      <Button fullWidth size="small" variant="contained" startIcon={<Iconify icon="mdi:content-copy" />} onClick={copy}
-        sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none", borderRadius: 2, boxShadow: `0 4px 12px ${alpha(ORO, 0.3)}` }}>
-        Copia Link Referral
+      {loading ? <Skeleton height={56} variant="rounded" /> : (
+        <>
+          <Stack direction="row" spacing={2.5} justifyContent="center" mb={2}>
+            {slots.map((c, i) => (
+              <Stack key={i} alignItems="center" spacing={0.5}>
+                <Avatar sx={{ width: 52, height: 52, bgcolor: c ? alpha(ORO, 0.12) : "#f5f5f5", color: c ? ORO : "#ccc", border: c ? `2px solid ${ORO}` : "2px dashed #ddd" }}>
+                  {c ? <Iconify icon="mdi:check-bold" width={24} /> : <Iconify icon="mdi:account-plus-outline" width={24} />}
+                </Avatar>
+                <Typography variant="caption" sx={{ color: c ? ESPRESSO : "#aaa", maxWidth: 70, fontWeight: c ? 600 : 400 }} noWrap>{c?.customer_name || `Amico ${i + 1}`}</Typography>
+              </Stack>
+            ))}
+          </Stack>
+          <Box sx={{ textAlign: "center", bgcolor: "#fafafa", borderRadius: 2, py: 1.5, mb: 2 }}>
+            <Typography variant="body2" sx={{ color: MUTED }}>
+              <b style={{ color: ESPRESSO }}>{current}/{required}</b> amici invitati
+              <Divider component="span" orientation="vertical" sx={{ mx: 1.5, height: 14, display: "inline-block", borderColor: "#ddd" }} />
+              Premio: <b style={{ color: ORO, fontSize: "1.1em" }}>€{bonus}</b>
+            </Typography>
+          </Box>
+        </>
+      )}
+      <Button fullWidth variant="contained" startIcon={<Iconify icon="mdi:content-copy" />} onClick={copy}
+        sx={{ bgcolor: ORO, color: "#fff", "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, borderRadius: 2, py: 1.2, textTransform: "none", fontSize: "0.875rem", boxShadow: `0 4px 12px ${alpha(ORO, 0.3)}` }}>
+        Copia e Invita Ora
       </Button>
     </Card>
   );
 };
 
-const ROBMini = () => {
+const CYCLE_LEN = 12;
+const PAGE_SIZE = 8;
+const COUPON_MONTHS = [3, 6, 9];
+
+const ROBCard = () => {
   const { data: rob, loading } = useROB();
-  if (loading) return <Card sx={{ ...cardSx, p: 2.5 }}><Skeleton height={80} /></Card>;
-  if (!rob) return null;
-  const total = Number(rob?.current_consecutive_months) || 0;
-  const req = Number(rob?.required_consecutive_months) || 8;
-  const pct = req > 0 ? Math.min(100, (total / req) * 100) : 0;
+  const [page, setPage] = useState(0);
+  const totalConsec = rob?.current_consecutive_months || 0;
+  const cycleNum = Math.floor(totalConsec / CYCLE_LEN) + 1;
+  const posInCycle = totalConsec % CYCLE_LEN;
+  const allMilestones = Array.from({ length: CYCLE_LEN }, (_, i) => {
+    const isCoupon = COUPON_MONTHS.includes(i);
+    const isFirstEver = cycleNum === 1 && i === 0;
+    return { month: i + 1, completed: i < posInCycle, isCurrent: i === posInCycle, label: isFirstEver ? "1ª consegna" : isCoupon ? "-10% + €30" : "-10%", isCoupon };
+  });
+  const totalPages = Math.ceil(CYCLE_LEN / PAGE_SIZE);
+  const visible = allMilestones.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
+  const completedOnPage = visible.filter((m) => m.completed).length;
+  const connectorPct = visible.length > 1 ? Math.round((completedOnPage / (visible.length - 1)) * 100) : 0;
+
   return (
-    <Card sx={{ ...cardSx, p: 2.5, height: "100%" }}>
-      <Stack direction="row" alignItems="center" spacing={1} mb={2}>
-        <Box sx={{ width: 30, height: 30, borderRadius: 2, bgcolor: alpha("#8BC34A", 0.08), display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <Iconify icon="mdi:refresh-circle" width={16} sx={{ color: "#8BC34A" }} />
-        </Box>
-        <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: TEXT }}>Recurring Order</Typography>
-        <Chip label={`${total}/${req} mesi`} size="small" sx={{ ml: "auto", height: 20, fontSize: "0.7rem", fontWeight: 700, bgcolor: alpha("#8BC34A", 0.1), color: "#8BC34A" }} />
+    <Card sx={{ ...cardSx, p: 3 }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2.5}>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Iconify icon="mdi:calendar-heart" width={20} sx={{ color: ORO }} />
+          </Box>
+          <Box>
+            <Typography variant="subtitle2" fontWeight={700} color={ESPRESSO}>Percorso Fedeltà</Typography>
+            <Typography variant="caption" sx={{ color: MUTED, lineHeight: 1 }}>-10% per sempre + coupon ogni 3 consegne</Typography>
+          </Box>
+        </Stack>
+        {!loading && totalConsec > 0 && <Chip label={`Ciclo ${cycleNum} · ${posInCycle}/${CYCLE_LEN}`} size="small" sx={{ bgcolor: alpha(ORO, 0.1), color: ORO, fontWeight: 700, fontSize: "0.7rem", height: 24 }} />}
       </Stack>
-      <LinearProgress variant="determinate" value={pct} sx={{ height: 8, borderRadius: 4, bgcolor: SABBIA, "& .MuiLinearProgress-bar": { bgcolor: "#8BC34A", borderRadius: 4 } }} />
-      <Typography sx={{ fontSize: "0.7rem", color: MUTED, mt: 0.5, textAlign: "right" }}>{total} mesi consecutivi</Typography>
+      {loading ? <Skeleton height={100} variant="rounded" /> : (
+        <>
+          <Stack direction="row" alignItems="center" spacing={0.5} mb={2}>
+            <IconButton size="small" onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={page === 0} sx={{ width: 28, height: 28, color: page === 0 ? "#ddd" : ORO }}>
+              <Iconify icon="mdi:chevron-left" width={20} />
+            </IconButton>
+            <Box sx={{ flex: 1, position: "relative", px: 0.5 }}>
+              <Box sx={{ position: "absolute", top: 18, left: 20, right: 20, height: 2, background: `linear-gradient(90deg, ${ORO} ${connectorPct}%, #eee ${connectorPct}%)`, zIndex: 0 }} />
+              <Stack direction="row" justifyContent="space-between" sx={{ position: "relative", zIndex: 1 }}>
+                {visible.map((m) => (
+                  <Stack key={m.month} alignItems="center" sx={{ flex: 1 }}>
+                    <Box sx={{ width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: "0.75rem", ...(m.completed ? { bgcolor: ORO, color: "#fff", boxShadow: `0 2px 8px ${alpha(ORO, 0.35)}` } : m.isCurrent ? { bgcolor: "#fff", color: ORO, border: `2px solid ${ORO}`, boxShadow: `0 0 0 4px ${alpha(ORO, 0.12)}` } : { bgcolor: "#f5f5f5", color: "#bbb" }) }}>
+                      {m.completed ? <Iconify icon="mdi:check" width={18} /> : m.month}
+                    </Box>
+                    <Typography sx={{ mt: 0.5, fontSize: "0.62rem", fontWeight: m.isCoupon ? 700 : 500, color: m.isCoupon && m.completed ? ORO : m.completed ? ORO : m.isCurrent ? ESPRESSO : "#bbb", textAlign: "center", lineHeight: 1.2 }}>{m.label}</Typography>
+                  </Stack>
+                ))}
+              </Stack>
+            </Box>
+            <IconButton size="small" onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))} disabled={page >= totalPages - 1} sx={{ width: 28, height: 28, color: page >= totalPages - 1 ? "#ddd" : ORO }}>
+              <Iconify icon="mdi:chevron-right" width={20} />
+            </IconButton>
+          </Stack>
+          <Stack direction="row" justifyContent="center" spacing={0.5} mb={2}>
+            {Array.from({ length: totalPages }, (_, i) => (
+              <Box key={i} onClick={() => setPage(i)} sx={{ width: i === page ? 16 : 6, height: 6, borderRadius: 3, bgcolor: i === page ? ORO : "#ddd", transition: "all 0.3s", cursor: "pointer" }} />
+            ))}
+          </Stack>
+        </>
+      )}
     </Card>
   );
 };
@@ -620,8 +672,8 @@ const PromoterDashboard = () => {
           </Grid>
 
           <Grid container spacing={2}>
-            <Grid item xs={12} md={6}><ThreeFFMini /></Grid>
-            <Grid item xs={12} md={6}><ROBMini /></Grid>
+            <Grid item xs={12} md={6}><ThreeFFCard /></Grid>
+            <Grid item xs={12} md={6}><ROBCard /></Grid>
           </Grid>
         </Stack>
       </Box>
