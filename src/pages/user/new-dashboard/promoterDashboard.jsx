@@ -146,11 +146,18 @@ const CountdownTimer = ({ expiryDate, label }) => {
 // ═══════════════════════════════════════
 // 1. HERO CARD
 // ═══════════════════════════════════════
+const useHero = () => useFetch(async () => {
+  const { data } = await axiosInstance.get("api/wp/dashboard/hero");
+  return data?.data;
+});
+
 const HeroCard = () => {
   const { user } = useAuth();
-  const { data: rank, loading } = useRankSummary();
-  const profile = user?.user_profile || {};
-  const fullName = [profile.first_name, profile.last_name].filter(Boolean).join(" ") || user?.username || "";
+  const { data: rank, loading: rankLoading } = useRankSummary();
+  const { data: hero, loading: heroLoading } = useHero();
+  const loading = rankLoading || heroLoading;
+
+  const fullName = [hero?.first_name, hero?.last_name].filter(Boolean).join(" ") || user?.username || "";
 
   return (
     <Card sx={{ bgcolor: ESPRESSO, color: "#fff", borderRadius: 4, p: { xs: 2.5, md: 3.5 }, position: "relative", overflow: "hidden" }}>
@@ -165,12 +172,20 @@ const HeroCard = () => {
               <Typography variant="h6" fontWeight={700}>{fullName}</Typography>
               {rank?.current_rank && <Chip label={rank.current_rank} size="small" sx={{ bgcolor: alpha(ORO, 0.15), color: ORO, fontWeight: 700, fontSize: "0.8rem", height: 24, border: `1px solid ${alpha(ORO, 0.3)}` }} />}
             </Stack>
-            <Typography sx={{ fontSize: "0.75rem", color: alpha("#fff", 0.5), mt: 0.3 }}>
-              ID: {user?.id} &middot; @{user?.username} &middot; IT &middot; Sponsor: {user?.sponsor?.username || "—"}
-            </Typography>
+            <Stack spacing={0.2} sx={{ mt: 0.5 }}>
+              <Typography sx={{ fontSize: "0.75rem", color: alpha("#fff", 0.5) }}>
+                ID: {hero?.unique_id || user?.unique_id || user?.id}
+              </Typography>
+              <Typography sx={{ fontSize: "0.75rem", color: alpha("#fff", 0.5) }}>
+                User: @{hero?.username || user?.username}
+              </Typography>
+              <Typography sx={{ fontSize: "0.75rem", color: alpha("#fff", 0.5) }}>
+                Sponsor: {hero?.sponsor || "—"}
+              </Typography>
+            </Stack>
           </Box>
         </Stack>
-        {!loading && rank && (
+        {!rankLoading && rank && (
           <Stack direction="row" spacing={1.5} alignItems="center" flexShrink={0}>
             <CountdownTimer expiryDate={rank.month_end} label="Periodo scade" />
             {rank.dsp_end && <CountdownTimer expiryDate={rank.dsp_end} label="DSB boost scade" />}
@@ -181,11 +196,11 @@ const HeroCard = () => {
       {loading ? <Skeleton height={50} sx={{ mt: 2, bgcolor: alpha("#fff", 0.05), borderRadius: 2 }} /> : (
         <Stack direction="row" spacing={1} sx={{ mt: 2.5, flexWrap: "wrap", gap: 1 }}>
           {[
-            { icon: "mdi:wallet-outline", label: "Wallet", value: `€${Number(rank?.wallet_balance || 0).toFixed(2)}` },
-            { icon: "mdi:chart-bar", label: "QV Mese", value: rank?.current_pqv || 0 },
-            { icon: "mdi:diamond-outline", label: "BV Mese", value: rank?.current_bv || 0 },
-            { icon: "mdi:account-group", label: "Clienti", value: rank?.total_customers || 0 },
-            { icon: "mdi:account-tie", label: "Team", value: rank?.total_promoters || 0 },
+            { icon: "mdi:wallet-outline", label: "Wallet", value: `€${Number(hero?.wallet || 0).toFixed(2)}` },
+            { icon: "mdi:chart-bar", label: "QV Mese", value: hero?.qv_mese || 0 },
+            { icon: "mdi:diamond-outline", label: "BV Mese", value: hero?.bv_mese || 0 },
+            { icon: "mdi:account-group", label: "Clienti", value: hero?.clienti_diretti || 0 },
+            { icon: "mdi:account-tie", label: "Team", value: hero?.team_promoter || 0 },
           ].map((m) => (
             <Box key={m.label} sx={{ flex: "1 1 0", minWidth: 80, bgcolor: alpha("#fff", 0.06), borderRadius: 2, p: 1, textAlign: "center", border: `1px solid ${alpha(ORO, 0.1)}` }}>
               <Iconify icon={m.icon} width={18} sx={{ color: ORO, mb: 0.3 }} />
@@ -570,6 +585,7 @@ const Section = ({ icon, children }) => (
 // ═══════════════════════════════════════
 const PromoterDashboard = () => {
   const { user } = useAuth();
+  const { data: heroData } = useHero();
   return (
     <Page title="Dashboard">
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4, bgcolor: AVORIO, minHeight: "100vh" }}>
@@ -582,7 +598,7 @@ const PromoterDashboard = () => {
           <Section icon="mdi:cash-multiple">Guadagni</Section>
           <EarningsSection />
 
-          {user?.is_promoter === 1 && (
+          {user?.is_promoter === 1 && !heroData?.has_starter_kit && (
             <>
               <Section icon="mdi:package-variant-closed">Kit Starter</Section>
               <KitUpgrade />
