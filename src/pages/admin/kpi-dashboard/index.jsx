@@ -152,10 +152,10 @@ const OverviewCards = () => {
     <Grid container spacing={2}>
       {cards.map((c, i) => (
         <Grid item xs={6} md={3} key={i}>
-          <Card sx={{ bgcolor: ESPRESSO, borderRadius: 3, p: 2.5, height: "100%" }}>
-            <Typography sx={{ fontSize: "0.65rem", color: alpha("#fff", 0.5), textTransform: "uppercase", letterSpacing: 1, fontWeight: 700 }}>{c.label}</Typography>
-            <Typography sx={{ fontSize: "1.8rem", fontWeight: 800, color: "#fff", mt: 0.5, lineHeight: 1.1 }}>{c.value}</Typography>
-            <Typography sx={{ fontSize: "0.7rem", color: alpha("#fff", 0.45), mt: 0.5 }}>{c.sub}</Typography>
+          <Card sx={{ bgcolor: CREMA, borderRadius: 3, p: 2.5, height: "100%", border: `1px solid ${alpha(ORO, 0.25)}` }}>
+            <Typography sx={{ fontSize: "0.65rem", color: MUTED, textTransform: "uppercase", letterSpacing: 1, fontWeight: 700 }}>{c.label}</Typography>
+            <Typography sx={{ fontSize: "1.8rem", fontWeight: 800, color: ESPRESSO, mt: 0.5, lineHeight: 1.1 }}>{c.value}</Typography>
+            <Typography sx={{ fontSize: "0.7rem", color: MUTED, mt: 0.5 }}>{c.sub}</Typography>
           </Card>
         </Grid>
       ))}

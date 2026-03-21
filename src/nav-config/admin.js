@@ -12,26 +12,6 @@ const adminNavConfig = [
         path: PATH_DASHBOARD.dashboard.root,
         icon: ICONS.dashboard,
         placement: 1,
-        children: [
-          {
-            title: "nav.dashboard.business",
-            parent: "nav.dashboard.title",
-            path: PATH_DASHBOARD.dashboard.business,
-            placement: 0,
-          },
-          {
-            title: "nav.dashboard.network",
-            parent: "nav.dashboard.title",
-            path: PATH_DASHBOARD.dashboard.network,
-            placement: 1,
-          },
-          {
-            title: "KPI Dashboard",
-            parent: "nav.dashboard.title",
-            path: PATH_DASHBOARD.dashboard.kpi,
-            placement: 2,
-          },
-        ],
       },
 
       {
