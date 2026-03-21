@@ -608,6 +608,122 @@ const AgingCommissions = () => {
 };
 
 // ═══════════════════════════════════════
+// LEADERBOARD (Earners, Recruiters, Achievers)
+// ═══════════════════════════════════════
+const LeaderList = ({ title, icon, items, valueKey, valueLabel, valueSuffix = "", secondaryKey, secondaryLabel }) => (
+  <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
+    <Stack direction="row" alignItems="center" spacing={1} mb={2}>
+      <Iconify icon={icon} width={20} sx={{ color: ORO }} />
+      <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: TEXT }}>{title}</Typography>
+    </Stack>
+    {(!items || !items.length) ? <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Nessun dato</Typography> : (
+      <Stack spacing={0.8}>
+        {items.map((t, i) => (
+          <Stack key={t.user_id || i} direction="row" alignItems="center" spacing={1}>
+            <Avatar sx={{ width: 24, height: 24, bgcolor: i < 3 ? alpha(ORO, 0.12) : "#f5f5f5", color: i < 3 ? ORO : MUTED, fontSize: 10, fontWeight: 700 }}>{i + 1}</Avatar>
+            <Box sx={{ flex: 1, minWidth: 0 }}>
+              <Typography sx={{ fontSize: "0.7rem", fontWeight: 600, color: TEXT }} noWrap>{t.name || t.username}</Typography>
+              {t.rank_name && <Typography sx={{ fontSize: "0.5rem", color: ORO }}>{t.rank_name}</Typography>}
+            </Box>
+            <Box sx={{ textAlign: "right" }}>
+              <Typography sx={{ fontSize: "0.72rem", fontWeight: 700, color: ORO }}>{typeof t[valueKey] === "number" ? `${valueSuffix}${t[valueKey]}` : t[valueKey]}</Typography>
+              {secondaryKey && <Typography sx={{ fontSize: "0.5rem", color: MUTED }}>{t[secondaryKey]} {secondaryLabel}</Typography>}
+            </Box>
+          </Stack>
+        ))}
+      </Stack>
+    )}
+  </Card>
+);
+
+const Leaderboard = () => {
+  const { data, loading } = useFetch("api/wp/admin/kpi/leaderboard", true);
+  if (loading) return <Grid container spacing={2}>{[0,1,2].map(i => <Grid item xs={12} md={4} key={i}><Skeleton variant="rounded" height={250} sx={{ borderRadius: 3 }} /></Grid>)}</Grid>;
+  if (!data) return null;
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={12} md={4}>
+        <LeaderList title="Top Earners" icon="mdi:cash-multiple" items={data.top_earners} valueKey="total_earned" valueSuffix="€" secondaryKey="num_commissions" secondaryLabel="commissioni" />
+      </Grid>
+      <Grid item xs={12} md={4}>
+        <LeaderList title="Top Recruiters" icon="mdi:account-multiple-plus" items={data.top_recruiters} valueKey="total_recruited" valueSuffix="" secondaryKey="active_recruited" secondaryLabel="attivi" />
+      </Grid>
+      <Grid item xs={12} md={4}>
+        <LeaderList title="Top Achievers" icon="mdi:trophy" items={data.top_achievers} valueKey="rank_name" valueSuffix="" />
+      </Grid>
+    </Grid>
+  );
+};
+
+// ═══════════════════════════════════════
+// PAYOUT SUMMARY
+// ═══════════════════════════════════════
+const PayoutSummary = () => {
+  const { data: ps, loading } = useFetch("api/wp/admin/kpi/payout-summary", true);
+  if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={250} /></Card>;
+  if (!ps) return null;
+
+  const statusCards = [
+    { label: "Totale generato", value: ps.total_generated, color: ORO, icon: "mdi:sigma" },
+    { label: "Pagato", value: ps.paid, color: SUCCESS, icon: "mdi:check-circle" },
+    { label: "Pending", value: ps.pending, color: WARNING, icon: "mdi:clock-outline" },
+    { label: "On Hold", value: ps.on_hold, color: INFO, icon: "mdi:pause-circle" },
+  ];
+
+  return (
+    <Card sx={{ ...cardSx, p: 3 }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
+        <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: TEXT }}>Payout Summary</Typography>
+        <Stack direction="row" spacing={0.5} alignItems="center">
+          <Iconify icon="mdi:wallet-outline" width={16} sx={{ color: MUTED }} />
+          <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>Wallet totale: <b style={{ color: TEXT }}>€{ps.total_wallet_balance}</b></Typography>
+        </Stack>
+      </Stack>
+
+      <Grid container spacing={1.5} sx={{ mb: 2 }}>
+        {statusCards.map((c) => (
+          <Grid item xs={6} md={3} key={c.label}>
+            <Box sx={{ p: 1.5, bgcolor: alpha(c.color, 0.04), borderRadius: 2, border: `1px solid ${alpha(c.color, 0.1)}`, textAlign: "center" }}>
+              <Iconify icon={c.icon} width={18} sx={{ color: c.color, mb: 0.3 }} />
+              <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color: c.color }}>€{(c.value || 0).toLocaleString("it")}</Typography>
+              <Typography sx={{ fontSize: "0.55rem", color: MUTED }}>{c.label}</Typography>
+            </Box>
+          </Grid>
+        ))}
+      </Grid>
+
+      <Typography sx={{ fontSize: "0.7rem", fontWeight: 600, color: TEXT, mb: 1 }}>Bonus per tipo</Typography>
+      <Stack spacing={0.8}>
+        {(ps.by_type || []).map((b) => {
+          const clr = COMM_COLORS[b.type] || ORO;
+          return (
+            <Stack key={b.type} direction="row" alignItems="center" spacing={1}>
+              <Box sx={{ width: 7, height: 7, borderRadius: "50%", bgcolor: clr, flexShrink: 0 }} />
+              <Typography sx={{ fontSize: "0.65rem", color: TEXT, fontWeight: 600, flex: 1 }} noWrap>{b.label}</Typography>
+              <Stack direction="row" spacing={0.5}>
+                <Chip label={`€${b.paid} paid`} size="small" sx={{ height: 16, fontSize: "0.45rem", bgcolor: alpha(SUCCESS, 0.08), color: SUCCESS }} />
+                <Chip label={`€${b.pending} pend`} size="small" sx={{ height: 16, fontSize: "0.45rem", bgcolor: alpha(WARNING, 0.08), color: WARNING }} />
+              </Stack>
+              <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: clr, width: 40, textAlign: "right" }}>{b.pct}%</Typography>
+            </Stack>
+          );
+        })}
+      </Stack>
+
+      <Box sx={{ mt: 2, p: 1.5, bgcolor: alpha(ORO, 0.04), borderRadius: 2 }}>
+        <Stack direction="row" justifyContent="space-between">
+          <Typography sx={{ fontSize: "0.62rem", color: MUTED }}>Bonus medio/promoter attivo</Typography>
+          <Typography sx={{ fontSize: "0.62rem", fontWeight: 700, color: TEXT }}>€{ps.avg_bonus_per_promoter} ({ps.active_promoters} attivi)</Typography>
+        </Stack>
+        {(ps.cancelled || 0) > 0 && (
+          <Typography sx={{ fontSize: "0.55rem", color: DANGER, mt: 0.5 }}>€{ps.cancelled} in commissioni cancellate</Typography>
+        )}
+      </Box>
+    </Card>
+  );
+};
+
+// ═══════════════════════════════════════
 // MAIN
 // ═══════════════════════════════════════
 const KpiDashboard = () => {
@@ -654,6 +770,12 @@ const KpiDashboard = () => {
               <Grid item xs={12} md={4}><GeoDistribution /></Grid>
               <Grid item xs={12} md={4}><ClientSegmentation /></Grid>
             </Grid>
+
+            <Section>Leaderboard — Earners, Recruiters, Achievers</Section>
+            <Leaderboard />
+
+            <Section>Payout &amp; Network Bonus</Section>
+            <PayoutSummary />
 
             <Section>Network &amp; Promoter</Section>
             <Grid container spacing={2}>
