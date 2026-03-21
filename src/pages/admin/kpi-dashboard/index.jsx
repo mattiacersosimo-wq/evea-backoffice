@@ -65,7 +65,7 @@ const StatBar = ({ label, value, max = 100, color = ORO, suffix = "%" }) => {
 // 1. RISK ALERT
 // ═══════════════════════════════════════
 const RiskAlert = () => {
-  const { data } = useFetch("api/admin/kpi/risk-alert");
+  const { data } = useFetch("api/wp/admin/kpi/risk-alert");
   if (!data || !data.length) return null;
   return (
     <Box sx={{ bgcolor: "#FCEBEB", border: `1px solid ${DANGER}`, borderRadius: 2, p: 2, mb: 2 }}>
@@ -117,7 +117,7 @@ const BigKPI = ({ icon, label, value, sub, delta, color = ORO }) => (
 );
 
 const OverviewCards = () => {
-  const { data: o, loading } = useFetch("api/admin/kpi/overview");
+  const { data: o, loading } = useFetch("api/wp/admin/kpi/overview");
   if (loading) return <Grid container spacing={2}>{[0,1,2,3].map(i => <Grid item xs={6} md={3} key={i}><Skeleton variant="rounded" height={100} sx={{ borderRadius: 3 }} /></Grid>)}</Grid>;
   if (!o) return null;
   return (
@@ -136,7 +136,7 @@ const OverviewCards = () => {
 const MESI = ["Gen","Feb","Mar","Apr","Mag","Giu","Lug","Ago","Set","Ott","Nov","Dic"];
 
 const RevenueChart = () => {
-  const { data, loading } = useFetch("api/admin/kpi/revenue-history");
+  const { data, loading } = useFetch("api/wp/admin/kpi/revenue-history");
   if (loading) return <Card sx={{ ...cardSx, p: 2.5 }}><Skeleton height={200} /></Card>;
   if (!data || !data.length) return null;
   const maxVal = Math.max(...data.map(d => Math.max(d.fatturato, d.payout, d.margine)), 1);
@@ -174,7 +174,7 @@ const RevenueChart = () => {
 };
 
 const WeeklyComparison = () => {
-  const { data, loading } = useFetch("api/admin/kpi/weekly-comparison");
+  const { data, loading } = useFetch("api/wp/admin/kpi/weekly-comparison");
   if (loading) return <Card sx={{ ...cardSx, p: 2.5 }}><Skeleton height={200} /></Card>;
   if (!data || !data.length) return null;
   const maxRev = Math.max(...data.map(d => Math.max(d.revenue_current, d.revenue_previous)), 1);
@@ -219,7 +219,7 @@ const WeeklyComparison = () => {
 const PRODUCT_COLORS = [ORO, "#8BC34A", "#2196F3", "#FF9800", "#9C27B0", DANGER, INFO, SUCCESS];
 
 const ProductMix = () => {
-  const { data, loading } = useFetch("api/admin/kpi/product-mix");
+  const { data, loading } = useFetch("api/wp/admin/kpi/product-mix");
   if (loading) return <Card sx={{ ...cardSx, p: 2.5 }}><Skeleton height={150} /></Card>;
   if (!data || !data.length) return null;
   return (
@@ -241,7 +241,7 @@ const ProductMix = () => {
 };
 
 const GeoDistribution = () => {
-  const { data: ops } = useFetch("api/admin/kpi/operations");
+  const { data: ops } = useFetch("api/wp/admin/kpi/operations");
   const geo = ops?.geo || [];
   if (!geo.length) return <Card sx={{ ...cardSx, p: 2.5, height: "100%" }}><Typography sx={{ fontSize: "0.75rem", color: MUTED }}>Nessun dato geo</Typography></Card>;
   const maxCnt = Math.max(...geo.map(g => g.cnt), 1);
@@ -264,7 +264,7 @@ const GeoDistribution = () => {
 };
 
 const ClientSegmentation = () => {
-  const { data: cl, loading } = useFetch("api/admin/kpi/clients");
+  const { data: cl, loading } = useFetch("api/wp/admin/kpi/clients");
   if (loading) return <Card sx={{ ...cardSx, p: 2.5 }}><Skeleton height={150} /></Card>;
   if (!cl) return null;
   const seg = cl.segmentation || {};
@@ -304,7 +304,7 @@ const ClientSegmentation = () => {
 // 5. NETWORK
 // ═══════════════════════════════════════
 const NetworkKPIs = () => {
-  const { data: n, loading } = useFetch("api/admin/kpi/network");
+  const { data: n, loading } = useFetch("api/wp/admin/kpi/network");
   if (loading) return <Card sx={{ ...cardSx, p: 2.5 }}><Skeleton height={200} /></Card>;
   if (!n) return null;
   return (
@@ -339,7 +339,7 @@ const NetworkKPIs = () => {
 // 6. TOP 10 + COHORT
 // ═══════════════════════════════════════
 const Top10 = () => {
-  const { data: n } = useFetch("api/admin/kpi/network");
+  const { data: n } = useFetch("api/wp/admin/kpi/network");
   const top = n?.top10 || [];
   if (!top.length) return null;
   const maxTot = Math.max(...top.map(t => t.totale), 1);
@@ -364,7 +364,7 @@ const Top10 = () => {
 };
 
 const CohortAnalysis = () => {
-  const { data, loading } = useFetch("api/admin/kpi/cohort");
+  const { data, loading } = useFetch("api/wp/admin/kpi/cohort");
   if (loading) return <Card sx={{ ...cardSx, p: 2.5 }}><Skeleton height={200} /></Card>;
   if (!data || !data.length) return null;
   const maxCols = Math.max(...data.map(d => d.retention?.length || 0));
@@ -414,7 +414,7 @@ const HOUR_LABELS = ["Notte (0-6)", "Mattina (6-12)", "Pomeriggio (12-18)", "Ser
 const DAY_LABELS = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
 
 const OrderHeatmap = () => {
-  const { data: ops } = useFetch("api/admin/kpi/operations");
+  const { data: ops } = useFetch("api/wp/admin/kpi/operations");
   const heatmap = ops?.heatmap || [];
   if (!heatmap.length) return null;
   // Build grid: 4 time slots x 7 days
@@ -452,7 +452,7 @@ const OrderHeatmap = () => {
 };
 
 const RankVelocity = () => {
-  const { data, loading } = useFetch("api/admin/kpi/rank-velocity");
+  const { data, loading } = useFetch("api/wp/admin/kpi/rank-velocity");
   if (loading) return <Card sx={{ ...cardSx, p: 2.5 }}><Skeleton height={150} /></Card>;
   if (!data || !data.length) return <Card sx={{ ...cardSx, p: 2.5 }}><Typography sx={{ fontSize: "0.75rem", color: MUTED }}>Nessun dato rank velocity</Typography></Card>;
   const maxDays = Math.max(...data.map(d => d.avg_days), 1);
@@ -482,7 +482,7 @@ const RankVelocity = () => {
 // 8. INVENTORY + AGING
 // ═══════════════════════════════════════
 const InventoryForecast = () => {
-  const { data: ops } = useFetch("api/admin/kpi/operations");
+  const { data: ops } = useFetch("api/wp/admin/kpi/operations");
   const inv = ops?.inventory || [];
   if (!inv.length) return null;
   return (
@@ -507,7 +507,7 @@ const InventoryForecast = () => {
 };
 
 const AgingCommissions = () => {
-  const { data: ops } = useFetch("api/admin/kpi/operations");
+  const { data: ops } = useFetch("api/wp/admin/kpi/operations");
   const aging = ops?.aging;
   if (!aging) return null;
   const bands = [
