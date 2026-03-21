@@ -12,6 +12,7 @@ import axiosInstance from "src/utils/axios";
 // ═══════════════════════════════════════
 const ORO = "#B8963B";
 const AVORIO = "#FAF6EF";
+const CREMA = "#F0E8D8";
 const ESPRESSO = "#2C1A0E";
 const TEXT = "#3D3229";
 const MUTED = "#7A6A5C";
