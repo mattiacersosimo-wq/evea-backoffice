@@ -18,24 +18,28 @@ const Progress = ({ higherRank = [], state }) => {
         {ranks
           .filter((r) => r?.is_display === 1)
           .map((rank, i) => {
-            const highlighted = rank?.is_highlight === 1;
+            const achieved = rank?.is_achieved === 1;
+            const isCurrent = rank?.is_highlight === 1;
             return (
               <Grid item xs={6} sm={4} md={3} key={i}>
                 <Box
                   sx={{
                     p: 1.5, borderRadius: 2, textAlign: "center",
-                    bgcolor: highlighted ? alpha(ORO, 0.08) : "#fafafa",
-                    border: highlighted ? `1.5px solid ${ORO}` : "1.5px solid #eee",
+                    bgcolor: achieved ? alpha("#43A047", 0.06) : isCurrent ? alpha(ORO, 0.06) : "#fafafa",
+                    border: achieved ? "1.5px solid #43A047" : isCurrent ? `1.5px dashed ${ORO}` : "1.5px solid #eee",
                     position: "relative",
                   }}
                 >
-                  {highlighted && (
+                  {achieved && (
                     <Iconify icon="mdi:check-circle" width={16} sx={{ position: "absolute", top: 6, right: 6, color: "#43A047" }} />
                   )}
-                  <Typography sx={{ fontSize: "0.72rem", fontWeight: 700, color: highlighted ? "#2C1A0E" : "#999" }}>
+                  {isCurrent && !achieved && (
+                    <Iconify icon="mdi:star-outline" width={16} sx={{ position: "absolute", top: 6, right: 6, color: ORO }} />
+                  )}
+                  <Typography sx={{ fontSize: "0.72rem", fontWeight: 700, color: achieved || isCurrent ? "#2C1A0E" : "#999" }}>
                     {rank?.rank_name}
                   </Typography>
-                  <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: highlighted ? ORO : "#ccc", mt: 0.3 }}>
+                  <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: achieved ? "#43A047" : isCurrent ? ORO : "#ccc", mt: 0.3 }}>
                     €{rank?.bonus_amount || 0}
                   </Typography>
                   {rank?.is_evolving_bonus_achived === 1 && (
