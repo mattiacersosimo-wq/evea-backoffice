@@ -469,62 +469,7 @@ const QvAndStats = () => {
 
   return (
     <Card sx={{ ...cardSx, p: 2.5, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT, mb: 2 }}>Andamento QV — Ultimi 6 mesi</Typography>
-
-      {hLoad ? <Skeleton height={120} /> : (
-        <>
-          {/* Bar chart */}
-          <Box sx={{ display: "flex", alignItems: "flex-end", gap: "4px", height: 120, mb: 1.5 }}>
-            {allMonths.map((m, i) => {
-              const h = Math.max((m.qv / maxQv) * 100, 3);
-              return (
-                <Tooltip key={i} title={`${m.label}: ${m.qv} QV`}>
-                  <Box sx={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end", height: "100%", textAlign: "center" }}>
-                    <Typography sx={{ fontSize: "0.6rem", color: m.isCurrent ? ORO : MUTED, fontWeight: m.isCurrent ? 700 : 400, mb: 0.3 }}>{m.qv}</Typography>
-                    <Box sx={{ width: "70%", mx: "auto", height: h, bgcolor: m.isCurrent ? ORO : alpha(ORO, 0.25), borderRadius: "3px 3px 0 0" }} />
-                    <Typography sx={{ fontSize: "0.6rem", color: m.isCurrent ? ORO : MUTED, fontWeight: m.isCurrent ? 700 : 400, mt: 0.3 }}>{m.label}</Typography>
-                  </Box>
-                </Tooltip>
-              );
-            })}
-          </Box>
-
-          {/* Proiezione — spiegata */}
-          <Box sx={{ bgcolor: alpha(ORO, 0.05), borderRadius: 2, p: 1.5, mb: 2 }}>
-            <Stack direction="row" alignItems="center" spacing={1} mb={0.8}>
-              <Iconify icon="mdi:chart-timeline-variant" width={18} sx={{ color: ORO }} />
-              <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: TEXT }}>Proiezione fine mese</Typography>
-            </Stack>
-            <Grid container spacing={1}>
-              <Grid item xs={4}>
-                <Box sx={{ textAlign: "center" }}>
-                  <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color: ORO }}>{curQv}</Typography>
-                  <Typography sx={{ fontSize: "0.6rem", color: MUTED }}>QV attuali</Typography>
-                </Box>
-              </Grid>
-              <Grid item xs={4}>
-                <Box sx={{ textAlign: "center" }}>
-                  <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color: TEXT }}>{projection}</Typography>
-                  <Typography sx={{ fontSize: "0.6rem", color: MUTED }}>QV stimati a fine mese</Typography>
-                </Box>
-              </Grid>
-              <Grid item xs={4}>
-                <Box sx={{ textAlign: "center" }}>
-                  <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color: MUTED }}>{daysLeft}</Typography>
-                  <Typography sx={{ fontSize: "0.6rem", color: MUTED }}>giorni rimasti</Typography>
-                </Box>
-              </Grid>
-            </Grid>
-            <Typography sx={{ fontSize: "0.6rem", color: MUTED, mt: 1, textAlign: "center" }}>
-              Media giornaliera: {dailyAvg.toFixed(1)} QV/giorno
-              {prevQv > 0 && <> &middot; Mese prec: {prevQv} QV ({projection > prevQv ? "↑" : "↓"} {prevQv > 0 ? Math.abs(Math.round((projection - prevQv) / prevQv * 100)) : 0}%)</>}
-            </Typography>
-          </Box>
-        </>
-      )}
-
-      {/* Statistiche team */}
-      <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: TEXT, mb: 1 }}>Il tuo team</Typography>
+      <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT, mb: 2 }}>Il tuo Team</Typography>
       {sLoad ? <Skeleton height={60} /> : (
         <Stack spacing={1.2}>
           {[
@@ -688,8 +633,84 @@ const ROBCard = () => {
               <Box key={i} onClick={() => setPage(i)} sx={{ width: i === page ? 16 : 6, height: 6, borderRadius: 3, bgcolor: i === page ? ORO : "#ddd", transition: "all 0.3s", cursor: "pointer" }} />
             ))}
           </Stack>
+
+          {/* Risparmio */}
+          {(() => {
+            const discountMonths = cycleNum === 1 ? Math.max(0, posInCycle - 1) : 11 + (cycleNum - 2) * 12 + posInCycle;
+            const couponsEarned = (cycleNum - 1) * 3 + COUPON_MONTHS.filter((i) => i < posInCycle).length;
+            const couponValue = couponsEarned * 30;
+            return (totalConsec > 0) ? (
+              <Box sx={{ bgcolor: alpha(ORO, 0.06), borderRadius: 2, p: 2, textAlign: "center" }}>
+                <Stack direction="row" alignItems="center" justifyContent="center" spacing={0.5} mb={0.5}>
+                  <Iconify icon="mdi:piggy-bank-outline" width={18} sx={{ color: ORO }} />
+                  <Typography sx={{ fontSize: "0.8rem", color: MUTED, fontWeight: 600 }}>Il tuo risparmio finora</Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="center" divider={<Typography sx={{ mx: 1, color: "#ddd" }}>+</Typography>}>
+                  {discountMonths > 0 && (
+                    <Box>
+                      <Typography sx={{ fontWeight: 700, color: ESPRESSO, fontSize: "1.1rem" }}>{discountMonths}x -10%</Typography>
+                      <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>consegne con sconto</Typography>
+                    </Box>
+                  )}
+                  {couponValue > 0 && (
+                    <Box>
+                      <Typography sx={{ fontWeight: 700, color: ORO, fontSize: "1.1rem" }}>€{couponValue}</Typography>
+                      <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>in coupon regalo</Typography>
+                    </Box>
+                  )}
+                </Stack>
+              </Box>
+            ) : (
+              <Box sx={{ bgcolor: alpha(ORO, 0.06), borderRadius: 2, p: 1.5, textAlign: "center" }}>
+                <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>Inizia il tuo abbonamento per risparmiare ogni mese!</Typography>
+              </Box>
+            );
+          })()}
         </>
       )}
+    </Card>
+  );
+};
+
+// ═══════════════════════════════════════
+// 11. PRODOTTI PIÙ VENDUTI
+// ═══════════════════════════════════════
+const PROD_COLORS = [ESPRESSO, ORO, "#D4B86A", "#4A5C3A", "#EF9F27", "#378ADD"];
+
+const TopProducts = () => {
+  const { data, loading } = useFetch(async () => {
+    const { data: r } = await axiosInstance.get("api/wp/admin/kpi/product-mix?period=month");
+    return r?.data;
+  });
+  if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={150} /></Card>;
+  if (!data || !data.length) return null;
+  const top = data.slice(0, 5);
+  const maxRev = Math.max(...top.map((p) => p.revenue), 1);
+
+  return (
+    <Card sx={{ ...cardSx, p: 3 }}>
+      <Stack direction="row" alignItems="center" spacing={1} mb={2}>
+        <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <Iconify icon="mdi:package-variant" width={20} sx={{ color: ORO }} />
+        </Box>
+        <Box>
+          <Typography variant="subtitle2" fontWeight={700} color={ESPRESSO}>Prodotti più venduti</Typography>
+          <Typography variant="caption" sx={{ color: MUTED, lineHeight: 1 }}>Questo mese</Typography>
+        </Box>
+      </Stack>
+      <Stack spacing={1.2}>
+        {top.map((p, i) => (
+          <Stack key={i} direction="row" alignItems="center" spacing={1}>
+            <Box sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: PROD_COLORS[i % PROD_COLORS.length], flexShrink: 0 }} />
+            <Typography sx={{ fontSize: "0.8rem", color: TEXT, fontWeight: 600, flex: 1 }} noWrap>{p.product || "N/A"}</Typography>
+            <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{p.orders}x</Typography>
+            <Box sx={{ width: 60 }}>
+              <LinearProgress variant="determinate" value={(p.revenue / maxRev) * 100} sx={{ height: 5, borderRadius: 3, bgcolor: alpha(PROD_COLORS[i % PROD_COLORS.length], 0.1), "& .MuiLinearProgress-bar": { bgcolor: PROD_COLORS[i % PROD_COLORS.length], borderRadius: 3 } }} />
+            </Box>
+            <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: ORO }}>€{p.revenue}</Typography>
+          </Stack>
+        ))}
+      </Stack>
     </Card>
   );
 };
@@ -736,9 +757,10 @@ const PromoterDashboard = () => {
             <Grid item xs={12} md={6}>
               <Section icon="mdi:podium-gold">Top Performer</Section>
               <Box sx={{ mt: 1 }}><TopPerformers /></Box>
+              <Box sx={{ mt: 2 }}><TopProducts /></Box>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Section icon="mdi:chart-bar">Andamento & Statistiche</Section>
+              <Section icon="mdi:chart-bar">Il tuo Team</Section>
               <Box sx={{ mt: 1 }}><QvAndStats /></Box>
             </Grid>
           </Grid>
