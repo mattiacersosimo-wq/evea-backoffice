@@ -446,54 +446,126 @@ const QvAndStats = () => {
   const { data: history, loading: hLoad } = useQvHistory();
   const { data: stats, loading: sLoad } = useStats();
   const now = new Date();
-  const maxQv = Math.max(...(history || []).map((h) => h.total_qv), 1);
   const daysPassed = now.getDate();
   const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  const daysLeft = daysInMonth - daysPassed;
   const curQv = (history || []).find((h) => h.mese === now.getMonth() + 1 && h.anno === now.getFullYear())?.total_qv || 0;
-  const projection = daysInMonth > 0 ? Math.round((curQv / Math.max(daysPassed, 1)) * daysInMonth) : 0;
+  const dailyAvg = daysPassed > 0 ? curQv / daysPassed : 0;
+  const projection = Math.round(dailyAvg * daysInMonth);
+  const prevQv = (history || []).find((h) => {
+    const pm = now.getMonth() === 0 ? 12 : now.getMonth();
+    const py = now.getMonth() === 0 ? now.getFullYear() - 1 : now.getFullYear();
+    return h.mese === pm && h.anno === py;
+  })?.total_qv || 0;
+
+  // Fill all 6 months for chart
+  const allMonths = [];
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const found = (history || []).find((h) => h.mese === d.getMonth() + 1 && h.anno === d.getFullYear());
+    allMonths.push({ label: MESI[d.getMonth()], qv: found ? found.total_qv : 0, isCurrent: i === 0 });
+  }
+  const maxQv = Math.max(...allMonths.map((m) => m.qv), 1);
 
   return (
     <Card sx={{ ...cardSx, p: 2.5, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT, mb: 2 }}>Andamento QV</Typography>
+      <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT, mb: 2 }}>Andamento QV — Ultimi 6 mesi</Typography>
+
       {hLoad ? <Skeleton height={120} /> : (
         <>
-          <Stack direction="row" spacing={1} alignItems="flex-end" sx={{ height: 120, mb: 1 }}>
-            {(history || []).map((h) => {
-              const pct = maxQv > 0 ? (h.total_qv / maxQv) * 100 : 0;
-              const isCur = h.mese === now.getMonth() + 1 && h.anno === now.getFullYear();
+          {/* Bar chart */}
+          <Box sx={{ display: "flex", alignItems: "flex-end", gap: "4px", height: 120, mb: 1.5 }}>
+            {allMonths.map((m, i) => {
+              const h = Math.max((m.qv / maxQv) * 100, 3);
               return (
-                <Tooltip key={`${h.anno}-${h.mese}`} title={`${h.total_qv} QV`}>
-                  <Box sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <Typography sx={{ fontSize: "0.6rem", color: MUTED, mb: 0.3 }}>{h.total_qv}</Typography>
-                    <Box sx={{ width: "100%", height: `${Math.max(pct, 4)}%`, bgcolor: isCur ? ORO : alpha(ORO, 0.3), borderRadius: "4px 4px 0 0", transition: "height 0.5s" }} />
-                    <Typography sx={{ fontSize: "0.6rem", color: isCur ? ORO : MUTED, fontWeight: isCur ? 700 : 400, mt: 0.3 }}>{MESI[h.mese - 1]}</Typography>
+                <Tooltip key={i} title={`${m.label}: ${m.qv} QV`}>
+                  <Box sx={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end", height: "100%", textAlign: "center" }}>
+                    <Typography sx={{ fontSize: "0.6rem", color: m.isCurrent ? ORO : MUTED, fontWeight: m.isCurrent ? 700 : 400, mb: 0.3 }}>{m.qv}</Typography>
+                    <Box sx={{ width: "70%", mx: "auto", height: h, bgcolor: m.isCurrent ? ORO : alpha(ORO, 0.25), borderRadius: "3px 3px 0 0" }} />
+                    <Typography sx={{ fontSize: "0.6rem", color: m.isCurrent ? ORO : MUTED, fontWeight: m.isCurrent ? 700 : 400, mt: 0.3 }}>{m.label}</Typography>
                   </Box>
                 </Tooltip>
               );
             })}
-          </Stack>
-          <Box sx={{ bgcolor: alpha(ORO, 0.05), borderRadius: 2, p: 1, mb: 2, textAlign: "center" }}>
-            <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>Proiezione: <b style={{ color: ORO }}>{projection} QV</b></Typography>
+          </Box>
+
+          {/* Proiezione — spiegata */}
+          <Box sx={{ bgcolor: alpha(ORO, 0.05), borderRadius: 2, p: 1.5, mb: 2 }}>
+            <Stack direction="row" alignItems="center" spacing={1} mb={0.8}>
+              <Iconify icon="mdi:chart-timeline-variant" width={18} sx={{ color: ORO }} />
+              <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: TEXT }}>Proiezione fine mese</Typography>
+            </Stack>
+            <Grid container spacing={1}>
+              <Grid item xs={4}>
+                <Box sx={{ textAlign: "center" }}>
+                  <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color: ORO }}>{curQv}</Typography>
+                  <Typography sx={{ fontSize: "0.6rem", color: MUTED }}>QV attuali</Typography>
+                </Box>
+              </Grid>
+              <Grid item xs={4}>
+                <Box sx={{ textAlign: "center" }}>
+                  <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color: TEXT }}>{projection}</Typography>
+                  <Typography sx={{ fontSize: "0.6rem", color: MUTED }}>QV stimati a fine mese</Typography>
+                </Box>
+              </Grid>
+              <Grid item xs={4}>
+                <Box sx={{ textAlign: "center" }}>
+                  <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color: MUTED }}>{daysLeft}</Typography>
+                  <Typography sx={{ fontSize: "0.6rem", color: MUTED }}>giorni rimasti</Typography>
+                </Box>
+              </Grid>
+            </Grid>
+            <Typography sx={{ fontSize: "0.6rem", color: MUTED, mt: 1, textAlign: "center" }}>
+              Media giornaliera: {dailyAvg.toFixed(1)} QV/giorno
+              {prevQv > 0 && <> &middot; Mese prec: {prevQv} QV ({projection > prevQv ? "↑" : "↓"} {prevQv > 0 ? Math.abs(Math.round((projection - prevQv) / prevQv * 100)) : 0}%)</>}
+            </Typography>
           </Box>
         </>
       )}
-      <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: TEXT, mb: 1 }}>Statistiche</Typography>
+
+      {/* Statistiche team */}
+      <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: TEXT, mb: 1 }}>Il tuo team</Typography>
       {sLoad ? <Skeleton height={60} /> : (
-        <Stack spacing={1}>
+        <Stack spacing={1.2}>
           {[
-            { label: "Tasso Riordine", value: stats?.tasso_riordine || 0, color: "#4CAF50" },
-            { label: "Clienti Smartship", value: stats?.clienti_smartship || 0, color: "#2196F3" },
-            { label: "Promoter Attivi", value: stats?.promoter_attivi || 0, color: ORO },
+            { label: "Tasso Riordine", desc: "Clienti che riordinano", value: stats?.tasso_riordine || 0, color: "#4CAF50", icon: "mdi:refresh" },
+            { label: "Clienti Smartship", desc: "Con abbonamento attivo", value: stats?.clienti_smartship || 0, color: "#2196F3", icon: "mdi:calendar-check" },
+            { label: "Promoter Attivi", desc: "Con ordini questo mese", value: stats?.promoter_attivi || 0, color: ORO, icon: "mdi:account-check" },
           ].map((s) => (
             <Box key={s.label}>
-              <Stack direction="row" justifyContent="space-between" mb={0.3}>
-                <Typography sx={{ fontSize: "0.75rem", color: TEXT, fontWeight: 600 }}>{s.label}</Typography>
-                <Typography sx={{ fontSize: "0.75rem", color: s.color, fontWeight: 700 }}>{s.value}%</Typography>
+              <Stack direction="row" alignItems="center" spacing={0.8} mb={0.3}>
+                <Iconify icon={s.icon} width={16} sx={{ color: s.color }} />
+                <Box sx={{ flex: 1 }}>
+                  <Typography sx={{ fontSize: "0.75rem", color: TEXT, fontWeight: 600 }}>{s.label}</Typography>
+                  <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>{s.desc}</Typography>
+                </Box>
+                <Typography sx={{ fontSize: "0.8rem", color: s.color, fontWeight: 700 }}>{s.value}%</Typography>
               </Stack>
-              <LinearProgress variant="determinate" value={Math.min(s.value, 100)} sx={{ height: 4, borderRadius: 2, bgcolor: alpha(s.color, 0.1), "& .MuiLinearProgress-bar": { bgcolor: s.color, borderRadius: 2 } }} />
+              <LinearProgress variant="determinate" value={Math.min(s.value, 100)} sx={{ height: 5, borderRadius: 3, bgcolor: alpha(s.color, 0.1), "& .MuiLinearProgress-bar": { bgcolor: s.color, borderRadius: 3 } }} />
             </Box>
           ))}
-          {stats?.totals && <Typography sx={{ fontSize: "0.65rem", color: MUTED, mt: 0.5 }}>{stats.totals.clienti_diretti} clienti &middot; {stats.totals.clienti_smartship} smartship &middot; {stats.totals.promoter_diretti} promoter</Typography>}
+          {stats?.totals && (
+            <Box sx={{ mt: 0.5, p: 1, bgcolor: alpha(ORO, 0.04), borderRadius: 2 }}>
+              <Stack direction="row" justifyContent="space-around">
+                <Box sx={{ textAlign: "center" }}>
+                  <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT }}>{stats.totals.clienti_diretti}</Typography>
+                  <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Clienti</Typography>
+                </Box>
+                <Box sx={{ textAlign: "center" }}>
+                  <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: "#2196F3" }}>{stats.totals.clienti_smartship}</Typography>
+                  <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Smartship</Typography>
+                </Box>
+                <Box sx={{ textAlign: "center" }}>
+                  <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ORO }}>{stats.totals.promoter_diretti}</Typography>
+                  <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Promoter</Typography>
+                </Box>
+                <Box sx={{ textAlign: "center" }}>
+                  <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: "#4CAF50" }}>{stats.totals.promoter_attivi}</Typography>
+                  <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Attivi</Typography>
+                </Box>
+              </Stack>
+            </Box>
+          )}
         </Stack>
       )}
     </Card>
