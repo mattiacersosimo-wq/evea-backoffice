@@ -19,6 +19,7 @@ const userNavConfig = [
                 path: PATH_USER.affiliate_dashboard,
                 icon: ICONS.affiliate_dashboard,
                 placement: 1,
+                promoterOnly: true,
             },
 
             {

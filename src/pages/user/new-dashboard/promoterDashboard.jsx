@@ -135,8 +135,8 @@ const CountdownTimer = ({ expiryDate, label }) => {
   if (!expiryDate) return null;
   return (
     <Box sx={{ textAlign: "center" }}>
-      <Typography sx={{ fontSize: "0.6rem", color: alpha("#fff", 0.6), mb: 0.3 }}>{label}</Typography>
-      <Typography sx={{ fontSize: "0.82rem", fontWeight: 700, color: ORO, bgcolor: alpha(ORO, 0.12), borderRadius: 1, px: 1, py: 0.3, border: `1px solid ${alpha(ORO, 0.3)}` }}>
+      <Typography sx={{ fontSize: "0.7rem", color: alpha("#fff", 0.6), mb: 0.3 }}>{label}</Typography>
+      <Typography sx={{ fontSize: "0.92rem", fontWeight: 700, color: ORO, bgcolor: alpha(ORO, 0.12), borderRadius: 1, px: 1, py: 0.3, border: `1px solid ${alpha(ORO, 0.3)}` }}>
         {pad(time.d)}d {pad(time.h)}h {pad(time.m)}m {pad(time.s)}s
       </Typography>
     </Box>
@@ -163,9 +163,9 @@ const HeroCard = () => {
           <Box>
             <Stack direction="row" alignItems="center" spacing={1} flexWrap="wrap">
               <Typography variant="h6" fontWeight={700}>{fullName}</Typography>
-              {rank?.current_rank && <Chip label={rank.current_rank} size="small" sx={{ bgcolor: alpha(ORO, 0.15), color: ORO, fontWeight: 700, fontSize: "0.7rem", height: 24, border: `1px solid ${alpha(ORO, 0.3)}` }} />}
+              {rank?.current_rank && <Chip label={rank.current_rank} size="small" sx={{ bgcolor: alpha(ORO, 0.15), color: ORO, fontWeight: 700, fontSize: "0.8rem", height: 24, border: `1px solid ${alpha(ORO, 0.3)}` }} />}
             </Stack>
-            <Typography sx={{ fontSize: "0.65rem", color: alpha("#fff", 0.5), mt: 0.3 }}>
+            <Typography sx={{ fontSize: "0.75rem", color: alpha("#fff", 0.5), mt: 0.3 }}>
               ID: {user?.id} &middot; @{user?.username} &middot; IT &middot; Sponsor: {user?.sponsor?.username || "—"}
             </Typography>
           </Box>
@@ -190,7 +190,7 @@ const HeroCard = () => {
             <Box key={m.label} sx={{ flex: "1 1 0", minWidth: 80, bgcolor: alpha("#fff", 0.06), borderRadius: 2, p: 1, textAlign: "center", border: `1px solid ${alpha(ORO, 0.1)}` }}>
               <Iconify icon={m.icon} width={18} sx={{ color: ORO, mb: 0.3 }} />
               <Typography sx={{ fontSize: "0.95rem", fontWeight: 700 }}>{m.value}</Typography>
-              <Typography sx={{ fontSize: "0.55rem", color: alpha("#fff", 0.5) }}>{m.label}</Typography>
+              <Typography sx={{ fontSize: "0.65rem", color: alpha("#fff", 0.5) }}>{m.label}</Typography>
             </Box>
           ))}
         </Stack>
@@ -213,10 +213,10 @@ const TickerBar = () => {
       <Box sx={{ display: "flex", animation: `${scroll} ${Math.max(items.length * 5, 20)}s linear infinite`, width: "max-content" }}>
         {[...items, ...items].map((it, i) => (
           <Stack key={i} direction="row" alignItems="center" spacing={0.8} sx={{ px: 2.5, flexShrink: 0 }}>
-            <Chip label={it.type === "sale" ? "Vendita" : "Nuovo"} size="small" sx={{ height: 18, fontSize: "0.55rem", fontWeight: 700, bgcolor: it.type === "sale" ? alpha("#4CAF50", 0.2) : alpha("#2196F3", 0.2), color: it.type === "sale" ? "#4CAF50" : "#2196F3" }} />
-            <Typography sx={{ fontSize: "0.7rem", color: "#fff", fontWeight: 600 }}>@{it.username}</Typography>
-            {it.product && <Typography sx={{ fontSize: "0.65rem", color: alpha("#fff", 0.5) }}>{it.product}</Typography>}
-            {it.amount && <Typography sx={{ fontSize: "0.7rem", color: ORO, fontWeight: 700 }}>€{it.amount}</Typography>}
+            <Chip label={it.type === "sale" ? "Vendita" : "Nuovo"} size="small" sx={{ height: 18, fontSize: "0.65rem", fontWeight: 700, bgcolor: it.type === "sale" ? alpha("#4CAF50", 0.2) : alpha("#2196F3", 0.2), color: it.type === "sale" ? "#4CAF50" : "#2196F3" }} />
+            <Typography sx={{ fontSize: "0.8rem", color: "#fff", fontWeight: 600 }}>@{it.username}</Typography>
+            {it.product && <Typography sx={{ fontSize: "0.75rem", color: alpha("#fff", 0.5) }}>{it.product}</Typography>}
+            {it.amount && <Typography sx={{ fontSize: "0.8rem", color: ORO, fontWeight: 700 }}>€{it.amount}</Typography>}
           </Stack>
         ))}
       </Box>
@@ -236,7 +236,7 @@ const UrgencyAlert = () => {
   return (
     <Box sx={{ bgcolor: alpha("#FF9800", 0.08), border: `1px solid ${alpha("#FF9800", 0.2)}`, borderRadius: 2, p: 2, display: "flex", alignItems: "center", gap: 1.5 }}>
       <Iconify icon="mdi:alert-circle" width={24} sx={{ color: "#FF9800", flexShrink: 0 }} />
-      <Typography sx={{ fontSize: "0.82rem", color: TEXT, fontWeight: 600 }}>
+      <Typography sx={{ fontSize: "0.92rem", color: TEXT, fontWeight: 600 }}>
         Mancano <b style={{ color: "#FF9800" }}>{daysLeft} giorni</b> alla fine del periodo
         {qvMissing > 0 && <> — ti servono ancora <b style={{ color: "#FF9800" }}>{qvMissing} QV</b></>}
       </Typography>
@@ -254,7 +254,7 @@ const CelebrationBanner = () => {
   return (
     <Box sx={{ bgcolor: alpha("#4CAF50", 0.08), border: `1px solid ${alpha("#4CAF50", 0.2)}`, borderRadius: 2, p: 2, display: "flex", alignItems: "center", gap: 1.5 }}>
       <Iconify icon="mdi:party-popper" width={24} sx={{ color: "#4CAF50" }} />
-      <Typography sx={{ fontSize: "0.82rem", color: TEXT, fontWeight: 600 }}>
+      <Typography sx={{ fontSize: "0.92rem", color: TEXT, fontWeight: 600 }}>
         3 For Free completato! Hai guadagnato <b style={{ color: ORO }}>€{ff?.current_bonus_amount || 0}</b>
       </Typography>
     </Box>
@@ -275,7 +275,7 @@ const EarningsSection = () => {
           <Iconify icon={icon} width={22} sx={{ color }} />
         </Box>
         <Box sx={{ flex: 1 }}>
-          <Typography sx={{ fontSize: "0.65rem", fontWeight: 600, color: MUTED, textTransform: "uppercase", letterSpacing: 0.5 }}>{label}</Typography>
+          <Typography sx={{ fontSize: "0.75rem", fontWeight: 600, color: MUTED, textTransform: "uppercase", letterSpacing: 0.5 }}>{label}</Typography>
           {bLoad ? <Skeleton width={80} height={30} /> : <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: value > 0 ? color : "#ccc" }}>€{value.toFixed(2)}</Typography>}
         </Box>
       </Stack>
@@ -293,14 +293,14 @@ const EarningsSection = () => {
       <Grid item xs={12} md={4}><PendingCard label="Pending Mensili" icon="mdi:calendar-month" color={ORO} value={bonus?.monthly || 0} /></Grid>
       <Grid item xs={12} md={4}>
         <Card sx={{ ...cardSx, p: 2.5, height: "100%" }}>
-          <Typography sx={{ fontSize: "0.7rem", fontWeight: 600, color: MUTED, textTransform: "uppercase", mb: 1.5 }}>Avanzamento Rank</Typography>
+          <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: MUTED, textTransform: "uppercase", mb: 1.5 }}>Avanzamento Rank</Typography>
           {rLoad ? <Skeleton height={60} /> : (
             <Stack spacing={1.5}>
               {pqvReq > 0 && (
                 <Box>
                   <Stack direction="row" justifyContent="space-between" mb={0.3}>
-                    <Typography sx={{ fontSize: "0.7rem", color: TEXT, fontWeight: 600 }}>QV Team</Typography>
-                    <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>{pqvCur}/{pqvReq}</Typography>
+                    <Typography sx={{ fontSize: "0.8rem", color: TEXT, fontWeight: 600 }}>QV Team</Typography>
+                    <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>{pqvCur}/{pqvReq}</Typography>
                   </Stack>
                   <LinearProgress variant="determinate" value={pqvReq > 0 ? Math.min(100, (pqvCur / pqvReq) * 100) : 0} sx={{ height: 6, borderRadius: 3, bgcolor: SABBIA, "& .MuiLinearProgress-bar": { bgcolor: ORO, borderRadius: 3 } }} />
                 </Box>
@@ -308,14 +308,14 @@ const EarningsSection = () => {
               {bvReq > 0 && (
                 <Box>
                   <Stack direction="row" justifyContent="space-between" mb={0.3}>
-                    <Typography sx={{ fontSize: "0.7rem", color: TEXT, fontWeight: 600 }}>BV Personale</Typography>
-                    <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>{bvCur}/{bvReq}</Typography>
+                    <Typography sx={{ fontSize: "0.8rem", color: TEXT, fontWeight: 600 }}>BV Personale</Typography>
+                    <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>{bvCur}/{bvReq}</Typography>
                   </Stack>
                   <LinearProgress variant="determinate" value={bvReq > 0 ? Math.min(100, (bvCur / bvReq) * 100) : 0} sx={{ height: 6, borderRadius: 3, bgcolor: SABBIA, "& .MuiLinearProgress-bar": { bgcolor: "#4CAF50", borderRadius: 3 } }} />
                 </Box>
               )}
               {pqvReq > 0 && pqvCur < pqvReq && (
-                <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>Mancano <b style={{ color: ORO }}>{(pqvReq - pqvCur).toFixed(0)} QV</b> al prossimo rank</Typography>
+                <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>Mancano <b style={{ color: ORO }}>{(pqvReq - pqvCur).toFixed(0)} QV</b> al prossimo rank</Typography>
               )}
             </Stack>
           )}
@@ -339,7 +339,7 @@ const KitUpgrade = () => {
       {kits.map((k) => (
         <Grid item xs={12} md={4} key={k.name}>
           <Card sx={{ ...cardSx, p: 2.5, height: "100%", position: "relative", overflow: "hidden", border: k.recommended ? `2px solid ${ORO}` : cardSx.border }}>
-            {k.recommended && <Chip label="Consigliato" size="small" sx={{ position: "absolute", top: 10, right: 10, height: 20, fontSize: "0.6rem", fontWeight: 700, bgcolor: ORO, color: "#fff" }} />}
+            {k.recommended && <Chip label="Consigliato" size="small" sx={{ position: "absolute", top: 10, right: 10, height: 20, fontSize: "0.7rem", fontWeight: 700, bgcolor: ORO, color: "#fff" }} />}
             <Stack direction="row" alignItems="center" spacing={1.5} mb={1.5}>
               <Box sx={{ width: 36, height: 36, borderRadius: "50%", bgcolor: alpha(k.color, 0.12), display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <Iconify icon="mdi:package-variant-closed" width={20} sx={{ color: k.color }} />
@@ -350,9 +350,9 @@ const KitUpgrade = () => {
               </Box>
             </Stack>
             <Stack direction="row" spacing={1.5} mb={2}>
-              <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>BV <b style={{ color: TEXT }}>{k.bv}</b></Typography>
-              <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>QV <b style={{ color: TEXT }}>{k.qv}</b></Typography>
-              <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>{k.products} prodotti</Typography>
+              <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>BV <b style={{ color: TEXT }}>{k.bv}</b></Typography>
+              <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>QV <b style={{ color: TEXT }}>{k.qv}</b></Typography>
+              <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>{k.products} prodotti</Typography>
             </Stack>
             <Button fullWidth size="small" variant={k.recommended ? "contained" : "outlined"} href={k.url} target="_blank"
               sx={{ ...(k.recommended ? { bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" } } : { borderColor: alpha(ORO, 0.3), color: ORO }), fontWeight: 700, textTransform: "none", borderRadius: 2 }}>
@@ -389,7 +389,7 @@ const QuickAccess = () => {
             <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha(ORO, 0.08), display: "flex", alignItems: "center", justifyContent: "center", mx: "auto", mb: 0.5 }}>
               <Iconify icon={s.icon} width={20} sx={{ color: ORO }} />
             </Box>
-            <Typography sx={{ fontSize: "0.68rem", fontWeight: 600, color: TEXT }}>{s.label}</Typography>
+            <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: TEXT }}>{s.label}</Typography>
           </Card>
         </Grid>
       ))}
@@ -405,7 +405,7 @@ const TopPerformers = () => {
   const { data: top, loading } = useTopPerformers();
   return (
     <Card sx={{ ...cardSx, p: 2.5, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: TEXT, mb: 2 }}>Top Performer del Mese</Typography>
+      <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT, mb: 2 }}>Top Performer del Mese</Typography>
       {loading ? <Skeleton height={100} /> : (
         <Stack spacing={1.5}>
           {(top || []).map((p, i) => (
@@ -417,16 +417,16 @@ const TopPerformers = () => {
                 {(p.first_name || p.username || "?").charAt(0).toUpperCase()}
               </Avatar>
               <Box sx={{ flex: 1, minWidth: 0 }}>
-                <Typography sx={{ fontSize: "0.75rem", fontWeight: 600, color: TEXT }} noWrap>{[p.first_name, p.last_name].filter(Boolean).join(" ") || p.username}</Typography>
+                <Typography sx={{ fontSize: "0.85rem", fontWeight: 600, color: TEXT }} noWrap>{[p.first_name, p.last_name].filter(Boolean).join(" ") || p.username}</Typography>
                 <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>ID: {p.user_id} &middot; @{p.username} &middot; IT</Typography>
               </Box>
               <Box sx={{ textAlign: "right" }}>
-                <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ORO }}>{p.total_qv} QV</Typography>
-                <Chip label={p.type} size="small" sx={{ height: 16, fontSize: "0.5rem", bgcolor: p.type === "promoter" ? alpha(ORO, 0.1) : alpha("#4CAF50", 0.1), color: p.type === "promoter" ? ORO : "#4CAF50" }} />
+                <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ORO }}>{p.total_qv} QV</Typography>
+                <Chip label={p.type} size="small" sx={{ height: 16, fontSize: "0.6rem", bgcolor: p.type === "promoter" ? alpha(ORO, 0.1) : alpha("#4CAF50", 0.1), color: p.type === "promoter" ? ORO : "#4CAF50" }} />
               </Box>
             </Stack>
           ))}
-          {(!top || !top.length) && <Typography sx={{ fontSize: "0.75rem", color: MUTED, textAlign: "center" }}>Nessun dato</Typography>}
+          {(!top || !top.length) && <Typography sx={{ fontSize: "0.85rem", color: MUTED, textAlign: "center" }}>Nessun dato</Typography>}
         </Stack>
       )}
     </Card>
@@ -449,7 +449,7 @@ const QvAndStats = () => {
 
   return (
     <Card sx={{ ...cardSx, p: 2.5, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: TEXT, mb: 2 }}>Andamento QV</Typography>
+      <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT, mb: 2 }}>Andamento QV</Typography>
       {hLoad ? <Skeleton height={120} /> : (
         <>
           <Stack direction="row" spacing={1} alignItems="flex-end" sx={{ height: 120, mb: 1 }}>
@@ -459,20 +459,20 @@ const QvAndStats = () => {
               return (
                 <Tooltip key={`${h.anno}-${h.mese}`} title={`${h.total_qv} QV`}>
                   <Box sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <Typography sx={{ fontSize: "0.5rem", color: MUTED, mb: 0.3 }}>{h.total_qv}</Typography>
+                    <Typography sx={{ fontSize: "0.6rem", color: MUTED, mb: 0.3 }}>{h.total_qv}</Typography>
                     <Box sx={{ width: "100%", height: `${Math.max(pct, 4)}%`, bgcolor: isCur ? ORO : alpha(ORO, 0.3), borderRadius: "4px 4px 0 0", transition: "height 0.5s" }} />
-                    <Typography sx={{ fontSize: "0.5rem", color: isCur ? ORO : MUTED, fontWeight: isCur ? 700 : 400, mt: 0.3 }}>{MESI[h.mese - 1]}</Typography>
+                    <Typography sx={{ fontSize: "0.6rem", color: isCur ? ORO : MUTED, fontWeight: isCur ? 700 : 400, mt: 0.3 }}>{MESI[h.mese - 1]}</Typography>
                   </Box>
                 </Tooltip>
               );
             })}
           </Stack>
           <Box sx={{ bgcolor: alpha(ORO, 0.05), borderRadius: 2, p: 1, mb: 2, textAlign: "center" }}>
-            <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>Proiezione: <b style={{ color: ORO }}>{projection} QV</b></Typography>
+            <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>Proiezione: <b style={{ color: ORO }}>{projection} QV</b></Typography>
           </Box>
         </>
       )}
-      <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: TEXT, mb: 1 }}>Statistiche</Typography>
+      <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: TEXT, mb: 1 }}>Statistiche</Typography>
       {sLoad ? <Skeleton height={60} /> : (
         <Stack spacing={1}>
           {[
@@ -482,13 +482,13 @@ const QvAndStats = () => {
           ].map((s) => (
             <Box key={s.label}>
               <Stack direction="row" justifyContent="space-between" mb={0.3}>
-                <Typography sx={{ fontSize: "0.65rem", color: TEXT, fontWeight: 600 }}>{s.label}</Typography>
-                <Typography sx={{ fontSize: "0.65rem", color: s.color, fontWeight: 700 }}>{s.value}%</Typography>
+                <Typography sx={{ fontSize: "0.75rem", color: TEXT, fontWeight: 600 }}>{s.label}</Typography>
+                <Typography sx={{ fontSize: "0.75rem", color: s.color, fontWeight: 700 }}>{s.value}%</Typography>
               </Stack>
               <LinearProgress variant="determinate" value={Math.min(s.value, 100)} sx={{ height: 4, borderRadius: 2, bgcolor: alpha(s.color, 0.1), "& .MuiLinearProgress-bar": { bgcolor: s.color, borderRadius: 2 } }} />
             </Box>
           ))}
-          {stats?.totals && <Typography sx={{ fontSize: "0.55rem", color: MUTED, mt: 0.5 }}>{stats.totals.clienti_diretti} clienti &middot; {stats.totals.clienti_smartship} smartship &middot; {stats.totals.promoter_diretti} promoter</Typography>}
+          {stats?.totals && <Typography sx={{ fontSize: "0.65rem", color: MUTED, mt: 0.5 }}>{stats.totals.clienti_diretti} clienti &middot; {stats.totals.clienti_smartship} smartship &middot; {stats.totals.promoter_diretti} promoter</Typography>}
         </Stack>
       )}
     </Card>
@@ -515,8 +515,8 @@ const ThreeFFMini = () => {
         <Box sx={{ width: 30, height: 30, borderRadius: 2, bgcolor: alpha("#E91E63", 0.08), display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Iconify icon="mdi:gift-outline" width={16} sx={{ color: "#E91E63" }} />
         </Box>
-        <Typography sx={{ fontSize: "0.78rem", fontWeight: 700, color: TEXT }}>3 For Free</Typography>
-        <Chip label={`${cur}/${req}`} size="small" sx={{ ml: "auto", height: 20, fontSize: "0.6rem", fontWeight: 700, bgcolor: cur >= req ? alpha("#4CAF50", 0.1) : alpha(ORO, 0.1), color: cur >= req ? "#4CAF50" : ORO }} />
+        <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: TEXT }}>3 For Free</Typography>
+        <Chip label={`${cur}/${req}`} size="small" sx={{ ml: "auto", height: 20, fontSize: "0.7rem", fontWeight: 700, bgcolor: cur >= req ? alpha("#4CAF50", 0.1) : alpha(ORO, 0.1), color: cur >= req ? "#4CAF50" : ORO }} />
       </Stack>
       <Stack direction="row" spacing={2} justifyContent="center" mb={2}>
         {slots.map((c, i) => (
@@ -546,11 +546,11 @@ const ROBMini = () => {
         <Box sx={{ width: 30, height: 30, borderRadius: 2, bgcolor: alpha("#8BC34A", 0.08), display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Iconify icon="mdi:refresh-circle" width={16} sx={{ color: "#8BC34A" }} />
         </Box>
-        <Typography sx={{ fontSize: "0.78rem", fontWeight: 700, color: TEXT }}>Recurring Order</Typography>
-        <Chip label={`${total}/${req} mesi`} size="small" sx={{ ml: "auto", height: 20, fontSize: "0.6rem", fontWeight: 700, bgcolor: alpha("#8BC34A", 0.1), color: "#8BC34A" }} />
+        <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: TEXT }}>Recurring Order</Typography>
+        <Chip label={`${total}/${req} mesi`} size="small" sx={{ ml: "auto", height: 20, fontSize: "0.7rem", fontWeight: 700, bgcolor: alpha("#8BC34A", 0.1), color: "#8BC34A" }} />
       </Stack>
       <LinearProgress variant="determinate" value={pct} sx={{ height: 8, borderRadius: 4, bgcolor: SABBIA, "& .MuiLinearProgress-bar": { bgcolor: "#8BC34A", borderRadius: 4 } }} />
-      <Typography sx={{ fontSize: "0.6rem", color: MUTED, mt: 0.5, textAlign: "right" }}>{total} mesi consecutivi</Typography>
+      <Typography sx={{ fontSize: "0.7rem", color: MUTED, mt: 0.5, textAlign: "right" }}>{total} mesi consecutivi</Typography>
     </Card>
   );
 };
@@ -561,7 +561,7 @@ const ROBMini = () => {
 const Section = ({ icon, children }) => (
   <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1 }}>
     <Iconify icon={icon} width={20} sx={{ color: ORO }} />
-    <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: TEXT }}>{children}</Typography>
+    <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT }}>{children}</Typography>
   </Stack>
 );
 
