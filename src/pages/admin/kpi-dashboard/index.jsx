@@ -195,23 +195,45 @@ const RevenueChart = () => {
 
   if (isDaily) {
     const raw = dailyData || [];
-    chartData = raw.map((d) => ({
-      label: period === "week"
-        ? new Date(d.giorno).toLocaleDateString("it", { weekday: "short" })
-        : new Date(d.giorno).toLocaleDateString("it", { day: "2-digit", month: "short" }),
-      revenue: Number(d.revenue) || 0,
-      orders: Number(d.ordini) || 0,
-    }));
+    // Fill all days in range with 0 where no data
+    const dataMap = {};
+    raw.forEach((d) => { dataMap[d.giorno] = d; });
+    const allDays = [];
+    const today = new Date();
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const key = d.toISOString().split("T")[0];
+      const entry = dataMap[key];
+      allDays.push({
+        label: period === "week"
+          ? d.toLocaleDateString("it", { weekday: "short" })
+          : d.toLocaleDateString("it", { day: "2-digit", month: "short" }),
+        revenue: entry ? Number(entry.revenue) || 0 : 0,
+        orders: entry ? Number(entry.ordini) || 0 : 0,
+      });
+    }
+    chartData = allDays;
     subtitle = period === "week" ? "Ultimi 7 giorni" : "Ultimi 30 giorni";
   } else {
     const raw = monthlyData || [];
-    chartData = raw.map((d) => ({
-      label: MESI[d.mese - 1],
-      revenue: d.fatturato || 0,
-      payout: d.payout || 0,
-      margine: d.margine || 0,
-    }));
-    subtitle = `${raw.length} mesi`;
+    const dataMap = {};
+    raw.forEach((d) => { dataMap[`${d.anno}-${d.mese}`] = d; });
+    const allMonths = [];
+    const now = new Date();
+    for (let i = months - 1; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      const key = `${d.getFullYear()}-${d.getMonth() + 1}`;
+      const entry = dataMap[key];
+      allMonths.push({
+        label: MESI[d.getMonth()],
+        revenue: entry ? entry.fatturato || 0 : 0,
+        payout: entry ? entry.payout || 0 : 0,
+        margine: entry ? entry.margine || 0 : 0,
+      });
+    }
+    chartData = allMonths;
+    subtitle = `${months} mesi`;
   }
 
   if (!chartData.length) return <Card sx={{ ...cardSx, p: 3 }}><Typography sx={{ fontSize: "0.75rem", color: MUTED }}>Nessun dato per questo periodo</Typography></Card>;
@@ -234,26 +256,34 @@ const RevenueChart = () => {
             <Stack key={x.l} direction="row" alignItems="center" spacing={0.3}><Box sx={{ width: 10, height: 3, borderRadius: 1, bgcolor: x.c }} /><Typography sx={{ fontSize: "0.55rem", color: MUTED }}>{x.l}</Typography></Stack>))}</Stack>
         )}
       </Stack>
-      <Stack direction="row" spacing={isDaily ? 0.5 : 0.8} alignItems="flex-end" sx={{ height: 200 }}>
-        {chartData.map((d, i) => (
-          <Box key={i} sx={{ flex: 1, textAlign: "center" }}>
-            {isDaily ? (
-              /* Single bar for daily */
-              <Tooltip title={`€${d.revenue}${d.orders ? ` · ${d.orders} ordini` : ""}`}>
-                <Box sx={{ width: "70%", mx: "auto", height: `${Math.max((d.revenue / maxVal) * 100, 2)}%`, bgcolor: ORO, borderRadius: "3px 3px 0 0", transition: "height 0.3s" }} />
-              </Tooltip>
-            ) : (
-              /* Triple bars for monthly */
-              <Stack direction="row" spacing={0.2} justifyContent="center" alignItems="flex-end" sx={{ height: "100%" }}>
-                {[{ v: d.revenue, c: ORO }, { v: d.payout, c: DANGER }, { v: d.margine, c: SUCCESS }].map((b, bi) => (
-                  <Tooltip key={bi} title={`€${b.v}`}><Box sx={{ width: "30%", height: `${Math.max((b.v / maxVal) * 100, 1)}%`, bgcolor: b.c, borderRadius: "2px 2px 0 0", opacity: 0.85 }} /></Tooltip>
-                ))}
-              </Stack>
-            )}
-            <Typography sx={{ fontSize: chartData.length > 15 ? "0.4rem" : "0.5rem", color: MUTED, mt: 0.3, whiteSpace: "nowrap" }}>{d.label}</Typography>
-          </Box>
-        ))}
-      </Stack>
+      <Box sx={{ display: "flex", alignItems: "flex-end", gap: isDaily ? "2px" : "6px", height: 200 }}>
+        {chartData.map((d, i) => {
+          const barH = 180; // max bar height in px
+          if (isDaily) {
+            const h = Math.max((d.revenue / maxVal) * barH, 2);
+            return (
+              <Box key={i} sx={{ flex: 1, textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "flex-end", height: "100%" }}>
+                <Tooltip title={`€${d.revenue}${d.orders ? ` · ${d.orders} ordini` : ""}`}>
+                  <Box sx={{ width: "70%", mx: "auto", height: h, bgcolor: d.revenue > 0 ? ORO : alpha(ORO, 0.08), borderRadius: "3px 3px 0 0", transition: "height 0.3s", minHeight: 2 }} />
+                </Tooltip>
+                <Typography sx={{ fontSize: chartData.length > 15 ? "0.38rem" : "0.5rem", color: d.revenue > 0 ? ORO : MUTED, mt: 0.3, whiteSpace: "nowrap", fontWeight: d.revenue > 0 ? 600 : 400 }}>{d.label}</Typography>
+              </Box>
+            );
+          } else {
+            return (
+              <Box key={i} sx={{ flex: 1, textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "flex-end", height: "100%" }}>
+                <Box sx={{ display: "flex", gap: "1px", justifyContent: "center", alignItems: "flex-end", flex: 1 }}>
+                  {[{ v: d.revenue, c: ORO }, { v: d.payout, c: DANGER }, { v: d.margine, c: SUCCESS }].map((b, bi) => {
+                    const bh = Math.max((b.v / maxVal) * barH, 1);
+                    return <Tooltip key={bi} title={`€${b.v}`}><Box sx={{ width: "30%", height: bh, bgcolor: b.c, borderRadius: "2px 2px 0 0", opacity: 0.85 }} /></Tooltip>;
+                  })}
+                </Box>
+                <Typography sx={{ fontSize: "0.5rem", color: MUTED, mt: 0.3 }}>{d.label}</Typography>
+              </Box>
+            );
+          }
+        })}
+      </Box>
     </Card>
   );
 };
