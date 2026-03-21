@@ -4,7 +4,7 @@ import useErrors from "src/hooks/useErrors";
 import axiosInstance from "src/utils/axios";
 
 const serializeTree = (node = {}) => {
-  const { name, first_name, children, have_children, profile_pic } = node;
+  const { name, first_name, children, have_children, profile_pic, user_type, rank_name, rank_id } = node;
 
   return {
     name: {
@@ -12,6 +12,9 @@ const serializeTree = (node = {}) => {
       username: name,
       have_children: Boolean(have_children),
       profile_image: profile_pic,
+      user_type: user_type || "customer",
+      rank_name: rank_name || null,
+      rank_id: rank_id || 0,
     },
     children:
       children?.length > 0 ? children?.map((node) => serializeTree(node)) : [],
