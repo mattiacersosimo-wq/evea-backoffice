@@ -167,27 +167,90 @@ const OverviewCards = () => {
 // 3. REVENUE CHART + WEEKLY + DAILY
 // ═══════════════════════════════════════
 const MESI = ["Gen","Feb","Mar","Apr","Mag","Giu","Lug","Ago","Set","Ott","Nov","Dic"];
+const GIORNI_SETT = ["Lun","Mar","Mer","Gio","Ven","Sab","Dom"];
+
 const RevenueChart = () => {
-  const { data, loading } = useFetch("api/wp/admin/kpi/revenue-history?months=12");
+  const { qs } = usePeriod();
+  const period = new URLSearchParams(qs).get("period") || "month";
+
+  // For week/month: use daily-revenue endpoint
+  // For quarter/year/ytd: use revenue-history (monthly)
+  const isDaily = period === "week" || period === "month";
+  const days = period === "week" ? 7 : 30;
+  const months = period === "quarter" ? 3 : 12;
+
+  const dailyUrl = `api/wp/admin/kpi/daily-revenue?days=${days}`;
+  const monthlyUrl = `api/wp/admin/kpi/revenue-history?months=${months}`;
+
+  const { data: dailyData, loading: dLoad } = useFetch(isDaily ? dailyUrl : "___skip___");
+  const { data: monthlyData, loading: mLoad } = useFetch(!isDaily ? monthlyUrl : "___skip___");
+
+  const loading = isDaily ? dLoad : mLoad;
+
   if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={250} /></Card>;
-  if (!data || !data.length) return null;
-  const maxVal = Math.max(...data.flatMap(d => [d.fatturato, d.payout, d.margine]), 1);
+
+  // Normalize data to [{label, revenue, payout?, margine?}]
+  let chartData = [];
+  let subtitle = "";
+
+  if (isDaily) {
+    const raw = dailyData || [];
+    chartData = raw.map((d) => ({
+      label: period === "week"
+        ? new Date(d.giorno).toLocaleDateString("it", { weekday: "short" })
+        : new Date(d.giorno).toLocaleDateString("it", { day: "2-digit", month: "short" }),
+      revenue: Number(d.revenue) || 0,
+      orders: Number(d.ordini) || 0,
+    }));
+    subtitle = period === "week" ? "Ultimi 7 giorni" : "Ultimi 30 giorni";
+  } else {
+    const raw = monthlyData || [];
+    chartData = raw.map((d) => ({
+      label: MESI[d.mese - 1],
+      revenue: d.fatturato || 0,
+      payout: d.payout || 0,
+      margine: d.margine || 0,
+    }));
+    subtitle = `${raw.length} mesi`;
+  }
+
+  if (!chartData.length) return <Card sx={{ ...cardSx, p: 3 }}><Typography sx={{ fontSize: "0.75rem", color: MUTED }}>Nessun dato per questo periodo</Typography></Card>;
+
+  const maxVal = Math.max(...chartData.map(d => Math.max(d.revenue || 0, d.payout || 0, d.margine || 0)), 1);
+  const totalRev = chartData.reduce((s, d) => s + (d.revenue || 0), 0);
+  const totalOrd = chartData.reduce((s, d) => s + (d.orders || 0), 0);
+
   return (
     <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
-        <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: TEXT }}>Fatturato vs Payout — {data.length} mesi</Typography>
-        <Stack direction="row" spacing={1.5}>{[{ l: "Fatturato", c: ORO }, { l: "Payout", c: DANGER }, { l: "Margine", c: SUCCESS }].map(x => (
-          <Stack key={x.l} direction="row" alignItems="center" spacing={0.3}><Box sx={{ width: 10, height: 3, borderRadius: 1, bgcolor: x.c }} /><Typography sx={{ fontSize: "0.55rem", color: MUTED }}>{x.l}</Typography></Stack>))}</Stack>
+        <Box>
+          <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: TEXT }}>
+            {isDaily ? "Revenue giornaliero" : "Fatturato vs Payout"}
+          </Typography>
+          <Typography sx={{ fontSize: "0.6rem", color: MUTED }}>{subtitle} · Tot: €{totalRev.toLocaleString("it")}{totalOrd > 0 ? ` · ${totalOrd} ordini` : ""}</Typography>
+        </Box>
+        {!isDaily && (
+          <Stack direction="row" spacing={1.5}>{[{ l: "Fatturato", c: ORO }, { l: "Payout", c: DANGER }, { l: "Margine", c: SUCCESS }].map(x => (
+            <Stack key={x.l} direction="row" alignItems="center" spacing={0.3}><Box sx={{ width: 10, height: 3, borderRadius: 1, bgcolor: x.c }} /><Typography sx={{ fontSize: "0.55rem", color: MUTED }}>{x.l}</Typography></Stack>))}</Stack>
+        )}
       </Stack>
-      <Stack direction="row" spacing={0.8} alignItems="flex-end" sx={{ height: 200 }}>
-        {data.map((d) => (
-          <Box key={`${d.anno}-${d.mese}`} sx={{ flex: 1, textAlign: "center" }}>
-            <Stack direction="row" spacing={0.2} justifyContent="center" alignItems="flex-end" sx={{ height: "100%" }}>
-              {[{ v: d.fatturato, c: ORO }, { v: d.payout, c: DANGER }, { v: d.margine, c: SUCCESS }].map((b, bi) => (
-                <Tooltip key={bi} title={`€${b.v}`}><Box sx={{ width: "30%", height: `${Math.max((b.v / maxVal) * 100, 1)}%`, bgcolor: b.c, borderRadius: "2px 2px 0 0", opacity: 0.85 }} /></Tooltip>
-              ))}
-            </Stack>
-            <Typography sx={{ fontSize: "0.5rem", color: MUTED, mt: 0.3 }}>{MESI[d.mese - 1]}</Typography>
+      <Stack direction="row" spacing={isDaily ? 0.5 : 0.8} alignItems="flex-end" sx={{ height: 200 }}>
+        {chartData.map((d, i) => (
+          <Box key={i} sx={{ flex: 1, textAlign: "center" }}>
+            {isDaily ? (
+              /* Single bar for daily */
+              <Tooltip title={`€${d.revenue}${d.orders ? ` · ${d.orders} ordini` : ""}`}>
+                <Box sx={{ width: "70%", mx: "auto", height: `${Math.max((d.revenue / maxVal) * 100, 2)}%`, bgcolor: ORO, borderRadius: "3px 3px 0 0", transition: "height 0.3s" }} />
+              </Tooltip>
+            ) : (
+              /* Triple bars for monthly */
+              <Stack direction="row" spacing={0.2} justifyContent="center" alignItems="flex-end" sx={{ height: "100%" }}>
+                {[{ v: d.revenue, c: ORO }, { v: d.payout, c: DANGER }, { v: d.margine, c: SUCCESS }].map((b, bi) => (
+                  <Tooltip key={bi} title={`€${b.v}`}><Box sx={{ width: "30%", height: `${Math.max((b.v / maxVal) * 100, 1)}%`, bgcolor: b.c, borderRadius: "2px 2px 0 0", opacity: 0.85 }} /></Tooltip>
+                ))}
+              </Stack>
+            )}
+            <Typography sx={{ fontSize: chartData.length > 15 ? "0.4rem" : "0.5rem", color: MUTED, mt: 0.3, whiteSpace: "nowrap" }}>{d.label}</Typography>
           </Box>
         ))}
       </Stack>
