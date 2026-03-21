@@ -444,11 +444,22 @@ const TopPerformers = () => {
 const MESI = ["Gen","Feb","Mar","Apr","Mag","Giu","Lug","Ago","Set","Ott","Nov","Dic"];
 const TeamSection = () => {
   const [period, setPeriod] = useState("month");
-  const { data: team, loading } = useFetch(async () => {
-    const { data } = await axiosInstance.get(`api/wp/dashboard/team-details?period=${period}`);
-    return data?.data;
-  });
+  const [team, setTeam] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { data: stats, loading: sLoad } = useStats();
+
+  useEffect(() => {
+    let off = false;
+    setLoading(true);
+    (async () => {
+      try {
+        const { data } = await axiosInstance.get(`api/wp/dashboard/team-details?period=${period}`);
+        if (!off) setTeam(data?.data);
+      } catch { /* silent */ }
+      if (!off) setLoading(false);
+    })();
+    return () => { off = true; };
+  }, [period]);
 
   const Delta = ({ cur, prev, suffix = "" }) => {
     if (!prev) return null;
