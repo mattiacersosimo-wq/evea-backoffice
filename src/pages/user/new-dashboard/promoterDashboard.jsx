@@ -442,77 +442,136 @@ const TopPerformers = () => {
 // 9. ANDAMENTO QV + STATISTICHE
 // ═══════════════════════════════════════
 const MESI = ["Gen","Feb","Mar","Apr","Mag","Giu","Lug","Ago","Set","Ott","Nov","Dic"];
-const QvAndStats = () => {
-  const { data: history, loading: hLoad } = useQvHistory();
+const TeamSection = () => {
+  const [period, setPeriod] = useState("month");
+  const { data: team, loading } = useFetch(async () => {
+    const { data } = await axiosInstance.get(`api/wp/dashboard/team-details?period=${period}`);
+    return data?.data;
+  });
   const { data: stats, loading: sLoad } = useStats();
-  const now = new Date();
-  const daysPassed = now.getDate();
-  const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-  const daysLeft = daysInMonth - daysPassed;
-  const curQv = (history || []).find((h) => h.mese === now.getMonth() + 1 && h.anno === now.getFullYear())?.total_qv || 0;
-  const dailyAvg = daysPassed > 0 ? curQv / daysPassed : 0;
-  const projection = Math.round(dailyAvg * daysInMonth);
-  const prevQv = (history || []).find((h) => {
-    const pm = now.getMonth() === 0 ? 12 : now.getMonth();
-    const py = now.getMonth() === 0 ? now.getFullYear() - 1 : now.getFullYear();
-    return h.mese === pm && h.anno === py;
-  })?.total_qv || 0;
 
-  // Fill all 6 months for chart
-  const allMonths = [];
-  for (let i = 5; i >= 0; i--) {
-    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-    const found = (history || []).find((h) => h.mese === d.getMonth() + 1 && h.anno === d.getFullYear());
-    allMonths.push({ label: MESI[d.getMonth()], qv: found ? found.total_qv : 0, isCurrent: i === 0 });
-  }
-  const maxQv = Math.max(...allMonths.map((m) => m.qv), 1);
+  const Delta = ({ cur, prev, suffix = "" }) => {
+    if (!prev) return null;
+    const d = cur - prev;
+    return <Typography component="span" sx={{ fontSize: "0.6rem", color: d >= 0 ? "#4CAF50" : "#E24B4A", ml: 0.5 }}>{d >= 0 ? "↑" : "↓"}{Math.abs(d)}{suffix}</Typography>;
+  };
 
   return (
     <Card sx={{ ...cardSx, p: 2.5, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT, mb: 2 }}>Il tuo Team</Typography>
-      {sLoad ? <Skeleton height={60} /> : (
-        <Stack spacing={1.2}>
-          {[
-            { label: "Tasso Riordine", desc: "Clienti che riordinano", value: stats?.tasso_riordine || 0, color: "#4CAF50", icon: "mdi:refresh" },
-            { label: "Clienti Smartship", desc: "Con abbonamento attivo", value: stats?.clienti_smartship || 0, color: "#2196F3", icon: "mdi:calendar-check" },
-            { label: "Promoter Attivi", desc: "Con ordini questo mese", value: stats?.promoter_attivi || 0, color: ORO, icon: "mdi:account-check" },
-          ].map((s) => (
-            <Box key={s.label}>
-              <Stack direction="row" alignItems="center" spacing={0.8} mb={0.3}>
-                <Iconify icon={s.icon} width={16} sx={{ color: s.color }} />
-                <Box sx={{ flex: 1 }}>
-                  <Typography sx={{ fontSize: "0.75rem", color: TEXT, fontWeight: 600 }}>{s.label}</Typography>
-                  <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>{s.desc}</Typography>
-                </Box>
-                <Typography sx={{ fontSize: "0.8rem", color: s.color, fontWeight: 700 }}>{s.value}%</Typography>
-              </Stack>
-              <LinearProgress variant="determinate" value={Math.min(s.value, 100)} sx={{ height: 5, borderRadius: 3, bgcolor: alpha(s.color, 0.1), "& .MuiLinearProgress-bar": { bgcolor: s.color, borderRadius: 3 } }} />
-            </Box>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
+        <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT }}>Il tuo Team</Typography>
+        <Stack direction="row" spacing={0.5}>
+          {[{ k: "week", l: "Sett" }, { k: "month", l: "Mese" }, { k: "quarter", l: "Trim" }, { k: "year", l: "Anno" }].map((p) => (
+            <Chip key={p.k} label={p.l} size="small" onClick={() => setPeriod(p.k)}
+              sx={{ height: 22, fontSize: "0.6rem", fontWeight: 600, cursor: "pointer", bgcolor: period === p.k ? ORO : alpha(ORO, 0.08), color: period === p.k ? "#fff" : TEXT }} />
           ))}
-          {stats?.totals && (
-            <Box sx={{ mt: 0.5, p: 1, bgcolor: alpha(ORO, 0.04), borderRadius: 2 }}>
-              <Stack direction="row" justifyContent="space-around">
-                <Box sx={{ textAlign: "center" }}>
-                  <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT }}>{stats.totals.clienti_diretti}</Typography>
-                  <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Clienti</Typography>
+        </Stack>
+      </Stack>
+
+      {loading ? <Skeleton height={200} /> : team ? (
+        <Stack spacing={2}>
+          {/* KPI cards */}
+          <Grid container spacing={1}>
+            {[
+              { label: "QV Team", value: team.qv_team, prev: team.qv_team_prev, color: ORO, icon: "mdi:chart-bar" },
+              { label: "Revenue Team", value: `€${team.revenue_team}`, prev: team.revenue_team_prev, color: "#4CAF50", icon: "mdi:cash", rawVal: team.revenue_team },
+              { label: "Nuovi Clienti", value: team.new_clients_period, prev: team.new_clients_prev, color: "#2196F3", icon: "mdi:account-plus" },
+              { label: "Nuovi Promoter", value: team.new_promoters_period, prev: team.new_promoters_prev, color: "#9C27B0", icon: "mdi:account-star" },
+            ].map((m) => (
+              <Grid item xs={6} key={m.label}>
+                <Box sx={{ p: 1.2, bgcolor: alpha(m.color, 0.04), borderRadius: 2, border: `1px solid ${alpha(m.color, 0.1)}` }}>
+                  <Stack direction="row" alignItems="center" spacing={0.5}>
+                    <Iconify icon={m.icon} width={16} sx={{ color: m.color }} />
+                    <Typography sx={{ fontSize: "0.6rem", color: MUTED }}>{m.label}</Typography>
+                  </Stack>
+                  <Typography sx={{ fontSize: "1rem", fontWeight: 800, color: m.color, mt: 0.3 }}>
+                    {m.value}<Delta cur={m.rawVal ?? m.value} prev={m.prev} />
+                  </Typography>
                 </Box>
-                <Box sx={{ textAlign: "center" }}>
-                  <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: "#2196F3" }}>{stats.totals.clienti_smartship}</Typography>
-                  <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Smartship</Typography>
-                </Box>
-                <Box sx={{ textAlign: "center" }}>
-                  <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ORO }}>{stats.totals.promoter_diretti}</Typography>
-                  <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Promoter</Typography>
-                </Box>
-                <Box sx={{ textAlign: "center" }}>
-                  <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: "#4CAF50" }}>{stats.totals.promoter_attivi}</Typography>
-                  <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Attivi</Typography>
-                </Box>
+              </Grid>
+            ))}
+          </Grid>
+
+          {/* Attivi vs Inattivi */}
+          <Box sx={{ p: 1.5, bgcolor: alpha(ORO, 0.04), borderRadius: 2 }}>
+            <Stack direction="row" justifyContent="space-around">
+              <Box sx={{ textAlign: "center" }}>
+                <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: TEXT }}>{team.total_direct}</Typography>
+                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Totali</Typography>
+              </Box>
+              <Box sx={{ textAlign: "center" }}>
+                <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: "#4CAF50" }}>{team.active_count}</Typography>
+                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Attivi</Typography>
+              </Box>
+              <Box sx={{ textAlign: "center" }}>
+                <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: team.inactive_count > 0 ? "#E24B4A" : MUTED }}>{team.inactive_count}</Typography>
+                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Inattivi</Typography>
+              </Box>
+            </Stack>
+          </Box>
+
+          {/* Alert inattivi */}
+          {team.inactive_count > 0 && (
+            <Box sx={{ p: 1.5, bgcolor: alpha("#E24B4A", 0.04), borderRadius: 2, border: `1px solid ${alpha("#E24B4A", 0.12)}` }}>
+              <Stack direction="row" alignItems="center" spacing={0.8} mb={1}>
+                <Iconify icon="mdi:alert-circle" width={16} sx={{ color: "#E24B4A" }} />
+                <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: "#E24B4A" }}>Membri inattivi ({team.inactive_count})</Typography>
+              </Stack>
+              <Stack spacing={0.6}>
+                {(team.inactive || []).slice(0, 5).map((m) => (
+                  <Stack key={m.user_id} direction="row" alignItems="center" spacing={0.8}>
+                    <Avatar sx={{ width: 22, height: 22, bgcolor: alpha("#E24B4A", 0.1), color: "#E24B4A", fontSize: 10 }}>
+                      {(m.name || m.username || "?").charAt(0)}
+                    </Avatar>
+                    <Typography sx={{ fontSize: "0.7rem", color: TEXT, flex: 1 }} noWrap>{m.name || m.username}</Typography>
+                    <Chip label={m.is_promoter ? "Promoter" : "Cliente"} size="small" sx={{ height: 16, fontSize: "0.5rem", bgcolor: m.is_promoter ? alpha(ORO, 0.1) : alpha("#2196F3", 0.1), color: m.is_promoter ? ORO : "#2196F3" }} />
+                    <Typography sx={{ fontSize: "0.6rem", color: "#E24B4A", fontWeight: 600 }}>
+                      {m.days_inactive != null ? `${m.days_inactive}gg` : "Mai ordinato"}
+                    </Typography>
+                  </Stack>
+                ))}
               </Stack>
             </Box>
           )}
+
+          {/* Top referral */}
+          {(team.top_referrals || []).length > 0 && (
+            <>
+              <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: TEXT }}>Top referral del periodo</Typography>
+              <Stack spacing={0.6}>
+                {team.top_referrals.map((r, i) => (
+                  <Stack key={r.user_id} direction="row" alignItems="center" spacing={0.8}>
+                    <Avatar sx={{ width: 22, height: 22, bgcolor: alpha(ORO, 0.1), color: ORO, fontSize: 10, fontWeight: 700 }}>{i + 1}</Avatar>
+                    <Typography sx={{ fontSize: "0.7rem", color: TEXT, fontWeight: 600, flex: 1 }} noWrap>{r.name || r.username}</Typography>
+                    <Typography sx={{ fontSize: "0.65rem", color: ORO, fontWeight: 700 }}>{r.qv} QV</Typography>
+                    <Typography sx={{ fontSize: "0.6rem", color: MUTED }}>€{r.revenue}</Typography>
+                  </Stack>
+                ))}
+              </Stack>
+            </>
+          )}
+
+          {/* Stats barre */}
+          {!sLoad && stats && (
+            <Stack spacing={1}>
+              {[
+                { label: "Tasso Riordine", value: stats.tasso_riordine || 0, color: "#4CAF50", icon: "mdi:refresh" },
+                { label: "Clienti Smartship", value: stats.clienti_smartship || 0, color: "#2196F3", icon: "mdi:calendar-check" },
+                { label: "Promoter Attivi", value: stats.promoter_attivi || 0, color: ORO, icon: "mdi:account-check" },
+              ].map((s) => (
+                <Box key={s.label}>
+                  <Stack direction="row" alignItems="center" spacing={0.5} mb={0.3}>
+                    <Iconify icon={s.icon} width={14} sx={{ color: s.color }} />
+                    <Typography sx={{ fontSize: "0.7rem", color: TEXT, fontWeight: 600, flex: 1 }}>{s.label}</Typography>
+                    <Typography sx={{ fontSize: "0.7rem", color: s.color, fontWeight: 700 }}>{s.value}%</Typography>
+                  </Stack>
+                  <LinearProgress variant="determinate" value={Math.min(s.value, 100)} sx={{ height: 4, borderRadius: 2, bgcolor: alpha(s.color, 0.1), "& .MuiLinearProgress-bar": { bgcolor: s.color, borderRadius: 2 } }} />
+                </Box>
+              ))}
+            </Stack>
+          )}
         </Stack>
-      )}
+      ) : null}
     </Card>
   );
 };
@@ -761,7 +820,7 @@ const PromoterDashboard = () => {
             </Grid>
             <Grid item xs={12} md={6}>
               <Section icon="mdi:chart-bar">Il tuo Team</Section>
-              <Box sx={{ mt: 1 }}><QvAndStats /></Box>
+              <Box sx={{ mt: 1 }}><TeamSection /></Box>
             </Grid>
           </Grid>
 
