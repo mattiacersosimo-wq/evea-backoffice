@@ -207,6 +207,7 @@ export const PATH_DASHBOARD = {
     root: path(ROOTS_DASHBOARD, "/dashboard"),
     business: path(ROOTS_DASHBOARD, "/dashboard/business"),
     network: path(ROOTS_DASHBOARD, "/dashboard/network"),
+    kpi: path(ROOTS_DASHBOARD, "/dashboard/kpi"),
   },
   members: {
     root: path(ROOTS_DASHBOARD, "/members"),

@@ -8,6 +8,9 @@ const Business = Loadable(
 const Network = Loadable(
   lazy(() => import("src/pages/admin/dashboard/network"))
 );
+const KpiDashboard = Loadable(
+  lazy(() => import("src/pages/admin/kpi-dashboard/index"))
+);
 
 const dashboard = [
   {
@@ -21,6 +24,10 @@ const dashboard = [
       {
         path: "network",
         element: <Network />,
+      },
+      {
+        path: "kpi",
+        element: <KpiDashboard />,
       },
     ],
   },

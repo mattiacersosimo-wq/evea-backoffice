@@ -25,6 +25,12 @@ const adminNavConfig = [
             path: PATH_DASHBOARD.dashboard.network,
             placement: 1,
           },
+          {
+            title: "KPI Dashboard",
+            parent: "nav.dashboard.title",
+            path: PATH_DASHBOARD.dashboard.kpi,
+            placement: 2,
+          },
         ],
       },
 
