@@ -36,6 +36,7 @@ const headers = [
   "global.order_date",
   "global.total_price",
   "Stato",
+  "Tracking",
   "global.action",
 ];
 
@@ -125,6 +126,21 @@ const MyOrders = () => {
                   </TableCell>
                   <TableCell>
                     {(() => { const s = getStatusBadge(row); return <Chip label={s.label} size="small" sx={{ bgcolor: s.bgcolor, color: s.color, fontWeight: 600, fontSize: "0.7rem", height: 24 }} />; })()}
+                  </TableCell>
+                  <TableCell>
+                    {row.tracking_number ? (
+                      <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                        {row.tracking_url ? (
+                          <a href={row.tracking_url} target="_blank" rel="noreferrer" style={{ color: "#B8963B", fontWeight: 600, fontSize: "0.75rem", textDecoration: "none" }}>
+                            {row.tracking_number}
+                          </a>
+                        ) : (
+                          <span style={{ fontSize: "0.75rem", color: "#3D3229" }}>{row.tracking_number}</span>
+                        )}
+                      </Box>
+                    ) : (
+                      <span style={{ fontSize: "0.7rem", color: "#aaa" }}>—</span>
+                    )}
                   </TableCell>
                   <TableCell>
                     <IconButton
