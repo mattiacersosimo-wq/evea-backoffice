@@ -23,6 +23,12 @@ const LEVEL_COLORS = [
   "#81C784", "#A5D6A7", "#C8E6C9", "#E8F5E9",
 ];
 
+// Default residual bonus percentages per level
+const LEVEL_PERCENTAGES = {
+  1: "2.5%", 2: "1.5%", 3: "1%", 4: "0.5%", 5: "0.5%",
+  6: "0.5%", 7: "0.5%", 8: "0.5%", 9: "0.5%",
+};
+
 const LevelDetails = ({ levels = [] }) => {
   const [expandedLevel, setExpandedLevel] = useState(null);
 
@@ -92,10 +98,8 @@ const LevelDetails = ({ levels = [] }) => {
                         <Typography sx={{ fontSize: "0.68rem", color: "#7A6A5C" }}>
                           {userCount} utent{userCount === 1 ? "e" : "i"}
                         </Typography>
-                        {level.percentage && (
-                          <Chip label={`${level.percentage}%`} size="small"
-                            sx={{ height: 18, fontSize: "0.6rem", fontWeight: 700, bgcolor: alpha(color, 0.1), color }} />
-                        )}
+                        <Chip label={level.percentage ? `${level.percentage}%` : LEVEL_PERCENTAGES[level.level] || "0.5%"} size="small"
+                          sx={{ height: 20, fontSize: "0.65rem", fontWeight: 700, bgcolor: alpha(color, 0.12), color }} />
                       </Stack>
                       <Typography sx={{ fontSize: "0.85rem", fontWeight: 800, color: levelTotal > 0 ? color : "#ccc" }}>
                         {"\u20AC"}{levelTotal.toFixed(2)}

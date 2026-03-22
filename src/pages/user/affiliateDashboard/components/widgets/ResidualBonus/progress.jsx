@@ -90,8 +90,7 @@ const Progress = ({ higherRank, state }) => {
         </TableContainer>
       </Item>
 
-      <CommissionDetails state={state} commission={higherRank?.current_month_commissions} />
-      <LevelDetails state={state} levels={higherRank?.level_bonus_summary} />
+      <LevelDetails levels={higherRank?.level_bonus_summary} />
     </Box>
   );
 };
