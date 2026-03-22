@@ -23,10 +23,10 @@ const LEVEL_COLORS = [
   "#81C784", "#A5D6A7", "#C8E6C9", "#E8F5E9",
 ];
 
-// Default residual bonus percentages per level
+// Residual bonus percentages per level (from level_settings table)
 const LEVEL_PERCENTAGES = {
-  1: "2.5%", 2: "1.5%", 3: "1%", 4: "0.5%", 5: "0.5%",
-  6: "0.5%", 7: "0.5%", 8: "0.5%", 9: "0.5%",
+  1: "2.5%", 2: "2.5%", 3: "2.5%", 4: "1.5%", 5: "1%",
+  6: "1%", 7: "0.5%", 8: "0.5%", 9: "0.5%",
 };
 
 const LevelDetails = ({ levels = [] }) => {
