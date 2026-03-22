@@ -1,134 +1,70 @@
 import React, { useState } from "react";
 import {
-  Box,
-  Card,
-  Collapse,
-  IconButton,
-  TableCell,
-  TableRow,
-  Typography,
+  Box, Collapse, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography,
 } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import Iconify from "src/components/Iconify";
-import Map from "src/components/map";
-import Level_One_BV_Users from "./level_one_BV_users";
-import DataHandlerTable from "src/components/data-handler/table";
-import Scrollbar from "src/components/Scrollbar";
-import { useTranslation } from "react-i18next";
 
-const headers = [
-  "affiliate_dashboard.s_no",
-  "affiliate_dashboard.leader_name",
-  "affiliate_dashboard.rank_name",
-  "affiliate_dashboard.team_bv",
-  "affiliate_dashboard.bonus_percentage",
-  "affiliate_dashboard.pending_bonus",
-];
+const COLOR = "#B8963B";
 
-const Level_One = ({ level_one = [], state }) => {
-  const [open, setOpen] = useState(false);
-  const { data, ...dataProps } = state;
-  const [openBVUsers, setOpenBVUsers] = useState({});
+const Level_One = ({ level_one = [] }) => {
+  const [expanded, setExpanded] = useState(null);
 
-  const { t } = useTranslation();
-
-  const toggleBVUsers = (index) => {
-    setOpenBVUsers((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
-  };
+  const customers = level_one?.customers || [];
+  if (!customers.length) return <Typography sx={{ fontSize: "0.75rem", color: "#aaa", py: 1 }}>Nessun leader in Gen 1</Typography>;
 
   return (
-    <>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          pt: 3,
-        }}
-      >
-        <Typography variant="subtitle1">
-          {t("affiliate_dashboard.generation_1")}
-        </Typography>
-        <IconButton
-          onClick={() => setOpen((prev) => !prev)}
-          size="small"
-          sx={{
-            ml: 2,
-            backgroundColor: "#cccccc47",
-            transition: "transform 0.4s ease-in-out",
-            transform: open ? "rotate(0deg)" : "rotate(180deg)",
-          }}
-        >
-          <Iconify icon="ep:arrow-up-bold" />
-        </IconButton>
-      </Box>
-      <Collapse in={open} collapsedSize={0}>
-        <Card sx={{ pt: 1, mt: 2 }}>
-          <Scrollbar>
-            <DataHandlerTable
-              name="faq-table"
-              headers={headers}
-              dataProps={{
-                ...dataProps,
-                isArrayEmpty: !level_one?.customers?.length,
-              }}
-            >
-              <Map
-                list={level_one?.customers}
-                render={(item, i) => (
-                  <>
-                    <TableRow key={item.id}>
-                      <TableCell>{i + 1}</TableCell>
-                      <TableCell>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Typography variant="subtitle2" fontSize="14px">
-                            {item?.customer_username}
-                          </Typography>
-                          <IconButton
-                            onClick={() => toggleBVUsers(i)}
-                            size="small"
-                            sx={{
-                              ml: 2,
-                              backgroundColor: "#cccccc47",
-                              transition: "transform 0.4s ease-in-out",
-                              transform: openBVUsers[i]
-                                ? "rotate(0deg)"
-                                : "rotate(180deg)",
-                            }}
-                          >
-                            <Iconify icon="ep:arrow-up-bold" />
-                          </IconButton>
-                        </Box>
-                      </TableCell>
-                      <TableCell>{item?.rank_name}</TableCell>
-                      <TableCell>{item?.bv}</TableCell>
-                      <TableCell>{item?.percentage}</TableCell>
-                      <TableCell>{item?.pending_bonus}</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell colSpan={6} sx={{ p: 0 }}>
-                        <Level_One_BV_Users
-                          open={!!openBVUsers[i]}
-                          state={state}
-                          bv_users={item?.bv_users}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  </>
+    <Stack spacing={0.8}>
+      {customers.map((c, i) => {
+        const isExp = expanded === i;
+        return (
+          <Box key={i}>
+            <Box onClick={() => setExpanded(isExp ? null : i)}
+              sx={{ p: 1, borderRadius: 1.5, cursor: "pointer", bgcolor: isExp ? alpha(COLOR, 0.04) : "transparent",
+                border: `1px solid ${isExp ? alpha(COLOR, 0.15) : "#f0ece6"}`, transition: "all 0.2s" }}>
+              <Stack direction="row" alignItems="center" justifyContent="space-between">
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: "#2C1A0E" }}>{c.customer_username}</Typography>
+                  <Typography sx={{ fontSize: "0.6rem", color: "#7A6A5C", bgcolor: alpha(COLOR, 0.08), px: 0.8, py: 0.2, borderRadius: 1 }}>{c.rank_name}</Typography>
+                </Stack>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C" }}>BV: {c.bv}</Typography>
+                  <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C" }}>{c.percentage}%</Typography>
+                  <Typography sx={{ fontSize: "0.78rem", fontWeight: 700, color: Number(c.pending_bonus) > 0 ? COLOR : "#ccc" }}>
+                    {"\u20AC"}{Number(c.pending_bonus || 0).toFixed(2)}
+                  </Typography>
+                  <Iconify icon={isExp ? "mdi:chevron-up" : "mdi:chevron-down"} width={16} sx={{ color: "#aaa" }} />
+                </Stack>
+              </Stack>
+            </Box>
+            <Collapse in={isExp} unmountOnExit>
+              <Box sx={{ pl: 2, py: 0.5 }}>
+                {c.bv_users && c.bv_users.length > 0 ? (
+                  <Table size="small">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell sx={{ fontSize: "0.65rem", fontWeight: 600, color: "#7A6A5C", py: 0.3 }}>Username</TableCell>
+                        <TableCell align="right" sx={{ fontSize: "0.65rem", fontWeight: 600, color: "#7A6A5C", py: 0.3 }}>BV</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {c.bv_users.map((u, j) => (
+                        <TableRow key={j} sx={{ "&:last-child td": { border: 0 } }}>
+                          <TableCell sx={{ fontSize: "0.7rem", py: 0.3 }}>{u.username}</TableCell>
+                          <TableCell align="right" sx={{ fontSize: "0.7rem", py: 0.3 }}>{u.bv}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                ) : (
+                  <Typography sx={{ fontSize: "0.7rem", color: "#aaa" }}>Nessun dettaglio BV</Typography>
                 )}
-              />
-            </DataHandlerTable>
-          </Scrollbar>
-        </Card>
-      </Collapse>
-    </>
+              </Box>
+            </Collapse>
+          </Box>
+        );
+      })}
+    </Stack>
   );
 };
 

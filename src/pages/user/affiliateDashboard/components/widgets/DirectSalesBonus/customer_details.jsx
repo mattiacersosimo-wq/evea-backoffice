@@ -1,91 +1,82 @@
 import React, { useState } from "react";
 import {
-  Box,
-  Card,
-  Collapse,
-  IconButton,
-  TableCell,
-  TableRow,
-  Typography,
+  Box, Chip, Collapse, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography,
 } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import Iconify from "src/components/Iconify";
-import Map from "src/components/map";
 import ParseDate from "src/components/date";
-import Scrollbar from "src/components/Scrollbar";
-import DataHandlerTable from "src/components/data-handler/table";
-import { useTranslation } from "react-i18next";
 
-const headers = [
-  "affiliate_dashboard.s_no",
-  "affiliate_dashboard.customer_name",
-  "affiliate_dashboard.bv",
-  "affiliate_dashboard.commission",
-  "affiliate_dashboard.order_date",
-];
+const ORO = "#B8963B";
+const ESPRESSO = "#2C1A0E";
 
-const CustomerDetails = ({ customer = [], state }) => {
+const CustomerDetails = ({ customer = [] }) => {
   const [open, setOpen] = useState(false);
-  const { data, ...dataProps } = state;
-  const { t } = useTranslation();
+
+  if (!customer || !customer.length) return null;
+
+  const allOrders = customer.flatMap((c) => (c.orders || []).map((o) => ({ ...o, customerName: c.customer_name || o.username })));
+  const totalCommission = allOrders.reduce((s, o) => s + Number(o.commission || 0), 0);
+
   return (
-    <>
+    <Box sx={{ mt: 2 }}>
       <Box
+        onClick={() => setOpen(!open)}
         sx={{
-          display: "flex",
-          alignItems: "center",
-          pt: 3,
+          p: 1.5, borderRadius: 2, cursor: "pointer",
+          bgcolor: open ? alpha(ORO, 0.04) : "#fafafa",
+          border: `1px solid ${open ? alpha(ORO, 0.15) : "#f0ece6"}`,
+          transition: "all 0.2s",
+          "&:hover": { bgcolor: alpha(ORO, 0.03) },
         }}
       >
-        <Typography variant="subtitle1">
-          {t("affiliate_dashboard.customer_details")}
-        </Typography>
-        <IconButton
-          onClick={() => setOpen((prev) => !prev)}
-          size="small"
-          sx={{
-            ml: 2,
-            backgroundColor: "#cccccc47",
-            transition: "transform 0.4s ease-in-out",
-            transform: open ? "rotate(0deg)" : "rotate(180deg)",
-          }}
-        >
-          <Iconify icon="ep:arrow-up-bold" />
-        </IconButton>
+        <Stack direction="row" alignItems="center" justifyContent="space-between">
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Iconify icon="mdi:account-group-outline" width={20} sx={{ color: ORO }} />
+            <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>
+              Dettaglio Clienti
+            </Typography>
+            <Chip label={`${allOrders.length} ordini`} size="small"
+              sx={{ height: 20, fontSize: "0.65rem", fontWeight: 600, bgcolor: alpha(ORO, 0.1), color: ORO }} />
+          </Stack>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Typography sx={{ fontSize: "0.85rem", fontWeight: 800, color: totalCommission > 0 ? ORO : "#ccc" }}>
+              {"\u20AC"}{totalCommission.toFixed(2)}
+            </Typography>
+            <Iconify icon={open ? "mdi:chevron-up" : "mdi:chevron-down"} width={20} sx={{ color: "#aaa" }} />
+          </Stack>
+        </Stack>
       </Box>
-      <Collapse in={open} collapsedSize={0}>
-        <Card sx={{ pt: 1, mt: 2 }}>
-          <Scrollbar>
-            <DataHandlerTable
-              name="faq-table"
-              headers={headers}
-              dataProps={{ ...dataProps, isArrayEmpty: !customer?.length }}
-            >
-              <Map
-                list={customer}
-                render={(customer, customer_index) => (
-                  <Map
-                    list={customer?.orders}
-                    render={(item, i) => (
-                      <>
-                        <TableRow key={item.id}>
-                          <TableCell>{customer_index + i + 1}</TableCell>
-                          <TableCell>{item?.username}</TableCell>
-                          <TableCell>{item?.bv}</TableCell>
-                          <TableCell>{item?.commission}</TableCell>
-                          <TableCell>
-                            <ParseDate date={item?.order_date} />
-                          </TableCell>
-                        </TableRow>
-                      </>
-                    )}
-                  />
-                )}
-              />
-            </DataHandlerTable>
-          </Scrollbar>
-        </Card>
+      <Collapse in={open} unmountOnExit>
+        <Box sx={{ px: 1, py: 1 }}>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>#</TableCell>
+                <TableCell sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>Cliente</TableCell>
+                <TableCell align="right" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>BV</TableCell>
+                <TableCell align="right" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>Bonus</TableCell>
+                <TableCell align="right" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>Data</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {allOrders.map((o, i) => (
+                <TableRow key={i} sx={{ "&:last-child td": { border: 0 } }}>
+                  <TableCell sx={{ fontSize: "0.75rem", py: 0.5 }}>{i + 1}</TableCell>
+                  <TableCell sx={{ fontSize: "0.75rem", py: 0.5 }}>{o.customerName || o.username}</TableCell>
+                  <TableCell align="right" sx={{ fontSize: "0.75rem", py: 0.5 }}>{o.bv}</TableCell>
+                  <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: Number(o.commission) > 0 ? ORO : "#ccc", py: 0.5 }}>
+                    {"\u20AC"}{Number(o.commission).toFixed(2)}
+                  </TableCell>
+                  <TableCell align="right" sx={{ fontSize: "0.7rem", color: "#7A6A5C", py: 0.5 }}>
+                    <ParseDate date={o.order_date} />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
       </Collapse>
-    </>
+    </Box>
   );
 };
 
