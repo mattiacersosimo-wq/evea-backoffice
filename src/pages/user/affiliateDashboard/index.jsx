@@ -289,9 +289,6 @@ const BonusSummaryGrid = () => {
         {b.expired && (
           <Chip label="Expired" size="small" color="error" sx={{ height: 18, fontSize: "0.6rem", ml: "auto" }} />
         )}
-        {b.notEligible && !b.expired && (
-          <Chip label="Non elegibile" size="small" sx={{ height: 18, fontSize: "0.6rem", ml: "auto", bgcolor: "#E8DDCA", color: "#5C4A3A" }} />
-        )}
       </Stack>
       {b.freq === "weekly" && b.pendingCurrentWeek !== null ? (
         <>
