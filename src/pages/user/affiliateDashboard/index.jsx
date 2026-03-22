@@ -289,16 +289,18 @@ const BonusSummaryGrid = () => {
       <Typography variant="h5" fontWeight={700} sx={{ color: Number(b.pending) > 0 ? b.color : "#ccc" }}>
         €{Number(b.pending || 0).toFixed(2)}
       </Typography>
-      <Typography sx={{ fontSize: "0.65rem", color: WARM }}>Pending</Typography>
+      <Typography sx={{ fontSize: "0.65rem", color: WARM }}>
+        {b.freq === "weekly" ? "Pending settimana corrente" : "Pending mese corrente"}
+      </Typography>
       {Number(b.prevMonth) > 0 && (
         <Typography sx={{ fontSize: "0.6rem", color: "#aaa", mt: 0.3 }}>
-          Mese prec.: €{Number(b.prevMonth).toFixed(2)}
+          {b.freq === "weekly" ? "Sett. prec." : "Mese prec."}: €{Number(b.prevMonth).toFixed(2)}
         </Typography>
       )}
     </Card>
   );
 
-  const TotalHeader = ({ icon, label, total, color }) => (
+  const TotalHeader = ({ icon, label, total, color, timer }) => (
     <Box sx={{ mb: 2, p: 2, borderRadius: 2, bgcolor: alpha(color, 0.05), border: `1px solid ${alpha(color, 0.15)}` }}>
       <Stack direction="row" alignItems="center" spacing={1.5}>
         <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha(color, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -308,6 +310,9 @@ const BonusSummaryGrid = () => {
           <Typography sx={{ fontSize: "0.65rem", fontWeight: 600, color: "#7A6A5C", textTransform: "uppercase", letterSpacing: 0.5 }}>
             {label}
           </Typography>
+          {timer && (
+            <Typography sx={{ fontSize: "0.6rem", color: "#aaa" }}>{timer}</Typography>
+          )}
         </Box>
         <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: total > 0 ? color : "#ccc", lineHeight: 1 }}>
           €{total.toFixed(2)}
@@ -320,7 +325,8 @@ const BonusSummaryGrid = () => {
     <Stack direction={{ xs: "column", md: "row" }} spacing={0}>
       {/* ── SETTIMANALI ── */}
       <Box sx={{ flex: 1 }}>
-        <TotalHeader icon="mdi:calendar-week" label="Pending Settimanali" total={weeklyTotal} color="#4CAF50" />
+        <TotalHeader icon="mdi:calendar-week" label="Pending Settimanali" total={weeklyTotal} color="#4CAF50"
+          timer={(() => { const now = new Date(); const end = new Date(now); end.setDate(end.getDate() + (7 - end.getDay())); end.setHours(23, 59, 59); const d = Math.max(0, Math.ceil((end - now) / 86400000)); return `Fine settimana tra ${d} giorni`; })()} />
         <Grid container spacing={1.5}>
           {weeklyBonuses.map((b) => (
             <Grid item xs={6} key={b.key}>
@@ -348,7 +354,8 @@ const BonusSummaryGrid = () => {
 
       {/* ── MENSILI ── */}
       <Box sx={{ flex: 1 }}>
-        <TotalHeader icon="mdi:calendar-month" label="Pending Mensili" total={monthlyTotal} color={ORO} />
+        <TotalHeader icon="mdi:calendar-month" label="Pending Mensili" total={monthlyTotal} color={ORO}
+          timer={(() => { const now = new Date(); const end = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59); const d = Math.max(0, Math.ceil((end - now) / 86400000)); return `Fine mese tra ${d} giorni`; })()} />
         <Grid container spacing={1.5}>
           {monthlyBonuses.map((b) => (
             <Grid item xs={6} key={b.key}>
