@@ -78,13 +78,13 @@ const filterMenu = (menu, isPromoter) => {
       if (p.includes("recurring-order") || p.includes("recurring_order")) {
         return { ...item, title: "Abbonamenti" };
       }
-      if (p.includes("/financial")) {
+      if (p.includes("/user/financial") || (p.includes("/financial") && !p.includes("/admin"))) {
         return { ...item, title: "Il mio Wallet", path: "/user/financial/wallet", children: undefined };
       }
       if (p.includes("affiliate-dashboard") || p.includes("affiliate_dashboard")) {
         return { ...item, title: "Dashboard Bonus" };
       }
-      if (p.includes("online-store") || p.includes("online_store")) {
+      if ((p.includes("online-store") || p.includes("online_store")) && p.includes("/user")) {
         return { ...item, title: "Ordini", path: "/user/online-store/my-orders", children: [
           { title: "I miei Ordini", path: "/user/online-store/my-orders" },
           { title: "Ordini Team", path: "/user/online-store/team-orders" },
