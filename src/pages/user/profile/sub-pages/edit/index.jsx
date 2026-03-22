@@ -16,7 +16,6 @@ import PickField from "src/sections/auth/register/components/pick-fields";
 import useFields from "src/sections/auth/register/hooks/use-fields";
 import Countries from "../../../../../components/countries";
 import ProfilePicture from "./components/ProfilePicture";
-import SocialMedia from "./components/SocialMedia";
 import useUser from "./hooks/useUser";
 
 const PartitaIvaFields = () => {
@@ -71,7 +70,6 @@ const EditInfo = () => {
                 <Grid item xs={12} md={4}>
                     <Card sx={{ py: 10, px: 3 }}>
                         <ProfilePicture methods={methods} />
-                        <SocialMedia />
                     </Card>
                 </Grid>
 
@@ -107,21 +105,6 @@ const EditInfo = () => {
                                 onBlur={onBlur}
                             />
 
-                            <RHFSelect
-                                name="gender"
-                                label="profile.edit.gender"
-                            >
-                                <option value="" />
-                                <option value="male">
-                                    {t("genders.male")}
-                                </option>
-                                <option value="female">
-                                    {t("genders.female")}
-                                </option>
-                                <option value="other">
-                                    {t("genders.other")}
-                                </option>
-                            </RHFSelect>
                             <Countries />
 
                             <RHFTextField
@@ -206,31 +189,6 @@ const EditInfo = () => {
                                 )}
                             />
 
-                            <RHFTextField
-                                name="facebook"
-                                label="profile.edit.social.fb"
-                            />
-                            <RHFTextField
-                                name="twitter"
-                                label="profile.edit.social.x"
-                            />
-                            <RHFTextField
-                                name="whatsapp"
-                                type="number"
-                                label="profile.edit.social.whatsapp"
-                            />
-                            <RHFTextField
-                                name="instagram"
-                                label="profile.edit.social.insta"
-                            />
-                            <RHFTextField
-                                name="telegram"
-                                label="profile.edit.social.tele"
-                            />
-                            <RHFTextField
-                                name="medium"
-                                label="profile.edit.social.medium"
-                            />
                         </Box>
 
                         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
