@@ -92,6 +92,15 @@ const filterMenu = (menu, isPromoter) => {
       }
       return item;
     });
+    // Reorder: Dashboard, Dashboard Bonus, Genealogy, then rest
+    const order = ["dashboard", "affiliate-dashboard", "genealog", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "profile"];
+    items = items.sort((a, b) => {
+      const pa = (a.path || a.title || "").toLowerCase();
+      const pb = (b.path || b.title || "").toLowerCase();
+      const ia = order.findIndex((k) => pa.includes(k));
+      const ib = order.findIndex((k) => pb.includes(k));
+      return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+    });
     // Remove business/network children from admin dashboard
     items = items.map((item) => {
       if (!item.children) return item;
