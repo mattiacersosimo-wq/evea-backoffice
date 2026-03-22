@@ -230,6 +230,7 @@ const BonusSummaryGrid = () => {
               pendingPreviousWeek: src?.pending_previous_week ?? d?.pending_previous_week ?? null,
               prevMonth: d?.[cfg.prevField] ?? src?.previous_month_pending_commission ?? d?.previous_month_pending_commission ?? 0,
               expired: d?.is_expired ?? false,
+              notEligible: d?.is_eligible === 0 || d?.go_mvp_approved === 0 || false,
             };
           } catch {
             return { ...cfg, pending: 0, prevMonth: 0, expired: false };
@@ -287,6 +288,9 @@ const BonusSummaryGrid = () => {
         </Typography>
         {b.expired && (
           <Chip label="Expired" size="small" color="error" sx={{ height: 18, fontSize: "0.6rem", ml: "auto" }} />
+        )}
+        {b.notEligible && !b.expired && (
+          <Chip label="Non elegibile" size="small" sx={{ height: 18, fontSize: "0.6rem", ml: "auto", bgcolor: "#E8DDCA", color: "#5C4A3A" }} />
         )}
       </Stack>
       {b.freq === "weekly" && b.pendingCurrentWeek !== null ? (
