@@ -81,6 +81,12 @@ const filterMenu = (menu, isPromoter) => {
       if (p.includes("/financial")) {
         return { ...item, title: "Il mio Wallet", path: "/user/financial/wallet", children: undefined };
       }
+      if (p.includes("online-store") || p.includes("online_store")) {
+        return { ...item, title: "Ordini", path: "/user/online-store/my-orders", children: [
+          { title: "I miei Ordini", path: "/user/online-store/my-orders" },
+          { title: "Ordini Team", path: "/user/online-store/team-orders" },
+        ]};
+      }
       return item;
     });
     // Remove business/network children from admin dashboard
