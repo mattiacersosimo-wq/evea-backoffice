@@ -10,7 +10,6 @@ import {
 import Translate from "src/components/translate";
 import Mobile from "./components/Mobile";
 import ProfilePicture from "./components/ProfilePicture";
-import SocialMedia from "./components/SocialMedia";
 import useUser from "./hooks/useUser";
 import HideFromSubAdmin from "src/components/hide-from-subadmin";
 
@@ -25,9 +24,6 @@ const EditInfo = () => {
         <Grid item xs={12} md={4}>
           <Card sx={{ py: 10, px: 3 }}>
             <ProfilePicture methods={methods} />
-            <HideFromSubAdmin>
-              <SocialMedia />
-            </HideFromSubAdmin>
           </Card>
         </Grid>
 
@@ -60,12 +56,6 @@ const EditInfo = () => {
                 onBlur={onBlur}
               />
 
-              <RHFSelect name="gender" label={"profile.gender"}>
-                <option value="" />
-                <option value="male">{t("profile.male")}</option>
-                <option value="female">{t("profile.female")}</option>
-                <option value="other">{t("profile.other")}</option>
-              </RHFSelect>
               <Countries />
               <RHFTextField name="state" label={"profile.state_region"} />
               <RHFTextField name="city" label={"profile.city"} />
@@ -80,14 +70,6 @@ const EditInfo = () => {
                   shrink: true,
                 }}
               />
-              <HideFromSubAdmin>
-                <RHFTextField name="facebook" label="Facebook" />
-                <RHFTextField name="twitter" label="Twitter" />
-                <RHFTextField name="whatsapp" label="WhatsApp" />
-                <RHFTextField name="instagram" label="Instagram" />
-                <RHFTextField name="telegram" label="Telegram" />
-                <RHFTextField name="medium" label={"profile.medium"} />
-              </HideFromSubAdmin>
             </Box>
 
             <Stack alignItems="flex-end" sx={{ mt: 3 }}>

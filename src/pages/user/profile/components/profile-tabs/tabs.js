@@ -32,22 +32,6 @@ const TABS = [
     isKyc: false,
   },
   {
-    label: "profile.tabs.referral",
-    icon: "icon-park-solid:message-sent",
-    href: "referrals",
-    name: "referrals",
-    is_holding: true,
-    isKyc: false,
-  },
-  {
-    label: "profile.tabs.note",
-    icon: "fluent:clipboard-note-20-filled",
-    href: "notes",
-    name: "notes",
-    is_holding: false,
-    isKyc: false,
-  },
-  {
     label: "kyc",
     icon: "basil:document-solid",
     href: "kyc",
