@@ -283,7 +283,7 @@ const BonusSummaryGrid = () => {
         >
           <Iconify icon={b.icon} width={18} sx={{ color: b.color }} />
         </Box>
-        <Typography sx={{ fontSize: "0.72rem", fontWeight: 600, color: ESPRESSO, lineHeight: 1.2 }}>
+        <Typography sx={{ fontSize: "0.82rem", fontWeight: 700, color: ESPRESSO, lineHeight: 1.2 }}>
           {b.label}
         </Typography>
         {b.expired && (
@@ -292,27 +292,33 @@ const BonusSummaryGrid = () => {
       </Stack>
       {b.freq === "weekly" && b.pendingCurrentWeek !== null ? (
         <>
-          <Typography variant="h5" fontWeight={700} sx={{ color: Number(b.pendingCurrentWeek) > 0 ? b.color : "#ccc" }}>
+          <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: Number(b.pendingCurrentWeek) > 0 ? b.color : "#ccc", lineHeight: 1.2 }}>
             €{Number(b.pendingCurrentWeek || 0).toFixed(2)}
           </Typography>
-          <Typography sx={{ fontSize: "0.65rem", color: WARM }}>Settimana corrente</Typography>
-          {Number(b.pendingPreviousWeek) > 0 && (
-            <Typography sx={{ fontSize: "0.6rem", color: "#aaa", mt: 0.3 }}>
-              Sett. precedente: €{Number(b.pendingPreviousWeek).toFixed(2)}
-            </Typography>
-          )}
+          <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: ESPRESSO, mt: 0.3 }}>Settimana corrente</Typography>
+          <Box sx={{ mt: 1, pt: 1, borderTop: "1px solid #f0ece6" }}>
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
+              <Typography sx={{ fontSize: "0.75rem", fontWeight: 600, color: "#7A6A5C" }}>Sett. precedente</Typography>
+              <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: Number(b.pendingPreviousWeek) > 0 ? ESPRESSO : "#ccc" }}>
+                €{Number(b.pendingPreviousWeek || 0).toFixed(2)}
+              </Typography>
+            </Stack>
+          </Box>
         </>
       ) : (
         <>
-          <Typography variant="h5" fontWeight={700} sx={{ color: Number(b.pending) > 0 ? b.color : "#ccc" }}>
+          <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: Number(b.pending) > 0 ? b.color : "#ccc", lineHeight: 1.2 }}>
             €{Number(b.pending || 0).toFixed(2)}
           </Typography>
-          <Typography sx={{ fontSize: "0.65rem", color: WARM }}>Pending mese corrente</Typography>
-          {Number(b.prevMonth) > 0 && (
-            <Typography sx={{ fontSize: "0.6rem", color: "#aaa", mt: 0.3 }}>
-              Mese prec.: €{Number(b.prevMonth).toFixed(2)}
-            </Typography>
-          )}
+          <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: ESPRESSO, mt: 0.3 }}>Mese corrente</Typography>
+          <Box sx={{ mt: 1, pt: 1, borderTop: "1px solid #f0ece6" }}>
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
+              <Typography sx={{ fontSize: "0.75rem", fontWeight: 600, color: "#7A6A5C" }}>Mese precedente</Typography>
+              <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: Number(b.prevMonth) > 0 ? ESPRESSO : "#ccc" }}>
+                €{Number(b.prevMonth || 0).toFixed(2)}
+              </Typography>
+            </Stack>
+          </Box>
         </>
       )}
     </Card>
