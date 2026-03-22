@@ -135,7 +135,7 @@ const CountdownTimer = ({ expiryDate, label }) => {
   if (!expiryDate) return null;
   return (
     <Box sx={{ textAlign: "center" }}>
-      <Typography sx={{ fontSize: "0.7rem", color: alpha("#fff", 0.6), mb: 0.3 }}>{label}</Typography>
+      <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C", mb: 0.3 }}>{label}</Typography>
       <Typography sx={{ fontSize: "0.92rem", fontWeight: 700, color: ORO, bgcolor: alpha(ORO, 0.12), borderRadius: 1, px: 1, py: 0.3, border: `1px solid ${alpha(ORO, 0.3)}` }}>
         {pad(time.d)}d {pad(time.h)}h {pad(time.m)}m {pad(time.s)}s
       </Typography>
@@ -160,7 +160,7 @@ const HeroCard = () => {
   const fullName = [hero?.first_name, hero?.last_name].filter(Boolean).join(" ") || user?.username || "";
 
   return (
-    <Card sx={{ bgcolor: ESPRESSO, color: "#fff", borderRadius: 4, p: { xs: 2.5, md: 3.5 }, position: "relative", overflow: "hidden" }}>
+    <Card sx={{ bgcolor: "#FAF6EF", color: ESPRESSO, borderRadius: 4, p: { xs: 2.5, md: 3.5 }, position: "relative", overflow: "hidden", border: `1px solid ${alpha(ORO, 0.2)}` }}>
       <Box sx={{ position: "absolute", bottom: -40, right: -40, width: 140, height: 140, borderRadius: "50%", bgcolor: alpha(ORO, 0.06) }} />
       <Stack direction={{ xs: "column", md: "row" }} spacing={3} alignItems={{ xs: "center", md: "flex-start" }} sx={{ position: "relative", zIndex: 1 }}>
         <Stack direction="row" spacing={2} alignItems="center" sx={{ flex: 1, width: "100%" }}>
@@ -173,13 +173,13 @@ const HeroCard = () => {
               {rank?.current_rank && <Chip label={rank.current_rank} size="small" sx={{ bgcolor: alpha(ORO, 0.15), color: ORO, fontWeight: 700, fontSize: "0.8rem", height: 24, border: `1px solid ${alpha(ORO, 0.3)}` }} />}
             </Stack>
             <Stack spacing={0.2} sx={{ mt: 0.5 }}>
-              <Typography sx={{ fontSize: "0.75rem", color: alpha("#fff", 0.5) }}>
+              <Typography sx={{ fontSize: "0.75rem", color: "#7A6A5C" }}>
                 ID: {hero?.unique_id || user?.unique_id || user?.id}
               </Typography>
-              <Typography sx={{ fontSize: "0.75rem", color: alpha("#fff", 0.5) }}>
+              <Typography sx={{ fontSize: "0.75rem", color: "#7A6A5C" }}>
                 User: {hero?.username || user?.username}
               </Typography>
-              <Typography sx={{ fontSize: "0.75rem", color: alpha("#fff", 0.5) }}>
+              <Typography sx={{ fontSize: "0.75rem", color: "#7A6A5C" }}>
                 Sponsor: {hero?.sponsor || "—"}
               </Typography>
             </Stack>
@@ -193,7 +193,7 @@ const HeroCard = () => {
         )}
       </Stack>
 
-      {loading ? <Skeleton height={50} sx={{ mt: 2, bgcolor: alpha("#fff", 0.05), borderRadius: 2 }} /> : (
+      {loading ? <Skeleton height={50} sx={{ mt: 2, bgcolor: alpha(ORO, 0.04), borderRadius: 2 }} /> : (
         <Stack direction="row" spacing={1} sx={{ mt: 2.5, flexWrap: "wrap", gap: 1 }}>
           {[
             { icon: "mdi:wallet-outline", label: "Wallet", value: `€${Number(hero?.wallet || 0).toFixed(2)}` },
@@ -202,10 +202,10 @@ const HeroCard = () => {
             { icon: "mdi:account-group", label: "Clienti", value: hero?.clienti_diretti || 0 },
             { icon: "mdi:account-tie", label: "Team", value: hero?.team_promoter || 0 },
           ].map((m) => (
-            <Box key={m.label} sx={{ flex: "1 1 0", minWidth: 80, bgcolor: alpha("#fff", 0.06), borderRadius: 2, p: 1, textAlign: "center", border: `1px solid ${alpha(ORO, 0.1)}` }}>
+            <Box key={m.label} sx={{ flex: "1 1 0", minWidth: 80, bgcolor: alpha(ORO, 0.05), borderRadius: 2, p: 1, textAlign: "center", border: `1px solid ${alpha(ORO, 0.1)}` }}>
               <Iconify icon={m.icon} width={18} sx={{ color: ORO, mb: 0.3 }} />
               <Typography sx={{ fontSize: "0.95rem", fontWeight: 700 }}>{m.value}</Typography>
-              <Typography sx={{ fontSize: "0.65rem", color: alpha("#fff", 0.5) }}>{m.label}</Typography>
+              <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C" }}>{m.label}</Typography>
             </Box>
           ))}
         </Stack>

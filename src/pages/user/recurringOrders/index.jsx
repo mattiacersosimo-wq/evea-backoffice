@@ -292,14 +292,14 @@ const RecurringOrder = () => {
     <Page title="I miei abbonamenti">
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4 }}>
         {/* Hero */}
-        <Card sx={{ bgcolor: ESPRESSO, color: "#fff", borderRadius: 4, p: 3, mb: 3 }}>
+        <Card sx={{ bgcolor: "#FAF6EF", color: ESPRESSO, borderRadius: 4, p: 3, mb: 3, border: `1px solid ${alpha(ORO, 0.2)}` }}>
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Box sx={{ width: 48, height: 48, borderRadius: 2, bgcolor: alpha(ORO, 0.15), display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Box sx={{ width: 48, height: 48, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
               <Iconify icon="mdi:refresh-circle" width={28} sx={{ color: ORO }} />
             </Box>
             <Box>
-              <Typography variant="h5" fontWeight={700}>I miei abbonamenti</Typography>
-              <Typography sx={{ fontSize: "0.8rem", color: alpha("#fff", 0.6) }}>Percorso Fedeltà — gestisci i tuoi abbonamenti</Typography>
+              <Typography variant="h5" fontWeight={700} color={ESPRESSO}>I miei abbonamenti</Typography>
+              <Typography sx={{ fontSize: "0.8rem", color: "#7A6A5C" }}>Percorso Fedeltà — gestisci i tuoi abbonamenti</Typography>
             </Box>
           </Stack>
         </Card>

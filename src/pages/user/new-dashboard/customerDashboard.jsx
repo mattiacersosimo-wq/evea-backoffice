@@ -111,12 +111,13 @@ const HeroCard = () => {
   return (
     <Card
       sx={{
-        bgcolor: ESPRESSO,
-        color: "#fff",
+        bgcolor: "#FAF6EF",
+        color: ESPRESSO,
         borderRadius: 4,
         p: { xs: 3, md: 4 },
         position: "relative",
         overflow: "hidden",
+        border: `1px solid ${alpha(ORO, 0.2)}`,
       }}
     >
       {/* decorative oro accent — angolo in basso a destra */}
@@ -178,13 +179,13 @@ const HeroCard = () => {
           {nextRank && (
             <Box sx={{ mt: 2, maxWidth: 400 }}>
               <Stack direction="row" justifyContent="space-between" mb={0.5}>
-                <Typography variant="caption" sx={{ color: alpha("#fff", 0.7) }}>
+                <Typography variant="caption" sx={{ color: "#7A6A5C" }}>
                   Prossimo rank: <b style={{ color: ORO_LIGHT }}>{nextRank}</b>
                 </Typography>
                 {loading ? (
                   <Skeleton width={50} sx={{ bgcolor: "rgba(255,255,255,0.1)" }} />
                 ) : (
-                  <Typography variant="caption" sx={{ color: alpha("#fff", 0.7) }}>
+                  <Typography variant="caption" sx={{ color: "#7A6A5C" }}>
                     {pctLabel}
                   </Typography>
                 )}
@@ -225,7 +226,7 @@ const HeroCard = () => {
                 }}
               >
                 <Iconify icon={p.icon} width={16} sx={{ color: ORO_LIGHT }} />
-                <Typography sx={{ fontSize: "0.7rem", color: alpha("#fff", 0.8), whiteSpace: "nowrap" }}>
+                <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C", whiteSpace: "nowrap" }}>
                   {p.text}
                 </Typography>
               </Box>

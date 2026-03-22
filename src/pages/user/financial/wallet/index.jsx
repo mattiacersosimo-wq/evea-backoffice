@@ -27,14 +27,14 @@ const WalletPage = () => {
     <Page title="Il mio Wallet">
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4 }}>
         {/* Hero */}
-        <Card sx={{ bgcolor: ESPRESSO, color: "#fff", borderRadius: 4, p: 3, mb: 3 }}>
+        <Card sx={{ bgcolor: "#FAF6EF", color: ESPRESSO, borderRadius: 4, p: 3, mb: 3, border: `1px solid ${alpha(ORO, 0.2)}` }}>
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Box sx={{ width: 48, height: 48, borderRadius: 2, bgcolor: alpha(ORO, 0.15), display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Box sx={{ width: 48, height: 48, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
               <Iconify icon="mdi:wallet-outline" width={28} sx={{ color: ORO }} />
             </Box>
             <Box>
-              <Typography variant="h5" fontWeight={700}>Il mio Wallet</Typography>
-              <Typography sx={{ fontSize: "0.8rem", color: alpha("#fff", 0.6) }}>Gestisci i tuoi guadagni, commissioni e prelievi</Typography>
+              <Typography variant="h5" fontWeight={700} color={ESPRESSO}>Il mio Wallet</Typography>
+              <Typography sx={{ fontSize: "0.8rem", color: "#7A6A5C" }}>Gestisci i tuoi guadagni, commissioni e prelievi</Typography>
             </Box>
           </Stack>
         </Card>
