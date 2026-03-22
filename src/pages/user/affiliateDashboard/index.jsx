@@ -343,11 +343,9 @@ const BonusSummaryGrid = () => {
           <Typography sx={{ fontSize: "1.8rem", fontWeight: 800, color: total > 0 ? color : "#ccc", lineHeight: 1 }}>
             €{total.toFixed(2)}
           </Typography>
-          {prevTotal > 0 && (
-            <Typography sx={{ fontSize: "0.72rem", color: "#7A6A5C", mt: 0.3 }}>
-              Periodo prec.: €{prevTotal.toFixed(2)}
-            </Typography>
-          )}
+          <Typography sx={{ fontSize: "0.75rem", color: "#7A6A5C", mt: 0.3 }}>
+            Periodo prec.: <b style={{ color: prevTotal > 0 ? "#2C1A0E" : "#ccc" }}>€{(prevTotal || 0).toFixed(2)}</b>
+          </Typography>
         </Box>
       </Stack>
     </Box>
