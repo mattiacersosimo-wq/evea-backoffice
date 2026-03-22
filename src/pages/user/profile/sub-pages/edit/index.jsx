@@ -131,6 +131,18 @@ const EditInfo = () => {
                             />
                             {/*<Mobile />*/}
 
+                            <Typography
+                                variant="caption"
+                                sx={{
+                                    color: "#7A6A5C",
+                                    gridColumn: "1 / -1",
+                                    mt: -2,
+                                    fontSize: "0.7rem",
+                                }}
+                            >
+                                L'indirizzo verr&agrave; aggiornato anche per i tuoi prossimi ordini su Shopify
+                            </Typography>
+
                             <RHFTextField
                                 name="tax_code"
                                 label="profile.edit.tax_code"

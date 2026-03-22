@@ -18,6 +18,19 @@ const useUser = () => {
       if (status === 200) {
         enqueueSnackbar(data.message);
         getUser();
+        // Sync address to Shopify
+        try {
+          await axiosInstance.put("api/wp/user/address", {
+            first_name: inputData.first_name,
+            last_name: inputData.last_name,
+            address: inputData.address,
+            city: inputData.city,
+            zipcode: inputData.zipcode,
+            state: inputData.state,
+            country: inputData.country,
+            mobile: inputData.mobile,
+          });
+        } catch { /* Shopify sync failed silently */ }
       }
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });

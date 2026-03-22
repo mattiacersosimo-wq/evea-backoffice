@@ -1,6 +1,7 @@
 import {
   Box,
   Card,
+  Chip,
   Container,
   Dialog,
   DialogTitle,
@@ -34,8 +35,20 @@ const headers = [
   "global.payment_method",
   "global.order_date",
   "global.total_price",
+  "Stato",
   "global.action",
 ];
+
+const getStatusBadge = (row) => {
+  const os = (row?.order_status || "").toLowerCase();
+  const fs = (row?.fulfillment_status || "").toLowerCase();
+  if (os === "refunded" || os === "cancelled") return { label: "Rimborsato", bgcolor: "#FCEBEB", color: "#A32D2D" };
+  if (fs === "delivered") return { label: "Consegnato", bgcolor: "#EAF3DE", color: "#27500A" };
+  if (fs === "fulfilled" || fs === "success") return { label: "Spedito", bgcolor: "#FAF3E0", color: "#854F0B" };
+  if (os === "finished" || os === "paid" || os === "complete") return { label: "Pagato", bgcolor: "#E6F1FB", color: "#0C447C" };
+  if (os === "processing") return { label: "In lavorazione", bgcolor: "#FFF8E1", color: "#7A6A5C" };
+  return { label: "In attesa", bgcolor: "#E8DDCA", color: "#5C4A3A" };
+};
 
 const MyOrders = () => {
   const navigate = useNavigate();
@@ -109,6 +122,9 @@ const MyOrders = () => {
                   </TableCell>
                   <TableCell>
                     <Currency>{row.total_amount}</Currency>
+                  </TableCell>
+                  <TableCell>
+                    {(() => { const s = getStatusBadge(row); return <Chip label={s.label} size="small" sx={{ bgcolor: s.bgcolor, color: s.color, fontWeight: 600, fontSize: "0.7rem", height: 24 }} />; })()}
                   </TableCell>
                   <TableCell>
                     <IconButton
