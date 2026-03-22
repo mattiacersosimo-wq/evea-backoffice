@@ -22,11 +22,11 @@ const userNavConfig = [
                 promoterOnly: true,
             },
 
-            {
-                title: "user_nav.join_telegram",
-                path: "https://web.telegram.org/",
-                icon: ICONS.chat,
-            },
+            // {
+            //     title: "user_nav.join_telegram",
+            //     path: "https://web.telegram.org/",
+            //     icon: ICONS.chat,
+            // },
 
             {
                 title: "user_nav.online_store.online_store",
@@ -171,13 +171,13 @@ const userNavConfig = [
                     },
                 ],
             },
-            {
-                title: "user_nav.referals",
-                icon: ICONS.referrals,
-                path: PATH_USER.referals.root,
-                placement: 7,
-                isAffiliate: true,
-            },
+            // {
+            //     title: "user_nav.referals",
+            //     icon: ICONS.referrals,
+            //     path: PATH_USER.referals.root,
+            //     placement: 7,
+            //     isAffiliate: true,
+            // },
             
             {
                 title: "user_nav.financial.financial",
@@ -245,12 +245,12 @@ const userNavConfig = [
                 path: PATH_USER.profile.root,
                 placement: 9,
             },
-            {
-                title: "user_nav.blogs",
-                icon: ICONS.blog,
-                path: PATH_USER.blogs.root,
-                placement: 10,
-            },
+            // {
+            //     title: "user_nav.blogs",
+            //     icon: ICONS.blog,
+            //     path: PATH_USER.blogs.root,
+            //     placement: 10,
+            // },
             {
                 title: "user_nav.help_center.help_center",
                 path: PATH_USER.helpCenter.root,

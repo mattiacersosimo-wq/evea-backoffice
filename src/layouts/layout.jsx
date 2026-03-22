@@ -9,6 +9,9 @@ import Vertical from "./components/vertical";
 // Paths visible only to promoters (user side)
 const PROMOTER_ONLY_PATHS = ["/user/affiliate-dashboard"];
 
+// Keywords to hide from user menu (matched against path and title)
+const HIDDEN_USER_KEYWORDS = ["blog", "referal", "telegram"];
+
 // Admin dashboard children to remove (business/network replaced by KPI)
 const HIDDEN_ADMIN_CHILDREN = ["/admin/dashboard/business", "/admin/dashboard/network"];
 
@@ -62,6 +65,12 @@ const filterMenu = (menu, isPromoter) => {
     if (!isPromoter) {
       items = items.filter((item) => !PROMOTER_ONLY_PATHS.includes(item.path));
     }
+    // Hide blog, referrals, telegram for all users
+    items = items.filter((item) => {
+      const p = (item.path || "").toLowerCase();
+      const t = (item.title || "").toLowerCase();
+      return !HIDDEN_USER_KEYWORDS.some((kw) => p.includes(kw) || t.includes(kw));
+    });
     // Remove business/network children from admin dashboard
     items = items.map((item) => {
       if (!item.children) return item;
