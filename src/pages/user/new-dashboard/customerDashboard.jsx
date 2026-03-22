@@ -144,12 +144,12 @@ const HeroCard = () => {
           sx={{
             width: 80,
             height: 80,
-            border: "3px solid rgba(255,255,255,0.3)",
-            bgcolor: alpha(ORO, 0.25),
-            color: "#fff",
+            border: `3px solid ${alpha(ORO, 0.3)}`,
+            bgcolor: alpha(ORO, 0.15),
+            color: ORO,
             fontSize: 32,
             fontWeight: 700,
-            boxShadow: `0 0 0 6px ${alpha(ORO, 0.15)}`,
+            boxShadow: `0 0 0 6px ${alpha(ORO, 0.1)}`,
           }}
         >
           {fullName.charAt(0).toUpperCase()}
@@ -157,15 +157,15 @@ const HeroCard = () => {
 
         <Box sx={{ flex: 1, width: "100%" }}>
           <Stack direction="row" alignItems="center" spacing={1.5} flexWrap="wrap">
-            <Typography variant="h5" fontWeight={700} sx={{ color: "#fff" }}>
+            <Typography variant="h5" fontWeight={700} sx={{ color: ESPRESSO }}>
               {fullName}
             </Typography>
             <Chip
               label={currentRank}
               size="small"
               sx={{
-                bgcolor: "rgba(255,255,255,0.15)",
-                color: ORO_LIGHT,
+                bgcolor: alpha(ORO, 0.12),
+                color: ORO,
                 fontWeight: 700,
                 fontSize: "0.72rem",
                 height: 26,
@@ -180,7 +180,7 @@ const HeroCard = () => {
             <Box sx={{ mt: 2, maxWidth: 400 }}>
               <Stack direction="row" justifyContent="space-between" mb={0.5}>
                 <Typography variant="caption" sx={{ color: "#7A6A5C" }}>
-                  Prossimo rank: <b style={{ color: ORO_LIGHT }}>{nextRank}</b>
+                  Prossimo rank: <b style={{ color: ORO }}>{nextRank}</b>
                 </Typography>
                 {loading ? (
                   <Skeleton width={50} sx={{ bgcolor: "rgba(255,255,255,0.1)" }} />
