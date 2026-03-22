@@ -229,7 +229,7 @@ const BonusSummaryGrid = () => {
               pendingCurrentWeek: src?.pending_current_week ?? d?.pending_current_week ?? null,
               pendingPreviousWeek: src?.pending_previous_week ?? d?.pending_previous_week ?? null,
               prevMonth: d?.[cfg.prevField] ?? src?.previous_month_pending_commission ?? d?.previous_month_pending_commission ?? 0,
-              expired: d?.is_expired ?? false,
+              expired: Boolean(d?.is_expired),
               notEligible: d?.is_eligible === 0 || d?.go_mvp_approved === 0 || false,
             };
           } catch {
@@ -262,6 +262,7 @@ const BonusSummaryGrid = () => {
   const weeklyTotal = weeklyBonuses.reduce((s, b) => s + Number(b.pendingCurrentWeek ?? b.pending ?? 0), 0);
   const weeklyPrevTotal = weeklyBonuses.reduce((s, b) => s + Number(b.pendingPreviousWeek ?? 0), 0);
   const monthlyTotal = monthlyBonuses.reduce((s, b) => s + Number(b.pending || 0), 0);
+  const monthlyPrevTotal = monthlyBonuses.reduce((s, b) => s + Number(b.prevMonth || 0), 0);
 
   const BonusCard = ({ b }) => (
     <Card
@@ -324,23 +325,30 @@ const BonusSummaryGrid = () => {
     </Card>
   );
 
-  const TotalHeader = ({ icon, label, total, color, timer }) => (
-    <Box sx={{ mb: 2, p: 2, borderRadius: 2, bgcolor: alpha(color, 0.05), border: `1px solid ${alpha(color, 0.15)}` }}>
+  const TotalHeader = ({ icon, label, total, color, timer, prevTotal }) => (
+    <Box sx={{ mb: 2, p: 2.5, borderRadius: 3, bgcolor: alpha(color, 0.05), border: `1px solid ${alpha(color, 0.15)}` }}>
       <Stack direction="row" alignItems="center" spacing={1.5}>
-        <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha(color, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <Iconify icon={icon} width={20} sx={{ color }} />
+        <Box sx={{ width: 42, height: 42, borderRadius: 2, bgcolor: alpha(color, 0.12), display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <Iconify icon={icon} width={22} sx={{ color }} />
         </Box>
         <Box sx={{ flex: 1 }}>
-          <Typography sx={{ fontSize: "0.65rem", fontWeight: 600, color: "#7A6A5C", textTransform: "uppercase", letterSpacing: 0.5 }}>
+          <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: "#2C1A0E" }}>
             {label}
           </Typography>
           {timer && (
-            <Typography sx={{ fontSize: "0.6rem", color: "#aaa" }}>{timer}</Typography>
+            <Typography sx={{ fontSize: "0.72rem", color: "#7A6A5C", mt: 0.2 }}>{timer}</Typography>
           )}
         </Box>
-        <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: total > 0 ? color : "#ccc", lineHeight: 1 }}>
-          €{total.toFixed(2)}
-        </Typography>
+        <Box sx={{ textAlign: "right" }}>
+          <Typography sx={{ fontSize: "1.8rem", fontWeight: 800, color: total > 0 ? color : "#ccc", lineHeight: 1 }}>
+            €{total.toFixed(2)}
+          </Typography>
+          {prevTotal > 0 && (
+            <Typography sx={{ fontSize: "0.72rem", color: "#7A6A5C", mt: 0.3 }}>
+              Periodo prec.: €{prevTotal.toFixed(2)}
+            </Typography>
+          )}
+        </Box>
       </Stack>
     </Box>
   );
@@ -349,8 +357,8 @@ const BonusSummaryGrid = () => {
     <Stack direction={{ xs: "column", md: "row" }} spacing={0}>
       {/* ── SETTIMANALI ── */}
       <Box sx={{ flex: 1 }}>
-        <TotalHeader icon="mdi:calendar-week" label="Pending Settimanali" total={weeklyTotal} color="#4CAF50"
-          timer={(() => { const now = new Date(); const day = now.getDay(); const left = day === 0 ? 0 : 7 - day; return (left === 0 ? "La settimana riparte domani" : `Fine settimana tra ${left} giorn${left === 1 ? "o" : "i"}`) + (weeklyPrevTotal > 0 ? ` · Sett. prec.: €${weeklyPrevTotal.toFixed(2)}` : ""); })()} />
+        <TotalHeader icon="mdi:calendar-week" label="Pending Settimanali" total={weeklyTotal} color="#4CAF50" prevTotal={weeklyPrevTotal}
+          timer={(() => { const now = new Date(); const day = now.getDay(); const left = day === 0 ? 0 : 7 - day; return left === 0 ? "La settimana riparte domani" : `Fine settimana tra ${left} giorn${left === 1 ? "o" : "i"}`; })()} />
         <Grid container spacing={1.5}>
           {weeklyBonuses.map((b) => (
             <Grid item xs={6} key={b.key}>
@@ -378,7 +386,7 @@ const BonusSummaryGrid = () => {
 
       {/* ── MENSILI ── */}
       <Box sx={{ flex: 1 }}>
-        <TotalHeader icon="mdi:calendar-month" label="Pending Mensili" total={monthlyTotal} color={ORO}
+        <TotalHeader icon="mdi:calendar-month" label="Pending Mensili" total={monthlyTotal} color={ORO} prevTotal={monthlyPrevTotal}
           timer={(() => { const now = new Date(); const end = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59); const d = Math.max(0, Math.ceil((end - now) / 86400000)); return `Fine mese tra ${d} giorni`; })()} />
         <Grid container spacing={1.5}>
           {monthlyBonuses.map((b) => (
