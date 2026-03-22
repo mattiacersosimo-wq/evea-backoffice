@@ -192,11 +192,14 @@ const SealCard = ({ sub, onAction }) => {
                 {history.slice(0, 10).map((h, i) => {
                   const hs = h.status === "completed" ? { color: MUSCHIO, bg: alpha(MUSCHIO, 0.1), label: "Completato" }
                     : h.status === "failed" ? { color: DANGER, bg: alpha(DANGER, 0.1), label: "Fallito" }
+                    : h.status === "info" ? { color: "#607D8B", bg: alpha("#607D8B", 0.1), label: "Info" }
                     : { color: WARNING, bg: alpha(WARNING, 0.1), label: "Programmato" };
                   return (
                     <TableRow key={h.id || i}>
                       <TableCell sx={{ fontSize: "0.75rem" }}>{formatDate(h.date)}</TableCell>
-                      <TableCell sx={{ fontSize: "0.75rem", fontWeight: 600 }}>{"\u20AC"}{Number(h.amount).toFixed(2)}</TableCell>
+                      <TableCell sx={{ fontSize: "0.75rem", fontWeight: 600 }}>
+                        {h.type === "log" ? <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>{h.note}</Typography> : `\u20AC${Number(h.amount).toFixed(2)}`}
+                      </TableCell>
                       <TableCell><Chip label={hs.label} size="small" sx={{ bgcolor: hs.bg, color: hs.color, fontWeight: 600, fontSize: "0.65rem", height: 22 }} /></TableCell>
                     </TableRow>
                   );
