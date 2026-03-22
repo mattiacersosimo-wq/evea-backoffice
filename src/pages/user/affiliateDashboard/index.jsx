@@ -226,6 +226,8 @@ const BonusSummaryGrid = () => {
             return {
               ...cfg,
               pending: src?.[cfg.pendingField] ?? 0,
+              pendingCurrentWeek: src?.pending_current_week ?? d?.pending_current_week ?? null,
+              pendingPreviousWeek: src?.pending_previous_week ?? d?.pending_previous_week ?? null,
               prevMonth: d?.[cfg.prevField] ?? src?.previous_month_pending_commission ?? d?.previous_month_pending_commission ?? 0,
               expired: d?.is_expired ?? false,
             };
@@ -256,7 +258,8 @@ const BonusSummaryGrid = () => {
 
   const weeklyBonuses = bonuses.filter((b) => b.freq === "weekly");
   const monthlyBonuses = bonuses.filter((b) => b.freq === "monthly");
-  const weeklyTotal = weeklyBonuses.reduce((s, b) => s + Number(b.pending || 0), 0);
+  const weeklyTotal = weeklyBonuses.reduce((s, b) => s + Number(b.pendingCurrentWeek ?? b.pending ?? 0), 0);
+  const weeklyPrevTotal = weeklyBonuses.reduce((s, b) => s + Number(b.pendingPreviousWeek ?? 0), 0);
   const monthlyTotal = monthlyBonuses.reduce((s, b) => s + Number(b.pending || 0), 0);
 
   const BonusCard = ({ b }) => (
@@ -286,16 +289,30 @@ const BonusSummaryGrid = () => {
           <Chip label="Expired" size="small" color="error" sx={{ height: 18, fontSize: "0.6rem", ml: "auto" }} />
         )}
       </Stack>
-      <Typography variant="h5" fontWeight={700} sx={{ color: Number(b.pending) > 0 ? b.color : "#ccc" }}>
-        €{Number(b.pending || 0).toFixed(2)}
-      </Typography>
-      <Typography sx={{ fontSize: "0.65rem", color: WARM }}>
-        {b.freq === "weekly" ? "Pending settimana corrente" : "Pending mese corrente"}
-      </Typography>
-      {Number(b.prevMonth) > 0 && (
-        <Typography sx={{ fontSize: "0.6rem", color: "#aaa", mt: 0.3 }}>
-          Periodo prec.: €{Number(b.prevMonth).toFixed(2)}
-        </Typography>
+      {b.freq === "weekly" && b.pendingCurrentWeek !== null ? (
+        <>
+          <Typography variant="h5" fontWeight={700} sx={{ color: Number(b.pendingCurrentWeek) > 0 ? b.color : "#ccc" }}>
+            €{Number(b.pendingCurrentWeek || 0).toFixed(2)}
+          </Typography>
+          <Typography sx={{ fontSize: "0.65rem", color: WARM }}>Settimana corrente</Typography>
+          {Number(b.pendingPreviousWeek) > 0 && (
+            <Typography sx={{ fontSize: "0.6rem", color: "#aaa", mt: 0.3 }}>
+              Sett. precedente: €{Number(b.pendingPreviousWeek).toFixed(2)}
+            </Typography>
+          )}
+        </>
+      ) : (
+        <>
+          <Typography variant="h5" fontWeight={700} sx={{ color: Number(b.pending) > 0 ? b.color : "#ccc" }}>
+            €{Number(b.pending || 0).toFixed(2)}
+          </Typography>
+          <Typography sx={{ fontSize: "0.65rem", color: WARM }}>Pending mese corrente</Typography>
+          {Number(b.prevMonth) > 0 && (
+            <Typography sx={{ fontSize: "0.6rem", color: "#aaa", mt: 0.3 }}>
+              Mese prec.: €{Number(b.prevMonth).toFixed(2)}
+            </Typography>
+          )}
+        </>
       )}
     </Card>
   );
@@ -326,7 +343,7 @@ const BonusSummaryGrid = () => {
       {/* ── SETTIMANALI ── */}
       <Box sx={{ flex: 1 }}>
         <TotalHeader icon="mdi:calendar-week" label="Pending Settimanali" total={weeklyTotal} color="#4CAF50"
-          timer={(() => { const now = new Date(); const day = now.getDay(); const left = day === 0 ? 0 : 7 - day; return left === 0 ? "La settimana riparte domani" : `Fine settimana tra ${left} giorn${left === 1 ? "o" : "i"}`; })()} />
+          timer={(() => { const now = new Date(); const day = now.getDay(); const left = day === 0 ? 0 : 7 - day; return (left === 0 ? "La settimana riparte domani" : `Fine settimana tra ${left} giorn${left === 1 ? "o" : "i"}`) + (weeklyPrevTotal > 0 ? ` · Sett. prec.: €${weeklyPrevTotal.toFixed(2)}` : ""); })()} />
         <Grid container spacing={1.5}>
           {weeklyBonuses.map((b) => (
             <Grid item xs={6} key={b.key}>
