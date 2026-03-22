@@ -9,17 +9,12 @@ import { useCallback, useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
-import HeaderBreadcrumbs from "src/components/HeaderBreadcrumbs";
 import DataHandlerList from "src/components/data-handler/list";
 import Map from "src/components/map";
 import PaginationButtons from "src/components/pagination";
-import { PATH_USER } from "src/routes/paths";
 import axiosInstance from "src/utils/axios";
-import { WP_URL } from "src/config";
-import MySubscription from "./components/card";
-import useFetchSubscription from "./components/content/hooks/useFetchSubscription";
-import Search from "./components/search";
-import SubscriptionProvider from "./store/subscription";
+// My Subscriptions (kit distributore)
+import useMySubFetch from "src/pages/user/subscriptions/components/content/hooks/useFetchSubscription";
 
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
@@ -287,8 +282,8 @@ const SealSection = () => {
 // MAIN PAGE — Seal + Internal subscriptions
 // ═══════════════════════════════════════
 const RecurringOrder = () => {
-  const { state, rowStart, fetchData, ...rest } = useFetchSubscription();
-  const { data, ...dataProps } = state;
+  const { state: mySubState, fetchData: mySubFetch, ...mySubRest } = useMySubFetch();
+  const { data: mySubData, ...mySubDataProps } = mySubState;
 
   return (
     <Page title="I miei abbonamenti">
@@ -309,31 +304,55 @@ const RecurringOrder = () => {
         {/* Seal Subscriptions (Smartship) */}
         <SealSection />
 
-        {/* Internal Subscriptions (Promoter annual, etc.) */}
+        {/* Kit Distributore (My Subscriptions) */}
         <Divider sx={{ my: 2 }} />
         <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 2 }}>
-          <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha("#607D8B", 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Iconify icon="mdi:card-account-details-outline" width={20} sx={{ color: "#607D8B" }} />
+          <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Iconify icon="mdi:badge-account-outline" width={20} sx={{ color: ORO }} />
           </Box>
           <Box>
-            <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ESPRESSO }}>Abbonamenti Promoter</Typography>
-            <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>Abbonamento annuale e pacchetti attivi</Typography>
+            <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ESPRESSO }}>Kit Distributore</Typography>
+            <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>Il tuo abbonamento promoter</Typography>
           </Box>
         </Stack>
-        <Box display="flex" justifyContent="space-between" sx={{ mb: 1 }}>
-          <Search fetchData={fetchData} />
-        </Box>
-        <DataHandlerList dataProps={dataProps}>
+        <DataHandlerList dataProps={mySubDataProps}>
           <Map
-            list={data}
-            render={(product) => (
-              <SubscriptionProvider data={product}>
-                <MySubscription fetchData={fetchData} key={product?.id} />
-              </SubscriptionProvider>
-            )}
+            list={mySubData}
+            render={(product) => {
+              const name = product?.purchase_product?.name || "N/A";
+              const status = (product?.active_status || "").toLowerCase();
+              const st = status === "active" ? { label: "Attivo", color: MUSCHIO, bg: alpha(MUSCHIO, 0.1) }
+                : status === "expired" ? { label: "Scaduto", color: DANGER, bg: alpha(DANGER, 0.1) }
+                : { label: product?.active_status || status, color: WARNING, bg: alpha(WARNING, 0.1) };
+              const purchaseDate = product?.created_at ? formatDate(product.created_at) : null;
+              const expiryDate = product?.effective_until ? formatDate(product.effective_until) : null;
+              return (
+                <Card key={product?.id} sx={{ bgcolor: "#fff", border: `1px solid ${SABBIA}`, borderRadius: 3, overflow: "hidden", mb: 2 }}>
+                  <Box sx={{ p: 2.5 }}>
+                    <Stack direction="row" alignItems="center" spacing={1.5} mb={0.5}>
+                      <Typography sx={{ fontSize: "1.05rem", fontWeight: 700, color: ESPRESSO, textTransform: "capitalize" }}>{name}</Typography>
+                      <Chip label={st.label} size="small" sx={{ bgcolor: st.bg, color: st.color, fontWeight: 700, fontSize: "0.7rem", height: 24 }} />
+                    </Stack>
+                    <Stack direction="row" spacing={2} sx={{ mt: 0.5 }}>
+                      {purchaseDate && (
+                        <Typography sx={{ fontSize: "0.78rem", color: "#7A6A5C" }}>
+                          Attivo dal <b style={{ color: ESPRESSO }}>{purchaseDate}</b>
+                        </Typography>
+                      )}
+                      {expiryDate && (
+                        <Typography sx={{ fontSize: "0.78rem", color: "#7A6A5C" }}>
+                          Scade il <b style={{ color: ESPRESSO }}>{expiryDate}</b>
+                        </Typography>
+                      )}
+                    </Stack>
+                  </Box>
+                </Card>
+              );
+            }}
           />
         </DataHandlerList>
-        <PaginationButtons {...rest} />
+        <PaginationButtons {...mySubRest} />
+
       </Box>
     </Page>
   );

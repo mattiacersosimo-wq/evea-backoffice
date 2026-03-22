@@ -10,7 +10,7 @@ import Vertical from "./components/vertical";
 const PROMOTER_ONLY_PATHS = ["/user/affiliate-dashboard"];
 
 // Keywords to hide from user menu (matched against path and title)
-const HIDDEN_USER_KEYWORDS = ["blog", "referal", "telegram"];
+const HIDDEN_USER_KEYWORDS = ["blog", "referal", "telegram", "my-subscription", "my_subscription"];
 
 // Admin dashboard children to remove (business/network replaced by KPI)
 const HIDDEN_ADMIN_CHILDREN = ["/admin/dashboard/business", "/admin/dashboard/network"];
@@ -70,6 +70,14 @@ const filterMenu = (menu, isPromoter) => {
       const p = (item.path || "").toLowerCase();
       const t = (item.title || "").toLowerCase();
       return !HIDDEN_USER_KEYWORDS.some((kw) => p.includes(kw) || t.includes(kw));
+    });
+    // Rename "Recurring Orders" to "Abbonamenti"
+    items = items.map((item) => {
+      const p = (item.path || "").toLowerCase();
+      if (p.includes("recurring-order") || p.includes("recurring_order")) {
+        return { ...item, title: "Abbonamenti" };
+      }
+      return item;
     });
     // Remove business/network children from admin dashboard
     items = items.map((item) => {
