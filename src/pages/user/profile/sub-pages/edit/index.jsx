@@ -45,7 +45,7 @@ const PartitaIvaFields = () => {
 };
 
 const HideComponent = ({ id, children }) => {
-    const HIDDEN_IDS = [1, 2, 3, 4];
+    const HIDDEN_IDS = [1, 2, 3, 4, 5];
 
     if (HIDDEN_IDS.indexOf(id) < 0) {
         return <>{children}</>;
@@ -105,6 +105,12 @@ const EditInfo = () => {
                                 onBlur={onBlur}
                             />
 
+                            <RHFTextField
+                                name="date_of_birth"
+                                label="Data di Nascita"
+                                type="date"
+                                InputLabelProps={{ shrink: true }}
+                            />
                             <Countries />
 
                             <RHFTextField
