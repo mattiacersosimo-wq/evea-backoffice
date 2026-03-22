@@ -294,7 +294,7 @@ const BonusSummaryGrid = () => {
       </Typography>
       {Number(b.prevMonth) > 0 && (
         <Typography sx={{ fontSize: "0.6rem", color: "#aaa", mt: 0.3 }}>
-          {b.freq === "weekly" ? "Sett. prec." : "Mese prec."}: €{Number(b.prevMonth).toFixed(2)}
+          Periodo prec.: €{Number(b.prevMonth).toFixed(2)}
         </Typography>
       )}
     </Card>
@@ -326,7 +326,7 @@ const BonusSummaryGrid = () => {
       {/* ── SETTIMANALI ── */}
       <Box sx={{ flex: 1 }}>
         <TotalHeader icon="mdi:calendar-week" label="Pending Settimanali" total={weeklyTotal} color="#4CAF50"
-          timer={(() => { const now = new Date(); const end = new Date(now); end.setDate(end.getDate() + (7 - end.getDay())); end.setHours(23, 59, 59); const d = Math.max(0, Math.ceil((end - now) / 86400000)); return `Fine settimana tra ${d} giorni`; })()} />
+          timer={(() => { const now = new Date(); const day = now.getDay(); const left = day === 0 ? 0 : 7 - day; return left === 0 ? "La settimana riparte domani" : `Fine settimana tra ${left} giorn${left === 1 ? "o" : "i"}`; })()} />
         <Grid container spacing={1.5}>
           {weeklyBonuses.map((b) => (
             <Grid item xs={6} key={b.key}>
