@@ -4,18 +4,41 @@ import {
   Avatar,
   Box,
   Card,
+  Chip,
   Stack,
   Tooltip,
   Typography,
   tooltipClasses,
   useTheme,
 } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import { useDrag } from "react-dnd";
 import ParseDate from "src/components/date";
 import Translate from "src/components/translate";
 import useStyles from "src/components/tree/components/node/hooks/useStyles.js";
 import UserIcon from "src/images/tree-tooltip.png";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
+
+const RANK_COLOR_MAP = {
+  "Associate": "#9E9E9E",
+  "Rank 1": "#8BC34A",
+  "Rank 2": "#4CAF50",
+  "Rank 3": "#00897B",
+  "Rank 4": "#B8963B",
+  "Rank 5": "#9C27B0",
+  "Rank 6": "#FF5722",
+  "Rank 7": "#E91E63",
+  "Rank 8": "#673AB7",
+  "Rank 9": "#F44336",
+  "Rank 10": "#FFD700",
+};
+const CUSTOMER_COLOR = "#378ADD";
+
+const getNodeColor = (user_type, rank_name) => {
+  if (user_type === "customer") return CUSTOMER_COLOR;
+  if (rank_name && RANK_COLOR_MAP[rank_name]) return RANK_COLOR_MAP[rank_name];
+  return "#B8963B";
+};
 const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
@@ -337,12 +360,13 @@ const Account = ({
               className={classes.avatar}
               src={profile}
               sx={{
-                backgroundColor: palette.primary.lighter,
+                backgroundColor: alpha(getNodeColor(user_type, rank_name), 0.15),
+                border: `2.5px solid ${getNodeColor(user_type, rank_name)}`,
                 borderRadius: "50%",
                 p: "0 !important",
               }}
             >
-              <AccountCircleOutlinedIcon />
+              <AccountCircleOutlinedIcon sx={{ color: getNodeColor(user_type, rank_name) }} />
             </Avatar>
           </Box>
           <Card
