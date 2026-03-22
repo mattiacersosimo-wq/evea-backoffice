@@ -47,13 +47,6 @@ const Progress = ({ higherRank, state }) => {
           />
         </Stack>
         <Stack direction="row" alignItems="center" spacing={1}>
-          {higherRank?.current_percentage != null && (
-            <Chip
-              label={`${higherRank.current_percentage}%`}
-              size="small"
-              sx={{ height: 22, fontWeight: 700, bgcolor: alpha("#43A047", 0.1), color: "#43A047", fontSize: "0.75rem" }}
-            />
-          )}
           <Stack direction="row" alignItems="center" spacing={0.5}>
             <Iconify icon="mdi:layers-outline" width={16} sx={{ color: "#6B5E54" }} />
             <Typography sx={{ fontSize: "0.75rem", color: "#6B5E54" }}>
