@@ -16,7 +16,8 @@ const SPONSOR_LEGEND = [
   { label: "Platinum", color: "#B8963B" },
   { label: "Sapphire", color: "#2196F3" },
   { label: "Ruby", color: "#E91E63" },
-  { label: "Emerald+", color: "#4CAF50" },
+  { label: "Emerald", color: "#4CAF50" },
+  { label: "Diamond+", color: "#673AB7" },
 ];
 
 const Tree = ({ legends = [], username, ...rest }) => {
