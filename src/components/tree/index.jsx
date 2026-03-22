@@ -10,11 +10,13 @@ import Styles from "./style.module.css";
 const SPONSOR_LEGEND = [
   { label: "Cliente", color: "#378ADD" },
   { label: "Associate", color: "#9E9E9E" },
-  { label: "Rank 1", color: "#8BC34A" },
-  { label: "Rank 2", color: "#4CAF50" },
-  { label: "Rank 3", color: "#00897B" },
-  { label: "Rank 4", color: "#B8963B" },
-  { label: "Rank 5+", color: "#9C27B0" },
+  { label: "Starter", color: "#8BC34A" },
+  { label: "Builder", color: "#4CAF50" },
+  { label: "Senior Builder", color: "#00897B" },
+  { label: "Platinum", color: "#B8963B" },
+  { label: "Sapphire", color: "#2196F3" },
+  { label: "Ruby", color: "#E91E63" },
+  { label: "Emerald+", color: "#4CAF50" },
 ];
 
 const Tree = ({ legends = [], username, ...rest }) => {

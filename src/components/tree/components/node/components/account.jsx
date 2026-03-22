@@ -21,16 +21,16 @@ import PersonPinIcon from "@mui/icons-material/PersonPin";
 
 const RANK_COLOR_MAP = {
   "Associate": "#9E9E9E",
-  "Rank 1": "#8BC34A",
-  "Rank 2": "#4CAF50",
-  "Rank 3": "#00897B",
-  "Rank 4": "#B8963B",
-  "Rank 5": "#9C27B0",
-  "Rank 6": "#FF5722",
-  "Rank 7": "#E91E63",
-  "Rank 8": "#673AB7",
-  "Rank 9": "#F44336",
-  "Rank 10": "#FFD700",
+  "Starter": "#8BC34A",
+  "Builder": "#4CAF50",
+  "Senior Builder": "#00897B",
+  "Platinum": "#B8963B",
+  "Sapphire": "#2196F3",
+  "Ruby": "#E91E63",
+  "Emerald": "#4CAF50",
+  "Diamond": "#673AB7",
+  "Blue Diamond": "#1565C0",
+  "Crown Diamond": "#FFD700",
 };
 const CUSTOMER_COLOR = "#378ADD";
 
