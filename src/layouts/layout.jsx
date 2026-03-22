@@ -72,10 +72,14 @@ const filterMenu = (menu, isPromoter) => {
       return !HIDDEN_USER_KEYWORDS.some((kw) => p.includes(kw) || t.includes(kw));
     });
     // Rename "Recurring Orders" to "Abbonamenti"
+    // Replace Financial dropdown with single "Il mio Wallet" link
     items = items.map((item) => {
       const p = (item.path || "").toLowerCase();
       if (p.includes("recurring-order") || p.includes("recurring_order")) {
         return { ...item, title: "Abbonamenti" };
+      }
+      if (p.includes("/financial")) {
+        return { ...item, title: "Il mio Wallet", path: "/user/financial/wallet", children: undefined };
       }
       return item;
     });

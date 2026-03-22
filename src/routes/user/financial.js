@@ -29,10 +29,15 @@ const Autofatture = Loadable(
   lazy(() => import("src/pages/user/financial/autofatture/index"))
 );
 
+const Wallet = Loadable(
+  lazy(() => import("src/pages/user/financial/wallet/index"))
+);
+
 const financial = {
   path: "financial",
   children: [
-    { index: true, element: <Navigate to="e-wallet" /> },
+    { index: true, element: <Navigate to="wallet" /> },
+    { path: "wallet", element: <Wallet /> },
     { path: "e-wallet", element: <EWallet /> },
     {
       path: "deposit-wallet",

@@ -379,7 +379,7 @@ const QuickAccess = () => {
   const { enqueueSnackbar } = useSnackbar();
   const referralLink = user?.username ? `${WP_URL}?ref=${user.username}` : "";
   const shortcuts = [
-    { icon: "mdi:shopping-outline", label: "Negozio", action: () => navigate("/user/online-store") },
+    { icon: "mdi:shopping-outline", label: "Negozio", action: () => window.open("https://www.myevea.com/collections/all", "_blank") },
     { icon: "mdi:link-variant", label: "Link Referral", action: async () => { if (referralLink) { await navigator.clipboard.writeText(referralLink); enqueueSnackbar("Link copiato!"); } } },
     { icon: "mdi:cash-multiple", label: "Payout", action: () => navigate("/user/financial/request-payout") },
     { icon: "mdi:package-variant", label: "Ordini", action: () => navigate("/user/online-store/my-orders") },
