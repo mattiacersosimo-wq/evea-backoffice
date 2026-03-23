@@ -71,7 +71,7 @@
         "update_coin": "Aggiorna il tuo indirizzo di moneta",
         "account_login": "Block Account Access",
         "payout": "Bloccare il pagamento",
-        "fund_transfer": "Trasferimento di fondi a blocchi",
+        "fund_transfer": "Fund Transfer",
         "referral": "Block Referral",
         "edit_Video": "Modifica video",
         "sponsor_information": "Sponsor Information",
@@ -111,8 +111,8 @@
         "Team_Volume": "Team Volume",
         "package": "Pacchetti",
         "binary_matching_bonus_settings": "Impostazioni Bonus Binario di Corrispondenza",
-        "matchingBonus": "Bonus Binario di Corrispondenza",
-        "binary_bonus": "Bonus Binario",
+        "matchingBonus": "Binary Matching Bonus",
+        "binary_bonus": "Binary Bonus",
         "daily": "Giornaliero",
         "monthly": "Mensile",
         "instant": "Immediato",
@@ -290,7 +290,7 @@
             "financial": "Financial",
             "my_eWallet": "Il Mio Wallet",
             "deposit_wallet": "Deposit Wallet",
-            "fund_transfer": "Trasferimento Fondi",
+            "fund_transfer": "Fund Transfer",
             "request_payout": "Richiedi Payout"
         },
         "business_builder": {
@@ -408,7 +408,7 @@
         "aquired": "BV Acquisito",
         "required": "BV Richiesto",
         "upcoming_week": "Prossima Settimana",
-        "binary_bonus": "Bono Binario",
+        "binary_bonus": "Binary Bonus",
         "no": "No",
         "active_products": "Prodotto Attivo",
         "user_name": "Nome Utente",
@@ -623,27 +623,27 @@
         "r_bonus": "Bonus di Referral",
         "deducted_by_admin": "Deducted by Admin",
         "credited_by_admin": "Credited by Admin",
-        "fund_transfer": "Trasferimento Fondi",
-        "roi_commission": "Commissione ROI",
+        "fund_transfer": "Fund Transfer",
+        "roi_commission": "ROI Commission",
         "a_bonus": "Bonus di Realizzazione",
         "first_order_bonus": "Bonus Primo Ordine",
         "level_commission": "Commissione Livello",
-        "b_bonus": "Bonus Binario",
+        "b_bonus": "Binary Bonus",
         "deposit_wallet": "Deposit Wallet",
         "product_purchased": "Prodotto Acquistato",
         "rank_bonus": "Rank Bonus",
-        "m_bonus": "Bonus Binario di Corrispondenza",
-        "go_mvp_bonus": "Vai al bonus MVP",
+        "m_bonus": "Binary Matching Bonus",
+        "go_mvp_bonus": "Go MVP Bonus",
         "eveolving_bonus": "Evolving Bonus",
-        "rock_solid_bonus": "Bonus solido come la roccia",
+        "rock_solid_bonus": "Rock Solid Bonus",
         "rock_solid_mvp_bonus": "Rock Solid MVP Bonus Progress",
-        "rock_solid_mvp_additional_bonus": "Bonus aggiuntivo Rock Solid MVP",
-        "direct_sales_bonus": "Bonus vendite dirette",
+        "rock_solid_mvp_additional_bonus": "Rock Solid MVP Additional Bonus",
+        "direct_sales_bonus": "Direct Sales Bonus",
         "pmb_bonus": "PMB Bonus",
         "indirect_sales_bonus": "Indirect Sales Bonus",
-        "leadership_bonus": "Bonus di leadership",
-        "residual_bonus": "Bonus residuo",
-        "residual_matching": "Corrispondenza residua"
+        "leadership_bonus": "Leadership Bonus",
+        "residual_bonus": "Residual Bonus",
+        "residual_matching": "Residual Matching"
     },
     "tools": {
         "videos": {
@@ -892,7 +892,7 @@
         "total_network_bonus": "Bonus Totale Rete",
         "total_payout": "Pagamento Totale",
         "upcoming_week": "Prossima Settimana",
-        "binary_bonus": "Bonus Binario",
+        "binary_bonus": "Binary Bonus",
         "history": "Cronologia Rete",
         "network_bonus": "Bonus Rete",
         "support_tickets": "Ticket"
@@ -1048,7 +1048,7 @@
             "history": "Cronologia",
             "cards": {
                 "balance": "Saldo",
-                "transfer": "Trasferimento Uscita",
+                "transfer": "Transfer Out",
                 "payout": "Pagamento Totale",
                 "bonus": "Bonus"
             },
@@ -1067,7 +1067,7 @@
             "history": "Cronologia",
             "cards": {
                 "balance": "Saldo",
-                "transfer": "Trasferimento Uscita",
+                "transfer": "Transfer Out",
                 "credited_by_admin": "Accreditato da Amministratore"
             },
             "table": {
@@ -1104,7 +1104,7 @@
             }
         },
         "fund_transfer": {
-            "title": "Trasferimento Fondi",
+            "title": "Fund Transfer",
             "cards": {
                 "e_balance": "Saldo E-Wallet",
                 "d_balance": "Saldo Portafoglio Depositi"
