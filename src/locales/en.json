@@ -101,7 +101,6 @@
         "availableBalance": "Available Balance",
         "minimumWithdrawal": "Minimum Withdrawal"
       },
-
       "fundCredit": {
         "fundCredits": "Fund Credits",
         "startTyping": "Start typing to search Users...",
@@ -212,7 +211,6 @@
     "topEarners": "Top Earners",
     "sales": "Sales",
     "pointHistory": "Point History",
-
     "adminDashboard": {
       "balance": "Balance",
       "month": "Month",
@@ -542,7 +540,6 @@
         "closed": "Closed",
         "archived": "Archived",
         "deleted": "Deleted",
-        "delete": "Delete",
         "unverified": "Unverified",
         "requestApproval": "Request Approval",
         "inProgress": "In Progress",
@@ -739,7 +736,6 @@
         "getReport": "Get Report"
       }
     },
-
     "adminSubAdmin": {
       "subAdmin": {
         "SubAdminTitile": "All Sub Admin: Sub Admins",
@@ -1437,7 +1433,6 @@
       "referralsS": "referrals",
       "notes": "notes"
     },
-
     "headerSettings": {
       "general": "general",
       "billing": "billing",
@@ -1491,23 +1486,19 @@
       "referrals": "referrals",
       "notes": "notes"
     },
-
     "impoersonation": {
       "heads": " Heads up! You are now logged in as",
       "click": " Click here",
       "toGo": "to go back admin account"
     },
-
     "viewMore": "View More",
     "viewAll": "View all",
     "view": "view",
     "clearAll": "Clear All",
     "buy": "Buy",
-    "cancel": "Cancel",
     "firstName": "First Name ",
     "lastName": "Last Name",
     "email": "Email",
-
     "getReport": "Get Report",
     "userDashboard": {
       "welcomeBack": "Welcome Back !",
@@ -2081,5 +2072,61 @@
     "save": "Save",
     "send": "Send",
     "logout": "Logout"
+  },
+  "evea": {
+    "pending_weekly": "Weekly Pending",
+    "pending_monthly": "Monthly Pending",
+    "current_week": "Current week",
+    "previous_week": "Previous week",
+    "current_month": "Current month",
+    "previous_month": "Previous month",
+    "previous_period": "Previous period",
+    "earnings": "Earnings",
+    "quick_access": "Quick Access",
+    "your_team": "Your Team",
+    "shop": "Shop",
+    "referral_link": "Referral Link",
+    "wallet": "Wallet",
+    "orders": "Orders",
+    "coupons": "Coupons",
+    "smartship": "Smartship",
+    "subscriptions": "Subscriptions",
+    "bonus_dashboard": "Bonus Dashboard",
+    "not_eligible": "Not eligible",
+    "bonus_by_level": "Bonus by Level",
+    "generations": "Generations",
+    "matching_levels": "Matching Levels",
+    "customer_details": "Customer Details",
+    "no_users": "No users",
+    "week_restarts_tomorrow": "Week restarts tomorrow",
+    "week_ends_in": "Week ends in",
+    "month_ends_in": "Month ends in",
+    "days": "days",
+    "my_wallet": "My Wallet",
+    "transactions": "Transactions",
+    "incoming": "Incoming",
+    "withdraw": "Withdraw",
+    "invoices": "Invoices",
+    "my_subscriptions": "My Subscriptions",
+    "loyalty_path": "Loyalty Path — manage your subscriptions",
+    "promoter_kit": "Distributor Kit",
+    "your_promoter_subscription": "Your promoter subscription",
+    "active_from": "Active from",
+    "expires_on": "Expires on",
+    "pause": "Pause",
+    "resume": "Resume",
+    "change_date": "Change date",
+    "cancel": "Cancel",
+    "confirm_cancel": "Confirm cancellation",
+    "tracking": "Tracking",
+    "track_shipment": "Track shipment",
+    "shipping_not_available": "Shipping not yet available",
+    "status_pending": "Pending",
+    "status_paid": "Paid",
+    "status_shipped": "Shipped",
+    "status_delivered": "Delivered",
+    "status_refunded": "Refunded",
+    "panoramica_bonus": "Bonus Overview",
+    "address_shopify_note": "Address will be updated for your next Shopify orders too"
   }
 }

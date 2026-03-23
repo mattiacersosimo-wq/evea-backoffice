@@ -93,7 +93,6 @@
         "availableBalance": "Saldo Disponibile",
         "minimumWithdrawal": "Prelievo Minimo"
       },
-
       "fundCredit": {
         "fundCredits": "Fondi Crediti",
         "startTyping": "Inizia a digitare per cercare gli utenti...",
@@ -190,7 +189,6 @@
     "materials": "Materiali",
     "myProfile": "Il Mio Profilo",
     "blogs": "Blog",
-    "helpCenter": "Centro Assistenza",
     "faqs": "Domande Frequenti",
     "knowledgeBase": "Base di Conoscenza",
     "emails": "Email",
@@ -205,7 +203,6 @@
     "topEarners": "Migliori Guadagni",
     "sales": "Vendite",
     "pointHistory": "Storico dei Punti",
-
     "adminDashboard": {
       "balance": "Saldo",
       "month": "Mese",
@@ -535,7 +532,6 @@
         "closed": "Chiuso",
         "archived": "Archiviato",
         "deleted": "Eliminato",
-        "delete": "Elimina",
         "unverified": "Non Verificato",
         "requestApproval": "Richiesta Approvazione",
         "inProgress": "In Corso",
@@ -732,7 +728,6 @@
         "getReport": "Ottieni rapporto"
       }
     },
-
     "adminSubAdmin": {
       "subAdmin": {
         "SubAdminTitile": "Tutti i Sub Admin: Sub Admin",
@@ -971,7 +966,6 @@
         "private": "Privato",
         "public": "Pubblico"
       },
-
       "coupons": {
         "couponTitile": "Coupon: Negozio",
         "coupon": "Coupon",
@@ -1488,7 +1482,6 @@
     "view": "vedi",
     "clearAll": "Cancella tutto",
     "buy": "Compra",
-    "cancel": "Annulla",
     "firstName": "Nome ",
     "lastName": "Cognome",
     "email": "Email",
@@ -2062,5 +2055,61 @@
     "save": "Salva",
     "send": "Invia",
     "logout": "Logout"
+  },
+  "evea": {
+    "pending_weekly": "Pending Settimanali",
+    "pending_monthly": "Pending Mensili",
+    "current_week": "Settimana corrente",
+    "previous_week": "Sett. precedente",
+    "current_month": "Mese corrente",
+    "previous_month": "Mese precedente",
+    "previous_period": "Periodo prec.",
+    "earnings": "Guadagni",
+    "quick_access": "Accesso Rapido",
+    "your_team": "Il tuo Team",
+    "shop": "Negozio",
+    "referral_link": "Link Referral",
+    "wallet": "Wallet",
+    "orders": "Ordini",
+    "coupons": "Coupon",
+    "smartship": "Smartship",
+    "subscriptions": "Abbonamenti",
+    "bonus_dashboard": "Dashboard Bonus",
+    "not_eligible": "Non elegibile",
+    "bonus_by_level": "Bonus per Livello",
+    "generations": "Generazioni",
+    "matching_levels": "Livelli Matching",
+    "customer_details": "Dettaglio Clienti",
+    "no_users": "Nessun utente",
+    "week_restarts_tomorrow": "La settimana riparte domani",
+    "week_ends_in": "Fine settimana tra",
+    "month_ends_in": "Fine mese tra",
+    "days": "giorni",
+    "my_wallet": "Il mio Wallet",
+    "transactions": "Movimenti",
+    "incoming": "In Arrivo",
+    "withdraw": "Preleva",
+    "invoices": "Autofatture",
+    "my_subscriptions": "I miei abbonamenti",
+    "loyalty_path": "Percorso Fedeltà — gestisci i tuoi abbonamenti",
+    "promoter_kit": "Kit Distributore",
+    "your_promoter_subscription": "Il tuo abbonamento promoter",
+    "active_from": "Attivo dal",
+    "expires_on": "Scade il",
+    "pause": "Metti in pausa",
+    "resume": "Riprendi",
+    "change_date": "Cambia data",
+    "cancel": "Cancella",
+    "confirm_cancel": "Conferma cancellazione",
+    "tracking": "Tracking",
+    "track_shipment": "Traccia spedizione",
+    "shipping_not_available": "Spedizione non ancora disponibile",
+    "status_pending": "In attesa",
+    "status_paid": "Pagato",
+    "status_shipped": "Spedito",
+    "status_delivered": "Consegnato",
+    "status_refunded": "Rimborsato",
+    "panoramica_bonus": "Panoramica Bonus",
+    "address_shopify_note": "L'indirizzo verrà aggiornato anche per i tuoi prossimi ordini su Shopify"
   }
 }
