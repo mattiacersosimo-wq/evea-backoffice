@@ -3404,6 +3404,11 @@
         "no_data": "Nessun dato",
         "transactions": "Transazioni",
         "weekly_trend": "Trend Settimanale",
-        "breakdown": "Dettaglio per Bonus"
+        "breakdown": "Dettaglio per Bonus",
+        "loyalty_active": "Sconto fedeltà attivo — 10% su tutti i tuoi acquisti",
+        "loyalty_active_sub": "Mantieni il tuo smartship attivo per continuare a risparmiare",
+        "loyalty_inactive": "Attiva lo smartship per ottenere il 10% su tutti i tuoi ordini",
+        "loyalty_inactive_sub": "Abbonati ora e risparmia su ogni acquisto",
+        "activate_now": "Attiva ora"
     }
 }

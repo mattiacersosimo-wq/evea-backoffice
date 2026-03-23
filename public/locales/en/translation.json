@@ -3478,6 +3478,11 @@
         "no_data": "No data",
         "transactions": "Transactions",
         "weekly_trend": "Weekly Trend",
-        "breakdown": "Breakdown per Bonus"
+        "breakdown": "Breakdown per Bonus",
+        "loyalty_active": "Loyalty discount active — 10% off all your purchases",
+        "loyalty_active_sub": "Keep your smartship active to keep saving",
+        "loyalty_inactive": "Activate smartship to get 10% off all your orders",
+        "loyalty_inactive_sub": "Subscribe now and save on every purchase",
+        "activate_now": "Activate now"
     }
 }
