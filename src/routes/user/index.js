@@ -50,7 +50,7 @@ const AffiliateDashboard = Loadable(
 );
 
 const IncomeReport = Loadable(
-  lazy(() => import("src/pages/user/income-report/index"))
+  lazy(() => import("src/pages/user/reports/index"))
 );
 const MissedPoints = Loadable(
   lazy(() => import("src/pages/user/missedPoints"))

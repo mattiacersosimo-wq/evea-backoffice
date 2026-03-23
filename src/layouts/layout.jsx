@@ -97,10 +97,10 @@ const filterMenu = (menu, isPromoter) => {
     if (isPromoter && !items.some((i) => (i.path || "").includes("income-report"))) {
       items.push({ title: "income_report", path: "/user/income-report", icon: "/icons/ic_report.svg" });
     }
-    // Rename income_report based on current language
+    // Rename income_report to Report
     items = items.map((item) => {
       if ((item.path || "").includes("income-report")) {
-        return { ...item, title: "Report Guadagni" };
+        return { ...item, title: "Report" };
       }
       return item;
     });
