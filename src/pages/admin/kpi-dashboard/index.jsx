@@ -129,7 +129,9 @@ const RiskAlert = () => {
         <Avatar sx={{ width: 36, height: 36, bgcolor: alpha(DANGER, 0.15), color: DANGER }}><Iconify icon="mdi:alert" width={22} /></Avatar>
         <Box sx={{ flex: 1 }}>
           <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: DANGER }}>Rischio concentrazione — Leader critico rilevato</Typography>
-          <Typography sx={{ fontSize: "0.85rem", color: TEXT }}><b>{top.name || top.username}</b> genera il <b>{top.pct}%</b> del fatturato. Soglia superata (20-30%). Diversificare urgentemente.</Typography>
+          <Typography sx={{ fontSize: "0.85rem", color: TEXT }}>
+            <b>{top.name || top.username}</b> (@{top.username}){top.type === "customer" ? " — cliente" : " — promoter"} genera il <b>{top.pct}%</b> del fatturato. Soglia superata (20-30%). Diversificare urgentemente.
+          </Typography>
         </Box>
       </Stack>
     </Box>
