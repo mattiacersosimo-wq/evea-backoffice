@@ -548,6 +548,7 @@ const ROBCard = () => {
           fullWidth
           variant="outlined"
           startIcon={<Iconify icon="mdi:cog-outline" />}
+          href="/user/recurring-orders"
           sx={{
             borderColor: "#e0e0e0", color: ESPRESSO,
             "&:hover": { borderColor: ORO, bgcolor: alpha(ORO, 0.04) },

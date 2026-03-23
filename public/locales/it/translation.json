@@ -3409,6 +3409,7 @@
         "loyalty_active_sub": "Mantieni il tuo smartship attivo per continuare a risparmiare",
         "loyalty_inactive": "Attiva lo smartship per ottenere il 10% su tutti i tuoi ordini",
         "loyalty_inactive_sub": "Abbonati ora e risparmia su ogni acquisto",
-        "activate_now": "Attiva ora"
+        "activate_now": "Attiva ora",
+        "birthdays": "Compleanni"
     }
 }

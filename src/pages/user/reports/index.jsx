@@ -13,6 +13,7 @@ const CustomerReport = lazy(() => import("./customers"));
 const RankHistoryReport = lazy(() => import("./rank-history"));
 const VolumeReport = lazy(() => import("./volume"));
 const PayoutHistoryReport = lazy(() => import("./payout-history"));
+const BirthdaysReport = lazy(() => import("./birthdays"));
 
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
@@ -24,6 +25,7 @@ const TAB_KEYS = [
   { labelKey: "evea.report_rank", icon: "mdi:trophy-outline", key: "rank" },
   { labelKey: "evea.report_volume", icon: "mdi:chart-bar", key: "volume" },
   { labelKey: "evea.report_payout", icon: "mdi:bank-transfer-out", key: "payout" },
+  { labelKey: "evea.birthdays", icon: "mdi:cake-variant", key: "birthdays" },
 ];
 
 const Reports = () => {
@@ -81,6 +83,7 @@ const Reports = () => {
           {tab === 3 && <RankHistoryReport />}
           {tab === 4 && <VolumeReport />}
           {tab === 5 && <PayoutHistoryReport />}
+          {tab === 6 && <BirthdaysReport />}
         </Suspense>
       </Box>
     </Page>

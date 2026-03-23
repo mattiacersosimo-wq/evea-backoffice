@@ -3483,6 +3483,7 @@
         "loyalty_active_sub": "Keep your smartship active to keep saving",
         "loyalty_inactive": "Activate smartship to get 10% off all your orders",
         "loyalty_inactive_sub": "Subscribe now and save on every purchase",
-        "activate_now": "Activate now"
+        "activate_now": "Activate now",
+        "birthdays": "Birthdays"
     }
 }
