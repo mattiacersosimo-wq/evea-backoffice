@@ -21,6 +21,19 @@ const BONUS_COLORS = {
   eveolving_bonus: "#FF5722", first_order_bonus: "#8BC34A", rank_bonus: "#673AB7",
 };
 
+const ALL_BONUSES = [
+  { type: "direct_sales_bonus", label: "Direct Sales Bonus", freq: "weekly" },
+  { type: "indirect_sales_bonus", label: "Indirect Sales Bonus", freq: "weekly" },
+  { type: "go_mvp_bonus", label: "Go MVP Bonus", freq: "weekly" },
+  { type: "rock_solid_mvp_bonus", label: "Rock Solid MVP Bonus", freq: "weekly" },
+  { type: "pmb_bonus", label: "MVP Mentor Bonus", freq: "weekly" },
+  { type: "residual_bonus", label: "Residual Bonus", freq: "monthly" },
+  { type: "leadership_bonus", label: "Leadership Bonus", freq: "monthly" },
+  { type: "residual_matching", label: "Residual Matching", freq: "monthly" },
+  { type: "rock_solid_bonus", label: "Rock Solid Bonus", freq: "monthly" },
+  { type: "eveolving_bonus", label: "Evolving Bonus", freq: "monthly" },
+];
+
 const STATUS_BADGE = {
   yes: { label: "Approvato", color: "#4A5C3A", bg: "#EAF3DE" },
   pending: { label: "Pending", color: "#EF9F27", bg: "#FFF3E0" },
@@ -60,7 +73,9 @@ const IncomeReport = () => {
   };
 
   const summary = data?.summary || {};
-  const byType = data?.by_type || [];
+  const rawByType = data?.by_type || [];
+  const byTypeMap = Object.fromEntries(rawByType.map((b) => [b.type, b]));
+  const byType = ALL_BONUSES.map((ab) => byTypeMap[ab.type] || { ...ab, total: 0, paid: 0, pending: 0, on_hold: 0, count: 0 });
   const transactions = data?.transactions || [];
   const weeklyTrend = data?.weekly_trend || [];
   const availableWeeks = data?.available_weeks || [];
