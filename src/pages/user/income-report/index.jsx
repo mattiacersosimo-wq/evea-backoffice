@@ -216,15 +216,15 @@ const IncomeReport = () => {
                 {(() => {
                   const maxVal = Math.max(...weeklyTrend.map((x) => Number(x.total)), 1);
                   return (
-                    <Box sx={{ display: "flex", alignItems: "flex-end", gap: 1, height: 180, pt: 2 }}>
+                    <Box sx={{ display: "flex", alignItems: "flex-end", justifyContent: "center", gap: 2, height: 180, pt: 2 }}>
                       {weeklyTrend.map((w) => {
                         const val = Number(w.total);
-                        const barH = Math.max((val / maxVal) * 150, 4);
+                        const barH = Math.max((val / maxVal) * 140, 6);
                         return (
-                          <Box key={w.yw} sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                            <Typography sx={{ fontSize: "0.78rem", fontWeight: 700, color: val > 0 ? ORO : "#ccc", mb: 0.5 }}>{"\u20AC"}{val.toFixed(0)}</Typography>
-                            <Box sx={{ width: "80%", height: barH, bgcolor: val > 0 ? ORO : alpha(ORO, 0.15), borderRadius: "6px 6px 0 0", minHeight: 4, transition: "height 0.5s" }} />
-                            <Typography sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED, mt: 0.8 }}>{w.week_start?.substring(5)}</Typography>
+                          <Box key={w.yw} sx={{ display: "flex", flexDirection: "column", alignItems: "center", minWidth: 50, maxWidth: 80 }}>
+                            <Typography sx={{ fontSize: "0.82rem", fontWeight: 700, color: val > 0 ? ORO : "#ccc", mb: 0.5 }}>{"\u20AC"}{val.toFixed(0)}</Typography>
+                            <Box sx={{ width: 50, height: barH, bgcolor: val > 0 ? ORO : alpha(ORO, 0.15), borderRadius: "6px 6px 0 0", transition: "height 0.5s" }} />
+                            <Typography sx={{ fontSize: "0.75rem", fontWeight: 600, color: MUTED, mt: 0.8 }}>{w.week_start?.substring(5)}</Typography>
                           </Box>
                         );
                       })}
