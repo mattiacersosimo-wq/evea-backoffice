@@ -803,7 +803,7 @@ const PromoterDashboard = () => {
   const { data: heroData } = useHero();
   return (
     <Page title="Dashboard">
-      <Box sx={{ px: { xs: 2, md: 3 }, pb: 4, bgcolor: "#f5f5f5", minHeight: "100vh" }}>
+      <Box sx={{ px: { xs: 2, md: 3 }, pb: 4, mx: { xs: -2, md: -3 }, mt: -2, pt: 2, bgcolor: "#f5f5f5", minHeight: "100vh" }}>
         <Stack spacing={2}>
           <HeroCard />
           <TickerBar />
