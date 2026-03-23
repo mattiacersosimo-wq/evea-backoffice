@@ -640,7 +640,7 @@ const ThreeFFCard = () => {
       )}
       <Button fullWidth variant="contained" startIcon={<Iconify icon="mdi:content-copy" />} onClick={copy}
         sx={{ bgcolor: ORO, color: "#fff", "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, borderRadius: 2, py: 1.2, textTransform: "none", fontSize: "0.875rem", boxShadow: `0 4px 12px ${alpha(ORO, 0.3)}` }}>
-        Copia e Invita Ora
+        {t("evea.copy_invite")}
       </Button>
     </Card>
   );
