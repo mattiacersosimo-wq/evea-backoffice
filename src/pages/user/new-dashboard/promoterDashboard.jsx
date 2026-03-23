@@ -189,8 +189,8 @@ const HeroCard = () => {
         </Stack>
         {!rankLoading && rank && (
           <Stack direction="row" spacing={1.5} alignItems="center" flexShrink={0}>
-            <CountdownTimer expiryDate={rank.month_end} label="Periodo scade" />
-            {rank.dsp_end && <CountdownTimer expiryDate={rank.dsp_end} label="DSB boost scade" />}
+            <CountdownTimer expiryDate={rank.month_end} label={t("evea.period_expires")} />
+            {rank.dsp_end && <CountdownTimer expiryDate={rank.dsp_end} label={t("evea.dsb_boost_expires")} />}
           </Stack>
         )}
       </Stack>
@@ -199,10 +199,10 @@ const HeroCard = () => {
         <Stack direction="row" spacing={1} sx={{ mt: 2.5, flexWrap: "wrap", gap: 1 }}>
           {[
             { icon: "mdi:wallet-outline", label: t("evea.wallet"), value: `€${Number(hero?.wallet || 0).toFixed(2)}` },
-            { icon: "mdi:chart-bar", label: "QV Mese", value: hero?.qv_mese || 0 },
-            { icon: "mdi:diamond-outline", label: "BV Mese", value: hero?.bv_mese || 0 },
-            { icon: "mdi:account-group", label: "Clienti", value: hero?.clienti_diretti || 0 },
-            { icon: "mdi:account-tie", label: "Team", value: hero?.team_promoter || 0 },
+            { icon: "mdi:chart-bar", label: t("evea.qv_month"), value: hero?.qv_mese || 0 },
+            { icon: "mdi:diamond-outline", label: t("evea.bv_month"), value: hero?.bv_mese || 0 },
+            { icon: "mdi:account-group", label: t("evea.clients"), value: hero?.clienti_diretti || 0 },
+            { icon: "mdi:account-tie", label: t("evea.team"), value: hero?.team_promoter || 0 },
           ].map((m) => (
             <Box key={m.label} sx={{ flex: "1 1 0", minWidth: 80, bgcolor: alpha(ORO, 0.05), borderRadius: 2, p: 1, textAlign: "center", border: `1px solid ${alpha(ORO, 0.1)}` }}>
               <Iconify icon={m.icon} width={18} sx={{ color: ORO, mb: 0.3 }} />
@@ -490,7 +490,7 @@ const TeamSection = () => {
           <Grid container spacing={1}>
             {[
               { label: "QV Team", value: team.qv_team, prev: team.qv_team_prev, color: ORO, icon: "mdi:chart-bar" },
-              { label: "Revenue Team", value: `€${team.revenue_team}`, prev: team.revenue_team_prev, color: "#4CAF50", icon: "mdi:cash", rawVal: team.revenue_team },
+              { label: t("evea.revenue_team"), value: `€${team.revenue_team}`, prev: team.revenue_team_prev, color: "#4CAF50", icon: "mdi:cash", rawVal: team.revenue_team },
               { label: "Nuovi Clienti", value: team.new_clients_period, prev: team.new_clients_prev, color: "#2196F3", icon: "mdi:account-plus" },
               { label: "Nuovi Promoter", value: team.new_promoters_period, prev: team.new_promoters_prev, color: "#9C27B0", icon: "mdi:account-star" },
             ].map((m) => (
@@ -571,9 +571,9 @@ const TeamSection = () => {
           {!sLoad && stats && (
             <Stack spacing={1}>
               {[
-                { label: "Tasso Riordine", value: stats.tasso_riordine || 0, color: "#4CAF50", icon: "mdi:refresh" },
-                { label: "Clienti Smartship", value: stats.clienti_smartship || 0, color: "#2196F3", icon: "mdi:calendar-check" },
-                { label: "Promoter Attivi", value: stats.promoter_attivi || 0, color: ORO, icon: "mdi:account-check" },
+                { label: t("evea.reorder_rate"), value: stats.tasso_riordine || 0, color: "#4CAF50", icon: "mdi:refresh" },
+                { label: t("evea.smartship_clients"), value: stats.clienti_smartship || 0, color: "#2196F3", icon: "mdi:calendar-check" },
+                { label: t("evea.active_promoters"), value: stats.promoter_attivi || 0, color: ORO, icon: "mdi:account-check" },
               ].map((s) => (
                 <Box key={s.label}>
                   <Stack direction="row" alignItems="center" spacing={0.5} mb={0.3}>

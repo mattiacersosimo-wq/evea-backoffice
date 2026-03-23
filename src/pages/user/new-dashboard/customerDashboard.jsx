@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
 import Iconify from "src/components/Iconify";
@@ -88,6 +89,7 @@ const useCoupons = () =>
 // HERO — gradient oro, avatar, rank, progress
 // ═══════════════════════════════════════════════
 const HeroCard = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { data: rankData, loading } = useRankSummary();
 
@@ -180,7 +182,7 @@ const HeroCard = () => {
             <Box sx={{ mt: 2, maxWidth: 400 }}>
               <Stack direction="row" justifyContent="space-between" mb={0.5}>
                 <Typography variant="caption" sx={{ color: "#7A6A5C" }}>
-                  Prossimo rank: <b style={{ color: ORO }}>{nextRank}</b>
+                  {t("evea.next_rank")}: <b style={{ color: ORO }}>{nextRank}</b>
                 </Typography>
                 {loading ? (
                   <Skeleton width={50} sx={{ bgcolor: "rgba(255,255,255,0.1)" }} />
@@ -209,9 +211,9 @@ const HeroCard = () => {
           {/* perks row */}
           <Stack direction="row" spacing={1.5} mt={2.5}>
             {[
-              { icon: "mdi:truck-fast-outline", text: "Spedizione gratis > €97" },
-              { icon: "mdi:lightning-bolt-outline", text: "Early Access" },
-              { icon: "mdi:star-circle-outline", text: "Premium Content" },
+              { icon: "mdi:truck-fast-outline", text: t("evea.free_shipping") },
+              { icon: "mdi:lightning-bolt-outline", text: t("evea.early_access") },
+              { icon: "mdi:star-circle-outline", text: t("evea.premium_content") },
             ].map((p) => (
               <Box
                 key={p.text}
@@ -242,6 +244,7 @@ const HeroCard = () => {
 // 3 FOR FREE
 // ═══════════════════════════════════════════════
 const ThreeFFCard = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { data: ff, loading } = useThreeFF();
   const { enqueueSnackbar } = useSnackbar();
@@ -267,10 +270,10 @@ const ThreeFFCard = () => {
         </Box>
         <Box>
           <Typography variant="subtitle2" fontWeight={700} color={ESPRESSO}>
-            Regala EVEA
+            {t("evea.gift_evea")}
           </Typography>
           <Typography variant="caption" sx={{ color: WARM_GRAY, lineHeight: 1 }}>
-            Bonus 3 For Free
+            {t("evea.bonus_3ff")}
           </Typography>
         </Box>
       </Stack>
@@ -302,7 +305,7 @@ const ThreeFFCard = () => {
                   )}
                 </Avatar>
                 <Typography variant="caption" sx={{ color: c ? ESPRESSO : "#aaa", maxWidth: 70, fontWeight: c ? 600 : 400 }} noWrap>
-                  {c?.customer_name || `Amico ${i + 1}`}
+                  {c?.customer_name || `${t("evea.friend")} ${i + 1}`}
                 </Typography>
               </Stack>
             ))}
@@ -310,7 +313,7 @@ const ThreeFFCard = () => {
 
           <Box sx={{ textAlign: "center", bgcolor: "#fafafa", borderRadius: 2, py: 1.5, mb: 2 }}>
             <Typography variant="body2" sx={{ color: WARM_GRAY }}>
-              <b style={{ color: ESPRESSO }}>{current}/{required}</b> amici invitati
+              <b style={{ color: ESPRESSO }}>{current}/{required}</b> {t("evea.friends_invited")}
               <Divider component="span" orientation="vertical" sx={{ mx: 1.5, height: 14, display: "inline-block", borderColor: "#ddd" }} />
               Premio: <b style={{ color: ORO, fontSize: "1.1em" }}>€{bonus}</b>
             </Typography>
@@ -336,7 +339,7 @@ const ThreeFFCard = () => {
             boxShadow: `0 4px 12px ${alpha(ORO, 0.3)}`,
           }}
         >
-          Copia e Invita Ora
+          {t("evea.copy_invite")}
         </Button>
       </Box>
     </Card>
@@ -353,6 +356,7 @@ const PAGE_SIZE = 8;
 const COUPON_MONTHS = [3, 6, 9]; // 0-indexed: mese 4, 7, 10
 
 const ROBCard = () => {
+  const { t } = useTranslation();
   const { data: rob, loading } = useROB();
   const [page, setPage] = useState(0);
 
@@ -365,7 +369,7 @@ const ROBCard = () => {
     // solo il primissimo mese in assoluto (ciclo 1, mese 1) è senza sconto
     const isFirstEver = cycleNum === 1 && i === 0;
     let label;
-    if (isFirstEver) label = "1ª consegna";
+    if (isFirstEver) label = t("evea.first_delivery");
     else if (isCoupon) label = "-10% + €30";
     else label = "-10%";
     return {
@@ -406,10 +410,10 @@ const ROBCard = () => {
           </Box>
           <Box>
             <Typography variant="subtitle2" fontWeight={700} color={ESPRESSO}>
-              Percorso Fedeltà
+              {t("evea.loyalty_path")}
             </Typography>
             <Typography variant="caption" sx={{ color: WARM_GRAY, lineHeight: 1 }}>
-              -10% per sempre + coupon ogni 3 consegne
+              {t("evea.loyalty_sub")}
             </Typography>
           </Box>
         </Stack>
@@ -508,12 +512,12 @@ const ROBCard = () => {
             <Stack direction="row" alignItems="center" justifyContent="center" spacing={0.5} mb={0.5}>
               <Iconify icon="mdi:piggy-bank-outline" width={18} sx={{ color: ORO }} />
               <Typography sx={{ fontSize: "0.75rem", color: WARM_GRAY, fontWeight: 600 }}>
-                Il tuo risparmio finora
+                {t("evea.your_savings")}
               </Typography>
             </Stack>
             {totalConsec === 0 ? (
               <Typography sx={{ fontSize: "0.8rem", color: WARM_GRAY }}>
-                Inizia il tuo abbonamento per risparmiare ogni mese!
+                {t("evea.start_subscription")}
               </Typography>
             ) : (
               <Stack direction="row" justifyContent="center" divider={<Typography sx={{ mx: 1, color: "#ddd" }}>+</Typography>}>
@@ -522,7 +526,7 @@ const ROBCard = () => {
                     <Typography sx={{ fontWeight: 700, color: ESPRESSO, fontSize: "1.1rem" }}>
                       {discountMonths}x -10%
                     </Typography>
-                    <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>consegne con sconto</Typography>
+                    <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>{t("evea.discounted_deliveries")}</Typography>
                   </Box>
                 )}
                 {couponValue > 0 && (
@@ -530,7 +534,7 @@ const ROBCard = () => {
                     <Typography sx={{ fontWeight: 700, color: ORO, fontSize: "1.1rem" }}>
                       €{couponValue}
                     </Typography>
-                    <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>in coupon regalo</Typography>
+                    <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>{t("evea.in_gift_coupons")}</Typography>
                   </Box>
                 )}
               </Stack>
@@ -550,7 +554,7 @@ const ROBCard = () => {
             fontWeight: 600, borderRadius: 2, py: 1.2, textTransform: "none",
           }}
         >
-          Gestisci il mio abbonamento
+          {t("evea.manage_subscription")}
         </Button>
       </Box>
     </Card>
@@ -561,6 +565,7 @@ const ROBCard = () => {
 // COUPON
 // ═══════════════════════════════════════════════
 const CouponsSection = () => {
+  const { t } = useTranslation();
   const { data: coupons, loading } = useCoupons();
 
   if (loading) {
@@ -580,7 +585,7 @@ const CouponsSection = () => {
       <Box sx={{ textAlign: "center", py: 5, bgcolor: "#fafafa", borderRadius: 3 }}>
         <Iconify icon="mdi:ticket-outline" width={36} sx={{ color: "#ddd", mb: 1 }} />
         <Typography variant="body2" color="text.secondary">
-          Nessun coupon attivo al momento
+          {t("evea.no_coupons")}
         </Typography>
       </Box>
     );
@@ -624,6 +629,7 @@ const CouponsSection = () => {
 // MAIN
 // ═══════════════════════════════════════════════
 const UserDashboard = () => {
+  const { t } = useTranslation();
   return (
     <Page title="Dashboard">
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4 }}>
@@ -642,7 +648,7 @@ const UserDashboard = () => {
           <Stack direction="row" alignItems="center" spacing={1} mb={2}>
             <Iconify icon="mdi:ticket-percent-outline" width={22} sx={{ color: ORO }} />
             <Typography variant="h6" fontWeight={700} color={ESPRESSO}>
-              I Tuoi Premi
+              {t("evea.your_rewards")}
             </Typography>
           </Stack>
           <CouponsSection />
