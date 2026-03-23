@@ -93,7 +93,11 @@ const filterMenu = (menu, isPromoter) => {
       return item;
     });
     // Reorder: Dashboard, Dashboard Bonus, Genealogy, then rest
-    const order = ["dashboard", "affiliate-dashboard", "genealog", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "profile"];
+    // Inject Income Report if not present (promoter only)
+    if (isPromoter && !items.some((i) => (i.path || "").includes("income-report"))) {
+      items.push({ title: "Income Report", path: "/user/income-report", icon: "mdi:chart-timeline-variant-shimmer" });
+    }
+    const order = ["dashboard", "affiliate-dashboard", "income-report", "genealog", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "profile"];
     items = items.sort((a, b) => {
       const pa = (a.path || a.title || "").toLowerCase();
       const pb = (b.path || b.title || "").toLowerCase();
