@@ -1,7 +1,7 @@
 {
     "global": {
-        "subscription": "Sottoscrizione",
-        "business_volume": "Volume d'affari",
+        "subscription": "Subscription",
+        "business_volume": "Business Volume",
         "update_card": "Aggiorna carta",
         "recurring_enabled_on": "Ricorrenza abilitata il",
         "recurring_enabled": "Ricorrenza abilitata",
@@ -9,7 +9,7 @@
         "order_history": "Cronologia degli ordini",
         "payout_method": "Metodo di pagamento",
         "payout_info": "Informazioni sul pagamento",
-        "current_rank": "Grado attuale",
+        "current_rank": "Current Rank",
         "users": "Utenti",
         "total_tickets": "Biglietti totali",
         "completed": "Completato",
@@ -19,17 +19,17 @@
         "cancelled": "Annullato",
         "refunded": "Rimborsato",
         "failed": "Non riuscito",
-        "affiliate_dashboard": "Dashboard di affiliazione",
+        "affiliate_dashboard": "Dashboard Bonus",
         "bonus_value": "Valore bonus",
         "qualification_value": "Valore di qualificazione",
         "euro_value": "Euro Value",
         "team_orders": "Pedidos de equipo",
-        "pendingcommissions": "Commissioni pendenti",
+        "pendingcommissions": "Pending Commissions",
         "reject": "Rifiutare",
         "confirm": "Confermare",
         "changedate": "Modifica data",
         "country": "Paese",
-        "rank_achievers": " Rango de Logros",
+        "rank_achievers": "Rank Achievers",
         "top_recruiters": " Mejores Reclutadores",
         "top_earners": " Mejores Ganadores",
         "pqv_required": " PQV obbligatorio",
@@ -99,10 +99,10 @@
         "addNewRank": "Aggiungi nuovo rango",
         "impersonateText": "L'amministratore non può abilitare 2FA per un altro utenti",
         "blocked": "Bloccata",
-        "rankName": "Nome del Grado",
-        "add_Rank": "Aggiungi Grado",
+        "rankName": "Rank Name",
+        "add_Rank": "Add Rank",
         "Options": "Opzioni",
-        "Rank_Criteria": "Criteri del Grado",
+        "Rank_Criteria": "Rank Criteria",
         "Referral_Package_Count": "Conteggio Pacchetti di Referral",
         "Bonus_amount": "Importo del Bonus",
         "Personal_Volume": "Volume Personale",
@@ -124,7 +124,7 @@
         "home": "Casa",
         "export": "Esporta",
         "product": "Prodotto",
-        "dashboard": "Cruscotto",
+        "dashboard": "Dashboard",
         "balance": "Saldo",
         "product_name": "Nome Prodotto",
         "product_one": "Prodotto",
@@ -160,9 +160,9 @@
         "upcoming": "Prossimo",
         "past": "Passato",
         "reset": "Ripristina",
-        "amount": "Importo",
+        "amount": "Amount",
         "e_wallet": "Portafoglio Elettronico",
-        "d_wallet": "Portafoglio Deposito",
+        "d_wallet": "Deposit Wallet",
         "send": "Invia",
         "request": "Richiedi",
         "month_count": "{{count}} Mese",
@@ -173,7 +173,7 @@
         "user": "Utente",
         "delete": "Elimina",
         "edit": "Modifica",
-        "username": "Nome utente",
+        "username": "Username",
         "upload_profile": "Carica Foto",
         "allowed": "Consentito",
         "max": "Dimensione Massima",
@@ -201,7 +201,7 @@
         "table": {
             "title": "Ranghi in sospeso",
             "no": "No",
-            "user_name": "Nome utente",
+            "user_name": "Username",
             "rankname": "Nome del rango",
             "gv": "GV",
             "tv": "TV",
@@ -250,7 +250,7 @@
         "referral": "ID referral (facoltativo)",
         "re_enter_password": "Reinserisci la Password",
         "password": "Password",
-        "username": "Nome utente",
+        "username": "Username",
         "email": "Indirizzo Email",
         "sign_to": "Accedi a",
         "don't_have": "Non hai un account",
@@ -258,19 +258,19 @@
         "welcome_back": "Ciao, bentornato"
     },
     "user_nav": {
-        "recurring_orders": "Ordini ricorrenti",
-        "pendingcommissions": "Commissioni pendenti",
-        "affiliate_dashboard": "Dashboard di affiliazione",
+        "recurring_orders": "Abbonamenti",
+        "pendingcommissions": "Pending Commissions",
+        "affiliate_dashboard": "Dashboard Bonus",
         "coupons": {
             "title": "Coupon",
             "list": "I Miei Coupon"
         },
         "referals": "Referral",
         "my_subscriptions": "Le Mie Iscrizioni",
-        "dashboard": "Cruscotto",
+        "dashboard": "Dashboard",
         "join_telegram": "Unisciti a Telegram",
         "online_store": {
-            "online_store": "Negozio Online",
+            "online_store": "Online Store",
             "product": "Prodotti",
             "my_orders": "I Miei Ordini",
             "packages": "Pacchetti",
@@ -283,18 +283,18 @@
             "sponsor": "Sponsor",
             "tree": "Albero",
             "matrix": "Matrice",
-            "affiliate_dashboard": "Cruscotto Affiliato",
-            "binary_leg_settings": "Impostazioni Gamba Binaria"
+            "affiliate_dashboard": "Dashboard Bonus",
+            "binary_leg_settings": "Binary Leg Settings"
         },
         "financial": {
-            "financial": "Finanza",
-            "my_eWallet": "Il Mio Ewallet",
-            "deposit_wallet": "Portafoglio Deposito",
+            "financial": "Financial",
+            "my_eWallet": "Il Mio Wallet",
+            "deposit_wallet": "Deposit Wallet",
             "fund_transfer": "Trasferimento Fondi",
-            "request_payout": "Richiedi Pagamento"
+            "request_payout": "Richiedi Payout"
         },
         "business_builder": {
-            "business_builder": "Costruttore di Business",
+            "business_builder": "Business Builder",
             "subscriptions": "Iscrizioni",
             "materials": "Materiali"
         },
@@ -302,15 +302,15 @@
         "blogs": "Blog",
         "help_center": {
             "help_center": "Centro Assistenza",
-            "faqs": "Domande Frequenti",
-            "knowledge_base": "Base di Conoscenza",
+            "faqs": "FAQ",
+            "knowledge_base": "Knowledge Base",
             "emails": "Email",
             "support_tickets": "Ticket di Supporto",
             "documents": "Documenti",
             "videos": "Video"
         },
-        "income_report": "Rapporto di Guadagno",
-        "leads": "Prospects"
+        "income_report": "Income Report",
+        "leads": "Leads"
     },
     "affiliate_dashboard": {
         "previous_month_pending_commission": "Commissione in sospeso del mese precedente",
@@ -320,14 +320,14 @@
         "third_generation": "Terza Generazione",
         "total_bonus": "Total Bonus",
         "levels": "Livelli",
-        "username": "Nome utente",
+        "username": "Username",
         "dsp_ends_in": "IL BOOST DEL BONUS VENDITE DIRETTE TERMINA TRA",
         "current_period_ends_in": "IL PERIODO CORRENTE TERMINA IN",
         "recognition_rank": "RECOGNITION RANK",
         "achieved_rank": "ACHIEVED RANK",
         "currentRank": "RANGO CORRENTE",
         "qv": "QV",
-        "rank": "Rango",
+        "rank": "Rank",
         "bonus_amount": "Bonus Amount",
         "eveolving_bonus": "Evolving Bonus",
         "achieved_count": "Numero raggiunto",
@@ -372,31 +372,31 @@
         "eligibility_period_for_additional_bonus": "Eligibility period for an additional bonus (in months)",
         "month": "Mese",
         "monthly_qualification_status": "Stato di qualificazione mensile",
-        "personally_enrolled_customers": "Clienti iscritti personalmente",
+        "personally_enrolled_customers": "Personally Enrolled Customers",
         "eveolution_rewards": "Ricompense di evoluzione",
         "direct_qualifying_volume": "Volume di qualificazione diretta",
         "required_customers": "Clienti richiesti",
         "qualification_days": "Giorni di qualificazione",
-        "no_of_customers_with_30_qv": "Numero di clienti con 30 QV",
+        "no_of_customers_with_30_qv": "No. of Customers with 30 QV",
         "personally_enrolled_customers_with_30_qv": "Clienti iscritti personalmente con 30 QV",
-        "personal_qualifying_volume": "Volume di qualificazione personale",
-        "team_volume": "Volume del team",
-        "group_volume": "Volume del gruppo",
+        "personal_qualifying_volume": "Personal Qualifying Volume",
+        "team_volume": "Team Volume",
+        "group_volume": "Group Volume",
         "s_no": "N.",
         "team": "Team",
         "percentage": "Percentuale",
         "gv_taken": "GV conteggiato",
         "current_rank": "Current Rank",
-        "next_rank": "Rango successivo",
+        "next_rank": "Next Rank",
         "sixty_percent_rule": "Regola del sessanta per cento",
-        "pending_commission": "Commissioni pendenti",
+        "pending_commission": "Pending Commissions",
         "qualifiers": "Qualificatori",
         "requirements": "Requisiti",
         "progress": "Progress",
-        "nextRank": "Prossimo Rango",
+        "nextRank": "Next Rank",
         "paidAsRankLastWeek": "Pagato come rango la settimana scorsa",
-        "highestRankAchieved": "Rango più alto raggiunto",
-        "current_paid": "Rango attuale pagato",
+        "highestRankAchieved": "Highest Rank Achieved",
+        "current_paid": "Current Paid Rank",
         "activeBusiness": "Costruttore di Business Attivo",
         "bronze": "Bronzo",
         "sliverExecutive": "Esecutivo di Argento",
@@ -447,8 +447,8 @@
         "direct_sales_bonus": "Direct Sales Bonus Progress",
         "rob_bonus": "Recurring Order Bonus Progress",
         "3_FF_Progress": "3 For Free Progress",
-        "achieved_rank": "Grado raggiunto",
-        "current_rank": "Grado attuale",
+        "achieved_rank": "Achieved Rank",
+        "current_rank": "Current Rank",
         "go_MVP_bonus": "Go MVP Bonus Progress",
         "rank_progress_bar": "Rank Progress Bar",
         "income": "Entrate",
@@ -495,12 +495,12 @@
         },
         "nextlevelTitle": "Il prossimo livello è tuo da raggiungere!",
         "nextlevelSubTitle": "Raggiungi un nuovo rango e sblocca infinite possibilità.",
-        "currentrank": "Rango Attuale",
-        "nextrank": "Prossimo Rango"
+        "currentrank": "Current Rank",
+        "nextrank": "Next Rank"
     },
     "nav": {
         "dashboard": {
-            "title": "Cruscotto",
+            "title": "Dashboard",
             "business": "Attività",
             "network": "Rete"
         },
@@ -516,7 +516,7 @@
         "financial": {
             "title": "Finanziario",
             "e_wallet": "Portafoglio Elettronico",
-            "d_wallet": "Portafoglio Deposito",
+            "d_wallet": "Deposit Wallet",
             "fund_credit": "Fondi Credito",
             "payout": "Pagamento",
             "pendingcommission": "Commissione pendente"
@@ -629,9 +629,9 @@
         "first_order_bonus": "Bonus Primo Ordine",
         "level_commission": "Commissione Livello",
         "b_bonus": "Bonus Binario",
-        "deposit_wallet": "Portafoglio Deposito",
+        "deposit_wallet": "Deposit Wallet",
         "product_purchased": "Prodotto Acquistato",
-        "rank_bonus": "Bonus Rango",
+        "rank_bonus": "Rank Bonus",
         "m_bonus": "Bonus Binario di Corrispondenza",
         "go_mvp_bonus": "Vai al bonus MVP",
         "eveolving_bonus": "Evolving Bonus",
@@ -658,7 +658,7 @@
             "submit": "Invia",
             "edit": "Modifica",
             "delete": "Elimina",
-            "update": "Aggiorna",
+            "update": "Update",
             "cancel": "Annulla",
             "edit_video": "Modifica video"
         },
@@ -688,7 +688,7 @@
     },
     "businessBuilder": {
         "no": "No",
-        "amount": "Importo",
+        "amount": "Amount",
         "date": "Data",
         "effectiveUntil": "Valido Fino a",
         "pickStartDate": "Seleziona Data di Inizio",
@@ -833,7 +833,7 @@
         "are_you_sure": "Sei sicuro di voler continuare, questa azione non può essere annullata",
         "cancel": "Annulla",
         "verify_mail": "Verifica Email",
-        "update": "Aggiorna",
+        "update": "Update",
         "current_user_name": "Nome Utente Attuale",
         "new_user_name": "Nuovo Nome Utente",
         "change_user_name": "Cambia Nome Utente",
@@ -854,7 +854,7 @@
         "network_members": "Membri della Rete",
         "no": "No",
         "email": "Email",
-        "rank": "Rango",
+        "rank": "Rank",
         "paidActive": "Attivo Pagato",
         "createdAt": "Creato Il",
         "action": "Azione",
@@ -903,7 +903,7 @@
         "on_bitcoin": "Sul trading e previsioni di Bitcoin",
         "productsActive": "Prodotti e abbonamenti attivi",
         "topSellingProduct": "Prodotto più venduto",
-        "userName": "Nome utente",
+        "userName": "Username",
         "product": "Prodotto",
         "price": "Prezzo",
         "date": "Data",
@@ -983,7 +983,7 @@
         "matrix": {
             "name": "Nome",
             "user_name": "Nome Utente",
-            "current_rank": "Rango Attuale",
+            "current_rank": "Current Rank",
             "date": "Data"
         },
         "binary": {
@@ -996,7 +996,7 @@
             "title": "Albero: Genealogia"
         },
         "leg_settings": {
-            "title": "Impostazioni Gamba Binaria",
+            "title": "Binary Leg Settings",
             "bp": "In base ai Punti (BV) - I Referral saranno Collocati nella Tua Squadra Gamba Più Debole",
             "br": "In Base ai Referral - I Referral Saranno Nella Tua Squadra con un Numero Minore di Tuoi Referral",
             "lr": "Sinistra - I Referral Saranno Collocati Nella Tua Squadra Sinistra",
@@ -1007,7 +1007,7 @@
         "legends": {
             "name": "Nome",
             "uname": "Nome Utente",
-            "current_rank": "Rango Attuale",
+            "current_rank": "Current Rank",
             "doj": "Data di Ingresso",
             "w_bv_l": "BV Settimanale (sinistra)",
             "w_bv_r": "BV Settimanale (destra)",
@@ -1058,7 +1058,7 @@
                 "user_name": "Nome Utente",
                 "amount_type": "Tipo di Importo",
                 "payment_type": "Tipo di Pagamento",
-                "amount": "Importo",
+                "amount": "Amount",
                 "date": "Data"
             }
         },
@@ -1099,7 +1099,7 @@
                 "wallet_type": "Tipo di Portafoglio",
                 "payment_type": "Tipo di Pagamento",
                 "notes": "Note",
-                "amount": "Importo",
+                "amount": "Amount",
                 "date": "Data"
             }
         },
@@ -1179,7 +1179,7 @@
             },
             "table": {
                 "no": "No",
-                "amount": "Importo",
+                "amount": "Amount",
                 "date": "Data",
                 "wallet_address": "Indirizzo Portafoglio",
                 "coin": "Criptovaluta",
@@ -1197,7 +1197,7 @@
             },
             "table": {
                 "no": "No",
-                "amount": "Importo",
+                "amount": "Amount",
                 "date": "Data di Acquisto",
                 "effective": "Fino a",
                 "method": "Metodo di Pagamento",
@@ -1234,7 +1234,7 @@
             "create": {
                 "edit": {
                     "title": "Aggiorna Categoria",
-                    "submit": "Aggiorna"
+                    "submit": "Update"
                 },
                 "title": "Aggiungi Categoria",
                 "name": "Nome Categoria",
@@ -1314,7 +1314,7 @@
                 "status": "Stato",
                 "cancel": "Annulla",
                 "add": "Aggiungi",
-                "edit": "Aggiorna"
+                "edit": "Update"
             },
             "delete": {
                 "title": "Elimina Categoria FAQ",
@@ -1339,7 +1339,7 @@
                 "answer": "Risposta",
                 "cancel": "Annulla",
                 "add": "Aggiungi",
-                "update": "Aggiorna"
+                "update": "Update"
             }
         },
         "browse_categories": "Sfoglia per categorie",
@@ -1384,7 +1384,7 @@
                 "department": "Dipartimento",
                 "email": "Email",
                 "category": "Categoria",
-                "username": "Nome utente",
+                "username": "Username",
                 "last_message": "Ultimo messaggio"
             },
             "tkt_id": "ID Ticket",
@@ -1434,7 +1434,7 @@
                     "desc": "Descrizione",
                     "status": "Stato",
                     "sort_order": "Ordinamento",
-                    "submit": "Aggiorna",
+                    "submit": "Update",
                     "cancel": "Annulla"
                 },
                 "add": {
@@ -1469,7 +1469,7 @@
                     "desc": "Descrizione",
                     "status": "Stato",
                     "sort_order": "Ordinamento",
-                    "submit": "Aggiorna",
+                    "submit": "Update",
                     "cancel": "Annulla"
                 },
                 "add": {
@@ -1502,7 +1502,7 @@
                     "name": "Titolo Risposta predefinita",
                     "sub": "Oggetto",
                     "placeholder": "Messaggio Risposta predefinita",
-                    "submit": "Aggiorna",
+                    "submit": "Update",
                     "cancel": "Annulla"
                 },
                 "add": {
@@ -1537,7 +1537,7 @@
                     "name": "Priorità",
                     "color": "Colore",
                     "desc": "Descrizione",
-                    "submit": "Aggiorna",
+                    "submit": "Update",
                     "cancel": "Annulla"
                 },
                 "add": {
@@ -1556,7 +1556,7 @@
             "status": "Stato",
             "document": "Documento",
             "add": "Aggiungi",
-            "update": "Aggiorna"
+            "update": "Update"
         },
         "actions": {
             "view": "Vista",
@@ -1658,7 +1658,7 @@
                 "description": "Descrizioni",
                 "cancel": "Annulla",
                 "submit_add": "Aggiungi",
-                "submit_edit": "Aggiorna"
+                "submit_edit": "Update"
             },
             "delete": {
                 "title": "Elimina Categoria",
@@ -1693,30 +1693,30 @@
             "title": "Impostazioni Avanzate",
             "kyc": {
                 "show": "Mostra KYC",
-                "update": "Aggiorna",
+                "update": "Update",
                 "message": "Attivando il KYC, gli utenti dovranno caricare i loro documenti"
             },
             "leads": {
                 "show": "Mostra Potenziali Clienti",
-                "update": "Aggiorna"
+                "update": "Update"
             },
             "2fa": {
                 "show": "Abilita Autenticazione a Due Fattori",
-                "update": "Aggiorna",
+                "update": "Update",
                 "message": "Attivando l'autenticazione a due fattori, gli utenti avranno l'opzione di abilitarla dalle impostazioni del loro profilo. Se è abilitata, all'utente sarà richiesto di inserire un OTP prima di accedere."
             },
             "package": {
                 "show": "Acquisto Pacchetto Richiesto",
-                "update": "Aggiorna"
+                "update": "Update"
             },
             "mail": {
                 "show": "Verifica Email Richiesta",
-                "update": "Aggiorna"
+                "update": "Update"
             },
             "membership_packages": {
                 "show": "Data di Nascita Richiesta",
                 "minimum": "Età Minima Richiesta",
-                "update": "Aggiorna"
+                "update": "Update"
             },
             "tabs": {
                 "currency": "Valuta",
@@ -1741,7 +1741,7 @@
             "deleteArticles": "Elimina Articolo",
             "editArticles": "Modifica Articolo",
             "submit": "Invia",
-            "update": "Aggiorna",
+            "update": "Update",
             "close": "Chiudi",
             "blogTitle": "Titolo Blog",
             "description": "Descrizione",
@@ -1782,7 +1782,7 @@
             "editBusinessBuilder": "Modifica Business Builder",
             "no": "No",
             "name": "Nome",
-            "amount": "Importo",
+            "amount": "Amount",
             "bv": "BV",
             "add": "Aggiungi",
             "action": "Azione",
@@ -1830,7 +1830,7 @@
             "products": "Prodotti",
             "month": "Mese",
             "referral_bonus": "Bonus Referral",
-            "update": "Aggiorna",
+            "update": "Update",
             "rank_name": "Nome Grado",
             "personally_enrolled_rank": "Grado Personalmente Iscritto",
             "count": "Conteggio",
@@ -1928,7 +1928,7 @@
             "no": "No",
             "username": "Nome Utente",
             "email": "Email",
-            "amount": "Importo",
+            "amount": "Amount",
             "dateJoined": "Data di Registrazione",
             "sales": "Report Vendite",
             "top_earners": "Report Top Earners",
@@ -2081,7 +2081,7 @@
             },
             "bank": {
                 "title": "Aggiorna i dettagli bancari",
-                "save": "Salva modifiche"
+                "save": "Save Changes"
             },
             "stripe": {
                 "title": "Aggiorna le informazioni sul pagamento online",
@@ -2150,7 +2150,7 @@
                 },
                 "edit": {
                     "title": "Modifica Nota",
-                    "submit": "Aggiorna",
+                    "submit": "Update",
                     "cancel": "Annulla"
                 }
             }
@@ -2208,7 +2208,7 @@
             "product": {
                 "title": "Abbonamento al Prodotto",
                 "quantity": "Quantità",
-                "amount": "Importo",
+                "amount": "Amount",
                 "complete_order": "Completa Ordine",
                 "balance": "Saldo Disponibile",
                 "back": "Indietro",
@@ -2357,7 +2357,7 @@
             "remove_all": "Rimuovi Tutto"
         },
         "video": {
-            "update": "Aggiorna",
+            "update": "Update",
             "edit_video": "Modifica Video",
             "cancel": "Annulla",
             "areYouSure": "Sei sicuro di voler continuare? Questa azione non può essere annullata",
@@ -2393,7 +2393,7 @@
             "delete_document": "Elimina Documento",
             "areYouSure": "Sei sicuro di voler continuare? Questa azione non può essere annullata",
             "close": "Chiudi",
-            "update": "Aggiorna",
+            "update": "Update",
             "edit_document": "Modifica Documento",
             "uploadDocument": "Carica Documento",
             "upload": "Carica",
