@@ -25,7 +25,7 @@ const RANK_COLOR_MAP = {
   "Builder": "#4CAF50",
   "Senior Builder": "#00897B",
   "Platinum": "#B8963B",
-  "Sapphire": "#2196F3",
+  "Sapphire": "#00ACC1",
   "Ruby": "#E91E63",
   "Emerald": "#4CAF50",
   "Diamond": "#673AB7",
@@ -222,23 +222,7 @@ const Account = ({
                     {smartship_status === 1 ? "YES" : "NO"}
                   </span>
                 </Typography>
-                <Typography
-                  variant="caption"
-                  sx={{ color: "#000", padding: "2px" }}
-                >
-                  <span
-                    style={{
-                      color: "#000",
-                      fontSize: "11px",
-                      fontWeight: 600,
-                      letterSpacing: 1,
-                    }}
-                  >
-                    <Translate>genealogy.legends.bv</Translate>  &nbsp; :
-                    &nbsp;
-                  </span>
-                  {bv}
-                </Typography>
+                {/* BV hidden */}
                 {/* <Typography
                   variant="caption"
                   sx={{ color: "#000", padding: "2px" }}
@@ -273,23 +257,7 @@ const Account = ({
                   </span>
                   {qv}
                 </Typography>
-                <Typography
-                  variant="caption"
-                  sx={{ color: "#000", padding: "2px" }}
-                >
-                  <span
-                    style={{
-                      color: "#000",
-                      fontSize: "11px",
-                      fontWeight: 600,
-                      letterSpacing: 1,
-                    }}
-                  >
-                    <Translate>genealogy.legends.dqv</Translate> &nbsp; :
-                    &nbsp;
-                  </span>
-                  {dqv}
-                </Typography>
+                {/* DQV hidden */}
                 <Typography
                   variant="caption"
                   sx={{ color: "#000", padding: "2px" }}

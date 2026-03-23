@@ -12,7 +12,7 @@ const RANK_COLOR_MAP = {
   "Builder": "#4CAF50",
   "Senior Builder": "#00897B",
   "Platinum": "#B8963B",
-  "Sapphire": "#2196F3",
+  "Sapphire": "#00ACC1",
   "Ruby": "#E91E63",
   "Emerald": "#4CAF50",
   "Diamond": "#673AB7",
