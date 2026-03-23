@@ -3442,6 +3442,7 @@
         "this_month": "This month",
         "buy": "Buy",
         "recommended": "Recommended",
-        "awaiting_approval": "Awaiting approval"
+        "awaiting_approval": "Awaiting approval",
+        "income_report": "Income Report"
     }
 }

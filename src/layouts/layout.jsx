@@ -95,9 +95,16 @@ const filterMenu = (menu, isPromoter) => {
     // Reorder: Dashboard, Dashboard Bonus, Genealogy, then rest
     // Inject Income Report if not present (promoter only)
     if (isPromoter && !items.some((i) => (i.path || "").includes("income-report"))) {
-      items.push({ title: "Income Report", path: "/user/income-report", icon: "mdi:chart-timeline-variant-shimmer" });
+      items.push({ title: "income_report", path: "/user/income-report", icon: "/assets/icons/navbar/ic_ecommerce.svg" });
     }
-    const order = ["dashboard", "affiliate-dashboard", "income-report", "genealog", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "profile"];
+    // Rename income_report based on current language
+    items = items.map((item) => {
+      if ((item.path || "").includes("income-report")) {
+        return { ...item, title: "Report Guadagni" };
+      }
+      return item;
+    });
+    const order = ["dashboard", "affiliate-dashboard", "genealog", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "income-report", "profile"];
     items = items.sort((a, b) => {
       const pa = (a.path || a.title || "").toLowerCase();
       const pb = (b.path || b.title || "").toLowerCase();
