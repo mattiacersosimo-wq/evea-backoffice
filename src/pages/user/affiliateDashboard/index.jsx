@@ -428,7 +428,7 @@ const AffiliateDashboard = () => {
 
   return (
     <Page title={t("global.affiliate_dashboard")}>
-      <Box sx={{ px: { xs: 2, md: 3 }, pb: 4 }}>
+      <Box sx={{ px: { xs: 2, md: 3 }, pb: 4, bgcolor: "#f5f5f5", minHeight: "100vh" }}>
         <Stack spacing={2}>
 
           {/* HERO */}

@@ -7,19 +7,20 @@ function createGradient(color1, color2) {
 }
 
 // SETUP COLORS
+// EVEA Palette
 const PRIMARY = {
-  lighter: "#D1E9FC",
-  light: "#76B0F1",
-  main: "#348efe",
-  dark: "#103996",
-  darker: "#061B64",
+  lighter: "#F0E8D8",
+  light: "#D4B65C",
+  main: "#B8963B",
+  dark: "#8A6F2A",
+  darker: "#5C4A1C",
 };
 const SECONDARY = {
-  lighter: "#D6E4FF",
-  light: "#84A9FF",
-  main: "#3366FF",
-  dark: "#1939B7",
-  darker: "#091A7A",
+  lighter: "#F0E8D8",
+  light: "#7A6A5C",
+  main: "#2C1A0E",
+  dark: "#1A0F08",
+  darker: "#0D0704",
 };
 const INFO = {
   lighter: "#D0F2FF",
@@ -29,23 +30,23 @@ const INFO = {
   darker: "#04297A",
 };
 const SUCCESS = {
-  lighter: "#E9FCD4",
-  light: "#AAF27F",
-  main: "#54D62C",
-  dark: "#229A16",
-  darker: "#08660D",
+  lighter: "#EAF3DE",
+  light: "#81C784",
+  main: "#4A5C3A",
+  dark: "#33402A",
+  darker: "#1C2316",
 };
 const WARNING = {
-  lighter: "#FFF7CD",
-  light: "#FFE16A",
-  main: "#FFC107",
-  dark: "#B78103",
-  darker: "#7A4F01",
+  lighter: "#FFF3E0",
+  light: "#FFD180",
+  main: "#EF9F27",
+  dark: "#B87518",
+  darker: "#7A4D10",
 };
 const ERROR = {
-  lighter: "#FFE7D9",
-  light: "#FFA48D",
-  main: "#FF4842",
+  lighter: "#FCEBEB",
+  light: "#EF9A9A",
+  main: "#E24B4A",
   dark: "#B72136",
   darker: "#7A0C2E",
 };
@@ -301,7 +302,7 @@ const palette = {
     ...COMMON,
     mode: "light",
     text: { primary: GREY[800], secondary: GREY[600], disabled: GREY[500] },
-    background: { paper: "#fff", default: "#fff", neutral: GREY[200] },
+    background: { paper: "#fff", default: "#FAFAFA", neutral: GREY[200] },
     action: { active: GREY[600], ...COMMON.action },
     widgets: WIDGET_COLORS_LIGHT,
   },

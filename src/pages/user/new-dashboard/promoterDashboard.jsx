@@ -224,19 +224,19 @@ const TickerBar = () => {
   const items = [...(ticker.sales || []), ...(ticker.new_members || []), ...(ticker.ranks || [])].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   if (!items.length) return null;
   return (
-    <Box sx={{ bgcolor: "#fff", borderRadius: 2, overflow: "hidden", border: `1px solid ${alpha(ORO, 0.15)}` }}>
-      <Box sx={{ px: 2, py: 0.5, borderBottom: `1px solid ${alpha(ORO, 0.1)}` }}>
-        <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: ORO, letterSpacing: 1 }}>EVEA LIVE</Typography>
+    <Box sx={{ bgcolor: "#fff", overflow: "hidden", borderTop: `1px solid ${alpha(ORO, 0.1)}`, borderBottom: `1px solid ${alpha(ORO, 0.1)}`, mx: { xs: -2, md: -3 } }}>
+      <Box sx={{ px: 2, py: 0.8, borderBottom: `1px solid ${alpha(ORO, 0.08)}` }}>
+        <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: ORO, letterSpacing: 1.5 }}>EVEA LIVE</Typography>
       </Box>
-      <Box sx={{ py: 0.6, overflow: "hidden" }}>
+      <Box sx={{ py: 1.2, overflow: "hidden" }}>
         <Box sx={{ display: "flex", animation: `${scroll} ${Math.max(items.length * 5, 20)}s linear infinite`, width: "max-content" }}>
           {[...items, ...items].map((it, i) => (
             <Stack key={i} direction="row" alignItems="center" spacing={0.8} sx={{ px: 2.5, flexShrink: 0 }}>
-              <Chip label={it.type === "sale" ? "Vendita" : it.type === "rank" ? "Qualifica" : it.is_promoter ? "Nuovo Promoter" : "Nuovo Cliente"} size="small" sx={{ height: 18, fontSize: "0.65rem", fontWeight: 700, bgcolor: it.type === "sale" ? alpha("#4CAF50", 0.1) : it.type === "rank" ? alpha(ORO, 0.1) : alpha("#2196F3", 0.1), color: it.type === "sale" ? "#4CAF50" : it.type === "rank" ? ORO : "#2196F3" }} />
-              <Typography sx={{ fontSize: "0.8rem", color: ESPRESSO, fontWeight: 600 }}>{it.username}</Typography>
-              {it.product && <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>{it.product}</Typography>}
-              {it.rank && <Typography sx={{ fontSize: "0.75rem", color: ORO, fontWeight: 700 }}>{it.rank}</Typography>}
-              {it.amount && <Typography sx={{ fontSize: "0.8rem", color: ORO, fontWeight: 700 }}>€{it.amount}</Typography>}
+              <Chip label={it.type === "sale" ? "Vendita" : it.type === "rank" ? "Qualifica" : it.is_promoter ? "Nuovo Promoter" : "Nuovo Cliente"} size="small" sx={{ height: 22, fontSize: "0.72rem", fontWeight: 700, bgcolor: it.type === "sale" ? alpha("#4CAF50", 0.1) : it.type === "rank" ? alpha(ORO, 0.1) : alpha("#2196F3", 0.1), color: it.type === "sale" ? "#4CAF50" : it.type === "rank" ? ORO : "#2196F3" }} />
+              <Typography sx={{ fontSize: "0.88rem", color: ESPRESSO, fontWeight: 600 }}>{it.username}</Typography>
+              {it.product && <Typography sx={{ fontSize: "0.82rem", color: MUTED }}>{it.product}</Typography>}
+              {it.rank && <Typography sx={{ fontSize: "0.82rem", color: ORO, fontWeight: 700 }}>{it.rank}</Typography>}
+              {it.amount && <Typography sx={{ fontSize: "0.88rem", color: ORO, fontWeight: 700 }}>€{it.amount}</Typography>}
             </Stack>
           ))}
         </Box>
@@ -803,7 +803,7 @@ const PromoterDashboard = () => {
   const { data: heroData } = useHero();
   return (
     <Page title="Dashboard">
-      <Box sx={{ px: { xs: 2, md: 3 }, pb: 4, bgcolor: AVORIO, minHeight: "100vh" }}>
+      <Box sx={{ px: { xs: 2, md: 3 }, pb: 4, bgcolor: "#f5f5f5", minHeight: "100vh" }}>
         <Stack spacing={2}>
           <HeroCard />
           <TickerBar />
