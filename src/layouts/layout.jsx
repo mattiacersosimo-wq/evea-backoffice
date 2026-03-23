@@ -95,7 +95,7 @@ const filterMenu = (menu, isPromoter) => {
     // Reorder: Dashboard, Dashboard Bonus, Genealogy, then rest
     // Inject Income Report if not present (promoter only)
     if (isPromoter && !items.some((i) => (i.path || "").includes("income-report"))) {
-      items.push({ title: "income_report", path: "/user/income-report", icon: "/assets/icons/navbar/ic_ecommerce.svg" });
+      items.push({ title: "income_report", path: "/user/income-report", icon: "/icons/ic_report.svg" });
     }
     // Rename income_report based on current language
     items = items.map((item) => {
