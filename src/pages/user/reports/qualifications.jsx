@@ -132,7 +132,7 @@ const QualificationsReport = () => {
             ) : (
               <Stack spacing={1}>
                 {rank.map((r) => {
-                  const badge = getBadge(r.pqv_pct);
+                  const badge = getBadge(r.gv_pct);
                   return (
                     <Stack key={r.user_id} direction="row" alignItems="center" spacing={1.5} sx={{ py: 1, borderBottom: "1px solid #f5f0e8" }}>
                       <Box sx={{ minWidth: 90 }}>
@@ -142,13 +142,13 @@ const QualificationsReport = () => {
                       <Box sx={{ flex: 1 }}>
                         <Stack direction="row" justifyContent="space-between" mb={0.2}>
                           <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>{r.current_rank} → {r.next_rank}</Typography>
-                          <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>{r.pqv}/{r.pqv_required} PQV</Typography>
+                          <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>{r.gv}/{r.gv_required} GV</Typography>
                         </Stack>
-                        <LinearProgress variant="determinate" value={r.pqv_pct}
-                          sx={{ height: 6, borderRadius: 3, bgcolor: "#eee", "& .MuiLinearProgress-bar": { bgcolor: r.pqv_pct >= 90 ? "#4CAF50" : r.pqv_pct >= 70 ? ORO : "#ccc", borderRadius: 3 } }} />
+                        <LinearProgress variant="determinate" value={r.gv_pct}
+                          sx={{ height: 6, borderRadius: 3, bgcolor: "#eee", "& .MuiLinearProgress-bar": { bgcolor: r.gv_pct >= 90 ? "#4CAF50" : r.gv_pct >= 70 ? ORO : "#ccc", borderRadius: 3 } }} />
                       </Box>
                       <Chip label={badge.label} size="small" sx={{ height: 22, fontSize: "0.6rem", fontWeight: 700, bgcolor: badge.bg, color: badge.color }} />
-                      <Typography sx={{ fontSize: "0.9rem", fontWeight: 800, color: r.pqv_pct >= 70 ? ORO : MUTED, minWidth: 40, textAlign: "right" }}>{r.pqv_pct}%</Typography>
+                      <Typography sx={{ fontSize: "0.9rem", fontWeight: 800, color: r.gv_pct >= 70 ? ORO : MUTED, minWidth: 40, textAlign: "right" }}>{r.gv_pct}%</Typography>
                     </Stack>
                   );
                 })}
