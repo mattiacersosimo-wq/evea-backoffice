@@ -3410,6 +3410,14 @@
         "loyalty_inactive": "Attiva lo smartship per ottenere il 10% su tutti i tuoi ordini",
         "loyalty_inactive_sub": "Abbonati ora e risparmia su ogni acquisto",
         "activate_now": "Attiva ora",
-        "birthdays": "Compleanni"
+        "birthdays": "Compleanni",
+        "this_week_filter": "Questa Settimana",
+        "last_week_filter": "Settimana Scorsa",
+        "this_month_filter": "Questo Mese",
+        "last_month_filter": "Mese Scorso",
+        "this_year_filter": "Quest Anno",
+        "select_week": "Seleziona Settimana",
+        "select_month": "Seleziona Mese",
+        "select_year": "Seleziona Anno"
     }
 }

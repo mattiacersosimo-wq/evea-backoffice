@@ -771,6 +771,14 @@ const ROBCard = () => {
           })()}
         </>
       )}
+
+      <Box sx={{ mt: "auto", pt: 1 }}>
+        <Button fullWidth variant="outlined" startIcon={<Iconify icon="mdi:cog-outline" />}
+          href="/user/recurring-orders"
+          sx={{ borderColor: "#e0e0e0", color: ESPRESSO, "&:hover": { borderColor: ORO, bgcolor: alpha(ORO, 0.04) }, fontWeight: 600, borderRadius: 2, py: 1, textTransform: "none" }}>
+          {t("evea.manage_subscription")}
+        </Button>
+      </Box>
     </Card>
   );
 };

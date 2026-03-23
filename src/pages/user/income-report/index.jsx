@@ -115,14 +115,14 @@ const IncomeReport = () => {
             <Stack direction="row" spacing={1} flexWrap="wrap">
               <Select size="small" value={period} onChange={(e) => setPeriod(e.target.value)}
                 sx={{ minWidth: 140, bgcolor: "#fff", borderRadius: 2, "& .MuiSelect-select": { py: 0.8, fontSize: "0.82rem" } }}>
-                <MenuItem value="this_week">This Week</MenuItem>
-                <MenuItem value="last_week">Last Week</MenuItem>
-                <MenuItem value="this_month">This Month</MenuItem>
-                <MenuItem value="last_month">Last Month</MenuItem>
-                <MenuItem value="this_year">This Year</MenuItem>
-                <MenuItem value="week">Select Week</MenuItem>
-                <MenuItem value="month">Select Month</MenuItem>
-                <MenuItem value="year">Select Year</MenuItem>
+                <MenuItem value="this_week">{t("evea.this_week_filter")}</MenuItem>
+                <MenuItem value="last_week">{t("evea.last_week_filter")}</MenuItem>
+                <MenuItem value="this_month">{t("evea.this_month_filter")}</MenuItem>
+                <MenuItem value="last_month">{t("evea.last_month_filter")}</MenuItem>
+                <MenuItem value="this_year">{t("evea.this_year_filter")}</MenuItem>
+                <MenuItem value="week">{t("evea.select_week")}</MenuItem>
+                <MenuItem value="month">{t("evea.select_month")}</MenuItem>
+                <MenuItem value="year">{t("evea.select_year")}</MenuItem>
               </Select>
               {period === "week" && (
                 <Select size="small" value={weekVal} onChange={(e) => setWeekVal(e.target.value)} displayEmpty

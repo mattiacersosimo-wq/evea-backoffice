@@ -3484,6 +3484,14 @@
         "loyalty_inactive": "Activate smartship to get 10% off all your orders",
         "loyalty_inactive_sub": "Subscribe now and save on every purchase",
         "activate_now": "Activate now",
-        "birthdays": "Birthdays"
+        "birthdays": "Birthdays",
+        "this_week_filter": "This Week",
+        "last_week_filter": "Last Week",
+        "this_month_filter": "This Month",
+        "last_month_filter": "Last Month",
+        "this_year_filter": "This Year",
+        "select_week": "Select Week",
+        "select_month": "Select Month",
+        "select_year": "Select Year"
     }
 }
