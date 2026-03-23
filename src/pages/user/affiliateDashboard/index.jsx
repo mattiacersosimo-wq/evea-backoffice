@@ -357,7 +357,7 @@ const BonusSummaryGrid = () => {
       {/* ── SETTIMANALI ── */}
       <Box sx={{ flex: 1 }}>
         <TotalHeader icon="mdi:calendar-week" label={t("evea.pending_weekly")} total={weeklyTotal} color="#4CAF50" prevTotal={weeklyPrevTotal}
-          timer={(() => { const now = new Date(); const day = now.getDay(); const left = day === 0 ? 0 : 7 - day; return left === 0 ? t("evea.week_restarts_tomorrow") : t("evea.week_ends_in") + " " + left + " " + (left === 1 ? t("evea.day") : t("evea.days")); })()} />
+          timer={(() => { const now = new Date(); const day = now.getDay(); const left = day === 0 ? 0 : 7 - day; return t("evea.weekly_period") + " — " + (left === 0 ? t("evea.week_restarts_tomorrow") : t("evea.week_ends_in") + " " + left + " " + (left === 1 ? t("evea.day") : t("evea.days"))); })()} />
         <Grid container spacing={1.5}>
           {weeklyBonuses.map((b) => (
             <Grid item xs={6} key={b.key}>
@@ -386,7 +386,7 @@ const BonusSummaryGrid = () => {
       {/* ── MENSILI ── */}
       <Box sx={{ flex: 1 }}>
         <TotalHeader icon="mdi:calendar-month" label={t("evea.pending_monthly")} total={monthlyTotal} color={ORO} prevTotal={monthlyPrevTotal}
-          timer={(() => { const now = new Date(); const end = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59); const d = Math.max(0, Math.ceil((end - now) / 86400000)); return t("evea.month_ends_in") + " " + d + " " + t("evea.days"); })()} />
+          timer={(() => { const now = new Date(); const end = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59); const d = Math.max(0, Math.ceil((end - now) / 86400000)); return t("evea.monthly_period") + " — " + t("evea.month_ends_in") + " " + d + " " + t("evea.days"); })()} />
         <Grid container spacing={1.5}>
           {monthlyBonuses.map((b) => (
             <Grid item xs={6} key={b.key}>

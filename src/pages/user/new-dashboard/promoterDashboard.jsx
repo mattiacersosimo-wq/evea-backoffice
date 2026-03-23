@@ -200,7 +200,7 @@ const HeroCard = () => {
         </Stack>
         {!rankLoading && rank && (
           <Stack direction="row" spacing={1.5} alignItems="center" flexShrink={0}>
-            <CountdownTimer expiryDate={rank.month_end} label={t("evea.period_expires")} />
+            <CountdownTimer expiryDate={rank.month_end} label={t("evea.monthly_period")} />
             {rank.dsp_end && <CountdownTimer expiryDate={rank.dsp_end} label={t("evea.dsb_boost_expires")} />}
           </Stack>
         )}

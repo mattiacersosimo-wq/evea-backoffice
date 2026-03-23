@@ -442,7 +442,7 @@
         "rock_solid_bonus": "Rock Solid Bonus Progress",
         "gameplay_rewards": "Ricompense di gioco",
         "eveolving_bonus": "Eveolving Bonus Progress",
-        "rock_solid_mvp_bonus": "Rock Solid MVP Bonus Progress",
+        "rock_solid_mvp_bonus": "Rock Solid MVP Bonus",
         "mvp_mentor_bonus": "MVP Mentor Bonus Progress",
         "direct_sales_bonus": "Direct Sales Bonus Progress",
         "rob_bonus": "Recurring Order Bonus Progress",
@@ -636,10 +636,10 @@
         "go_mvp_bonus": "Go MVP Bonus",
         "eveolving_bonus": "Evolving Bonus",
         "rock_solid_bonus": "Rock Solid Bonus",
-        "rock_solid_mvp_bonus": "Rock Solid MVP Bonus Progress",
+        "rock_solid_mvp_bonus": "Rock Solid MVP Bonus",
         "rock_solid_mvp_additional_bonus": "Rock Solid MVP Additional Bonus",
         "direct_sales_bonus": "Direct Sales Bonus",
-        "pmb_bonus": "PMB Bonus",
+        "pmb_bonus": "MVP Mentor Bonus",
         "indirect_sales_bonus": "Indirect Sales Bonus",
         "leadership_bonus": "Leadership Bonus",
         "residual_bonus": "Residual Bonus",
@@ -3418,6 +3418,8 @@
         "this_year_filter": "Quest Anno",
         "select_week": "Seleziona Settimana",
         "select_month": "Seleziona Mese",
-        "select_year": "Seleziona Anno"
+        "select_year": "Seleziona Anno",
+        "monthly_period": "Periodo mensile",
+        "weekly_period": "Periodo settimanale"
     }
 }

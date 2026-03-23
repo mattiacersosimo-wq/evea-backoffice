@@ -1,24 +1,8 @@
 const options = [
   { value: "all", label: "amount_types.all" },
   {
-    value: "deducted_by_admin",
-    label: "amount_types.deducted_by_admin",
-  },
-  {
-    value: "credited_by_admin",
-    label: "amount_types.credited_by_admin",
-  },
-  {
     value: "go_mvp_bonus",
     label: "amount_types.go_mvp_bonus",
-  },
-  {
-    value: "eveolving_bonus",
-    label: "amount_types.eveolving_bonus",
-  },
-  {
-    value: "rock_solid_bonus",
-    label: "amount_types.rock_solid_bonus",
   },
   {
     value: "rock_solid_mvp_bonus",
@@ -41,12 +25,20 @@ const options = [
     label: "amount_types.indirect_sales_bonus",
   },
   {
-    value: "leadership_bonus",
-    label: "amount_types.leadership_bonus",
+    value: "eveolving_bonus",
+    label: "amount_types.eveolving_bonus",
+  },
+  {
+    value: "rock_solid_bonus",
+    label: "amount_types.rock_solid_bonus",
   },
   {
     value: "residual_bonus",
     label: "amount_types.residual_bonus",
+  },
+  {
+    value: "leadership_bonus",
+    label: "amount_types.leadership_bonus",
   },
   {
     value: "residual_matching",

@@ -459,7 +459,7 @@
         "rock_solid_bonus": "Rock Solid Bonus Progress",
         "gameplay_rewards": "GamePlay Rewards",
         "eveolving_bonus": "Eveolving Bonus Progress",
-        "rock_solid_mvp_bonus": "Rock Solid MVP Bonus Progress",
+        "rock_solid_mvp_bonus": "Rock Solid MVP Bonus",
         "mvp_mentor_bonus": "MVP Mentor Bonus Progress",
         "direct_sales_bonus": "Direct Sales Bonus Progress",
         "rob_bonus": "Recurring Order Bonus Progress",
@@ -3492,6 +3492,8 @@
         "this_year_filter": "This Year",
         "select_week": "Select Week",
         "select_month": "Select Month",
-        "select_year": "Select Year"
+        "select_year": "Select Year",
+        "monthly_period": "Monthly period",
+        "weekly_period": "Weekly period"
     }
 }
