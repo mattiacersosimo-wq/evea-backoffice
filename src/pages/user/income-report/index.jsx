@@ -213,19 +213,24 @@ const IncomeReport = () => {
             {weeklyTrend.length > 0 && (
               <Card sx={{ ...cardSx, p: 2.5, mb: 3 }}>
                 <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>Weekly Trend</Typography>
-                <Stack direction="row" spacing={1} alignItems="flex-end" sx={{ height: 120 }}>
-                  {weeklyTrend.map((w) => {
-                    const maxVal = Math.max(...weeklyTrend.map((x) => Number(x.total)), 1);
-                    const pct = (Number(w.total) / maxVal) * 100;
-                    return (
-                      <Box key={w.yw} sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                        <Typography sx={{ fontSize: "0.55rem", color: MUTED, mb: 0.3 }}>{"\u20AC"}{Number(w.total).toFixed(0)}</Typography>
-                        <Box sx={{ width: "100%", height: `${Math.max(pct, 4)}%`, bgcolor: ORO, borderRadius: "4px 4px 0 0" }} />
-                        <Typography sx={{ fontSize: "0.5rem", color: MUTED, mt: 0.3 }}>{w.week_start?.substring(5)}</Typography>
-                      </Box>
-                    );
-                  })}
-                </Stack>
+                {(() => {
+                  const maxVal = Math.max(...weeklyTrend.map((x) => Number(x.total)), 1);
+                  return (
+                    <Box sx={{ display: "flex", alignItems: "flex-end", gap: 1, height: 180, pt: 2 }}>
+                      {weeklyTrend.map((w) => {
+                        const val = Number(w.total);
+                        const barH = Math.max((val / maxVal) * 150, 4);
+                        return (
+                          <Box key={w.yw} sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
+                            <Typography sx={{ fontSize: "0.78rem", fontWeight: 700, color: val > 0 ? ORO : "#ccc", mb: 0.5 }}>{"\u20AC"}{val.toFixed(0)}</Typography>
+                            <Box sx={{ width: "80%", height: barH, bgcolor: val > 0 ? ORO : alpha(ORO, 0.15), borderRadius: "6px 6px 0 0", minHeight: 4, transition: "height 0.5s" }} />
+                            <Typography sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED, mt: 0.8 }}>{w.week_start?.substring(5)}</Typography>
+                          </Box>
+                        );
+                      })}
+                    </Box>
+                  );
+                })()}
               </Card>
             )}
 
