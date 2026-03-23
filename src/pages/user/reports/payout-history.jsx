@@ -1,6 +1,7 @@
 import { Box, Card, Chip, Grid, MenuItem, Select, Skeleton, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import axiosInstance from "src/utils/axios";
 
@@ -9,6 +10,7 @@ const cs = { bgcolor: "#fff", borderRadius: 3, border: "1px solid #f0ece6", boxS
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const PayoutHistoryReport = () => {
+  const { t } = useTranslation();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [year, setYear] = useState(new Date().getFullYear());
@@ -78,7 +80,7 @@ const PayoutHistoryReport = () => {
 
           {/* Payout requests */}
           <Card sx={{ ...cs, p: 2.5 }}>
-            <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>Payout Requests</Typography>
+            <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>{t("evea.payout_requests")}</Typography>
             {payouts.length > 0 ? (
               <Table size="small">
                 <TableHead>

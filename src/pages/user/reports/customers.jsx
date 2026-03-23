@@ -1,6 +1,7 @@
 import { Box, Card, Chip, Grid, Skeleton, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import axiosInstance from "src/utils/axios";
 
@@ -8,6 +9,7 @@ const ORO = "#B8963B"; const ESPRESSO = "#2C1A0E"; const MUTED = "#7A6A5C";
 const cs = { bgcolor: "#fff", borderRadius: 3, border: "1px solid #f0ece6", boxShadow: "0 1px 4px rgba(0,0,0,0.04)" };
 
 const CustomerReport = () => {
+  const { t } = useTranslation();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -21,10 +23,10 @@ const CustomerReport = () => {
     <Box>
       <Grid container spacing={1.5} sx={{ mb: 2 }}>
         {[
-          { label: "Total Customers", value: totals.total, color: "#2196F3", icon: "mdi:account-group" },
-          { label: "Smartship Active", value: totals.smartship, color: "#8BC34A", icon: "mdi:refresh-circle" },
-          { label: "At Risk (30+ days)", value: totals.at_risk, color: "#E24B4A", icon: "mdi:alert-circle" },
-          { label: "Avg Spent", value: `€${totals.avg_spent || 0}`, color: ORO, icon: "mdi:cash" },
+          { label: t("evea.report_customers"), value: totals.total, color: "#2196F3", icon: "mdi:account-group" },
+          { label: "Smartship", value: totals.smartship, color: "#8BC34A", icon: "mdi:refresh-circle" },
+          { label: t("evea.at_risk"), value: totals.at_risk, color: "#E24B4A", icon: "mdi:alert-circle" },
+          { label: t("evea.avg_spent"), value: `€${totals.avg_spent || 0}`, color: ORO, icon: "mdi:cash" },
         ].map((c) => (
           <Grid item xs={6} md={3} key={c.label}>
             <Card sx={{ ...cs, p: 2, textAlign: "center" }}>
@@ -56,7 +58,7 @@ const CustomerReport = () => {
                   <TableCell sx={{ fontSize: "0.72rem", color: MUTED }}>{formatDate(c.last_order)}</TableCell>
                   <TableCell sx={{ fontSize: "0.78rem", color: c.at_risk ? "#E24B4A" : MUTED, fontWeight: c.at_risk ? 700 : 400 }}>{c.days_since_last ?? "—"}</TableCell>
                   <TableCell>{c.smartship ? <Iconify icon="mdi:check-circle" sx={{ color: "#8BC34A" }} width={18} /> : <Iconify icon="mdi:close-circle-outline" sx={{ color: "#ddd" }} width={18} />}</TableCell>
-                  <TableCell><Chip label={c.at_risk ? "At Risk" : "OK"} size="small" sx={{ height: 20, fontSize: "0.6rem", fontWeight: 600, bgcolor: c.at_risk ? alpha("#E24B4A", 0.1) : alpha("#4A5C3A", 0.1), color: c.at_risk ? "#E24B4A" : "#4A5C3A" }} /></TableCell>
+                  <TableCell><Chip label={c.at_risk ? t("evea.at_risk") : "OK"} size="small" sx={{ height: 20, fontSize: "0.6rem", fontWeight: 600, bgcolor: c.at_risk ? alpha("#E24B4A", 0.1) : alpha("#4A5C3A", 0.1), color: c.at_risk ? "#E24B4A" : "#4A5C3A" }} /></TableCell>
                 </TableRow>
               ))}
             </TableBody>

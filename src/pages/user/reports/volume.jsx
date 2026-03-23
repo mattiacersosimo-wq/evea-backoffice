@@ -1,6 +1,7 @@
 import { Box, Card, Grid, Skeleton, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import axiosInstance from "src/utils/axios";
 
@@ -9,6 +10,7 @@ const cs = { bgcolor: "#fff", borderRadius: 3, border: "1px solid #f0ece6", boxS
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const VolumeReport = () => {
+  const { t } = useTranslation();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +30,7 @@ const VolumeReport = () => {
           <Grid container spacing={2} sx={{ mb: 2 }}>
             <Grid item xs={12} md={8}>
               <Card sx={{ ...cs, p: 2.5 }}>
-                <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>Personal QV vs Team QV (6 months)</Typography>
+                <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>{t("evea.personal_vs_team")}</Typography>
                 <Box sx={{ display: "flex", alignItems: "flex-end", justifyContent: "center", gap: 2, height: 180 }}>
                   {personal.map((p) => {
                     const tMatch = team.find((t) => t.y === p.y && t.m === p.m);
@@ -55,7 +57,7 @@ const VolumeReport = () => {
             </Grid>
             <Grid item xs={12} md={4}>
               <Card sx={{ ...cs, p: 2.5, height: "100%" }}>
-                <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>Top Contributors</Typography>
+                <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>{t("evea.top_contributors")}</Typography>
                 <Stack spacing={1}>
                   {topC.map((c, i) => (
                     <Stack key={c.user_id} direction="row" alignItems="center" justifyContent="space-between" sx={{ py: 0.5, borderBottom: i < topC.length - 1 ? "1px solid #f5f0e8" : "none" }}>
@@ -74,7 +76,7 @@ const VolumeReport = () => {
 
           {/* Monthly table */}
           <Card sx={{ ...cs, p: 2.5 }}>
-            <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>Monthly Volume Detail</Typography>
+            <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>{t("evea.monthly_volume")}</Typography>
             <Table size="small">
               <TableHead>
                 <TableRow>

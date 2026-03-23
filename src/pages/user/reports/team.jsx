@@ -54,11 +54,11 @@ const TeamReport = () => {
       {/* Summary */}
       <Grid container spacing={1.5} sx={{ mb: 2 }}>
         {[
-          { label: "Total", value: totals.total, icon: "mdi:account-group", color: ESPRESSO },
-          { label: "Active", value: totals.active, icon: "mdi:account-check", color: "#4A5C3A" },
-          { label: "Inactive", value: totals.inactive, icon: "mdi:account-clock", color: "#EF9F27" },
+          { label: t("evea.total"), value: totals.total, icon: "mdi:account-group", color: ESPRESSO },
+          { label: t("evea.active"), value: totals.active, icon: "mdi:account-check", color: "#4A5C3A" },
+          { label: t("evea.inactive"), value: totals.inactive, icon: "mdi:account-clock", color: "#EF9F27" },
           { label: "Promoters", value: totals.promoters, icon: "mdi:account-tie", color: ORO },
-          { label: "Customers", value: totals.customers, icon: "mdi:account", color: "#2196F3" },
+          { label: t("evea.report_customers"), value: totals.customers, icon: "mdi:account", color: "#2196F3" },
           { label: "Smartship", value: totals.smartship, icon: "mdi:refresh-circle", color: "#8BC34A" },
         ].map((c) => (
           <Grid item xs={4} md={2} key={c.label}>

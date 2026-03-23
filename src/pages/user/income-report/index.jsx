@@ -179,7 +179,7 @@ const IncomeReport = () => {
             <Card sx={{ ...cardSx, p: 2.5, mb: 3 }}>
               <Stack direction="row" alignItems="center" spacing={1} mb={2}>
                 <Iconify icon="mdi:chart-bar" width={20} sx={{ color: ORO }} />
-                <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>Breakdown per Bonus</Typography>
+                <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>{t("evea.breakdown")}</Typography>
               </Stack>
               <Stack spacing={1.2}>
                 {byType.map((b) => {
@@ -212,7 +212,7 @@ const IncomeReport = () => {
             {/* Weekly trend */}
             {weeklyTrend.length > 0 && (
               <Card sx={{ ...cardSx, p: 2.5, mb: 3 }}>
-                <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>Weekly Trend</Typography>
+                <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>{t("evea.weekly_trend")}</Typography>
                 {(() => {
                   const maxVal = Math.max(...weeklyTrend.map((x) => Number(x.total)), 1);
                   return (
@@ -236,7 +236,7 @@ const IncomeReport = () => {
 
             {/* Transactions */}
             <Card sx={{ ...cardSx, p: 2.5 }}>
-              <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>Transactions</Typography>
+              <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>{t("evea.transactions")}</Typography>
               {transactions.length > 0 ? (
                 <Table size="small">
                   <TableHead>

@@ -17,20 +17,21 @@ const PayoutHistoryReport = lazy(() => import("./payout-history"));
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
 
-const TABS = [
-  { label: "Income", icon: "mdi:cash-multiple", key: "income" },
-  { label: "Team", icon: "mdi:account-group", key: "team" },
-  { label: "Customers", icon: "mdi:account-heart", key: "customers" },
-  { label: "Rank", icon: "mdi:trophy-outline", key: "rank" },
-  { label: "Volume", icon: "mdi:chart-bar", key: "volume" },
-  { label: "Payout", icon: "mdi:bank-transfer-out", key: "payout" },
+const TAB_KEYS = [
+  { labelKey: "evea.report_income", icon: "mdi:cash-multiple", key: "income" },
+  { labelKey: "evea.report_team", icon: "mdi:account-group", key: "team" },
+  { labelKey: "evea.report_customers", icon: "mdi:account-heart", key: "customers" },
+  { labelKey: "evea.report_rank", icon: "mdi:trophy-outline", key: "rank" },
+  { labelKey: "evea.report_volume", icon: "mdi:chart-bar", key: "volume" },
+  { labelKey: "evea.report_payout", icon: "mdi:bank-transfer-out", key: "payout" },
 ];
 
 const Reports = () => {
   const { t } = useTranslation();
+  const TABS = TAB_KEYS.map((tk) => ({ ...tk, label: t(tk.labelKey) }));
   const [params, setParams] = useSearchParams();
   const tabKey = params.get("tab") || "income";
-  const tabIndex = TABS.findIndex((t) => t.key === tabKey);
+  const tabIndex = TABS.findIndex((tb) => tb.key === tabKey);
   const [tab, setTab] = useState(tabIndex >= 0 ? tabIndex : 0);
 
   const handleTab = (_, v) => {
@@ -48,8 +49,8 @@ const Reports = () => {
               <Iconify icon="mdi:chart-timeline-variant-shimmer" width={28} sx={{ color: ORO }} />
             </Box>
             <Box>
-              <Typography variant="h5" fontWeight={700} color={ESPRESSO}>Report</Typography>
-              <Typography sx={{ fontSize: "0.8rem", color: "#7A6A5C" }}>Analisi dettagliata del tuo business</Typography>
+              <Typography variant="h5" fontWeight={700} color={ESPRESSO}>{t("evea.report")}</Typography>
+              <Typography sx={{ fontSize: "0.8rem", color: "#7A6A5C" }}>{t("evea.report_subtitle")}</Typography>
             </Box>
           </Stack>
         </Card>
