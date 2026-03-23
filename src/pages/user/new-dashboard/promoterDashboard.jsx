@@ -148,7 +148,7 @@ const CountdownTimer = ({ expiryDate, label }) => {
   return (
     <Box sx={{ textAlign: "center" }}>
       <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C", mb: 0.3 }}>{label}</Typography>
-      <Typography sx={{ fontSize: "0.92rem", fontWeight: 700, color: ORO, bgcolor: alpha(ORO, 0.12), borderRadius: 1, px: 1, py: 0.3, border: `1px solid ${alpha(ORO, 0.3)}` }}>
+      <Typography sx={{ fontSize: "0.92rem", fontWeight: 700, color: ESPRESSO, bgcolor: alpha(ORO, 0.08), borderRadius: 1, px: 1, py: 0.3, border: `1px solid ${alpha(ORO, 0.2)}` }}>
         {pad(time.d)}d {pad(time.h)}h {pad(time.m)}m {pad(time.s)}s
       </Typography>
     </Box>
