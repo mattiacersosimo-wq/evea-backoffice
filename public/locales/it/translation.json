@@ -3334,7 +3334,7 @@
         "reorder_rate": "Tasso Riordine",
         "smartship_clients": "Clienti Smartship",
         "active_promoters": "Promoter Attivi",
-        "best_selling": "Prodotti più Venduti",
+        "best_selling": "Prodotti più venduti",
         "rank_advancement": "Avanzamento Rank",
         "qv_month": "QV Mese",
         "bv_month": "BV Mese",
@@ -3364,6 +3364,9 @@
         "friend": "Amico",
         "start_subscription": "Inizia il tuo abbonamento per risparmiare ogni mese!",
         "in_gift_coupons": "in coupon regalo",
-        "revenue_team": "Revenue Team"
+        "revenue_team": "Revenue Team",
+        "this_month": "Questo mese",
+        "buy": "Acquista",
+        "recommended": "Consigliato"
     }
 }

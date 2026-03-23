@@ -3438,6 +3438,9 @@
         "friend": "Friend",
         "start_subscription": "Start your subscription to save every month!",
         "in_gift_coupons": "in gift coupons",
-        "revenue_team": "Team Revenue"
+        "revenue_team": "Team Revenue",
+        "this_month": "This month",
+        "buy": "Buy",
+        "recommended": "Recommended"
     }
 }
