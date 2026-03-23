@@ -102,18 +102,29 @@ const useBonusPending = () => useFetch(async () => {
     { url: "affiliate-dashboard/rob-Progressbar", field: "pending_bonus_amount" },
     { url: "affiliate-dashboard/threeff-Progressbar", field: "current_bonus_amount" },
   ];
-  const grab = async (list) => {
+  const grab = async (list, isWeekly) => {
     const results = await Promise.allSettled(list.map(async (c) => {
       try {
         const { data } = await fetchUser(c.url);
         const d = Array.isArray(data?.data) ? data.data[0] : data?.data;
         const src = c.nested ? d?.[c.nested] : d;
-        return Number(src?.[c.field]) || 0;
-      } catch { return 0; }
+        return {
+          total: Number(src?.[c.field]) || 0,
+          currentWeek: Number(src?.pending_current_week ?? d?.pending_current_week) || 0,
+          previousWeek: Number(src?.pending_previous_week ?? d?.pending_previous_week) || 0,
+          prevMonth: Number(d?.previous_month_pending_commission ?? src?.previous_month_pending_commission) || 0,
+        };
+      } catch { return { total: 0, currentWeek: 0, previousWeek: 0, prevMonth: 0 }; }
     }));
-    return results.reduce((s, r) => s + (r.status === "fulfilled" ? r.value : 0), 0);
+    const vals = results.map((r) => r.status === "fulfilled" ? r.value : { total: 0, currentWeek: 0, previousWeek: 0, prevMonth: 0 });
+    return {
+      total: vals.reduce((s, v) => s + v.total, 0),
+      currentWeek: vals.reduce((s, v) => s + v.currentWeek, 0),
+      previousWeek: vals.reduce((s, v) => s + v.previousWeek, 0),
+      prevMonth: vals.reduce((s, v) => s + v.prevMonth, 0),
+    };
   };
-  const [w, m] = await Promise.all([grab(weeklyUrls), grab(monthlyUrls)]);
+  const [w, m] = await Promise.all([grab(weeklyUrls, true), grab(monthlyUrls, false)]);
   return { weekly: w, monthly: m };
 });
 
@@ -289,27 +300,44 @@ const CelebrationBanner = () => {
 // 5. GUADAGNI
 // ═══════════════════════════════════════
 const EarningsSection = () => {
+  const { t } = useTranslation();
   const { data: bonus, loading: bLoad } = useBonusPending();
   const { data: rank, loading: rLoad } = useRankSummary();
 
-  const PendingCard = ({ label, icon, color, value }) => (
+  const PendingCard = ({ label, icon, color, current, previous, isWeekly }) => (
     <Card sx={{ ...cardSx, p: 2.5, height: "100%" }}>
-      <Stack direction="row" alignItems="center" spacing={1.5}>
+      <Stack direction="row" alignItems="center" spacing={1.5} mb={1}>
         <Box sx={{ width: 40, height: 40, borderRadius: 2, bgcolor: alpha(color, 0.08), display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Iconify icon={icon} width={22} sx={{ color }} />
         </Box>
         <Box sx={{ flex: 1 }}>
           <Typography sx={{ fontSize: "0.75rem", fontWeight: 600, color: MUTED, textTransform: "uppercase", letterSpacing: 0.5 }}>{label}</Typography>
-          {bLoad ? <Skeleton width={80} height={30} /> : <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: value > 0 ? color : "#ccc" }}>€{value.toFixed(2)}</Typography>}
         </Box>
       </Stack>
+      {bLoad ? <Skeleton width={80} height={30} /> : (
+        <>
+          <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: current > 0 ? color : "#ccc" }}>€{current.toFixed(2)}</Typography>
+          <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: ESPRESSO, mt: 0.3 }}>{isWeekly ? t("evea.current_week") : t("evea.current_month")}</Typography>
+          <Box sx={{ mt: 1, pt: 1, borderTop: "1px solid #f0ece6" }}>
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
+              <Typography sx={{ fontSize: "0.75rem", fontWeight: 600, color: "#7A6A5C" }}>{t("evea.awaiting_approval")}</Typography>
+              <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: previous > 0 ? ESPRESSO : "#ccc" }}>€{previous.toFixed(2)}</Typography>
+            </Stack>
+          </Box>
+        </>
+      )}
     </Card>
   );
 
+  const wCurrent = bonus?.weekly?.currentWeek || 0;
+  const wPrev = bonus?.weekly?.previousWeek || 0;
+  const mCurrent = bonus?.monthly?.total || 0;
+  const mPrev = bonus?.monthly?.prevMonth || 0;
+
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} md={4}><PendingCard label="Pending Settimanali" icon="mdi:calendar-week" color="#4CAF50" value={bonus?.weekly || 0} /></Grid>
-      <Grid item xs={12} md={4}><PendingCard label="Pending Mensili" icon="mdi:calendar-month" color={ORO} value={bonus?.monthly || 0} /></Grid>
+      <Grid item xs={12} md={4}><PendingCard label={t("evea.pending_weekly")} icon="mdi:calendar-week" color="#4CAF50" current={wCurrent} previous={wPrev} isWeekly={true} /></Grid>
+      <Grid item xs={12} md={4}><PendingCard label={t("evea.pending_monthly")} icon="mdi:calendar-month" color={ORO} current={mCurrent} previous={mPrev} isWeekly={false} /></Grid>
       <Grid item xs={12} md={4}>
         <Card sx={{ ...cardSx, p: 2.5, height: "100%" }}>
           <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: MUTED, textTransform: "uppercase", mb: 1.5 }}>Rank</Typography>
