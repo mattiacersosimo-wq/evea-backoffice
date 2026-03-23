@@ -211,7 +211,6 @@ const HeroCard = () => {
           {[
             { icon: "mdi:wallet-outline", label: t("evea.wallet"), value: `€${Number(hero?.wallet || 0).toFixed(2)}` },
             { icon: "mdi:chart-bar", label: t("evea.qv_month"), value: hero?.qv_mese || 0 },
-            { icon: "mdi:diamond-outline", label: t("evea.bv_month"), value: hero?.bv_mese || 0 },
             { icon: "mdi:account-group", label: t("evea.clients"), value: hero?.clienti_diretti || 0 },
             { icon: "mdi:account-tie", label: t("evea.team"), value: hero?.team_promoter || 0 },
           ].map((m) => (
