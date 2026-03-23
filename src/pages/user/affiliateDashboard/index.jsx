@@ -297,10 +297,10 @@ const BonusSummaryGrid = () => {
           <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: Number(b.pendingCurrentWeek) > 0 ? b.color : "#ccc", lineHeight: 1.2 }}>
             €{Number(b.pendingCurrentWeek || 0).toFixed(2)}
           </Typography>
-          <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: ESPRESSO, mt: 0.3 }}>Settimana corrente</Typography>
+          <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: ESPRESSO, mt: 0.3 }}>{t("evea.current_week")}</Typography>
           <Box sx={{ mt: 1, pt: 1, borderTop: "1px solid #f0ece6" }}>
             <Stack direction="row" justifyContent="space-between" alignItems="center">
-              <Typography sx={{ fontSize: "0.75rem", fontWeight: 600, color: "#7A6A5C" }}>Sett. precedente</Typography>
+              <Typography sx={{ fontSize: "0.75rem", fontWeight: 600, color: "#7A6A5C" }}>{t("evea.previous_week")}</Typography>
               <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: Number(b.pendingPreviousWeek) > 0 ? ESPRESSO : "#ccc" }}>
                 €{Number(b.pendingPreviousWeek || 0).toFixed(2)}
               </Typography>
@@ -312,10 +312,10 @@ const BonusSummaryGrid = () => {
           <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: Number(b.pending) > 0 ? b.color : "#ccc", lineHeight: 1.2 }}>
             €{Number(b.pending || 0).toFixed(2)}
           </Typography>
-          <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: ESPRESSO, mt: 0.3 }}>Mese corrente</Typography>
+          <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: ESPRESSO, mt: 0.3 }}>{t("evea.current_month")}</Typography>
           <Box sx={{ mt: 1, pt: 1, borderTop: "1px solid #f0ece6" }}>
             <Stack direction="row" justifyContent="space-between" alignItems="center">
-              <Typography sx={{ fontSize: "0.75rem", fontWeight: 600, color: "#7A6A5C" }}>Mese precedente</Typography>
+              <Typography sx={{ fontSize: "0.75rem", fontWeight: 600, color: "#7A6A5C" }}>{t("evea.previous_month")}</Typography>
               <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: Number(b.prevMonth) > 0 ? ESPRESSO : "#ccc" }}>
                 €{Number(b.prevMonth || 0).toFixed(2)}
               </Typography>
@@ -345,7 +345,7 @@ const BonusSummaryGrid = () => {
             €{total.toFixed(2)}
           </Typography>
           <Typography sx={{ fontSize: "0.75rem", color: "#7A6A5C", mt: 0.3 }}>
-            Periodo prec.: <b style={{ color: prevTotal > 0 ? "#2C1A0E" : "#ccc" }}>€{(prevTotal || 0).toFixed(2)}</b>
+            {t("evea.previous_period")}: <b style={{ color: prevTotal > 0 ? "#2C1A0E" : "#ccc" }}>€{(prevTotal || 0).toFixed(2)}</b>
           </Typography>
         </Box>
       </Stack>
