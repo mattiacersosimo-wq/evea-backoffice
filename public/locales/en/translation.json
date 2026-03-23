@@ -3494,6 +3494,7 @@
         "select_month": "Select Month",
         "select_year": "Select Year",
         "monthly_period": "Monthly period",
-        "weekly_period": "Weekly period"
+        "weekly_period": "Weekly period",
+        "qualifications": "Qualifications"
     }
 }

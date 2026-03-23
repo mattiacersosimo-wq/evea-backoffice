@@ -3420,6 +3420,7 @@
         "select_month": "Seleziona Mese",
         "select_year": "Seleziona Anno",
         "monthly_period": "Periodo mensile",
-        "weekly_period": "Periodo settimanale"
+        "weekly_period": "Periodo settimanale",
+        "qualifications": "Qualifiche"
     }
 }

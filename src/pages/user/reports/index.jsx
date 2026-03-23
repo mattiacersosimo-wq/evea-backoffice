@@ -14,6 +14,7 @@ const RankHistoryReport = lazy(() => import("./rank-history"));
 const VolumeReport = lazy(() => import("./volume"));
 const PayoutHistoryReport = lazy(() => import("./payout-history"));
 const BirthdaysReport = lazy(() => import("./birthdays"));
+const QualificationsReport = lazy(() => import("./qualifications"));
 
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
@@ -21,6 +22,7 @@ const ESPRESSO = "#2C1A0E";
 const TAB_KEYS = [
   { labelKey: "evea.report_income", icon: "mdi:cash-multiple", key: "income" },
   { labelKey: "evea.report_team", icon: "mdi:account-group", key: "team" },
+  { labelKey: "evea.qualifications", icon: "mdi:trophy-variant", key: "qualifications" },
   { labelKey: "evea.report_customers", icon: "mdi:account-heart", key: "customers" },
   { labelKey: "evea.report_rank", icon: "mdi:trophy-outline", key: "rank" },
   { labelKey: "evea.report_volume", icon: "mdi:chart-bar", key: "volume" },
@@ -79,11 +81,12 @@ const Reports = () => {
         <Suspense fallback={<LoadingScreen />}>
           {tab === 0 && <IncomeReport />}
           {tab === 1 && <TeamReport />}
-          {tab === 2 && <CustomerReport />}
-          {tab === 3 && <RankHistoryReport />}
-          {tab === 4 && <VolumeReport />}
-          {tab === 5 && <PayoutHistoryReport />}
-          {tab === 6 && <BirthdaysReport />}
+          {tab === 2 && <QualificationsReport />}
+          {tab === 3 && <CustomerReport />}
+          {tab === 4 && <RankHistoryReport />}
+          {tab === 5 && <VolumeReport />}
+          {tab === 6 && <PayoutHistoryReport />}
+          {tab === 7 && <BirthdaysReport />}
         </Suspense>
       </Box>
     </Page>
