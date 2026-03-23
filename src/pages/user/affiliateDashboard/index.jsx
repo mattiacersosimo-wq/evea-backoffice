@@ -211,6 +211,7 @@ const BONUS_CONFIG = [
 ];
 
 const BonusSummaryGrid = () => {
+  const { t } = useTranslation();
   const [bonuses, setBonuses] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -355,8 +356,8 @@ const BonusSummaryGrid = () => {
     <Stack direction={{ xs: "column", md: "row" }} spacing={0}>
       {/* ── SETTIMANALI ── */}
       <Box sx={{ flex: 1 }}>
-        <TotalHeader icon="mdi:calendar-week" label="Pending Settimanali" total={weeklyTotal} color="#4CAF50" prevTotal={weeklyPrevTotal}
-          timer={(() => { const now = new Date(); const day = now.getDay(); const left = day === 0 ? 0 : 7 - day; return left === 0 ? "La settimana riparte domani" : `Fine settimana tra ${left} giorn${left === 1 ? "o" : "i"}`; })()} />
+        <TotalHeader icon="mdi:calendar-week" label={t("evea.pending_weekly")} total={weeklyTotal} color="#4CAF50" prevTotal={weeklyPrevTotal}
+          timer={(() => { const now = new Date(); const day = now.getDay(); const left = day === 0 ? 0 : 7 - day; return left === 0 ? t("evea.week_restarts_tomorrow") : t("evea.week_ends_in") + " " + left + " " + (left === 1 ? t("evea.day") : t("evea.days")); })()} />
         <Grid container spacing={1.5}>
           {weeklyBonuses.map((b) => (
             <Grid item xs={6} key={b.key}>
@@ -384,8 +385,8 @@ const BonusSummaryGrid = () => {
 
       {/* ── MENSILI ── */}
       <Box sx={{ flex: 1 }}>
-        <TotalHeader icon="mdi:calendar-month" label="Pending Mensili" total={monthlyTotal} color={ORO} prevTotal={monthlyPrevTotal}
-          timer={(() => { const now = new Date(); const end = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59); const d = Math.max(0, Math.ceil((end - now) / 86400000)); return `Fine mese tra ${d} giorni`; })()} />
+        <TotalHeader icon="mdi:calendar-month" label={t("evea.pending_monthly")} total={monthlyTotal} color={ORO} prevTotal={monthlyPrevTotal}
+          timer={(() => { const now = new Date(); const end = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59); const d = Math.max(0, Math.ceil((end - now) / 86400000)); return t("evea.month_ends_in") + " " + d + " " + t("evea.days"); })()} />
         <Grid container spacing={1.5}>
           {monthlyBonuses.map((b) => (
             <Grid item xs={6} key={b.key}>

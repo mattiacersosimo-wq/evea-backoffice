@@ -21,17 +21,17 @@
         "bonus_value": "Bonus Value",
         "qualification_value": "Qualification Value",
         "euro_value": "Euro Value",
-        "team_orders":"Team Orders",
-        "pendingcommissions":"Pending Commissions",
-        "confirm":"Confirm",
-        "changedate":"Change Date",
+        "team_orders": "Team Orders",
+        "pendingcommissions": "Pending Commissions",
+        "confirm": "Confirm",
+        "changedate": "Change Date",
         "earning": "Earning",
         "rank_achievers": " Rank Achievers",
         "top_recruiters": " Top Recruiters",
         "top_earners": " Top Earners",
-        "pqv_required":" PQV Required",
-        "tv_required":" TV Required",
-        "gv_required":" GV Required",
+        "pqv_required": " PQV Required",
+        "tv_required": " TV Required",
+        "gv_required": " GV Required",
         "scanThisCode": "Scan this code to pay",
         "transaction_password": "Transaction Password",
         "old_password": "Old Password",
@@ -65,7 +65,6 @@
         "kyc_pending": "Kyc Verification is Pending !",
         "kyc_reject": "Kyc Verification is Rejected !",
         "kyc_approved": "Kyc Verification is Approved !",
-
         "your_password": "Your New password",
         "your_new_password": "Please enter your new password !!!",
         "back_to": " Back to Login",
@@ -201,8 +200,8 @@
         "ewallet": "Ewallet",
         "expense": "Expense",
         "total_credits": "Total Credits",
-        "user_type":"User type",
-        "min_pqv":"Minimum PQV"
+        "user_type": "User type",
+        "min_pqv": "Minimum PQV"
     },
     "pendingranks": {
         "table": {
@@ -215,11 +214,9 @@
             "pqv": "PQV"
         }
     },
-
     "order_approvals": {
         "tran_ref": "Transaction Reference Number"
     },
-
     "email_template": {
         "title": "Email Template",
         "form": {
@@ -229,7 +226,6 @@
             "button": "Update"
         }
     },
-
     "email_settings": {
         "title": "Email Template",
         "table": {
@@ -241,7 +237,6 @@
             "edit_template": "Edit Template"
         }
     },
-
     "register": {
         "have_account": "Already have an account?",
         "welcome": "Hi, Welcome Back!",
@@ -279,9 +274,9 @@
     },
     "user_nav": {
         "recurring_orders": "Recurring Orders",
-        "pendingcommissions":"Pending Commissions",
+        "pendingcommissions": "Pending Commissions",
         "affiliate_dashboard": "Affiliate Dashboard",
-        "referals":"Referrals",
+        "referals": "Referrals",
         "coupons": {
             "title": "Coupons",
             "purchase": "Purchase",
@@ -349,7 +344,7 @@
         "achieved_rank": "ACHIEVED RANK",
         "currentRank": "CURRENT RANK",
         "qv": "QV",
-        "rank":"Rank",
+        "rank": "Rank",
         "bonus_amount": "Bonus Amount",
         "eveolving_bonus": "Evolving Bonus",
         "achieved_count": "Achieved Count",
@@ -469,9 +464,9 @@
         "direct_sales_bonus": "Direct Sales Bonus Progress",
         "rob_bonus": "Recurring Order Bonus Progress",
         "3_FF_Progress": "3 For Free Progress",
-        "achieved_rank":"Achieved Rank",
-        "current_rank":"Current Rank",
-        "paid_rank":"Paid Rank",
+        "achieved_rank": "Achieved Rank",
+        "current_rank": "Current Rank",
+        "paid_rank": "Paid Rank",
         "go_MVP_bonus": "Go MVP Bonus Progress",
         "rank_progress_bar": "Rank Progress Bar",
         "income": "Income",
@@ -487,12 +482,13 @@
         "incomeInfo": "Income",
         "payoutInfo": "Payout",
         "payout_graph": "Income Payout Overview",
-        "network": { "title": "Network", "overview": "Overview of user join" },
-
+        "network": {
+            "title": "Network",
+            "overview": "Overview of user join"
+        },
         "events": {
             "title": "Events"
         },
-
         "team_performance": {
             "table": {
                 "user": "User",
@@ -501,7 +497,6 @@
             },
             "title": "Team Performance"
         },
-
         "referrals_table": {
             "table": {
                 "user": "User",
@@ -521,7 +516,6 @@
         "currentrank": "Current Rank",
         "nextrank": "Next Rank"
     },
-
     "nav": {
         "dashboard": {
             "title": "Dashboard",
@@ -546,7 +540,7 @@
             "d_wallet": "Deposit Wallet",
             "fund_credit": "Fund Credit",
             "payout": "Payout",
-            "pendingcommission":"Pending Commission"
+            "pendingcommission": "Pending Commission"
         },
         "pendingranks": {
             "title": "Pending Ranks"
@@ -646,7 +640,6 @@
         "send": "Sent Mail",
         "sending": "Mail Sending..."
     },
-
     "amount_types": {
         "all": "All",
         "r_bonus": "Referral Bonus",
@@ -731,7 +724,6 @@
         "businessBuilderTitle": "Business Builder | Store",
         "business_builder_subscriptions_sales": "Business Builder Subscriptions Sales"
     },
-
     "assign_subscriptions": {
         "areYouSure": "Are you sure that you want to continue? This action cannot be reversed",
         "delete_category": "Delete Category",
@@ -777,7 +769,6 @@
         "assignSubscriptionsTitle": "Assign Subscriptions | Store",
         "assign_subscriptions": "Assign Subscriptions"
     },
-
     "sub_admin": {
         "delete_at": "Delete At",
         "reasons": "Reasons",
@@ -829,7 +820,6 @@
         "action": "Action",
         "createdAt": "Created At"
     },
-
     "holding_tank": {
         "cancel": "Close",
         "are_you_sure": "Are you sure that you want to continue? This action cannot be reversed",
@@ -856,12 +846,11 @@
         "turn_off_email": "Turn Off Email",
         "turn_on_email": "Turn On Email"
     },
-
     "network_members": {
         "user_type": "User Type",
         "promoter": "Promoter",
         "unique_id": "Unique ID",
-        "engagedstatus":"Engaged Status",
+        "engagedstatus": "Engaged Status",
         "choose_payments": "Choose Methods to Enable",
         "update_permissions": "Update Permissions",
         "turn_off_mail": "Turn Off Mail",
@@ -904,11 +893,10 @@
         "smart_ship_status": "Smart Ship Status",
         "is_smartship_customer": "Smartship Status",
         "yes": "Yes",
-        "engaged_status":"Engaged Status",
-        "true":"True",
-        "false":"False"
+        "engaged_status": "Engaged Status",
+        "true": "True",
+        "false": "False"
     },
-
     "network": {
         "right_team": "Right Team",
         "left_team": "Left Team",
@@ -931,8 +919,8 @@
         "binary_bonus": "Binary Bonus",
         "history": "Network History",
         "network_bonus": "Network Bonus",
-        "support_tickets": "Support Tickets"    },
-
+        "support_tickets": "Support Tickets"
+    },
     "business": {
         "month": "Month",
         "bitcoinConference": "Bitcoin Conference",
@@ -974,18 +962,15 @@
         "pastMonth": "Past Month",
         "thisYear": "This Year"
     },
-
     "date": {
         "start": "Pick Start Date",
         "end": "Pick End Date"
     },
-
     "scope": {
         "all": "All",
         "public": "Public",
         "private": "Private"
     },
-
     "search": {
         "user": "Search User",
         "amount_type": "Amount Type",
@@ -1000,12 +985,10 @@
         "title": "Title",
         "scope": "Scope"
     },
-
     "payout_status": {
         "approved": "Approved",
         "rejected": "Rejected"
     },
-
     "fin_pay": {
         "address": "Address",
         "country": "Country",
@@ -1019,7 +1002,6 @@
         "cvv": "Card CSC/CVM",
         "product_recurring_enabled": "This Product has recurring enabled. Uncheck to disable it."
     },
-
     "genealogy": {
         "add": {
             "referral": "Select Referral",
@@ -1066,16 +1048,15 @@
             "t_l_users": "Total Left Users",
             "t_r_users": "Total right Users",
             "bv": "BV",
-            "ev":"EV",
-            "qv":"QV",
-            "dqv":"DQV",
-            "pqv":"PQV",
-            "tv":"TV",
-            "gv":"GV",
-            "smartship_status":"Smartship Status",
-            "user_type":"User Type"
+            "ev": "EV",
+            "qv": "QV",
+            "dqv": "DQV",
+            "pqv": "PQV",
+            "tv": "TV",
+            "gv": "GV",
+            "smartship_status": "Smartship Status",
+            "user_type": "User Type"
         },
-
         "mono_line": {
             "title": "Mono Line: Genealogy"
         },
@@ -1089,10 +1070,9 @@
             }
         }
     },
-
     "financial": {
-        "pendingcommission":{
-            "title":"Pending Commission"
+        "pendingcommission": {
+            "title": "Pending Commission"
         },
         "e_wallet": {
             "amount_type": "Amount Type",
@@ -1137,7 +1117,6 @@
                 "add": "Add Credit"
             }
         },
-
         "fund_credit": {
             "title": "Fund Credits",
             "form": {
@@ -1157,7 +1136,6 @@
                 "date": "Date"
             }
         },
-
         "fund_transfer": {
             "title": "Fund Transfer",
             "cards": {
@@ -1241,7 +1219,6 @@
             }
         }
     },
-
     "business_builder": {
         "subscriptions": {
             "title": "Business Builder",
@@ -1267,13 +1244,11 @@
             }
         }
     },
-
     "actions": {
         "edit": "Edit",
         "delete": "Delete",
         "publish": "Publish"
     },
-
     "blogs": {
         "title": "Blogs",
         "tabs": {
@@ -1288,9 +1263,11 @@
                 "desc": "Description",
                 "action": "Actions"
             },
-
             "create": {
-                "edit": { "title": "Update Category", "submit": "Update" },
+                "edit": {
+                    "title": "Update Category",
+                    "submit": "Update"
+                },
                 "title": "Add Category",
                 "name": "Category Name",
                 "desc": "Description",
@@ -1304,7 +1281,6 @@
                 "close": "Close"
             }
         },
-
         "create": {
             "new_post": "Create Post",
             "categories": "Categories",
@@ -1346,14 +1322,12 @@
             "latest_category": "Latest Blog Category"
         }
     },
-
     "faq": {
         "title": "FAQ's",
         "tabs": {
             "faq": "FAQ's",
             "categories": "Categories"
         },
-
         "categories": {
             "add": "FAQ's Category",
             "table": {
@@ -1405,11 +1379,12 @@
         "looking_for_message": "Create a ticket via our Support Center and one of our team members will get back to you within 24 hours.",
         "create": "Create A Ticket"
     },
-
     "knowledge_base": {
         "title": "Knowledge Base"
     },
-    "emails": { "title": "Emails" },
+    "emails": {
+        "title": "Emails"
+    },
     "admin_email": {
         "compose": {
             "title": "New Message",
@@ -1663,9 +1638,10 @@
             "created_at": "Created at",
             "view": "View"
         },
-        "video": { "title": "Video" }
+        "video": {
+            "title": "Video"
+        }
     },
-
     "articles": {
         "title": "Articles",
         "options": {
@@ -1741,7 +1717,10 @@
         "layout": "Layout",
         "presets": "Presets",
         "stretch": "Stretch",
-        "full_screen": { "enter": "Full Screen", "exit": "Exit Full Screen" },
+        "full_screen": {
+            "enter": "Full Screen",
+            "exit": "Exit Full Screen"
+        },
         "advanced_settings": {
             "title": "Advanced Settings",
             "kyc": {
@@ -1847,7 +1826,6 @@
             "business_builder": "Business Builder",
             "deleteBusinessBuilder": "Delete Business Builder"
         },
-
         "withdrawal": {
             "title": "Withdrawal",
             "available_payouts": "Available Payout"
@@ -1909,43 +1887,43 @@
             "required_customers": "Required Customers",
             "min_qv_per_customer": "Min QV per Customer",
             "qualification_days": "Qualification Days",
-            "minimum_pqv":"Minimum pqv",
+            "minimum_pqv": "Minimum pqv",
             "active": "Active",
             "circle_of_evelution": "Circle of Evolution",
             "required_dqv": "Required DQV",
-            "min_customer_qv":"Min Customer QV",
-            "monthly_bonus_amount":"Monthly Bonus Amount",
-            "consecutive_months_bonus_trigger":"Consecutive Months Bonus Trigger",
-            "consecutive_bonus_amount":"Consecutive Bonus Amount",
-            "rsp_bonus_settings":"RSP Bonus Settings",
-            "direct_sales_bonus_settings":"Direct Sales Bonus Settings",
-            "min_pqv_previous_month":"Min PQV Previous Month",
-            "bonus_percentage":"Bonus Percentage",
-            "discount_percentage":"Discount Percentage",
-            "required_consecutive_months":"Required Consecutive Months",
-            "bonus_coupon_value":"Bonus Coupon Value",
-            "personal_order_qv":"Personal Order QV",
-            "customer_min_qv":"Customer Min QV",
-            "max_bonus_value":"Max Bonus Value",
-            "min_rank_required":"Min Rank Required",
-            "max_generation":"Max Generations",
-            "generation_1_percentage":"Generation 1 Percentage",
-            "generation_1_required_rank":"Generation 1 Required Rank",
-            "generation_2_percentage":"Generation 2 Percentage",
-            "generation_2_required_rank":"Generation 2 Required Rank",
-            "pmb_bonus_settings":"MVP Mentor Bonus settings",
-            "max_level":"Max Level",
-            "level_1_percentage":"Level 1 Percentage",
-            "level_2_percentage":"Level 2 Percentage",
-            "level_3_percentage":"Level 3 Percentage",
-            "rank_name":"Rank Name",
-            "bonus_amount":"Bonus Amount",
-            "packages_name":"Package Name",
-            "required_personal_volume":"Required PQV",
-            "minimumpqv":"Minimum PQV",
-            "months":"Months",
-            "min_pqv":"Minimum PQV",
-            "min_qv":"Minimum QV"
+            "min_customer_qv": "Min Customer QV",
+            "monthly_bonus_amount": "Monthly Bonus Amount",
+            "consecutive_months_bonus_trigger": "Consecutive Months Bonus Trigger",
+            "consecutive_bonus_amount": "Consecutive Bonus Amount",
+            "rsp_bonus_settings": "RSP Bonus Settings",
+            "direct_sales_bonus_settings": "Direct Sales Bonus Settings",
+            "min_pqv_previous_month": "Min PQV Previous Month",
+            "bonus_percentage": "Bonus Percentage",
+            "discount_percentage": "Discount Percentage",
+            "required_consecutive_months": "Required Consecutive Months",
+            "bonus_coupon_value": "Bonus Coupon Value",
+            "personal_order_qv": "Personal Order QV",
+            "customer_min_qv": "Customer Min QV",
+            "max_bonus_value": "Max Bonus Value",
+            "min_rank_required": "Min Rank Required",
+            "max_generation": "Max Generations",
+            "generation_1_percentage": "Generation 1 Percentage",
+            "generation_1_required_rank": "Generation 1 Required Rank",
+            "generation_2_percentage": "Generation 2 Percentage",
+            "generation_2_required_rank": "Generation 2 Required Rank",
+            "pmb_bonus_settings": "MVP Mentor Bonus settings",
+            "max_level": "Max Level",
+            "level_1_percentage": "Level 1 Percentage",
+            "level_2_percentage": "Level 2 Percentage",
+            "level_3_percentage": "Level 3 Percentage",
+            "rank_name": "Rank Name",
+            "bonus_amount": "Bonus Amount",
+            "packages_name": "Package Name",
+            "required_personal_volume": "Required PQV",
+            "minimumpqv": "Minimum PQV",
+            "months": "Months",
+            "min_pqv": "Minimum PQV",
+            "min_qv": "Minimum QV"
         },
         "currency": {
             "are_you": "Are you sure you want to continue this action cannot be reversed?",
@@ -1998,7 +1976,6 @@
             "business_builder": "Business Builder Report"
         }
     },
-
     "support_tickets": {
         "title": "Support Tickets",
         "create": "Create Ticket",
@@ -2010,7 +1987,6 @@
             "in_progress": "In Progress",
             "responded": "Responded"
         },
-
         "table": {
             "no": "Ticket Number",
             "date": "Date",
@@ -2021,7 +1997,6 @@
             "category": "Category",
             "actions": "Actions"
         },
-
         "contact_support": {
             "title": "Create Ticket",
             "create_card": {
@@ -2034,7 +2009,6 @@
                 "submit": "Send Request"
             }
         },
-
         "view": {
             "title": "Tickets View",
             "pill": "Ticket ID",
@@ -2055,7 +2029,6 @@
             }
         }
     },
-
     "profile": {
         "tax_code": "Tax Code",
         "vat_number": "Vat Number",
@@ -2117,7 +2090,6 @@
             "note": "Notes",
             "payout": "Payout"
         },
-
         "profile": {
             "commission": "Total Commission",
             "payout": "Total Payout",
@@ -2126,7 +2098,6 @@
             "last_seen": "Last Seen",
             "activity_history": "Your Activity History"
         },
-
         "referral": {
             "title": "Referrals",
             "table": {
@@ -2138,7 +2109,6 @@
                 "date": "Date Joined"
             }
         },
-
         "settings": {
             "bank_account": {
                 "title": "Update Direct Payment Information"
@@ -2201,7 +2171,6 @@
                 }
             }
         },
-
         "notes": {
             "button": "Notes",
             "dialog": {
@@ -2210,7 +2179,6 @@
                     "submit": "Submit",
                     "cancel": "Close"
                 },
-
                 "delete": {
                     "title": "Delete Note",
                     "message": "Are you sure that you want to continue? This action cannot be reversed",
@@ -2224,7 +2192,6 @@
                 }
             }
         },
-
         "edit": {
             "tax_code": "Tax Code",
             "vat_number": "Vat Number",
@@ -2256,7 +2223,6 @@
             "update": "Save Changes"
         }
     },
-
     "user": {
         "recurring_order": {
             "title": "Recurring Order",
@@ -2266,8 +2232,8 @@
             "update_card": "Update Card"
         },
         "online_store": {
-            "team_orders":{
-                "title":"Team Orders"
+            "team_orders": {
+                "title": "Team Orders"
             },
             "select_month": "Select Month",
             "buy_now": "Buy Now",
@@ -2346,14 +2312,14 @@
                     "total": "Total",
                     "support_mail": "support@cloudmlm.com",
                     "shipping": "Shipping Charge",
-                    "quantity":"Quantity",
-                    "qv":"QV",
-                    "ev":"EV",
-                    "total_bv":"Total BV",
-                    "total_qv":"Total QV",
-                    "total_ev":"Total EV",
-                    "coupon_discount":"Coupon Discount",
-                    "consequtive":"Consecutive Month Discount"
+                    "quantity": "Quantity",
+                    "qv": "QV",
+                    "ev": "EV",
+                    "total_bv": "Total BV",
+                    "total_qv": "Total QV",
+                    "total_ev": "Total EV",
+                    "coupon_discount": "Coupon Discount",
+                    "consequtive": "Consecutive Month Discount"
                 }
             }
         },
@@ -2380,7 +2346,6 @@
                 "view": "View"
             }
         },
-
         "income_report": {
             "title": "Income Report",
             "table": {
@@ -2392,7 +2357,6 @@
             }
         }
     },
-
     "admin": {},
     "products": {
         "title": {
@@ -2578,7 +2542,6 @@
         "edit": "Event Edit",
         "delete": "Delete Event",
         "are_you_sure": "Are you sure that you want to continue? This action cannot be reversed",
-
         "add_event": {
             "private": "Private",
             "public": "Public",
@@ -2632,11 +2595,14 @@
         "review_add_title": "Review Add",
         "leave_a_comment": "Leave a comment"
     },
-
     "coupons": {
         "user": {
-            "list": { "title": "My Coupons" },
-            "buy": { "title": "Purchase" }
+            "list": {
+                "title": "My Coupons"
+            },
+            "buy": {
+                "title": "Purchase"
+            }
         },
         "edit_coupon": "Edit Coupon",
         "edit_coupon_title": "Edit Coupon | Store",
@@ -2679,11 +2645,9 @@
             "submit": "Submit"
         }
     },
-
     "lead_capture": {
         "enter_details": "Enter Details",
         "lead": "Lead",
-
         "no": "No",
         "name": "Name",
         "email": "Email",
@@ -2694,7 +2658,6 @@
         "submit": "Submit",
         "edit_lead": "Edit Lead"
     },
-
     "errors": {
         "lead_capture": {
             "email": {
@@ -2707,7 +2670,6 @@
                 "required": "Mobile is required"
             }
         },
-
         "sub_admin": {
             "name": {
                 "required": "Name is required"
@@ -2790,7 +2752,6 @@
                 }
             }
         },
-
         "financial": {
             "pay_now": {
                 "valid": "Enter a valid amount",
@@ -2823,9 +2784,10 @@
                     "required": "Payment Type is required"
                 }
             },
-
             "fund_credit": {
-                "user_id": { "required": "Name is required" },
+                "user_id": {
+                    "required": "Name is required"
+                },
                 "amount": {
                     "required": "Amount is required",
                     "type": "Amount is required"
@@ -2835,7 +2797,6 @@
                 }
             }
         },
-
         "help_center": {
             "department": {
                 "name": {
@@ -2863,23 +2824,43 @@
                 }
             },
             "canned_response": {
-                "name": { "required": "Title Name is required" },
-                "subject": { "required": "Subject is required" },
+                "name": {
+                    "required": "Title Name is required"
+                },
+                "subject": {
+                    "required": "Subject is required"
+                },
                 "message": {
                     "required": "Description is required"
                 }
             },
             "priorities": {
-                "name": { "required": "Name is required" },
-                "description": { "required": "Description is required" },
-                "color": { "required": "Color is required" }
+                "name": {
+                    "required": "Name is required"
+                },
+                "description": {
+                    "required": "Description is required"
+                },
+                "color": {
+                    "required": "Color is required"
+                }
             },
             "add_ticket": {
-                "description": { "required": "Description is required" },
-                "priority_id": { "required": "Priority is required" },
-                "department_id": { "required": "Department is required" },
-                "category_id": { "required": "Category is required" },
-                "subject": { "required": "Subject is required" },
+                "description": {
+                    "required": "Description is required"
+                },
+                "priority_id": {
+                    "required": "Priority is required"
+                },
+                "department_id": {
+                    "required": "Department is required"
+                },
+                "category_id": {
+                    "required": "Category is required"
+                },
+                "subject": {
+                    "required": "Subject is required"
+                },
                 "user_id": {
                     "required": "User is required",
                     "type": "User is required"
@@ -2899,7 +2880,9 @@
         },
         "products": {
             "add": {
-                "product_name": { "required": "Product Name is required" },
+                "product_name": {
+                    "required": "Product Name is required"
+                },
                 "active": {
                     "required": "Active is required"
                 },
@@ -2917,7 +2900,9 @@
                 "meta_keywords": {
                     "required": "Meta Keywords is required"
                 },
-                "title": { "required": "Title is required" },
+                "title": {
+                    "required": "Title is required"
+                },
                 "product_category_id": {
                     "required": "Product Category is required",
                     "type": "Product Category is required"
@@ -2939,18 +2924,31 @@
                     "required": "Business Volume is required",
                     "type": "Business Volume is required"
                 },
-                "product_url": { "required": "Product URL is required" },
-                "video": { "required": "Enter a valid URL" },
-                "image": { "test": "Select an image" },
-                "doc": { "test": "Select a document" },
-                "sample_doc": { "test": "Select a sample document" }
+                "product_url": {
+                    "required": "Product URL is required"
+                },
+                "video": {
+                    "required": "Enter a valid URL"
+                },
+                "image": {
+                    "test": "Select an image"
+                },
+                "doc": {
+                    "test": "Select a document"
+                },
+                "sample_doc": {
+                    "test": "Select a sample document"
+                }
             },
             "category": {
-                "name": { "required": "Product category name is required" },
-                "status": { "required": "Status is required" }
+                "name": {
+                    "required": "Product category name is required"
+                },
+                "status": {
+                    "required": "Status is required"
+                }
             }
         },
-
         "faqs": {
             "category_id": {
                 "required": "Category Name is required"
@@ -2962,43 +2960,66 @@
                 "required": "Answer is required"
             }
         },
-
         "faq_categories": {
-            "name": { "required": "Category Name is required" },
-            "description": { "required": "Description is required" }
+            "name": {
+                "required": "Category Name is required"
+            },
+            "description": {
+                "required": "Description is required"
+            }
         },
         "articles": {
             "add": {
-                "title": { "required": "Title is required" },
-                "description": { "required": "Description is required" },
-                "category_id": { "required": "Category is required" },
-                "name": { "required": "Article Category Name is required" }
+                "title": {
+                    "required": "Title is required"
+                },
+                "description": {
+                    "required": "Description is required"
+                },
+                "category_id": {
+                    "required": "Category is required"
+                },
+                "name": {
+                    "required": "Article Category Name is required"
+                }
             }
         },
-
         "blogs": {
             "add": {
-                "title": { "required": "Title is required" },
-                "content": { "required": "Content is required" },
-                "category_id": { "min": "Category is required" },
-                "meta_keywords": { "required": "Meta Keywords is required" },
-                "meta_description": { "required": "Meta Keywords is required" },
+                "title": {
+                    "required": "Title is required"
+                },
+                "content": {
+                    "required": "Content is required"
+                },
+                "category_id": {
+                    "min": "Category is required"
+                },
+                "meta_keywords": {
+                    "required": "Meta Keywords is required"
+                },
+                "meta_description": {
+                    "required": "Meta Keywords is required"
+                },
                 "short_description": {
                     "required": "Short Description is required"
                 },
-                "image": { "required": "Image is required" },
+                "image": {
+                    "required": "Image is required"
+                },
                 "product_id": {
                     "required": "Product is required",
                     "min": "Product is required"
                 }
             },
             "categories": {
-                "name": { "required": "Name is required" },
+                "name": {
+                    "required": "Name is required"
+                },
                 "desc": {
                     "required": "Description is required"
                 }
             },
-
             "add_comment": {
                 "comment": {
                     "required": "Comment is required"
@@ -3013,7 +3034,6 @@
                 }
             }
         },
-
         "tickets": {
             "reply_form": {
                 "body": {
@@ -3044,7 +3064,6 @@
                 }
             }
         },
-
         "profile": {
             "edit": {
                 "username": {
@@ -3109,7 +3128,6 @@
                 }
             }
         },
-
         "brand": {
             "name": {
                 "required": "Company Name is required"
@@ -3137,9 +3155,10 @@
             "url": {
                 "required": "URL is required"
             },
-            "description": { "required": "Description is Required" }
+            "description": {
+                "required": "Description is Required"
+            }
         },
-
         "user_review": {
             "rating": {
                 "required": "Rating is required"
@@ -3239,7 +3258,6 @@
             }
         },
         "product": {},
-
         "material": {
             "product_list": {
                 "min": "Select at least one product"
@@ -3344,5 +3362,59 @@
         "forgot_password": {
             "not_registered": "Not a registered user mail"
         }
+    },
+    "evea": {
+        "current_week": "Current week",
+        "previous_week": "Previous week",
+        "current_month": "Current month",
+        "previous_month": "Previous month",
+        "previous_period": "Previous period",
+        "pending_weekly": "Weekly Pending",
+        "pending_monthly": "Monthly Pending",
+        "sale": "Sale",
+        "qualification": "Qualification",
+        "new_promoter": "New Promoter",
+        "new_customer": "New Customer",
+        "earnings": "Earnings",
+        "quick_access": "Quick Access",
+        "your_team": "Your Team",
+        "shop": "Shop",
+        "referral_link": "Referral Link",
+        "wallet": "Wallet",
+        "orders": "Orders",
+        "coupons": "Coupons",
+        "smartship": "Smartship",
+        "bonus_overview": "Bonus Overview",
+        "evea_live": "EVEA LIVE",
+        "not_eligible": "Not eligible",
+        "bonus_by_level": "Bonus by Level",
+        "generations": "Generations",
+        "matching_levels": "Matching Levels",
+        "customer_details": "Customer Details",
+        "week_restarts_tomorrow": "Week restarts tomorrow",
+        "week_ends_in": "Week ends in",
+        "month_ends_in": "Month ends in",
+        "days": "days",
+        "day": "day",
+        "period_expires": "Period expires",
+        "dsb_boost_expires": "DSB boost expires",
+        "users": "users",
+        "user_singular": "user",
+        "no_users": "No users",
+        "total": "Total",
+        "top": "Top",
+        "link_copied": "Link copied!",
+        "inactive_members": "Inactive members",
+        "reorder_rate": "Reorder rate",
+        "smartship_clients": "Smartship clients",
+        "active_promoters": "Active promoters",
+        "best_selling": "Best Selling Products",
+        "rank_advancement": "Rank Advancement",
+        "qv_month": "QV Month",
+        "bv_month": "BV Month",
+        "clients": "Clients",
+        "team": "Team",
+        "sponsor": "Sponsor",
+        "not_eligible_rsp": "To access Rock Solid MVP you must first complete and get approval of Go MVP Bonus."
     }
 }

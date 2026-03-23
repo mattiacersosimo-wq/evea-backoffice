@@ -6,6 +6,7 @@ import { alpha, keyframes } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import useAuth from "src/hooks/useAuth";
@@ -152,6 +153,7 @@ const useHero = () => useFetch(async () => {
 });
 
 const HeroCard = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { data: rank, loading: rankLoading } = useRankSummary();
   const { data: hero, loading: heroLoading } = useHero();
@@ -196,7 +198,7 @@ const HeroCard = () => {
       {loading ? <Skeleton height={50} sx={{ mt: 2, bgcolor: alpha(ORO, 0.04), borderRadius: 2 }} /> : (
         <Stack direction="row" spacing={1} sx={{ mt: 2.5, flexWrap: "wrap", gap: 1 }}>
           {[
-            { icon: "mdi:wallet-outline", label: "Wallet", value: `€${Number(hero?.wallet || 0).toFixed(2)}` },
+            { icon: "mdi:wallet-outline", label: t("evea.wallet"), value: `€${Number(hero?.wallet || 0).toFixed(2)}` },
             { icon: "mdi:chart-bar", label: "QV Mese", value: hero?.qv_mese || 0 },
             { icon: "mdi:diamond-outline", label: "BV Mese", value: hero?.bv_mese || 0 },
             { icon: "mdi:account-group", label: "Clienti", value: hero?.clienti_diretti || 0 },
@@ -219,6 +221,7 @@ const HeroCard = () => {
 // ═══════════════════════════════════════
 const scroll = keyframes`0% { transform: translateX(0); } 100% { transform: translateX(-50%); }`;
 const TickerBar = () => {
+  const { t } = useTranslation();
   const ticker = useTicker();
   if (!ticker) return null;
   const items = [...(ticker.sales || []), ...(ticker.new_members || []), ...(ticker.ranks || [])].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -232,7 +235,7 @@ const TickerBar = () => {
         <Box sx={{ display: "flex", animation: `${scroll} ${Math.max(items.length * 5, 20)}s linear infinite`, width: "max-content" }}>
           {[...items, ...items].map((it, i) => (
             <Stack key={i} direction="row" alignItems="center" spacing={0.8} sx={{ px: 2.5, flexShrink: 0 }}>
-              <Chip label={it.type === "sale" ? "Vendita" : it.type === "rank" ? "Qualifica" : it.is_promoter ? "Nuovo Promoter" : "Nuovo Cliente"} size="small" sx={{ height: 22, fontSize: "0.72rem", fontWeight: 700, bgcolor: it.type === "sale" ? alpha("#4CAF50", 0.1) : it.type === "rank" ? alpha(ORO, 0.1) : alpha("#2196F3", 0.1), color: it.type === "sale" ? "#4CAF50" : it.type === "rank" ? ORO : "#2196F3" }} />
+              <Chip label={it.type === "sale" ? "Vendita" : it.type === "rank" ? "Qualifica" : it.is_promoter ? t("evea.new_promoter") : t("evea.new_customer")} size="small" sx={{ height: 22, fontSize: "0.72rem", fontWeight: 700, bgcolor: it.type === "sale" ? alpha("#4CAF50", 0.1) : it.type === "rank" ? alpha(ORO, 0.1) : alpha("#2196F3", 0.1), color: it.type === "sale" ? "#4CAF50" : it.type === "rank" ? ORO : "#2196F3" }} />
               <Typography sx={{ fontSize: "0.88rem", color: ESPRESSO, fontWeight: 600 }}>{it.username}</Typography>
               {it.product && <Typography sx={{ fontSize: "0.82rem", color: MUTED }}>{it.product}</Typography>}
               {it.rank && <Typography sx={{ fontSize: "0.82rem", color: ORO, fontWeight: 700 }}>{it.rank}</Typography>}
@@ -374,17 +377,18 @@ const KitUpgrade = () => {
 // 7. ACCESSO RAPIDO
 // ═══════════════════════════════════════
 const QuickAccess = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const referralLink = user?.username ? `${WP_URL}?ref=${user.username}` : "";
   const shortcuts = [
-    { icon: "mdi:shopping-outline", label: "Negozio", action: () => window.open("https://www.myevea.com/collections/all", "_blank") },
-    { icon: "mdi:link-variant", label: "Link Referral", action: async () => { if (referralLink) { await navigator.clipboard.writeText(referralLink); enqueueSnackbar("Link copiato!"); } } },
-    { icon: "mdi:cash-multiple", label: "Wallet", action: () => navigate("/user/financial/wallet") },
-    { icon: "mdi:package-variant", label: "Ordini", action: () => navigate("/user/online-store/my-orders") },
-    { icon: "mdi:ticket-percent-outline", label: "Coupon", action: () => navigate("/user/coupons") },
-    { icon: "mdi:refresh-circle", label: "Smartship", action: () => navigate("/user/recurring-orders") },
+    { icon: "mdi:shopping-outline", label: t("evea.shop"), action: () => window.open("https://www.myevea.com/collections/all", "_blank") },
+    { icon: "mdi:link-variant", label: t("evea.referral_link"), action: async () => { if (referralLink) { await navigator.clipboard.writeText(referralLink); enqueueSnackbar(t("evea.link_copied")); } } },
+    { icon: "mdi:cash-multiple", label: t("evea.wallet"), action: () => navigate("/user/financial/wallet") },
+    { icon: "mdi:package-variant", label: t("evea.orders"), action: () => navigate("/user/online-store/my-orders") },
+    { icon: "mdi:ticket-percent-outline", label: t("evea.coupons"), action: () => navigate("/user/coupons") },
+    { icon: "mdi:refresh-circle", label: t("evea.smartship"), action: () => navigate("/user/recurring-orders") },
   ];
   return (
     <Grid container spacing={1.5}>
@@ -443,6 +447,7 @@ const TopPerformers = () => {
 // ═══════════════════════════════════════
 const MESI = ["Gen","Feb","Mar","Apr","Mag","Giu","Lug","Ago","Set","Ott","Nov","Dic"];
 const TeamSection = () => {
+  const { t } = useTranslation();
   const [period, setPeriod] = useState("month");
   const [team, setTeam] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -470,7 +475,7 @@ const TeamSection = () => {
   return (
     <Card sx={{ ...cardSx, p: 2.5, height: "100%" }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
-        <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT }}>Il tuo Team</Typography>
+        <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT }}>{t("evea.your_team")}</Typography>
         <Stack direction="row" spacing={0.5}>
           {[{ k: "week", l: "Sett" }, { k: "month", l: "Mese" }, { k: "quarter", l: "Trim" }, { k: "year", l: "Anno" }].map((p) => (
             <Chip key={p.k} label={p.l} size="small" onClick={() => setPeriod(p.k)}
@@ -591,11 +596,12 @@ const TeamSection = () => {
 // 10. 3FF + ROB (full customer-style)
 // ═══════════════════════════════════════
 const ThreeFFCard = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { data: ff, loading } = useThreeFF();
   const { enqueueSnackbar } = useSnackbar();
   const referralLink = user?.username ? `${WP_URL}?ref=${user.username}` : "";
-  const copy = async () => { if (referralLink) { await navigator.clipboard.writeText(referralLink); enqueueSnackbar("Link copiato!"); } };
+  const copy = async () => { if (referralLink) { await navigator.clipboard.writeText(referralLink); enqueueSnackbar(t("evea.link_copied")); } };
   const required = ff?.required_customers || 3;
   const current = ff?.current_qualified_customer_count || 0;
   const bonus = ff?.current_bonus_amount || 0;
@@ -799,6 +805,7 @@ const Section = ({ icon, children }) => (
 // MAIN
 // ═══════════════════════════════════════
 const PromoterDashboard = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { data: heroData } = useHero();
   return (
@@ -810,7 +817,7 @@ const PromoterDashboard = () => {
           <UrgencyAlert />
           <CelebrationBanner />
 
-          <Section icon="mdi:cash-multiple">Guadagni</Section>
+          <Section icon="mdi:cash-multiple">{t("evea.earnings")}</Section>
           <EarningsSection />
 
           {user?.is_promoter === 1 && !heroData?.has_starter_kit && (
@@ -820,7 +827,7 @@ const PromoterDashboard = () => {
             </>
           )}
 
-          <Section icon="mdi:lightning-bolt">Accesso Rapido</Section>
+          <Section icon="mdi:lightning-bolt">{t("evea.quick_access")}</Section>
           <QuickAccess />
 
           <Grid container spacing={2}>
@@ -830,7 +837,7 @@ const PromoterDashboard = () => {
               <Box sx={{ mt: 2 }}><TopProducts /></Box>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Section icon="mdi:chart-bar">Il tuo Team</Section>
+              <Section icon="mdi:chart-bar">{t("evea.your_team")}</Section>
               <Box sx={{ mt: 1 }}><TeamSection /></Box>
             </Grid>
           </Grid>
