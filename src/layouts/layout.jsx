@@ -32,6 +32,14 @@ const EXTRA_MENU_ITEMS = [
       placement: 9,
     },
   },
+  {
+    match: "/admin/settings",
+    item: {
+      title: "Sposta Utente",
+      path: "/admin/move-user",
+      placement: 20,
+    },
+  },
 ];
 
 const injectMenuItems = (menu) => {

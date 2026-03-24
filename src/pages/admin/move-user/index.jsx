@@ -49,10 +49,10 @@ const MoveUser = () => {
   const handleMove = async () => {
     setMoving(true);
     try {
-      const { data } = await axiosInstance.post("api/wp/admin/move-user", {
-        user_id: parseInt(userId),
-        new_sponsor_id: parseInt(newSponsorId),
-      });
+      const formData = new FormData();
+      formData.append("user_id", userId);
+      formData.append("new_sponsor_id", newSponsorId);
+      const { data } = await axiosInstance.post("api/wp/admin/move-user", formData);
       enqueueSnackbar(data?.message || "Spostamento completato!", { variant: "success" });
       setConfirmOpen(false);
       setPreview(null);
@@ -85,7 +85,7 @@ const MoveUser = () => {
           <Box>
             <Typography sx={{ fontWeight: 700, color: ESPRESSO }}>{user.name || user.username}</Typography>
             <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>
-              @{user.username} · ID: {user.id}
+              @{user.username}
               {user.type && <Chip label={user.type} size="small" sx={{ ml: 1, height: 18, fontSize: "0.55rem" }} />}
             </Typography>
           </Box>
