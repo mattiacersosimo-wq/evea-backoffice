@@ -8,7 +8,7 @@ const Logo = ({ disabledLink = false }) => {
   if (disabledLink) {
     return (
       <img
-        style={{ width: "100px", height: "auto", maxHeight: "64px" }}
+        style={{ width: "100px", height: "auto", backgroundColor: "#fff", borderRadius: 4, padding: 4, maxHeight: "64px" }}
         src={logo}
       />
     );
@@ -16,7 +16,7 @@ const Logo = ({ disabledLink = false }) => {
 
   return (
     <RouterLink to="/">
-      <img style={{ width: "100px", height: "auto" }} src={logo} />
+      <img style={{ width: "100px", height: "auto", backgroundColor: "#fff", borderRadius: 4, padding: 4 }} src={logo} />
     </RouterLink>
   );
 };
