@@ -3422,6 +3422,7 @@
         "select_year": "Seleziona Anno",
         "monthly_period": "Periodo mensile",
         "weekly_period": "Periodo settimanale",
-        "qualifications": "Qualifiche"
+        "qualifications": "Qualifiche",
+        "simulator": "Simulatore"
     }
 }
