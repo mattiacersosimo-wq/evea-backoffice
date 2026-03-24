@@ -39,6 +39,14 @@ const TABS = [
     is_holding: false,
     isKyc: true,
   },
+  {
+    label: "Tesserino",
+    icon: "mdi:card-account-details",
+    href: "tesserino",
+    name: "tesserino",
+    is_holding: false,
+    isKyc: false,
+  },
 ];
 
 export default TABS;
