@@ -45,10 +45,12 @@ const ROB_DISCOUNT = 0.10;
 const ROB_COUPON = 30;
 
 // Evolving (one-time per rank, rank_id => amount)
-const EVOLVING = { 5: 400, 6: 800, 7: 2000, 8: 5000, 9: 10000, 10: 15000, 11: 20000 };
+// Platinum=400, Sapphire=800, Ruby=2000, Emerald=5000, Diamond=10000, BlueDiamond=15000, CrownDiamond=20000
+const EVOLVING = { 4: 400, 5: 800, 6: 2000, 7: 5000, 8: 10000, 9: 15000, 10: 20000 };
 
 // Rock Solid (monthly per rank, rank_id => amount)
-const ROCK_SOLID = { 5: 200, 6: 400, 7: 1000, 8: 2000, 9: 4000, 10: 10000 };
+// Platinum=200, Sapphire=400, Ruby=1000, Emerald=2000, Diamond=4000, BlueDiamond=7500, CrownDiamond=10000
+const ROCK_SOLID = { 4: 200, 5: 400, 6: 1000, 7: 2000, 8: 4000, 9: 7500, 10: 10000 };
 
 // Rock Solid MVP (monthly if maintaining MVP requirements)
 const RSP_MVP = { base: 100, powerup: 150 };
