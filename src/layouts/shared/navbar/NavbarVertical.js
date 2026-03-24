@@ -70,7 +70,7 @@ const NavbarVertical = ({ isOpenSidebar, onCloseSidebar, config }) => {
           alignItems="center"
           justifyContent="space-between"
         >
-          <Logo />
+          <Box sx={{ flex: 1, textAlign: "center" }}><Logo /></Box>
 
           {isDesktop && !isCollapse && (
             <CollapseButton
