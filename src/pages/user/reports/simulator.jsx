@@ -48,7 +48,7 @@ const ROB_COUPON = 30;
 const EVOLVING = { 5: 400, 6: 800, 7: 2000, 8: 5000, 9: 10000, 10: 15000, 11: 20000 };
 
 // Rock Solid (monthly per rank, rank_id => amount)
-const ROCK_SOLID = { 5: 200, 6: 400, 7: 1000, 8: 2000, 9: 4000, 10: 7500, 11: 10000 };
+const ROCK_SOLID = { 5: 200, 6: 400, 7: 1000, 8: 2000, 9: 4000, 10: 10000 };
 
 // Rock Solid MVP (monthly if maintaining MVP requirements)
 const RSP_MVP = { base: 100, powerup: 150 };
@@ -162,20 +162,20 @@ const SimulatorReport = () => {
     const directResidual = promoters * smartshipBV * 0.025 * 0.5;
     const resMatching = directResidual * RESMATCHING_L1 + directResidual * 0.5 * RESMATCHING_L2;
 
-    // 10. Evolving Bonus (one-time per rank, amortized /12)
-    const evolving = EVOLVING[rankId] ? Math.round(EVOLVING[rankId] / 12) : 0;
+    // 10. Evolving Bonus (ONE-TIME per rank achievement — shown separately)
+    const evolvingOneTime = EVOLVING[rankId] || 0;
 
-    // 11. Rock Solid Bonus (monthly per rank)
-    const rockSolid = ROCK_SOLID[rankId] ? Math.round(ROCK_SOLID[rankId] / 12) : 0;
+    // 11. Rock Solid Bonus (MONTHLY per rank — paid every month)
+    const rockSolid = ROCK_SOLID[rankId] || 0;
 
     // 12. ROB savings
     const robSavings = avgOrder * ROB_DISCOUNT;
     const robCoupon = ROB_COUPON / 3;
 
     const weeklyBonuses = dsb + isb + mvpMentor;
-    const monthlyBonuses = residual + threeff + leadership + resMatching + evolving + rockSolid + rspMvp;
-    const oneTimeBonuses = goMvp;
-    const total = weeklyBonuses + monthlyBonuses + oneTimeBonuses;
+    const monthlyBonuses = residual + threeff + leadership + resMatching + rockSolid + rspMvp;
+    const oneTimeBonuses = goMvp + evolvingOneTime;
+    const total = weeklyBonuses + monthlyBonuses;
     const totalWithSavings = total + robSavings + robCoupon;
 
     // Projection
@@ -188,7 +188,7 @@ const SimulatorReport = () => {
     projection.forEach(p => { cum += p.total; p.cumulative = cum; });
 
     return {
-      dsb, isb, threeff, goMvp, rspMvp, mvpMentor, residual, leadership, resMatching, evolving, rockSolid,
+      dsb, isb, threeff, goMvp, rspMvp, mvpMentor, residual, leadership, resMatching, evolvingOneTime, rockSolid,
       robSavings, robCoupon, total, totalWithSavings, weeklyBonuses, monthlyBonuses,
       projection, smartshipClients, totalClientBV, promoterBV, unlockedLevels,
     };
@@ -263,9 +263,14 @@ const SimulatorReport = () => {
                   {isIt ? "Guadagno mensile stimato" : "Estimated monthly income"}
                 </Typography>
                 <Typography sx={{ fontSize: "2.5rem", fontWeight: 900, color: ORO, lineHeight: 1.1, mt: 0.3 }}>
-                  €{calc.total.toFixed(0)}
+                  €{calc.total.toLocaleString()}
                 </Typography>
-                <Typography sx={{ fontSize: "0.7rem", color: alpha("#fff", 0.4), mt: 0.5 }}>
+                {calc.oneTimeBonuses > 0 && (
+                  <Typography sx={{ fontSize: "0.75rem", color: "#FF5722", fontWeight: 700, mt: 0.3 }}>
+                    + €{calc.oneTimeBonuses.toLocaleString()} one-time (Evolving{calc.goMvp > 0 ? " + MVP" : ""})
+                  </Typography>
+                )}
+                <Typography sx={{ fontSize: "0.65rem", color: alpha("#fff", 0.4), mt: 0.3 }}>
                   + €{(calc.robSavings + calc.robCoupon).toFixed(0)}/mo ROB savings
                 </Typography>
               </Grid>
@@ -309,13 +314,13 @@ const SimulatorReport = () => {
             <BonusRow icon="mdi:swap-horizontal" label="Residual Matching" amount={calc.resMatching} color="#795548" subtitle="20% L1 + 10% L2 of team residual" />
             <BonusRow icon="mdi:gift" label="3 For Free" amount={calc.threeff} color="#E91E63" subtitle={clients >= 3 ? `${clients} clients ≥ 3 ✓` : `Need 3+ clients`} />
             <BonusRow icon="mdi:shield-star" label="Rock Solid MVP" amount={calc.rspMvp} color="#2196F3" subtitle={hasMvp ? "€100 base + €150 power-up" : "Requires MVP"} />
-            <BonusRow icon="mdi:diamond-stone" label="Rock Solid Bonus" amount={calc.rockSolid} color="#455A64" subtitle={ROCK_SOLID[rankId] ? `€${ROCK_SOLID[rankId]}/yr for ${currentRank.name}` : "Unlock at Sapphire"} />
-            <BonusRow icon="mdi:trending-up" label="Evolving Bonus" amount={calc.evolving} color="#FF5722" subtitle={EVOLVING[rankId] ? `€${EVOLVING[rankId]} one-time (÷12)` : "Unlock at Sapphire"} />
+            <BonusRow icon="mdi:diamond-stone" label="Rock Solid Bonus" amount={calc.rockSolid} color="#455A64" subtitle={ROCK_SOLID[rankId] ? `€${ROCK_SOLID[rankId].toLocaleString()}/month for ${currentRank.name}` : "Unlock at Sapphire"} />
 
             <Typography sx={{ fontSize: "0.6rem", fontWeight: 600, color: "#4CAF50", textTransform: "uppercase", mt: 2, mb: 0.5 }}>
               {isIt ? "Una Tantum" : "One-Time"}
             </Typography>
-            <BonusRow icon="mdi:rocket-launch" label="Go MVP" amount={calc.goMvp} color="#4CAF50" subtitle={calc.goMvp > 0 ? "€250 (amortized ÷3)" : "Need kit + DQV≥1000 + 3 clients"} />
+            <BonusRow icon="mdi:rocket-launch" label="Go MVP" amount={MVP_BONUS} color="#4CAF50" subtitle={hasMvp && hasKit ? "€250 one-time ✓" : "Need kit + DQV≥1000 + 3 clients"} />
+            <BonusRow icon="mdi:trending-up" label="Evolving Bonus" amount={calc.evolvingOneTime} color="#FF5722" subtitle={calc.evolvingOneTime > 0 ? `€${calc.evolvingOneTime.toLocaleString()} one-time for ${currentRank.name}` : "Unlock at Sapphire"} />
 
             <Box sx={{ mt: 1.5, pt: 1.5, borderTop: "2px solid #f0ece6" }}>
               <BonusRow icon="mdi:refresh-circle" label="ROB Savings" amount={calc.robSavings + calc.robCoupon} color="#8BC34A" subtitle="-10% + €30 coupon/3mo" highlight />
@@ -378,8 +383,8 @@ const SimulatorReport = () => {
               {rankId < 5 && (
                 <Typography sx={{ fontSize: "0.78rem", color: MUTED }}>
                   👑 {isIt
-                    ? `Al rank Sapphire sblocchi Leadership (€${(calc.promoterBV * 0.02).toFixed(0)}/mo), Evolving (€400 una tantum), e Rock Solid (€200/yr)`
-                    : `At Sapphire rank you unlock Leadership (€${(calc.promoterBV * 0.02).toFixed(0)}/mo), Evolving (€400 one-time), and Rock Solid (€200/yr)`}
+                    ? `Al rank Sapphire sblocchi Leadership (€${(calc.promoterBV * 0.02).toFixed(0)}/mo), Evolving (€400 una tantum), e Rock Solid (€200/mo)`
+                    : `At Sapphire rank you unlock Leadership (€${(calc.promoterBV * 0.02).toFixed(0)}/mo), Evolving (€400 one-time), and Rock Solid (€200/mo)`}
                 </Typography>
               )}
               {!hasKit && (
