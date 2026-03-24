@@ -537,7 +537,8 @@
             "title": "Strumenti",
             "documents": "Documenti",
             "videos": "Video",
-            "move_user": "Sposta Utente"
+            "move_user": "Sposta Utente",
+            "lettera_incarico": "Lettera di Incarico"
         },
         "members": {
             "title": "Gestione Membri",

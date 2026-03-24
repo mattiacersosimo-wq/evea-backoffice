@@ -112,7 +112,11 @@ const filterMenu = (menu, isPromoter) => {
       }
       return item;
     });
-    const order = ["dashboard", "affiliate-dashboard", "genealog", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "income-report", "profile"];
+    // Inject lettera-incarico for promoters
+    if (isPromoter) {
+      items.push({ title: "nav.tools.lettera_incarico", path: "/user/lettera-incarico", icon: "/icons/ic_report.svg" });
+    }
+    const order = ["dashboard", "affiliate-dashboard", "genealog", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "income-report", "lettera-incarico", "profile"];
     items = items.sort((a, b) => {
       const pa = (a.path || a.title || "").toLowerCase();
       const pb = (b.path || b.title || "").toLowerCase();

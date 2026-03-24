@@ -11,6 +11,10 @@ import profile from "./profile";
 import subscriptions from "./subscriptions";
 import RecurringOrder from "src/pages/user/recurringOrders";
 
+const LetteraIncarico = Loadable(
+  lazy(() => import("src/pages/user/lettera-incarico/index"))
+);
+
 const ProductList = Loadable(
   lazy(() =>
     import("src/pages/user/onlineStore/productSubscription/productList/index")
@@ -247,6 +251,7 @@ const user = [
       { ...financial },
       { ...helpCenter },
       { ...profile },
+      { path: "lettera-incarico", element: <LetteraIncarico /> },
     ],
   },
 ];
