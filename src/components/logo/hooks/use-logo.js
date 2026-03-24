@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 
+const EVEA_LOGO = "/logo/evea_logo.png";
+
 const useGetLogo = () => {
   const [appLogo, setLogo] = useState(() => {
     const logo = localStorage.getItem("logo");
     if (logo) return logo;
-    return null;
+    return EVEA_LOGO;
   });
 
   useEffect(() => {
@@ -23,7 +25,7 @@ const useGetLogo = () => {
     };
   }, []);
 
-  return appLogo;
+  return appLogo || EVEA_LOGO;
 };
 
 export default useGetLogo;
