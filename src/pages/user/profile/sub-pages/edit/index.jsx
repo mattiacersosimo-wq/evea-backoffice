@@ -58,7 +58,7 @@ const HideComponent = ({ id, children }) => {
 
 const EditInfo = () => {
     const { methods, onSubmit } = useUser();
-    const { isAdmin } = useAuth();
+    const { isAdmin, user } = useAuth();
     const onBlur = ({ target: { value, name } }) =>
         methods.setValue(name, value.trim());
 
