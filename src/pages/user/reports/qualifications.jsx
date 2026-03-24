@@ -14,6 +14,17 @@ const getBadge = (pct) => {
   return { label: "In progress", color: MUTED, bg: "#f5f5f5" };
 };
 
+const ProgressBar = ({ label, value, max, pct, color }) => (
+  <Box sx={{ mb: 0.8 }}>
+    <Stack direction="row" justifyContent="space-between" mb={0.2}>
+      <Typography sx={{ fontSize: "0.7rem", fontWeight: 600, color: MUTED }}>{label}</Typography>
+      <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{value}/{max} ({pct}%)</Typography>
+    </Stack>
+    <LinearProgress variant="determinate" value={pct}
+      sx={{ height: 5, borderRadius: 3, bgcolor: "#eee", "& .MuiLinearProgress-bar": { bgcolor: pct >= 100 ? "#4CAF50" : color, borderRadius: 3 } }} />
+  </Box>
+);
+
 const QualificationsReport = () => {
   const { t, i18n } = useTranslation();
   const isIt = i18n.resolvedLanguage === "it";
@@ -79,34 +90,27 @@ const QualificationsReport = () => {
                 {mvp.map((m) => {
                   const badge = getBadge(m.avg_pct);
                   return (
-                    <Box key={m.user_id} sx={{ p: 1.5, borderRadius: 2, bgcolor: m.expired ? alpha("#E24B4A", 0.03) : "#fafafa", border: `1px solid ${m.expired ? alpha("#E24B4A", 0.15) : "#f0ece6"}` }}>
-                      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={0.8}>
+                    <Box key={m.user_id} sx={{ p: 2, borderRadius: 2, bgcolor: m.expired ? alpha("#E24B4A", 0.03) : "#fafafa", border: `1px solid ${m.expired ? alpha("#E24B4A", 0.15) : "#f0ece6"}` }}>
+                      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1.2}>
                         <Stack direction="row" alignItems="center" spacing={1}>
                           <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>{m.username}</Typography>
                           <Chip label={badge.label} size="small" sx={{ height: 20, fontSize: "0.6rem", fontWeight: 700, bgcolor: badge.bg, color: badge.color }} />
                           {m.expired && <Chip label="Expired" size="small" sx={{ height: 20, fontSize: "0.6rem", fontWeight: 700, bgcolor: alpha("#E24B4A", 0.1), color: "#E24B4A" }} />}
                         </Stack>
                         <Stack direction="row" alignItems="center" spacing={1}>
-                          <Typography sx={{ fontSize: "1rem", fontWeight: 800, color: m.avg_pct >= 70 ? "#4CAF50" : MUTED }}>{m.avg_pct}%</Typography>
+                          <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color: m.avg_pct >= 70 ? "#4CAF50" : MUTED }}>{m.avg_pct}%</Typography>
                           {!m.expired && <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{m.days_left}d left</Typography>}
                         </Stack>
                       </Stack>
-                      <Grid container spacing={1}>
-                        <Grid item xs={6}>
-                          <Stack direction="row" justifyContent="space-between" mb={0.2}>
-                            <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>DQV</Typography>
-                            <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>{m.dqv}/{m.dqv_required}</Typography>
-                          </Stack>
-                          <LinearProgress variant="determinate" value={m.dqv_pct}
-                            sx={{ height: 5, borderRadius: 3, bgcolor: "#eee", "& .MuiLinearProgress-bar": { bgcolor: m.dqv_pct >= 100 ? "#4CAF50" : ORO, borderRadius: 3 } }} />
+                      <Grid container spacing={1.5}>
+                        <Grid item xs={4}>
+                          <ProgressBar label="PQV" value={m.pqv || 0} max={m.pqv_required || 0} pct={m.pqv_pct || 0} color="#FF9800" />
                         </Grid>
-                        <Grid item xs={6}>
-                          <Stack direction="row" justifyContent="space-between" mb={0.2}>
-                            <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>{isIt ? "Clienti" : "Customers"}</Typography>
-                            <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>{m.customers}/{m.customers_required}</Typography>
-                          </Stack>
-                          <LinearProgress variant="determinate" value={m.customers_pct}
-                            sx={{ height: 5, borderRadius: 3, bgcolor: "#eee", "& .MuiLinearProgress-bar": { bgcolor: m.customers_pct >= 100 ? "#4CAF50" : "#2196F3", borderRadius: 3 } }} />
+                        <Grid item xs={4}>
+                          <ProgressBar label="DQV" value={m.dqv || 0} max={m.dqv_required || 0} pct={m.dqv_pct || 0} color={ORO} />
+                        </Grid>
+                        <Grid item xs={4}>
+                          <ProgressBar label={isIt ? "Clienti" : "Customers"} value={m.customers || 0} max={m.customers_required || 0} pct={m.customers_pct || 0} color="#2196F3" />
                         </Grid>
                       </Grid>
                     </Box>
@@ -130,26 +134,40 @@ const QualificationsReport = () => {
                 {isIt ? "Nessun dato" : "No data"}
               </Typography>
             ) : (
-              <Stack spacing={1}>
+              <Stack spacing={1.5}>
                 {rank.map((r) => {
-                  const badge = getBadge(r.gv_pct);
+                  const badge = getBadge(r.avg_pct);
                   return (
-                    <Stack key={r.user_id} direction="row" alignItems="center" spacing={1.5} sx={{ py: 1, borderBottom: "1px solid #f5f0e8" }}>
-                      <Box sx={{ minWidth: 90 }}>
-                        <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO }}>{r.username}</Typography>
-                        <Chip label={r.type} size="small" sx={{ height: 16, fontSize: "0.5rem", bgcolor: r.type === "promoter" ? alpha(ORO, 0.1) : alpha("#2196F3", 0.1), color: r.type === "promoter" ? ORO : "#2196F3" }} />
-                      </Box>
-                      <Box sx={{ flex: 1 }}>
-                        <Stack direction="row" justifyContent="space-between" mb={0.2}>
-                          <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>{r.current_rank} → {r.next_rank}</Typography>
-                          <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>{r.gv}/{r.gv_required} GV</Typography>
+                    <Box key={r.user_id} sx={{ p: 2, borderRadius: 2, bgcolor: "#fafafa", border: "1px solid #f0ece6" }}>
+                      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1.2}>
+                        <Stack direction="row" alignItems="center" spacing={1}>
+                          <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>{r.username}</Typography>
+                          <Chip label={r.type} size="small" sx={{ height: 18, fontSize: "0.55rem", bgcolor: r.type === "promoter" ? alpha(ORO, 0.1) : alpha("#2196F3", 0.1), color: r.type === "promoter" ? ORO : "#2196F3" }} />
+                          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{r.current_rank} → {r.next_rank}</Typography>
                         </Stack>
-                        <LinearProgress variant="determinate" value={r.gv_pct}
-                          sx={{ height: 6, borderRadius: 3, bgcolor: "#eee", "& .MuiLinearProgress-bar": { bgcolor: r.gv_pct >= 90 ? "#4CAF50" : r.gv_pct >= 70 ? ORO : "#ccc", borderRadius: 3 } }} />
-                      </Box>
-                      <Chip label={badge.label} size="small" sx={{ height: 22, fontSize: "0.6rem", fontWeight: 700, bgcolor: badge.bg, color: badge.color }} />
-                      <Typography sx={{ fontSize: "0.9rem", fontWeight: 800, color: r.gv_pct >= 70 ? ORO : MUTED, minWidth: 40, textAlign: "right" }}>{r.gv_pct}%</Typography>
-                    </Stack>
+                        <Stack direction="row" alignItems="center" spacing={1}>
+                          <Chip label={badge.label} size="small" sx={{ height: 22, fontSize: "0.6rem", fontWeight: 700, bgcolor: badge.bg, color: badge.color }} />
+                          <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color: r.avg_pct >= 70 ? ORO : MUTED }}>{r.avg_pct}%</Typography>
+                        </Stack>
+                      </Stack>
+                      <Grid container spacing={1.5}>
+                        {r.pqv_required > 0 && (
+                          <Grid item xs={4}>
+                            <ProgressBar label="PQV" value={r.pqv || 0} max={r.pqv_required} pct={r.pqv_pct || 0} color="#FF9800" />
+                          </Grid>
+                        )}
+                        {r.tv_required > 0 && (
+                          <Grid item xs={4}>
+                            <ProgressBar label="TV" value={r.tv || 0} max={r.tv_required} pct={r.tv_pct || 0} color="#2196F3" />
+                          </Grid>
+                        )}
+                        {r.gv_required > 0 && (
+                          <Grid item xs={4}>
+                            <ProgressBar label="GV" value={r.gv || 0} max={r.gv_required} pct={r.gv_pct || 0} color={ORO} />
+                          </Grid>
+                        )}
+                      </Grid>
+                    </Box>
                   );
                 })}
               </Stack>
