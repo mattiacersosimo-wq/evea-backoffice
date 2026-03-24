@@ -94,11 +94,11 @@ const QualificationsReport = () => {
                       <Grid container spacing={1}>
                         <Grid item xs={6}>
                           <Stack direction="row" justifyContent="space-between" mb={0.2}>
-                            <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>PQV</Typography>
-                            <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>{m.pqv}/{m.pqv_required}</Typography>
+                            <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>DQV</Typography>
+                            <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>{m.dqv}/{m.dqv_required}</Typography>
                           </Stack>
-                          <LinearProgress variant="determinate" value={m.pqv_pct}
-                            sx={{ height: 5, borderRadius: 3, bgcolor: "#eee", "& .MuiLinearProgress-bar": { bgcolor: m.pqv_pct >= 100 ? "#4CAF50" : ORO, borderRadius: 3 } }} />
+                          <LinearProgress variant="determinate" value={m.dqv_pct}
+                            sx={{ height: 5, borderRadius: 3, bgcolor: "#eee", "& .MuiLinearProgress-bar": { bgcolor: m.dqv_pct >= 100 ? "#4CAF50" : ORO, borderRadius: 3 } }} />
                         </Grid>
                         <Grid item xs={6}>
                           <Stack direction="row" justifyContent="space-between" mb={0.2}>
