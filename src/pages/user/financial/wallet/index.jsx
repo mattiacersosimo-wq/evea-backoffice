@@ -1,8 +1,9 @@
-import { Box, Card, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Alert, Box, Card, LinearProgress, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
+import axiosInstance from "src/utils/axios";
 
 // Existing components — reused directly
 import EwalletPage from "../ewallet/index";
@@ -12,6 +13,47 @@ import AutofatturePage from "../autofatture/index";
 
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
+
+const KycGate = ({ children }) => {
+  const [kyc, setKyc] = useState(null);
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axiosInstance.get("api/wp/compliance/kyc-status");
+        setKyc(data?.data);
+      } catch { setKyc({ can_withdraw: true, checks: {} }); }
+    })();
+  }, []);
+
+  if (!kyc) return <Box sx={{ p: 3, textAlign: "center" }}><Typography color="#aaa">Verifica KYC...</Typography></Box>;
+  if (kyc.can_withdraw) return children;
+
+  const labels = {
+    has_name: "Nome e Cognome",
+    has_codice_fiscale: "Codice Fiscale",
+    has_address: "Indirizzo completo",
+    has_bank: "Dati bancari (IBAN)",
+    has_document: "Documento di identità",
+  };
+
+  return (
+    <Box sx={{ p: 3 }}>
+      <Alert severity="warning" sx={{ mb: 2, borderRadius: 2 }}>
+        Per prelevare devi completare la verifica del profilo. Compila i dati mancanti nel tuo profilo.
+      </Alert>
+      <Card sx={{ p: 2.5, borderRadius: 2, border: "1px solid #f0ece6" }}>
+        <Typography sx={{ fontWeight: 700, color: ESPRESSO, mb: 1.5 }}>Stato verifica ({kyc.complete_pct}%)</Typography>
+        <LinearProgress variant="determinate" value={kyc.complete_pct} sx={{ height: 6, borderRadius: 3, mb: 2, bgcolor: "#eee", "& .MuiLinearProgress-bar": { bgcolor: kyc.complete_pct >= 60 ? ORO : "#E24B4A" } }} />
+        {Object.entries(kyc.checks).map(([k, v]) => (
+          <Stack key={k} direction="row" alignItems="center" spacing={1} sx={{ py: 0.5 }}>
+            <Iconify icon={v ? "mdi:check-circle" : "mdi:close-circle"} width={18} sx={{ color: v ? "#4CAF50" : "#E24B4A" }} />
+            <Typography sx={{ fontSize: "0.8rem", color: v ? "#4CAF50" : ESPRESSO, fontWeight: v ? 400 : 600 }}>{labels[k] || k}</Typography>
+          </Stack>
+        ))}
+      </Card>
+    </Box>
+  );
+};
 
 const TABS = [
   { label: "Movimenti", icon: "mdi:swap-horizontal", value: 0 },
@@ -74,7 +116,7 @@ const WalletPage = () => {
           <PendingCommissionsPage />
         </Box>
         <Box sx={{ display: tab === 2 ? "block" : "none" }}>
-          <RequestPayoutPage />
+          <KycGate><RequestPayoutPage /></KycGate>
         </Box>
         <Box sx={{ display: tab === 3 ? "block" : "none" }}>
           <AutofatturePage />

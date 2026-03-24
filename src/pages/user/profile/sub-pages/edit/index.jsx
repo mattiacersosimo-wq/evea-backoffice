@@ -1,5 +1,7 @@
 import { LoadingButton } from "@mui/lab";
-import { Box, Card, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Card, Grid, Stack, Typography } from "@mui/material";
+import Iconify from "src/components/Iconify";
+import axiosInstance from "src/utils/axios";
 import {
     FormProvider,
     RHFSelect,
@@ -218,6 +220,24 @@ const EditInfo = () => {
                             >
                                 <Translate>profile.edit.update</Translate>
                             </LoadingButton>
+                            {user?.is_promoter === 1 && (
+                                <Button
+                                    variant="outlined"
+                                    startIcon={<Iconify icon="mdi:card-account-details" />}
+                                    onClick={async () => {
+                                        try {
+                                            const res = await axiosInstance.get(`api/wp/compliance/tesserino/${user.id}`, { responseType: "blob" });
+                                            const url = URL.createObjectURL(new Blob([res.data], { type: "application/pdf" }));
+                                            const a = document.createElement("a");
+                                            a.href = url; a.download = "tesserino_evea.pdf";
+                                            a.click(); URL.revokeObjectURL(url);
+                                        } catch { /* silent */ }
+                                    }}
+                                    sx={{ borderColor: "#B8963B", color: "#B8963B", fontWeight: 700, textTransform: "none" }}
+                                >
+                                    Scarica Tesserino
+                                </Button>
+                            )}
                         </Stack>
                     </Card>
                 </Grid>

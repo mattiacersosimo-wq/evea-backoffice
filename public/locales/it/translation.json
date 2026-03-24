@@ -538,7 +538,8 @@
             "documents": "Documenti",
             "videos": "Video",
             "move_user": "Sposta Utente",
-            "lettera_incarico": "Lettera di Incarico"
+            "lettera_incarico": "Lettera di Incarico",
+            "compliance": "Compliance & Fiscale"
         },
         "members": {
             "title": "Gestione Membri",

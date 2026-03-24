@@ -40,6 +40,14 @@ const EXTRA_MENU_ITEMS = [
       placement: 20,
     },
   },
+  {
+    match: "/admin/settings",
+    item: {
+      title: "nav.tools.compliance",
+      path: "/admin/compliance",
+      placement: 21,
+    },
+  },
 ];
 
 const injectMenuItems = (menu) => {

@@ -558,7 +558,8 @@
             "documents": "Documents",
             "videos": "Videos",
             "move_user": "Move User",
-            "lettera_incarico": "Engagement Letter"
+            "lettera_incarico": "Engagement Letter",
+            "compliance": "Compliance"
         },
         "members": {
             "title": "Members Management",
