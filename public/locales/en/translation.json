@@ -556,7 +556,8 @@
         "tools": {
             "title": "Tools",
             "documents": "Documents",
-            "videos": "Videos"
+            "videos": "Videos",
+            "move_user": "Move User"
         },
         "members": {
             "title": "Members Management",

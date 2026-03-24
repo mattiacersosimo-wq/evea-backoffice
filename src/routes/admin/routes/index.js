@@ -18,6 +18,9 @@ import tools from "./tools";
 import pendingranks from "./pendingranks";
 import user from "./user";
 
+const MoveUser = Loadable(
+  lazy(() => import("src/pages/admin/move-user/index"))
+);
 const InvoiceList = Loadable(
   lazy(() => import("src/pages/admin/invoices/list/index.jsx"))
 );
@@ -60,6 +63,10 @@ const availableRoutes = [
   ...user,
   ...lead,
 
+  {
+    path: "move-user",
+    element: <MoveUser />,
+  },
   {
     path: "invoices",
     children: [

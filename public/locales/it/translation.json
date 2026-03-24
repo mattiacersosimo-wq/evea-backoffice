@@ -536,7 +536,8 @@
         "tools": {
             "title": "Strumenti",
             "documents": "Documenti",
-            "videos": "Video"
+            "videos": "Video",
+            "move_user": "Sposta Utente"
         },
         "members": {
             "title": "Gestione Membri",

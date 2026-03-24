@@ -210,6 +210,12 @@ const adminNavConfig = [
             placement: 1,
             actions: ["add", "edit", "delete"],
           },
+          {
+            title: "nav.tools.move_user",
+            parent: "nav.tools.title",
+            path: "/admin/move-user",
+            placement: 2,
+          },
         ],
       },
 
