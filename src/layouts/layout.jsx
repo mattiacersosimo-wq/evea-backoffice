@@ -35,7 +35,7 @@ const EXTRA_MENU_ITEMS = [
   {
     match: "/admin/settings",
     item: {
-      title: "Sposta Utente",
+      title: "nav.tools.move_user",
       path: "/admin/move-user",
       placement: 20,
     },
