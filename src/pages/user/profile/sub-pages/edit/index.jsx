@@ -220,7 +220,12 @@ const EditInfo = () => {
                             >
                                 <Translate>profile.edit.update</Translate>
                             </LoadingButton>
-                            {user?.is_promoter === 1 && (
+                        </Stack>
+                        {user?.is_promoter === 1 && (
+                            <Box sx={{ mt: 2 }}>
+                                <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C", mb: 1 }}>
+                                    Per il tesserino assicurati di aver caricato una foto profilo formato fototessera (sezione foto in alto).
+                                </Typography>
                                 <Button
                                     variant="outlined"
                                     startIcon={<Iconify icon="mdi:card-account-details" />}
@@ -237,8 +242,8 @@ const EditInfo = () => {
                                 >
                                     Scarica Tesserino
                                 </Button>
-                            )}
-                        </Stack>
+                            </Box>
+                        )}
                     </Card>
                 </Grid>
             </Grid>
