@@ -214,6 +214,23 @@ const AdminAutofatture = () => {
     }
   }, [enqueueSnackbar]);
 
+  const handleDownloadPdf = useCallback(async (id) => {
+    try {
+      const res = await axiosInstance.get("api/wp/autofatture/" + id + "/pdf", { responseType: "blob" });
+      const blob = new Blob([res.data], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "nota_compensi_" + id + ".pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      enqueueSnackbar("Download PDF fallito", { variant: "error" });
+    }
+  }, [enqueueSnackbar]);
+
   const handleReinvia = useCallback(
     async (id) => {
       setReinviaLoading(id);
@@ -440,6 +457,16 @@ const AdminAutofatture = () => {
                               }}
                             >
                               XML
+                            </Button>
+                          </Tooltip>
+                          <Tooltip title="Scarica PDF">
+                            <Button
+                              size="small"
+                              variant="contained"
+                              onClick={() => handleDownloadPdf(row.id)}
+                              sx={{ bgcolor: "#E24B4A", "&:hover": { bgcolor: "#C0392B" }, fontWeight: 700, fontSize: "0.7rem" }}
+                            >
+                              PDF
                             </Button>
                           </Tooltip>
                           {canReinvia && (
