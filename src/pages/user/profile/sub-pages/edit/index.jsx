@@ -221,29 +221,6 @@ const EditInfo = () => {
                                 <Translate>profile.edit.update</Translate>
                             </LoadingButton>
                         </Stack>
-                        {user?.is_promoter === 1 && (
-                            <Box sx={{ mt: 2 }}>
-                                <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C", mb: 1 }}>
-                                    Per il tesserino assicurati di aver caricato una foto profilo formato fototessera (sezione foto in alto).
-                                </Typography>
-                                <Button
-                                    variant="outlined"
-                                    startIcon={<Iconify icon="mdi:card-account-details" />}
-                                    onClick={async () => {
-                                        try {
-                                            const res = await axiosInstance.get(`api/wp/compliance/tesserino/${user.id}`, { responseType: "blob" });
-                                            const url = URL.createObjectURL(new Blob([res.data], { type: "application/pdf" }));
-                                            const a = document.createElement("a");
-                                            a.href = url; a.download = "tesserino_evea.pdf";
-                                            a.click(); URL.revokeObjectURL(url);
-                                        } catch { /* silent */ }
-                                    }}
-                                    sx={{ borderColor: "#B8963B", color: "#B8963B", fontWeight: 700, textTransform: "none" }}
-                                >
-                                    Scarica Tesserino
-                                </Button>
-                            </Box>
-                        )}
                     </Card>
                 </Grid>
             </Grid>

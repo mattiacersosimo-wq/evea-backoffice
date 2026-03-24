@@ -559,7 +559,8 @@
             "videos": "Videos",
             "move_user": "Move User",
             "lettera_incarico": "Engagement Letter",
-            "compliance": "Compliance"
+            "compliance": "Compliance",
+            "tesserino": "ID Card"
         },
         "members": {
             "title": "Members Management",

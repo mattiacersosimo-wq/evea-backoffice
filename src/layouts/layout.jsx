@@ -123,8 +123,9 @@ const filterMenu = (menu, isPromoter) => {
     // Inject lettera-incarico for promoters
     if (isPromoter) {
       items.push({ title: "nav.tools.lettera_incarico", path: "/user/lettera-incarico", icon: "/icons/ic_report.svg" });
+      items.push({ title: "nav.tools.tesserino", path: "/user/tesserino", icon: "/icons/ic_user.svg" });
     }
-    const order = ["dashboard", "affiliate-dashboard", "genealog", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "income-report", "lettera-incarico", "profile"];
+    const order = ["dashboard", "affiliate-dashboard", "genealog", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "income-report", "lettera-incarico", "tesserino", "profile"];
     items = items.sort((a, b) => {
       const pa = (a.path || a.title || "").toLowerCase();
       const pb = (b.path || b.title || "").toLowerCase();
