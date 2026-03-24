@@ -101,7 +101,7 @@ const SimulatorReport = () => {
   const [clientsPerPromoter, setClientsPerPromoter] = useState(3);
   const [promotersPerPromoter, setPromotersPerPromoter] = useState(1);
   const [dupLevels, setDupLevels] = useState(2);
-  const [dupDecay, setDupDecay] = useState(70);
+  const [dupDecay] = useState(100);
   const [rankId, setRankId] = useState(5);
   const [hasKit, setHasKit] = useState(true);
   const [hasMvp, setHasMvp] = useState(true);
@@ -116,7 +116,7 @@ const SimulatorReport = () => {
     setClientsPerPromoter(p.clientsPerPromoter);
     setPromotersPerPromoter(p.promotersPerPromoter);
     setDupLevels(p.dupLevels);
-    setDupDecay(Math.round(p.dupDecay * 100));
+    // decay fixed at 100%
     setRankId(rid);
     setHasKit(rid >= 2);
     setHasMvp(rid >= 2);
@@ -261,7 +261,7 @@ const SimulatorReport = () => {
             <SliderInput icon="mdi:account-multiple-plus" label={isIt ? "Clienti per promoter" : "Clients/promoter"} value={clientsPerPromoter} onChange={setClientsPerPromoter} min={1} max={15} color="#00BCD4" />
             <SliderInput icon="mdi:account-switch" label={isIt ? "Promoter per promoter" : "Promoters/promoter"} value={promotersPerPromoter} onChange={setPromotersPerPromoter} min={0} max={8} color="#9C27B0" />
             <SliderInput icon="mdi:layers" label={isIt ? "Livelli profondità" : "Depth levels"} value={dupLevels} onChange={setDupLevels} min={0} max={9} color="#607D8B" />
-            <SliderInput icon="mdi:trending-down" label={isIt ? "Decay %" : "Decay %"} value={dupDecay} onChange={setDupDecay} min={30} max={90} step={5} unit="%" color="#795548" />
+{/* Decay removed - fixed at 100% */}
 
             {/* Team summary */}
             <Box sx={{ mt: 1.5, p: 1.5, borderRadius: 2, bgcolor: alpha(ORO, 0.04), border: `1px solid ${alpha(ORO, 0.1)}` }}>
