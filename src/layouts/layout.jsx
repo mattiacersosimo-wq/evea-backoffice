@@ -5,6 +5,7 @@ import useAuth from "src/hooks/useAuth";
 import { PATH_DASHBOARD, PATH_USER } from "src/routes/paths";
 import Horizontal from "./components/horizontal";
 import Vertical from "./components/vertical";
+import AiChat from "src/components/ai-chat";
 
 // Paths visible only to promoters (user side)
 const PROMOTER_ONLY_PATHS = ["/user/affiliate-dashboard"];
@@ -172,11 +173,14 @@ const Layout = () => {
   const verticalLayout = themeLayout === "vertical";
 
   return (
-    <Ternary
-      when={verticalLayout}
-      then={<Vertical navConfig={config} />}
-      otherwise={<Horizontal navConfig={config} />}
-    />
+    <>
+      <Ternary
+        when={verticalLayout}
+        then={<Vertical navConfig={config} />}
+        otherwise={<Horizontal navConfig={config} />}
+      />
+      <AiChat />
+    </>
   );
 };
 export default Layout;
