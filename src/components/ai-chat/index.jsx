@@ -17,9 +17,7 @@ const AiChat = () => {
   const [remaining, setRemaining] = useState(20);
   const [historyLoaded, setHistoryLoaded] = useState(false);
   const scrollRef = useRef(null);
-
-  // Only show for promoters
-  if (!user || user.is_promoter !== 1) return null;
+  const isPromoter = user?.is_promoter === 1;
 
   const loadHistory = async () => {
     if (historyLoaded) return;
@@ -52,12 +50,14 @@ const AiChat = () => {
   };
 
   useEffect(() => {
-    if (open && !historyLoaded) loadHistory();
+    if (open && !historyLoaded && isPromoter) loadHistory();
   }, [open]);
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages, loading]);
+
+  if (!isPromoter) return null;
 
   return (
     <>
