@@ -31,6 +31,9 @@ const Payout = Loadable(
 const TesserinoPage = Loadable(
   lazy(() => import("src/pages/user/tesserino/index"))
 );
+const Onboarding = Loadable(
+  lazy(() => import("src/pages/user/onboarding/index"))
+);
 
 const profile = {
   path: "profile",
@@ -44,6 +47,7 @@ const profile = {
     { path: "edit", element: <Edit /> },
     { path: "kyc", element: <Kyc /> },
     { path: "tesserino", element: <TesserinoPage /> },
+    { path: "documenti", element: <Onboarding /> },
     { path: "payout", element: <Payout /> },
   ],
 };

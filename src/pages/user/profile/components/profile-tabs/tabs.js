@@ -47,6 +47,14 @@ const TABS = [
     is_holding: false,
     isKyc: false,
   },
+  {
+    label: "Documenti & Compliance",
+    icon: "mdi:file-check-outline",
+    href: "documenti",
+    name: "documenti",
+    is_holding: false,
+    isKyc: false,
+  },
 ];
 
 export default TABS;
