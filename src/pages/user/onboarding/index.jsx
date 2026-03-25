@@ -130,6 +130,12 @@ const OnboardingWizard = () => {
                 <MenuItem value="incaricato_occasionale">Incaricato Occasionale</MenuItem>
                 <MenuItem value="partita_iva">Partita IVA</MenuItem>
               </TextField>
+              {form.regime_fiscale !== "partita_iva" && (
+                <TextField select fullWidth size="small" label="Sei pensionato o iscritto ad altra gestione previdenziale?" value={form.tipo_inps || "standard"} onChange={(e) => set("tipo_inps", e.target.value)}>
+                  <MenuItem value="standard">No — Aliquota INPS 35,03%</MenuItem>
+                  <MenuItem value="ridotta">Sì — Aliquota INPS ridotta 24%</MenuItem>
+                </TextField>
+              )}
               {form.regime_fiscale === "partita_iva" && (
                 <>
                   <TextField fullWidth size="small" label="Partita IVA" value={form.vat_number || ""} onChange={(e) => set("vat_number", e.target.value)} inputProps={{ maxLength: 11 }} />
@@ -143,7 +149,7 @@ const OnboardingWizard = () => {
                 <Button onClick={() => setStep(0)} sx={{ color: "#aaa" }}>Indietro</Button>
                 <Stack direction="row" spacing={1}>
                   <Button onClick={skip} sx={{ color: "#aaa" }}>Salta</Button>
-                  <Button variant="contained" onClick={() => save("save-fiscal", { codice_fiscale: form.codice_fiscale, regime_fiscale: form.regime_fiscale, vat_number: form.vat_number, codice_sdi: form.codice_sdi, pec: form.pec })} disabled={saving} sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" } }}>Salva e continua</Button>
+                  <Button variant="contained" onClick={() => save("save-fiscal", { codice_fiscale: form.codice_fiscale, regime_fiscale: form.regime_fiscale, tipo_inps: form.tipo_inps || "standard", vat_number: form.vat_number, codice_sdi: form.codice_sdi, pec: form.pec })} disabled={saving} sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" } }}>Salva e continua</Button>
                 </Stack>
               </Stack>
             </Stack>
