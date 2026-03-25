@@ -216,7 +216,7 @@ const AdminAutofatture = () => {
 
   const handleDownloadPdf = useCallback(async (id) => {
     try {
-      const res = await axiosInstance.get("api/wp/autofatture/" + id + "/pdf", { responseType: "blob" });
+      const res = await axiosInstance.get("api/wp/nota-compensi/" + id + "/pdf", { responseType: "blob" });
       const blob = new Blob([res.data], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
