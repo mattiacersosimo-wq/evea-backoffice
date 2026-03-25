@@ -46,7 +46,7 @@ const EXTRA_MENU_ITEMS = [
       title: "Centro Controllo",
       path: "/admin/centro-controllo",
       icon: "/icons/ic_analytics.svg",
-      placement: 2,
+      placement: 3,
     },
   },
   {
