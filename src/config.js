@@ -3,14 +3,8 @@ import { PATH_DASHBOARD } from "./routes/paths";
 export const DATE_FORMAT = "DD MMM YYYY";
 
 export const AUTH_INFO = {
-    user: {
-        email: process.env.REACT_APP_USER_USERNAME || "",
-        password: process.env.REACT_APP_USER_PASSWORD || "",
-    },
-    admin: {
-        email: process.env.REACT_APP_ADMIN_USERNAME || "",
-        password: process.env.REACT_APP_ADMIN_PASSWORD || "",
-    },
+    user: { email: "", password: "" },
+    admin: { email: "", password: "" },
 };
 export const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 export const IS_DEV_MODE = process.env.REACT_APP_DEV_MODE === "TRUE";

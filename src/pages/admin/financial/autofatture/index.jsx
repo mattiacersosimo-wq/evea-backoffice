@@ -26,6 +26,7 @@ import DataHandlerTable from "src/components/data-handler/table";
 import Map from "src/components/map";
 import { PATH_DASHBOARD } from "src/routes/paths";
 import axiosInstance from "src/utils/axios";
+import { escapeHtml } from "src/utils/safeHtml";
 
 const YEARS = [2024, 2025, 2026];
 
@@ -124,14 +125,14 @@ const exportPDF = (data, stats) => {
     .map(
       (row) =>
         "<tr>" +
-        "<td>" + (row.user?.username || row.promoter || "") + "</td>" +
-        "<td>" + (row.numero || "") + "</td>" +
-        "<td>" + (row.data || "") + "</td>" +
+        "<td>" + escapeHtml(row.user?.username || row.promoter || "") + "</td>" +
+        "<td>" + escapeHtml(row.numero) + "</td>" +
+        "<td>" + escapeHtml(row.data) + "</td>" +
         "<td>\u20AC" + parseFloat(row.lordo || 0).toFixed(2) + "</td>" +
         "<td>\u20AC" + parseFloat(row.imponibile || 0).toFixed(2) + "</td>" +
         '<td style="color:#C0392B">\u2212\u20AC' + parseFloat(row.ritenuta || 0).toFixed(2) + "</td>" +
         '<td style="color:#B8963B;font-weight:700">\u20AC' + parseFloat(row.netto || 0).toFixed(2) + "</td>" +
-        "<td>" + (STATUS_CONFIG[row.stato]?.label || row.stato || "") + "</td>" +
+        "<td>" + escapeHtml(STATUS_CONFIG[row.stato]?.label || row.stato || "") + "</td>" +
         "</tr>"
     )
     .join("");

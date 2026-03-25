@@ -7,6 +7,7 @@ import useAuth from "src/hooks/useAuth";
 import useQueryParams from "src/hooks/useQueryParams";
 import { PATH_USER } from "src/routes/paths";
 import TYPES, { TYPE_IDS } from "src/utils/types";
+import { safeRedirect } from "src/utils/safeHtml";
 import usePurchaseForm from "./usePurchaseForm";
 
 const usePurchase = () => {
@@ -53,11 +54,11 @@ const usePurchase = () => {
           break;
         }
         case TYPE_IDS.paypal: {
-          window.open(data.data, "_self");
+          safeRedirect(data.data);
           break;
         }
         case TYPE_IDS.paypalBTaf: {
-          window.open(data.data, "_self");
+          safeRedirect(data.data);
           break;
         }
         case TYPE_IDS.bitcoin: {

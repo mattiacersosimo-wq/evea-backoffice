@@ -1,5 +1,6 @@
 import { lowerCase } from "lodash";
 import fetchUser from "src/utils/fetchUser";
+import { safeRedirect } from "src/utils/safeHtml";
 
 export const TYPES = {
   bitcoin: "bitcoin",
@@ -64,7 +65,7 @@ const purchase = async (paymentType, data) => {
     const { status, data } = await fetchUser.post("product-purchase", reqData);
     const isSuccess = status === 200 && data.status;
     if (isSuccess && paymentType === "1") {
-      window.open(data.data, "_self");
+      safeRedirect(data.data);
     }
 
     if (isSuccess) {
@@ -82,7 +83,7 @@ const purchase = async (paymentType, data) => {
           return genFinPay(data.data);
         }
         case TYPES.paypal: {
-          window.open(data.data, "_self");
+          safeRedirect(data.data);
         }
 
         default:

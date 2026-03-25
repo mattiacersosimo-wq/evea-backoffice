@@ -18,6 +18,7 @@ import ParseDate from "src/components/date";
 import Map from "src/components/map";
 import PaginationButtons from "src/components/pagination";
 import { PATH_USER } from "src/routes/paths";
+import { escapeHtml } from "src/utils/safeHtml";
 import useReferrals from "./hooks/useCouponPurchase";
 import DataFilter from "./filter";
 
@@ -100,12 +101,12 @@ var exportPDF = function (data, totale) {
   var printWindow = window.open("", "_blank");
   var rows = data.map(function (row) {
     return "<tr>" +
-      "<td>" + (row.user ? row.user.username || "" : "") + "</td>" +
-      "<td>" + (row.from_user ? row.from_user.username || "" : "") + "</td>" +
-      "<td>" + (row.type || "") + "</td>" +
-      "<td>" + (row.payment_type || "") + "</td>" +
-      "<td>" + (row.total_amount || "") + "</td>" +
-      "<td>" + (row.created_at || "") + "</td>" +
+      "<td>" + escapeHtml(row.user ? row.user.username : "") + "</td>" +
+      "<td>" + escapeHtml(row.from_user ? row.from_user.username : "") + "</td>" +
+      "<td>" + escapeHtml(row.type) + "</td>" +
+      "<td>" + escapeHtml(row.payment_type) + "</td>" +
+      "<td>" + escapeHtml(row.total_amount) + "</td>" +
+      "<td>" + escapeHtml(row.created_at) + "</td>" +
       "</tr>";
   }).join("");
   printWindow.document.write(

@@ -8,6 +8,7 @@ import useQueryParams from "src/hooks/useQueryParams";
 import { PATH_USER } from "src/routes/paths";
 import axiosInstance from "src/utils/axios";
 import TYPES, { TYPE_IDS } from "src/utils/types";
+import { safeRedirect } from "src/utils/safeHtml";
 import * as Yup from "yup";
 
 const ReviewSchema = Yup.object().shape({
@@ -80,11 +81,11 @@ const useCouponPurchase = () => {
               break;
             }
             case TYPE_IDS.paypal: {
-              window.open(data.data, "_self");
+              safeRedirect(data.data);
               break;
             }
             case TYPE_IDS.paypalBTaf: {
-              window.open(data.data, "_self");
+              safeRedirect(data.data);
               break;
             }
             case TYPE_IDS.bitcoin: {

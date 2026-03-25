@@ -12,6 +12,7 @@ import { enablePayPalRecurring } from "src/api/user/subscriptions";
 import Translate from "src/components/translate";
 import { useSubscriptionContext } from "src/pages/user/recurringOrders/store/subscription";
 import Transition from "src/utils/dialog-animation";
+import { safeRedirect } from "src/utils/safeHtml";
 
 const EnablePaypal = ({ open, onClose }) => {
   const [loading, setLoading] = useState(false);
@@ -30,7 +31,7 @@ const EnablePaypal = ({ open, onClose }) => {
         immediate_charge,
       });
       if (status) {
-        window.open(data, "_self");
+        safeRedirect(data);
         return;
       }
       setLoading(false);
