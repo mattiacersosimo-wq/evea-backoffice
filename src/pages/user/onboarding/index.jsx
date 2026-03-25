@@ -223,14 +223,17 @@ const OnboardingWizard = () => {
           {step === 4 && (
             <Stack spacing={2}>
               <Typography variant="h6" fontWeight={700} color={ESPRESSO}>Dati Bancari</Typography>
-              <TextField fullWidth size="small" label="IBAN" value={form.iban || ""} onChange={(e) => set("iban", e.target.value.toUpperCase())} placeholder="IT60X0542811101000000123456" />
+              <TextField fullWidth size="small" label="IBAN" value={form.iban || ""} onChange={(e) => set("iban", e.target.value.toUpperCase().replace(/\s/g, ""))} placeholder="IT60X0542811101000000123456" helperText="Formato europeo SEPA" />
+              {form.iban && !form.iban.startsWith("IT") && (
+                <TextField fullWidth size="small" label="BIC/SWIFT (obbligatorio per IBAN non italiano)" value={form.bic_swift || ""} onChange={(e) => set("bic_swift", e.target.value.toUpperCase())} placeholder="ABCDEFGH" helperText="8 o 11 caratteri" />
+              )}
               <TextField fullWidth size="small" label="Nome Banca" value={form.bank_name || ""} onChange={(e) => set("bank_name", e.target.value)} />
               <TextField fullWidth size="small" label="Intestatario conto" value={form.account_holder || `${form.first_name || ""} ${form.last_name || ""}`} onChange={(e) => set("account_holder", e.target.value)} />
               <Stack direction="row" justifyContent="space-between">
                 <Button onClick={() => setStep(3)} sx={{ color: "#aaa" }}>Indietro</Button>
                 <Stack direction="row" spacing={1}>
                   <Button onClick={skip} sx={{ color: "#aaa" }}>Salta</Button>
-                  <Button variant="contained" onClick={() => save("save-bank", { iban: form.iban, bank_name: form.bank_name, account_holder: form.account_holder })} disabled={saving} sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" } }}>Salva e continua</Button>
+                  <Button variant="contained" onClick={() => save("save-bank", { iban: form.iban, bic_swift: form.bic_swift || "", bank_name: form.bank_name, account_holder: form.account_holder })} disabled={saving} sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" } }}>Salva e continua</Button>
                 </Stack>
               </Stack>
             </Stack>
