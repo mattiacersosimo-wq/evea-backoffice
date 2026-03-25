@@ -36,6 +36,7 @@ const Node = ({ node, parent, onClick, openAdd }) => {
     dqv,
     user_type,
     smartship_status,
+    is_active,
     pqv, tv,
     gv,
     join_date,
@@ -66,6 +67,7 @@ const Node = ({ node, parent, onClick, openAdd }) => {
         gv={gv}
         user_type={user_type}
         smartship_status={smartship_status}
+        is_active={is_active}
         onClick={() => {
           if (id) onClick(node);
         }}

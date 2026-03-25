@@ -68,6 +68,7 @@ const Account = ({
   gv,
   user_type,
   smartship_status,
+  is_active,
   name,
   profile,
   onClick,
@@ -240,6 +241,17 @@ const Account = ({
                   </span>
                   {ev} 
                 </Typography> */}
+                <Typography
+                  variant="caption"
+                  sx={{ color: "#000", padding: "2px" }}
+                >
+                  <span style={{ color: "#000", fontSize: "11px", fontWeight: 600, letterSpacing: 1 }}>
+                    Attivo &nbsp; : &nbsp;
+                  </span>
+                  <span style={{ fontWeight: 700, fontSize: "12px", color: is_active ? "#4CAF50" : "#E24B4A" }}>
+                    {is_active ? "YES" : "NO"}
+                  </span>
+                </Typography>
                 <Typography
                   variant="caption"
                   sx={{ color: "#000", padding: "2px" }}
