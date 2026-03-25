@@ -400,6 +400,50 @@ const KitUpgrade = () => {
 };
 
 // ═══════════════════════════════════════
+// SMART ALERTS (Network agent for promoter)
+// ═══════════════════════════════════════
+const SmartAlerts = () => {
+  const { t } = useTranslation();
+  const [alerts, setAlerts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data: r } = await axiosInstance.get("api/wp/health/promoter-alerts");
+        setAlerts(r?.data || []);
+      } catch { /* silent */ }
+      setLoading(false);
+    })();
+  }, []);
+  if (loading || alerts.length === 0) return null;
+  return (
+    <Box>
+      <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
+        <Iconify icon="mdi:bell-alert-outline" width={20} sx={{ color: "#EF9F27" }} />
+        <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>
+          {t("evea.smart_alerts") || "Notifiche Smart"}
+        </Typography>
+        <Chip label={alerts.length} size="small" sx={{ height: 20, fontSize: "0.65rem", fontWeight: 700, bgcolor: alpha("#EF9F27", 0.1), color: "#EF9F27" }} />
+      </Stack>
+      <Stack spacing={1}>
+        {alerts.map((a, i) => (
+          <Card key={i} sx={{ p: 1.5, borderRadius: 2, border: `1px solid ${alpha(a.color || "#EF9F27", 0.2)}`, bgcolor: alpha(a.color || "#EF9F27", 0.03) }}>
+            <Stack direction="row" alignItems="center" spacing={1.5}>
+              <Box sx={{ width: 32, height: 32, borderRadius: 1.5, bgcolor: alpha(a.color || "#EF9F27", 0.1), display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <Iconify icon={a.icon || "mdi:alert"} width={18} sx={{ color: a.color || "#EF9F27" }} />
+              </Box>
+              <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: ESPRESSO, flex: 1 }}>
+                {a.title}
+              </Typography>
+            </Stack>
+          </Card>
+        ))}
+      </Stack>
+    </Box>
+  );
+};
+
+// ═══════════════════════════════════════
 // 7. ACCESSO RAPIDO
 // ═══════════════════════════════════════
 const QuickAccess = () => {
@@ -891,6 +935,8 @@ const PromoterDashboard = () => {
               <KitUpgrade />
             </>
           )}
+
+          <SmartAlerts />
 
           <Section icon="mdi:lightning-bolt">{t("evea.quick_access")}</Section>
           <QuickAccess />

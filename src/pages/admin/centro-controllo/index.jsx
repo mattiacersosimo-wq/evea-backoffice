@@ -13,8 +13,8 @@ const ESPRESSO = "#2C1A0E";
 const AGENT_META = {
   fiscal: { label: "Fiscale", icon: "mdi:calculator-variant", color: "#E91E63" },
   commissions: { label: "Commissioni", icon: "mdi:cash-multiple", color: "#FF9800" },
-  network: { label: "Network", icon: "mdi:account-group", color: "#2196F3" },
   operations: { label: "Operazioni", icon: "mdi:cog-outline", color: "#607D8B" },
+  business: { label: "Business", icon: "mdi:chart-line", color: "#4CAF50" },
 };
 
 const SEV = {
