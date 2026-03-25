@@ -41,12 +41,12 @@ const EXTRA_MENU_ITEMS = [
     },
   },
   {
-    match: "/admin/dashboard",
+    match: "/admin/genealogy",
     item: {
       title: "Centro Controllo",
       path: "/admin/centro-controllo",
       icon: "/icons/ic_analytics.svg",
-      placement: 3,
+      placement: 0,
     },
   },
   {
