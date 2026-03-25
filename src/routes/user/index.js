@@ -14,6 +14,9 @@ import RecurringOrder from "src/pages/user/recurringOrders";
 const LetteraIncarico = Loadable(
   lazy(() => import("src/pages/user/lettera-incarico/index"))
 );
+const Onboarding = Loadable(
+  lazy(() => import("src/pages/user/onboarding/index"))
+);
 const TesserinoPage = Loadable(
   lazy(() => import("src/pages/user/tesserino/index"))
 );
@@ -254,6 +257,7 @@ const user = [
       { ...financial },
       { ...helpCenter },
       { ...profile },
+      { path: "onboarding", element: <Onboarding /> },
       { path: "lettera-incarico", element: <LetteraIncarico /> },
       { path: "tesserino", element: <TesserinoPage /> },
     ],
