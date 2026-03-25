@@ -25,7 +25,6 @@ const TAB_KEYS = [
   { labelKey: "evea.qualifications", icon: "mdi:trophy-variant", key: "qualifications" },
   { labelKey: "evea.report_rank", icon: "mdi:trophy-outline", key: "rank" },
   { labelKey: "evea.report_volume", icon: "mdi:chart-bar", key: "volume" },
-  { labelKey: "evea.report_payout", icon: "mdi:bank-transfer-out", key: "payout" },
   { labelKey: "evea.birthdays", icon: "mdi:cake-variant", key: "birthdays" },
   { labelKey: "evea.simulator", icon: "mdi:calculator-variant", key: "simulator" },
 ];
@@ -84,9 +83,8 @@ const Reports = () => {
           {tab === 2 && <QualificationsReport />}
           {tab === 3 && <RankHistoryReport />}
           {tab === 4 && <VolumeReport />}
-          {tab === 5 && <PayoutHistoryReport />}
-          {tab === 6 && <BirthdaysReport />}
-          {tab === 7 && <SimulatorReport />}
+          {tab === 5 && <BirthdaysReport />}
+          {tab === 6 && <SimulatorReport />}
         </Suspense>
       </Box>
     </Page>
