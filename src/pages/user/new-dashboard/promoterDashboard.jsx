@@ -239,7 +239,7 @@ const HeroCard = () => {
         <Stack direction="row" spacing={1} sx={{ mt: 2.5, flexWrap: "wrap", gap: 1 }}>
           {[
             { icon: "mdi:wallet-outline", label: t("evea.wallet"), value: `€${Number(hero?.wallet || 0).toFixed(2)}` },
-            { icon: "mdi:chart-bar", label: t("evea.qv_month"), value: hero?.qv_mese || 0 },
+            { icon: "mdi:chart-bar", label: "PQV", value: hero?.pqv_mese || hero?.qv_mese || 0 },
             { icon: "mdi:account-group", label: t("evea.clients"), value: hero?.clienti_diretti || 0 },
             { icon: "mdi:account-tie", label: t("evea.team"), value: hero?.team_promoter || 0 },
           ].map((m) => (
