@@ -8,8 +8,7 @@ import Page from "src/components/Page";
 import LoadingScreen from "src/components/LoadingScreen";
 
 const IncomeReport = lazy(() => import("../income-report/index"));
-const TeamReport = lazy(() => import("./team"));
-const CustomerReport = lazy(() => import("./customers"));
+const TeamUnified = lazy(() => import("./team-unified"));
 const RankHistoryReport = lazy(() => import("./rank-history"));
 const VolumeReport = lazy(() => import("./volume"));
 const PayoutHistoryReport = lazy(() => import("./payout-history"));
@@ -24,7 +23,6 @@ const TAB_KEYS = [
   { labelKey: "evea.report_income", icon: "mdi:cash-multiple", key: "income" },
   { labelKey: "evea.report_team", icon: "mdi:account-group", key: "team" },
   { labelKey: "evea.qualifications", icon: "mdi:trophy-variant", key: "qualifications" },
-  { labelKey: "evea.report_customers", icon: "mdi:account-heart", key: "customers" },
   { labelKey: "evea.report_rank", icon: "mdi:trophy-outline", key: "rank" },
   { labelKey: "evea.report_volume", icon: "mdi:chart-bar", key: "volume" },
   { labelKey: "evea.report_payout", icon: "mdi:bank-transfer-out", key: "payout" },
@@ -82,14 +80,13 @@ const Reports = () => {
         {/* Content */}
         <Suspense fallback={<LoadingScreen />}>
           {tab === 0 && <IncomeReport />}
-          {tab === 1 && <TeamReport />}
+          {tab === 1 && <TeamUnified />}
           {tab === 2 && <QualificationsReport />}
-          {tab === 3 && <CustomerReport />}
-          {tab === 4 && <RankHistoryReport />}
-          {tab === 5 && <VolumeReport />}
-          {tab === 6 && <PayoutHistoryReport />}
-          {tab === 7 && <BirthdaysReport />}
-          {tab === 8 && <SimulatorReport />}
+          {tab === 3 && <RankHistoryReport />}
+          {tab === 4 && <VolumeReport />}
+          {tab === 5 && <PayoutHistoryReport />}
+          {tab === 6 && <BirthdaysReport />}
+          {tab === 7 && <SimulatorReport />}
         </Suspense>
       </Box>
     </Page>
