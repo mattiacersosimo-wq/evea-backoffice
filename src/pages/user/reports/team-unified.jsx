@@ -1,12 +1,27 @@
-import { Box, Card, Chip, CircularProgress, IconButton, MenuItem, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, Typography } from "@mui/material";
+import { Box, Card, Chip, CircularProgress, Collapse, Grid, IconButton, LinearProgress, MenuItem, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import axiosInstance from "src/utils/axios";
 
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
+
+// Activity indicator color
+const getActivityColor = (days) => {
+  if (days === null || days === undefined) return "#ddd";
+  if (days <= 7) return "#4CAF50";
+  if (days <= 21) return "#8BC34A";
+  if (days <= 30) return "#EF9F27";
+  return "#E24B4A";
+};
+
+// Level background opacity
+const getLevelBg = (level) => {
+  const opacity = Math.max(0.02, 0.12 - (level - 1) * 0.012);
+  return alpha(ORO, opacity);
+};
 
 const FILTERS = [
   { value: "all", label: "Tutti", labelEn: "All" },
@@ -86,9 +101,47 @@ const TeamUnified = () => {
     revenue: filtered.reduce((s, m) => s + (m.revenue || 0), 0),
   };
 
+  const [expanded, setExpanded] = useState(null);
+
+  const stats = {
+    total: data.length,
+    promoters: data.filter((m) => m.type === "promoter").length,
+    customers: data.filter((m) => m.type === "customer").length,
+    smartship: data.filter((m) => m.smartship).length,
+    active7d: data.filter((m) => m.days_inactive !== null && m.days_inactive <= 7).length,
+    inactive30d: data.filter((m) => m.days_inactive >= 30 || m.days_inactive === null).length,
+    retention: data.length > 0 ? Math.round(data.filter((m) => m.days_inactive !== null && m.days_inactive <= 30).length / data.length * 100) : 0,
+  };
+
   if (loading) return <Box sx={{ textAlign: "center", py: 6 }}><CircularProgress sx={{ color: ORO }} /></Box>;
 
   return (
+    <Stack spacing={2}>
+      {/* Mini-card riepilogo */}
+      <Grid container spacing={1.5}>
+        {[
+          { icon: "mdi:account-group", label: isIt ? "Totale Membri" : "Total Members", value: stats.total, color: ESPRESSO },
+          { icon: "mdi:account-tie", label: isIt ? "Promoter Attivi" : "Active Promoters", value: `${stats.promoters}`, sub: `${stats.active7d} ${isIt ? "attivi 7gg" : "active 7d"}`, color: ORO },
+          { icon: "mdi:account-heart", label: isIt ? "Clienti" : "Customers", value: stats.customers, sub: `${stats.smartship} smartship`, color: "#4CAF50" },
+          { icon: "mdi:shield-check", label: isIt ? "Tasso Ritenzione" : "Retention Rate", value: `${stats.retention}%`, color: stats.retention >= 70 ? "#4CAF50" : stats.retention >= 50 ? "#EF9F27" : "#E24B4A" },
+        ].map((s, i) => (
+          <Grid item xs={6} md={3} key={i}>
+            <Card sx={{ p: 2, borderRadius: 3, border: "1px solid #f0ece6" }}>
+              <Stack direction="row" alignItems="center" spacing={1.5}>
+                <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha(s.color, 0.08), display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Iconify icon={s.icon} width={20} sx={{ color: s.color }} />
+                </Box>
+                <Box>
+                  <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color: s.color }}>{s.value}</Typography>
+                  <Typography sx={{ fontSize: "0.6rem", color: "#7A6A5C" }}>{s.label}</Typography>
+                  {s.sub && <Typography sx={{ fontSize: "0.55rem", color: "#aaa" }}>{s.sub}</Typography>}
+                </Box>
+              </Stack>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+
     <Card sx={{ borderRadius: 3, border: "1px solid #f0ece6", overflow: "hidden" }}>
       {/* Header with filters */}
       <Box sx={{ p: 2, borderBottom: "1px solid #f0ece6" }}>
@@ -138,37 +191,99 @@ const TeamUnified = () => {
           </TableHead>
           <TableBody>
             {filtered.map((m) => (
-              <TableRow key={m.user_id} hover sx={{ "&:hover": { bgcolor: alpha(ORO, 0.03) } }}>
-                <TableCell sx={{ fontSize: "0.75rem", fontWeight: 700, color: ORO }}>{m.level}</TableCell>
-                <TableCell sx={{ fontSize: "0.75rem", fontWeight: 600, color: ESPRESSO }}>{m.name || "—"}</TableCell>
-                <TableCell sx={{ fontSize: "0.72rem", color: "#7A6A5C" }}>{m.username}</TableCell>
-                <TableCell>
-                  <Chip label={m.type === "promoter" ? "P" : "C"} size="small"
-                    sx={{ height: 20, fontSize: "0.6rem", fontWeight: 700, width: 28,
-                      bgcolor: m.type === "promoter" ? alpha(ORO, 0.1) : alpha("#4CAF50", 0.1),
-                      color: m.type === "promoter" ? ORO : "#4CAF50" }} />
-                </TableCell>
-                <TableCell sx={{ fontSize: "0.72rem", color: ESPRESSO }}>{m.rank}</TableCell>
-                <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: m.pqv > 0 ? ESPRESSO : "#ccc" }}>{m.pqv}</TableCell>
-                <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: m.tv > 0 ? "#4CAF50" : "#ccc" }}>{m.tv}</TableCell>
-                <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: m.gv > 0 ? "#2196F3" : "#ccc" }}>{m.gv}</TableCell>
-                <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: m.revenue > 0 ? "#FF9800" : "#ccc" }}>€{m.revenue}</TableCell>
-                <TableCell>
-                  {m.smartship ? <Iconify icon="mdi:check-circle" width={16} sx={{ color: "#4CAF50" }} /> : <Iconify icon="mdi:close-circle-outline" width={16} sx={{ color: "#ddd" }} />}
-                </TableCell>
-                <TableCell sx={{ fontSize: "0.68rem", color: m.days_inactive > 30 ? "#E24B4A" : m.days_inactive > 15 ? "#EF9F27" : "#7A6A5C" }}>
-                  {m.last_order ? new Date(m.last_order).toLocaleDateString("it-IT", { day: "2-digit", month: "short" }) : "—"}
-                  {m.days_inactive > 0 && <span style={{ fontSize: "0.6rem", marginLeft: 4 }}>({m.days_inactive}d)</span>}
-                </TableCell>
-              </TableRow>
+              <React.Fragment key={m.user_id}>
+                <TableRow hover onClick={() => setExpanded(expanded === m.user_id ? null : m.user_id)}
+                  sx={{ bgcolor: getLevelBg(m.level), cursor: "pointer", "&:hover": { bgcolor: alpha(ORO, 0.06) } }}>
+                  <TableCell sx={{ fontSize: "0.75rem", fontWeight: 700, color: ORO }}>{m.level}</TableCell>
+                  <TableCell>
+                    <Stack direction="row" alignItems="center" spacing={0.8}>
+                      <Box sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: getActivityColor(m.days_inactive), flexShrink: 0 }} />
+                      <Typography sx={{ fontSize: "0.75rem", fontWeight: 600, color: ESPRESSO }}>{m.name || "—"}</Typography>
+                    </Stack>
+                  </TableCell>
+                  <TableCell sx={{ fontSize: "0.72rem", color: "#7A6A5C" }}>{m.username}</TableCell>
+                  <TableCell>
+                    <Chip label={m.type === "promoter" ? "P" : "C"} size="small"
+                      sx={{ height: 20, fontSize: "0.6rem", fontWeight: 700, width: 28,
+                        bgcolor: m.type === "promoter" ? alpha(ORO, 0.1) : alpha("#4CAF50", 0.1),
+                        color: m.type === "promoter" ? ORO : "#4CAF50" }} />
+                  </TableCell>
+                  <TableCell sx={{ fontSize: "0.72rem", color: ESPRESSO }}>{m.rank}</TableCell>
+                  <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: m.pqv > 0 ? ESPRESSO : "#ccc" }}>{m.pqv}</TableCell>
+                  <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: m.tv > 0 ? "#4CAF50" : "#ccc" }}>{m.tv}</TableCell>
+                  <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: m.gv > 0 ? "#2196F3" : "#ccc" }}>{m.gv}</TableCell>
+                  <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: m.revenue > 0 ? "#FF9800" : "#ccc" }}>€{m.revenue}</TableCell>
+                  <TableCell>
+                    {m.smartship ? <Iconify icon="mdi:check-circle" width={16} sx={{ color: "#4CAF50" }} /> : <Iconify icon="mdi:close-circle-outline" width={16} sx={{ color: "#ddd" }} />}
+                  </TableCell>
+                  <TableCell sx={{ fontSize: "0.68rem", color: m.days_inactive > 30 ? "#E24B4A" : m.days_inactive > 15 ? "#EF9F27" : "#7A6A5C" }}>
+                    {m.last_order ? new Date(m.last_order).toLocaleDateString("it-IT", { day: "2-digit", month: "short" }) : "—"}
+                    {m.days_inactive > 0 && <span style={{ fontSize: "0.6rem", marginLeft: 4 }}>({m.days_inactive}d)</span>}
+                  </TableCell>
+                </TableRow>
+                {/* Expanded detail row */}
+                <TableRow>
+                  <TableCell colSpan={11} sx={{ p: 0, border: 0 }}>
+                    <Collapse in={expanded === m.user_id} unmountOnExit>
+                      <Box sx={{ p: 2, bgcolor: "#fafafa", borderBottom: "1px solid #eee" }}>
+                        <Grid container spacing={2}>
+                          <Grid item xs={12} md={4}>
+                            <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: "#7A6A5C", mb: 0.5, textTransform: "uppercase" }}>
+                              {isIt ? "Dettagli" : "Details"}
+                            </Typography>
+                            <Typography sx={{ fontSize: "0.75rem", color: ESPRESSO }}>ID: {m.user_id}</Typography>
+                            <Typography sx={{ fontSize: "0.75rem", color: ESPRESSO }}>{isIt ? "Iscritto il" : "Joined"}: {m.joined_at ? new Date(m.joined_at).toLocaleDateString("it-IT") : "—"}</Typography>
+                            <Typography sx={{ fontSize: "0.75rem", color: ESPRESSO }}>{isIt ? "Livello" : "Level"}: {m.level}° {isIt ? "linea" : "line"}</Typography>
+                          </Grid>
+                          <Grid item xs={12} md={4}>
+                            <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: "#7A6A5C", mb: 0.5, textTransform: "uppercase" }}>
+                              {isIt ? "Volumi Mese" : "Monthly Volumes"}
+                            </Typography>
+                            <Stack spacing={0.8}>
+                              {[
+                                { label: "PQV", value: m.pqv, color: ORO },
+                                { label: "TV", value: m.tv, color: "#4CAF50" },
+                                { label: "GV", value: m.gv, color: "#2196F3" },
+                              ].map((v) => (
+                                <Box key={v.label}>
+                                  <Stack direction="row" justifyContent="space-between" mb={0.2}>
+                                    <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>{v.label}</Typography>
+                                    <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: v.color }}>{v.value}</Typography>
+                                  </Stack>
+                                  <LinearProgress variant="determinate" value={Math.min(100, v.value / 2)} sx={{ height: 4, borderRadius: 2, bgcolor: alpha(v.color, 0.1), "& .MuiLinearProgress-bar": { bgcolor: v.color, borderRadius: 2 } }} />
+                                </Box>
+                              ))}
+                            </Stack>
+                          </Grid>
+                          <Grid item xs={12} md={4}>
+                            <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: "#7A6A5C", mb: 0.5, textTransform: "uppercase" }}>
+                              {isIt ? "Stato" : "Status"}
+                            </Typography>
+                            <Stack direction="row" spacing={0.8} flexWrap="wrap" gap={0.5}>
+                              <Chip size="small" label={m.type === "promoter" ? "Promoter" : "Customer"} sx={{ height: 22, fontSize: "0.65rem", bgcolor: m.type === "promoter" ? alpha(ORO, 0.1) : alpha("#4CAF50", 0.1), color: m.type === "promoter" ? ORO : "#4CAF50" }} />
+                              <Chip size="small" label={m.rank} sx={{ height: 22, fontSize: "0.65rem", bgcolor: alpha("#2196F3", 0.1), color: "#2196F3" }} />
+                              {m.smartship && <Chip size="small" icon={<Iconify icon="mdi:refresh-circle" width={14} />} label="Smartship" sx={{ height: 22, fontSize: "0.65rem", bgcolor: alpha("#8BC34A", 0.1), color: "#8BC34A" }} />}
+                              {m.days_inactive > 30 && <Chip size="small" label={`${isIt ? "Inattivo" : "Inactive"} ${m.days_inactive}d`} sx={{ height: 22, fontSize: "0.65rem", bgcolor: alpha("#E24B4A", 0.1), color: "#E24B4A" }} />}
+                            </Stack>
+                            <Typography sx={{ fontSize: "0.72rem", color: ESPRESSO, mt: 1 }}>
+                              Revenue: <b style={{ color: "#FF9800" }}>€{m.revenue}</b>
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </Collapse>
+                  </TableCell>
+                </TableRow>
+              </React.Fragment>
             ))}
             {filtered.length === 0 && (
-              <TableRow><TableCell colSpan={11} sx={{ textAlign: "center", py: 4, color: "#aaa" }}>Nessun risultato</TableCell></TableRow>
+              <TableRow><TableCell colSpan={11} sx={{ textAlign: "center", py: 4, color: "#aaa" }}>{isIt ? "Nessun risultato" : "No results"}</TableCell></TableRow>
             )}
           </TableBody>
         </Table>
       </TableContainer>
     </Card>
+    </Stack>
   );
 };
 
