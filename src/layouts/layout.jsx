@@ -41,15 +41,6 @@ const EXTRA_MENU_ITEMS = [
     },
   },
   {
-    match: "/admin/genealogy",
-    item: {
-      title: "Centro Controllo",
-      path: "/admin/centro-controllo",
-      icon: "/icons/ic_analytics.svg",
-      placement: 0,
-    },
-  },
-  {
     match: "/admin/settings",
     item: {
       title: "nav.tools.compliance",
@@ -157,7 +148,25 @@ const Layout = () => {
   const { user } = useAuth();
   const isPromoter = user?.is_promoter === 1;
   const raw = JSON.parse(localStorage.getItem("menu") || "[]");
-  const config = useMemo(() => filterMenu(injectMenuItems(raw), isPromoter), [raw, isPromoter]);
+  const isAdmin = user?.is_super_admin === 1 || user?.is_sub_admin === 1;
+  const config = useMemo(() => {
+    let menu = filterMenu(injectMenuItems(raw), isPromoter);
+    // Inject Centro Controllo for admin
+    if (isAdmin && Array.isArray(menu)) {
+      menu = menu.map((group) => {
+        if (!group.items) return group;
+        const hasDashboard = group.items.some((i) => (i.path || "").includes("/admin/dashboard"));
+        if (hasDashboard && !group.items.some((i) => (i.path || "").includes("centro-controllo"))) {
+          const dashIdx = group.items.findIndex((i) => (i.path || "").includes("/admin/dashboard"));
+          const items = [...group.items];
+          items.splice(dashIdx + 1, 0, { title: "Centro Controllo", path: "/admin/centro-controllo", icon: "/icons/ic_analytics.svg" });
+          return { ...group, items };
+        }
+        return group;
+      });
+    }
+    return menu;
+  }, [raw, isPromoter, isAdmin]);
 
   const { themeLayout } = useSettings();
   const verticalLayout = themeLayout === "vertical";
