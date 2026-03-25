@@ -248,7 +248,7 @@ const Account = ({
                   <span style={{ color: "#000", fontSize: "11px", fontWeight: 600, letterSpacing: 1 }}>
                     Attivo &nbsp; : &nbsp;
                   </span>
-                  <span style={{ fontWeight: 700, fontSize: "12px", color: is_active ? "#4CAF50" : "#E24B4A" }}>
+                  <span style={{ fontWeight: 200, fontSize: "12px", color: "#000" }}>
                     {is_active ? "YES" : "NO"}
                   </span>
                 </Typography>
