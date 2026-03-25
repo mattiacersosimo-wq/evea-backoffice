@@ -15,6 +15,7 @@ const AGENT_META = {
   commissions: { label: "Commissioni", icon: "mdi:cash-multiple", color: "#FF9800" },
   operations: { label: "Operazioni", icon: "mdi:cog-outline", color: "#607D8B" },
   business: { label: "Business", icon: "mdi:chart-line", color: "#4CAF50" },
+  security: { label: "Sicurezza", icon: "mdi:shield-alert", color: "#E24B4A" },
 };
 
 const SEV = {
