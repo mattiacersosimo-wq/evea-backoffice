@@ -24,6 +24,9 @@ const MoveUser = Loadable(
 const AdminCompliance = Loadable(
   lazy(() => import("src/pages/admin/compliance/index"))
 );
+const CentroControllo = Loadable(
+  lazy(() => import("src/pages/admin/centro-controllo/index"))
+);
 const InvoiceList = Loadable(
   lazy(() => import("src/pages/admin/invoices/list/index.jsx"))
 );
@@ -69,6 +72,10 @@ const availableRoutes = [
   {
     path: "move-user",
     element: <MoveUser />,
+  },
+  {
+    path: "centro-controllo",
+    element: <CentroControllo />,
   },
   {
     path: "compliance",

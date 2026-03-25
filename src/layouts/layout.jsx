@@ -41,6 +41,15 @@ const EXTRA_MENU_ITEMS = [
     },
   },
   {
+    match: "/admin/dashboard",
+    item: {
+      title: "Centro Controllo",
+      path: "/admin/centro-controllo",
+      icon: "/icons/ic_analytics.svg",
+      placement: 2,
+    },
+  },
+  {
     match: "/admin/settings",
     item: {
       title: "nav.tools.compliance",
