@@ -37,7 +37,7 @@ const formatDate = (dateStr) => {
   if (!dateStr) return "\u2014";
   try {
     return new Date(dateStr).toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" });
-  } catch { return dateStr; }
+  } catch (e) { return dateStr; }
 };
 
 // ═══════════════════════════════════════
@@ -64,7 +64,7 @@ const SealCard = ({ sub, onAction }) => {
       const { data } = await axiosInstance.get(`api/wp/seal/subscription/${sub.id}/history`);
       setHistory(data?.data || []);
       setShowHistory(true);
-    } catch {
+    } catch (e) {
       enqueueSnackbar("Errore nel caricamento storico", { variant: "error" });
     }
     setHistoryLoading(false);
@@ -245,7 +245,7 @@ const SealSection = () => {
     try {
       const { data } = await axiosInstance.get("api/wp/seal/subscriptions");
       setSubs(data?.data || []);
-    } catch {
+    } catch (e) {
       // Silently fail — user may not have Seal subscriptions
     }
     setLoading(false);
