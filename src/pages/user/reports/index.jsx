@@ -28,7 +28,7 @@ const TAB_KEYS = [
   { labelKey: "evea.report_payout", icon: "mdi:bank-transfer-out", key: "payout" },
   { labelKey: "evea.birthdays", icon: "mdi:cake-variant", key: "birthdays" },
   { labelKey: "evea.simulator", icon: "mdi:calculator-variant", key: "simulator" },
-  { labelKey: "evea.leaderboard", icon: "mdi:podium-gold", key: "leaderboard" },
+  { labelKey: "Leaderboard", icon: "mdi:podium-gold", key: "leaderboard" },
 ];
 
 const Reports = () => {

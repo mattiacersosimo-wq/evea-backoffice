@@ -51,13 +51,16 @@ const LeaderboardCard = ({ title, icon, items, myId, emptyText }) => (
         <Iconify icon={icon} width={18} sx={{ color: ORO }} />
       </Box>
       <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>{title}</Typography>
+      <Chip label={items.length} size="small" sx={{ height: 20, fontSize: "0.65rem", fontWeight: 700, bgcolor: alpha(ORO, 0.1), color: ORO }} />
     </Stack>
     {items.length === 0 ? (
       <Typography sx={{ fontSize: "0.78rem", color: "#aaa", textAlign: "center", py: 3 }}>{emptyText}</Typography>
     ) : (
-      items.map((item, i) => (
-        <RankRow key={item.user_id} rank={i + 1} item={item} isMe={item.user_id === myId} />
-      ))
+      <Box sx={{ maxHeight: 500, overflowY: "auto", pr: 0.5 }}>
+        {items.map((item, i) => (
+          <RankRow key={item.user_id + "-" + i} rank={i + 1} item={item} isMe={item.user_id === myId} />
+        ))}
+      </Box>
     )}
   </Card>
 );
@@ -118,30 +121,30 @@ const Leaderboard = () => {
           "& .Mui-selected": { color: ORO },
           "& .MuiTabs-indicator": { bgcolor: ORO, height: 3, borderRadius: 2 },
         }}>
-        <Tab label={isIt ? "Top Guadagni" : "Top Earners"} />
-        <Tab label={isIt ? "Top Reclutatori" : "Top Recruiters"} />
-        <Tab label={isIt ? "Rank Up" : "Rank Achievers"} />
+        <Tab label={isIt ? "Guadagni Globale" : "Earnings Global"} />
+        <Tab label={isIt ? "Reclutatori Globale" : "Recruiters Global"} />
+        <Tab label={isIt ? "Rank Up Globale" : "Rank Up Global"} />
         <Tab label={isIt ? "Il mio Team" : "My Team"} />
       </Tabs>
 
       {/* Content */}
       {tab === 0 && (
-        <LeaderboardCard title={isIt ? "Top 10 Guadagni — Rete EVEA" : "Top 10 Earners — EVEA Network"}
+        <LeaderboardCard title={isIt ? "Classifica Guadagni — Globale" : "Earnings Ranking — Global"}
           icon="mdi:trophy" items={data.top_earners || []} myId={null}
           emptyText={isIt ? "Nessun dato questo mese" : "No data this month"} />
       )}
       {tab === 1 && (
-        <LeaderboardCard title={isIt ? "Top 10 Reclutatori — Questo Mese" : "Top 10 Recruiters — This Month"}
+        <LeaderboardCard title={isIt ? "Classifica Reclutatori — Globale" : "Recruiters Ranking — Global"}
           icon="mdi:account-multiple-plus" items={data.top_recruiters || []} myId={null}
           emptyText={isIt ? "Nessun reclutamento questo mese" : "No recruits this month"} />
       )}
       {tab === 2 && (
-        <LeaderboardCard title={isIt ? "Nuovi Rank — Questo Mese" : "Rank Achievements — This Month"}
+        <LeaderboardCard title={isIt ? "Classifica Rank Up — Globale" : "Rank Achievements — Global"}
           icon="mdi:medal" items={data.top_achievers || []} myId={null}
           emptyText={isIt ? "Nessun rank up questo mese" : "No rank ups this month"} />
       )}
       {tab === 3 && (
-        <LeaderboardCard title={isIt ? "Top 10 del tuo Team" : "Top 10 in Your Team"}
+        <LeaderboardCard title={isIt ? "Classifica del tuo Team" : "Your Team Ranking"}
           icon="mdi:account-group" items={data.team_earners || []} myId={null}
           emptyText={isIt ? "Nessun membro nel team" : "No team members"} />
       )}

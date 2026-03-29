@@ -73,10 +73,10 @@ const useTicker = () => {
   }, []);
   return data;
 };
-const useTopPerformers = () => useFetch(async () => {
-  const { data } = await axiosInstance.get("api/wp/dashboard/top-performers");
+const useTopPerformers = (sortBy = "gv") => useFetch(async () => {
+  const { data } = await axiosInstance.get(`api/wp/dashboard/top-performers?sort_by=${sortBy}`);
   return data?.data;
-});
+}, [sortBy]);
 const useStats = () => useFetch(async () => {
   const { data } = await axiosInstance.get("api/wp/dashboard/stats");
   return data?.data;
@@ -511,28 +511,42 @@ const QuickAccess = () => {
 // ═══════════════════════════════════════
 const MEDAL_COLORS = [ORO, "#A0A0A0", "#CD7F32"];
 const TopPerformers = () => {
-  const { data: top, loading } = useTopPerformers();
+  const [sortBy, setSortBy] = useState("gv");
+  const { data: top, loading } = useTopPerformers(sortBy);
+  const labels = { gv: "GV", pqv: "PQV", commissions: "EUR" };
   return (
     <Card sx={{ ...cardSx, p: 2.5, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT, mb: 2 }}>Top Performer del Mese</Typography>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
+        <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT }}>Top Performer del Mese</Typography>
+        <Stack direction="row" spacing={0.5}>
+          {["gv", "pqv", "commissions"].map((s) => (
+            <Chip key={s} label={s === "commissions" ? "Commissioni" : s.toUpperCase()} size="small"
+              onClick={() => setSortBy(s)}
+              sx={{ height: 22, fontSize: "0.6rem", fontWeight: 700, cursor: "pointer",
+                bgcolor: sortBy === s ? alpha(ORO, 0.15) : "transparent",
+                color: sortBy === s ? ORO : MUTED,
+                border: `1px solid ${sortBy === s ? ORO : "#e0e0e0"}`,
+              }} />
+          ))}
+        </Stack>
+      </Stack>
       {loading ? <Skeleton height={100} /> : (
         <Stack spacing={1.5}>
           {(top || []).map((p, i) => (
-            <Stack key={p.user_id} direction="row" alignItems="center" spacing={1.5} sx={{ py: 1, borderBottom: i < 2 ? "1px solid #f5f0e8" : "none" }}>
-              <Box sx={{ width: 30, height: 30, borderRadius: "50%", bgcolor: alpha(MEDAL_COLORS[i], 0.12), display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <Iconify icon="mdi:medal" width={16} sx={{ color: MEDAL_COLORS[i] }} />
+            <Stack key={p.user_id} direction="row" alignItems="center" spacing={1.5} sx={{ py: 1, borderBottom: i < (top.length - 1) ? "1px solid #f5f0e8" : "none" }}>
+              <Box sx={{ width: 30, height: 30, borderRadius: "50%", bgcolor: alpha(MEDAL_COLORS[Math.min(i, 2)], 0.12), display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <Typography sx={{ fontSize: "0.7rem", fontWeight: 800, color: MEDAL_COLORS[Math.min(i, 2)] }}>{i + 1}</Typography>
               </Box>
               <Avatar sx={{ width: 34, height: 34, bgcolor: alpha(ORO, 0.1), color: ORO, fontSize: 13, fontWeight: 700 }}>
                 {(p.first_name || p.username || "?").charAt(0).toUpperCase()}
               </Avatar>
               <Box sx={{ flex: 1, minWidth: 0 }}>
                 <Typography sx={{ fontSize: "0.85rem", fontWeight: 600, color: TEXT }} noWrap>{[p.first_name, p.last_name].filter(Boolean).join(" ") || p.username}</Typography>
-                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>ID: {p.user_id} &middot; @{p.username} &middot; IT</Typography>
+                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>{p.rank || "Associate"}</Typography>
               </Box>
-              <Box sx={{ textAlign: "right" }}>
-                <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ORO }}>{p.total_qv} QV</Typography>
-                <Chip label={p.type} size="small" sx={{ height: 16, fontSize: "0.6rem", bgcolor: p.type === "promoter" ? alpha(ORO, 0.1) : alpha("#4CAF50", 0.1), color: p.type === "promoter" ? ORO : "#4CAF50" }} />
-              </Box>
+              <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ORO }}>
+                {sortBy === "commissions" ? "€" : ""}{Number(p.sort_value || p.total_qv || 0).toFixed(0)} {labels[sortBy]}
+              </Typography>
             </Stack>
           ))}
           {(!top || !top.length) && <Typography sx={{ fontSize: "0.85rem", color: MUTED, textAlign: "center" }}>Nessun dato</Typography>}
