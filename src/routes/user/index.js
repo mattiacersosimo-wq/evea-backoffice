@@ -1,6 +1,6 @@
 import { lazy } from "react";
-import { Navigate } from "react-router";
-import AuthGuard, { HideLeads, UserGuard } from "src/guards/AuthGuard";
+import { Navigate, Outlet } from "react-router";
+import AuthGuard, { HideLeads, PromoterGuard, UserGuard } from "src/guards/AuthGuard";
 import Layout from "src/layouts/layout";
 import Loadable from "../Loadable";
 import businessBuilder from "./businessBuilder";
@@ -52,7 +52,7 @@ const BlogPosts = Loadable(
 const BlogPost = Loadable(lazy(() => import("src/pages/user/blogs/BlogPost")));
 
 const Dashboard = Loadable(
-  lazy(() => import(`src/pages/user/new-dashboard/index`))
+  lazy(() => import(`src/pages/user/dashboardRouter`))
 );
 
 const AffiliateDashboard = Loadable(
@@ -137,7 +137,7 @@ const user = [
       },
       {
         path: "affiliate-dashboard",
-        element: <AffiliateDashboard />,
+        element: <PromoterGuard><AffiliateDashboard /></PromoterGuard>,
       },
       {
         path: "events",
@@ -187,7 +187,7 @@ const user = [
       },
       {
         path: "referals",
-        element: <Referals />,
+        element: <PromoterGuard><Referals /></PromoterGuard>,
       },
       // {
       //   path: "pendingcommissions",
@@ -228,38 +228,42 @@ const user = [
           { path: ":id", element: <BlogPost /> },
         ],
       },
-      { path: "income-report", element: <IncomeReport /> },
-      { path: "missed-points", element: <MissedPoints /> },
+      { path: "income-report", element: <PromoterGuard><IncomeReport /></PromoterGuard> },
+      { path: "missed-points", element: <PromoterGuard><MissedPoints /></PromoterGuard> },
       {
         path: "leads",
         children: [
           {
             index: true,
             element: (
-              <HideLeads>
-                <Leads />
-              </HideLeads>
+              <PromoterGuard>
+                <HideLeads>
+                  <Leads />
+                </HideLeads>
+              </PromoterGuard>
             ),
           },
           {
             path: "default",
             element: (
-              <HideLeads>
-                <LeadsDefaultTemplate />
-              </HideLeads>
+              <PromoterGuard>
+                <HideLeads>
+                  <LeadsDefaultTemplate />
+                </HideLeads>
+              </PromoterGuard>
             ),
           },
         ],
       },
-      { ...businessBuilder },
-      { ...genealogy },
+      { ...businessBuilder, element: <PromoterGuard>{businessBuilder.element || <Outlet />}</PromoterGuard> },
+      { ...genealogy, element: <PromoterGuard>{genealogy.element || <Outlet />}</PromoterGuard> },
       { ...subscriptions },
-      { ...financial },
+      { ...financial, element: <PromoterGuard>{financial.element || <Outlet />}</PromoterGuard> },
       { ...helpCenter },
       { ...profile },
-      { path: "onboarding", element: <Onboarding /> },
-      { path: "lettera-incarico", element: <LetteraIncarico /> },
-      { path: "tesserino", element: <TesserinoPage /> },
+      { path: "onboarding", element: <PromoterGuard><Onboarding /></PromoterGuard> },
+      { path: "lettera-incarico", element: <PromoterGuard><LetteraIncarico /></PromoterGuard> },
+      { path: "tesserino", element: <PromoterGuard><TesserinoPage /></PromoterGuard> },
     ],
   },
 ];

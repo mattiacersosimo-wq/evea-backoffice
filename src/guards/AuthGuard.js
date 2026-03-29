@@ -81,6 +81,14 @@ export const UserGuard = ({ children }) => {
   return <>{children}</>;
 };
 
+export const PromoterGuard = ({ children }) => {
+  const { user } = useAuth();
+  if (user?.is_promoter !== 1) {
+    return <Navigate to="/user/dashboard" replace />;
+  }
+  return <>{children}</>;
+};
+
 export const HideLeads = ({ children }) => {
   const { config } = useAppConfig();
 
