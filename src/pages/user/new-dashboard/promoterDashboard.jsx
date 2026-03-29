@@ -33,18 +33,19 @@ const cardSx = {
 // ═══════════════════════════════════════
 // DATA HOOKS
 // ═══════════════════════════════════════
-const useFetch = (fetcher) => {
+const useFetch = (fetcher, deps = []) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     let off = false;
+    setLoading(true);
     (async () => {
       try { const r = await fetcher(); if (!off) setData(r); }
-      catch { /* silent */ }
+      catch (e) { /* silent */ }
       if (!off) setLoading(false);
     })();
     return () => { off = true; };
-  }, []);
+  }, deps);
   return { data, loading };
 };
 
