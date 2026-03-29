@@ -11,7 +11,7 @@ const SPONSOR_LEGEND = [
   { label: "Cliente", color: "#378ADD" },
   { label: "Associate", color: "#9E9E9E" },
   { label: "Starter", color: "#8BC34A" },
-  { label: "Builder", color: "#4CAF50" },
+  { label: "Builder", color: "#FF8A65" },
   { label: "Senior Builder", color: "#00897B" },
   { label: "Platinum", color: "#B8963B" },
   { label: "Sapphire", color: "#00ACC1" },

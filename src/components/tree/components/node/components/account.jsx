@@ -22,7 +22,7 @@ import PersonPinIcon from "@mui/icons-material/PersonPin";
 const RANK_COLOR_MAP = {
   "Associate": "#9E9E9E",
   "Starter": "#8BC34A",
-  "Builder": "#4CAF50",
+  "Builder": "#FF8A65",
   "Senior Builder": "#00897B",
   "Platinum": "#B8963B",
   "Sapphire": "#00ACC1",
