@@ -15,6 +15,7 @@ const PayoutHistoryReport = lazy(() => import("./payout-history"));
 const BirthdaysReport = lazy(() => import("./birthdays"));
 const QualificationsReport = lazy(() => import("./qualifications"));
 const SimulatorReport = lazy(() => import("./simulator"));
+const LeaderboardReport = lazy(() => import("./leaderboard"));
 
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
@@ -27,6 +28,7 @@ const TAB_KEYS = [
   { labelKey: "evea.report_payout", icon: "mdi:bank-transfer-out", key: "payout" },
   { labelKey: "evea.birthdays", icon: "mdi:cake-variant", key: "birthdays" },
   { labelKey: "evea.simulator", icon: "mdi:calculator-variant", key: "simulator" },
+  { labelKey: "evea.leaderboard", icon: "mdi:podium-gold", key: "leaderboard" },
 ];
 
 const Reports = () => {
@@ -85,6 +87,7 @@ const Reports = () => {
           {tab === 4 && <PayoutHistoryReport />}
           {tab === 5 && <BirthdaysReport />}
           {tab === 6 && <SimulatorReport />}
+          {tab === 7 && <LeaderboardReport />}
         </Suspense>
       </Box>
     </Page>
