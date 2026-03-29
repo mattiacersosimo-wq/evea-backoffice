@@ -10,12 +10,12 @@ import {
   LinearProgress,
   Skeleton,
   Stack,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
@@ -30,7 +30,6 @@ const ORO_LIGHT = "#D4AF5A";
 const ESPRESSO = "#2C1A0E";
 const WARM_GRAY = "#6B5E54";
 
-// shared card style — white, subtle shadow, rounded
 const cardSx = {
   bgcolor: "#fff",
   borderRadius: 3,
@@ -62,9 +61,9 @@ const useFetch = (fetcher) => {
   return { data, loading };
 };
 
-const useRankSummary = () =>
+const useHero = () =>
   useFetch(async () => {
-    const { data } = await axiosInstance.get("api/user/affiliate-dashboard/rank-summery");
+    const { data } = await axiosInstance.get("api/wp/dashboard/hero");
     return data?.data;
   });
 
@@ -80,6 +79,12 @@ const useROB = () =>
     return data?.data?.[0];
   });
 
+const useRecentOrders = () =>
+  useFetch(async () => {
+    const { data } = await axiosInstance.get("api/user/online-store/my-orders", { params: { page: 1 } });
+    return data?.data?.data?.slice(0, 5) || [];
+  });
+
 const useCoupons = () =>
   useFetch(async () => {
     const { data } = await fetchUser("coupon-purchase?page=1");
@@ -87,29 +92,20 @@ const useCoupons = () =>
   });
 
 // ═══════════════════════════════════════════════
-// HERO — gradient oro, avatar, rank, progress
+// HERO — clean customer card, no rank/progress
 // ═══════════════════════════════════════════════
 const HeroCard = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
-  const { data: rankData, loading } = useRankSummary();
+  const { data: hero } = useHero();
 
   const profile = user?.user_profile || {};
   const fullName =
     [profile.first_name, profile.last_name].filter(Boolean).join(" ") ||
     user?.username || "";
-  const currentRank = user?.rank?.rank_name || "Starter";
-  const nextRank = user?.rank?.next_rank || "";
 
-  let pct = 0;
-  let pctLabel = "";
-  if (rankData?.length) {
-    const f = rankData[0];
-    const earned = f?.earned || 0;
-    const req = f?.required || 1;
-    pct = Math.min(100, Math.round((earned / req) * 100));
-    pctLabel = `${earned} / ${req}`;
-  }
+  const wallet = hero?.wallet_balance ?? user?.balance_amount ?? 0;
+  const totalOrders = hero?.total_orders ?? 0;
 
   return (
     <Card
@@ -123,7 +119,6 @@ const HeroCard = () => {
         border: `1px solid ${alpha(ORO, 0.2)}`,
       }}
     >
-      {/* decorative oro accent — angolo in basso a destra */}
       <Box
         sx={{
           position: "absolute",
@@ -159,81 +154,22 @@ const HeroCard = () => {
         </Avatar>
 
         <Box sx={{ flex: 1, width: "100%" }}>
-          <Stack direction="row" alignItems="center" spacing={1.5} flexWrap="wrap">
-            <Typography variant="h5" fontWeight={700} sx={{ color: ESPRESSO }}>
-              {fullName}
-            </Typography>
-            <Chip
-              label={currentRank}
-              size="small"
-              sx={{
-                bgcolor: alpha(ORO, 0.12),
-                color: ORO,
-                fontWeight: 700,
-                fontSize: "0.72rem",
-                height: 26,
-                borderRadius: "13px",
-                border: `1px solid ${alpha(ORO_LIGHT, 0.3)}`,
-                backdropFilter: "blur(4px)",
-              }}
-            />
-          </Stack>
+          <Typography variant="h5" fontWeight={700} sx={{ color: ESPRESSO }}>
+            {fullName}
+          </Typography>
+          <Typography sx={{ fontSize: "0.8rem", color: WARM_GRAY, mt: 0.3 }}>
+            {t("evea.welcome_back_customer") || "Benvenuto nella tua area personale"}
+          </Typography>
 
-          {nextRank && (
-            <Box sx={{ mt: 2, maxWidth: 400 }}>
-              <Stack direction="row" justifyContent="space-between" mb={0.5}>
-                <Typography variant="caption" sx={{ color: "#7A6A5C" }}>
-                  {t("evea.next_rank")}: <b style={{ color: ORO }}>{nextRank}</b>
-                </Typography>
-                {loading ? (
-                  <Skeleton width={50} sx={{ bgcolor: "rgba(255,255,255,0.1)" }} />
-                ) : (
-                  <Typography variant="caption" sx={{ color: "#7A6A5C" }}>
-                    {pctLabel}
-                  </Typography>
-                )}
-              </Stack>
-              <LinearProgress
-                variant="determinate"
-                value={pct}
-                sx={{
-                  height: 6,
-                  borderRadius: 3,
-                  bgcolor: "rgba(255,255,255,0.12)",
-                  "& .MuiLinearProgress-bar": {
-                    borderRadius: 3,
-                    background: `linear-gradient(90deg, ${ORO_LIGHT}, ${ORO})`,
-                  },
-                }}
-              />
+          <Stack direction="row" spacing={3} mt={2.5}>
+            <Box sx={{ textAlign: "center", bgcolor: alpha("#fff", 0.6), borderRadius: 2, px: 3, py: 1.5 }}>
+              <Typography sx={{ fontSize: "1.3rem", fontWeight: 800, color: ORO }}>€{Number(wallet).toFixed(2)}</Typography>
+              <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>Wallet</Typography>
             </Box>
-          )}
-
-          {/* perks row */}
-          <Stack direction="row" spacing={1.5} mt={2.5}>
-            {[
-              { icon: "mdi:truck-fast-outline", text: t("evea.free_shipping") },
-              { icon: "mdi:lightning-bolt-outline", text: t("evea.early_access") },
-              { icon: "mdi:star-circle-outline", text: t("evea.premium_content") },
-            ].map((p) => (
-              <Box
-                key={p.text}
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 0.5,
-                  bgcolor: "rgba(255,255,255,0.08)",
-                  borderRadius: "20px",
-                  px: 1.5,
-                  py: 0.5,
-                }}
-              >
-                <Iconify icon={p.icon} width={16} sx={{ color: ORO_LIGHT }} />
-                <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C", whiteSpace: "nowrap" }}>
-                  {p.text}
-                </Typography>
-              </Box>
-            ))}
+            <Box sx={{ textAlign: "center", bgcolor: alpha("#fff", 0.6), borderRadius: 2, px: 3, py: 1.5 }}>
+              <Typography sx={{ fontSize: "1.3rem", fontWeight: 800, color: ESPRESSO }}>{totalOrders}</Typography>
+              <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>{t("evea.total_orders") || "Ordini"}</Typography>
+            </Box>
           </Stack>
         </Box>
       </Stack>
@@ -242,7 +178,7 @@ const HeroCard = () => {
 };
 
 // ═══════════════════════════════════════════════
-// 3 FOR FREE
+// INVITA 3 AMICI (3FF) with tooltip
 // ═══════════════════════════════════════════════
 const ThreeFFCard = () => {
   const { t } = useTranslation();
@@ -270,11 +206,17 @@ const ThreeFFCard = () => {
           <Iconify icon="mdi:gift-outline" width={20} sx={{ color: ORO }} />
         </Box>
         <Box>
-          <Typography variant="subtitle2" fontWeight={700} color={ESPRESSO}>
-            {t("evea.gift_evea")}
-          </Typography>
+          <Tooltip
+            title="Porta 3 amici che ordinano almeno €30 ciascuno e ricevi un bonus fino a €81. Condividi il tuo link!"
+            arrow
+            placement="top"
+          >
+            <Typography variant="subtitle2" fontWeight={700} color={ESPRESSO} sx={{ cursor: "help", borderBottom: `1px dashed ${alpha(WARM_GRAY, 0.3)}` }}>
+              Invita 3 Amici
+            </Typography>
+          </Tooltip>
           <Typography variant="caption" sx={{ color: WARM_GRAY, lineHeight: 1 }}>
-            {t("evea.bonus_3ff")}
+            {t("evea.bonus_3ff") || "Ottieni un bonus per ogni amico"}
           </Typography>
         </Box>
       </Stack>
@@ -306,7 +248,7 @@ const ThreeFFCard = () => {
                   )}
                 </Avatar>
                 <Typography variant="caption" sx={{ color: c ? ESPRESSO : "#aaa", maxWidth: 70, fontWeight: c ? 600 : 400 }} noWrap>
-                  {c?.customer_name || `${t("evea.friend")} ${i + 1}`}
+                  {c?.customer_name || `Amico ${i + 1}`}
                 </Typography>
               </Stack>
             ))}
@@ -314,9 +256,13 @@ const ThreeFFCard = () => {
 
           <Box sx={{ textAlign: "center", bgcolor: "#fafafa", borderRadius: 2, py: 1.5, mb: 2 }}>
             <Typography variant="body2" sx={{ color: WARM_GRAY }}>
-              <b style={{ color: ESPRESSO }}>{current}/{required}</b> {t("evea.friends_invited")}
-              <Divider component="span" orientation="vertical" sx={{ mx: 1.5, height: 14, display: "inline-block", borderColor: "#ddd" }} />
-              Premio: <b style={{ color: ORO, fontSize: "1.1em" }}>€{bonus}</b>
+              <b style={{ color: ESPRESSO }}>{current}/{required}</b> amici invitati
+              {bonus > 0 && (
+                <>
+                  <Divider component="span" orientation="vertical" sx={{ mx: 1.5, height: 14, display: "inline-block", borderColor: "#ddd" }} />
+                  Bonus: <b style={{ color: ORO, fontSize: "1.1em" }}>€{bonus}</b>
+                </>
+              )}
             </Typography>
           </Box>
         </>
@@ -340,7 +286,7 @@ const ThreeFFCard = () => {
             boxShadow: `0 4px 12px ${alpha(ORO, 0.3)}`,
           }}
         >
-          {t("evea.copy_invite")}
+          Copia il tuo link
         </Button>
       </Box>
     </Card>
@@ -348,13 +294,11 @@ const ThreeFFCard = () => {
 };
 
 // ═══════════════════════════════════════════════
-// ROB — Recurring Order Bonus (ciclo 12 mesi, paginato 8+4)
-// 1ª consegna → -10% per sempre dal 2° → coupon €30 al 4°,7°,10° ogni 3
+// ROB — Percorso Fedeltà (unchanged)
 // ═══════════════════════════════════════════════
 const CYCLE_LEN = 12;
 const PAGE_SIZE = 8;
-
-const COUPON_MONTHS = [3, 6, 9]; // 0-indexed: mese 4, 7, 10
+const COUPON_MONTHS = [3, 6, 9];
 
 const ROBCard = () => {
   const { t } = useTranslation();
@@ -367,43 +311,28 @@ const ROBCard = () => {
 
   const allMilestones = Array.from({ length: CYCLE_LEN }, (_, i) => {
     const isCoupon = COUPON_MONTHS.includes(i);
-    // solo il primissimo mese in assoluto (ciclo 1, mese 1) è senza sconto
     const isFirstEver = cycleNum === 1 && i === 0;
     let label;
-    if (isFirstEver) label = t("evea.first_delivery");
+    if (isFirstEver) label = t("evea.first_delivery") || "1ª consegna";
     else if (isCoupon) label = "-10% + €30";
     else label = "-10%";
-    return {
-      month: i + 1,
-      completed: i < posInCycle,
-      isCurrent: i === posInCycle,
-      label,
-      isCoupon,
-    };
+    return { month: i + 1, completed: i < posInCycle, isCurrent: i === posInCycle, label, isCoupon };
   });
 
-  const totalPages = Math.ceil(CYCLE_LEN / PAGE_SIZE); // 2
+  const totalPages = Math.ceil(CYCLE_LEN / PAGE_SIZE);
   const pageStart = page * PAGE_SIZE;
   const pageEnd = Math.min(pageStart + PAGE_SIZE, CYCLE_LEN);
   const visible = allMilestones.slice(pageStart, pageEnd);
-
   const completedOnPage = visible.filter((m) => m.completed).length;
-  const connectorPct = visible.length > 1
-    ? Math.round((completedOnPage / (visible.length - 1)) * 100)
-    : 0;
+  const connectorPct = visible.length > 1 ? Math.round((completedOnPage / (visible.length - 1)) * 100) : 0;
 
-  // savings: -10% from month 2 of cycle 1, then every month from cycle 2+
-  // cycle 1: 11 discount months (all except month 1), cycle 2+: all 12
-  const discountMonths = cycleNum === 1
-    ? Math.max(0, posInCycle - 1)
-    : 11 + (cycleNum - 2) * 12 + posInCycle;
+  const discountMonths = cycleNum === 1 ? Math.max(0, posInCycle - 1) : 11 + (cycleNum - 2) * 12 + posInCycle;
   const couponsThisCycle = COUPON_MONTHS.filter((i) => i < posInCycle).length;
   const couponsEarned = (cycleNum - 1) * 3 + couponsThisCycle;
   const couponValue = couponsEarned * 30;
 
   return (
     <Card sx={{ ...cardSx, p: 3 }}>
-      {/* header */}
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2.5}>
         <Stack direction="row" alignItems="center" spacing={1}>
           <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -411,19 +340,16 @@ const ROBCard = () => {
           </Box>
           <Box>
             <Typography variant="subtitle2" fontWeight={700} color={ESPRESSO}>
-              {t("evea.loyalty_path")}
+              {t("evea.loyalty_path") || "Percorso Fedeltà"}
             </Typography>
             <Typography variant="caption" sx={{ color: WARM_GRAY, lineHeight: 1 }}>
-              {t("evea.loyalty_sub")}
+              {t("evea.loyalty_sub") || "-10% per sempre + coupon ogni 3 consegne"}
             </Typography>
           </Box>
         </Stack>
         {!loading && totalConsec > 0 && (
-          <Chip
-            label={`Ciclo ${cycleNum} · ${posInCycle}/${CYCLE_LEN}`}
-            size="small"
-            sx={{ bgcolor: alpha(ORO, 0.1), color: ORO, fontWeight: 700, fontSize: "0.7rem", height: 24 }}
-          />
+          <Chip label={`Ciclo ${cycleNum} · ${posInCycle}/${CYCLE_LEN}`} size="small"
+            sx={{ bgcolor: alpha(ORO, 0.1), color: ORO, fontWeight: 700, fontSize: "0.7rem", height: 24 }} />
         )}
       </Stack>
 
@@ -431,111 +357,70 @@ const ROBCard = () => {
         <Skeleton height={100} variant="rounded" sx={{ flex: 1 }} />
       ) : (
         <>
-          {/* timeline with arrows */}
           <Stack direction="row" alignItems="center" spacing={0.5} mb={2}>
-            <IconButton
-              size="small"
-              onClick={() => setPage((p) => Math.max(0, p - 1))}
-              disabled={page === 0}
-              sx={{ width: 28, height: 28, color: page === 0 ? "#ddd" : ORO, "&:hover": { bgcolor: alpha(ORO, 0.08) } }}
-            >
+            <IconButton size="small" onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={page === 0}
+              sx={{ width: 28, height: 28, color: page === 0 ? "#ddd" : ORO }}>
               <Iconify icon="mdi:chevron-left" width={20} />
             </IconButton>
-
             <Box sx={{ flex: 1, position: "relative", px: 0.5 }}>
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: 18, left: 20, right: 20, height: 2,
-                  background: `linear-gradient(90deg, ${ORO} ${connectorPct}%, #eee ${connectorPct}%)`,
-                  zIndex: 0,
-                }}
-              />
+              <Box sx={{ position: "absolute", top: 18, left: 20, right: 20, height: 2, background: `linear-gradient(90deg, ${ORO} ${connectorPct}%, #eee ${connectorPct}%)`, zIndex: 0 }} />
               <Stack direction="row" justifyContent="space-between" sx={{ position: "relative", zIndex: 1 }}>
                 {visible.map((m) => (
                   <Stack key={m.month} alignItems="center" sx={{ flex: 1 }}>
-                    <Box
-                      sx={{
-                        width: 36, height: 36, borderRadius: "50%",
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontWeight: 700, fontSize: "0.75rem", transition: "all 0.3s",
-                        ...(m.completed
-                          ? { bgcolor: ORO, color: "#fff", boxShadow: `0 2px 8px ${alpha(ORO, 0.35)}` }
-                          : m.isCurrent
-                          ? { bgcolor: "#fff", color: ORO, border: `2px solid ${ORO}`, boxShadow: `0 0 0 4px ${alpha(ORO, 0.12)}` }
-                          : { bgcolor: "#f5f5f5", color: "#bbb" }),
-                      }}
-                    >
+                    <Box sx={{
+                      width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center",
+                      fontWeight: 700, fontSize: "0.75rem", transition: "all 0.3s",
+                      ...(m.completed ? { bgcolor: ORO, color: "#fff", boxShadow: `0 2px 8px ${alpha(ORO, 0.35)}` }
+                        : m.isCurrent ? { bgcolor: "#fff", color: ORO, border: `2px solid ${ORO}`, boxShadow: `0 0 0 4px ${alpha(ORO, 0.12)}` }
+                        : { bgcolor: "#f5f5f5", color: "#bbb" }),
+                    }}>
                       {m.completed ? <Iconify icon="mdi:check" width={18} /> : m.month}
                     </Box>
-                    <Typography
-                      sx={{
-                        mt: 0.5, fontSize: "0.62rem",
-                        fontWeight: m.isCoupon ? 700 : 500,
-                        color: m.isCoupon && m.completed ? ORO : m.completed ? ORO : m.isCurrent ? ESPRESSO : "#bbb",
-                        textAlign: "center", lineHeight: 1.2,
-                      }}
-                    >
+                    <Typography sx={{ mt: 0.5, fontSize: "0.62rem", fontWeight: m.isCoupon ? 700 : 500,
+                      color: m.isCoupon && m.completed ? ORO : m.completed ? ORO : m.isCurrent ? ESPRESSO : "#bbb",
+                      textAlign: "center", lineHeight: 1.2 }}>
                       {m.label}
                     </Typography>
                   </Stack>
                 ))}
               </Stack>
             </Box>
-
-            <IconButton
-              size="small"
-              onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
-              disabled={page >= totalPages - 1}
-              sx={{ width: 28, height: 28, color: page >= totalPages - 1 ? "#ddd" : ORO, "&:hover": { bgcolor: alpha(ORO, 0.08) } }}
-            >
+            <IconButton size="small" onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))} disabled={page >= totalPages - 1}
+              sx={{ width: 28, height: 28, color: page >= totalPages - 1 ? "#ddd" : ORO }}>
               <Iconify icon="mdi:chevron-right" width={20} />
             </IconButton>
           </Stack>
 
-          {/* page dots */}
           <Stack direction="row" justifyContent="center" spacing={0.5} mb={2}>
             {Array.from({ length: totalPages }, (_, i) => (
-              <Box
-                key={i}
-                onClick={() => setPage(i)}
-                sx={{
-                  width: i === page ? 16 : 6, height: 6, borderRadius: 3,
-                  bgcolor: i === page ? ORO : "#ddd",
-                  transition: "all 0.3s", cursor: "pointer",
-                }}
-              />
+              <Box key={i} onClick={() => setPage(i)}
+                sx={{ width: i === page ? 16 : 6, height: 6, borderRadius: 3, bgcolor: i === page ? ORO : "#ddd", transition: "all 0.3s", cursor: "pointer" }} />
             ))}
           </Stack>
 
-          {/* savings */}
           <Box sx={{ bgcolor: alpha(ORO, 0.06), borderRadius: 2, p: 2, mb: 2, textAlign: "center" }}>
             <Stack direction="row" alignItems="center" justifyContent="center" spacing={0.5} mb={0.5}>
               <Iconify icon="mdi:piggy-bank-outline" width={18} sx={{ color: ORO }} />
               <Typography sx={{ fontSize: "0.75rem", color: WARM_GRAY, fontWeight: 600 }}>
-                {t("evea.your_savings")}
+                {t("evea.your_savings") || "Il tuo risparmio finora"}
               </Typography>
             </Stack>
             {totalConsec === 0 ? (
               <Typography sx={{ fontSize: "0.8rem", color: WARM_GRAY }}>
-                {t("evea.start_subscription")}
+                {t("evea.start_subscription") || "Attiva il tuo abbonamento per iniziare a risparmiare!"}
               </Typography>
             ) : (
               <Stack direction="row" justifyContent="center" divider={<Typography sx={{ mx: 1, color: "#ddd" }}>+</Typography>}>
                 {discountMonths > 0 && (
                   <Box>
-                    <Typography sx={{ fontWeight: 700, color: ESPRESSO, fontSize: "1.1rem" }}>
-                      {discountMonths}x -10%
-                    </Typography>
-                    <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>{t("evea.discounted_deliveries")}</Typography>
+                    <Typography sx={{ fontWeight: 700, color: ESPRESSO, fontSize: "1.1rem" }}>{discountMonths}x -10%</Typography>
+                    <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>{t("evea.discounted_deliveries") || "consegne con sconto"}</Typography>
                   </Box>
                 )}
                 {couponValue > 0 && (
                   <Box>
-                    <Typography sx={{ fontWeight: 700, color: ORO, fontSize: "1.1rem" }}>
-                      €{couponValue}
-                    </Typography>
-                    <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>{t("evea.in_gift_coupons")}</Typography>
+                    <Typography sx={{ fontWeight: 700, color: ORO, fontSize: "1.1rem" }}>€{couponValue}</Typography>
+                    <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>{t("evea.in_gift_coupons") || "in coupon regalo"}</Typography>
                   </Box>
                 )}
               </Stack>
@@ -545,20 +430,60 @@ const ROBCard = () => {
       )}
 
       <Box sx={{ mt: "auto" }}>
-        <Button
-          fullWidth
-          variant="outlined"
-          startIcon={<Iconify icon="mdi:cog-outline" />}
-          href="/user/recurring-orders"
-          sx={{
-            borderColor: "#e0e0e0", color: ESPRESSO,
-            "&:hover": { borderColor: ORO, bgcolor: alpha(ORO, 0.04) },
-            fontWeight: 600, borderRadius: 2, py: 1.2, textTransform: "none",
-          }}
-        >
-          {t("evea.manage_subscription")}
+        <Button fullWidth variant="outlined" startIcon={<Iconify icon="mdi:cog-outline" />} href="/user/recurring-orders"
+          sx={{ borderColor: "#e0e0e0", color: ESPRESSO, "&:hover": { borderColor: ORO, bgcolor: alpha(ORO, 0.04) }, fontWeight: 600, borderRadius: 2, py: 1.2, textTransform: "none" }}>
+          {t("evea.manage_subscription") || "Gestisci il mio abbonamento"}
         </Button>
       </Box>
+    </Card>
+  );
+};
+
+// ═══════════════════════════════════════════════
+// ORDINI RECENTI
+// ═══════════════════════════════════════════════
+const RecentOrders = () => {
+  const { data: orders, loading } = useRecentOrders();
+
+  if (loading) return <Skeleton height={200} variant="rounded" sx={{ borderRadius: 3 }} />;
+  if (!orders?.length) return null;
+
+  return (
+    <Card sx={{ ...cardSx, p: 2.5 }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <Box sx={{ width: 32, height: 32, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Iconify icon="mdi:package-variant-closed" width={18} sx={{ color: ORO }} />
+          </Box>
+          <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>Ordini Recenti</Typography>
+        </Stack>
+        <Button size="small" href="/user/online-store/my-orders" sx={{ textTransform: "none", color: ORO, fontWeight: 600, fontSize: "0.75rem" }}>
+          Vedi tutti
+        </Button>
+      </Stack>
+      <Stack spacing={1}>
+        {orders.map((o) => {
+          const status = (o.order_status || "").toLowerCase();
+          const statusColor = status === "finished" ? "#4CAF50" : status === "processing" ? "#FF9800" : "#999";
+          const statusLabel = status === "finished" ? "Completato" : status === "processing" ? "In corso" : status;
+          const date = o.created_at ? new Date(o.created_at).toLocaleDateString("it-IT", { day: "2-digit", month: "short" }) : "";
+          return (
+            <Stack key={o.id} direction="row" alignItems="center" spacing={1.5} sx={{ py: 1, borderBottom: "1px solid #f5f0e8" }}>
+              <Box sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: statusColor, flexShrink: 0 }} />
+              <Box sx={{ flex: 1, minWidth: 0 }}>
+                <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: ESPRESSO }} noWrap>
+                  {o.product_name || o.purchase_product?.name || `Ordine #${o.id}`}
+                </Typography>
+                <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>{date}</Typography>
+              </Box>
+              <Chip label={statusLabel} size="small" sx={{ height: 20, fontSize: "0.6rem", fontWeight: 600, bgcolor: alpha(statusColor, 0.1), color: statusColor }} />
+              <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>
+                €{Number(o.price || o.total_amount || 0).toFixed(2)}
+              </Typography>
+            </Stack>
+          );
+        })}
+      </Stack>
     </Card>
   );
 };
@@ -570,46 +495,30 @@ const CouponsSection = () => {
   const { t } = useTranslation();
   const { data: coupons, loading } = useCoupons();
 
-  if (loading) {
-    return (
-      <Grid container spacing={2}>
-        {[0, 1, 2, 3].map((i) => (
-          <Grid item xs={6} md={3} key={i}>
-            <Skeleton variant="rounded" height={110} sx={{ borderRadius: 3 }} />
-          </Grid>
-        ))}
-      </Grid>
-    );
-  }
+  if (loading) return (
+    <Grid container spacing={2}>
+      {[0, 1, 2, 3].map((i) => (
+        <Grid item xs={6} md={3} key={i}>
+          <Skeleton variant="rounded" height={110} sx={{ borderRadius: 3 }} />
+        </Grid>
+      ))}
+    </Grid>
+  );
 
-  if (!coupons?.length) {
-    return (
-      <Box sx={{ textAlign: "center", py: 5, bgcolor: "#fafafa", borderRadius: 3 }}>
-        <Iconify icon="mdi:ticket-outline" width={36} sx={{ color: "#ddd", mb: 1 }} />
-        <Typography variant="body2" color="text.secondary">
-          {t("evea.no_coupons")}
-        </Typography>
-      </Box>
-    );
-  }
+  if (!coupons?.length) return (
+    <Box sx={{ textAlign: "center", py: 5, bgcolor: "#fafafa", borderRadius: 3 }}>
+      <Iconify icon="mdi:ticket-outline" width={36} sx={{ color: "#ddd", mb: 1 }} />
+      <Typography variant="body2" color="text.secondary">
+        {t("evea.no_coupons") || "Nessun coupon disponibile"}
+      </Typography>
+    </Box>
+  );
 
   return (
     <Grid container spacing={2}>
       {coupons.map((coupon, i) => (
         <Grid item xs={6} md={3} key={coupon.id || i}>
-          <Card
-            sx={{
-              p: 2.5,
-              borderRadius: 3,
-              bgcolor: "#fff",
-              border: "1px solid #f0ece6",
-              boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
-              height: "100%",
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            {/* accent top */}
+          <Card sx={{ p: 2.5, borderRadius: 3, bgcolor: "#fff", border: "1px solid #f0ece6", boxShadow: "0 1px 4px rgba(0,0,0,0.04)", height: "100%", position: "relative", overflow: "hidden" }}>
             <Box sx={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, bgcolor: ORO }} />
             <Typography variant="caption" sx={{ color: WARM_GRAY, textTransform: "uppercase", letterSpacing: "0.05em", fontSize: "0.65rem" }}>
               {coupon.type || coupon.coupon_type || "Coupon"}
@@ -646,10 +555,10 @@ const UserDashboard = () => {
               <Iconify icon="mdi:check-circle" width={24} sx={{ color: "#4A5C3A" }} />
               <Box>
                 <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: "#27500A" }}>
-                  {t("evea.loyalty_active")}
+                  {t("evea.loyalty_active") || "Sconto Fedeltà attivo! -10% su ogni ordine"}
                 </Typography>
                 <Typography sx={{ fontSize: "0.75rem", color: "#4A5C3A" }}>
-                  {t("evea.loyalty_active_sub")}
+                  {t("evea.loyalty_active_sub") || "Continua a ordinare per mantenere lo sconto"}
                 </Typography>
               </Box>
             </Box>
@@ -659,20 +568,25 @@ const UserDashboard = () => {
                 <Iconify icon="mdi:tag-heart-outline" width={24} sx={{ color: ORO }} />
                 <Box>
                   <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: ESPRESSO }}>
-                    {t("evea.loyalty_inactive")}
+                    {t("evea.loyalty_inactive") || "Attiva lo Smartship per ottenere -10% su tutti gli ordini"}
                   </Typography>
                   <Typography sx={{ fontSize: "0.75rem", color: WARM_GRAY }}>
-                    {t("evea.loyalty_inactive_sub")}
+                    {t("evea.loyalty_inactive_sub") || "Abbonati ora e risparmia su ogni consegna"}
                   </Typography>
                 </Box>
               </Stack>
               <Button size="small" variant="contained" href={`${WP_URL}/collections/all`} target="_blank"
                 sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, textTransform: "none", fontWeight: 700, borderRadius: 2 }}>
-                {t("evea.activate_now")}
+                {t("evea.activate_now") || "Attiva ora"}
               </Button>
             </Box>
           );
         })()}
+
+        {/* Ordini recenti */}
+        <Box sx={{ mt: 3 }}>
+          <RecentOrders />
+        </Box>
 
         <Grid container spacing={3} sx={{ mt: 0.5 }}>
           <Grid item xs={12} md={6}>
@@ -687,7 +601,7 @@ const UserDashboard = () => {
           <Stack direction="row" alignItems="center" spacing={1} mb={2}>
             <Iconify icon="mdi:ticket-percent-outline" width={22} sx={{ color: ORO }} />
             <Typography variant="h6" fontWeight={700} color={ESPRESSO}>
-              {t("evea.your_rewards")}
+              {t("evea.your_rewards") || "I tuoi premi"}
             </Typography>
           </Stack>
           <CouponsSection />

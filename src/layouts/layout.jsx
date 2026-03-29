@@ -8,7 +8,7 @@ import Vertical from "./components/vertical";
 import AiChat from "src/components/ai-chat";
 
 // Paths visible only to promoters (user side)
-const PROMOTER_ONLY_PATHS = ["/user/affiliate-dashboard"];
+const PROMOTER_ONLY_PATHS = ["/user/affiliate-dashboard", "/user/online-store/team-orders"];
 
 // Keywords to hide from user menu (matched against path and title)
 const HIDDEN_USER_KEYWORDS = ["blog", "referal", "telegram", "my-subscription", "my_subscription"];
@@ -102,10 +102,9 @@ const filterMenu = (menu, isPromoter) => {
         return { ...item, title: "Dashboard Bonus" };
       }
       if ((p.includes("online-store") || p.includes("online_store")) && p.includes("/user")) {
-        return { ...item, title: "Ordini", path: "/user/online-store/my-orders", children: [
-          { title: "I miei Ordini", path: "/user/online-store/my-orders" },
-          { title: "Ordini Team", path: "/user/online-store/team-orders" },
-        ]};
+        const orderChildren = [{ title: "I miei Ordini", path: "/user/online-store/my-orders" }];
+        if (isPromoter) orderChildren.push({ title: "Ordini Team", path: "/user/online-store/team-orders" });
+        return { ...item, title: "Ordini", path: "/user/online-store/my-orders", children: orderChildren.length > 1 ? orderChildren : undefined };
       }
       return item;
     });
