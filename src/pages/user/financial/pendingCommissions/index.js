@@ -171,11 +171,16 @@ var PendingCommissions = function () {
   };
 
   var stats = useMemo(function () {
-    return {
-      totale: globalStats.total || 0,
-      count: globalStats.count || 0,
-    };
-  }, [globalStats]);
+    if (globalStats.total > 0 || globalStats.count > 0) {
+      return { totale: globalStats.total, count: globalStats.count };
+    }
+    if (!data || data.length === 0) return { totale: 0, count: 0 };
+    var totale = 0;
+    for (var i = 0; i < data.length; i++) {
+      totale += parseFloat(data[i].total_amount) || 0;
+    }
+    return { totale: totale, count: data.length };
+  }, [globalStats, data]);
 
   return (
     <div>
