@@ -72,8 +72,14 @@ const useFetch = (fetcher) => {
 
 const useHero = () =>
   useFetch(async () => {
-    const { data } = await axiosInstance.get("api/wp/dashboard/hero");
-    return data?.data;
+    const [heroRes, ordersRes] = await Promise.all([
+      axiosInstance.get("api/wp/dashboard/hero"),
+      fetchUser.get("my-orders?page=1"),
+    ]);
+    return {
+      ...heroRes?.data?.data,
+      total_orders: ordersRes?.data?.data?.total || ordersRes?.data?.data?.data?.length || 0,
+    };
   });
 
 const useThreeFF = () =>
@@ -91,7 +97,8 @@ const useROB = () =>
 const useRecentOrders = () =>
   useFetch(async () => {
     const { data } = await fetchUser.get("my-orders?page=1");
-    return data?.data?.data?.slice(0, 5) || [];
+    const list = data?.data?.data?.slice(0, 5) || [];
+    return { orders: list, totalOrders: data?.data?.total || list.length };
   });
 
 const useCoupons = () =>
@@ -497,10 +504,11 @@ const ROBCard = () => {
 // ORDINI RECENTI
 // ═══════════════════════════════════════════════
 const RecentOrders = () => {
-  const { data: orders, loading } = useRecentOrders();
+  const { data: orderData, loading } = useRecentOrders();
+  const orders = orderData?.orders || [];
 
   if (loading) return <Skeleton height={200} variant="rounded" sx={{ borderRadius: 3 }} />;
-  if (!orders?.length) return null;
+  if (!orders.length) return null;
 
   return (
     <Card sx={{ ...cardSx, p: 2.5 }}>
