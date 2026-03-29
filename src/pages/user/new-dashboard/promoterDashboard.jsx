@@ -73,10 +73,10 @@ const useTicker = () => {
   }, []);
   return data;
 };
-const useTopPerformers = (sortBy = "gv") => useFetch(async () => {
-  const { data } = await axiosInstance.get(`api/wp/dashboard/top-performers?sort_by=${sortBy}`);
+const useTopPerformers = (sortBy = "gv", scope = "team") => useFetch(async () => {
+  const { data } = await axiosInstance.get(`api/wp/dashboard/top-performers?sort_by=${sortBy}&scope=${scope}`);
   return data?.data;
-}, [sortBy]);
+}, [sortBy, scope]);
 const useStats = () => useFetch(async () => {
   const { data } = await axiosInstance.get("api/wp/dashboard/stats");
   return data?.data;
@@ -512,20 +512,34 @@ const QuickAccess = () => {
 const MEDAL_COLORS = [ORO, "#A0A0A0", "#CD7F32"];
 const TopPerformers = () => {
   const [sortBy, setSortBy] = useState("gv");
-  const { data: top, loading } = useTopPerformers(sortBy);
+  const [scope, setScope] = useState("team");
+  const { data: top, loading } = useTopPerformers(sortBy, scope);
   const labels = { gv: "GV", pqv: "PQV", commissions: "EUR" };
   return (
     <Card sx={{ ...cardSx, p: 2.5, height: "100%" }}>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
-        <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT }}>Top Performer del Mese</Typography>
-        <Stack direction="row" spacing={0.5}>
+      <Stack spacing={1} mb={2}>
+        <Stack direction="row" alignItems="center" justifyContent="space-between">
+          <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT }}>Top Performer del Mese</Typography>
+          <Stack direction="row" spacing={0.5}>
+            {["team", "global"].map((s) => (
+              <Chip key={s} label={s === "team" ? "Il mio Team" : "Globale"} size="small"
+                onClick={() => setScope(s)}
+                sx={{ height: 22, fontSize: "0.6rem", fontWeight: 700, cursor: "pointer",
+                  bgcolor: scope === s ? alpha(ORO, 0.15) : "transparent",
+                  color: scope === s ? ORO : MUTED,
+                  border: `1px solid ${scope === s ? ORO : "#e0e0e0"}`,
+                }} />
+            ))}
+          </Stack>
+        </Stack>
+        <Stack direction="row" spacing={0.5} justifyContent="flex-end">
           {["gv", "pqv", "commissions"].map((s) => (
             <Chip key={s} label={s === "commissions" ? "Commissioni" : s.toUpperCase()} size="small"
               onClick={() => setSortBy(s)}
-              sx={{ height: 22, fontSize: "0.6rem", fontWeight: 700, cursor: "pointer",
-                bgcolor: sortBy === s ? alpha(ORO, 0.15) : "transparent",
-                color: sortBy === s ? ORO : MUTED,
-                border: `1px solid ${sortBy === s ? ORO : "#e0e0e0"}`,
+              sx={{ height: 20, fontSize: "0.55rem", fontWeight: 700, cursor: "pointer",
+                bgcolor: sortBy === s ? alpha("#607D8B", 0.12) : "transparent",
+                color: sortBy === s ? "#607D8B" : "#ccc",
+                border: `1px solid ${sortBy === s ? "#607D8B" : "#eee"}`,
               }} />
           ))}
         </Stack>
