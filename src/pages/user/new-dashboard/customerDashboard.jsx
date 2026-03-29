@@ -81,7 +81,7 @@ const useROB = () =>
 
 const useRecentOrders = () =>
   useFetch(async () => {
-    const { data } = await axiosInstance.get("api/user/online-store/my-orders", { params: { page: 1 } });
+    const { data } = await fetchUser.get("my-orders?page=1");
     return data?.data?.data?.slice(0, 5) || [];
   });
 
@@ -158,19 +158,10 @@ const HeroCard = () => {
             {fullName}
           </Typography>
           <Typography sx={{ fontSize: "0.8rem", color: WARM_GRAY, mt: 0.3 }}>
-            {t("evea.welcome_back_customer") || "Benvenuto nella tua area personale"}
+            Benvenuto nella tua area personale
           </Typography>
 
-          <Stack direction="row" spacing={3} mt={2.5}>
-            <Box sx={{ textAlign: "center", bgcolor: alpha("#fff", 0.6), borderRadius: 2, px: 3, py: 1.5 }}>
-              <Typography sx={{ fontSize: "1.3rem", fontWeight: 800, color: ORO }}>€{Number(wallet).toFixed(2)}</Typography>
-              <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>Wallet</Typography>
-            </Box>
-            <Box sx={{ textAlign: "center", bgcolor: alpha("#fff", 0.6), borderRadius: 2, px: 3, py: 1.5 }}>
-              <Typography sx={{ fontSize: "1.3rem", fontWeight: 800, color: ESPRESSO }}>{totalOrders}</Typography>
-              <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>{t("evea.total_orders") || "Ordini"}</Typography>
-            </Box>
-          </Stack>
+          {/* removed order count card — info is in Ordini Recenti section */}
         </Box>
       </Stack>
     </Card>
@@ -461,23 +452,33 @@ const RecentOrders = () => {
           Vedi tutti
         </Button>
       </Stack>
-      <Stack spacing={1}>
-        {orders.map((o) => {
+      <Stack spacing={0}>
+        {orders.map((o, idx) => {
           const status = (o.order_status || "").toLowerCase();
-          const statusColor = status === "finished" ? "#4CAF50" : status === "processing" ? "#FF9800" : "#999";
-          const statusLabel = status === "finished" ? "Completato" : status === "processing" ? "In corso" : status;
-          const date = o.created_at ? new Date(o.created_at).toLocaleDateString("it-IT", { day: "2-digit", month: "short" }) : "";
+          const statusColor = status === "finished" ? "#4CAF50" : status === "processing" ? "#FF9800" : status === "refunded" ? "#E24B4A" : "#999";
+          const statusLabel = status === "finished" ? "Completato" : status === "processing" ? "In lavorazione" : status === "refunded" ? "Rimborsato" : status === "cancelled" ? "Annullato" : status;
+          const date = o.created_at ? new Date(o.created_at).toLocaleDateString("it-IT", { day: "2-digit", month: "long", year: "numeric" }) : "";
+          const productName = o.product_name || o.purchase_product?.name || "";
+          const qty = o.quantity || 1;
           return (
-            <Stack key={o.id} direction="row" alignItems="center" spacing={1.5} sx={{ py: 1, borderBottom: "1px solid #f5f0e8" }}>
-              <Box sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: statusColor, flexShrink: 0 }} />
-              <Box sx={{ flex: 1, minWidth: 0 }}>
-                <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: ESPRESSO }} noWrap>
-                  {o.product_name || o.purchase_product?.name || `Ordine #${o.id}`}
-                </Typography>
-                <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>{date}</Typography>
+            <Stack key={o.id} direction="row" alignItems="center" spacing={2}
+              sx={{ py: 1.5, borderBottom: idx < orders.length - 1 ? "1px solid #f5f0e8" : "none", "&:hover": { bgcolor: alpha(ORO, 0.02) }, transition: "all 0.2s" }}>
+              <Box sx={{ width: 40, height: 40, borderRadius: 2, bgcolor: alpha(statusColor, 0.08), display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <Iconify icon={status === "finished" ? "mdi:check-circle-outline" : status === "processing" ? "mdi:clock-outline" : "mdi:package-variant"} width={20} sx={{ color: statusColor }} />
               </Box>
-              <Chip label={statusLabel} size="small" sx={{ height: 20, fontSize: "0.6rem", fontWeight: 600, bgcolor: alpha(statusColor, 0.1), color: statusColor }} />
-              <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>
+              <Box sx={{ flex: 1, minWidth: 0 }}>
+                <Typography sx={{ fontSize: "0.82rem", fontWeight: 600, color: ESPRESSO }} noWrap>
+                  {productName || `Ordine #${o.id}`}
+                </Typography>
+                <Stack direction="row" spacing={1} alignItems="center" mt={0.2}>
+                  <Typography sx={{ fontSize: "0.68rem", color: WARM_GRAY }}>{date}</Typography>
+                  {qty > 1 && <Typography sx={{ fontSize: "0.65rem", color: "#aaa" }}>x{qty}</Typography>}
+                  {o.wp_order_id && <Typography sx={{ fontSize: "0.6rem", color: "#ccc" }}>#{o.wp_order_id}</Typography>}
+                </Stack>
+              </Box>
+              <Chip label={statusLabel} size="small"
+                sx={{ height: 22, fontSize: "0.62rem", fontWeight: 700, bgcolor: alpha(statusColor, 0.1), color: statusColor, minWidth: 80 }} />
+              <Typography sx={{ fontSize: "0.95rem", fontWeight: 800, color: ESPRESSO, minWidth: 70, textAlign: "right" }}>
                 €{Number(o.price || o.total_amount || 0).toFixed(2)}
               </Typography>
             </Stack>

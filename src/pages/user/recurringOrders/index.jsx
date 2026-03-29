@@ -13,6 +13,7 @@ import DataHandlerList from "src/components/data-handler/list";
 import Map from "src/components/map";
 import PaginationButtons from "src/components/pagination";
 import axiosInstance from "src/utils/axios";
+import useAuth from "src/hooks/useAuth";
 // My Subscriptions (kit distributore)
 import useMySubFetch from "src/pages/user/subscriptions/components/content/hooks/useFetchSubscription";
 
@@ -285,6 +286,8 @@ const SealSection = () => {
 // MAIN PAGE — Seal + Internal subscriptions
 // ═══════════════════════════════════════
 const RecurringOrder = () => {
+  const { user } = useAuth();
+  const isPromoter = user?.is_promoter === 1;
   const { state: mySubState, fetchData: mySubFetch, ...mySubRest } = useMySubFetch();
   const { data: mySubData, ...mySubDataProps } = mySubState;
 
@@ -307,7 +310,8 @@ const RecurringOrder = () => {
         {/* Seal Subscriptions (Smartship) */}
         <SealSection />
 
-        {/* Kit Distributore (My Subscriptions) */}
+        {/* Kit Distributore (My Subscriptions) — only for promoters */}
+        {isPromoter && (<>
         <Divider sx={{ my: 2 }} />
         <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 2 }}>
           <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -355,6 +359,7 @@ const RecurringOrder = () => {
           />
         </DataHandlerList>
         <PaginationButtons {...mySubRest} />
+        </>)}
 
       </Box>
     </Page>
