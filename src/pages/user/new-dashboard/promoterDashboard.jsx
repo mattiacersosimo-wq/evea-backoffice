@@ -314,6 +314,7 @@ const CelebrationBanner = () => {
   const { data: ff } = useThreeFF();
   if (!ff) return null;
   if (Number(ff?.current_qualified_customer_count) < Number(ff?.required_customers || 3)) return null;
+  if (Number(ff?.current_bonus_amount || 0) <= 0) return null;
   return (
     <Box sx={{ bgcolor: alpha("#4CAF50", 0.08), border: `1px solid ${alpha("#4CAF50", 0.2)}`, borderRadius: 2, p: 2, display: "flex", alignItems: "center", gap: 1.5 }}>
       <Iconify icon="mdi:party-popper" width={24} sx={{ color: "#4CAF50" }} />
