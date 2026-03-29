@@ -454,32 +454,54 @@ const RecentOrders = () => {
       </Stack>
       <Stack spacing={0}>
         {orders.map((o, idx) => {
-          const status = (o.order_status || "").toLowerCase();
-          const statusColor = status === "finished" ? "#4CAF50" : status === "processing" ? "#FF9800" : status === "refunded" ? "#E24B4A" : "#999";
-          const statusLabel = status === "finished" ? "Completato" : status === "processing" ? "In lavorazione" : status === "refunded" ? "Rimborsato" : status === "cancelled" ? "Annullato" : status;
-          const date = o.created_at ? new Date(o.created_at).toLocaleDateString("it-IT", { day: "2-digit", month: "long", year: "numeric" }) : "";
-          const productName = o.product_name || o.purchase_product?.name || "";
-          const qty = o.quantity || 1;
+          const rawStatus = (o.active_status || o.order_status || "").toLowerCase();
+          const isPaid = rawStatus === "active" || rawStatus === "finished" || rawStatus === "completed";
+          const isProcessing = rawStatus === "processing" || rawStatus === "pending";
+          const isRefunded = rawStatus === "refunded" || rawStatus === "cancelled";
+          const statusColor = isPaid ? "#4CAF50" : isProcessing ? "#FF9800" : isRefunded ? "#E24B4A" : "#999";
+          const statusLabel = isPaid ? "Completato" : isProcessing ? "In lavorazione" : isRefunded ? "Rimborsato" : rawStatus || "—";
+          const date = (o.date || o.created_at) ? new Date(o.date || o.created_at).toLocaleDateString("it-IT", { day: "2-digit", month: "long", year: "numeric" }) : "";
+          const productName = o.user_purchase_products?.[0]?.product?.name || o.product_name || o.purchase_product?.name || "";
+          const productCount = parseInt(o.product_count || "1");
+          const invoiceId = o.invoice_id || "";
+          const paymentMethod = o.payment_type?.name || "";
+          const tracking = o.tracking_number || "";
+          const trackingUrl = o.tracking_url || "";
           return (
             <Stack key={o.id} direction="row" alignItems="center" spacing={2}
               sx={{ py: 1.5, borderBottom: idx < orders.length - 1 ? "1px solid #f5f0e8" : "none", "&:hover": { bgcolor: alpha(ORO, 0.02) }, transition: "all 0.2s" }}>
               <Box sx={{ width: 40, height: 40, borderRadius: 2, bgcolor: alpha(statusColor, 0.08), display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <Iconify icon={status === "finished" ? "mdi:check-circle-outline" : status === "processing" ? "mdi:clock-outline" : "mdi:package-variant"} width={20} sx={{ color: statusColor }} />
+                <Iconify icon={isPaid ? "mdi:check-circle-outline" : isProcessing ? "mdi:clock-outline" : "mdi:package-variant"} width={20} sx={{ color: statusColor }} />
               </Box>
               <Box sx={{ flex: 1, minWidth: 0 }}>
-                <Typography sx={{ fontSize: "0.82rem", fontWeight: 600, color: ESPRESSO }} noWrap>
-                  {productName || `Ordine #${o.id}`}
-                </Typography>
-                <Stack direction="row" spacing={1} alignItems="center" mt={0.2}>
-                  <Typography sx={{ fontSize: "0.68rem", color: WARM_GRAY }}>{date}</Typography>
-                  {qty > 1 && <Typography sx={{ fontSize: "0.65rem", color: "#aaa" }}>x{qty}</Typography>}
-                  {o.wp_order_id && <Typography sx={{ fontSize: "0.6rem", color: "#ccc" }}>#{o.wp_order_id}</Typography>}
+                <Stack direction="row" alignItems="center" spacing={0.5}>
+                  <Typography sx={{ fontSize: "0.82rem", fontWeight: 600, color: ESPRESSO }} noWrap>
+                    {productName || `Ordine #${o.id}`}
+                  </Typography>
+                  {productCount > 1 && (
+                    <Chip label={`+${productCount - 1}`} size="small" sx={{ height: 18, fontSize: "0.6rem", bgcolor: alpha(ORO, 0.1), color: ORO }} />
+                  )}
                 </Stack>
+                <Stack direction="row" spacing={1} alignItems="center" mt={0.3}>
+                  <Typography sx={{ fontSize: "0.68rem", color: WARM_GRAY }}>{date}</Typography>
+                  {invoiceId && <Typography sx={{ fontSize: "0.62rem", color: "#bbb" }}>#{invoiceId}</Typography>}
+                  {paymentMethod && <Typography sx={{ fontSize: "0.62rem", color: "#bbb" }}>{paymentMethod}</Typography>}
+                </Stack>
+                {tracking && (
+                  <Stack direction="row" alignItems="center" spacing={0.5} mt={0.3}>
+                    <Iconify icon="mdi:truck-outline" width={14} sx={{ color: "#4CAF50" }} />
+                    {trackingUrl ? (
+                      <a href={trackingUrl} target="_blank" rel="noreferrer" style={{ fontSize: "0.65rem", color: ORO, fontWeight: 600, textDecoration: "none" }}>{tracking}</a>
+                    ) : (
+                      <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>{tracking}</Typography>
+                    )}
+                  </Stack>
+                )}
               </Box>
               <Chip label={statusLabel} size="small"
-                sx={{ height: 22, fontSize: "0.62rem", fontWeight: 700, bgcolor: alpha(statusColor, 0.1), color: statusColor, minWidth: 80 }} />
-              <Typography sx={{ fontSize: "0.95rem", fontWeight: 800, color: ESPRESSO, minWidth: 70, textAlign: "right" }}>
-                €{Number(o.price || o.total_amount || 0).toFixed(2)}
+                sx={{ height: 22, fontSize: "0.62rem", fontWeight: 700, bgcolor: alpha(statusColor, 0.1), color: statusColor, minWidth: 85 }} />
+              <Typography sx={{ fontSize: "0.95rem", fontWeight: 800, color: ESPRESSO, minWidth: 75, textAlign: "right" }}>
+                €{Number(o.total_amount || o.price || 0).toFixed(2)}
               </Typography>
             </Stack>
           );
