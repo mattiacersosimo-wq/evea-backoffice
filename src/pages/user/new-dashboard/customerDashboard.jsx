@@ -40,6 +40,15 @@ const cardSx = {
   flexDirection: "column",
 };
 
+// ── Badge config ──
+const BADGES = [
+  { key: "bronze", name: "Bronze Ambassador", icon: "mdi:shield-outline", color: "#CD7F32", requirement: (d) => d.hasFirstOrder, tooltip: "Completa il tuo primo ordine" },
+  { key: "silver", name: "Silver Ambassador", icon: "mdi:shield-half-full", color: "#C0C0C0", requirement: (d) => d.consecutiveMonths >= 3, tooltip: "Mantieni lo smartship attivo per 3 mesi consecutivi" },
+  { key: "platinum", name: "Platinum Ambassador", icon: "mdi:lightning-bolt", color: "#8B7FC7", requirement: (d) => d.consecutiveMonths >= 6 && d.friendsInvited >= 1, tooltip: "6 mesi consecutivi di smartship + invita 1 amico" },
+  { key: "gold", name: "Gold Ambassador", icon: "mdi:trophy", color: "#FFD700", requirement: (d) => d.consecutiveMonths >= 12 && d.friendsInvited >= 3, tooltip: "12 mesi consecutivi + invita 3 amici (3 For Free)" },
+  { key: "legend", name: "Legend Ambassador", icon: "mdi:diamond-stone", color: "#00BCD4", requirement: (d) => d.consecutiveMonths >= 24 && d.friendsInvited >= 5, tooltip: "24 mesi consecutivi + invita 5 amici" },
+];
+
 // ── Data hooks ──
 const useFetch = (fetcher) => {
   const [data, setData] = useState(null);
@@ -95,17 +104,26 @@ const useCoupons = () =>
 // HERO — clean customer card, no rank/progress
 // ═══════════════════════════════════════════════
 const HeroCard = () => {
-  const { t } = useTranslation();
   const { user } = useAuth();
   const { data: hero } = useHero();
+  const { data: ff } = useThreeFF();
+  const { data: rob } = useROB();
 
   const profile = user?.user_profile || {};
   const fullName =
     [profile.first_name, profile.last_name].filter(Boolean).join(" ") ||
     user?.username || "";
 
-  const wallet = hero?.wallet_balance ?? user?.balance_amount ?? 0;
-  const totalOrders = hero?.total_orders ?? 0;
+  // Badge data
+  const consecutiveMonths = rob?.current_consecutive_months || 0;
+  const friendsInvited = ff?.current_qualified_customer_count || 0;
+  const hasFirstOrder = (hero?.total_orders ?? 0) > 0;
+  const badgeData = { hasFirstOrder, consecutiveMonths, friendsInvited };
+
+  // Find current badge
+  let currentBadgeIndex = -1;
+  BADGES.forEach((b, i) => { if (b.requirement(badgeData)) currentBadgeIndex = i; });
+  const currentBadge = currentBadgeIndex >= 0 ? BADGES[currentBadgeIndex] : null;
 
   return (
     <Card
@@ -119,17 +137,7 @@ const HeroCard = () => {
         border: `1px solid ${alpha(ORO, 0.2)}`,
       }}
     >
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: -30,
-          right: -30,
-          width: 120,
-          height: 120,
-          borderRadius: "50%",
-          bgcolor: alpha(ORO, 0.08),
-        }}
-      />
+      <Box sx={{ position: "absolute", bottom: -30, right: -30, width: 120, height: 120, borderRadius: "50%", bgcolor: alpha(ORO, 0.08) }} />
 
       <Stack
         direction={{ xs: "column", sm: "row" }}
@@ -140,28 +148,83 @@ const HeroCard = () => {
         <Avatar
           src={profile.profile_image}
           sx={{
-            width: 80,
-            height: 80,
-            border: `3px solid ${alpha(ORO, 0.3)}`,
-            bgcolor: alpha(ORO, 0.15),
-            color: ORO,
-            fontSize: 32,
-            fontWeight: 700,
-            boxShadow: `0 0 0 6px ${alpha(ORO, 0.1)}`,
+            width: 80, height: 80,
+            border: `3px solid ${alpha(currentBadge?.color || ORO, 0.4)}`,
+            bgcolor: alpha(currentBadge?.color || ORO, 0.15),
+            color: currentBadge?.color || ORO,
+            fontSize: 32, fontWeight: 700,
+            boxShadow: `0 0 0 6px ${alpha(currentBadge?.color || ORO, 0.1)}`,
           }}
         >
           {fullName.charAt(0).toUpperCase()}
         </Avatar>
 
         <Box sx={{ flex: 1, width: "100%" }}>
-          <Typography variant="h5" fontWeight={700} sx={{ color: ESPRESSO }}>
-            {fullName}
-          </Typography>
+          <Stack direction="row" alignItems="center" spacing={1.5}>
+            <Typography variant="h5" fontWeight={700} sx={{ color: ESPRESSO }}>
+              {fullName}
+            </Typography>
+            {currentBadge && (
+              <Chip
+                label={currentBadge.name}
+                size="small"
+                icon={<Iconify icon={currentBadge.icon} width={16} sx={{ color: `${currentBadge.color} !important` }} />}
+                sx={{
+                  bgcolor: alpha(currentBadge.color, 0.12),
+                  color: currentBadge.color,
+                  fontWeight: 700,
+                  fontSize: "0.7rem",
+                  height: 26,
+                  border: `1px solid ${alpha(currentBadge.color, 0.3)}`,
+                }}
+              />
+            )}
+          </Stack>
           <Typography sx={{ fontSize: "0.8rem", color: WARM_GRAY, mt: 0.3 }}>
             Benvenuto nella tua area personale
           </Typography>
 
-          {/* removed order count card — info is in Ordini Recenti section */}
+          {/* Badge row */}
+          <Stack direction="row" spacing={1.5} mt={2.5}>
+            {BADGES.map((badge, i) => {
+              const unlocked = badge.requirement(badgeData);
+              const isCurrent = i === currentBadgeIndex;
+              return (
+                <Tooltip
+                  key={badge.key}
+                  arrow
+                  title={
+                    <Box sx={{ p: 0.5 }}>
+                      <Typography sx={{ fontWeight: 700, fontSize: "0.8rem" }}>{badge.name}</Typography>
+                      <Typography sx={{ fontSize: "0.72rem", mt: 0.3 }}>
+                        {unlocked ? "✓ Sbloccato!" : badge.tooltip}
+                      </Typography>
+                    </Box>
+                  }
+                >
+                  <Box sx={{
+                    width: 44, height: 44, borderRadius: "50%",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    transition: "all 0.3s",
+                    cursor: "pointer",
+                    ...(unlocked ? {
+                      bgcolor: alpha(badge.color, 0.15),
+                      border: `2px solid ${badge.color}`,
+                      boxShadow: isCurrent ? `0 0 12px ${alpha(badge.color, 0.4)}` : "none",
+                    } : {
+                      bgcolor: "#f0ece6",
+                      border: "2px solid #e0d8cc",
+                      opacity: 0.4,
+                    }),
+                    "&:hover": { opacity: 1, transform: "scale(1.1)" },
+                  }}>
+                    <Iconify icon={badge.icon} width={22}
+                      sx={{ color: unlocked ? badge.color : "#bbb" }} />
+                  </Box>
+                </Tooltip>
+              );
+            })}
+          </Stack>
         </Box>
       </Stack>
     </Card>
@@ -454,12 +517,12 @@ const RecentOrders = () => {
       </Stack>
       <Stack spacing={0}>
         {orders.map((o, idx) => {
-          const rawStatus = (o.active_status || o.order_status || "").toLowerCase();
-          const isPaid = rawStatus === "active" || rawStatus === "finished" || rawStatus === "completed";
+          const rawStatus = (o.active_status || o.order_status || o.status || "").toLowerCase();
+          const isPaid = rawStatus === "active" || rawStatus === "finished" || rawStatus === "completed" || rawStatus === "";
           const isProcessing = rawStatus === "processing" || rawStatus === "pending";
           const isRefunded = rawStatus === "refunded" || rawStatus === "cancelled";
-          const statusColor = isPaid ? "#4CAF50" : isProcessing ? "#FF9800" : isRefunded ? "#E24B4A" : "#999";
-          const statusLabel = isPaid ? "Completato" : isProcessing ? "In lavorazione" : isRefunded ? "Rimborsato" : rawStatus || "—";
+          const statusColor = isPaid ? "#4CAF50" : isProcessing ? "#FF9800" : isRefunded ? "#E24B4A" : "#4CAF50";
+          const statusLabel = isPaid ? "Completato" : isProcessing ? "In lavorazione" : isRefunded ? "Rimborsato" : "Completato";
           const date = (o.date || o.created_at) ? new Date(o.date || o.created_at).toLocaleDateString("it-IT", { day: "2-digit", month: "long", year: "numeric" }) : "";
           const productName = o.user_purchase_products?.[0]?.product?.name || o.product_name || o.purchase_product?.name || "";
           const productCount = parseInt(o.product_count || "1");
