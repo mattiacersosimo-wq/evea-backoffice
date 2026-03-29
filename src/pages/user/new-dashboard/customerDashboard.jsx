@@ -254,7 +254,7 @@ const Ticker = () => {
   return (
     <Box sx={{
       overflow: "hidden", bgcolor: alpha(ORO, 0.06), borderRadius: 2,
-      border: `1px solid ${alpha(ORO, 0.12)}`, py: 1, mt: 2,
+      border: `1px solid ${alpha(ORO, 0.12)}`, py: 1.8, mt: 2,
     }}>
       <Box sx={{
         display: "flex", whiteSpace: "nowrap",
@@ -266,7 +266,7 @@ const Ticker = () => {
       }}>
         {doubled.map((msg, i) => (
           <Typography key={i} component="span" sx={{
-            fontSize: "0.78rem", fontWeight: 600, color: ESPRESSO,
+            fontSize: "0.92rem", fontWeight: 600, color: ESPRESSO,
             mx: 4, flexShrink: 0,
           }}>
             {msg}
