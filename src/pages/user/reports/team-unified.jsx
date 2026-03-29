@@ -1,6 +1,6 @@
-import { Box, Card, Chip, CircularProgress, Collapse, Grid, IconButton, LinearProgress, MenuItem, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Button, Card, Chip, CircularProgress, Collapse, Grid, IconButton, LinearProgress, Link, MenuItem, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, Tooltip, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import axiosInstance from "src/utils/axios";
@@ -43,6 +43,7 @@ const COLUMNS = [
   { id: "revenue", label: "Revenue", labelEn: "Revenue", width: 80, numeric: true },
   { id: "smartship", label: "SS", labelEn: "SS", width: 50 },
   { id: "last_order", label: "Ultimo ordine", labelEn: "Last order", width: 100 },
+  { id: "action", label: "", labelEn: "", width: 40, noSort: true },
 ];
 
 const TeamUnified = () => {
@@ -54,16 +55,33 @@ const TeamUnified = () => {
   const [search, setSearch] = useState("");
   const [orderBy, setOrderBy] = useState("level");
   const [order, setOrder] = useState("asc");
+  const [viewAs, setViewAs] = useState(null);
+  const [breadcrumb, setBreadcrumb] = useState([]);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data: r } = await axiosInstance.get("api/wp/reports/team-unified");
-        setData(r?.data || []);
-      } catch { /* silent */ }
-      setLoading(false);
-    })();
+  const fetchData = useCallback(async (userId) => {
+    setLoading(true);
+    try {
+      const url = userId ? `api/wp/reports/team-unified?view_as=${userId}` : "api/wp/reports/team-unified";
+      const { data: r } = await axiosInstance.get(url);
+      setData(r?.data || []);
+      setBreadcrumb(r?.breadcrumb || []);
+    } catch (e) { /* silent */ }
+    setLoading(false);
   }, []);
+
+  useEffect(() => { fetchData(viewAs); }, [viewAs, fetchData]);
+
+  const handleViewTeam = (userId) => {
+    setViewAs(userId);
+    setSearch("");
+    setFilter("all");
+    setExpanded(null);
+  };
+
+  const handleBreadcrumb = (userId) => {
+    if (!userId) { setViewAs(null); setBreadcrumb([]); }
+    else setViewAs(userId);
+  };
 
   const handleSort = (col) => {
     if (orderBy === col) {
@@ -117,6 +135,34 @@ const TeamUnified = () => {
 
   return (
     <Stack spacing={2}>
+      {/* Breadcrumb navigation */}
+      {breadcrumb.length > 1 && (
+        <Card sx={{ p: 1.5, borderRadius: 2, border: "1px solid #f0ece6" }}>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Iconify icon="mdi:account-supervisor" width={20} sx={{ color: ORO }} />
+            <Breadcrumbs separator="›" sx={{ "& .MuiBreadcrumbs-separator": { color: "#ccc" } }}>
+              {breadcrumb.map((b, i) => {
+                const isLast = i === breadcrumb.length - 1;
+                return isLast ? (
+                  <Typography key={b.user_id} sx={{ fontSize: "0.82rem", fontWeight: 700, color: ORO }}>{b.username}</Typography>
+                ) : (
+                  <Link key={b.user_id} underline="hover" sx={{ fontSize: "0.82rem", fontWeight: 600, color: ESPRESSO, cursor: "pointer" }}
+                    onClick={() => handleBreadcrumb(i === 0 ? null : b.user_id)}>
+                    {i === 0 ? (isIt ? "Il mio team" : "My team") : b.username}
+                  </Link>
+                );
+              })}
+            </Breadcrumbs>
+            <Box sx={{ flex: 1 }} />
+            <Button size="small" startIcon={<Iconify icon="mdi:arrow-left" width={16} />}
+              onClick={() => handleBreadcrumb(null)}
+              sx={{ textTransform: "none", fontSize: "0.75rem", color: ESPRESSO }}>
+              {isIt ? "Torna al mio team" : "Back to my team"}
+            </Button>
+          </Stack>
+        </Card>
+      )}
+
       {/* Mini-card riepilogo */}
       <Grid container spacing={1.5}>
         {[
@@ -182,9 +228,11 @@ const TeamUnified = () => {
               {COLUMNS.map((col) => (
                 <TableCell key={col.id} sx={{ fontWeight: 700, fontSize: "0.7rem", color: "#7A6A5C", bgcolor: "#fafafa", width: col.width, whiteSpace: "nowrap" }}
                   align={col.numeric ? "right" : "left"}>
-                  <TableSortLabel active={orderBy === col.id} direction={orderBy === col.id ? order : "asc"} onClick={() => handleSort(col.id)}>
-                    {isIt ? col.label : col.labelEn}
-                  </TableSortLabel>
+                  {col.noSort ? (isIt ? col.label : col.labelEn) : (
+                    <TableSortLabel active={orderBy === col.id} direction={orderBy === col.id ? order : "asc"} onClick={() => handleSort(col.id)}>
+                      {isIt ? col.label : col.labelEn}
+                    </TableSortLabel>
+                  )}
                 </TableCell>
               ))}
             </TableRow>
@@ -220,10 +268,20 @@ const TeamUnified = () => {
                     {m.last_order ? new Date(m.last_order).toLocaleDateString("it-IT", { day: "2-digit", month: "short" }) : "—"}
                     {m.days_inactive > 0 && <span style={{ fontSize: "0.6rem", marginLeft: 4 }}>({m.days_inactive}d)</span>}
                   </TableCell>
+                  <TableCell sx={{ width: 40, p: 0.5 }}>
+                    {m.type === "promoter" && (
+                      <Tooltip title={isIt ? "Vedi il suo team" : "View their team"}>
+                        <IconButton size="small" onClick={(e) => { e.stopPropagation(); handleViewTeam(m.user_id); }}
+                          sx={{ color: ORO, "&:hover": { bgcolor: alpha(ORO, 0.1) } }}>
+                          <Iconify icon="mdi:account-arrow-right" width={18} />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                  </TableCell>
                 </TableRow>
                 {/* Expanded detail row */}
                 <TableRow>
-                  <TableCell colSpan={11} sx={{ p: 0, border: 0 }}>
+                  <TableCell colSpan={12} sx={{ p: 0, border: 0 }}>
                     <Collapse in={expanded === m.user_id} unmountOnExit>
                       <Box sx={{ p: 2, bgcolor: "#fafafa", borderBottom: "1px solid #eee" }}>
                         <Grid container spacing={2}>
@@ -277,7 +335,7 @@ const TeamUnified = () => {
               </React.Fragment>
             ))}
             {filtered.length === 0 && (
-              <TableRow><TableCell colSpan={11} sx={{ textAlign: "center", py: 4, color: "#aaa" }}>{isIt ? "Nessun risultato" : "No results"}</TableCell></TableRow>
+              <TableRow><TableCell colSpan={12} sx={{ textAlign: "center", py: 4, color: "#aaa" }}>{isIt ? "Nessun risultato" : "No results"}</TableCell></TableRow>
             )}
           </TableBody>
         </Table>
