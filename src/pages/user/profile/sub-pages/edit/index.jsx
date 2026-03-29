@@ -153,6 +153,8 @@ const EditInfo = () => {
                                 }}
                             />
 
+                            {user?.is_promoter === 1 && (
+                            <>
                             <RHFSelect
                                 name="regime_fiscale"
                                 label="Regime Fiscale"
@@ -178,6 +180,8 @@ const EditInfo = () => {
                                 Se hai Partita IVA, compila anche Partita IVA, Codice SDI e
                                 PEC per la fatturazione elettronica
                             </Typography>
+                            </>
+                            )}
 
                             <RHFTextField
                                 name="email"

@@ -30,6 +30,7 @@ const TABS = [
     href: "payout",
     is_holding: false,
     isKyc: false,
+    promoterOnly: true,
   },
   {
     label: "kyc",
@@ -46,6 +47,7 @@ const TABS = [
     name: "tesserino",
     is_holding: false,
     isKyc: false,
+    promoterOnly: true,
   },
   {
     label: "Documenti & Compliance",
@@ -54,6 +56,7 @@ const TABS = [
     name: "documenti",
     is_holding: false,
     isKyc: false,
+    promoterOnly: true,
   },
 ];
 

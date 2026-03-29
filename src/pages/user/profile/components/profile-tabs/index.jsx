@@ -27,7 +27,7 @@ const ProfileTabs = () => {
         style={{ width: "85%" }}
       >
         {TABS.map((tab) => {
-          const { icon, name, label, href, is_holding, isKyc } = tab;
+          const { icon, name, label, href, is_holding, isKyc, promoterOnly } = tab;
           if (is_holding) {
             if (isHoldingTank) return;
           }
@@ -36,6 +36,10 @@ const ProfileTabs = () => {
             if (config?.kyc_enable?.status === false) {
               return null;
             }
+          }
+
+          if (promoterOnly && user?.is_promoter !== 1) {
+            return null;
           }
           return (
             <Tab
