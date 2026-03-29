@@ -158,6 +158,7 @@ var PendingCommissions = function () {
   var onChange = hookResult.onChange;
   var page = hookResult.page;
   var rowStart = hookResult.rowStart;
+  var globalStats = hookResult.globalStats;
 
   var data = state.data;
   var loading = state.loading;
@@ -170,13 +171,11 @@ var PendingCommissions = function () {
   };
 
   var stats = useMemo(function () {
-    if (!data || data.length === 0) return { totale: 0, count: 0 };
-    var totale = 0;
-    for (var i = 0; i < data.length; i++) {
-      totale += parseFloat(data[i].total_amount) || 0;
-    }
-    return { totale: totale, count: data.length };
-  }, [data]);
+    return {
+      totale: globalStats.total || 0,
+      count: globalStats.count || 0,
+    };
+  }, [globalStats]);
 
   return (
     <div>
