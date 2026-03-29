@@ -239,6 +239,45 @@ const HeroCard = () => {
 };
 
 // ═══════════════════════════════════════════════
+// TICKER SCORREVOLE
+// ═══════════════════════════════════════════════
+const TICKER_MESSAGES = [
+  "🚚 Spedizione gratuita a partire da €97 di acquisti",
+  "💰 -10% su ogni ordine con lo Smartship attivo",
+  "🎁 Invita 3 amici e guadagna fino a €81 di bonus",
+  "🎟️ Coupon €30 ogni 3 consegne consecutive",
+  "☕ Scopri i nostri prodotti wellness su myevea.com",
+];
+
+const Ticker = () => {
+  const doubled = [...TICKER_MESSAGES, ...TICKER_MESSAGES];
+  return (
+    <Box sx={{
+      overflow: "hidden", bgcolor: alpha(ORO, 0.06), borderRadius: 2,
+      border: `1px solid ${alpha(ORO, 0.12)}`, py: 1, mt: 2,
+    }}>
+      <Box sx={{
+        display: "flex", whiteSpace: "nowrap",
+        animation: "tickerScroll 30s linear infinite",
+        "@keyframes tickerScroll": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+      }}>
+        {doubled.map((msg, i) => (
+          <Typography key={i} component="span" sx={{
+            fontSize: "0.78rem", fontWeight: 600, color: ESPRESSO,
+            mx: 4, flexShrink: 0,
+          }}>
+            {msg}
+          </Typography>
+        ))}
+      </Box>
+    </Box>
+  );
+};
+
+// ═══════════════════════════════════════════════
 // INVITA 3 AMICI (3FF) with tooltip
 // ═══════════════════════════════════════════════
 const ThreeFFCard = () => {
@@ -640,6 +679,7 @@ const UserDashboard = () => {
     <Page title="Dashboard">
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4 }}>
         <HeroCard />
+        <Ticker />
 
         {/* Loyalty Discount Banner */}
         {(() => {
