@@ -15,6 +15,7 @@ import {
 import { alpha } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
