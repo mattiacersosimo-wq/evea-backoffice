@@ -116,6 +116,7 @@ const useGetProductById = () => {
         // }
       } catch (err) {
         enqueueSnackbar("Failed to load data", { variant: "error" });
+        console.error(err);
       }
     };
 

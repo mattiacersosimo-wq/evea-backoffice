@@ -77,6 +77,7 @@ const useFetchEventData = () => {
             time,
           });
       } catch (err) {
+        console.log(err);
       }
     };
     if (eid) fetchData(eid);

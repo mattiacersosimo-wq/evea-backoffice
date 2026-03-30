@@ -67,6 +67,7 @@ const useGetSubscriptionById = () => {
         });
       }
     } catch (err) {
+      console.error(err);
       enqueueSnackbar(err.message, { variant: "error" });
     }
   };

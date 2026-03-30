@@ -21,6 +21,7 @@ export default function CalendarForm({ event }) {
     zoom_password,
   } = event;
 
+  // console.log(event);
 
   // const clientDateTine = getClientTime(converted_date_in_utc);
 
