@@ -1149,8 +1149,10 @@ const PromoterDashboard = () => {
             );
           })()}
 
-          <UrgencyAlert />
-          <GoalSetter />
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6}><UrgencyAlert /></Grid>
+            <Grid item xs={12} md={6}><GoalSetter /></Grid>
+          </Grid>
           <CelebrationBanner />
 
           <Section icon="mdi:cash-multiple">{t("evea.earnings")}</Section>
