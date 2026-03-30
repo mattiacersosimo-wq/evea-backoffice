@@ -688,16 +688,16 @@ const UserDashboard = () => {
                   <Iconify icon="mdi:pause-circle-outline" width={24} sx={{ color: "#F57F17" }} />
                   <Box>
                     <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: "#E65100" }}>
-                      {t("evea.loyalty_paused") || "Smartship in pausa — lo sconto del 10% è sospeso"}
+                      Smartship in pausa — lo sconto del 10% è sospeso
                     </Typography>
                     <Typography sx={{ fontSize: "0.75rem", color: "#BF360C" }}>
-                      {t("evea.loyalty_paused_sub") || "Riprendi il tuo abbonamento per continuare a risparmiare"}
+                      Riprendi il tuo abbonamento per continuare a risparmiare
                     </Typography>
                   </Box>
                 </Stack>
                 <Button size="small" variant="contained" href="/user/recurring-orders"
                   sx={{ bgcolor: "#F57F17", "&:hover": { bgcolor: "#E65100" }, textTransform: "none", fontWeight: 700, borderRadius: 2 }}>
-                  {t("evea.resume_now") || "Riprendi"}
+                  Riprendi
                 </Button>
               </Box>
             );
