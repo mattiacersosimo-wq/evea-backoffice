@@ -678,16 +678,40 @@ const UserDashboard = () => {
 
         {/* Loyalty Discount Banner */}
         {(() => {
-          const hasDiscount = user?.has_smartship_discount === 1 || user?.is_smartship_customer === 1;
+          const smartshipStatus = hero?.smartship_status || "none";
+          const hasDiscount = smartshipStatus === "active" || (user?.has_smartship_discount === 1 && smartshipStatus !== "paused");
+
+          if (smartshipStatus === "paused") {
+            return (
+              <Box sx={{ bgcolor: "#FFF8E1", border: "1px solid #F9A825", borderRadius: 3, p: 2, mt: 2, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <Stack direction="row" alignItems="center" spacing={1.5}>
+                  <Iconify icon="mdi:pause-circle-outline" width={24} sx={{ color: "#F57F17" }} />
+                  <Box>
+                    <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: "#E65100" }}>
+                      {t("evea.loyalty_paused") || "Smartship in pausa — lo sconto del 10% è sospeso"}
+                    </Typography>
+                    <Typography sx={{ fontSize: "0.75rem", color: "#BF360C" }}>
+                      {t("evea.loyalty_paused_sub") || "Riprendi il tuo abbonamento per continuare a risparmiare"}
+                    </Typography>
+                  </Box>
+                </Stack>
+                <Button size="small" variant="contained" href="/user/recurring-orders"
+                  sx={{ bgcolor: "#F57F17", "&:hover": { bgcolor: "#E65100" }, textTransform: "none", fontWeight: 700, borderRadius: 2 }}>
+                  {t("evea.resume_now") || "Riprendi"}
+                </Button>
+              </Box>
+            );
+          }
+
           return hasDiscount ? (
             <Box sx={{ bgcolor: "#EAF3DE", border: "1px solid #4A5C3A", borderRadius: 3, p: 2, mt: 2, display: "flex", alignItems: "center", gap: 1.5 }}>
               <Iconify icon="mdi:check-circle" width={24} sx={{ color: "#4A5C3A" }} />
               <Box>
                 <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: "#27500A" }}>
-                  {t("evea.loyalty_active") || "Sconto Fedeltà attivo! -10% su ogni ordine"}
+                  {t("evea.loyalty_active") || "Sconto Fedeltà attivo — 10% su tutti i tuoi acquisti"}
                 </Typography>
                 <Typography sx={{ fontSize: "0.75rem", color: "#4A5C3A" }}>
-                  {t("evea.loyalty_active_sub") || "Continua a ordinare per mantenere lo sconto"}
+                  {t("evea.loyalty_active_sub") || "Mantieni il tuo smartship attivo per continuare a risparmiare"}
                 </Typography>
               </Box>
             </Box>
@@ -697,10 +721,10 @@ const UserDashboard = () => {
                 <Iconify icon="mdi:tag-heart-outline" width={24} sx={{ color: ORO }} />
                 <Box>
                   <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: ESPRESSO }}>
-                    {t("evea.loyalty_inactive") || "Attiva lo Smartship per ottenere -10% su tutti gli ordini"}
+                    {t("evea.loyalty_inactive") || "Attiva lo Smartship per ottenere il 10% su tutti i tuoi ordini"}
                   </Typography>
                   <Typography sx={{ fontSize: "0.75rem", color: WARM_GRAY }}>
-                    {t("evea.loyalty_inactive_sub") || "Abbonati ora e risparmia su ogni consegna"}
+                    {t("evea.loyalty_inactive_sub") || "Abbonati ora e risparmia su ogni acquisto"}
                   </Typography>
                 </Box>
               </Stack>
