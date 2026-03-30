@@ -613,9 +613,8 @@ const RecentOrders = ({ orders = [], loading = false }) => {
 // ═══════════════════════════════════════════════
 // COUPON
 // ═══════════════════════════════════════════════
-const CouponsSection = () => {
+const CouponsSection = ({ coupons, loading }) => {
   const { t } = useTranslation();
-  const { data: coupons, loading } = useCoupons();
 
   if (loading) return (
     <Grid container spacing={2}>
@@ -668,6 +667,7 @@ const UserDashboard = () => {
   const { data: ff, loading: ffLoading } = useThreeFF();
   const { data: rob, loading: robLoading } = useROB();
   const { data: orderData, loading: ordersLoading } = useRecentOrders();
+  const { data: coupons, loading: couponsLoading } = useCoupons();
   const orders = orderData?.orders || [];
   const totalOrders = orderData?.totalOrders || 0;
   return (
@@ -733,7 +733,7 @@ const UserDashboard = () => {
               {t("evea.your_rewards") || "I tuoi premi"}
             </Typography>
           </Stack>
-          <CouponsSection />
+          <CouponsSection coupons={coupons} loading={couponsLoading} />
         </Box>
       </Box>
     </Page>

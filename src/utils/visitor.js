@@ -4,9 +4,6 @@ import { REACT_APP_ENABLE_VISITOR_HOST } from "../config";
 
 const visitorServer = axios.create({
   baseURL: REACT_APP_ENABLE_VISITOR_HOST,
-  headers: {
-    "Content-Type": "multipart/form-data",
-  },
 });
 
 // visitorServer.interceptors.response.use(
@@ -35,7 +32,6 @@ visitorServer.interceptors.request.use(function (config) {
   const token = localStorage.getItem("accessToken");
   config.headers["Accept-Language"] = i18n.language;
   if (token) {
-    config.headers["Content-Type"] = "application/x-www-form-urlencoded";
     config.headers.Authorization = "Bearer " + token;
   }
 

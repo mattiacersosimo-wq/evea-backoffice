@@ -39,7 +39,7 @@ const useMyOrders = (filter) => {
       start_date: serializeDate(start_date),
       end_date: serializeDate(end_date),
     });
-  }, [page]);
+  }, [page, filter]);
 
   return { state, fetchData, count, onChange, page, rowStart };
 };

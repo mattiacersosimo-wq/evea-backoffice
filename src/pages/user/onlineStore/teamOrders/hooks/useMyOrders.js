@@ -9,7 +9,7 @@ const useMyOrders = (filter) => {
   const { count, onChange, page, seed, rowStart } = usePagination();
   const fetchData = async (page = 1, filter) => {
     try {
-      const { data } = await axiosInstance.get(`my-team-orders?page=${page}`, {
+      const { data } = await axiosInstance.get(`my-team-orders`, {
         params: { page, ...filter },
       });
       const { status, data: report } = data;
@@ -35,7 +35,7 @@ const useMyOrders = (filter) => {
       start_date: serializeDate(start_date),
       end_date: serializeDate(end_date),
     });
-  }, [page]);
+  }, [page, filter]);
 
   return { state, fetchData, count, onChange, page, rowStart };
 };

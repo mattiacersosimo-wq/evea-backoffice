@@ -45,7 +45,7 @@ const useApproval = (filter) => {
       start_date: serializeDate(start_date),
       end_date: serializeDate(end_date),
     });
-  }, [page]);
+  }, [page, filter]);
 
   return { state, fetchData, rowStart, count, onChange, page };
 };

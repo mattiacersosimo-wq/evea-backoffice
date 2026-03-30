@@ -3,9 +3,6 @@ import { buildApiUrl } from "src/config";
 
 const fetchUser = axios.create({
     baseURL: buildApiUrl("api/user"),
-    headers: {
-        "Content-Type": "multipart/form-data",
-    },
 });
 
 fetchUser.interceptors.response.use(
@@ -27,7 +24,6 @@ fetchUser.interceptors.response.use(
 fetchUser.interceptors.request.use(function (config) {
     const token = localStorage.getItem("accessToken");
     if (token) {
-        config.headers["Content-Type"] = "application/x-www-form-urlencoded";
         config.headers.Authorization = "Bearer " + token;
     }
     return config;

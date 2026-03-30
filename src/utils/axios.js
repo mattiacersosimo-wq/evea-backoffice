@@ -5,9 +5,6 @@ import { clearSession, setSession } from "./jwt";
 
 const axiosInstance = axios.create({
   baseURL: HOST_API,
-  headers: {
-    "Content-Type": "multipart/form-data",
-  },
 });
 
 let isRefreshing = false;
@@ -83,7 +80,6 @@ axiosInstance.interceptors.request.use(function (config) {
   const token = localStorage.getItem("accessToken");
   config.headers["Accept-Language"] = i18n.language;
   if (token) {
-    config.headers["Content-Type"] = "application/x-www-form-urlencoded";
     config.headers.Authorization = "Bearer " + token;
   }
 
