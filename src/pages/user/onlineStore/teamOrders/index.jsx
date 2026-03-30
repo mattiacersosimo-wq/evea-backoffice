@@ -44,7 +44,6 @@ const headers = [
 
 const TeamOrders = () => {
   const methods = useFilter();
-  const filter = methods.watch();
 
   const navigate = useNavigate();
 
@@ -55,7 +54,7 @@ const TeamOrders = () => {
   };
 
   const [openCombo, setOpenCombo] = useState(false);
-  const { state, fetchData, rowStart, ...rest } = useMyOrders(filter);
+  const { state, fetchData, rowStart, ...rest } = useMyOrders();
   const { data, ...dataProps } = state;
 
   const onFilter = methods.handleSubmit(async (inputData) => {

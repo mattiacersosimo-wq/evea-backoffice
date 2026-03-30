@@ -4,13 +4,21 @@ import usePagination from "src/components/pagination/usePagination";
 import axiosInstance from "src/utils/fetchUser";
 import serializeDate from "src/utils/serialize-date";
 
-const useMyOrders = (filter) => {
+const useMyOrders = () => {
   const [state, actions] = useDataHandler();
   const { count, onChange, page, seed, rowStart } = usePagination();
-  const fetchData = async (page = 1, filter) => {
+  const [currentFilter, setCurrentFilter] = useState({});
+  const fetchData = async (p = 1, filter = {}) => {
+    setCurrentFilter(filter);
+    actions.loading();
     try {
       const { data } = await axiosInstance.get(`my-team-orders`, {
-        params: { page, ...filter },
+        params: {
+          page: p,
+          ...filter,
+          start_date: filter.start_date ? serializeDate(filter.start_date) : undefined,
+          end_date: filter.end_date ? serializeDate(filter.end_date) : undefined,
+        },
       });
       const { status, data: report } = data;
       if (status) {
@@ -24,18 +32,11 @@ const useMyOrders = (filter) => {
       actions.success();
     } catch (err) {
       actions.error();
-      console.log(err);
     }
   };
   useEffect(() => {
-    actions.loading();
-    const { start_date, end_date } = filter;
-    fetchData(page, {
-      ...filter,
-      start_date: serializeDate(start_date),
-      end_date: serializeDate(end_date),
-    });
-  }, [page, filter]);
+    fetchData(page, currentFilter);
+  }, [page]);
 
   return { state, fetchData, count, onChange, page, rowStart };
 };
