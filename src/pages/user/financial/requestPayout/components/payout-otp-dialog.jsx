@@ -23,8 +23,7 @@ const PayoutOtpDialog = ({ open, onClose, onVerified }) => {
     try {
       const reqData = new FormData();
       reqData.append("code", data.code);
-      reqData.append("action", "payout");
-      const { status } = await axiosInstance.post("api/twofaverify", reqData);
+      const { status } = await axiosInstance.post("api/user/verify-payout-2fa", reqData);
       if (status === 200) {
         methods.reset();
         onVerified();

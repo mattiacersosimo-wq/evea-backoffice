@@ -36,7 +36,7 @@ const schema = (minimumWithdrawal) =>
 const useRequestForm = (fetchData, minimumWithdrawal) => {
   const { enqueueSnackbar } = useSnackbar();
   const { user } = useAuth();
-  const has2FA = Boolean(parseInt(user?.google2fa_secret_url));
+  const has2FA = Boolean(user?.payout_2fa_enabled);
   const [showOtp, setShowOtp] = useState(false);
   const [pendingData, setPendingData] = useState(null);
 
