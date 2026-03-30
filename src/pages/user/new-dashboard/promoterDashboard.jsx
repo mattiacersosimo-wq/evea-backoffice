@@ -1,6 +1,7 @@
 import {
-  Avatar, Box, Button, Card, Chip, Divider, Grid, IconButton,
-  LinearProgress, Skeleton, Stack, Tooltip, Typography,
+  Avatar, Box, Button, Card, Chip, Dialog, DialogContent, DialogTitle,
+  Divider, Grid, IconButton, LinearProgress, MenuItem, Skeleton,
+  Stack, TextField, Tooltip, Typography,
 } from "@mui/material";
 import { alpha, keyframes } from "@mui/material/styles";
 import { useEffect, useState } from "react";
@@ -933,6 +934,171 @@ const TopProducts = () => {
 // ═══════════════════════════════════════
 // SECTION TITLE
 // ═══════════════════════════════════════
+// ═══════════════════════════════════════
+// GOAL SETTER
+// ═══════════════════════════════════════
+const useGoals = () => useFetch(async () => {
+  const { data } = await fetchUser.get("goals");
+  return data?.data;
+});
+
+const GoalSetter = () => {
+  const { data, loading } = useGoals();
+  const { enqueueSnackbar } = useSnackbar();
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [form, setForm] = useState({ target_sales: "", target_clients: "", target_pqv: "", target_rank_id: "" });
+
+  useEffect(() => {
+    if (data?.goal) {
+      setForm({
+        target_sales: data.goal.target_sales || "",
+        target_clients: data.goal.target_clients || "",
+        target_pqv: data.goal.target_pqv || "",
+        target_rank_id: data.goal.target_rank_id || "",
+      });
+    }
+  }, [data]);
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      const reqData = new FormData();
+      Object.entries(form).forEach(([k, v]) => { if (v) reqData.append(k, v); });
+      await fetchUser.post("goals", reqData);
+      enqueueSnackbar("Obiettivo salvato!", { variant: "success" });
+      setEditing(false);
+      window.location.reload();
+    } catch { enqueueSnackbar("Errore nel salvataggio", { variant: "error" }); }
+    setSaving(false);
+  };
+
+  if (loading) return <Skeleton height={160} variant="rounded" sx={{ borderRadius: 3 }} />;
+
+  const goal = data?.goal;
+  const progress = data?.progress || {};
+  const hasGoal = goal && (goal.target_sales > 0 || goal.target_clients > 0 || goal.target_pqv > 0 || goal.target_rank_id);
+  const daysLeft = data?.days_left ?? 0;
+  const currentRank = data?.current_rank;
+  const targetRank = data?.target_rank;
+  const allRanks = data?.all_ranks || [];
+
+  const months = ["", "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
+  const monthLabel = months[data?.month || 0] + " " + (data?.year || "");
+
+  const pct = (current, target) => {
+    if (!target || target <= 0) return 0;
+    return Math.min(100, Math.round((current / target) * 100));
+  };
+
+  const ProgressRow = ({ icon, label, current, target, unit = "", color = ORO }) => {
+    const p = pct(current, target);
+    const done = p >= 100;
+    return (
+      <Box sx={{ mb: 1.5 }}>
+        <Stack direction="row" justifyContent="space-between" alignItems="center" mb={0.5}>
+          <Stack direction="row" alignItems="center" spacing={0.5}>
+            <Iconify icon={icon} width={16} sx={{ color: done ? "#4CAF50" : color }} />
+            <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: TEXT }}>{label}</Typography>
+          </Stack>
+          <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: done ? "#4CAF50" : ESPRESSO }}>
+            {done ? "✅ " : ""}{unit}{current}{target > 0 ? ` / ${unit}${target}` : ""}
+            {target > 0 && <Typography component="span" sx={{ fontSize: "0.7rem", color: MUTED, ml: 0.5 }}>({p}%)</Typography>}
+          </Typography>
+        </Stack>
+        {target > 0 && (
+          <LinearProgress variant="determinate" value={p}
+            sx={{ height: 6, borderRadius: 3, bgcolor: alpha(color, 0.1),
+              "& .MuiLinearProgress-bar": { bgcolor: done ? "#4CAF50" : color, borderRadius: 3 } }} />
+        )}
+      </Box>
+    );
+  };
+
+  return (
+    <>
+      <Card sx={{ ...cardSx, p: 2.5 }}>
+        <Stack direction="row" justifyContent="space-between" alignItems="center" mb={hasGoal ? 2 : 1}>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Iconify icon="mdi:target" width={20} sx={{ color: ORO }} />
+            </Box>
+            <Box>
+              <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>Obiettivo {monthLabel}</Typography>
+              {daysLeft <= 5 && daysLeft > 0 && (
+                <Typography sx={{ fontSize: "0.68rem", color: "#E24B4A", fontWeight: 600 }}>
+                  ⏳ {daysLeft === 1 ? "Ultimo giorno!" : `Mancano ${daysLeft} giorni`}
+                </Typography>
+              )}
+            </Box>
+          </Stack>
+          <Button size="small" onClick={() => setEditing(true)}
+            sx={{ textTransform: "none", color: ORO, fontWeight: 600, fontSize: "0.75rem" }}>
+            {hasGoal ? "Modifica" : "Imposta obiettivo"}
+          </Button>
+        </Stack>
+
+        {hasGoal ? (
+          <>
+            {goal.target_sales > 0 && (
+              <ProgressRow icon="mdi:cash-register" label="Vendite Team" current={progress.sales} target={parseFloat(goal.target_sales)} unit="€" />
+            )}
+            {goal.target_clients > 0 && (
+              <ProgressRow icon="mdi:account-plus" label="Nuovi Clienti" current={progress.clients} target={parseInt(goal.target_clients)} color="#4CAF50" />
+            )}
+            {goal.target_pqv > 0 && (
+              <ProgressRow icon="mdi:chart-areaspline" label="PQV" current={progress.pqv} target={parseFloat(goal.target_pqv)} color="#2196F3" />
+            )}
+            {targetRank && (
+              <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1, p: 1.5, bgcolor: alpha("#9C27B0", 0.05), borderRadius: 2 }}>
+                <Iconify icon="mdi:crown" width={18} sx={{ color: "#9C27B0" }} />
+                <Typography sx={{ fontSize: "0.78rem", color: TEXT }}>
+                  <strong>{currentRank?.name || "—"}</strong> → <strong style={{ color: "#9C27B0" }}>{targetRank.name}</strong>
+                  {goal.target_pqv > 0 && progress.pqv < parseFloat(goal.target_pqv) && (
+                    <Typography component="span" sx={{ fontSize: "0.72rem", color: MUTED, ml: 1 }}>
+                      (mancano {Math.max(0, parseFloat(goal.target_pqv) - progress.pqv).toFixed(0)} PQV)
+                    </Typography>
+                  )}
+                </Typography>
+              </Stack>
+            )}
+          </>
+        ) : (
+          <Box sx={{ textAlign: "center", py: 2 }}>
+            <Iconify icon="mdi:flag-checkered" width={40} sx={{ color: "#ddd", mb: 1 }} />
+            <Typography sx={{ fontSize: "0.82rem", color: MUTED }}>
+              Imposta i tuoi obiettivi per questo mese
+            </Typography>
+          </Box>
+        )}
+      </Card>
+
+      <Dialog open={editing} onClose={() => setEditing(false)} maxWidth="xs" fullWidth>
+        <DialogTitle sx={{ fontWeight: 700 }}>Obiettivo {monthLabel}</DialogTitle>
+        <DialogContent>
+          <Stack spacing={2} sx={{ mt: 1 }}>
+            <TextField label="Vendite Team (€)" type="number" size="small" value={form.target_sales}
+              onChange={(e) => setForm({ ...form, target_sales: e.target.value })} />
+            <TextField label="Nuovi Clienti" type="number" size="small" value={form.target_clients}
+              onChange={(e) => setForm({ ...form, target_clients: e.target.value })} />
+            <TextField label="PQV Obiettivo" type="number" size="small" value={form.target_pqv}
+              onChange={(e) => setForm({ ...form, target_pqv: e.target.value })} />
+            <TextField label="Rank Obiettivo" select size="small" value={form.target_rank_id}
+              onChange={(e) => setForm({ ...form, target_rank_id: e.target.value })}>
+              <MenuItem value="">Nessuno</MenuItem>
+              {allRanks.map((r) => <MenuItem key={r.id} value={r.id}>{r.name}</MenuItem>)}
+            </TextField>
+            <Button variant="contained" onClick={handleSave} disabled={saving}
+              sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none" }}>
+              {saving ? "Salvataggio..." : "Salva obiettivo"}
+            </Button>
+          </Stack>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+};
+
 const Section = ({ icon, children }) => (
   <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1 }}>
     <Iconify icon={icon} width={20} sx={{ color: ORO }} />
@@ -984,6 +1150,7 @@ const PromoterDashboard = () => {
           })()}
 
           <UrgencyAlert />
+          <GoalSetter />
           <CelebrationBanner />
 
           <Section icon="mdi:cash-multiple">{t("evea.earnings")}</Section>
