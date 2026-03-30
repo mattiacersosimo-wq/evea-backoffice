@@ -72,14 +72,8 @@ const useFetch = (fetcher) => {
 
 const useHero = () =>
   useFetch(async () => {
-    const [heroRes, ordersRes] = await Promise.all([
-      axiosInstance.get("api/wp/dashboard/hero"),
-      fetchUser.get("my-orders?page=1"),
-    ]);
-    return {
-      ...heroRes?.data?.data,
-      total_orders: ordersRes?.data?.data?.total || ordersRes?.data?.data?.data?.length || 0,
-    };
+    const { data } = await axiosInstance.get("api/wp/dashboard/hero");
+    return data?.data || {};
   });
 
 const useThreeFF = () =>
@@ -96,7 +90,9 @@ const useROB = () =>
 
 const useRecentOrders = () =>
   useFetch(async () => {
-    const { data } = await fetchUser.get("my-orders?page=1");
+    const { data } = await fetchUser.get("my-orders", {
+      params: { page: 1, per_page: 5 },
+    });
     const list = data?.data?.data?.slice(0, 5) || [];
     return { orders: list, totalOrders: data?.data?.total || list.length };
   });
@@ -110,11 +106,8 @@ const useCoupons = () =>
 // ═══════════════════════════════════════════════
 // HERO — clean customer card, no rank/progress
 // ═══════════════════════════════════════════════
-const HeroCard = () => {
+const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
   const { user } = useAuth();
-  const { data: hero } = useHero();
-  const { data: ff } = useThreeFF();
-  const { data: rob } = useROB();
 
   const profile = user?.user_profile || {};
   const fullName =
@@ -124,7 +117,7 @@ const HeroCard = () => {
   // Badge data
   const consecutiveMonths = rob?.current_consecutive_months || 0;
   const friendsInvited = ff?.current_qualified_customer_count || 0;
-  const hasFirstOrder = (hero?.total_orders ?? 0) > 0;
+  const hasFirstOrder = (hero?.total_orders ?? totalOrders ?? 0) > 0;
   const badgeData = { hasFirstOrder, consecutiveMonths, friendsInvited };
 
   // Find current badge
@@ -280,10 +273,9 @@ const Ticker = () => {
 // ═══════════════════════════════════════════════
 // INVITA 3 AMICI (3FF) with tooltip
 // ═══════════════════════════════════════════════
-const ThreeFFCard = () => {
+const ThreeFFCard = ({ ff, loading = false }) => {
   const { t } = useTranslation();
   const { user } = useAuth();
-  const { data: ff, loading } = useThreeFF();
   const { enqueueSnackbar } = useSnackbar();
 
   const referralLink = user?.username ? `${WP_URL}?ref=${user.username}` : "";
@@ -400,9 +392,8 @@ const CYCLE_LEN = 12;
 const PAGE_SIZE = 8;
 const COUPON_MONTHS = [3, 6, 9];
 
-const ROBCard = () => {
+const ROBCard = ({ rob, loading = false }) => {
   const { t } = useTranslation();
-  const { data: rob, loading } = useROB();
   const [page, setPage] = useState(0);
 
   const totalConsec = rob?.current_consecutive_months || 0;
@@ -542,9 +533,7 @@ const ROBCard = () => {
 // ═══════════════════════════════════════════════
 // ORDINI RECENTI
 // ═══════════════════════════════════════════════
-const RecentOrders = () => {
-  const { data: orderData, loading } = useRecentOrders();
-  const orders = orderData?.orders || [];
+const RecentOrders = ({ orders = [], loading = false }) => {
 
   if (loading) return <Skeleton height={200} variant="rounded" sx={{ borderRadius: 3 }} />;
   if (!orders.length) return null;
@@ -675,10 +664,16 @@ const CouponsSection = () => {
 const UserDashboard = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
+  const { data: hero } = useHero();
+  const { data: ff, loading: ffLoading } = useThreeFF();
+  const { data: rob, loading: robLoading } = useROB();
+  const { data: orderData, loading: ordersLoading } = useRecentOrders();
+  const orders = orderData?.orders || [];
+  const totalOrders = orderData?.totalOrders || 0;
   return (
     <Page title="Dashboard">
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4 }}>
-        <HeroCard />
+        <HeroCard hero={hero} ff={ff} rob={rob} totalOrders={totalOrders} />
         <Ticker />
 
         {/* Loyalty Discount Banner */}
@@ -719,15 +714,15 @@ const UserDashboard = () => {
 
         {/* Ordini recenti */}
         <Box sx={{ mt: 3 }}>
-          <RecentOrders />
+          <RecentOrders orders={orders} loading={ordersLoading} />
         </Box>
 
         <Grid container spacing={3} sx={{ mt: 0.5 }}>
           <Grid item xs={12} md={6}>
-            <ThreeFFCard />
+            <ThreeFFCard ff={ff} loading={ffLoading} />
           </Grid>
           <Grid item xs={12} md={6}>
-            <ROBCard />
+            <ROBCard rob={rob} loading={robLoading} />
           </Grid>
         </Grid>
 
