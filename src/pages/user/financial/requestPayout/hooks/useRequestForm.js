@@ -1,6 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSnackbar } from "notistack";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import useAuth from "src/hooks/useAuth";
 import fetchUser from "src/utils/fetchUser";
 import { PAYOUT_TYPE_IDS } from "src/utils/types";
 import { number, object, string } from "yup";
@@ -33,12 +35,17 @@ const schema = (minimumWithdrawal) =>
 
 const useRequestForm = (fetchData, minimumWithdrawal) => {
   const { enqueueSnackbar } = useSnackbar();
+  const { user } = useAuth();
+  const has2FA = Boolean(parseInt(user?.google2fa_secret_url));
+  const [showOtp, setShowOtp] = useState(false);
+  const [pendingData, setPendingData] = useState(null);
+
   const methods = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(schema(minimumWithdrawal)),
   });
 
-  const onSubmit = async (inputData) => {
+  const submitPayout = async (inputData) => {
     const reqData = new FormData();
     const { coin_id, ...rest } = inputData;
     Object.entries(rest).forEach(([key, value]) => reqData.append(key, value));
@@ -57,7 +64,35 @@ const useRequestForm = (fetchData, minimumWithdrawal) => {
     }
   };
 
-  return { methods, onSubmit: methods.handleSubmit(onSubmit) };
+  const onSubmit = async (inputData) => {
+    if (has2FA) {
+      setPendingData(inputData);
+      setShowOtp(true);
+    } else {
+      await submitPayout(inputData);
+    }
+  };
+
+  const onOtpVerified = async () => {
+    setShowOtp(false);
+    if (pendingData) {
+      await submitPayout(pendingData);
+      setPendingData(null);
+    }
+  };
+
+  const onOtpClose = () => {
+    setShowOtp(false);
+    setPendingData(null);
+  };
+
+  return {
+    methods,
+    onSubmit: methods.handleSubmit(onSubmit),
+    showOtp,
+    onOtpVerified,
+    onOtpClose,
+  };
 };
 
 export default useRequestForm;

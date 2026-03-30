@@ -8,11 +8,13 @@ import AvailablePayouts from "./components/available-payouts";
 import BankInfo from "./components/bank-info";
 import CoinTypes from "./components/coin-types";
 import FiscalePreview from "./components/FiscalePreview";
+import PayoutOtpDialog from "./components/payout-otp-dialog";
 import StripeInfo from "./components/stripe-info";
 import useRequestForm from "./hooks/useRequestForm";
 
 const RequestForm = ({ fetchData, minimumWithdrawal, availableToday }) => {
-  const { methods, onSubmit } = useRequestForm(fetchData, minimumWithdrawal);
+  const { methods, onSubmit, showOtp, onOtpVerified, onOtpClose } =
+    useRequestForm(fetchData, minimumWithdrawal);
   const {
     formState: { isSubmitting },
   } = methods;
@@ -58,6 +60,11 @@ const RequestForm = ({ fetchData, minimumWithdrawal, availableToday }) => {
           </Grid>
         </FormProvider>
       </Box>
+      <PayoutOtpDialog
+        open={showOtp}
+        onClose={onOtpClose}
+        onVerified={onOtpVerified}
+      />
     </div>
   );
 };
