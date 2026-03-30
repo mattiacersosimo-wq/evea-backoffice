@@ -735,6 +735,37 @@ const UserDashboard = () => {
           );
         })()}
 
+        {/* Prossima consegna smartship */}
+        {(() => {
+          const smartship = hero?.smartship;
+          if (!smartship || smartship.status !== "active" || !smartship.products?.length) return null;
+          const nextDate = smartship.next_delivery;
+          const daysUntil = nextDate ? Math.max(0, Math.ceil((new Date(nextDate) - new Date()) / (1000 * 60 * 60 * 24))) : null;
+          return (
+            <Card sx={{ ...cardSx, p: 2.5, mt: 2 }}>
+              <Stack direction="row" alignItems="center" justifyContent="space-between">
+                <Stack direction="row" alignItems="center" spacing={1.5}>
+                  <Box sx={{ width: 40, height: 40, borderRadius: 2, bgcolor: alpha("#4CAF50", 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Iconify icon="mdi:truck-delivery-outline" width={22} sx={{ color: "#4CAF50" }} />
+                  </Box>
+                  <Box>
+                    <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>
+                      Prossima consegna{daysUntil !== null ? `: tra ${daysUntil} giorn${daysUntil === 1 ? "o" : "i"}` : ""}
+                    </Typography>
+                    <Typography sx={{ fontSize: "0.75rem", color: WARM_GRAY }}>
+                      {smartship.products.join(" + ")} — €{smartship.price.toFixed(2)}
+                    </Typography>
+                  </Box>
+                </Stack>
+                <Button size="small" href="/user/recurring-orders"
+                  sx={{ textTransform: "none", color: ORO, fontWeight: 600, fontSize: "0.75rem" }}>
+                  Gestisci
+                </Button>
+              </Stack>
+            </Card>
+          );
+        })()}
+
         {/* Ordini recenti */}
         <Box sx={{ mt: 3 }}>
           <RecentOrders orders={orders} loading={ordersLoading} />
