@@ -9,6 +9,7 @@ import Translate from "src/components/translate";
 import { useGetCurrencySymbol } from "src/components/with-prefix";
 import useAuth from "src/hooks/useAuth";
 import fetchUser from "src/utils/fetchUser";
+import QRCode from "react-qr-code";
 import Transition from "src/utils/dialog-animation";
 import AvailablePayouts from "./components/available-payouts";
 import BankInfo from "./components/bank-info";
@@ -115,7 +116,9 @@ const SetupAuthenticatorDialog = ({ open, qrUrl, secretKey, onClose, onComplete 
           <Typography variant="body2" color="text.secondary" textAlign="center">
             Scansiona il QR code con l'app Google Authenticator, poi inserisci il codice a 6 cifre per verificare.
           </Typography>
-          <Box component="img" src={qrUrl} alt="QR Code" sx={{ width: 200, height: 200 }} />
+          <Box sx={{ bgcolor: "#fff", p: 2, borderRadius: 2 }}>
+            <QRCode value={qrUrl} size={180} />
+          </Box>
           <Typography variant="caption" color="text.secondary" sx={{ wordBreak: "break-all", textAlign: "center" }}>
             Chiave manuale: {secretKey}
           </Typography>
