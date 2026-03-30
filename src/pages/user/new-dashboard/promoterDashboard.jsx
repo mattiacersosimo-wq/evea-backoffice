@@ -1121,39 +1121,46 @@ const PromoterDashboard = () => {
           <OnboardingBanner />
           <TickerBar />
 
-          {/* Loyalty Discount Banner */}
-          {(() => {
-            const hasDiscount = user?.has_smartship_discount === 1 || user?.is_smartship_customer === 1;
-            return hasDiscount ? (
-              <Box sx={{ bgcolor: "#EAF3DE", border: "1px solid #4A5C3A", borderRadius: 3, p: 2, display: "flex", alignItems: "center", gap: 1.5 }}>
-                <Iconify icon="mdi:check-circle" width={24} sx={{ color: "#4A5C3A" }} />
-                <Box>
-                  <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: "#27500A" }}>{t("evea.loyalty_active")}</Typography>
-                  <Typography sx={{ fontSize: "0.75rem", color: "#4A5C3A" }}>{t("evea.loyalty_active_sub")}</Typography>
-                </Box>
-              </Box>
-            ) : (
-              <Box sx={{ bgcolor: "#FAF6EF", border: `1px solid ${alpha(ORO, 0.2)}`, borderRadius: 3, p: 2, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <Stack direction="row" alignItems="center" spacing={1.5}>
-                  <Iconify icon="mdi:tag-heart-outline" width={24} sx={{ color: ORO }} />
-                  <Box>
-                    <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: ESPRESSO }}>{t("evea.loyalty_inactive")}</Typography>
-                    <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>{t("evea.loyalty_inactive_sub")}</Typography>
-                  </Box>
-                </Stack>
-                <Button size="small" variant="contained" href={`${WP_URL}/collections/all`} target="_blank"
-                  sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, textTransform: "none", fontWeight: 700, borderRadius: 2 }}>
-                  {t("evea.activate_now")}
-                </Button>
-              </Box>
-            );
-          })()}
-
           <Grid container spacing={2}>
-            <Grid item xs={12} md={6}><UrgencyAlert /></Grid>
-            <Grid item xs={12} md={6}><GoalSetter /></Grid>
+            {/* Left column — all alerts stacked */}
+            <Grid item xs={12} md={6}>
+              <Stack spacing={1.5}>
+                {/* Loyalty Discount Banner */}
+                {(() => {
+                  const hasDiscount = user?.has_smartship_discount === 1 || user?.is_smartship_customer === 1;
+                  return hasDiscount ? (
+                    <Box sx={{ bgcolor: "#EAF3DE", border: "1px solid #4A5C3A", borderRadius: 3, p: 2, display: "flex", alignItems: "center", gap: 1.5 }}>
+                      <Iconify icon="mdi:check-circle" width={24} sx={{ color: "#4A5C3A" }} />
+                      <Box>
+                        <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: "#27500A" }}>{t("evea.loyalty_active")}</Typography>
+                        <Typography sx={{ fontSize: "0.75rem", color: "#4A5C3A" }}>{t("evea.loyalty_active_sub")}</Typography>
+                      </Box>
+                    </Box>
+                  ) : (
+                    <Box sx={{ bgcolor: "#FAF6EF", border: `1px solid ${alpha(ORO, 0.2)}`, borderRadius: 3, p: 2, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <Stack direction="row" alignItems="center" spacing={1.5}>
+                        <Iconify icon="mdi:tag-heart-outline" width={24} sx={{ color: ORO }} />
+                        <Box>
+                          <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: ESPRESSO }}>{t("evea.loyalty_inactive")}</Typography>
+                          <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>{t("evea.loyalty_inactive_sub")}</Typography>
+                        </Box>
+                      </Stack>
+                      <Button size="small" variant="contained" href={`${WP_URL}/collections/all`} target="_blank"
+                        sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, textTransform: "none", fontWeight: 700, borderRadius: 2 }}>
+                        {t("evea.activate_now")}
+                      </Button>
+                    </Box>
+                  );
+                })()}
+                <UrgencyAlert />
+                <CelebrationBanner />
+              </Stack>
+            </Grid>
+            {/* Right column — goal setter */}
+            <Grid item xs={12} md={6}>
+              <GoalSetter />
+            </Grid>
           </Grid>
-          <CelebrationBanner />
 
           <Section icon="mdi:cash-multiple">{t("evea.earnings")}</Section>
           <EarningsSection />
