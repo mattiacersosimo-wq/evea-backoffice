@@ -14,7 +14,6 @@ const useFetchBinaryLeg = () => {
         setData(data);
       }
     } catch (err) {
-      console.log(err);
     }
   };
   useEffect(() => {

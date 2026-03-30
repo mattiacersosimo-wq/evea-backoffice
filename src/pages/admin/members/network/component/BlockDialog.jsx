@@ -56,7 +56,6 @@ const BlockDialog = ({
           setValue("type", data.data);
         }
       } catch (err) {
-        console.log(err);
       }
     };
     if (open && selectedId) {
@@ -79,7 +78,6 @@ const BlockDialog = ({
           }))
         );
       } catch (err) {
-        console.log(err);
       }
     };
     if (open) fetchBlockType();

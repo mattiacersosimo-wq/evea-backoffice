@@ -37,7 +37,6 @@ const EnablePaypal = ({ open, onClose }) => {
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      console.log(err);
     }
   };
 

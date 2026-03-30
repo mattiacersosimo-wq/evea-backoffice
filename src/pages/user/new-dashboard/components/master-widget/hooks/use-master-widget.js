@@ -62,7 +62,6 @@ const useMasterWidget = () => {
         },
       });
     } catch (err) {
-      console.log(err);
     }
   };
 

@@ -26,7 +26,6 @@ const Export = ({ type, methods }) => {
       const exportData = data.data?.map((item, i) => handler(item, i + 1));
       exportToExcel(exportData, fileName);
     } catch (err) {
-      console.log(err);
     }
   };
   return (

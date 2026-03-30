@@ -17,7 +17,6 @@ const useGetSubAdminProfile = () => {
           setData(data.data);
         }
       } catch (err) {
-        console.error(err);
       }
     };
     fetchData();

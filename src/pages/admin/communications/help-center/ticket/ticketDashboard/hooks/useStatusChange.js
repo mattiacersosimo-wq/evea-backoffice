@@ -8,7 +8,6 @@ const useStatusChange = (id, cb) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const handleChange = async (status) => {
-    console.log(status)
     
     const reqData = new FormData();
     reqData.append("status", snakeCase(status));

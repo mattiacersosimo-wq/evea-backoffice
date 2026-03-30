@@ -137,7 +137,6 @@ export default function Calendar() {
         })
       );
     } catch (error) {
-      console.error(error);
     }
   };
 
@@ -151,7 +150,6 @@ export default function Calendar() {
         })
       );
     } catch (error) {
-      console.error(error);
     }
   };
 

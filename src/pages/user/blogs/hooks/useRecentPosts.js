@@ -13,7 +13,6 @@ const useGetRecentPosts = () => {
         setPosts(data);
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

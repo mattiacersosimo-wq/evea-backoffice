@@ -5,7 +5,6 @@ import useTicketForm from "../../hooks/useTicketForm";
 
 const useGetTicketById = () => {
   const methods = useTicketForm();
-  console.log(methods.formState.errors);
   const [ticketNumber, setTicketNumber] = useState("");
   const { id } = useParams();
   const fetchTicket = async () => {
@@ -39,7 +38,6 @@ const useGetTicketById = () => {
         });
       }
     } catch (err) {
-      console.log(err);
     }
   };
   useEffect(() => {

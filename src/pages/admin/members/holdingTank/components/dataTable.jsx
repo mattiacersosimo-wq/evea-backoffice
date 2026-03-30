@@ -179,7 +179,6 @@ const DataTable = () => {
     } catch (err) {
       setUserId(null);
       setAddingToBinary(false);
-      console.error(err);
       setErrorText("username is required");
     }
   };

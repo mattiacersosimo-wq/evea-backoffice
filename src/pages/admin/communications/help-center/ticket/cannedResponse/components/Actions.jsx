@@ -37,7 +37,6 @@ const Actions = ({ cannedId, fetchCannedList, close, openEdit, status }) => {
         close();
       }
     } catch (err) {
-      console.error(err);
     }
   };
   const { palette } = useTheme();

@@ -24,7 +24,6 @@ const useGetLead = () => {
       }
     } catch (err) {
       actions.error();
-      console.log(err);
       enqueueSnackbar(err.message, { variant: "error" });
     }
   };

@@ -74,7 +74,6 @@ export default function CheckoutPayment() {
     try {
       handleNextStep();
     } catch (error) {
-      console.error(error);
     }
   };
 

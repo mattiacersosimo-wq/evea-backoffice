@@ -50,7 +50,6 @@ export default function BlogPostCommentForm() {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
     } catch (error) {
-      console.error(error);
     }
   };
 

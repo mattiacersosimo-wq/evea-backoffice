@@ -39,7 +39,6 @@ const Actions = ({ categoryId, reload, close, openEdit }) => {
         close();
       }
     } catch (err) {
-      console.error(err);
     }
   };
   const { t } = useTranslation();

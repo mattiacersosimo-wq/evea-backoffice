@@ -72,7 +72,6 @@ const LeadList = () => {
         }
       } catch (err) {
         enqueueSnackbar(err.message, { variant: "error" });
-        console.log(err);
       }
     };
     if (openEdit) {
@@ -121,7 +120,6 @@ const LeadList = () => {
     } catch (err) {
       enqueueSnackbar("Something went wrong", { variant: "error" });
 
-      console.log(err);
     }
   };
 

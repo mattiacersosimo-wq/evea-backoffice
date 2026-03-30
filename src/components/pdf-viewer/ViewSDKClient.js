@@ -59,7 +59,6 @@ class ViewSDKClient {
   }
   registerSaveApiHandler() {
     const saveApiHandler = (metaData, content, options) => {
-      console.log(metaData, content, options);
       return new Promise((resolve) => {
         setTimeout(() => {
           const response = {
@@ -84,7 +83,6 @@ class ViewSDKClient {
     this.adobeDCView.registerCallback(
       window.AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
       (event) => {
-        console.log(event);
       },
       {
         enablePDFAnalytics: true,

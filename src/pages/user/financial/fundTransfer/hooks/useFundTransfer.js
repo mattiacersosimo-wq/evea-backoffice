@@ -22,7 +22,6 @@ const useFundTransfer = () => {
       actions.success();
     } catch (err) {
       actions.error();
-      console.error(err);
     }
   };
   useEffect(() => {

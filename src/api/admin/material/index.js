@@ -9,7 +9,6 @@ const getCategoryByProduct = async (URL, pid) => {
     });
     if (status === 200) return data;
   } catch (err) {
-    console.error(err);
     return err;
   }
 };
@@ -30,7 +29,6 @@ export const updateSortOrder = async (URL, data) => {
     const { status, data } = await axiosInstance.post(URL, reqData);
     if (status === 200) return data;
   } catch (err) {
-    console.error(err);
     return err;
   }
 };

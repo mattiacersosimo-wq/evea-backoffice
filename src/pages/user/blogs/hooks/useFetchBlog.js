@@ -12,7 +12,6 @@ const useFetchBlog = () => {
         setPost(data);
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

@@ -66,7 +66,6 @@ const Form = ({ onClose, id, product_id, reload, ...other }) => {
         onClose();
       }
     } catch (error) {
-      console.error(error);
     }
   };
 

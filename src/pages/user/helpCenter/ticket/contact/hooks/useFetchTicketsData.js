@@ -11,7 +11,6 @@ const useFetchTicketsData = (url) => {
         setData(departments);
       }
     } catch (err) {
-      console.log(err);
     }
   };
   useEffect(() => {

@@ -77,7 +77,6 @@ const ReplyList = ({ data }) => {
         <Stack spacing={3} sx={{ p: 3 }}>
           {replies?.map((data) => {
             const { body, title, user, created_at } = data;
-            console.log(user?.user_profile?.profile_image);
             const isSuperAdmin = Boolean(user?.is_super_admin);
 
             return (

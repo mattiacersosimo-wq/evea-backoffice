@@ -96,7 +96,6 @@ const Autofatture = () => {
         }
       } catch (err) {
         if (!cancelled) {
-          console.error(err);
           setError(true);
           setData([]);
         }
@@ -140,7 +139,6 @@ const Autofatture = () => {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
     } catch (err) {
-      console.error("Download XML failed:", err);
     }
   }, []);
 
@@ -160,7 +158,6 @@ const Autofatture = () => {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
     } catch (err) {
-      console.error("Download PDF failed:", err);
     }
   }, []);
 

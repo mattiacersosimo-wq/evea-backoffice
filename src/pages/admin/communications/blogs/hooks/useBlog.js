@@ -29,7 +29,6 @@ const useBlog = (isDraft) => {
       actions.success();
     } catch (err) {
       actions.error();
-      console.log(err);
     }
   };
 

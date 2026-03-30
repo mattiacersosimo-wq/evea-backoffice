@@ -16,7 +16,6 @@ const useHome = () => {
         setSubscription(data);
       }
     } catch (err) {
-      console.log(err);
     }
   };
 

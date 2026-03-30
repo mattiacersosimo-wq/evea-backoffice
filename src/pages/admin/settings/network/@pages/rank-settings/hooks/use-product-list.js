@@ -15,7 +15,6 @@ const useProductList = () => {
 
         setData(data.data);
       } catch (err) {
-        console.log(err);
       }
     };
     fetchData();

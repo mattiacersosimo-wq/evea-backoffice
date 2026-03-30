@@ -33,7 +33,6 @@ const useGetCurrencyById = () => {
         });
       }
     } catch (err) {
-      console.log(err);
     }
   };
 

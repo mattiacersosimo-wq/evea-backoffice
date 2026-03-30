@@ -19,7 +19,6 @@ const DataTable = () => {
       );
       enqueueSnackbar(data.message);
     } catch (err) {
-      console.log(err);
     }
   };
 

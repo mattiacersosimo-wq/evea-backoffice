@@ -14,7 +14,6 @@ const useFetchFaqById = (id) => {
           methods.reset({ answer, question, category_id, active });
         }
       } catch (err) {
-        console.log(err);
       }
     };
 

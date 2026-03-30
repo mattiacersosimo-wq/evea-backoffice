@@ -17,7 +17,6 @@ const fetchBrandSettings = async () => {
       }
     }
   } catch (err) {
-    console.error(err);
   }
 };
 

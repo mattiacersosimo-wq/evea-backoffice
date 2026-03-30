@@ -39,7 +39,6 @@ const useEvents = () => {
         setData(data.data);
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

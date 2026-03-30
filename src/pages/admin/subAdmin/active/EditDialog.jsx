@@ -63,7 +63,6 @@ const EditDialog = ({ open, selectedId, onClose, fetchData }) => {
         });
       }
     } catch (err) {
-      console.error(err);
     }
   };
   const { t } = useTranslation();

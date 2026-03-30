@@ -96,7 +96,6 @@ const MembershipSettings = () => {
             }
         } catch (err) {
             enqueueSnackbar(err.message, { variant: "error" });
-            console.log(err);
         }
     };
     return (

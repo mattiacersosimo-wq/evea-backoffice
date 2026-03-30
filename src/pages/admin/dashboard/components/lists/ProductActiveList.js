@@ -30,7 +30,6 @@ const useProductActive = () => {
         setActiveProduct(data.data);
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

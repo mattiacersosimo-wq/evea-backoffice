@@ -15,7 +15,6 @@ const useBlogCategories = () => {
           setCategories(data.data);
         }
       } catch (err) {
-        console.error(err);
       }
     };
 

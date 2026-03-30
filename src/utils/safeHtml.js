@@ -28,10 +28,8 @@ const safeRedirect = (url, target = "_self") => {
     if (ALLOWED_DOMAINS.some((d) => domain === d || domain.endsWith("." + d))) {
       window.open(url, target);
     } else {
-      console.warn("Blocked redirect to untrusted domain:", domain);
     }
   } catch {
-    console.warn("Invalid redirect URL:", url);
   }
 };
 

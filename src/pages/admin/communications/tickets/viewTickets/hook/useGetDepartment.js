@@ -12,7 +12,6 @@ const useGetDepartment = () => {
         setDepartments(data.departments);
       }
     } catch (err) {
-      console.log(err);
     }
   };
   useEffect(() => {

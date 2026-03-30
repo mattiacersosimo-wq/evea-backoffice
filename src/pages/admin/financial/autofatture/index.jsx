@@ -183,7 +183,6 @@ const AdminAutofatture = () => {
       const list = res.data?.data || res.data || [];
       setData(Array.isArray(list) ? list : []);
     } catch (err) {
-      console.error(err);
       setError(true);
       setData([]);
     } finally {
@@ -210,7 +209,6 @@ const AdminAutofatture = () => {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
     } catch (err) {
-      console.error("Download XML failed:", err);
       enqueueSnackbar("Download XML fallito", { variant: "error" });
     }
   }, [enqueueSnackbar]);

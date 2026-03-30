@@ -13,7 +13,6 @@ export const getSubscriptions = async (params) => {
       return data;
     }
   } catch (err) {
-    console.error(err);
     return "error";
   }
 };

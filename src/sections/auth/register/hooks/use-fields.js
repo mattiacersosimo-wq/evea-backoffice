@@ -20,7 +20,6 @@ const useFields = () => {
                 localStorage.setItem("reg-config", JSON.stringify(fields));
                 setFields(fields);
             } catch (err) {
-                console.log(err);
             }
         };
 

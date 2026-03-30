@@ -16,7 +16,6 @@ const useMemberProfile = () => {
         setMemberProfile(data.data);
       }
     } catch (err) {
-      console.error(err);
       enqueueSnackbar("Failed to retrieve data", { variant: "error" });
     }
   };

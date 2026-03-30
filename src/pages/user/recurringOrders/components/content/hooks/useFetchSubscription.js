@@ -25,7 +25,6 @@ const useFetchSubscription = () => {
       actions.success();
     } catch (err) {
       actions.error();
-      console.log(err);
 
       handleErrors(err);
     }

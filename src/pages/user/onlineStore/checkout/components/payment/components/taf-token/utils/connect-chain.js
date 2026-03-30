@@ -39,7 +39,6 @@ const connectChain = async () => {
           });
         } catch (addError) {
           // handle "add" error
-          console.log("addError", addError);
         }
       }
       // handle other "switch" errors

@@ -18,7 +18,6 @@ const useOverallStatus = () => {
           ]);
         }
       } catch (err) {
-        console.error(err);
       }
     };
     fetchData();

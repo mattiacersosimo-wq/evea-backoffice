@@ -48,7 +48,6 @@ const UpdateDialog = ({ fetchTicket }) => {
         fetchTicket();
       }
     } catch (err) {
-      console.log(err);
     }
   };
 

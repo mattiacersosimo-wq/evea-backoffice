@@ -15,7 +15,6 @@ const useGetReviewById = () => {
         methods.reset({ rating, product_id, username, title, comment });
       }
     } catch (err) {
-      console.log(err);
     }
   };
 

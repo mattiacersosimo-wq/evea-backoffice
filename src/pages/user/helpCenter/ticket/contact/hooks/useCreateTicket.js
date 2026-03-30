@@ -67,7 +67,6 @@ const useCreateTicket = () => {
         navigate(PATH_USER.helpCenter.createTicket.subCategory());
       }
     } catch (err) {
-      console.error(err);
     }
   });
 

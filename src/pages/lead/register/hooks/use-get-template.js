@@ -45,7 +45,6 @@ const useGetTemplate = () => {
       } catch (err) {
         setLoading(false);
         enqueueSnackbar(err.message, { variant: "error" });
-        console.log(err);
       }
     };
 

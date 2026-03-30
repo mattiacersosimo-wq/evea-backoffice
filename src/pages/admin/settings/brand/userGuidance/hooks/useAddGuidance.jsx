@@ -23,7 +23,6 @@ const useAddGuidance = (fetchData) => {
         methods.reset(guidanceDefaultValues);
       }
     } catch (err) {
-      console.error(err);
       enqueueSnackbar(err.message, { variant: "error" });
     }
   };

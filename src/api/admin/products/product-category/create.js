@@ -15,7 +15,6 @@ const createProductCategory = async (inputData) => {
       return data;
     }
   } catch (err) {
-    console.error(err);
     return err;
   }
 };

@@ -29,7 +29,6 @@ const useGetList = (filter) => {
                 actions.success([]);
             }
         } catch (err) {
-            console.log(err);
             actions.error();
         }
     };

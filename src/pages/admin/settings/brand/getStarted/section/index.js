@@ -132,7 +132,6 @@ const Section = () => {
         reset(defaultValues);
       }
     } catch (error) {
-      console.error(error);
     }
   };
 
@@ -171,7 +170,6 @@ const Section = () => {
         reset(defaultValues);
       }
     } catch (error) {
-      console.error(error);
     }
   };
   const { count, onChange, page, seed, rowStart } = usePagination();

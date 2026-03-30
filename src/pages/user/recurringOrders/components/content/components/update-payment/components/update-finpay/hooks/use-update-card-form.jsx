@@ -36,7 +36,6 @@ const useUpdateCardForm = (purchaseId, cb) => {
         enqueueSnackbar(data.message);
       }
     } catch (err) {
-      console.log(err.response.data.code);
       if (err.response?.data?.code === 14) {
         enqueueSnackbar(err?.response?.data?.message, { variant: "error" });
         return;

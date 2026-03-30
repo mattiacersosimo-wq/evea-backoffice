@@ -5,7 +5,6 @@ const resendVerificationMail = async () => {
     const { data } = await fetchUser("resend-email-verify");
     return data;
   } catch (err) {
-    console.error(err);
     return err;
   }
 };

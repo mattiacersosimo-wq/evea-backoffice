@@ -38,7 +38,6 @@ const useGetData = () => {
     const { value, name } = e.target;
     selectedItem[name] = value;
     const prev = [...data];
-    console.log(selectedIndex);
 
     const temp = [...prev];
     temp.splice(selectedIndex, 1, selectedItem);

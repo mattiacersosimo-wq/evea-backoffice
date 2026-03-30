@@ -10,7 +10,6 @@ const Twink = () => {
     const tawkInstance = new TawkTo(propertyId, tawkId);
     tawkInstance.hideWidget();
     tawkInstance.onStatusChange((status) => {
-      console.log("Tawk.to status:", status);
     });
 
     // Clean up

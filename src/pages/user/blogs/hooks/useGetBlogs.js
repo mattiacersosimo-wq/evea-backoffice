@@ -31,7 +31,6 @@ const useGetBlogs = (filter = {}) => {
       }
     } catch (err) {
       actions.error();
-      console.log(err);
     }
   };
 

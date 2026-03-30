@@ -53,7 +53,6 @@ const useGetPaymentTypes = () => {
                 )
             );
         } catch (err) {
-            console.log(err);
         }
     };
     useEffect(() => {
@@ -79,7 +78,6 @@ const useGetPaymentTypes = () => {
             enqueueSnackbar(data.message);
             setLoading(false);
         } catch (err) {
-            console.log(err);
             setLoading(false);
             enqueueSnackbar(err.message);
         }

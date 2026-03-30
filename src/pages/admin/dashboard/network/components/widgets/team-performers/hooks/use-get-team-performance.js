@@ -14,7 +14,6 @@ const useGetTeamPerformance = (URL = "") => {
         actions.success(data.data);
       } catch (err) {
         actions.error();
-        console.log(err);
       }
     };
 

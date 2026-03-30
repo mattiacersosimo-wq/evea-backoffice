@@ -48,7 +48,6 @@ export default function BlogPostsSearch() {
         }
       }
     } catch (error) {
-      console.error(error);
     }
   };
 

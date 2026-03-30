@@ -33,7 +33,6 @@ const useAdd = (cb) => {
         methods.reset(groupDefaultValues);
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

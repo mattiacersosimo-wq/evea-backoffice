@@ -27,7 +27,6 @@ const useFaq = () => {
         actions.success({ categories: [], data: [] }, true);
       } catch (err) {
         actions.error();
-        console.log(err);
       }
     };
     fetchFaq();

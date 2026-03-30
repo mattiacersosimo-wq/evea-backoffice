@@ -28,7 +28,6 @@ const useEdit = (editId, onClose) => {
       }
       enqueueSnackbar(data.message);
     } catch (err) {
-      console.error(err);
     }
   };
 

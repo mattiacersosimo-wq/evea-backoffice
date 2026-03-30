@@ -15,7 +15,6 @@ const useGetHoldingTankReferrals = () => {
                 setUsers(data.data);
             } catch (err) {
                 enqueueSnackbar(err.message, { variant: "error" });
-                console.log(err);
             }
         };
         fetchData();

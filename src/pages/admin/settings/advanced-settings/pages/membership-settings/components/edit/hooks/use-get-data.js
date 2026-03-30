@@ -38,7 +38,6 @@ const useGetData = (id) => {
           input_options: input_options || [],
         });
       } catch (err) {
-        console.log(err);
       }
     };
 

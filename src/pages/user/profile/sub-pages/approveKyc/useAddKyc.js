@@ -38,7 +38,6 @@ const useAddKyc = (id) => {
         methods.reset(documentFormDefaultValues);
       }
     } catch (err) {
-      console.log(err);
       handleError(err);
     }
   };

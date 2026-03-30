@@ -22,7 +22,6 @@ const useAddCoupon = () => {
         navigate(PATH_DASHBOARD.store.coupons);
       }
     } catch (error) {
-      console.error(error);
     }
   };
 

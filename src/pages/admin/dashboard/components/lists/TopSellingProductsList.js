@@ -38,7 +38,6 @@ const useTopSellingProduct = () => {
           setTopSelling(data.data);
         }
       } catch (err) {
-        console.log(err);
       }
     };
 

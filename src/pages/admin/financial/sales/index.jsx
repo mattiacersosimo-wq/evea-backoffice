@@ -37,7 +37,6 @@ const Index = () => {
         setEventsList(list);
       }
     } catch (err) {
-      console.log(err);
     }
   };
 

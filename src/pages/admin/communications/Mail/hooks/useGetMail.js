@@ -26,7 +26,6 @@ const useGetMail = () => {
         setMail(isAdmin ? data.email : data.data);
       }
     } catch (err) {
-      console.log(err);
       // handleErrors(err);
     }
   }, [mailId]);

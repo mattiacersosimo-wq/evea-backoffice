@@ -17,7 +17,6 @@ const useIncomePayout = () => {
 
       setState({ ...data.data });
     } catch (err) {
-      console.log(err);
     }
   };
 

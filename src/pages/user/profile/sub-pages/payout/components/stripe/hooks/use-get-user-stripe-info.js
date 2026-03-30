@@ -59,7 +59,6 @@ const useGetUserStripeInfo = () => {
           });
         }
       } catch (err) {
-        console.log(err);
       }
     };
 

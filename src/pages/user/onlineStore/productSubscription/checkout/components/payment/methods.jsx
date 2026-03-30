@@ -39,7 +39,6 @@ const useFetchPurchaseMethods = () => {
       const { status, data: paymentMethods } = data;
       if (status) setPaymentMethods(paymentMethods);
     } catch (err) {
-      console.log(err);
     }
   };
 

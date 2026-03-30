@@ -31,7 +31,6 @@ const useGetUserReviewById = () => {
         // Object.values(err).flatMap((item) =>
         //   enqueueSnackbar(item, { variant: "error" })
         // );
-        console.log(err);
       }
     };
 

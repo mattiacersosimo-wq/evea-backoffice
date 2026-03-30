@@ -27,7 +27,6 @@ const finalizePayment = async (inputData) => {
       return data;
     }
   } catch (err) {
-    console.log(err);
   }
 };
 

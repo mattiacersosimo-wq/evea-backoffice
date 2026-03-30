@@ -19,7 +19,6 @@ const Main = ({
     slidesToScroll: 1,
     adaptiveHeight: true,
     beforeChange: (prev, next) => {
-      console.log(prev, next);
       if (next > -1) {
         setCurrentIndex(next);
       } else if (next === -1) {

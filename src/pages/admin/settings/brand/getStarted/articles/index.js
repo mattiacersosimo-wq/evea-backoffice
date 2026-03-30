@@ -107,7 +107,6 @@ const Articles = () => {
         closeDeleteDialog();
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

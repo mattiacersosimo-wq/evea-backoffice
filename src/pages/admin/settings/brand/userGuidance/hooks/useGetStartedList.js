@@ -19,7 +19,6 @@ const useGetStartedList = () => {
         setGetStartedList(list);
       }
     } catch (err) {
-      console.log(err);
       enqueueSnackbar(err.message, { variant: "error" });
     }
   };

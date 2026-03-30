@@ -17,7 +17,6 @@ const useGetRankSummary = () => {
         }
       } catch (err) {
         setRankSummary([]);
-        console.error(err);
       }
     };
 

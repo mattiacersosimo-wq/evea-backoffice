@@ -53,7 +53,6 @@ const ReasonForm = ({ title, open, selectedId, onClose, fetchData }) => {
   } = methods;
 
   const onSubmit = async (inputData) => {
-    console.log(inputData.reason);
     const reqData = new FormData();
     reqData.append("reason", inputData.reason);
     try {
@@ -68,7 +67,6 @@ const ReasonForm = ({ title, open, selectedId, onClose, fetchData }) => {
         methods.reset();
       }
     } catch (error) {
-      console.error(error);
     }
   };
 

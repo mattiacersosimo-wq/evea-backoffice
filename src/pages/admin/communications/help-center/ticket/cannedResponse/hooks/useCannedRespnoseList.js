@@ -29,7 +29,6 @@ const useCannedResponseList = () => {
     } catch (err) {
       actions.error();
       handleErrors(err);
-      console.log(err);
     }
   };
 

@@ -51,7 +51,6 @@ export default function BlogPosts() {
         setPosts(response.data.posts);
       }
     } catch (error) {
-      console.error(error);
     }
   }, [isMountedRef]);
 

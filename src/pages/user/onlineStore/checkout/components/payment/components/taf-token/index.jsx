@@ -69,10 +69,8 @@ const TafToken = () => {
           ).wait();
         }
       } catch (err) {
-        console.log(err);
       }
 
-      // console.log(userAllowance);
 
       // Invoice
       const invoiceContract = new ethers.Contract(
@@ -99,7 +97,6 @@ const TafToken = () => {
         }
       } catch (e) {
         setLoading(false);
-        console.log("Error", e);
       }
     }
   };

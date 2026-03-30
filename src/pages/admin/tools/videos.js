@@ -43,7 +43,6 @@ const useGetVideo = () => {
       actions.success();
     } catch (error) {
       actions.error();
-      console.error(error);
     }
   };
 

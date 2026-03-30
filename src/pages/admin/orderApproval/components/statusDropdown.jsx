@@ -58,7 +58,6 @@ const StatusDropdown = ({ item, fetchData, page }) => {
       }
       setAnchorEl(null);
     } catch (err) {
-      console.error(err);
       enqueueSnackbar("Failed to update status", { variant: "error" });
       setCurrentStatusName(item.payment_status);
     } finally {

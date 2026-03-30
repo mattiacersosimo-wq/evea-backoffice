@@ -38,7 +38,6 @@ const useAddVideo = (cb = () => null) => {
         cb();
       }
     } catch (err) {
-      console.error(err);
       enqueueSnackbar("Failed to add Notes", { variant: "error" });
     }
   };

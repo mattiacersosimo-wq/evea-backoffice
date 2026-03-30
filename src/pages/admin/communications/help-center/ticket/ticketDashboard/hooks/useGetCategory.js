@@ -12,7 +12,6 @@ const useGetCategory = () => {
         setCategoryList(data.data);
       }
     } catch (err) {
-      console.log(err);
     }
   };
   useEffect(() => {

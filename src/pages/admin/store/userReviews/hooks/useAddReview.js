@@ -27,7 +27,6 @@ const useAddReview = () => {
         navigate(PATH_DASHBOARD.store.user_reviews);
       }
     } catch (error) {
-      console.error(error);
     }
   };
 

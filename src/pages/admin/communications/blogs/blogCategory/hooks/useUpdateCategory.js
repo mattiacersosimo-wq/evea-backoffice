@@ -23,7 +23,6 @@ const useUpdateCategory = (selectedId, cb) => {
         enqueueSnackbar(data.message);
       }
     } catch (err) {
-      console.log(err);
     }
   };
   return { methods, onSubmit: methods.handleSubmit(onSubmit) };

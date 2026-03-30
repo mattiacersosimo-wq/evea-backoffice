@@ -17,7 +17,6 @@ const useGetCurrentPackagePeriod = () => {
         }
       } catch (err) {
         setCurrentPackagePeriod([]);
-        console.error(err);
       }
     };
 

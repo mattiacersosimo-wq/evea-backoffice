@@ -13,7 +13,6 @@ const useFetchTicketView = () => {
         setData(details);
       }
     } catch (err) {
-      console.log(err);
     }
   };
   useEffect(() => {

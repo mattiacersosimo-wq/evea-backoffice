@@ -107,7 +107,6 @@ export default function BlogNewPostForm() {
       enqueueSnackbar("Post success!");
       navigate(PATH_USER.blogs.root);
     } catch (error) {
-      console.error(error);
     }
   };
 

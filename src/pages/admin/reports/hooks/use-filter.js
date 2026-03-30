@@ -58,7 +58,6 @@ export const verifyInput = async (data = {}) => {
   try {
     return await schema.validate(data);
   } catch (err) {
-    console.log(err);
   }
 };
 export default useFilter;

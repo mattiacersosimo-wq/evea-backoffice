@@ -38,7 +38,6 @@ const ImpersonationBanner = () => {
         }
       }
     } catch (err) {
-      console.error(err);
     }
   };
   return isImpersonate ? (

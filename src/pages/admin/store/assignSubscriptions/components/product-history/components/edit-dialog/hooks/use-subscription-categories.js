@@ -19,7 +19,6 @@ const useSubScriptionCategories = (open) => {
           );
         }
       } catch (err) {
-        console.error(err);
       }
     };
 

@@ -39,7 +39,6 @@ const Actions = ({ businessId, reload, close, openEdit }) => {
         close();
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

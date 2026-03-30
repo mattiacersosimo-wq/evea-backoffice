@@ -42,7 +42,6 @@ const useEditEvent = () => {
       }
       navigate(PATH_DASHBOARD.store.events);
     } catch (error) {
-      console.error(error);
     }
   };
 

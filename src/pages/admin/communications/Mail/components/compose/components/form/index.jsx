@@ -23,7 +23,6 @@ const Form = ({ userId }) => {
   const emailEditorRef = useRef(null);
   const { methods, onSubmit } = useCompose(userId);
   const { watch, setValue } = methods;
-  console.log(methods.formState.errors);
   const [ranks, products] = watch(["ranks", "products"]);
   const showUser = !Boolean(ranks.length || products.length);
   useEffect(() => {

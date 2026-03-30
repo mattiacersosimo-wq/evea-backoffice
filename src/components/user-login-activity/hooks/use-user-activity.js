@@ -19,7 +19,6 @@ const useUserActivity = () => {
           setData((prev) => ({ ...prev, list, lastSeen: last_login }));
         }
       } catch (err) {
-        console.error(err);
       }
     };
     fetchData(page);

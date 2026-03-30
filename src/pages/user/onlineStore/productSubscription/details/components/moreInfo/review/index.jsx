@@ -36,7 +36,6 @@ const Review = ({ product }) => {
         setReviews(list);
       }
     } catch (err) {
-      console.log(err);
     }
   };
 

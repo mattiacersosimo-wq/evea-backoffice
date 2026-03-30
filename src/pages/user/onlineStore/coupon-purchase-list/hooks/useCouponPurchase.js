@@ -21,7 +21,6 @@ const useCouponPurchase = () => {
       actions.success();
     } catch (err) {
       actions.error();
-      console.log(err);
     }
   };
   useEffect(() => {

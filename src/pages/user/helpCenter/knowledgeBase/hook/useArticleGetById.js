@@ -12,7 +12,6 @@ const useArticleGetById = (id) => {
         setArticleDetails(data.data);
       }
     } catch (err) {
-      console.log(err);
     }
   };
   useEffect(() => {

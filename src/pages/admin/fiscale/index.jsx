@@ -232,7 +232,6 @@ const GestionePrelievi = () => {
           seed(pending.last_page, pending.from);
         }
       } catch (err) {
-        console.error(err);
         setError(true);
         setData([]);
       } finally {

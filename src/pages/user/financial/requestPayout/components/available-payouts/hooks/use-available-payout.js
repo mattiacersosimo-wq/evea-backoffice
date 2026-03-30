@@ -10,7 +10,6 @@ const useAvailableUserPayouts = () => {
         const { data } = await axiosInstance.get("api/user/available-payouts");
         setData(data?.data?.map(({ id, name }) => ({ id, name })));
       } catch (err) {
-        console.log(err);
       }
     };
     fetchData();

@@ -33,7 +33,6 @@ const useGetPaymentTypes = () => {
     const getData = async () => {
       try {
         const { data } = await axiosInstance.get("/api/admin/settings-rank-configuration");
-        console.log(data)
         setMethods(
           data.data.map(({ personal_volume, referral_count,  referral_package,package_id,team_volume }) => ({
             package_id,
@@ -44,7 +43,6 @@ const useGetPaymentTypes = () => {
           }))
         );
       } catch (err) {
-        console.log(err);
       }
     };
 
@@ -70,7 +68,6 @@ const useGetPaymentTypes = () => {
       enqueueSnackbar(data.message);
       setLoading(false);
     } catch (err) {
-      console.log(err);
       setLoading(false);
       enqueueSnackbar(err.message);
     }

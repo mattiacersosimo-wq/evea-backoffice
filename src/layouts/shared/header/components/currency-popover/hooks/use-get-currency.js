@@ -14,7 +14,6 @@ const useGetCurrency = () => {
           return { ...state, list: data.data };
         });
     } catch (err) {
-      console.log(err);
     }
   };
 

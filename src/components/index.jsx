@@ -42,7 +42,6 @@ const UsersSearch = ({
       filterOptions={filterOptions}
       value={value}
       onChange={(_, v) => {
-        console.log(v);
         if (v)
           setValue(
             name,

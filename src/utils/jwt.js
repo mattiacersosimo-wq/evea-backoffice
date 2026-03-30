@@ -23,9 +23,7 @@ const isValidToken = (accessToken) => {
 //   window.clearTimeout(expiredTimer);
 //   const currentTime = Date.now();
 //   const timeLeft = exp * 1000 - currentTime;
-//   console.log(timeLeft);
 //   expiredTimer = window.setTimeout(() => {
-//     console.log('expired');
 //     // You can do what ever you want here, like show a notification
 //   }, timeLeft);
 // };

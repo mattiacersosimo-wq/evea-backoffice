@@ -60,7 +60,6 @@ const BlogPostCommentForm = () => {
         reset();
       }
     } catch (error) {
-      console.error(error);
     }
   };
 

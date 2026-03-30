@@ -28,7 +28,6 @@ const useMaterialEdit = ({
           methods.reset(rest);
         }
       } catch (err) {
-        console.error(err);
       }
     }
   };

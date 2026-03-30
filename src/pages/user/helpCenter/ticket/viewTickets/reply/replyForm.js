@@ -45,7 +45,6 @@ const ReplyForm = ({ reload }) => {
         methods.reset();
       }
     } catch (err) {
-      console.error(err);
     }
   });
   return (

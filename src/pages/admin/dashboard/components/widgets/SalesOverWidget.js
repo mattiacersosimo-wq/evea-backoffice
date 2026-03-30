@@ -35,7 +35,6 @@ const useSalesChart = () => {
         setData(parsedSeries);
       }
     } catch (err) {
-      console.log(err);
     }
   };
   useEffect(() => {

@@ -223,7 +223,6 @@ export function getProductsUser() {
       const { status, data } = await fetchUser("online-store");
       if (status === 200) dispatch(slice.actions.getProductsSuccess(data.data));
     } catch (error) {
-      console.log(error);
       dispatch(slice.actions.hasError(error));
     }
   };
@@ -237,7 +236,6 @@ export function getProducts(pageNumber = 1) {
       const { status, data } = await axiosInstance.get(URL);
       if (status === 200) dispatch(slice.actions.getProductsSuccess(data));
     } catch (error) {
-      console.log(error);
       dispatch(slice.actions.hasError(error));
     }
   };
@@ -255,7 +253,6 @@ export function getProductUser(name) {
       });
       dispatch(slice.actions.getProductSuccess(response.data.product));
     } catch (error) {
-      console.error(error);
       dispatch(slice.actions.hasError(error));
     }
   };
@@ -270,7 +267,6 @@ export function getProduct(name) {
       });
       dispatch(slice.actions.getProductSuccess(response.data.product));
     } catch (error) {
-      console.error(error);
       dispatch(slice.actions.hasError(error));
     }
   };
@@ -287,7 +283,6 @@ export const deleteProduct = (id) => {
         dispatch(getProducts());
         return true;
       }
-      console.error("Failed to delete");
       return false;
     } catch (err) {
       return false;

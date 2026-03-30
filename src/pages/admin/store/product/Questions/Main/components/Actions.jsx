@@ -40,7 +40,6 @@ const Actions = ({ questionId, reload, close, openEdit }) => {
         return;
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

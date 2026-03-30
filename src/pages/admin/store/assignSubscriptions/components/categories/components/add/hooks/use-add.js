@@ -23,7 +23,6 @@ const useAdd = (onSuccess) => {
       }
     } catch (err) {
       enqueueSnackbar("Failed to Add", { variant: "error" });
-      console.error(err);
     }
   };
 

@@ -55,7 +55,6 @@ const Form = ({ onClose, id, ...other }) => {
       reset();
       onClose();
     } catch (error) {
-      console.error(error);
     }
   };
 

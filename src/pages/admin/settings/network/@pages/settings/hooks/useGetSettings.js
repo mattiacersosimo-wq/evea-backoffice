@@ -19,7 +19,6 @@ const useGetSettings = () => {
         });
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

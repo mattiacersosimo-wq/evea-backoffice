@@ -30,7 +30,6 @@ const useFilterCategories = () => {
           setCategories(data.data);
         }
       } catch (err) {
-        console.log(err);
       }
     };
 

@@ -37,7 +37,6 @@ const Actions = ({ openEdit, faqId, fetchFaqList, close, status }) => {
         close();
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

@@ -12,7 +12,6 @@ const getProductCategoryList = async () => {
 
     return [];
   } catch (err) {
-    console.error(err);
     return [];
   }
 };

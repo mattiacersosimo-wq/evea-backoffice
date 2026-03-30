@@ -32,7 +32,6 @@ const useGetBlogs = () => {
       actions.success([]);
     } catch (err) {
       actions.error();
-      console.log(err);
     }
   };
 

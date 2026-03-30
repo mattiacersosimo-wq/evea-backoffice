@@ -34,7 +34,6 @@ const useProductList = () => {
       }
     } catch (error) {
       actions.error();
-      console.log(error);
       return false;
     }
   };

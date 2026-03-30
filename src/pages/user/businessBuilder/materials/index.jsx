@@ -32,7 +32,6 @@ const useMaterials = () => {
         actions.success(defaultState, true);
       } catch (err) {
         actions.error();
-        console.log(err);
       }
     };
     fetchData();

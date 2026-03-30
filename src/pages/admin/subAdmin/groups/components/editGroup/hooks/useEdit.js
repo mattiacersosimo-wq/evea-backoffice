@@ -32,7 +32,6 @@ const useEdit = (cb) => {
         enqueueSnackbar(data.message);
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

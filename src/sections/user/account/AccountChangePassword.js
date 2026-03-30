@@ -48,7 +48,6 @@ export default function AccountChangePassword() {
       reset();
       enqueueSnackbar("Update success!");
     } catch (error) {
-      console.error(error);
     }
   };
 

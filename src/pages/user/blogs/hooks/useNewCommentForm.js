@@ -47,7 +47,6 @@ const useNewCommentForm = (reload) => {
         reset({ ...defaultValues, blog_id: id });
       }
     } catch (error) {
-      console.error(error);
     }
   };
 

@@ -19,7 +19,6 @@ const useFaqAdd = (onSuccess) => {
         enqueueSnackbar(data.message);
       }
     } catch (error) {
-      console.error(error);
     }
   };
 

@@ -26,7 +26,6 @@ const useAddDialog = (cd) => {
         methods.setError(k, { message: v[0] })
       );
 
-      console.error(errors);
     }
   };
 

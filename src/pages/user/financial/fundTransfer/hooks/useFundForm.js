@@ -54,7 +54,6 @@ const useFundForm = (refetch) => {
       }
     } catch (err) {
       enqueueSnackbar(err.message, { variant: "error" });
-      console.error(err);
     }
   };
 

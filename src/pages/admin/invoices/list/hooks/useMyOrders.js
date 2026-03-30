@@ -28,7 +28,6 @@ const useMyOrders = (filter) => {
       actions.success();
     } catch (err) {
       actions.error();
-      console.log(err);
     }
   };
   useEffect(() => {

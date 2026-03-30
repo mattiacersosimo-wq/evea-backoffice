@@ -14,7 +14,6 @@ const useGetProduct = () => {
         setProduct(data.data);
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

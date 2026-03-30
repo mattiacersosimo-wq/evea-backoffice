@@ -92,7 +92,6 @@ const CouponList = ({ status }) => {
         fetchCouponList();
       }
     } catch (err) {
-      console.error(err);
       enqueueSnackbar(err.message, { variant: "error" });
     }
   };

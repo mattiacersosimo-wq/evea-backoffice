@@ -56,7 +56,6 @@ const useTwoFactorAuthentication = (loginData) => {
         navigate(0);
       }
     } catch (err) {
-      console.error(err);
       enqueueSnackbar(err.message, { variant: "error" });
     }
   };

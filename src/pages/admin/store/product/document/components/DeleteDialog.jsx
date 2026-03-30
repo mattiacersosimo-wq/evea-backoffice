@@ -48,7 +48,6 @@ const DeleteDialog = ({
         return;
       }
     } catch (err) {
-      console.log(err);
       // enqueueSnackbar("Failed to delete the document", { variant: "error" });
     }
   };

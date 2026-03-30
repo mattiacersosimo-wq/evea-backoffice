@@ -23,7 +23,6 @@ const useUpdate = () => {
 
         methods.reset(parsedData);
       } catch (err) {
-        console.log(err);
       }
     };
     fetchData();

@@ -27,7 +27,6 @@ const enableRecurring = async (inputData) => {
 
 const EnableStripe = ({ open, onClose, reload }) => {
   const data = useSubscriptionContext();
-  console.log(data,"kkk")
 
   const { enqueueSnackbar } = useSnackbar();
   const { immediate_charge, product_id } = data ||{};

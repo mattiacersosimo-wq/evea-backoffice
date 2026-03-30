@@ -59,7 +59,6 @@ const useMaterialsAdd = () => {
         navigate(PATH_DASHBOARD.store.material);
       }
     } catch (error) {
-      console.log(error);
     }
   };
 

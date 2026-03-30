@@ -12,7 +12,6 @@ const useGetPaymentTypes = (openMenu) => {
         );
         setRecurringTypes(data.data);
       } catch (err) {
-        console.log(err);
       }
     };
     if (openMenu) fetchData();

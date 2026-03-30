@@ -47,7 +47,6 @@ const PayNow = ({ balance }) => {
         methods.reset({ amount: "" });
       }
     } catch (err) {
-      console.log(err);
       handleErrors(err);
     }
   };

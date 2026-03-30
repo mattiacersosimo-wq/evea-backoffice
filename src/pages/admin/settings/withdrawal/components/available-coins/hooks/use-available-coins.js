@@ -16,7 +16,6 @@ const useAvailableCoins = () => {
           setCoins(coinList);
         }
       } catch (err) {
-        console.error(err);
       }
     };
 

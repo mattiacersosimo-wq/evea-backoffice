@@ -33,7 +33,6 @@ const useGetCategoryById = (id) => {
           });
         }
       } catch (err) {
-        console.log(err);
       }
     };
     if (id) fetchData();

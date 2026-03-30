@@ -15,7 +15,6 @@ const getMaterialCategoryList = async (params = {}) => {
 
     return [];
   } catch (err) {
-    console.error(err);
     return [];
   }
 };

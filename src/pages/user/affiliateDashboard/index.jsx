@@ -60,7 +60,6 @@ const HeroSection = () => {
           if (pkgRes.status === "fulfilled") setPkgPeriod(pkgRes.value?.data?.data || null);
         }
       } catch (e) {
-        console.error(e);
       } finally {
         if (!off) setLoading(false);
       }

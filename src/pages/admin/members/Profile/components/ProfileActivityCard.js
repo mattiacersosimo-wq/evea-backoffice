@@ -48,7 +48,6 @@ export default function ProfileActivityCard() {
           setLastLogout(last_logout);
         }
       } catch (err) {
-        console.error(err);
       }
     };
     fetchData(page);

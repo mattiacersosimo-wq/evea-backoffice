@@ -46,7 +46,6 @@ const NewPassword = () => {
         reset();
       }
     } catch (error) {
-      console.error(error);
 
       reset();
       if (isMountedRef.current) {

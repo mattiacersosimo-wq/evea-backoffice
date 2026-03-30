@@ -32,7 +32,6 @@ const useGetCouponById = () => {
           });
         }
       } catch (err) {
-        console.error(err);
       }
     };
 

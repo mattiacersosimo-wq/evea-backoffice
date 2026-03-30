@@ -31,7 +31,6 @@ export default function RHFRadioGroup({
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => {
-        console.log(field);
         return (
           <div>
             <RadioGroup {...field} row {...other}>

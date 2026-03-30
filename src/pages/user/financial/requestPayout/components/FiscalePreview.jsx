@@ -42,11 +42,7 @@ const FiscalePreview = () => {
           var regime = user?.regime_fiscale
             || profile?.regime_fiscale
             || "";
-          console.log("[FiscalePreview] API user:", user);
-          console.log("[FiscalePreview] API user_profile:", profile);
-          console.log("[FiscalePreview] regime_fiscale raw value:", JSON.stringify(regime));
           var normalized = (regime || "").trim().toLowerCase();
-          console.log("[FiscalePreview] regime_fiscale normalized:", JSON.stringify(normalized));
           if (normalized === "partita_iva" || normalized === "partita iva") {
             setRegimeFiscale("partita_iva");
           } else {
@@ -54,7 +50,6 @@ const FiscalePreview = () => {
           }
         }
       } catch (err) {
-        console.error("[FiscalePreview] profile fetch error:", err);
         if (!cancelled) {
           setRegimeFiscale("incaricato_occasionale");
         }

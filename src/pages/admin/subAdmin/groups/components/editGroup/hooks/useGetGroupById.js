@@ -26,7 +26,6 @@ const useGetGroupById = () => {
           });
         }
       } catch (err) {
-        console.error(err);
       }
     };
     if (sid) {

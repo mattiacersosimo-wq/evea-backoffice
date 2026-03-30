@@ -19,7 +19,6 @@ const useVideoForm = () => {
 
   const onSubmit = methods.handleSubmit(async (inputData) => {
     await new Promise((resolve) => setTimeout(resolve, 800));
-    console.log(inputData);
     open("");
     enqueueSnackbar("Added the Video");
   });

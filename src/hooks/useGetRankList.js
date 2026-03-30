@@ -20,7 +20,6 @@ const useGetRankList = () => {
         }
       } catch (err) {
         setRanks([]);
-        console.error(err);
       }
     };
 

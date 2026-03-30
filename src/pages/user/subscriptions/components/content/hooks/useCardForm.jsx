@@ -41,7 +41,6 @@ const useCardForm = (productId, purchaseId, onClose, reload) => {
         reload();
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

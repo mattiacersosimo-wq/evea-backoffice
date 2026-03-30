@@ -12,7 +12,6 @@ const usePackages = () => {
         setPackages(data.data);
       }
     } catch (err) {
-      console.error(err);
     }
   };
   useEffect(() => {

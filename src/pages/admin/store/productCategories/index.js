@@ -61,7 +61,6 @@ const ProductCategories = () => {
     try {
       await axiosInstance.get(`api/admin/product-categories-status/${id}`);
     } catch (err) {
-      console.log(err);
     }
   };
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));

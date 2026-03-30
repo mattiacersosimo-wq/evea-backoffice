@@ -12,7 +12,6 @@ const useGetPriority = () => {
         setPriority(data?.data?.data);
       }
     } catch (err) {
-      console.log(err);
     }
   };
   useEffect(() => {

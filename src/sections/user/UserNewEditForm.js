@@ -116,7 +116,6 @@ export default function UserNewEditForm({ isEdit, currentUser }) {
       enqueueSnackbar(!isEdit ? "Create success!" : "Update success!");
       navigate(PATH_DASHBOARD.user.list);
     } catch (error) {
-      console.error(error);
     }
   };
 

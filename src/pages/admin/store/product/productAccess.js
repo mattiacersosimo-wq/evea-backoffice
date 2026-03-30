@@ -58,7 +58,6 @@ const ProductAccess = () => {
       reset();
       enqueueSnackbar("Update success!");
     } catch (error) {
-      console.error(error);
     }
   };
 

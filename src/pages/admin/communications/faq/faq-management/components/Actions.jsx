@@ -38,7 +38,6 @@ const Actions = ({ openEdit, faqId, fetchFaqList, close, status, ...rest }) => {
         close();
       }
     } catch (err) {
-      console.error(err);
     }
   };
   const { palette } = useTheme();

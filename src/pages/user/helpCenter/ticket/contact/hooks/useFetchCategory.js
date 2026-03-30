@@ -10,7 +10,6 @@ const UseFetchCategory = () => {
         setData(categories);
       }
     } catch (err) {
-      console.log(err);
     }
   };
   useEffect(() => {

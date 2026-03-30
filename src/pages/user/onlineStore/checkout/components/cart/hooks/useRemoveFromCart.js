@@ -20,7 +20,6 @@ const useRemoveFromCart = () => {
         decrementCart(data.data.length);
       }
     } catch (err) {
-      console.error(err);
     }
   };
 };

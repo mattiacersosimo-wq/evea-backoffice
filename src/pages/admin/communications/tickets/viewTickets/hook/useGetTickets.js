@@ -15,7 +15,6 @@ const useGetTickets = () => {
         setTicketData(data.data);
       }
     } catch (err) {
-      console.log(err);
     }
   };
   useEffect(() => {

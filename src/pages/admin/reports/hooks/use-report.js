@@ -34,7 +34,6 @@ const useReport = (uriKey, { title, heading }) => {
       actions.success();
     } catch (err) {
       actions.error();
-      console.error(err);
     }
   };
 

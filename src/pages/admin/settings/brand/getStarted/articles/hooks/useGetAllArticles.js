@@ -29,7 +29,6 @@ const useGetAllArticles = () => {
     } catch (err) {
       actions.error();
       enqueueSnackbar(err.message);
-      console.log(err);
     }
   };
 

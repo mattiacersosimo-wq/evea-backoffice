@@ -9,10 +9,8 @@ const useResendMail = (id) => {
     try {
       const { data } = await visitorServer.post("resend-email", reqData);
       setOtpSend("success");
-      console.log(data);
     } catch (err) {
       setOtpSend("failed");
-      console.log(err);
     }
   };
 

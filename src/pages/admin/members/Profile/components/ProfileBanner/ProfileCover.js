@@ -100,7 +100,6 @@ export default function ProfileCover() {
         dispatch({ type: "UPDATE_COVER", payload: data.data });
       }
     } catch (error) {
-      console.error(error);
 
       handleError(error);
     }

@@ -87,13 +87,11 @@ const RegisterForm = ({ setUserId, setShowOtp }) => {
         if (country_calling_code) {
           setValue("countryCode", country_calling_code);
         }
-        //console.log(
         //    country_calling_code,
         //    country_code,
         //    country_code_iso3
         //);
       } catch (err) {
-        console.log(err);
       }
     };
 

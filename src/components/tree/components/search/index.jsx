@@ -24,7 +24,6 @@ const SearchByUser = ({ search, handleReset }) => {
       await search(username, true);
       setSearching(false);
     } catch (err) {
-      console.error(err);
       setSearching(false);
     }
   };
@@ -38,7 +37,6 @@ const SearchByUser = ({ search, handleReset }) => {
       await search(null, true);
       setResetting(false);
     } catch (err) {
-      console.error(err);
       setResetting(false);
     }
   };

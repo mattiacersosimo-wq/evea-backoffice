@@ -10,7 +10,6 @@ const useRanks = () => {
         setRanks(data.data);
       }
     } catch (err) {
-      console.error(err);
     }
   };
   useEffect(() => {

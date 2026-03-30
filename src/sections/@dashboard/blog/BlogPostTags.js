@@ -20,10 +20,8 @@ const useLike = () => {
         reqData
       );
       if (status === 200) {
-        console.log(data);
       }
     } catch (err) {
-      console.log(err);
     }
   };
 

@@ -82,7 +82,6 @@ const UserGroup = () => {
       reset();
       enqueueSnackbar("Update success!");
     } catch (error) {
-      console.error(error);
     }
   };
 

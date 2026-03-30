@@ -38,7 +38,6 @@ const Actions = ({ eventId, fetchEventsList, close, status }) => {
         close();
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

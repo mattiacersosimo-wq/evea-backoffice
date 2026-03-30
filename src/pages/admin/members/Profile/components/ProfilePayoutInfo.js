@@ -52,7 +52,6 @@ const ProfilePayoutInfo = () => {
         enqueueSnackbar(resData.message);
       }
     } catch (error) {
-      console.error(error);
     }
   };
 

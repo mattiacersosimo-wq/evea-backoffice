@@ -30,7 +30,6 @@ const useGetPackages = () => {
           })
         );
       } catch (err) {
-        console.log(err);
       }
     };
     fetchData();

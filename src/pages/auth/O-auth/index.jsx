@@ -41,7 +41,6 @@ const OAuth = () => {
         }
       }
     } catch (err) {
-      console.error(err);
     }
   };
 
@@ -60,7 +59,6 @@ const OAuth = () => {
         handleSuccess(data.email, queryObject?.plan);
       }
     } catch (err) {
-      console.error(console.error("Retrieving Failed:", err));
     }
   };
 

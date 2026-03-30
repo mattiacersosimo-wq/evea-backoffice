@@ -13,7 +13,6 @@ const checkSuccess = async (pid, uid) => {
 
     return httpOkay;
   } catch (err) {
-    console.error(err);
     return false;
   }
 };

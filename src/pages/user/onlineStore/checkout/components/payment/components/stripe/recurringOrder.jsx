@@ -11,7 +11,6 @@ const enableRecurringOrder = async (userPayment) => {
     );
     return status === 200;
   } catch (err) {
-    console.log(err);
     return false;
   }
 };

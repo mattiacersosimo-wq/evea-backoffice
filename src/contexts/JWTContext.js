@@ -301,7 +301,6 @@ function AuthProvider({ children }) {
         window.location = "/auth/login";
       }
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -376,7 +375,6 @@ function AuthProvider({ children }) {
         }
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

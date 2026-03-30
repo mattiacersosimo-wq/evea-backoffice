@@ -34,7 +34,6 @@ const fetchBrandSettings = async () => {
       }
     }
   } catch (err) {
-    console.error(err);
   }
 };
 
@@ -63,7 +62,6 @@ export default function App() {
         }, {});
         setConfig(test);
       } catch (err) {
-        console.error(err);
       }
     };
 

@@ -18,7 +18,6 @@ const useTreeProvider = () => {
         setUserInfo(serializedData);
       }
     } catch (err) {
-      console.error(err);
     }
   };
   const handleUsernameChange = (v) => {

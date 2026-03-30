@@ -32,7 +32,6 @@ const RootStyle = styled("div")(({ theme }) => ({
 }));
 
 const ReasonForm = ({ title, open, selectedId, onClose, fetchData }) => {
-  console.log(selectedId);
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState();
   const handleDelete = async () => {

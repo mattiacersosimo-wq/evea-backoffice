@@ -14,7 +14,6 @@ const useGetProductsReviews = () => {
         setProductReviews(data.data);
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

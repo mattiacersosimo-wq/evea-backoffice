@@ -73,7 +73,6 @@ const EditDialog = ({ editId, onClose }) => {
       }
       enqueueSnackbar(data.message);
     } catch (err) {
-      console.error(err);
     }
   };
   const { t } = useTranslation();

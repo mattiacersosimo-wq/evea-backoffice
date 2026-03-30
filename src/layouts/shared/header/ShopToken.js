@@ -10,7 +10,6 @@ export default function ShopToken() {
       const redirectUrl = `https://account.myevea.com/`;
       window.open(redirectUrl, "_blank");
     } else {
-      console.error("Access token not found");
     }
   };
 

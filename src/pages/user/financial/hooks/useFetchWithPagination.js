@@ -33,7 +33,6 @@ const useFetchWitPagination = (url, filter = {}) => {
             }
             actions.success();
         } catch (err) {
-            console.log(err);
             actions.error();
             handleErrors(err);
         }

@@ -11,7 +11,6 @@ const useRanks = () => {
 
         setRanks(data.data);
       } catch (err) {
-        console.log(err);
       }
     };
 

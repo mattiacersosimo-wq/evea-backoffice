@@ -22,7 +22,6 @@ const useUpdateConfig = (key = "") => {
 
       enqueueSnackbar(data.message);
     } catch (err) {
-      console.error(err);
     }
   };
 

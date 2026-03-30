@@ -13,7 +13,6 @@ const useGetById = () => {
         methods.reset({ description, name });
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

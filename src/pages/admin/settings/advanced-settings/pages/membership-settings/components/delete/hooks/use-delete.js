@@ -20,7 +20,6 @@ const useDelete = (id, onSuccess) => {
       enqueueSnackbar(data.message);
       onSuccess();
     } catch (err) {
-      console.log(err);
       setLoading(false);
     }
   };

@@ -28,7 +28,6 @@ const enableGoogleTFA = async () => {
 
     return false;
   } catch (err) {
-    console.error(err);
     return false;
   }
 };
@@ -101,7 +100,6 @@ const UpdateTwoFactorAuthentication = () => {
       }
     } catch (err) {
       enqueueSnackbar(err.message, { variant: "error" });
-      console.error(err);
     }
   };
 

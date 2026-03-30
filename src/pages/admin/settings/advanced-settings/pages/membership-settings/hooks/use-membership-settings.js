@@ -74,7 +74,6 @@ const useMembershipSettings = () => {
                 loading: false,
                 error: true,
             }));
-            console.log(err);
         }
     };
     useEffect(() => {

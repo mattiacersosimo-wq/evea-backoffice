@@ -60,7 +60,6 @@ const useFetch = (fetcher) => {
         const r = await fetcher();
         if (!off) setData(r);
       } catch (e) {
-        console.error(e);
       } finally {
         if (!off) setLoading(false);
       }

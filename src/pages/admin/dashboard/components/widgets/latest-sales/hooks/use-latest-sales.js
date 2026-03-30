@@ -17,7 +17,6 @@ const useLatestSales = () => {
         }
       } catch (err) {
         actions.error();
-        console.log(err);
       }
     };
 

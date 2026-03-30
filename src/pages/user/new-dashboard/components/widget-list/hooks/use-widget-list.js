@@ -13,7 +13,6 @@ const useWidgetList = () => {
         const { data } = await axiosInstance.get("api/user/dashboard/widget");
         setData(data.data);
       } catch (err) {
-        console.error(err);
       }
     };
 

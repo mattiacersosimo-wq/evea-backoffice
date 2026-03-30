@@ -46,7 +46,6 @@ export default function LanguagePopover() {
         i18n.changeLanguage(locale);
       }
     } catch (err) {
-      console.log(err);
     }
   };
 

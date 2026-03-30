@@ -15,7 +15,6 @@ const useEventList = (date) => {
         actions.success(data.data);
       } catch (err) {
         actions.error();
-        console.error(err);
       }
     };
 

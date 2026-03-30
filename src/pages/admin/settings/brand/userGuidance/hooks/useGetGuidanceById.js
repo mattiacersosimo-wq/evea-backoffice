@@ -23,7 +23,6 @@ const useGetGuidanceById = (selectedGuidanceId) => {
           });
         }
       } catch (err) {
-        console.error(err);
         enqueueSnackbar(err.message, { variant: "error" });
       }
     };

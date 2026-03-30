@@ -16,7 +16,6 @@ const useDeleteProduct = () => {
         enqueueSnackbar(data.message);
         return true;
       }
-      console.error("Failed to delete");
       return true;
     } catch (err) {
       enqueueSnackbar(err.message, { variant: "error" });

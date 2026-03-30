@@ -13,7 +13,6 @@ const useChangeStatus = (active) => {
         setIsActive(!isActive);
       }
     } catch (err) {
-      console.error(err);
     }
   };
 

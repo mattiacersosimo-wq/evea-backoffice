@@ -23,7 +23,6 @@ const useFetchBlogs = (filter) => {
         setData(blogs);
       }
     } catch (err) {
-      console.log(err);
     }
   };
   useEffect(() => {

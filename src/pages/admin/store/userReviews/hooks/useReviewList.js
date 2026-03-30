@@ -29,7 +29,6 @@ const useReviewList = () => {
         actions.success();
       } catch (err) {
         actions.error();
-        console.log(err);
       }
     };
 

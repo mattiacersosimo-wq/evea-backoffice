@@ -43,7 +43,6 @@ const Actions = ({
         close();
       }
     } catch (err) {
-      console.error(err);
     }
   };
   const { palette } = useTheme();
