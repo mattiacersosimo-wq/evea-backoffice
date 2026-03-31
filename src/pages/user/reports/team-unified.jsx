@@ -52,6 +52,7 @@ const TeamUnified = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
+  const [levelFilter, setLevelFilter] = useState("all");
   const [search, setSearch] = useState("");
   const [orderBy, setOrderBy] = useState("level");
   const [order, setOrder] = useState("asc");
@@ -92,24 +93,47 @@ const TeamUnified = () => {
     }
   };
 
+  // Rank order map for correct sorting
+  const RANK_ORDER = {
+    "Associate": 1, "Starter": 2, "Builder": 3, "Senior Builder": 4,
+    "Platinum": 5, "Sapphire": 6, "Ruby": 7, "Emerald": 8,
+    "Diamond": 9, "Blue Diamond": 10, "Crown Diamond": 11,
+  };
+
+  // Available levels for filter
+  const availableLevels = [...new Set(data.map((m) => m.level))].sort((a, b) => a - b);
+
   // Filter
   let filtered = data;
   if (filter === "promoter") filtered = filtered.filter((m) => m.type === "promoter");
   if (filter === "customer") filtered = filtered.filter((m) => m.type === "customer");
   if (filter === "smartship") filtered = filtered.filter((m) => m.smartship);
   if (filter === "inactive") filtered = filtered.filter((m) => m.days_inactive >= 30 || m.days_inactive === null);
+  if (levelFilter !== "all") filtered = filtered.filter((m) => m.level === parseInt(levelFilter));
   if (search) {
     const s = search.toLowerCase();
     filtered = filtered.filter((m) => m.username?.toLowerCase().includes(s) || m.name?.toLowerCase().includes(s));
   }
 
-  // Sort — always group by level first, then sort within each level
+  // Sort
   filtered = [...filtered].sort((a, b) => {
-    // Primary: always sort by level ascending
-    if (a.level !== b.level) return a.level - b.level;
-    // Secondary: sort by selected column within same level
-    if (orderBy === "level") return 0;
+    if (orderBy === "level") {
+      return order === "asc" ? a.level - b.level : b.level - a.level;
+    }
+
+    // Rank: sort by rank hierarchy, not alphabetically
+    if (orderBy === "rank") {
+      const ra = RANK_ORDER[a.rank] || 0;
+      const rb = RANK_ORDER[b.rank] || 0;
+      return order === "asc" ? ra - rb : rb - ra;
+    }
+
     let va = a[orderBy], vb = b[orderBy];
+    // Force numeric for known numeric fields
+    if (["pqv", "tv", "gv", "revenue"].includes(orderBy)) {
+      va = parseFloat(va) || 0;
+      vb = parseFloat(vb) || 0;
+    }
     if (va === null || va === undefined) va = orderBy === "last_order" ? "" : -1;
     if (vb === null || vb === undefined) vb = orderBy === "last_order" ? "" : -1;
     if (typeof va === "string") return order === "asc" ? va.localeCompare(vb) : vb.localeCompare(va);
@@ -206,6 +230,11 @@ const TeamUnified = () => {
           <TextField select size="small" value={filter} onChange={(e) => setFilter(e.target.value)}
             sx={{ width: 180, "& .MuiOutlinedInput-root": { borderRadius: 2, fontSize: "0.8rem" } }}>
             {FILTERS.map((f) => <MenuItem key={f.value} value={f.value} sx={{ fontSize: "0.8rem" }}>{isIt ? f.label : f.labelEn}</MenuItem>)}
+          </TextField>
+          <TextField select size="small" value={levelFilter} onChange={(e) => setLevelFilter(e.target.value)}
+            sx={{ width: 130, "& .MuiOutlinedInput-root": { borderRadius: 2, fontSize: "0.8rem" } }}>
+            <MenuItem value="all" sx={{ fontSize: "0.8rem" }}>{isIt ? "Tutti i livelli" : "All levels"}</MenuItem>
+            {[1,2,3,4,5,6,7,8,9,10].map((lv) => <MenuItem key={lv} value={String(lv)} sx={{ fontSize: "0.8rem" }}>{isIt ? `Livello ${lv}` : `Level ${lv}`}</MenuItem>)}
           </TextField>
           <Box sx={{ flex: 1 }} />
           <Stack direction="row" spacing={2}>
