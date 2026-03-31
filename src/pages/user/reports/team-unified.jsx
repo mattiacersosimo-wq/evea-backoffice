@@ -103,8 +103,12 @@ const TeamUnified = () => {
     filtered = filtered.filter((m) => m.username?.toLowerCase().includes(s) || m.name?.toLowerCase().includes(s));
   }
 
-  // Sort
+  // Sort — always group by level first, then sort within each level
   filtered = [...filtered].sort((a, b) => {
+    // Primary: always sort by level ascending
+    if (a.level !== b.level) return a.level - b.level;
+    // Secondary: sort by selected column within same level
+    if (orderBy === "level") return 0;
     let va = a[orderBy], vb = b[orderBy];
     if (va === null || va === undefined) va = orderBy === "last_order" ? "" : -1;
     if (vb === null || vb === undefined) vb = orderBy === "last_order" ? "" : -1;
