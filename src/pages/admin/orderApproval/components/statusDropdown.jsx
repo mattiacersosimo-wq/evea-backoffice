@@ -18,6 +18,7 @@ const StatusDropdown = ({ item, fetchData, page }) => {
   const statusOptions = [
     { value: "finished", label: t("global.completed"), color: "#33cc33" },
     { value: "failed", label: t("global.failed"), color: "#e29f23" },
+    { value: "partially_refunded", label: "Parzialmente rimborsato", color: "#E65100" },
     { value: "refunded", label: t("global.refunded"), color: "#1968df" },
     { value: "cancelled", label: t("global.cancelled"), color: "#ff3333" },
   ];
@@ -33,7 +34,7 @@ const StatusDropdown = ({ item, fetchData, page }) => {
   }, [item.payment_status]);
 
   const isDisabled = useMemo(
-    () => currentStatusName !== "finished",
+    () => !["finished", "partially_refunded"].includes(currentStatusName),
     [currentStatusName],
   );
 

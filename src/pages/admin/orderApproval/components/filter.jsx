@@ -31,6 +31,7 @@ const DataFilter = ({ isKyc, methods, onFilter }) => {
               <option value="" />
               <option value="finished">{t("global.completed")}</option>
               <option value="cancelled">{t("global.cancelled")}</option>
+              <option value="partially_refunded">Parzialmente rimborsato</option>
               <option value="refunded">{t("global.refunded")}</option>
               <option value="failed">{t("global.failed")}</option>
             </RHFSelect>

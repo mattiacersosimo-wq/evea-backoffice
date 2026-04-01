@@ -44,6 +44,7 @@ const getStatusBadge = (row) => {
   const os = (row?.order_status || "").toLowerCase();
   const fs = (row?.fulfillment_status || "").toLowerCase();
   if (os === "refunded" || os === "cancelled") return { label: "Rimborsato", bgcolor: "#FCEBEB", color: "#A32D2D" };
+  if (os === "partially_refunded") return { label: "Parzialmente rimborsato", bgcolor: "#FFF3E0", color: "#E65100" };
   if (fs === "delivered") return { label: "Consegnato", bgcolor: "#EAF3DE", color: "#27500A" };
   if (fs === "fulfilled" || fs === "success") return { label: "Spedito", bgcolor: "#FAF3E0", color: "#854F0B" };
   if (os === "finished" || os === "paid" || os === "complete") return { label: "Pagato", bgcolor: "#E6F1FB", color: "#0C447C" };
