@@ -786,7 +786,7 @@ const UserDashboard = () => {
           <Stack direction="row" alignItems="center" spacing={1} mb={2}>
             <Iconify icon="mdi:ticket-percent-outline" width={22} sx={{ color: ORO }} />
             <Typography variant="h6" fontWeight={700} color={ESPRESSO}>
-              {t("evea.your_rewards") || "I Tuoi Coupon Premio"}
+              I Tuoi Coupon Premio
             </Typography>
           </Stack>
           <CouponsSection coupons={coupons} loading={couponsLoading} />
