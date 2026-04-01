@@ -250,7 +250,7 @@ const Ticker = () => {
     }}>
       <Box sx={{
         display: "flex", whiteSpace: "nowrap",
-        animation: "tickerScroll 30s linear infinite",
+        animation: "tickerScroll 20s linear infinite",
         "@keyframes tickerScroll": {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
