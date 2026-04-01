@@ -273,7 +273,7 @@ const TickerBar = () => {
   const items = [...(ticker.sales || []), ...(ticker.new_members || []), ...(ticker.ranks || [])].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   if (!items.length) return null;
   return (
-    <Box sx={{ bgcolor: "#fff", overflow: "hidden", borderTop: `1px solid ${alpha(ORO, 0.1)}`, borderBottom: `1px solid ${alpha(ORO, 0.1)}`, width: "100vw", position: "relative", left: "50%", transform: "translateX(-50%)" }}>
+    <Box sx={{ bgcolor: "#fff", overflow: "hidden", borderRadius: 2, border: `1px solid ${alpha(ORO, 0.12)}` }}>
       <Box sx={{ px: 2, py: 0.8, borderBottom: `1px solid ${alpha(ORO, 0.08)}` }}>
         <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: ORO, letterSpacing: 1.5 }}>EVEA LIVE</Typography>
       </Box>
