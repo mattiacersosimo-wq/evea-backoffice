@@ -246,8 +246,12 @@ const Ticker = () => {
   return (
     <Box sx={{
       overflow: "hidden", bgcolor: alpha(ORO, 0.06), borderRadius: 2,
-      border: `1px solid ${alpha(ORO, 0.12)}`, py: 1.8, mt: 2,
+      border: `1px solid ${alpha(ORO, 0.12)}`, mt: 2,
     }}>
+      <Box sx={{ px: 2, py: 0.8, borderBottom: `1px solid ${alpha(ORO, 0.08)}` }}>
+        <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: ORO, letterSpacing: 1.5 }}>EVEA LIVE</Typography>
+      </Box>
+      <Box sx={{ py: 1.2, overflow: "hidden" }}>
       <Box sx={{
         display: "flex", whiteSpace: "nowrap",
         animation: "tickerScroll 20s linear infinite",
@@ -264,6 +268,7 @@ const Ticker = () => {
             {msg}
           </Typography>
         ))}
+      </Box>
       </Box>
     </Box>
   );
