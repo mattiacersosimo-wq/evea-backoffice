@@ -4,224 +4,131 @@ import {
   Typography,
   Box,
   Chip,
-  Divider,
   Grid,
-  alpha,
+  Skeleton,
 } from "@mui/material";
-import React from "react";
+import { alpha } from "@mui/material/styles";
 import HeaderBreadcrumbs from "src/components/HeaderBreadcrumbs";
+import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
-import Scrollbar from "src/components/Scrollbar";
-import DataHandlerTable from "src/components/data-handler/table";
-import ParseDate from "src/components/date";
 import Map from "src/components/map";
 import PaginationButtons from "src/components/pagination";
-import { Currency } from "src/components/with-prefix";
 import { PATH_DASHBOARD } from "src/routes/paths";
 import useCouponPurchase from "./hooks/useCouponPurchase";
 
+const ORO = "#B8963B";
+const ESPRESSO = "#2C1A0E";
+const MUTED = "#7A6A5C";
+
 const CouponList = () => {
   const { state, fetchData, rowStart, ...rest } = useCouponPurchase();
-  const { data, ...dataProps } = state;
-
-  const getStatusChip = (coupon) => {
-    const now = new Date();
-    const start = new Date(coupon.start_date);
-    const end = new Date(coupon.end_date);
-
-    if (coupon.active !== 1) {
-      return <Chip label="Inactive" color="default" size="small" />;
-    }
-    if (now < start) {
-      return <Chip label="Not Started" color="warning" size="small" />;
-    }
-    if (now > end) {
-      return <Chip label="Expired" color="error" size="small" />;
-    }
-    return <Chip label="Active" color="success" size="small" />;
-  };
-
-  const getTypeLabel = (type) => {
-    const labels = {
-      rob_bonus: "ROB Bonus",
-      percentage: "Percentage Discount",
-      fixed: "Fixed Amount",
-    };
-    return (
-      labels[type] ||
-      type.charAt(0).toUpperCase() + type.slice(1).replace(/_/g, " ")
-    );
-  };
+  const { data, loading, isArrayEmpty } = state;
 
   return (
-    <Page title="coupons.user.list.title">
+    <Page title="I Miei Coupon">
       <HeaderBreadcrumbs
-        heading="coupons.user.list.title"
+        heading="I Miei Coupon"
         links={[
-          { name: "global.dashboard", href: PATH_DASHBOARD.root },
-          { name: "coupons.user.list.title" },
+          { name: "Dashboard", href: PATH_DASHBOARD.root },
+          { name: "I Miei Coupon" },
         ]}
       />
 
-      <Card sx={{ pt: 1 }}>
-        <Scrollbar>
-          <DataHandlerTable
-            name="coupon-purchase-table"
-            headers={[]}
-            dataProps={{ ...dataProps }}
-          >
-            <Grid container spacing={3} sx={{ p: 3 }}>
-              <Map
-                list={data}
-                render={(coupon) => {
-                  const isActive = coupon.active === 1;
-                  const isExpired = new Date() > new Date(coupon.end_date);
-
-                  return (
-                    <Grid item xs={12} sm={6} md={4} lg={3} height="100%" key={coupon.id}>
-                      <Card
-                        sx={{
-                          position: "relative",
-                          overflow: "visible",
-                          borderRadius: 3,
-                          boxShadow: isActive ? 8 : 3,
-                          background: isActive
-                            ? "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-                            : "#e0e0e0",
-                          color: isActive ? "#fff" : "#666",
-                          transition: "all 0.4s ease",
-                          transform: isActive
-                            ? "translateY(0)"
-                            : "translateY(4px)",
-                          opacity: isActive ? 1 : 0.65,
-                          filter: isActive ? "none" : "grayscale(100%)",
-                          "&:hover": {
-                            transform: isActive
-                              ? "translateY(-8px)"
-                              : "translateY(0)",
-                            boxShadow: isActive ? 12 : 3,
-                          },
-                          "&:before": {
-                            content: '""',
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            height: "10px",
-                            background: isActive
-                              ? "repeating-linear-gradient(90deg, #fff, #fff 12px, transparent 12px, transparent 24px)"
-                              : "repeating-linear-gradient(90deg, #ccc, #ccc 12px, transparent 12px, transparent 24px)",
-                          },
-                          "&:after": {
-                            content: '""',
-                            position: "absolute",
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            height: "10px",
-                            background: isActive
-                              ? "repeating-linear-gradient(90deg, #fff, #fff 12px, transparent 12px, transparent 24px)"
-                              : "repeating-linear-gradient(90deg, #ccc, #ccc 12px, transparent 12px, transparent 24px)",
-                          },
-                        }}
-                      >
-                        <Box sx={{ p: 3, position: "relative", zIndex: 1 }}>
-                          <Stack
-                            direction="row"
-                            justifyContent="space-between"
-                            alignItems="center"
-                            mb={2}
-                          >
-                            <Typography
-                              variant="h6"
-                              noWrap
-                              sx={{
-                                maxWidth: "68%",
-                                opacity: isActive ? 1 : 0.8,
-                                fontWeight: isActive ? 600 : 500,
-                              }}
-                            >
-                              {coupon.name}
-                            </Typography>
-                            {getStatusChip(coupon)}
-                          </Stack>
-
-                          <Divider
-                            sx={{
-                              borderColor: alpha(
-                                isActive ? "#fff" : "#999",
-                                isActive ? 0.3 : 0.2
-                              ),
-                              mb: 2,
-                            }}
-                          />
-
-                          <Typography
-                            variant="h4"
-                            align="center"
-                            sx={{
-                              fontWeight: 800,
-                              letterSpacing: 3,
-                              mb: 2,
-                              opacity: isActive ? 1 : 0.7,
-                              color: isActive ? "inherit" : "#444",
-                            }}
-                          >
-                            Coupon Code : {coupon.code}
-                          </Typography>
-
-                          <Grid
-                            container
-                            spacing={1}
-                            sx={{ fontSize: "0.9rem" }}
-                          >
-                            {[
-                              {
-                                label: "Start",
-                                value: <ParseDate date={coupon.start_date} />,
-                              },
-                              {
-                                label: "End",
-                                value: <ParseDate date={coupon.end_date} />,
-                              },
-                              {
-                                label: "Discount",
-                                value: <Currency>{coupon.discount}</Currency>,
-                              },
-                              {
-                                label: "Type",
-                                value: getTypeLabel(coupon.type),
-                              },
-                            ].map((item, idx) => (
-                              <Grid item xs={6} key={idx}>
-                                <Typography
-                                  variant="body2"
-                                  sx={{ opacity: isActive ? 0.9 : 0.7 }}
-                                >
-                                  {item.label}
-                                </Typography>
-                                <Typography
-                                  variant="body1"
-                                  fontWeight="bold"
-                                  sx={{ color: isActive ? "inherit" : "#555" }}
-                                >
-                                  {item.value}
-                                </Typography>
-                              </Grid>
-                            ))}
-                          </Grid>
-                        </Box>
-                      </Card>
-                    </Grid>
-                  );
-                }}
-              />
+      {loading ? (
+        <Grid container spacing={2}>
+          {[0, 1, 2].map((i) => (
+            <Grid item xs={12} sm={6} md={4} key={i}>
+              <Skeleton variant="rounded" height={120} sx={{ borderRadius: 3 }} />
             </Grid>
-          </DataHandlerTable>
-        </Scrollbar>
+          ))}
+        </Grid>
+      ) : isArrayEmpty || !data?.length ? (
+        <Card sx={{ p: 6, textAlign: "center", borderRadius: 3, border: "1px solid #f0ece6" }}>
+          <Iconify icon="mdi:ticket-outline" width={48} sx={{ color: "#ddd", mb: 1 }} />
+          <Typography variant="h6" color="text.secondary">Nessun coupon disponibile</Typography>
+          <Typography variant="body2" color="text.disabled" sx={{ mt: 0.5 }}>
+            Completa il programma 3 For Free o il Percorso Fedeltà per guadagnare coupon
+          </Typography>
+        </Card>
+      ) : (
+        <Grid container spacing={2}>
+          <Map
+            list={data}
+            render={(coupon) => {
+              const amount = parseFloat(coupon.discount || coupon.amount || coupon.total_amount || 0);
+              const code = coupon.code || "";
+              const rawStart = coupon.start_date;
+              const rawEnd = coupon.end_date;
+              const startLabel = rawStart ? new Date(rawStart).toLocaleDateString("it-IT", { day: "2-digit", month: "long", year: "numeric" }) : "—";
+              const endLabel = rawEnd ? new Date(rawEnd).toLocaleDateString("it-IT", { day: "2-digit", month: "long", year: "numeric" }) : "—";
+              const now = new Date();
+              const isExpired = rawEnd && now > new Date(rawEnd);
+              const isNotStarted = rawStart && now < new Date(rawStart);
+              const isActive = coupon.active === 1 && !isExpired && !isNotStarted;
+              const isUsed = coupon.uses_count > 0 || coupon.used === 1;
+              const typeName = (coupon.type || "").replace(/_/g, " ").replace("programe", "").trim().toUpperCase() || "COUPON";
 
-        <PaginationButtons {...rest} />
-      </Card>
+              const statusLabel = isUsed ? "Utilizzato" : isExpired ? "Scaduto" : isNotStarted ? "Non ancora attivo" : "Attivo";
+              const statusColor = isUsed ? "#9E9E9E" : isExpired ? "#E24B4A" : isNotStarted ? "#FF9800" : "#4CAF50";
+              const dimmed = isUsed || isExpired;
+
+              return (
+                <Grid item xs={12} sm={6} md={4} key={coupon.id}>
+                  <Card sx={{
+                    borderRadius: 3, overflow: "hidden", height: "100%",
+                    border: `1px solid ${dimmed ? "#e0e0e0" : alpha(ORO, 0.3)}`,
+                    opacity: dimmed ? 0.65 : 1,
+                    transition: "all 0.3s",
+                    "&:hover": { transform: dimmed ? "none" : "translateY(-4px)", boxShadow: dimmed ? 1 : 6 },
+                  }}>
+                    <Box sx={{ display: "flex", height: "100%" }}>
+                      <Box sx={{ width: 8, bgcolor: dimmed ? "#ccc" : ORO, flexShrink: 0 }} />
+                      <Box sx={{ p: 2.5, flex: 1 }}>
+                        {/* Header */}
+                        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1.5}>
+                          <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700 }}>
+                            {typeName}
+                          </Typography>
+                          <Chip label={statusLabel} size="small"
+                            sx={{ height: 22, fontSize: "0.65rem", fontWeight: 700, bgcolor: alpha(statusColor, 0.1), color: statusColor }} />
+                        </Stack>
+
+                        {/* Amount */}
+                        <Typography sx={{ fontSize: "2rem", fontWeight: 800, color: dimmed ? "#aaa" : ORO, lineHeight: 1, mb: 1 }}>
+                          €{amount.toFixed(2)}
+                        </Typography>
+
+                        {/* Code */}
+                        {code && (
+                          <Box sx={{ bgcolor: alpha(ORO, 0.06), borderRadius: 1.5, px: 1.5, py: 0.8, mb: 1.5, display: "inline-block" }}>
+                            <Typography sx={{ fontSize: "0.85rem", fontWeight: 800, color: ESPRESSO, fontFamily: "monospace", letterSpacing: "0.15em" }}>
+                              {code}
+                            </Typography>
+                          </Box>
+                        )}
+
+                        {/* Dates */}
+                        <Stack spacing={0.5}>
+                          <Stack direction="row" alignItems="center" spacing={0.5}>
+                            <Iconify icon="mdi:calendar-start" width={14} sx={{ color: "#aaa" }} />
+                            <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Dal: <strong>{startLabel}</strong></Typography>
+                          </Stack>
+                          <Stack direction="row" alignItems="center" spacing={0.5}>
+                            <Iconify icon="mdi:calendar-end" width={14} sx={{ color: "#aaa" }} />
+                            <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Al: <strong>{endLabel}</strong></Typography>
+                          </Stack>
+                        </Stack>
+                      </Box>
+                    </Box>
+                  </Card>
+                </Grid>
+              );
+            }}
+          />
+        </Grid>
+      )}
+
+      <PaginationButtons {...rest} />
     </Page>
   );
 };

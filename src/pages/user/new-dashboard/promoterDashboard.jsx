@@ -165,6 +165,11 @@ const useHero = () => useFetch(async () => {
   return data?.data;
 });
 
+const useCoupons = () => useFetch(async () => {
+  const { data } = await fetchUser("coupon-purchase?page=1");
+  return data?.data?.data?.slice(0, 4) || [];
+});
+
 const OnboardingBanner = () => {
   const [status, setStatus] = useState(null);
   const navigate = useNavigate();
@@ -1099,6 +1104,66 @@ const GoalSetter = () => {
   );
 };
 
+// ═══════════════════════════════════════
+// COUPONS
+// ═══════════════════════════════════════
+const CouponsSection = ({ coupons, loading }) => {
+  if (loading) return (
+    <Grid container spacing={2}>
+      {[0, 1].map((i) => (
+        <Grid item xs={12} sm={6} key={i}>
+          <Skeleton variant="rounded" height={100} sx={{ borderRadius: 3 }} />
+        </Grid>
+      ))}
+    </Grid>
+  );
+
+  if (!coupons?.length) return (
+    <Box sx={{ textAlign: "center", py: 4, bgcolor: "#fafafa", borderRadius: 3 }}>
+      <Iconify icon="mdi:ticket-outline" width={36} sx={{ color: "#ddd", mb: 1 }} />
+      <Typography variant="body2" color="text.secondary">Nessun coupon disponibile</Typography>
+    </Box>
+  );
+
+  return (
+    <Grid container spacing={2}>
+      {coupons.map((coupon, i) => {
+        const amount = parseFloat(coupon.discount || coupon.amount || coupon.total_amount || 0);
+        const code = coupon.code || "";
+        const rawDate = coupon.end_date || coupon.expiry_date || coupon.expire_date;
+        const expiryLabel = rawDate ? new Date(rawDate).toLocaleDateString("it-IT", { day: "2-digit", month: "long", year: "numeric" }) : "Nessuna scadenza";
+        const isUsed = coupon.uses_count > 0 || coupon.used === 1;
+        const typeName = (coupon.type || coupon.coupon_type || "").replace(/_/g, " ").replace("programe", "").trim().toUpperCase() || "COUPON";
+
+        return (
+          <Grid item xs={12} sm={6} md={4} key={coupon.id || i}>
+            <Card sx={{ borderRadius: 3, overflow: "hidden", height: "100%", border: `1px solid ${isUsed ? "#e0e0e0" : alpha(ORO, 0.3)}`, opacity: isUsed ? 0.6 : 1, bgcolor: "#fff" }}>
+              <Box sx={{ display: "flex", height: "100%" }}>
+                <Box sx={{ width: 6, bgcolor: isUsed ? "#ccc" : ORO, flexShrink: 0 }} />
+                <Box sx={{ p: 2, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                  <Stack direction="row" alignItems="center" justifyContent="space-between">
+                    <Box>
+                      <Typography sx={{ fontSize: "0.75rem", color: MUTED, textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700, mb: 0.3 }}>{typeName}</Typography>
+                      <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: isUsed ? "#aaa" : ORO, lineHeight: 1 }}>€{amount.toFixed(2)}</Typography>
+                    </Box>
+                    <Box sx={{ width: 44, height: 44, borderRadius: "50%", bgcolor: alpha(isUsed ? "#ccc" : ORO, 0.08), display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <Iconify icon={isUsed ? "mdi:check-circle" : "mdi:ticket-percent"} width={24} sx={{ color: isUsed ? "#aaa" : ORO }} />
+                    </Box>
+                  </Stack>
+                  <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1.5 }}>
+                    {code && <Typography sx={{ fontSize: "0.82rem", fontWeight: 800, color: ESPRESSO, bgcolor: alpha(ORO, 0.06), px: 1.2, py: 0.3, borderRadius: 1.5, fontFamily: "monospace", letterSpacing: "0.1em" }}>{code}</Typography>}
+                    <Typography sx={{ fontSize: "0.65rem", color: "#aaa" }}>{isUsed ? "Utilizzato" : `Scade il ${expiryLabel}`}</Typography>
+                  </Stack>
+                </Box>
+              </Box>
+            </Card>
+          </Grid>
+        );
+      })}
+    </Grid>
+  );
+};
+
 const Section = ({ icon, children }) => (
   <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1 }}>
     <Iconify icon={icon} width={20} sx={{ color: ORO }} />
@@ -1113,6 +1178,7 @@ const PromoterDashboard = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const { data: heroData } = useHero();
+  const { data: couponsData, loading: couponsLoading } = useCoupons();
   return (
     <Page title="Dashboard">
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4, mx: { xs: -2, md: -3 }, mt: -2, pt: 2, bgcolor: "#f5f5f5", minHeight: "100vh" }}>
@@ -1193,6 +1259,9 @@ const PromoterDashboard = () => {
             <Grid item xs={12} md={6}><ThreeFFCard /></Grid>
             <Grid item xs={12} md={6}><ROBCard /></Grid>
           </Grid>
+
+          <Section icon="mdi:ticket-percent">I Tuoi Coupon Premio</Section>
+          <Box sx={{ mt: 1 }}><CouponsSection coupons={couponsData} loading={couponsLoading} /></Box>
         </Stack>
       </Box>
     </Page>

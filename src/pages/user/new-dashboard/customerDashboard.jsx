@@ -617,9 +617,9 @@ const CouponsSection = ({ coupons, loading }) => {
 
   if (loading) return (
     <Grid container spacing={2}>
-      {[0, 1, 2, 3].map((i) => (
-        <Grid item xs={6} md={3} key={i}>
-          <Skeleton variant="rounded" height={110} sx={{ borderRadius: 3 }} />
+      {[0, 1].map((i) => (
+        <Grid item xs={12} sm={6} key={i}>
+          <Skeleton variant="rounded" height={100} sx={{ borderRadius: 3 }} />
         </Grid>
       ))}
     </Grid>
@@ -636,22 +636,55 @@ const CouponsSection = ({ coupons, loading }) => {
 
   return (
     <Grid container spacing={2}>
-      {coupons.map((coupon, i) => (
-        <Grid item xs={6} md={3} key={coupon.id || i}>
-          <Card sx={{ p: 2.5, borderRadius: 3, bgcolor: "#fff", border: "1px solid #f0ece6", boxShadow: "0 1px 4px rgba(0,0,0,0.04)", height: "100%", position: "relative", overflow: "hidden" }}>
-            <Box sx={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, bgcolor: ORO }} />
-            <Typography variant="caption" sx={{ color: WARM_GRAY, textTransform: "uppercase", letterSpacing: "0.05em", fontSize: "0.65rem" }}>
-              {coupon.type || coupon.coupon_type || "Coupon"}
-            </Typography>
-            <Typography variant="h4" fontWeight={700} sx={{ color: ORO, my: 0.5 }}>
-              {coupon.amount ? `€${coupon.amount}` : coupon.discount ? `${coupon.discount}%` : "—"}
-            </Typography>
-            <Typography variant="caption" sx={{ color: "#aaa" }}>
-              {coupon.expiry_date || coupon.expire_date || "Nessuna scadenza"}
-            </Typography>
-          </Card>
-        </Grid>
-      ))}
+      {coupons.map((coupon, i) => {
+        const amount = parseFloat(coupon.discount || coupon.amount || coupon.total_amount || 0);
+        const code = coupon.code || "";
+        const rawDate = coupon.end_date || coupon.expiry_date || coupon.expire_date;
+        const expiryLabel = rawDate ? new Date(rawDate).toLocaleDateString("it-IT", { day: "2-digit", month: "long", year: "numeric" }) : "Nessuna scadenza";
+        const isUsed = coupon.uses_count > 0 || coupon.used === 1;
+        const typeName = (coupon.type || coupon.coupon_type || "").replace(/_/g, " ").replace("programe", "").trim().toUpperCase() || "COUPON";
+
+        return (
+          <Grid item xs={12} sm={6} md={4} key={coupon.id || i}>
+            <Card sx={{
+              borderRadius: 3, overflow: "hidden", height: "100%",
+              border: `1px solid ${isUsed ? "#e0e0e0" : alpha(ORO, 0.3)}`,
+              opacity: isUsed ? 0.6 : 1,
+              bgcolor: "#fff",
+            }}>
+              <Box sx={{ display: "flex", height: "100%" }}>
+                {/* Left accent */}
+                <Box sx={{ width: 6, bgcolor: isUsed ? "#ccc" : ORO, flexShrink: 0 }} />
+                <Box sx={{ p: 2, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                  <Stack direction="row" alignItems="center" justifyContent="space-between">
+                    <Box>
+                      <Typography sx={{ fontSize: "0.75rem", color: WARM_GRAY, textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700, mb: 0.3 }}>
+                        {typeName}
+                      </Typography>
+                      <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: isUsed ? "#aaa" : ORO, lineHeight: 1 }}>
+                        €{amount.toFixed(2)}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ width: 44, height: 44, borderRadius: "50%", bgcolor: alpha(isUsed ? "#ccc" : ORO, 0.08), display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <Iconify icon={isUsed ? "mdi:check-circle" : "mdi:ticket-percent"} width={24} sx={{ color: isUsed ? "#aaa" : ORO }} />
+                    </Box>
+                  </Stack>
+                  <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1.5 }}>
+                    {code && (
+                      <Typography sx={{ fontSize: "0.82rem", fontWeight: 800, color: ESPRESSO, bgcolor: alpha(ORO, 0.06), px: 1.2, py: 0.3, borderRadius: 1.5, fontFamily: "monospace", letterSpacing: "0.1em" }}>
+                        {code}
+                      </Typography>
+                    )}
+                    <Typography sx={{ fontSize: "0.65rem", color: "#aaa" }}>
+                      {isUsed ? "Utilizzato" : `Scade il ${expiryLabel}`}
+                    </Typography>
+                  </Stack>
+                </Box>
+              </Box>
+            </Card>
+          </Grid>
+        );
+      })}
     </Grid>
   );
 };
@@ -753,7 +786,7 @@ const UserDashboard = () => {
           <Stack direction="row" alignItems="center" spacing={1} mb={2}>
             <Iconify icon="mdi:ticket-percent-outline" width={22} sx={{ color: ORO }} />
             <Typography variant="h6" fontWeight={700} color={ESPRESSO}>
-              {t("evea.your_rewards") || "I tuoi premi"}
+              {t("evea.your_rewards") || "I Tuoi Coupon Premio"}
             </Typography>
           </Stack>
           <CouponsSection coupons={coupons} loading={couponsLoading} />
