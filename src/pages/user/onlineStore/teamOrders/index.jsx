@@ -1,6 +1,7 @@
 import {
   Box,
   Card,
+  Chip,
   Container,
   Dialog,
   DialogTitle,
@@ -40,7 +41,17 @@ const headers = [
   "global.payment_method",
   "global.order_date",
   "global.total_price",
+  "Stato",
 ];
+
+const getStatusBadge = (row) => {
+  const os = (row?.order_status || "").toLowerCase();
+  if (os === "refunded" || os === "cancelled") return { label: "Rimborsato", bgcolor: "#FCEBEB", color: "#A32D2D" };
+  if (os === "partially_refunded") return { label: "Parzialmente rimborsato", bgcolor: "#FFF3E0", color: "#E65100" };
+  if (os === "finished" || os === "paid" || os === "complete") return { label: "Completato", bgcolor: "#EAF3DE", color: "#27500A" };
+  if (os === "processing") return { label: "In lavorazione", bgcolor: "#FFF8E1", color: "#7A6A5C" };
+  return { label: "In attesa", bgcolor: "#E8DDCA", color: "#5C4A3A" };
+};
 
 const TeamOrders = () => {
   const methods = useFilter();
@@ -111,6 +122,9 @@ const TeamOrders = () => {
                   </TableCell>
                   <TableCell>
                     <Currency>{row.total_amount}</Currency>
+                  </TableCell>
+                  <TableCell>
+                    {(() => { const s = getStatusBadge(row); return <Chip label={s.label} size="small" sx={{ bgcolor: s.bgcolor, color: s.color, fontWeight: 600, fontSize: "0.7rem", height: 24 }} />; })()}
                   </TableCell>
                 </TableRow>
               )}
