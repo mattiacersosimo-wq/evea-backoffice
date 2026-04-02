@@ -267,7 +267,7 @@ const RevenueChart = () => {
             return (
               <Box key={i} sx={{ flex: 1, textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "flex-end", height: "100%" }}>
                 <Tooltip title={`€${d.revenue}${d.orders ? ` · ${d.orders} ordini` : ""}`}>
-                  <Box sx={{ width: "70%", mx: "auto", height: h, bgcolor: d.revenue > 0 ? ORO : alpha(ORO, 0.08), borderRadius: "3px 3px 0 0", transition: "height 0.3s", minHeight: 2 }} />
+                  <Box sx={{ width: "70%", mx: "auto", height: d.revenue > 0 ? h : 0, bgcolor: d.revenue > 0 ? ORO : "transparent", borderRadius: "3px 3px 0 0", transition: "height 0.3s" }} />
                 </Tooltip>
                 <Typography sx={{ fontSize: chartData.length > 15 ? "0.38rem" : "0.5rem", color: d.revenue > 0 ? ORO : MUTED, mt: 0.3, whiteSpace: "nowrap", fontWeight: d.revenue > 0 ? 600 : 400 }}>{d.label}</Typography>
               </Box>
@@ -277,7 +277,7 @@ const RevenueChart = () => {
               <Box key={i} sx={{ flex: 1, textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "flex-end", height: "100%" }}>
                 <Box sx={{ display: "flex", gap: "1px", justifyContent: "center", alignItems: "flex-end", flex: 1 }}>
                   {[{ v: d.revenue, c: ORO }, { v: d.payout, c: DANGER }, { v: d.margine, c: SUCCESS }].map((b, bi) => {
-                    const bh = Math.max((b.v / maxVal) * barH, 1);
+                    const bh = b.v > 0 ? Math.max((b.v / maxVal) * barH, 3) : 0;
                     return <Tooltip key={bi} title={`€${b.v}`}><Box sx={{ width: "30%", height: bh, bgcolor: b.c, borderRadius: "2px 2px 0 0", opacity: 0.85 }} /></Tooltip>;
                   })}
                 </Box>
@@ -305,10 +305,10 @@ const WeeklyComparison = () => {
       <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>Confronto settimana corrente vs precedente</Typography>
       <Stack direction="row" spacing={1} alignItems="flex-end" sx={{ height: 140 }}>
         {data.map((d) => (
-          <Box key={d.day} sx={{ flex: 1, textAlign: "center" }}>
-            <Stack direction="row" spacing={0.3} justifyContent="center" alignItems="flex-end" sx={{ height: "100%" }}>
-              <Tooltip title={`Questa: €${d.revenue_current}`}><Box sx={{ width: "40%", height: `${Math.max((d.revenue_current / maxRev) * 100, 2)}%`, bgcolor: ORO, borderRadius: "3px 3px 0 0" }} /></Tooltip>
-              <Tooltip title={`Prec: €${d.revenue_previous}`}><Box sx={{ width: "40%", height: `${Math.max((d.revenue_previous / maxRev) * 100, 2)}%`, bgcolor: alpha(ORO, 0.25), borderRadius: "3px 3px 0 0" }} /></Tooltip>
+          <Box key={d.day} sx={{ flex: 1, textAlign: "center", height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
+            <Stack direction="row" spacing={0.3} justifyContent="center" alignItems="flex-end" sx={{ height: 120 }}>
+              <Tooltip title={`Questa: €${d.revenue_current}`}><Box sx={{ width: "40%", height: d.revenue_current > 0 ? `${Math.max((d.revenue_current / maxRev) * 100, 3)}%` : 0, bgcolor: ORO, borderRadius: "3px 3px 0 0" }} /></Tooltip>
+              <Tooltip title={`Prec: €${d.revenue_previous}`}><Box sx={{ width: "40%", height: d.revenue_previous > 0 ? `${Math.max((d.revenue_previous / maxRev) * 100, 3)}%` : 0, bgcolor: alpha(ORO, 0.25), borderRadius: "3px 3px 0 0" }} /></Tooltip>
             </Stack>
             <Typography sx={{ fontSize: "0.65rem", color: MUTED, mt: 0.3, textTransform: "capitalize" }}>{d.day}</Typography>
           </Box>
