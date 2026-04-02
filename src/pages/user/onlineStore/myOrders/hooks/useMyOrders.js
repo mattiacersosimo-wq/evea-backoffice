@@ -8,9 +8,7 @@ const useMyOrders = () => {
   const { count, onChange, page, seed, rowStart } = usePagination();
   const fetchData = async (page = 1) => {
     try {
-      const { data } = await axiosInstance.get(`my-orders`, {
-        params: { page, per_page: 15 },
-      });
+      const { data } = await axiosInstance.get(`my-orders?page=${page}`);
       const { status, data: report } = data;
       if (status) {
         const { last_page, data: list, from } = report;
