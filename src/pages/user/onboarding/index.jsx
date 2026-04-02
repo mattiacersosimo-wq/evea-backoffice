@@ -169,7 +169,7 @@ const OnboardingWizard = () => {
                 <Button onClick={() => setStep(1)} sx={{ color: "#aaa" }}>Indietro</Button>
                 <Stack direction="row" spacing={1}>
                   <Button onClick={skip} sx={{ color: "#aaa" }}>Salta</Button>
-                  <Button variant="contained" onClick={() => save("save-address", { address: form.address, city: form.city, zipcode: form.zipcode, state: form.state, provincia: form.provincia, country: "IT" })} disabled={saving} sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" } }}>Salva e continua</Button>
+                  <Button variant="contained" onClick={() => save("save-address", { address: form.address, city: form.city, zipcode: form.zipcode, provincia: form.provincia, country: "IT" })} disabled={saving} sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" } }}>Salva e continua</Button>
                 </Stack>
               </Stack>
             </Stack>
