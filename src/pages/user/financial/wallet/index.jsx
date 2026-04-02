@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import axiosInstance from "src/utils/axios";
+import fetchUser from "src/utils/fetchUser";
 import { useSnackbar } from "notistack";
 
 // Existing components — reused directly
@@ -70,8 +71,8 @@ const GiftCardTab = () => {
   const fetchData = useCallback(async () => {
     try {
       const [balRes, histRes] = await Promise.all([
-        axiosInstance.get("payout-request"),
-        axiosInstance.get("gift-cards"),
+        fetchUser.get("payout-request"),
+        fetchUser.get("gift-cards"),
       ]);
       setBalance(balRes.data?.data?.available_balance ?? null);
       setHistory(histRes.data?.data?.data || []);
@@ -85,7 +86,7 @@ const GiftCardTab = () => {
     setLoading(true);
     setResult(null);
     try {
-      const { data } = await axiosInstance.post("gift-card", { amount: parseFloat(amount) });
+      const { data } = await fetchUser.post("gift-card", { amount: parseFloat(amount) });
       if (data.status) {
         setResult(data.data);
         enqueueSnackbar("Gift card creata!", { variant: "success" });
