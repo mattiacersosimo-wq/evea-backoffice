@@ -820,6 +820,112 @@ const PayoutSummary = () => {
 };
 
 // ═══════════════════════════════════════
+// REFUND ANALYTICS
+// ═══════════════════════════════════════
+const MESI_SHORT = ["Gen","Feb","Mar","Apr","Mag","Giu","Lug","Ago","Set","Ott","Nov","Dic"];
+const RefundAnalytics = () => {
+  const { data: rf, loading } = useFetch("api/wp/admin/kpi/refunds", true);
+  if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={250} /></Card>;
+  if (!rf) return null;
+
+  const deltaCount = rf.refund_count_prev > 0 ? ((rf.refund_count - rf.refund_count_prev) / rf.refund_count_prev * 100).toFixed(0) : 0;
+  const deltaValue = rf.refund_value_prev > 0 ? ((rf.refund_value - rf.refund_value_prev) / rf.refund_value_prev * 100).toFixed(0) : 0;
+  const statusLabels = { refunded: "Rimborsato", cancelled: "Cancellato", partially_refunded: "Parziale" };
+  const statusColors = { refunded: DANGER, cancelled: "#333", partially_refunded: WARNING };
+  const trend = rf.monthly_trend || [];
+  const trendMax = Math.max(...trend.map(t => t.cnt || 0), 1);
+
+  return (
+    <Grid container spacing={2}>
+      {/* Summary cards */}
+      <Grid item xs={12} md={4}>
+        <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
+          <Stack direction="row" alignItems="center" spacing={1} mb={2}>
+            <Iconify icon="mdi:cash-refund" width={20} sx={{ color: DANGER }} />
+            <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT }}>Resi &amp; Rimborsi</Typography>
+          </Stack>
+          <Grid container spacing={1.5}>
+            {[
+              { label: "Rimborsi", value: rf.refund_count, delta: deltaCount, prefix: "" },
+              { label: "Valore rimborsato", value: `€${rf.refund_value.toLocaleString("it")}`, delta: deltaValue, prefix: "" },
+              { label: "Refund rate", value: `${rf.refund_rate}%`, delta: null },
+              { label: "Commissioni cancellate", value: `€${rf.cancelled_commissions.toLocaleString("it")}`, delta: null },
+            ].map((c) => (
+              <Grid item xs={6} key={c.label}>
+                <Box sx={{ p: 1.2, bgcolor: alpha(DANGER, 0.04), borderRadius: 2, border: `1px solid ${alpha(DANGER, 0.1)}` }}>
+                  <Typography sx={{ fontSize: "0.62rem", color: MUTED }}>{c.label}</Typography>
+                  <Typography sx={{ fontSize: "1rem", fontWeight: 800, color: TEXT }}>{c.value}</Typography>
+                  {c.delta !== null && <Typography sx={{ fontSize: "0.6rem", color: c.delta > 0 ? DANGER : SUCCESS }}>{c.delta > 0 ? "+" : ""}{c.delta}% vs prec</Typography>}
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+          {/* By status */}
+          {rf.by_status && rf.by_status.length > 0 && (
+            <Box sx={{ mt: 2 }}>
+              <Typography sx={{ fontSize: "0.7rem", fontWeight: 600, color: MUTED, mb: 0.5 }}>Per tipologia</Typography>
+              <Stack spacing={0.5}>
+                {rf.by_status.map((s) => (
+                  <Stack key={s.status} direction="row" alignItems="center" justifyContent="space-between">
+                    <Chip label={statusLabels[s.status] || s.status} size="small" sx={{ height: 18, fontSize: "0.6rem", fontWeight: 600, bgcolor: alpha(statusColors[s.status] || MUTED, 0.1), color: statusColors[s.status] || MUTED }} />
+                    <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: TEXT }}>{s.count}x · €{s.total.toLocaleString("it")}</Typography>
+                  </Stack>
+                ))}
+              </Stack>
+            </Box>
+          )}
+          {/* Mini trend */}
+          {trend.length > 0 && (
+            <Box sx={{ mt: 2 }}>
+              <Typography sx={{ fontSize: "0.7rem", fontWeight: 600, color: MUTED, mb: 0.5 }}>Trend mensile</Typography>
+              <Stack direction="row" spacing={0.5} alignItems="flex-end" sx={{ height: 50 }}>
+                {trend.map((t, i) => (
+                  <Tooltip key={i} title={`${MESI_SHORT[(t.mese || 1) - 1]} — ${t.cnt} resi · €${Number(t.total || 0).toLocaleString("it")}`}>
+                    <Box sx={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end", alignItems: "center", height: "100%" }}>
+                      <Box sx={{ width: "70%", height: t.cnt > 0 ? Math.max((t.cnt / trendMax) * 40, 3) : 0, bgcolor: DANGER, borderRadius: "2px 2px 0 0", opacity: 0.7 }} />
+                      <Typography sx={{ fontSize: "0.5rem", color: MUTED, mt: 0.2 }}>{MESI_SHORT[(t.mese || 1) - 1]}</Typography>
+                    </Box>
+                  </Tooltip>
+                ))}
+              </Stack>
+            </Box>
+          )}
+        </Card>
+      </Grid>
+      {/* Recent refunds */}
+      <Grid item xs={12} md={8}>
+        <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
+          <Stack direction="row" alignItems="center" spacing={1} mb={2}>
+            <Iconify icon="mdi:history" width={20} sx={{ color: MUTED }} />
+            <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT }}>Ultimi rimborsi</Typography>
+          </Stack>
+          {(!rf.recent || !rf.recent.length) ? <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>Nessun rimborso nel periodo</Typography> : (
+            <Stack spacing={0.8}>
+              {rf.recent.map((r, i) => (
+                <Stack key={i} direction="row" alignItems="center" spacing={1} sx={{ py: 0.5, borderBottom: i < rf.recent.length - 1 ? "1px solid #f5f0ea" : "none" }}>
+                  <Avatar sx={{ width: 26, height: 26, bgcolor: alpha(statusColors[r.status] || MUTED, 0.1), color: statusColors[r.status] || MUTED, fontSize: 10 }}>
+                    <Iconify icon={r.status === "refunded" ? "mdi:cash-refund" : r.status === "partially_refunded" ? "mdi:cash-minus" : "mdi:close-circle"} width={14} />
+                  </Avatar>
+                  <Box sx={{ flex: 1, minWidth: 0 }}>
+                    <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: TEXT }} noWrap>{r.name}</Typography>
+                    <Typography sx={{ fontSize: "0.62rem", color: MUTED }} noWrap>{r.product || "—"} · #{r.order_id}</Typography>
+                  </Box>
+                  <Box sx={{ textAlign: "right" }}>
+                    <Typography sx={{ fontSize: "0.82rem", fontWeight: 700, color: DANGER }}>€{r.amount.toLocaleString("it")}</Typography>
+                    <Chip label={statusLabels[r.status] || r.status} size="small" sx={{ height: 16, fontSize: "0.55rem", fontWeight: 600, bgcolor: alpha(statusColors[r.status] || MUTED, 0.1), color: statusColors[r.status] || MUTED }} />
+                  </Box>
+                  <Typography sx={{ fontSize: "0.6rem", color: MUTED, minWidth: 60, textAlign: "right" }}>{r.date ? new Date(r.date).toLocaleDateString("it", { day: "2-digit", month: "short" }) : "—"}</Typography>
+                </Stack>
+              ))}
+            </Stack>
+          )}
+        </Card>
+      </Grid>
+    </Grid>
+  );
+};
+
+// ═══════════════════════════════════════
 // MAIN
 // ═══════════════════════════════════════
 const KpiDashboard = () => {
@@ -869,6 +975,9 @@ const KpiDashboard = () => {
 
             <Section>Leaderboard — Earners, Recruiters, Achievers</Section>
             <Leaderboard />
+
+            <Section>Resi &amp; Rimborsi</Section>
+            <RefundAnalytics />
 
             <Section>Payout &amp; Network Bonus</Section>
             <PayoutSummary />
