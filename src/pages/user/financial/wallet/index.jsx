@@ -70,12 +70,13 @@ const GiftCardTab = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const [balRes, histRes] = await Promise.all([
-        fetchUser.get("payout-request"),
-        fetchUser.get("gift-cards"),
-      ]);
+      const balRes = await fetchUser.get("payout-request");
       setBalance(balRes.data?.data?.available_balance ?? null);
-      setHistory(histRes.data?.data?.data || []);
+    } catch { /* silent */ }
+    try {
+      const histRes = await fetchUser.get("gift-cards");
+      const items = histRes.data?.data?.data || histRes.data?.data || [];
+      setHistory(Array.isArray(items) ? items : []);
     } catch { /* silent */ }
   }, []);
 
