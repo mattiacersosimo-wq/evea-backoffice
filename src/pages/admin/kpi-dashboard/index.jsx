@@ -403,7 +403,7 @@ const ActivationCard = () => {
           <Stack spacing={0.8}>
             {act.sponsor_effectiveness.slice(0, 5).map((s) => (
               <Stack key={s.user_id} direction="row" alignItems="center" spacing={1}>
-                <Typography sx={{ fontSize: "0.78rem", color: TEXT, fontWeight: 600, flex: 1 }} noWrap>@{s.username}</Typography>
+                <Typography sx={{ fontSize: "0.78rem", color: TEXT, fontWeight: 600, flex: 1 }} noWrap>{s.username}</Typography>
                 <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{s.total_referred} ref</Typography>
                 <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{s.active_referred} attivi</Typography>
                 <Chip label={`${s.effectiveness}%`} size="small" sx={{ height: 18, fontSize: "0.62rem", fontWeight: 700, bgcolor: alpha(s.effectiveness >= 50 ? SUCCESS : WARNING, 0.1), color: s.effectiveness >= 50 ? SUCCESS : WARNING }} />
