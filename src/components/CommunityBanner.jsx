@@ -1,5 +1,5 @@
 import { useState } from "react";
-import fetchUser from "src/utils/fetchUser";
+import axiosInstance from "src/utils/axios";
 
 export default function CommunityBanner() {
   const [loading, setLoading] = useState(false);
@@ -7,13 +7,14 @@ export default function CommunityBanner() {
   const handleJoin = async () => {
     setLoading(true);
     try {
-      const { data } = await fetchUser.get("community/sso");
+      const { data } = await axiosInstance.get("api/community/sso");
       if (data?.url) {
         window.open(data.url, "_blank");
       } else {
         window.open("https://community.myevea.com", "_blank");
       }
     } catch (e) {
+      console.error("SSO error:", e);
       window.open("https://community.myevea.com", "_blank");
     } finally {
       setLoading(false);
