@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ssh -i C:\\\\Users\\\\matti\\\\.ssh\\\\id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"grep -r 'refund\\\\|webhook' /home/forge/api.myevea.com/current/routes/ --include='*.php' -l\")",
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"grep -n 'refund\\\\|webhook' /home/forge/api.myevea.com/current/routes/web.php /home/forge/api.myevea.com/current/routes/public.php\")",
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"grep -rn 'shopify-order-cancel\\\\|shopify.*refund' /home/forge/api.myevea.com/current/routes/ --include='*.php'\")",
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"sed -n '601,700p' /home/forge/api.myevea.com/current/app/Http/Controllers/WordpressController.php\")",
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"sed -n '700,800p' /home/forge/api.myevea.com/current/app/Http/Controllers/WordpressController.php\")",
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"grep -n 'changeOrderStatus' /home/forge/api.myevea.com/current/app/Repositories/WordpressRepository.php | head -5\")",
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"sed -n '1152,1250p' /home/forge/api.myevea.com/current/app/Repositories/WordpressRepository.php\")",
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"grep -i 'refund\\\\|cancel.*webhook\\\\|mapped_status' /home/forge/api.myevea.com/current/storage/logs/lumen-2026-03-2*.log | grep -i 'mapped_status\\\\|cancel.*flow\\\\|refund.*flow\\\\|refund.*ratio\\\\|order_id.*payment_status' | tail -40\")",
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"grep -i 'refund\\\\|order cancel' /home/forge/api.myevea.com/current/storage/logs/lumen-2026-03-2*.log | head -60\")",
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"grep -i 'mapped_status\\\\|cancel.*flow\\\\|refund.*flow\\\\|cancellation/refund flow' /home/forge/api.myevea.com/current/storage/logs/lumen-2026-03-2*.log\")",
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"grep 'mapped.status\\\\|cancel.*flow\\\\|refund.*flow\\\\|cancellation' /home/forge/api.myevea.com/current/storage/logs/lumen-2026-03-2*.log | head -30\")",
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"grep 'Shopify order cancel webhook\\\\|Order status cancellation' /home/forge/api.myevea.com/current/storage/logs/lumen-2026-03-*.log | grep -v 'Seal\\\\|package cancellation' | head -30\")",
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"grep 'order cancel webhook\\\\|Order status cancellation\\\\|mapped_status\\\\|refund flow\\\\|cancel flow' /home/forge/api.myevea.com/current/storage/logs/lumen-2026-04-0*.log\")",
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"grep 'order cancel webhook\\\\|Order status cancellation\\\\|mapped_status\\\\|refund flow\\\\|cancel flow' /home/forge/api.myevea.com/current/storage/logs/lumen-2026-03-3*.log\")",
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"grep '7822942634330\\\\|order cancel webhook\\\\|mapped_status\\\\|refund' /home/forge/api.myevea.com/current/storage/logs/lumen-2026-03-30.log\")",
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"mysql -u forge -p'Kqpseqr0K4Ucgl3pxNaa' office_db -e \\\\\"SELECT u.username, u.first_name, u.last_name FROM users u WHERE LOWER\\(u.first_name\\) LIKE '%ivan%' OR LOWER\\(u.last_name\\) LIKE '%tapia%'\\\\\"\")",
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"mysql -u forge -p'Kqpseqr0K4Ucgl3pxNaa' office_db -e \\\\\"DESCRIBE users\\\\\" | head -20\")"
+    ]
+  }
+}

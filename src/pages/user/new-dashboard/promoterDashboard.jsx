@@ -14,6 +14,7 @@ import useAuth from "src/hooks/useAuth";
 import axiosInstance from "src/utils/axios";
 import fetchUser from "src/utils/fetchUser";
 import { WP_URL } from "src/config";
+import CommunityBanner from "src/components/CommunityBanner";
 
 // ═══════════════════════════════════════
 // PALETTE EVEA
@@ -1184,6 +1185,7 @@ const PromoterDashboard = () => {
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4, mx: { xs: -2, md: -3 }, mt: -2, pt: 2, bgcolor: "#f5f5f5", minHeight: "100vh" }}>
         <Stack spacing={2}>
           <HeroCard />
+          <CommunityBanner />
           <OnboardingBanner />
           <TickerBar />
 
