@@ -1,5 +1,7 @@
 import { LoadingButton } from "@mui/lab";
-import { Box, Button, Card, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Card, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Stack, TextField as MuiTextField, Typography } from "@mui/material";
+import { useState } from "react";
+import { useSnackbar } from "notistack";
 import Iconify from "src/components/Iconify";
 import axiosInstance from "src/utils/axios";
 import {
@@ -19,6 +21,81 @@ import useFields from "src/sections/auth/register/hooks/use-fields";
 import Countries from "../../../../../components/countries";
 import ProfilePicture from "./components/ProfilePicture";
 import useUser from "./hooks/useUser";
+
+const ChangeEmailDialog = ({ open, onClose, currentEmail }) => {
+    const { enqueueSnackbar } = useSnackbar();
+    const [step, setStep] = useState(1); // 1=new email, 2=otp
+    const [newEmail, setNewEmail] = useState("");
+    const [otp, setOtp] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const handleRequestOtp = async () => {
+        if (!newEmail || !newEmail.includes("@")) { enqueueSnackbar("Inserisci un'email valida", { variant: "error" }); return; }
+        setLoading(true);
+        try {
+            const { data } = await axiosInstance.post("request-email-change", { new_email: newEmail });
+            if (data.status) { enqueueSnackbar(data.message, { variant: "success" }); setStep(2); }
+            else enqueueSnackbar(data.message, { variant: "error" });
+        } catch (err) { enqueueSnackbar(err?.response?.data?.message || "Errore", { variant: "error" }); }
+        setLoading(false);
+    };
+
+    const handleVerify = async () => {
+        if (otp.length !== 6) { enqueueSnackbar("Inserisci il codice a 6 cifre", { variant: "error" }); return; }
+        setLoading(true);
+        try {
+            const { data } = await axiosInstance.post("verify-email-change", { otp });
+            if (data.status) {
+                enqueueSnackbar(data.message, { variant: "success" });
+                onClose(true); // true = email changed
+                setStep(1); setNewEmail(""); setOtp("");
+            } else enqueueSnackbar(data.message, { variant: "error" });
+        } catch (err) { enqueueSnackbar(err?.response?.data?.message || "Codice non valido", { variant: "error" }); }
+        setLoading(false);
+    };
+
+    const handleClose = () => { onClose(false); setStep(1); setNewEmail(""); setOtp(""); };
+
+    return (
+        <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth>
+            <DialogTitle sx={{ fontWeight: 700 }}>Cambia indirizzo email</DialogTitle>
+            <DialogContent>
+                {step === 1 ? (
+                    <Stack spacing={2} sx={{ mt: 1 }}>
+                        <Typography sx={{ fontSize: "0.85rem", color: "#666" }}>
+                            Email attuale: <b>{currentEmail}</b>
+                        </Typography>
+                        <MuiTextField fullWidth size="small" label="Nuova email" type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
+                        <Typography sx={{ fontSize: "0.75rem", color: "#999" }}>
+                            Un codice di verifica verra' inviato alla tua email attuale per confermare il cambio.
+                        </Typography>
+                    </Stack>
+                ) : (
+                    <Stack spacing={2} sx={{ mt: 1 }}>
+                        <Typography sx={{ fontSize: "0.85rem", color: "#666" }}>
+                            Abbiamo inviato un codice a 6 cifre a <b>{currentEmail}</b>. Inseriscilo qui sotto.
+                        </Typography>
+                        <MuiTextField fullWidth size="small" label="Codice OTP" value={otp} onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                            inputProps={{ maxLength: 6, style: { letterSpacing: 8, fontSize: "1.2rem", textAlign: "center", fontWeight: 700 } }} />
+                        <Chip label={`Nuova email: ${newEmail}`} size="small" sx={{ alignSelf: "flex-start" }} />
+                    </Stack>
+                )}
+            </DialogContent>
+            <DialogActions sx={{ px: 3, pb: 2 }}>
+                <Button onClick={handleClose} sx={{ color: "#999", textTransform: "none" }}>Annulla</Button>
+                {step === 1 ? (
+                    <Button onClick={handleRequestOtp} variant="contained" disabled={loading} sx={{ textTransform: "none", bgcolor: "#B8963B", "&:hover": { bgcolor: "#9A7B2F" } }}>
+                        {loading ? <CircularProgress size={18} sx={{ color: "#fff" }} /> : "Invia codice"}
+                    </Button>
+                ) : (
+                    <Button onClick={handleVerify} variant="contained" disabled={loading} sx={{ textTransform: "none", bgcolor: "#B8963B", "&:hover": { bgcolor: "#9A7B2F" } }}>
+                        {loading ? <CircularProgress size={18} sx={{ color: "#fff" }} /> : "Verifica e cambia"}
+                    </Button>
+                )}
+            </DialogActions>
+        </Dialog>
+    );
+};
 
 const PartitaIvaFields = () => {
     const { control } = useFormContext();
@@ -63,8 +140,14 @@ const EditInfo = () => {
         methods.setValue(name, value.trim());
 
     const { t } = useTranslation();
+    const [emailDialogOpen, setEmailDialogOpen] = useState(false);
 
     const fields = useFields();
+
+    const handleEmailChanged = (changed) => {
+        setEmailDialogOpen(false);
+        if (changed) window.location.reload();
+    };
 
     return (
         <FormProvider methods={methods} onSubmit={onSubmit}>
@@ -183,14 +266,23 @@ const EditInfo = () => {
                             </>
                             )}
 
-                            <RHFTextField
-                                name="email"
-                                label="profile.edit.mail"
-                                disabled={isAdmin ? false : true}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            />
+                            <Stack direction="row" spacing={1} alignItems="flex-start">
+                                <RHFTextField
+                                    name="email"
+                                    label="profile.edit.mail"
+                                    disabled
+                                    InputLabelProps={{ shrink: true }}
+                                    sx={{ flex: 1 }}
+                                />
+                                <Button
+                                    size="small"
+                                    onClick={() => setEmailDialogOpen(true)}
+                                    sx={{ mt: 1, textTransform: "none", color: "#B8963B", fontWeight: 600, whiteSpace: "nowrap" }}
+                                    startIcon={<Iconify icon="mdi:email-edit-outline" width={16} />}
+                                >
+                                    Cambia
+                                </Button>
+                            </Stack>
 
                             <Map
                                 list={fields}
@@ -228,6 +320,7 @@ const EditInfo = () => {
                     </Card>
                 </Grid>
             </Grid>
+            <ChangeEmailDialog open={emailDialogOpen} onClose={handleEmailChanged} currentEmail={user?.email || methods.getValues("email")} />
         </FormProvider>
     );
 };
