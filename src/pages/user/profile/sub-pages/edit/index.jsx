@@ -275,8 +275,7 @@ const EditInfo = () => {
                                     input_type,
                                     input_name,
                                     input_options,
-                                }) => (
-                                    {input_name === "email" ? (
+                                }) => input_name === "email" ? (
                                         <Stack direction="row" spacing={1} alignItems="flex-start">
                                             <RHFTextField
                                                 name="email"
@@ -305,7 +304,6 @@ const EditInfo = () => {
                                             />
                                         </HideComponent>
                                     )}
-                                )}
                             />
 
                         </Box>
