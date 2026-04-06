@@ -33,7 +33,7 @@ const ChangeEmailDialog = ({ open, onClose, currentEmail }) => {
         if (!newEmail || !newEmail.includes("@")) { enqueueSnackbar("Inserisci un'email valida", { variant: "error" }); return; }
         setLoading(true);
         try {
-            const { data } = await axiosInstance.post("request-email-change", { new_email: newEmail });
+            const { data } = await axiosInstance.post("api/request-email-change", { new_email: newEmail });
             if (data.status) { enqueueSnackbar(data.message, { variant: "success" }); setStep(2); }
             else enqueueSnackbar(data.message, { variant: "error" });
         } catch (err) { enqueueSnackbar(err?.response?.data?.message || "Errore", { variant: "error" }); }
@@ -44,7 +44,7 @@ const ChangeEmailDialog = ({ open, onClose, currentEmail }) => {
         if (otp.length !== 6) { enqueueSnackbar("Inserisci il codice a 6 cifre", { variant: "error" }); return; }
         setLoading(true);
         try {
-            const { data } = await axiosInstance.post("verify-email-change", { otp });
+            const { data } = await axiosInstance.post("api/verify-email-change", { otp });
             if (data.status) {
                 enqueueSnackbar(data.message, { variant: "success" });
                 onClose(true); // true = email changed
