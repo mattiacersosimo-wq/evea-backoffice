@@ -276,26 +276,26 @@ const EditInfo = () => {
                                     input_name,
                                     input_options,
                                 }) => (
-                                    <HideComponent id={id}>
-                                        {input_name === "email" ? (
-                                            <Stack direction="row" spacing={1} alignItems="flex-start">
-                                                <RHFTextField
-                                                    name="email"
-                                                    label={input_label}
-                                                    disabled
-                                                    InputLabelProps={{ shrink: true }}
-                                                    sx={{ flex: 1 }}
-                                                />
-                                                <Button
-                                                    size="small"
-                                                    onClick={() => setEmailDialogOpen(true)}
-                                                    sx={{ mt: 1, textTransform: "none", color: "#B8963B", fontWeight: 600, whiteSpace: "nowrap" }}
-                                                    startIcon={<Iconify icon="mdi:email-edit-outline" width={16} />}
-                                                >
-                                                    Cambia
-                                                </Button>
-                                            </Stack>
-                                        ) : (
+                                    {input_name === "email" ? (
+                                        <Stack direction="row" spacing={1} alignItems="flex-start">
+                                            <RHFTextField
+                                                name="email"
+                                                label={input_label}
+                                                disabled
+                                                InputLabelProps={{ shrink: true }}
+                                                sx={{ flex: 1 }}
+                                            />
+                                            <Button
+                                                size="small"
+                                                onClick={() => setEmailDialogOpen(true)}
+                                                sx={{ mt: 1, textTransform: "none", color: "#B8963B", fontWeight: 600, whiteSpace: "nowrap" }}
+                                                startIcon={<Iconify icon="mdi:email-edit-outline" width={16} />}
+                                            >
+                                                Cambia
+                                            </Button>
+                                        </Stack>
+                                    ) : (
+                                        <HideComponent id={id}>
                                             <PickField
                                                 key={input_name}
                                                 label={input_label}
@@ -303,8 +303,8 @@ const EditInfo = () => {
                                                 type={input_type}
                                                 inputOptions={input_options}
                                             />
-                                        )}
-                                    </HideComponent>
+                                        </HideComponent>
+                                    )}
                                 )}
                             />
 
