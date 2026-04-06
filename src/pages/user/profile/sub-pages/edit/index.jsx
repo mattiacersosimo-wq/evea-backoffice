@@ -266,23 +266,6 @@ const EditInfo = () => {
                             </>
                             )}
 
-                            <Stack direction="row" spacing={1} alignItems="flex-start">
-                                <RHFTextField
-                                    name="email"
-                                    label="profile.edit.mail"
-                                    disabled
-                                    InputLabelProps={{ shrink: true }}
-                                    sx={{ flex: 1 }}
-                                />
-                                <Button
-                                    size="small"
-                                    onClick={() => setEmailDialogOpen(true)}
-                                    sx={{ mt: 1, textTransform: "none", color: "#B8963B", fontWeight: 600, whiteSpace: "nowrap" }}
-                                    startIcon={<Iconify icon="mdi:email-edit-outline" width={16} />}
-                                >
-                                    Cambia
-                                </Button>
-                            </Stack>
 
                             <Map
                                 list={fields}
@@ -294,13 +277,33 @@ const EditInfo = () => {
                                     input_options,
                                 }) => (
                                     <HideComponent id={id}>
-                                        <PickField
-                                            key={input_name}
-                                            label={input_label}
-                                            name={input_name}
-                                            type={input_type}
-                                            inputOptions={input_options}
-                                        />
+                                        {input_name === "email" ? (
+                                            <Stack direction="row" spacing={1} alignItems="flex-start">
+                                                <RHFTextField
+                                                    name="email"
+                                                    label={input_label}
+                                                    disabled
+                                                    InputLabelProps={{ shrink: true }}
+                                                    sx={{ flex: 1 }}
+                                                />
+                                                <Button
+                                                    size="small"
+                                                    onClick={() => setEmailDialogOpen(true)}
+                                                    sx={{ mt: 1, textTransform: "none", color: "#B8963B", fontWeight: 600, whiteSpace: "nowrap" }}
+                                                    startIcon={<Iconify icon="mdi:email-edit-outline" width={16} />}
+                                                >
+                                                    Cambia
+                                                </Button>
+                                            </Stack>
+                                        ) : (
+                                            <PickField
+                                                key={input_name}
+                                                label={input_label}
+                                                name={input_name}
+                                                type={input_type}
+                                                inputOptions={input_options}
+                                            />
+                                        )}
                                     </HideComponent>
                                 )}
                             />
