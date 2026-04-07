@@ -1,4 +1,26 @@
+import { useState } from "react";
+import axiosInstance from "src/utils/axios";
+
 export default function CustomerCommunityBanner() {
+  const [loading, setLoading] = useState(false);
+
+  const handleJoin = async () => {
+    setLoading(true);
+    try {
+      const { data } = await axiosInstance.get("api/community/sso");
+      if (data?.url) {
+        window.open(data.url, "_blank");
+      } else {
+        window.open("https://community.myevea.com", "_blank");
+      }
+    } catch (e) {
+      console.error("SSO error:", e);
+      window.open("https://community.myevea.com", "_blank");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div
       style={{
@@ -51,27 +73,27 @@ export default function CustomerCommunityBanner() {
         </div>
       </div>
 
-      <a
-        href="https://community.myevea.com"
-        target="_blank"
-        rel="noreferrer"
+      <button
+        onClick={handleJoin}
+        disabled={loading}
         style={{
           background: "linear-gradient(135deg, #B8963B, #D4B65C)",
           color: "#2C1A0E",
-          textDecoration: "none",
+          border: "none",
           padding: "12px 24px",
           borderRadius: "10px",
           fontWeight: 700,
           fontSize: "13px",
           letterSpacing: "1px",
+          cursor: "pointer",
           whiteSpace: "nowrap",
           flexShrink: 0,
           boxShadow: "0 6px 20px rgba(184,150,59,0.35)",
           fontFamily: "'DM Sans', sans-serif",
         }}
       >
-        SCOPRI →
-      </a>
+        {loading ? "..." : "SCOPRI →"}
+      </button>
     </div>
   );
 }
