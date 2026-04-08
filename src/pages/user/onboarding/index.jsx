@@ -6,6 +6,7 @@ import { useSnackbar } from "notistack";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import axiosInstance from "src/utils/axios";
+import { invalidateOnboardingStatus } from "src/hooks/useOnboardingStatus";
 
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
@@ -98,6 +99,8 @@ const OnboardingWizard = () => {
         consent_marketing,
         consent_image,
       });
+      // Invalidate cache so all components see the new active status
+      await invalidateOnboardingStatus();
       enqueueSnackbar("Onboarding completato! Benvenuto in EVEA!", { variant: "success" });
       navigate("/user/dashboard");
     } catch (e) {
