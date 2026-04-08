@@ -101,8 +101,13 @@ const OnboardingWizard = () => {
       });
       // Invalidate cache so all components see the new active status
       await invalidateOnboardingStatus();
-      enqueueSnackbar("Onboarding completato! Benvenuto in EVEA!", { variant: "success" });
-      navigate("/user/dashboard");
+      enqueueSnackbar("Onboarding completato! La Lettera firmata e' disponibile per il download.", { variant: "success" });
+      // Try to trigger PDF download automatically
+      try {
+        const downloadUrl = `${axiosInstance.defaults.baseURL}/api/wp/onboarding/download-letter`;
+        window.open(downloadUrl, "_blank");
+      } catch { /* silent */ }
+      setTimeout(() => navigate("/user/dashboard"), 1500);
     } catch (e) {
       enqueueSnackbar(e?.response?.data?.error || "Errore", { variant: "error" });
     }
