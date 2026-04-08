@@ -131,7 +131,7 @@ const OnboardingWizard = () => {
       try {
         const token = localStorage.getItem("accessToken") || localStorage.getItem("token") || "";
         const baseUrl = (axiosInstance.defaults.baseURL || "").replace(/\/$/, "");
-        const downloadUrl = `${baseUrl}/api/wp/download-letter?token=${encodeURIComponent(token)}`;
+        const downloadUrl = `${baseUrl}/api/download-letter?token=${encodeURIComponent(token)}`;
         // Open in new tab — the backend will serve the PDF as attachment
         window.open(downloadUrl, "_blank");
       } catch (e) {
