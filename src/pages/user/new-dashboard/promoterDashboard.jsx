@@ -15,6 +15,7 @@ import axiosInstance from "src/utils/axios";
 import fetchUser from "src/utils/fetchUser";
 import { WP_URL } from "src/config";
 import CommunityBanner from "src/components/CommunityBanner";
+import useOnboardingStatus from "src/hooks/useOnboardingStatus";
 
 // ═══════════════════════════════════════
 // PALETTE EVEA
@@ -515,10 +516,20 @@ const QuickAccess = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
+  const { isActive } = useOnboardingStatus();
   const referralLink = user?.username ? `${WP_URL}?ref=${user.username}` : "";
   const shortcuts = [
     { icon: "mdi:shopping-outline", label: t("evea.shop"), action: () => window.open("https://www.myevea.com/collections/all", "_blank") },
-    { icon: "mdi:link-variant", label: t("evea.referral_link"), action: async () => { if (referralLink) { await navigator.clipboard.writeText(referralLink); enqueueSnackbar(t("evea.link_copied")); } } },
+    {
+      icon: "mdi:link-variant",
+      label: t("evea.referral_link"),
+      disabled: !isActive,
+      disabledTooltip: "Firma la Lettera di Incarico per attivare il tuo link promotore",
+      action: async () => {
+        if (!isActive) { enqueueSnackbar("Firma la Lettera di Incarico per attivare il tuo link promotore", { variant: "warning" }); navigate("/user/onboarding"); return; }
+        if (referralLink) { await navigator.clipboard.writeText(referralLink); enqueueSnackbar(t("evea.link_copied")); }
+      }
+    },
     { icon: "mdi:cash-multiple", label: t("evea.wallet"), action: () => navigate("/user/financial/wallet") },
     { icon: "mdi:package-variant", label: t("evea.orders"), action: () => navigate("/user/online-store/my-orders") },
     { icon: "mdi:ticket-percent-outline", label: t("evea.coupons"), action: () => navigate("/user/coupons") },
@@ -528,12 +539,15 @@ const QuickAccess = () => {
     <Grid container spacing={1.5}>
       {shortcuts.map((s) => (
         <Grid item xs={4} md={2} key={s.label}>
-          <Card onClick={s.action} sx={{ ...cardSx, p: 1.5, textAlign: "center", cursor: "pointer", transition: "all 0.2s", "&:hover": { transform: "translateY(-2px)", boxShadow: `0 4px 12px ${alpha(ORO, 0.15)}`, borderColor: alpha(ORO, 0.3) } }}>
-            <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha(ORO, 0.08), display: "flex", alignItems: "center", justifyContent: "center", mx: "auto", mb: 0.5 }}>
-              <Iconify icon={s.icon} width={20} sx={{ color: ORO }} />
-            </Box>
-            <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: TEXT }}>{s.label}</Typography>
-          </Card>
+          <Tooltip title={s.disabled ? s.disabledTooltip : ""} arrow>
+            <Card onClick={s.action} sx={{ ...cardSx, p: 1.5, textAlign: "center", cursor: s.disabled ? "not-allowed" : "pointer", transition: "all 0.2s", opacity: s.disabled ? 0.45 : 1, filter: s.disabled ? "grayscale(0.5)" : "none", "&:hover": s.disabled ? {} : { transform: "translateY(-2px)", boxShadow: `0 4px 12px ${alpha(ORO, 0.15)}`, borderColor: alpha(ORO, 0.3) } }}>
+              <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha(ORO, 0.08), display: "flex", alignItems: "center", justifyContent: "center", mx: "auto", mb: 0.5 }}>
+                <Iconify icon={s.icon} width={20} sx={{ color: ORO }} />
+              </Box>
+              <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: TEXT }}>{s.label}</Typography>
+              {s.disabled && <Typography sx={{ fontSize: "0.6rem", color: "#E24B4A", mt: 0.2 }}>🔒 Non attivo</Typography>}
+            </Card>
+          </Tooltip>
         </Grid>
       ))}
     </Grid>
@@ -762,8 +776,17 @@ const ThreeFFCard = () => {
   const { user } = useAuth();
   const { data: ff, loading } = useThreeFF();
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
+  const { isActive } = useOnboardingStatus();
   const referralLink = user?.username ? `${WP_URL}?ref=${user.username}` : "";
-  const copy = async () => { if (referralLink) { await navigator.clipboard.writeText(referralLink); enqueueSnackbar(t("evea.link_copied")); } };
+  const copy = async () => {
+    if (!isActive) {
+      enqueueSnackbar("Firma la Lettera di Incarico per attivare il tuo link promotore", { variant: "warning" });
+      navigate("/user/onboarding");
+      return;
+    }
+    if (referralLink) { await navigator.clipboard.writeText(referralLink); enqueueSnackbar(t("evea.link_copied")); }
+  };
   const required = ff?.required_customers || 3;
   const current = ff?.current_qualified_customer_count || 0;
   const bonus = ff?.current_bonus_amount || 0;
@@ -801,10 +824,14 @@ const ThreeFFCard = () => {
           </Box>
         </>
       )}
-      <Button fullWidth variant="contained" startIcon={<Iconify icon="mdi:content-copy" />} onClick={copy}
-        sx={{ bgcolor: ORO, color: "#fff", "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, borderRadius: 2, py: 1.2, textTransform: "none", fontSize: "0.875rem", boxShadow: `0 4px 12px ${alpha(ORO, 0.3)}` }}>
-        {t("evea.copy_invite")}
-      </Button>
+      <Tooltip title={!isActive ? "Firma la Lettera di Incarico per attivare il tuo link promotore" : ""} arrow>
+        <span>
+          <Button fullWidth variant="contained" startIcon={<Iconify icon={isActive ? "mdi:content-copy" : "mdi:lock-outline"} />} onClick={copy}
+            sx={{ bgcolor: isActive ? ORO : "#999", color: "#fff", "&:hover": { bgcolor: isActive ? "#A07E2F" : "#888" }, fontWeight: 700, borderRadius: 2, py: 1.2, textTransform: "none", fontSize: "0.875rem", boxShadow: `0 4px 12px ${alpha(isActive ? ORO : "#999", 0.3)}` }}>
+            {isActive ? t("evea.copy_invite") : "Attiva link — Firma la Lettera"}
+          </Button>
+        </span>
+      </Tooltip>
     </Card>
   );
 };
