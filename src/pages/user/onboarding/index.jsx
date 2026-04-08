@@ -415,6 +415,18 @@ const OnboardingWizard = () => {
             <Stack spacing={2.5}>
               <Typography variant="h6" fontWeight={700} color={ESPRESSO}>Lettera di Incarico</Typography>
 
+              <Box sx={{ p: 1.5, bgcolor: alpha(ORO, 0.06), borderRadius: 2, border: `1px solid ${alpha(ORO, 0.2)}` }}>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                  <Iconify icon="mdi:file-document-outline" width={20} sx={{ color: ORO }} />
+                  <Typography sx={{ fontSize: "0.85rem", color: ESPRESSO, flex: 1 }}>
+                    Leggi il testo completo della Lettera di Incarico prima di accettare
+                  </Typography>
+                  <Button size="small" href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/Evea_Global_01_Lettera_Compatta_v3.pdf" target="_blank" rel="noreferrer" sx={{ color: ORO, fontWeight: 700, textTransform: "none" }}>
+                    Apri PDF →
+                  </Button>
+                </Stack>
+              </Box>
+
               {/* Riepilogo dati */}
               <Box sx={{ p: 2, bgcolor: "#fafafa", borderRadius: 2, border: "1px solid #eee" }}>
                 <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO, mb: 1 }}>Riepilogo dei tuoi dati</Typography>
@@ -439,15 +451,15 @@ const OnboardingWizard = () => {
               <Stack spacing={1}>
                 <FormControlLabel
                   control={<Checkbox checked={allegato_a} onChange={(e) => setAllegatoA(e.target.checked)} sx={{ "&.Mui-checked": { color: ORO } }} />}
-                  label={<Stack direction="row" alignItems="center" spacing={1}><Typography sx={{ fontSize: "0.85rem" }}>Ho letto e accetto il <strong>Codice di Condotta del Promotore (Allegato A)</strong> *</Typography><Button size="small" href="https://community.myevea.com/docs/allegato-a" target="_blank" sx={{ color: ORO, fontSize: "0.75rem", p: 0, minWidth: 0 }}>Leggi →</Button></Stack>}
+                  label={<Stack direction="row" alignItems="center" spacing={1}><Typography sx={{ fontSize: "0.85rem" }}>Ho letto e accetto il <strong>Codice di Condotta del Promotore (Allegato A)</strong> *</Typography><Button size="small" href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/Evea_Global_Allegato_A_Codice_Condotta_v3.pdf" target="_blank" rel="noreferrer" sx={{ color: ORO, fontSize: "0.75rem", p: 0, minWidth: 0 }}>Leggi →</Button></Stack>}
                 />
                 <FormControlLabel
                   control={<Checkbox checked={allegato_b} onChange={(e) => setAllegatoB(e.target.checked)} sx={{ "&.Mui-checked": { color: ORO } }} />}
-                  label={<Stack direction="row" alignItems="center" spacing={1}><Typography sx={{ fontSize: "0.85rem" }}>Ho letto e accetto il <strong>Piano Compensi (Allegato B)</strong> *</Typography><Button size="small" href="https://community.myevea.com/docs/allegato-b" target="_blank" sx={{ color: ORO, fontSize: "0.75rem", p: 0, minWidth: 0 }}>Leggi →</Button></Stack>}
+                  label={<Stack direction="row" alignItems="center" spacing={1}><Typography sx={{ fontSize: "0.85rem" }}>Ho letto e accetto il <strong>Piano Compensi (Allegato B)</strong> *</Typography><Button size="small" href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/Evea_Global_02_Piano_Compensi_v3.pdf" target="_blank" rel="noreferrer" sx={{ color: ORO, fontSize: "0.75rem", p: 0, minWidth: 0 }}>Leggi →</Button></Stack>}
                 />
                 <FormControlLabel
                   control={<Checkbox checked={allegato_c} onChange={(e) => setAllegatoC(e.target.checked)} sx={{ "&.Mui-checked": { color: ORO } }} />}
-                  label={<Stack direction="row" alignItems="center" spacing={1}><Typography sx={{ fontSize: "0.85rem" }}>Ho letto l'<strong>Informativa Privacy (Allegato C)</strong> e autorizzo il trattamento dei dati *</Typography><Button size="small" href="https://community.myevea.com/docs/allegato-c" target="_blank" sx={{ color: ORO, fontSize: "0.75rem", p: 0, minWidth: 0 }}>Leggi →</Button></Stack>}
+                  label={<Stack direction="row" alignItems="center" spacing={1}><Typography sx={{ fontSize: "0.85rem" }}>Ho letto l'<strong>Informativa Privacy (Allegato C)</strong> e autorizzo il trattamento dei dati *</Typography><Button size="small" href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/Evea_Global_Allegato_C_Privacy_v1.pdf" target="_blank" rel="noreferrer" sx={{ color: ORO, fontSize: "0.75rem", p: 0, minWidth: 0 }}>Leggi →</Button></Stack>}
                 />
               </Stack>
 
