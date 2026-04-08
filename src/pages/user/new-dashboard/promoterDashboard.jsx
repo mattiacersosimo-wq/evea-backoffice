@@ -182,22 +182,48 @@ const OnboardingBanner = () => {
       } catch { /* silent */ }
     })();
   }, []);
-  if (!status || status.pct >= 100 || status.onboarding_done) return null;
-  return (
-    <Card onClick={() => navigate("/user/onboarding")} sx={{ p: 2, borderRadius: 3, border: `1px solid ${alpha(ORO, 0.3)}`, bgcolor: alpha(ORO, 0.04), cursor: "pointer", "&:hover": { bgcolor: alpha(ORO, 0.08) } }}>
-      <Stack direction="row" alignItems="center" spacing={2}>
-        <Box sx={{ width: 40, height: 40, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <Iconify icon="mdi:clipboard-check-outline" width={22} sx={{ color: ORO }} />
-        </Box>
-        <Box sx={{ flex: 1 }}>
-          <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>Completa il tuo profilo</Typography>
-          <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>{status.completed}/{status.total} completati — clicca per continuare</Typography>
-          <LinearProgress variant="determinate" value={status.pct} sx={{ mt: 0.5, height: 5, borderRadius: 3, bgcolor: "#eee", "& .MuiLinearProgress-bar": { bgcolor: ORO, borderRadius: 3 } }} />
-        </Box>
-        <Iconify icon="mdi:chevron-right" width={24} sx={{ color: ORO }} />
-      </Stack>
-    </Card>
-  );
+  if (!status) return null;
+
+  // Lettera not signed yet — highest priority banner
+  if (!status.onboarding_done && status.pct >= 83) {
+    return (
+      <Card onClick={() => navigate("/user/onboarding")} sx={{ p: 2.5, borderRadius: 3, border: "2px solid #E24B4A", bgcolor: "#fff8f8", cursor: "pointer", "&:hover": { bgcolor: "#ffefef" } }}>
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <Box sx={{ width: 44, height: 44, borderRadius: 2, bgcolor: "#fde8e8", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <Iconify icon="mdi:file-sign" width={24} sx={{ color: "#E24B4A" }} />
+          </Box>
+          <Box sx={{ flex: 1 }}>
+            <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: "#E24B4A" }}>Firma la Lettera di Incarico per attivare il tuo account</Typography>
+            <Typography sx={{ fontSize: "0.75rem", color: "#7A6A5C", mt: 0.3 }}>
+              Accetta la Lettera di Incarico per abilitare commissioni, link referral e genealogia.
+            </Typography>
+          </Box>
+          <Iconify icon="mdi:chevron-right" width={24} sx={{ color: "#E24B4A" }} />
+        </Stack>
+      </Card>
+    );
+  }
+
+  // Onboarding in progress
+  if (!status.onboarding_done && status.pct < 83) {
+    return (
+      <Card onClick={() => navigate("/user/onboarding")} sx={{ p: 2, borderRadius: 3, border: `1px solid ${alpha(ORO, 0.3)}`, bgcolor: alpha(ORO, 0.04), cursor: "pointer", "&:hover": { bgcolor: alpha(ORO, 0.08) } }}>
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <Box sx={{ width: 40, height: 40, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Iconify icon="mdi:clipboard-check-outline" width={22} sx={{ color: ORO }} />
+          </Box>
+          <Box sx={{ flex: 1 }}>
+            <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>Completa il tuo profilo Promotore</Typography>
+            <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>{status.completed}/{status.total} step completati — clicca per continuare</Typography>
+            <LinearProgress variant="determinate" value={status.pct} sx={{ mt: 0.5, height: 5, borderRadius: 3, bgcolor: "#eee", "& .MuiLinearProgress-bar": { bgcolor: ORO, borderRadius: 3 } }} />
+          </Box>
+          <Iconify icon="mdi:chevron-right" width={24} sx={{ color: ORO }} />
+        </Stack>
+      </Card>
+    );
+  }
+
+  return null;
 };
 
 const HeroCard = () => {
