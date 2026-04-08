@@ -102,23 +102,18 @@ const OnboardingWizard = () => {
       // Invalidate cache so all components see the new active status
       await invalidateOnboardingStatus();
       enqueueSnackbar("Onboarding completato! Scaricamento Lettera in corso...", { variant: "success" });
-      // Download PDF via authenticated request, create blob, trigger download
+      // Trigger download with token in URL (so it works in new tab too)
       try {
-        const response = await axiosInstance.get("api/wp/onboarding/download-letter", { responseType: "blob" });
-        const blob = new Blob([response.data], { type: "application/pdf" });
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "lettera_incarico_evea.pdf";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(url);
+        const token = localStorage.getItem("accessToken") || localStorage.getItem("token") || "";
+        const baseUrl = (axiosInstance.defaults.baseURL || "").replace(/\/$/, "");
+        const downloadUrl = `${baseUrl}/api/wp/download-letter?token=${encodeURIComponent(token)}`;
+        // Open in new tab — the backend will serve the PDF as attachment
+        window.open(downloadUrl, "_blank");
       } catch (e) {
         console.error("PDF download failed:", e);
         enqueueSnackbar("Lettera salvata. Puoi scaricarla in seguito dal profilo.", { variant: "info" });
       }
-      setTimeout(() => navigate("/user/dashboard"), 1500);
+      setTimeout(() => navigate("/user/dashboard"), 2000);
     } catch (e) {
       enqueueSnackbar(e?.response?.data?.error || "Errore", { variant: "error" });
     }
