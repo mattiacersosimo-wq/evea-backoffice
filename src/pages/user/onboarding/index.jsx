@@ -51,6 +51,26 @@ const OnboardingWizard = () => {
   const [consent_marketing, setConsentMarketing] = useState(false);
   const [consent_image, setConsentImage] = useState(false);
 
+  // OTP for letter signature
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpCode, setOtpCode] = useState("");
+  const [otpVerified, setOtpVerified] = useState(false);
+  const [otpSending, setOtpSending] = useState(false);
+  const [otpEmail, setOtpEmail] = useState("");
+
+  const sendOtp = async () => {
+    setOtpSending(true);
+    try {
+      const { data } = await axiosInstance.post("api/wp/onboarding/send-letter-otp", {});
+      setOtpSent(true);
+      setOtpEmail(data?.message || "Codice inviato alla tua email");
+      enqueueSnackbar("Codice OTP inviato alla tua email", { variant: "success" });
+    } catch (e) {
+      enqueueSnackbar(e?.response?.data?.error || "Errore invio codice", { variant: "error" });
+    }
+    setOtpSending(false);
+  };
+
   useEffect(() => {
     (async () => {
       try {
@@ -89,9 +109,14 @@ const OnboardingWizard = () => {
       enqueueSnackbar("Devi accettare tutti i documenti obbligatori e le clausole vessatorie.", { variant: "error" });
       return;
     }
+    if (!otpCode || otpCode.length !== 6) {
+      enqueueSnackbar("Inserisci il codice OTP a 6 cifre ricevuto via email.", { variant: "error" });
+      return;
+    }
     setSaving(true);
     try {
       await axiosInstance.post("api/wp/onboarding/accept-letter", {
+        otp_code: otpCode,
         allegato_a_accepted: true,
         allegato_b_accepted: true,
         allegato_c_accepted: true,
@@ -499,16 +524,65 @@ const OnboardingWizard = () => {
                 />
               </Box>
 
+              <Divider />
+
+              {/* OTP Verification */}
+              <Box sx={{ p: 2, bgcolor: alpha("#1976D2", 0.05), borderRadius: 2, border: `2px solid ${alpha("#1976D2", 0.3)}` }}>
+                <Stack direction="row" alignItems="center" spacing={1} mb={1.5}>
+                  <Iconify icon="mdi:shield-check-outline" width={22} sx={{ color: "#1976D2" }} />
+                  <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ESPRESSO }}>Verifica Identita' (Firma Elettronica)</Typography>
+                </Stack>
+                <Typography sx={{ fontSize: "0.8rem", color: "#555", mb: 1.5 }}>
+                  Per firmare digitalmente la Lettera di Incarico, ricevi un codice di verifica via email e inseriscilo qui sotto. Questa procedura conferisce valore legale alla tua firma elettronica.
+                </Typography>
+
+                {!otpSent ? (
+                  <Button
+                    variant="contained"
+                    onClick={sendOtp}
+                    disabled={otpSending || !allegato_a || !allegato_b || !allegato_c || !clausole}
+                    startIcon={otpSending ? <CircularProgress size={14} sx={{ color: "#fff" }} /> : <Iconify icon="mdi:email-fast-outline" />}
+                    sx={{ bgcolor: "#1976D2", "&:hover": { bgcolor: "#1565C0" }, fontWeight: 700, textTransform: "none" }}
+                  >
+                    {otpSending ? "Invio in corso..." : "Invia codice via email"}
+                  </Button>
+                ) : (
+                  <Stack spacing={1.5}>
+                    <Typography sx={{ fontSize: "0.78rem", color: "#1976D2", fontWeight: 600 }}>
+                      ✓ Codice inviato. Controlla la tua casella email (anche spam).
+                    </Typography>
+                    <TextField
+                      fullWidth
+                      size="small"
+                      label="Inserisci codice OTP a 6 cifre"
+                      value={otpCode}
+                      onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                      inputProps={{ maxLength: 6, style: { letterSpacing: 8, fontSize: "1.3rem", textAlign: "center", fontWeight: 700 } }}
+                      sx={{ bgcolor: "#fff" }}
+                    />
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      onClick={sendOtp}
+                      disabled={otpSending}
+                      sx={{ alignSelf: "flex-start", textTransform: "none", color: "#1976D2", borderColor: "#1976D2" }}
+                    >
+                      Reinvia codice
+                    </Button>
+                  </Stack>
+                )}
+              </Box>
+
               <Stack direction="row" justifyContent="space-between" alignItems="center">
                 <Button onClick={() => setStep(4)} sx={{ color: "#aaa" }}>Indietro</Button>
                 <Button
                   variant="contained"
                   onClick={acceptLetter}
-                  disabled={saving || !allegato_a || !allegato_b || !allegato_c || !clausole}
+                  disabled={saving || !allegato_a || !allegato_b || !allegato_c || !clausole || !otpSent || otpCode.length !== 6}
                   startIcon={saving ? <CircularProgress size={16} sx={{ color: "#fff" }} /> : <Iconify icon="mdi:check-all" />}
                   sx={{ bgcolor: "#4CAF50", "&:hover": { bgcolor: "#388E3C" }, "&.Mui-disabled": { bgcolor: "#ccc" }, fontWeight: 700, px: 3 }}
                 >
-                  Accetta e Completa Onboarding
+                  Firma e Completa Onboarding
                 </Button>
               </Stack>
             </Stack>
