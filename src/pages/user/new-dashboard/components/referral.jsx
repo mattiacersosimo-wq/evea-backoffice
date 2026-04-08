@@ -25,6 +25,7 @@ import { WP_URL } from "src/config.js";
 import useIsDarkMode from "src/hooks/use-is-darkmode";
 import useAuth from "src/hooks/useAuth";
 import useAuthUserRank from "src/hooks/useAuthUserRank";
+import useOnboardingStatus from "src/hooks/useOnboardingStatus";
 
 import buildPath from "src/utils/build-path";
 import Transition from "src/utils/dialog-animation";
@@ -32,11 +33,8 @@ import Transition from "src/utils/dialog-animation";
 const Referral = () => {
   const { user } = useAuth();
   const { rank_name } = useAuthUserRank();
+  const { isActive } = useOnboardingStatus();
   const [referralLink, setReferralLink] = useState("");
-
-  // useEffect(() => {
-  //   if (user.username) setReferralLink(buildPath(WP_URL, user.username));
-  // }, [user]);
 
   useEffect(() => {
     if (user?.username) {
@@ -46,6 +44,7 @@ const Referral = () => {
 
   const { enqueueSnackbar } = useSnackbar();
   const copy = async () => {
+    if (!isActive) { enqueueSnackbar("Firma la Lettera di Incarico per attivare il tuo link promotore", { variant: "warning" }); return; }
     await navigator.clipboard.writeText(referralLink);
     enqueueSnackbar("Copied to clipboard");
   };
@@ -132,7 +131,7 @@ const Referral = () => {
             >
               <Typography
                 sx={{
-                  color: "#fff",
+                  color: isActive ? "#fff" : "rgba(255,255,255,0.4)",
                   whiteSpace: "nowrap",
                   overflow: "hidden",
                   textOverflow: "ellipsis",
@@ -141,9 +140,11 @@ const Referral = () => {
                   borderRadius: "6px",
                   fontSize: "12px",
                   width: "calc(100% - 70px)",
+                  filter: isActive ? "none" : "blur(4px)",
+                  userSelect: isActive ? "auto" : "none",
                 }}
               >
-                {referralLink}
+                {isActive ? referralLink : referralLink || "🔒 Non disponibile"}
               </Typography>
 
               <Box sx={{ width: "70px", display: "flex" }}>
