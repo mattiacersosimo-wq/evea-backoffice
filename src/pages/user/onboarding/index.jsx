@@ -182,7 +182,7 @@ const OnboardingWizard = () => {
               {/* Domanda 1 — IVD income */}
               <Box sx={{ p: 2, bgcolor: "#fafafa", borderRadius: 2, border: "1px solid #eee" }}>
                 <Typography sx={{ fontSize: "0.85rem", fontWeight: 600, color: ESPRESSO, mb: 1.5 }}>
-                  Nell'anno solare in corso, hai percepito compensi da attività di Incaricato alle Vendite a Domicilio (L. 173/2005) presso altre aziende?
+                  Nell'anno solare in corso, hai percepito compensi da attività di Incaricato alle Vendite a Domicilio — cioè vendite porta a porta o presso il domicilio dei clienti (L. 173/2005) — presso altre aziende?
                 </Typography>
                 <Stack direction="row" spacing={2}>
                   <FormControlLabel control={<Checkbox checked={!form.has_other_ivd_income} onChange={() => { set("has_other_ivd_income", false); set("other_ivd_amount", ""); }} />} label="No" />
@@ -196,7 +196,7 @@ const OnboardingWizard = () => {
               {/* Domanda 2 — P.IVA */}
               <Box sx={{ p: 2, bgcolor: "#fafafa", borderRadius: 2, border: "1px solid #eee" }}>
                 <Typography sx={{ fontSize: "0.85rem", fontWeight: 600, color: ESPRESSO, mb: 1.5 }}>
-                  Sei già titolare di P.IVA per attività IVD?
+                  Sei già titolare di Partita IVA per attività di vendita a domicilio?
                 </Typography>
                 <Stack direction="row" spacing={2}>
                   <FormControlLabel control={<Checkbox checked={!form.has_piva_ivd} onChange={() => { set("has_piva_ivd", false); set("piva_number", ""); }} />} label="No" />
@@ -215,8 +215,8 @@ const OnboardingWizard = () => {
                 {autoRegime === "partita_iva" && (
                   <Grid container spacing={2} sx={{ mt: 1 }}>
                     <Grid item xs={12}><TextField fullWidth size="small" label="Partita IVA" value={form.vat_number || ""} onChange={(e) => set("vat_number", e.target.value)} inputProps={{ maxLength: 11 }} /></Grid>
-                    <Grid item xs={6}><TextField fullWidth size="small" label="Codice SDI" value={form.codice_sdi || ""} onChange={(e) => set("codice_sdi", e.target.value)} /></Grid>
-                    <Grid item xs={6}><TextField fullWidth size="small" label="PEC" value={form.pec || ""} onChange={(e) => set("pec", e.target.value)} /></Grid>
+                    <Grid item xs={6}><TextField fullWidth size="small" label="Codice SDI (facoltativo)" value={form.codice_sdi || ""} onChange={(e) => set("codice_sdi", e.target.value)} /></Grid>
+                    <Grid item xs={6}><TextField fullWidth size="small" label="PEC (facoltativa)" value={form.pec || ""} onChange={(e) => set("pec", e.target.value)} /></Grid>
                   </Grid>
                 )}
               </Box>
@@ -276,7 +276,7 @@ const OnboardingWizard = () => {
               {/* INPS threshold info */}
               <Box sx={{ p: 1.5, bgcolor: "#f9f9f9", borderRadius: 2, border: "1px solid #eee" }}>
                 <Typography sx={{ fontSize: "0.75rem", color: "#666", lineHeight: 1.6 }}>
-                  La soglia di €5.000,00 netti è cumulativa su tutte le attività IVD nell'anno solare, indipendentemente dal numero di aziende mandanti. Sei tenuto a comunicare ogni variazione entro 10 giorni a info@myevea.com.
+                  La soglia di €5.000,00 netti è cumulativa su tutti i compensi percepiti come Incaricato alle Vendite a Domicilio nell'anno solare, indipendentemente dal numero di aziende mandanti. Sei tenuto a comunicare ogni variazione entro 10 giorni a info@myevea.com.
                 </Typography>
               </Box>
 
@@ -388,7 +388,7 @@ const OnboardingWizard = () => {
           {step === 4 && (
             <Stack spacing={2}>
               <Typography variant="h6" fontWeight={700} color={ESPRESSO}>Dati Bancari</Typography>
-              <TextField fullWidth size="small" label="IBAN *" value={form.iban || ""} onChange={(e) => set("iban", e.target.value.toUpperCase().replace(/\s/g, ""))} placeholder="IT60X0542811101000000123456" helperText="Formato europeo SEPA" />
+              <TextField fullWidth size="small" label="IBAN (facoltativo, puoi aggiungere in seguito)" value={form.iban || ""} onChange={(e) => set("iban", e.target.value.toUpperCase().replace(/\s/g, ""))} placeholder="IT60X0542811101000000123456" helperText="Formato europeo SEPA — necessario per ricevere i pagamenti" />
               {form.iban && !form.iban.startsWith("IT") && (
                 <TextField fullWidth size="small" label="BIC/SWIFT (obbligatorio per IBAN non italiano)" value={form.bic_swift || ""} onChange={(e) => set("bic_swift", e.target.value.toUpperCase())} placeholder="ABCDEFGH" />
               )}
@@ -398,7 +398,6 @@ const OnboardingWizard = () => {
                 <Button
                   variant="contained"
                   onClick={() => {
-                    if (!form.iban) { enqueueSnackbar("L'IBAN è obbligatorio.", { variant: "error" }); return; }
                     save("save-bank", { iban: form.iban, bic_swift: form.bic_swift || "", bank_name: "", account_holder: form.account_holder || `${form.first_name || ""} ${form.last_name || ""}`.trim() });
                   }}
                   disabled={saving}
