@@ -28,13 +28,15 @@ const GoMVPBonus = () => {
   const { higherRank } = useHigherRank();
   const { t } = useTranslation();
 
+  const isCompleted = higherRank?.is_completed === 1;
+
   return (
     <BonusWidget
       icon="mdi:rocket-launch-outline"
       color="#4CAF50"
-      title={t("user_dashboard.go_MVP_bonus")} expired={higherRank?.is_expired === 1}
+      title={t("user_dashboard.go_MVP_bonus")} expired={higherRank?.is_expired === 1 && !isCompleted} completed={isCompleted}
     >
-      <Progress higherRank={higherRank} />
+      {!isCompleted && <Progress higherRank={higherRank} />}
     </BonusWidget>
   );
 };

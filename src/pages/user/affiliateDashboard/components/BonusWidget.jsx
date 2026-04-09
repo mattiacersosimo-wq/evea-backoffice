@@ -6,7 +6,7 @@ import Iconify from "src/components/Iconify";
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
 
-const BonusWidget = ({ icon, title, color = ORO, badge, expired, children }) => {
+const BonusWidget = ({ icon, title, color = ORO, badge, expired, completed, children }) => {
   const [open, setOpen] = useState(false);
   const c = color || ORO;
 
@@ -47,6 +47,9 @@ const BonusWidget = ({ icon, title, color = ORO, badge, expired, children }) => 
         )}
         {expired && (
           <Chip label="Expired" size="small" sx={{ height: 20, fontSize: "0.6rem", fontWeight: 700, bgcolor: alpha("#E53935", 0.1), color: "#E53935" }} />
+        )}
+        {completed && (
+          <Chip label="Completato" size="small" icon={<Iconify icon="mdi:check-circle" width={14} />} sx={{ height: 20, fontSize: "0.6rem", fontWeight: 700, bgcolor: alpha("#43A047", 0.1), color: "#43A047", "& .MuiChip-icon": { color: "#43A047" } }} />
         )}
         <Iconify
           icon="mdi:chevron-down"

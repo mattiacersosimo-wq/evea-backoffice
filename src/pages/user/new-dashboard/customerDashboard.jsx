@@ -106,7 +106,7 @@ const useCoupons = () =>
 // ═══════════════════════════════════════════════
 // HERO — clean customer card, no rank/progress
 // ═══════════════════════════════════════════════
-const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
+const HeroCard = ({ hero, ff, rob, totalOrders = 0, badgesLoading = false }) => {
   const { user } = useAuth();
 
   const profile = user?.user_profile || {};
@@ -185,6 +185,7 @@ const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
           </Typography>
 
           {/* Badge row */}
+          {!badgesLoading && (
           <Stack direction="row" spacing={1.5} mt={2.5}>
             {BADGES.map((badge, i) => {
               const unlocked = badge.requirement(badgeData);
@@ -225,6 +226,7 @@ const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
               );
             })}
           </Stack>
+          )}
         </Box>
       </Stack>
     </Card>
@@ -706,7 +708,7 @@ const UserDashboard = () => {
   return (
     <Page title="Dashboard">
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4 }}>
-        <HeroCard hero={hero} ff={ff} rob={rob} totalOrders={totalOrders} />
+        <HeroCard hero={hero} ff={ff} rob={rob} totalOrders={totalOrders} badgesLoading={ffLoading || robLoading} />
         <Box sx={{ mt: 2 }}><CustomerCommunityBanner /></Box>
         <Ticker />
 

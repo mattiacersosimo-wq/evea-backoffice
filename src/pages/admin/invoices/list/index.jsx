@@ -53,7 +53,7 @@ const MyOrders = () => {
     setOpenMenuActions(null);
   };
   const methods = useFilter();
-  const filter = methods.watch();
+  const [filter, setFilter] = useState(() => methods.getValues());
   const [openCombo, setOpenCombo] = useState(false);
   const { state, fetchData, rowStart, ...rest } = useMyOrders(filter);
   const { data, ...dataProps } = state;
@@ -72,7 +72,10 @@ const MyOrders = () => {
   };
 
   const onFilter = methods.handleSubmit(
-    async (inputData) => await fetchData(1, inputData),
+    async (inputData) => {
+      setFilter(inputData);
+      await fetchData(1, inputData);
+    },
   );
 
   return (
