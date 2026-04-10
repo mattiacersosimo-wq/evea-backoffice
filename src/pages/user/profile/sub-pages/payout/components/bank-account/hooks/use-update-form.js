@@ -4,18 +4,20 @@ import { useForm } from "react-hook-form";
 import useAuth from "src/hooks/useAuth";
 import { object, string } from "yup";
 
-const defaultValues = { bank_name: "", bank_country: "", swift: "", iban: "" };
+const defaultValues = { swift: "", iban: "" };
 
 const schema = object().shape({
-    bank_name: string().required("Bank Name is required"),
-    bank_country: string().required("Country Name is required"),
-    swift: string().required("Swift Code is required"),
-    iban: string().required("IBAN is required"),
+    iban: string().required("IBAN obbligatorio").min(15, "IBAN non valido"),
+    swift: string().when("iban", {
+        is: (val) => val && !val.toUpperCase().startsWith("IT"),
+        then: (s) => s.required("BIC/SWIFT obbligatorio per IBAN non italiano"),
+        otherwise: (s) => s.notRequired(),
+    }),
 });
 
 const useUpdateForm = () => {
     const { user } = useAuth();
-    const { bank_name, bank_country, swift, iban } = user?.user_profile || {};
+    const { swift, iban } = user?.user_profile || {};
     const methods = useForm({
         defaultValues,
         resolver: yupResolver(schema),
@@ -25,12 +27,10 @@ const useUpdateForm = () => {
 
     useEffect(() => {
         reset({
-            bank_name: bank_name || "",
-            bank_country: bank_country || "",
             swift: swift || "",
             iban: iban || "",
         });
-    }, [bank_name, bank_country, swift, iban]);
+    }, [swift, iban]);
 
     return methods;
 };

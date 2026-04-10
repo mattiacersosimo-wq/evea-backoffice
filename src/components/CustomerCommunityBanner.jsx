@@ -8,16 +8,10 @@ export default function CustomerCommunityBanner() {
     setLoading(true);
     try {
       const { data } = await axiosInstance.get("api/community/sso");
-      if (data?.url) {
-        window.open(data.url, "_blank");
-      } else {
-        window.open("https://community.myevea.com", "_blank");
-      }
+      window.location.href = data?.url || "https://community.myevea.com";
     } catch (e) {
       console.error("SSO error:", e);
-      window.open("https://community.myevea.com", "_blank");
-    } finally {
-      setLoading(false);
+      window.location.href = "https://community.myevea.com";
     }
   };
 

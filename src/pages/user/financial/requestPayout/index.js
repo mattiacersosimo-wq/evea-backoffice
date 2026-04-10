@@ -104,7 +104,7 @@ const Index = () => {
               </Grid>
             </Card>
             <Grid item xs={12} md={12}>
-              <DataList state={state} rowStart={rowStart} />
+              <DataList state={state} rowStart={rowStart} onRefresh={() => { fetchData(); fetchSummary(); }} />
             </Grid>
           </Box>
         </Page>

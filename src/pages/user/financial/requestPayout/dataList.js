@@ -1,5 +1,7 @@
-import { Card, TableCell, TableRow } from "@mui/material";
+import { Card, IconButton, TableCell, TableRow, Tooltip } from "@mui/material";
 import { capitalCase } from "change-case";
+import { useSnackbar } from "notistack";
+import Iconify from "src/components/Iconify";
 import Scrollbar from "src/components/Scrollbar";
 import DataHandlerTable from "src/components/data-handler/table";
 import ParseDate from "src/components/date";
@@ -7,6 +9,7 @@ import Map from "src/components/map";
 import PayoutTableItem from "src/components/payout-table-item";
 import Ternary from "src/components/ternary";
 import { Currency } from "src/components/with-prefix";
+import fetchUser from "src/utils/fetchUser";
 import getPayoutNameFromId from "src/utils/get-payout-name-from-id";
 import { PAYOUT_TYPE_IDS } from "src/utils/types";
 
@@ -17,10 +20,12 @@ const headers = [
     "financial.payout.table.payout_info",
     "financial.payout.table.status",
     "financial.payout.table.date",
+    "",
 ];
 
-const DataList = ({ state, rowStart }) => {
+const DataList = ({ state, rowStart, onRefresh }) => {
     const { data, ...dataProps } = state;
+    const { enqueueSnackbar } = useSnackbar();
 
     return (
         <>
@@ -146,6 +151,28 @@ const DataList = ({ state, rowStart }) => {
                                                 <ParseDate
                                                     date={item.created_at}
                                                 />
+                                            </TableCell>
+                                            <TableCell>
+                                                {item.status === "pending" && (
+                                                    <Tooltip title="Annulla prelievo">
+                                                        <IconButton
+                                                            size="small"
+                                                            sx={{ color: "#E53935" }}
+                                                            onClick={async () => {
+                                                                if (!window.confirm("Sei sicuro di voler annullare questo prelievo?")) return;
+                                                                try {
+                                                                    const { data: res } = await fetchUser.post(`cancel-payout/${item.id}`);
+                                                                    enqueueSnackbar(res?.message || "Prelievo annullato");
+                                                                    if (onRefresh) onRefresh();
+                                                                } catch (err) {
+                                                                    enqueueSnackbar(err?.response?.data?.message || "Errore", { variant: "error" });
+                                                                }
+                                                            }}
+                                                        >
+                                                            <Iconify icon="mdi:close-circle-outline" width={20} />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                )}
                                             </TableCell>
                                         </TableRow>
                                     </>
