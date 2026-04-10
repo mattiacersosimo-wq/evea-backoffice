@@ -69,6 +69,7 @@ const Account = ({
   user_type,
   smartship_status,
   is_active,
+  have_children,
   name,
   profile,
   onClick,
@@ -357,6 +358,18 @@ const Account = ({
           >
             <Typography variant="body">{name ? name : "no name"}</Typography>
           </Card>
+          {have_children && (
+            <Box sx={{ display: "flex", justifyContent: "center", mt: 0.3 }}>
+              <Box sx={{
+                width: 20, height: 20, borderRadius: "50%",
+                bgcolor: alpha(getNodeColor(user_type, rank_name), 0.15),
+                border: `1.5px solid ${getNodeColor(user_type, rank_name)}`,
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}>
+                <Typography sx={{ fontSize: "10px", color: getNodeColor(user_type, rank_name), fontWeight: 700, lineHeight: 1 }}>&#9660;</Typography>
+              </Box>
+            </Box>
+          )}
         </Box>
       </HtmlTooltip>
     </>

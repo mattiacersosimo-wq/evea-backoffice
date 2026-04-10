@@ -40,6 +40,7 @@ const Node = ({ node, parent, onClick, openAdd }) => {
     pqv, tv,
     gv,
     join_date,
+    have_children,
   } = node;
   const label =
     className === "vacant" ? (
@@ -68,6 +69,7 @@ const Node = ({ node, parent, onClick, openAdd }) => {
         user_type={user_type}
         smartship_status={smartship_status}
         is_active={is_active}
+        have_children={have_children}
         onClick={() => {
           if (id) onClick(node);
         }}
