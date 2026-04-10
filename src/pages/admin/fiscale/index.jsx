@@ -53,13 +53,14 @@ const calcFiscale = (amount) => {
   return { lordo, imponibile, ritenuta, inps, bollo, netto };
 };
 
-const calcNettoQuick = (amount) => {
-  const lordo = parseFloat(amount) || 0;
+const calcNettoQuick = (row) => {
+  // Use server-calculated netto if available
+  if (row?.netto != null) return parseFloat(row.netto);
+  const lordo = parseFloat(row?.amount || 0);
   const imponibile = lordo * 0.78;
-  const ritenuta = imponibile * 0.23;
-  const inps = imponibile * 0.0919 * 0.333;
-  const bollo = lordo >= 100 ? 2 : 0;
-  return lordo - ritenuta - inps - bollo;
+  const ritenuta = lordo >= 25.82 ? imponibile * 0.23 : 0;
+  const bollo = imponibile > 77.47 ? 2 : 0;
+  return lordo - ritenuta - bollo;
 };
 
 // ---------- Components ----------
@@ -158,7 +159,21 @@ const FiscaleBreakdown = ({ calc }) => {
 
 const ApproveDialog = ({ open, onClose, request, onConfirm, loading }) => {
   const calc = useMemo(
-    () => (request ? calcFiscale(request.amount) : null),
+    () => {
+      if (!request) return null;
+      // Use server-side fiscal data if available
+      if (request.imponibile != null) {
+        return {
+          lordo: parseFloat(request.amount),
+          imponibile: parseFloat(request.imponibile),
+          ritenuta: parseFloat(request.ritenuta || 0),
+          inps: parseFloat(request.inps_promoter || 0),
+          bollo: parseFloat(request.bollo || 0),
+          netto: parseFloat(request.netto),
+        };
+      }
+      return calcFiscale(request.amount);
+    },
     [request]
   );
 
@@ -355,7 +370,7 @@ const GestionePrelievi = () => {
                     <TableCell
                       sx={{ color: "#B8963B", fontWeight: 700 }}
                     >
-                      €{calcNettoQuick(row.amount).toFixed(2)}
+                      €{calcNettoQuick(row).toFixed(2)}
                     </TableCell>
                     <TableCell>
                       {PAYMENT_METHODS[row.payment_type] || row.payment_type}

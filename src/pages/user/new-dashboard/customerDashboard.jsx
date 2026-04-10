@@ -106,7 +106,7 @@ const useCoupons = () =>
 // ═══════════════════════════════════════════════
 // HERO — clean customer card, no rank/progress
 // ═══════════════════════════════════════════════
-const HeroCard = ({ hero, ff, rob, totalOrders = 0, badgesLoading = false }) => {
+const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
   const { user } = useAuth();
 
   const profile = user?.user_profile || {};
@@ -185,7 +185,6 @@ const HeroCard = ({ hero, ff, rob, totalOrders = 0, badgesLoading = false }) => 
           </Typography>
 
           {/* Badge row */}
-          {!badgesLoading && (
           <Stack direction="row" spacing={1.5} mt={2.5}>
             {BADGES.map((badge, i) => {
               const unlocked = badge.requirement(badgeData);
