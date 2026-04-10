@@ -14,7 +14,9 @@ import {
   TableRow,
   Tooltip,
   Typography,
+  Divider,
 } from "@mui/material";
+import Iconify from "src/components/Iconify";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
@@ -170,6 +172,60 @@ const AdminAutofatture = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [reinviaLoading, setReinviaLoading] = useState(null);
+  const [monthExport, setMonthExport] = useState(new Date().getMonth() + 1);
+
+  const handleExportMensile = useCallback(async () => {
+    try {
+      const res = await axiosInstance.get("api/wp/nota-compensi/export-monthly", {
+        params: { month: monthExport, year },
+        responseType: "blob",
+      });
+      const blob = new Blob([res.data], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `payout_export_${year}_${monthExport}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      enqueueSnackbar("Export fallito", { variant: "error" });
+    }
+  }, [monthExport, year, enqueueSnackbar]);
+
+  const handleCuAnnuale = useCallback(async () => {
+    try {
+      const params = { year };
+      if (selectedUserId) params.user_id = selectedUserId;
+      const { data: res } = await axiosInstance.get("api/wp/nota-compensi/cu-annuale", { params });
+      const d = res?.data;
+      if (!d) return;
+      const lines = [
+        `RIEPILOGO ANNUALE CU ${d.anno}`,
+        ``,
+        `Totale Lordo:          EUR ${parseFloat(d.lordo).toFixed(2)}`,
+        `Totale Imponibile:     EUR ${parseFloat(d.imponibile).toFixed(2)}`,
+        `Totale Ritenute:       EUR ${parseFloat(d.ritenuta).toFixed(2)}`,
+        `INPS Quota Promoter:   EUR ${parseFloat(d.inps_promoter).toFixed(2)}`,
+        `INPS Quota Azienda:    EUR ${parseFloat(d.inps_evea).toFixed(2)}`,
+        `Totale Bolli:          EUR ${parseFloat(d.bollo).toFixed(2)}`,
+        `Totale Netto:          EUR ${parseFloat(d.netto).toFixed(2)}`,
+        `N. Payout:             ${d.num_payout}`,
+      ];
+      const blob = new Blob([lines.join("\n")], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `cu_annuale_${d.anno}${selectedUserId ? "_user" + selectedUserId : ""}.txt`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      enqueueSnackbar("Export CU fallito", { variant: "error" });
+    }
+  }, [year, selectedUserId, enqueueSnackbar]);
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -358,6 +414,33 @@ const AdminAutofatture = () => {
               </Stack>
             )}
           </Box>
+        </Card>
+
+        {/* Report Commercialista */}
+        <Card sx={{ p: 2, mb: 3 }}>
+          <Stack direction="row" alignItems="center" spacing={1} mb={1.5}>
+            <Iconify icon="mdi:file-document-outline" width={20} sx={{ color: "#B8963B" }} />
+            <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: "#2C1A0E" }}>Report Commercialista</Typography>
+          </Stack>
+          <Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap">
+            <FormControl size="small" sx={{ minWidth: 100 }}>
+              <InputLabel>Mese</InputLabel>
+              <Select value={monthExport} label="Mese" onChange={(e) => setMonthExport(e.target.value)}>
+                {["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"].map((m, i) => (
+                  <MenuItem key={i + 1} value={i + 1}>{m}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Button size="small" variant="outlined" startIcon={<Iconify icon="mdi:download" width={16} />} onClick={handleExportMensile}
+              sx={{ color: "#B8963B", borderColor: "#B8963B", "&:hover": { borderColor: "#967A2F", bgcolor: "rgba(184,150,59,0.04)" } }}>
+              Export Mensile CSV
+            </Button>
+            <Divider orientation="vertical" flexItem />
+            <Button size="small" variant="contained" startIcon={<Iconify icon="mdi:certificate-outline" width={16} />} onClick={handleCuAnnuale}
+              sx={{ bgcolor: "#4A5C3A", "&:hover": { bgcolor: "#3A4A2E" } }}>
+              CU Annuale {year}
+            </Button>
+          </Stack>
         </Card>
 
         {/* Summary */}
