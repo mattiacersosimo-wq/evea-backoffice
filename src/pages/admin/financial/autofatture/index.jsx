@@ -236,7 +236,7 @@ const AdminAutofatture = () => {
         params.user_id = selectedUserId;
       }
       const res = await axiosInstance.get("api/wp/autofatture", { params });
-      const list = res.data?.data || res.data || [];
+      const list = res.data?.autofatture || res.data?.data || res.data || [];
       setData(Array.isArray(list) ? list : []);
     } catch (err) {
       setError(true);
@@ -498,8 +498,8 @@ const AdminAutofatture = () => {
                       <TableCell>
                         {row.user?.username || row.promoter || "\u2014"}
                       </TableCell>
-                      <TableCell>{row.numero}</TableCell>
-                      <TableCell>{row.data}</TableCell>
+                      <TableCell>{row.numero_fattura || row.numero}</TableCell>
+                      <TableCell>{row.data_fattura || row.data}</TableCell>
                       <TableCell>
                         {"\u20AC"}{parseFloat(row.lordo || 0).toFixed(2)}
                       </TableCell>

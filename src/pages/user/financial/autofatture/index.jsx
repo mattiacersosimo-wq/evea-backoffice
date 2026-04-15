@@ -91,7 +91,7 @@ const Autofatture = () => {
           { params: { anno: year } }
         );
         if (!cancelled) {
-          const list = res.data?.data || res.data || [];
+          const list = res.data?.autofatture || res.data?.data || res.data || [];
           setData(Array.isArray(list) ? list : []);
         }
       } catch (err) {
@@ -235,8 +235,8 @@ const Autofatture = () => {
                         "&:last-child td, &:last-child th": { border: 0 },
                       }}
                     >
-                      <TableCell>{row.numero}</TableCell>
-                      <TableCell>{row.data}</TableCell>
+                      <TableCell>{row.numero_fattura || row.numero}</TableCell>
+                      <TableCell>{row.data_fattura || row.data}</TableCell>
                       <TableCell>€{parseFloat(row.lordo || 0).toFixed(2)}</TableCell>
                       <TableCell>€{parseFloat(row.imponibile || 0).toFixed(2)}</TableCell>
                       <TableCell sx={{ color: "#C0392B" }}>
