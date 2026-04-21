@@ -104,6 +104,9 @@ const RspBonus = Loadable(
 const DirectSalesBonus = Loadable(
   lazy(() => import("src/pages/admin/settings/network/@pages/direct-sales-bonus-settings/index"))
 );
+const FastStartBonus = Loadable(
+  lazy(() => import("src/pages/admin/settings/network/@pages/fast-start-bonus/index"))
+);
 const RobBonus = Loadable(
   lazy(() => import("src/pages/admin/settings/network/@pages/rob-bonus-settings/index"))
 );
@@ -249,6 +252,10 @@ const settings = [
           {
             path: "directsalesbonus",
             element: <DirectSalesBonus />,
+          },
+          {
+            path: "faststartbonus",
+            element: <FastStartBonus />,
           },
           {
             path: "robbonus",

@@ -33,7 +33,7 @@ const ResidualBonusMatching = () => {
 
   return (
     <BonusWidget
-      icon="mdi:swap-horizontal"
+      icon="mdi:swap-horizontal-circle-outline"
       color="#795548"
       title={t("user_dashboard.residual_matching_bonus")}
     >

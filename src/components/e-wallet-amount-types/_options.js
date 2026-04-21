@@ -17,6 +17,10 @@ const options = [
     label: "amount_types.direct_sales_bonus",
   },
   {
+    value: "fast_start_bonus",
+    label: "Fast Start Bonus",
+  },
+  {
     value: "pmb_bonus",
     label: "amount_types.pmb_bonus",
   },

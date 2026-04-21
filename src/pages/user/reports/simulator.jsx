@@ -23,6 +23,10 @@ const RESMATCHING_L1 = 0.20;
 const RESMATCHING_L2 = 0.10;
 const MVP_BONUS = 250;
 const MVP_MENTOR = 25;
+// Fast Start Bonus: Bronze €15, Silver €30, Gold €60 (pagato sullo starter pack)
+const FAST_START = { bronze: 15, silver: 30, gold: 60 };
+// Assumiamo mix kit: 10% bronze, 20% silver, 70% gold (split realistico)
+const FAST_START_AVG = FAST_START.bronze * 0.1 + FAST_START.silver * 0.2 + FAST_START.gold * 0.7; // = €49.50
 const THREE_FF_MAX = 81;
 const ROB_DISCOUNT = 0.10;
 const ROB_COUPON = 30;
@@ -164,6 +168,9 @@ const SimulatorReport = () => {
     // 6. MVP Mentor
     const mvpMentor = hasMvp ? MVP_MENTOR * Math.min(promoters, 10) : 0;
 
+    // 6b. Fast Start Bonus (one-time on each new promoter that buys a starter kit)
+    const fastStart = promoters * FAST_START_AVG;
+
     // 7. Residual Bonus (smartship BV per level)
     const unlockedLevels = RESIDUAL_UNLOCK.filter(r => r <= rankId).length;
     let residual = 0;
@@ -208,7 +215,7 @@ const SimulatorReport = () => {
     projection.forEach(p => { cum += p.total; p.cumulative = cum; });
 
     return {
-      dsb, isb, threeff, goMvp, rspMvp, mvpMentor, residual, leadership, resMatching,
+      dsb, isb, threeff, goMvp, rspMvp, mvpMentor, fastStart, residual, leadership, resMatching,
       evolvingOneTime, rockSolid, robSavings, monthlyRecurring, oneTime, projection,
       totalClientBV, totalTeamBV, totalTeamPromoters, totalTeamClients, levels,
       smartshipClients, unlockedLevels,
@@ -331,6 +338,7 @@ const SimulatorReport = () => {
               {isIt ? "Bonus Settimanali" : "Weekly Bonuses"}
             </Typography>
             <BonusRow icon="mdi:account-cash" label="Direct Sales" amount={calc.dsb} color="#FF9800" subtitle={`${hasKit ? "30%" : "15%"} × €${calc.totalClientBV.toFixed(0)} BV`} />
+            <BonusRow icon="mdi:rocket" label="Fast Start" amount={calc.fastStart} color="#FF4081" subtitle={`${promoters} nuovi promoter × avg €${FAST_START_AVG.toFixed(0)}`} />
             <BonusRow icon="mdi:sitemap" label="Indirect Sales" amount={calc.isb} color="#00BCD4" subtitle={`4%/3%/3% L1-L3 (€${calc.totalTeamBV.toFixed(0)} team BV)`} />
             <BonusRow icon="mdi:account-group" label="MVP Mentor" amount={calc.mvpMentor} color="#9C27B0" subtitle={`€25 × ${Math.min(promoters, 10)} MVP`} />
 

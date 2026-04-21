@@ -16,6 +16,57 @@ const HIDDEN_USER_KEYWORDS = ["blog", "referal", "telegram", "my-subscription", 
 // Admin dashboard children to remove (business/network replaced by KPI)
 const HIDDEN_ADMIN_CHILDREN = ["/admin/dashboard/business", "/admin/dashboard/network"];
 
+// Help Center children to KEEP (solo queste sezioni)
+const HELP_CENTER_KEEP = ["faq", "support", "ticket", "documents", "videos", "video"];
+
+// Icon override map — path keyword → SVG file path (from public/icons/)
+// Bypasses localStorage-cached icons from legacy menu config
+const ICON_MAP = {
+  "dashboard-bonus": "/icons/ic_affiliate_dashboard.svg",
+  "affiliate-dashboard": "/icons/ic_affiliate_dashboard.svg",
+  "centro-controllo": "/icons/ic_analytics.svg",
+  "genealog": "/icons/ic_tree.svg",
+  "online-store": "/icons/ic_ecommerce.svg",
+  "my-orders": "/icons/ic_ecommerce.svg",
+  "ordini": "/icons/ic_ecommerce.svg",
+  "coupon": "/icons/ic_store.svg",
+  "recurring-order": "/icons/ic_recurring_orders.svg",
+  "abbonamenti": "/icons/ic_recurring_orders.svg",
+  "financial": "/icons/ic_banking.svg",
+  "wallet": "/icons/ic_banking.svg",
+  "income-report": "/icons/ic_report.svg",
+  "report": "/icons/ic_report.svg",
+  "dashboard": "/icons/ic_dashboard.svg",
+  "profile": "/icons/ic_profile.svg",
+  "help": "/icons/ic_helpcenter.svg",
+  "settings": "/icons/ic_settings.svg",
+  "member": "/icons/ic_member_management.svg",
+  "store": "/icons/ic_ecommerce.svg",
+  "holding": "/icons/ic_holdingtank.svg",
+  "lettera": "/icons/ic_invoice.svg",
+  "tesserino": "/icons/ic_profile.svg",
+  "move-user": "/icons/ic_member_management.svg",
+  "compliance": "/icons/ic_analytics.svg",
+  "autofatture": "/icons/ic_invoice.svg",
+};
+
+const resolveIcon = (item) => {
+  const p = (item.path || "").toLowerCase();
+  const t = (item.title || "").toLowerCase();
+  for (const [kw, icon] of Object.entries(ICON_MAP)) {
+    if (p.includes(kw) || t.includes(kw)) return icon;
+  }
+  return item.icon;
+};
+
+const applyIcons = (menu) => {
+  if (!Array.isArray(menu)) return menu;
+  return menu.map((group) => ({
+    ...group,
+    items: (group.items || []).map((item) => ({ ...item, icon: resolveIcon(item) })),
+  }));
+};
+
 const EXTRA_MENU_ITEMS = [
   {
     match: "/user/financial",
@@ -136,6 +187,23 @@ const filterMenu = (menu, isPromoter) => {
       // If all children removed, make it a direct link (no dropdown)
       return filtered.length === 0 ? { ...item, children: undefined } : { ...item, children: filtered };
     });
+    // Help Center: keep only FAQ, Support Tickets, Documents, Videos
+    items = items.map((item) => {
+      const p = (item.path || "").toLowerCase();
+      if (!item.children || !p.includes("help")) return item;
+      const filtered = item.children.filter((c) => {
+        const cp = (c.path || "").toLowerCase();
+        const ct = (c.title || "").toLowerCase();
+        return HELP_CENTER_KEEP.some((kw) => cp.includes(kw) || ct.includes(kw));
+      });
+      return { ...item, children: filtered };
+    });
+    // Flatten single-child dropdowns (es. Coupon con solo "Lista coupon")
+    items = items.map((item) => {
+      if (!item.children || item.children.length !== 1) return item;
+      const only = item.children[0];
+      return { ...item, path: only.path || item.path, children: undefined };
+    });
     return { ...group, items };
   });
 };
@@ -161,7 +229,7 @@ const Layout = () => {
         return group;
       });
     }
-    return menu;
+    return applyIcons(menu);
   }, [raw, isPromoter, isAdmin]);
 
   const { themeLayout } = useSettings();

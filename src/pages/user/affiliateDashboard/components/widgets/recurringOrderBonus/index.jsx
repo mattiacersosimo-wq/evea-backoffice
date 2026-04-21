@@ -33,7 +33,7 @@ const RecurringOrderBonus = () => {
 
   return (
     <BonusWidget
-      icon="mdi:refresh-circle"
+      icon="mdi:autorenew"
       color="#8BC34A"
       title={t("user_dashboard.rob_bonus")}
     >

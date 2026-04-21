@@ -51,11 +51,16 @@ export function NavItemRoot({
     if (!leadsEnable) return null;
   }
 
+  const isIconify = typeof icon === "string" && icon.includes(":") && !icon.startsWith("/");
   const renderContent = (
     <>
       {icon && (
         <ListItemIconStyle>
-          <SvgIconStyle src={icon} sx={{ width: 1, height: 1 }} />
+          {isIconify ? (
+            <Iconify icon={icon} sx={{ width: 1, height: 1 }} />
+          ) : (
+            <SvgIconStyle src={icon} sx={{ width: 1, height: 1 }} />
+          )}
         </ListItemIconStyle>
       )}
       <ListItemTextStyle

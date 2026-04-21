@@ -1,4 +1,4 @@
-import { Box, Card, Chip, Grid, LinearProgress, Skeleton, Stack, Typography } from "@mui/material";
+import { Box, Button, Card, Chip, Grid, LinearProgress, Skeleton, Stack, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -30,6 +30,7 @@ const QualificationsReport = () => {
   const isIt = i18n.resolvedLanguage === "it";
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [alertsExpanded, setAlertsExpanded] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -58,8 +59,8 @@ const QualificationsReport = () => {
                 <Chip label={alerts.length} size="small" sx={{ height: 22, fontWeight: 700, bgcolor: alpha(ORO, 0.1), color: ORO }} />
               </Stack>
               <Stack spacing={1}>
-                {alerts.map((a, i) => (
-                  <Stack key={i} direction="row" alignItems="center" spacing={1.5} sx={{ py: 0.8, borderBottom: i < alerts.length - 1 ? "1px solid #f5f0e8" : "none" }}>
+                {(alertsExpanded ? alerts : alerts.slice(0, 4)).map((a, i, arr) => (
+                  <Stack key={i} direction="row" alignItems="center" spacing={1.5} sx={{ py: 0.8, borderBottom: i < arr.length - 1 ? "1px solid #f5f0e8" : "none" }}>
                     <Iconify icon={a.icon} width={20} sx={{ color: a.color }} />
                     <Typography sx={{ fontSize: "0.82rem", color: ESPRESSO, flex: 1 }}>
                       {isIt ? a.message_it : a.message}
@@ -67,6 +68,13 @@ const QualificationsReport = () => {
                     {a.pct && <Chip label={`${a.pct}%`} size="small" sx={{ height: 22, fontWeight: 700, bgcolor: alpha(a.color, 0.1), color: a.color }} />}
                   </Stack>
                 ))}
+                {alerts.length > 4 && (
+                  <Button size="small" onClick={() => setAlertsExpanded(!alertsExpanded)}
+                    startIcon={<Iconify icon={alertsExpanded ? "mdi:chevron-up" : "mdi:chevron-down"} />}
+                    sx={{ color: MUTED, textTransform: "none", fontWeight: 600, fontSize: "0.78rem", alignSelf: "flex-start", mt: 0.5 }}>
+                    {alertsExpanded ? (isIt ? "Mostra meno" : "Show less") : (isIt ? `Vedi altre ${alerts.length - 4} notifiche` : `Show ${alerts.length - 4} more`)}
+                  </Button>
+                )}
               </Stack>
             </Card>
           )}

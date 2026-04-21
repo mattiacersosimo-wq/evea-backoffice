@@ -43,12 +43,45 @@ const cardSx = {
 
 // ── Badge config ──
 const BADGES = [
-  { key: "bronze", name: "Bronze Ambassador", icon: "mdi:shield-outline", color: "#CD7F32", requirement: (d) => d.hasFirstOrder, tooltip: "Completa il tuo primo ordine" },
-  { key: "silver", name: "Silver Ambassador", icon: "mdi:shield-half-full", color: "#C0C0C0", requirement: (d) => d.consecutiveMonths >= 3, tooltip: "Mantieni lo smartship attivo per 3 mesi consecutivi" },
-  { key: "platinum", name: "Platinum Ambassador", icon: "mdi:lightning-bolt", color: "#8B7FC7", requirement: (d) => d.consecutiveMonths >= 6 && d.friendsInvited >= 1, tooltip: "6 mesi consecutivi di smartship + invita 1 amico" },
-  { key: "gold", name: "Gold Ambassador", icon: "mdi:trophy", color: "#FFD700", requirement: (d) => d.consecutiveMonths >= 12 && d.friendsInvited >= 3, tooltip: "12 mesi consecutivi + invita 3 amici (3 For Free)" },
-  { key: "legend", name: "Legend Ambassador", icon: "mdi:diamond-stone", color: "#00BCD4", requirement: (d) => d.consecutiveMonths >= 24 && d.friendsInvited >= 5, tooltip: "24 mesi consecutivi + invita 5 amici" },
+  { key: "bronze", name: "Bronze Ambassador", icon: "mdi:shield-outline", color: "#B87333", requirement: (d) => d.hasFirstOrder, tooltip: "Completa il tuo primo ordine" },
+  { key: "silver", name: "Silver Ambassador", icon: "mdi:shield-half-full", color: "#B8B8B8", requirement: (d) => d.consecutiveMonths >= 3, tooltip: "Mantieni lo smartship attivo per 3 mesi consecutivi" },
+  { key: "platinum", name: "Platinum Ambassador", icon: "mdi:lightning-bolt", color: "#7B8A9C", requirement: (d) => d.consecutiveMonths >= 6 && d.friendsInvited >= 1, tooltip: "6 mesi consecutivi di smartship + invita 1 amico" },
+  { key: "gold", name: "Gold Ambassador", icon: "mdi:trophy", color: "#D4AF37", requirement: (d) => d.consecutiveMonths >= 12 && d.friendsInvited >= 3, tooltip: "12 mesi consecutivi + invita 3 amici (3 For Free)" },
+  { key: "legend", name: "Legend Ambassador", icon: "mdi:diamond-stone", color: "#4A7C92", requirement: (d) => d.consecutiveMonths >= 24 && d.friendsInvited >= 5, tooltip: "24 mesi consecutivi + invita 5 amici" },
 ];
+
+// ── Animated counter hook (from 0 to target, eased, ~800ms) ──
+const useAnimatedCounter = (target, duration = 800) => {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    const t = Number(target) || 0;
+    if (t === 0) { setValue(0); return; }
+    let raf; const start = performance.now();
+    const tick = (now) => {
+      const p = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+      setValue(t * eased);
+      if (p < 1) raf = requestAnimationFrame(tick);
+      else setValue(t);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, duration]);
+  return value;
+};
+
+// ── Animated counter display component ──
+const SavingsNumber = ({ value, label, prefix = "", suffix = "", color }) => {
+  const animated = useAnimatedCounter(value);
+  return (
+    <Box>
+      <Typography sx={{ fontWeight: 800, color, fontSize: "1.2rem", letterSpacing: "-0.3px", fontVariantNumeric: "tabular-nums" }}>
+        {prefix}{Math.round(animated)}{suffix}
+      </Typography>
+      <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY, fontWeight: 500 }}>{label}</Typography>
+    </Box>
+  );
+};
 
 // ── Data hooks ──
 const useFetch = (fetcher) => {
@@ -128,16 +161,18 @@ const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
   return (
     <Card
       sx={{
-        bgcolor: "#FAF6EF",
+        background: `linear-gradient(135deg, #FAF6EF 0%, #F5EEDE 60%, #F0E7CF 100%)`,
         color: ESPRESSO,
-        borderRadius: 4,
+        borderRadius: 3,
         p: { xs: 3, md: 4 },
         position: "relative",
         overflow: "hidden",
-        border: `1px solid ${alpha(ORO, 0.2)}`,
+        border: `1px solid ${alpha(ORO, 0.25)}`,
+        boxShadow: `0 2px 16px ${alpha(ORO, 0.08)}`,
       }}
     >
-      <Box sx={{ position: "absolute", bottom: -30, right: -30, width: 120, height: 120, borderRadius: "50%", bgcolor: alpha(ORO, 0.08) }} />
+      <Box sx={{ position: "absolute", bottom: -40, right: -40, width: 180, height: 180, borderRadius: "50%", background: `radial-gradient(circle, ${alpha(ORO, 0.12)} 0%, transparent 70%)` }} />
+      <Box sx={{ position: "absolute", top: -60, left: "30%", width: 220, height: 220, borderRadius: "50%", background: `radial-gradient(circle, ${alpha(ORO, 0.08)} 0%, transparent 70%)`, pointerEvents: "none" }} />
 
       <Stack
         direction={{ xs: "column", sm: "row" }}
@@ -160,9 +195,16 @@ const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
         </Avatar>
 
         <Box sx={{ flex: 1, width: "100%" }}>
-          <Stack direction="row" alignItems="center" spacing={1.5}>
-            <Typography variant="h5" fontWeight={700} sx={{ color: ESPRESSO }}>
-              {fullName}
+          <Stack direction="row" alignItems="center" spacing={1.5} flexWrap="wrap" sx={{ mb: 0.3 }}>
+            <Typography variant="h5" fontWeight={700} sx={{ color: ESPRESSO, letterSpacing: "-0.3px" }}>
+              {(() => {
+                const h = new Date().getHours();
+                const firstName = profile?.first_name || fullName.split(" ")[0] || "";
+                if (h >= 6 && h < 12) return `🌅 Buongiorno${firstName ? ", " + firstName : ""}`;
+                if (h >= 12 && h < 18) return `☀️ Buon pomeriggio${firstName ? ", " + firstName : ""}`;
+                if (h >= 18 && h < 24) return `🌙 Buonasera${firstName ? ", " + firstName : ""}`;
+                return `🌙 Buonanotte${firstName ? ", " + firstName : ""}`;
+              })()}
             </Typography>
             {currentBadge && (
               <Chip
@@ -180,8 +222,8 @@ const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
               />
             )}
           </Stack>
-          <Typography sx={{ fontSize: "0.8rem", color: WARM_GRAY, mt: 0.3 }}>
-            Benvenuto nella tua area personale
+          <Typography sx={{ fontSize: "0.82rem", color: WARM_GRAY }}>
+            <b style={{ color: ESPRESSO }}>{fullName}</b> · Benvenuto nella tua area personale
           </Typography>
 
           {/* Badge row */}
@@ -225,7 +267,55 @@ const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
               );
             })}
           </Stack>
-          )}
+
+          {/* Hint prossimo badge */}
+          {(() => {
+            const nextBadge = BADGES.find((b) => !b.requirement(badgeData));
+            if (!nextBadge) return (
+              <Box sx={{ mt: 1.5, display: "flex", alignItems: "center", gap: 0.8 }}>
+                <Iconify icon="mdi:trophy-variant" width={14} sx={{ color: "#4CAF50" }} />
+                <Typography sx={{ fontSize: "0.72rem", color: "#4CAF50", fontWeight: 700 }}>
+                  Tutti i badge sbloccati! 🎉
+                </Typography>
+              </Box>
+            );
+            let missing = "";
+            if (nextBadge.key === "bronze") missing = "1 primo ordine";
+            else if (nextBadge.key === "silver") {
+              const m = Math.max(0, 3 - badgeData.consecutiveMonths);
+              missing = `${m} ${m === 1 ? "mese" : "mesi"} di smartship`;
+            } else if (nextBadge.key === "platinum") {
+              const m = Math.max(0, 6 - badgeData.consecutiveMonths);
+              const f = Math.max(0, 1 - badgeData.friendsInvited);
+              const parts = [];
+              if (m > 0) parts.push(`${m} ${m === 1 ? "mese" : "mesi"}`);
+              if (f > 0) parts.push(`${f} amico`);
+              missing = parts.join(" + ");
+            } else if (nextBadge.key === "gold") {
+              const m = Math.max(0, 12 - badgeData.consecutiveMonths);
+              const f = Math.max(0, 3 - badgeData.friendsInvited);
+              const parts = [];
+              if (m > 0) parts.push(`${m} ${m === 1 ? "mese" : "mesi"}`);
+              if (f > 0) parts.push(`${f} ${f === 1 ? "amico" : "amici"}`);
+              missing = parts.join(" + ");
+            } else if (nextBadge.key === "legend") {
+              const m = Math.max(0, 24 - badgeData.consecutiveMonths);
+              const f = Math.max(0, 5 - badgeData.friendsInvited);
+              const parts = [];
+              if (m > 0) parts.push(`${m} ${m === 1 ? "mese" : "mesi"}`);
+              if (f > 0) parts.push(`${f} ${f === 1 ? "amico" : "amici"}`);
+              missing = parts.join(" + ");
+            }
+            return (
+              <Box sx={{ mt: 1.5, display: "flex", alignItems: "center", gap: 0.8 }}>
+                <Iconify icon="mdi:target" width={14} sx={{ color: nextBadge.color }} />
+                <Typography sx={{ fontSize: "0.72rem", color: WARM_GRAY }}>
+                  Prossimo: <b style={{ color: nextBadge.color }}>{nextBadge.name}</b>
+                  {missing && <> · ti serve <b style={{ color: ESPRESSO }}>{missing}</b></>}
+                </Typography>
+              </Box>
+            );
+          })()}
         </Box>
       </Stack>
     </Card>
@@ -293,9 +383,11 @@ const ThreeFFCard = ({ ff, loading = false }) => {
   const slots = Array.from({ length: required }, (_, i) => customers[i] || null);
 
   return (
-    <Card sx={{ ...cardSx, p: 3 }}>
-      <Stack direction="row" alignItems="center" spacing={1} mb={2.5}>
-        <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <Card sx={{ ...cardSx, p: 3, position: "relative", overflow: "hidden",
+      "&::before": { content: '""', position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${ORO} 0%, ${alpha(ORO, 0.4)} 100%)` },
+    }}>
+      <Stack direction="row" alignItems="center" spacing={1.2} mb={2.5}>
+        <Box sx={{ width: 38, height: 38, borderRadius: 2, background: `linear-gradient(135deg, ${alpha(ORO, 0.18)} 0%, ${alpha(ORO, 0.06)} 100%)`, display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Iconify icon="mdi:gift-outline" width={20} sx={{ color: ORO }} />
         </Box>
         <Box>
@@ -322,32 +414,45 @@ const ThreeFFCard = ({ ff, loading = false }) => {
       ) : (
         <>
           <Stack direction="row" spacing={2.5} justifyContent="center" mb={2}>
-            {slots.map((c, i) => (
-              <Stack key={i} alignItems="center" spacing={0.5}>
-                <Avatar
-                  sx={{
-                    width: 52,
-                    height: 52,
-                    bgcolor: c ? alpha(ORO, 0.12) : "#f5f5f5",
-                    color: c ? ORO : "#ccc",
-                    border: c ? `2px solid ${ORO}` : "2px dashed #ddd",
-                    transition: "all 0.3s",
-                  }}
-                >
-                  {c ? (
-                    <Iconify icon="mdi:check-bold" width={24} />
-                  ) : (
-                    <Iconify icon="mdi:account-plus-outline" width={24} />
-                  )}
-                </Avatar>
-                <Typography variant="caption" sx={{ color: c ? ESPRESSO : "#aaa", maxWidth: 70, fontWeight: c ? 600 : 400 }} noWrap>
-                  {c?.customer_name || `Amico ${i + 1}`}
-                </Typography>
-              </Stack>
-            ))}
+            {slots.map((c, i) => {
+              const isNext = !c && slots.slice(0, i).every(Boolean);
+              return (
+                <Stack key={i} alignItems="center" spacing={0.5}>
+                  <Avatar
+                    sx={{
+                      width: 54,
+                      height: 54,
+                      cursor: "pointer",
+                      transition: "transform .2s ease, box-shadow .2s ease",
+                      "&:hover": { transform: "translateY(-3px) scale(1.08)", boxShadow: `0 6px 14px ${alpha(ORO, 0.4)}` },
+                      background: c ? `linear-gradient(135deg, ${alpha(ORO, 0.2)} 0%, ${alpha(ORO, 0.08)} 100%)` : "#f5f5f5",
+                      color: c ? ORO : "#ccc",
+                      border: c ? `2px solid ${ORO}` : isNext ? `2px solid ${alpha(ORO, 0.6)}` : "2px dashed #ddd",
+                      boxShadow: c ? `0 2px 8px ${alpha(ORO, 0.2)}` : "none",
+                      ...(isNext && {
+                        animation: "ffPulseCust 2s ease-in-out infinite",
+                        "@keyframes ffPulseCust": {
+                          "0%, 100%": { boxShadow: `0 0 0 4px ${alpha(ORO, 0.15)}` },
+                          "50%": { boxShadow: `0 0 0 8px ${alpha(ORO, 0.05)}` },
+                        },
+                      }),
+                    }}
+                  >
+                    {c ? (
+                      <Iconify icon="mdi:check-bold" width={24} />
+                    ) : (
+                      <Iconify icon="mdi:account-plus-outline" width={24} />
+                    )}
+                  </Avatar>
+                  <Typography variant="caption" sx={{ color: c ? ESPRESSO : "#aaa", maxWidth: 70, fontWeight: c ? 700 : 400, fontSize: "0.72rem" }} noWrap>
+                    {c?.customer_name || `Amico ${i + 1}`}
+                  </Typography>
+                </Stack>
+              );
+            })}
           </Stack>
 
-          <Box sx={{ textAlign: "center", bgcolor: "#fafafa", borderRadius: 2, py: 1.5, mb: 2 }}>
+          <Box sx={{ textAlign: "center", background: `linear-gradient(135deg, ${alpha(ORO, 0.06)} 0%, ${alpha(ORO, 0.02)} 100%)`, border: `1px solid ${alpha(ORO, 0.12)}`, borderRadius: 2, py: 1.5, mb: 2 }}>
             <Typography variant="body2" sx={{ color: WARM_GRAY }}>
               <b style={{ color: ESPRESSO }}>{current}/{required}</b> amici invitati
               {bonus > 0 && (
@@ -424,10 +529,12 @@ const ROBCard = ({ rob, loading = false }) => {
   const couponValue = couponsEarned * 30;
 
   return (
-    <Card sx={{ ...cardSx, p: 3 }}>
+    <Card sx={{ ...cardSx, p: 3, position: "relative", overflow: "hidden",
+      "&::before": { content: '""', position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${ORO} 0%, ${alpha(ORO, 0.4)} 100%)` },
+    }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2.5}>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <Stack direction="row" alignItems="center" spacing={1.2}>
+          <Box sx={{ width: 38, height: 38, borderRadius: 2, background: `linear-gradient(135deg, ${alpha(ORO, 0.18)} 0%, ${alpha(ORO, 0.06)} 100%)`, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <Iconify icon="mdi:calendar-heart" width={20} sx={{ color: ORO }} />
           </Box>
           <Box>
@@ -461,10 +568,23 @@ const ROBCard = ({ rob, loading = false }) => {
                   <Stack key={m.month} alignItems="center" sx={{ flex: 1 }}>
                     <Box sx={{
                       width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center",
-                      fontWeight: 700, fontSize: "0.75rem", transition: "all 0.3s",
-                      ...(m.completed ? { bgcolor: ORO, color: "#fff", boxShadow: `0 2px 8px ${alpha(ORO, 0.35)}` }
-                        : m.isCurrent ? { bgcolor: "#fff", color: ORO, border: `2px solid ${ORO}`, boxShadow: `0 0 0 4px ${alpha(ORO, 0.12)}` }
-                        : { bgcolor: "#f5f5f5", color: "#bbb" }),
+                      fontWeight: 700, fontSize: "0.75rem",
+                      cursor: "pointer",
+                      transition: "transform .2s ease, box-shadow .2s ease",
+                      "&:hover": { transform: "translateY(-3px) scale(1.08)", boxShadow: `0 6px 14px ${alpha(ORO, 0.45)}` },
+                      ...(m.completed
+                        ? { background: `linear-gradient(135deg, ${ORO} 0%, ${alpha(ORO, 0.75)} 100%)`, color: "#fff", boxShadow: `0 2px 8px ${alpha(ORO, 0.35)}` }
+                        : m.isCurrent
+                          ? {
+                              bgcolor: "#fff", color: ORO, border: `2px solid ${ORO}`,
+                              boxShadow: `0 0 0 4px ${alpha(ORO, 0.12)}`,
+                              animation: "robPulseCust 2s ease-in-out infinite",
+                              "@keyframes robPulseCust": {
+                                "0%, 100%": { boxShadow: `0 0 0 4px ${alpha(ORO, 0.12)}` },
+                                "50%": { boxShadow: `0 0 0 8px ${alpha(ORO, 0.05)}` },
+                              },
+                            }
+                          : { bgcolor: "#f5f5f5", color: "#bbb" }),
                     }}>
                       {m.completed ? <Iconify icon="mdi:check" width={18} /> : m.month}
                     </Box>
@@ -497,26 +617,37 @@ const ROBCard = ({ rob, loading = false }) => {
                 {t("evea.your_savings") || "Il tuo risparmio finora"}
               </Typography>
             </Stack>
-            {totalConsec === 0 ? (
-              <Typography sx={{ fontSize: "0.8rem", color: WARM_GRAY }}>
-                {t("evea.start_subscription") || "Attiva il tuo abbonamento per iniziare a risparmiare!"}
-              </Typography>
-            ) : (
-              <Stack direction="row" justifyContent="center" divider={<Typography sx={{ mx: 1, color: "#ddd" }}>+</Typography>}>
-                {discountMonths > 0 && (
-                  <Box>
-                    <Typography sx={{ fontWeight: 700, color: ESPRESSO, fontSize: "1.1rem" }}>{discountMonths}x -10%</Typography>
-                    <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>{t("evea.discounted_deliveries") || "consegne con sconto"}</Typography>
-                  </Box>
-                )}
-                {couponValue > 0 && (
-                  <Box>
-                    <Typography sx={{ fontWeight: 700, color: ORO, fontSize: "1.1rem" }}>€{couponValue}</Typography>
-                    <Typography sx={{ fontSize: "0.65rem", color: WARM_GRAY }}>{t("evea.in_gift_coupons") || "in coupon regalo"}</Typography>
-                  </Box>
-                )}
-              </Stack>
-            )}
+            {(() => {
+              const realTotal = Number(rob?.total_saved_eur ?? 0);
+              const realDiscount = Number(rob?.discount_saved_eur ?? 0);
+              const realCoupons = Number(rob?.coupons_saved_eur ?? 0);
+              const hasAnyting = realTotal > 0 || totalConsec > 0 || couponValue > 0;
+              if (!hasAnyting) return (
+                <Typography sx={{ fontSize: "0.8rem", color: WARM_GRAY }}>
+                  {t("evea.start_subscription") || "Attiva il tuo abbonamento per iniziare a risparmiare!"}
+                </Typography>
+              );
+              return (() => {
+                const useReal = realTotal > 0;
+                const totalSaved = useReal ? realTotal : (discountMonths * 6 + couponValue);
+                return (
+                  <Stack alignItems="center">
+                    <SavingsNumber value={Math.round(totalSaved)} prefix="€" color={ORO} label="" />
+                    <Typography sx={{ fontSize: "0.7rem", color: WARM_GRAY, mt: 0.2 }}>
+                      {(useReal ? realDiscount : discountMonths) > 0 && (
+                        useReal
+                          ? <>€{realDiscount.toFixed(0)} di sconti (-10%)</>
+                          : <>{discountMonths} {discountMonths === 1 ? "consegna" : "consegne"} -10%</>
+                      )}
+                      {((useReal ? realDiscount : discountMonths) > 0) && ((useReal ? realCoupons : couponValue) > 0) && " · "}
+                      {(useReal ? realCoupons : couponValue) > 0 && (
+                        <>€{useReal ? realCoupons.toFixed(0) : couponValue} in coupon</>
+                      )}
+                    </Typography>
+                  </Stack>
+                );
+              })();
+            })()}
           </Box>
         </>
       )}
@@ -540,15 +671,19 @@ const RecentOrders = ({ orders = [], loading = false }) => {
   if (!orders.length) return null;
 
   return (
-    <Card sx={{ ...cardSx, p: 2.5 }}>
+    <Card sx={{ ...cardSx, p: 2.5, position: "relative", overflow: "hidden",
+      "&::before": { content: '""', position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${ORO} 0%, ${alpha(ORO, 0.5)} 100%)` },
+    }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <Box sx={{ width: 32, height: 32, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Iconify icon="mdi:package-variant-closed" width={18} sx={{ color: ORO }} />
+        <Stack direction="row" alignItems="center" spacing={1.2}>
+          <Box sx={{ width: 36, height: 36, borderRadius: 2, background: `linear-gradient(135deg, ${alpha(ORO, 0.18)} 0%, ${alpha(ORO, 0.06)} 100%)`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Iconify icon="mdi:package-variant-closed" width={19} sx={{ color: ORO }} />
           </Box>
           <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>Ordini Recenti</Typography>
         </Stack>
-        <Button size="small" href="/user/online-store/my-orders" sx={{ textTransform: "none", color: ORO, fontWeight: 600, fontSize: "0.75rem" }}>
+        <Button size="small" href="/user/online-store/my-orders"
+          endIcon={<Iconify icon="mdi:arrow-right" width={14} />}
+          sx={{ textTransform: "none", color: ORO, fontWeight: 600, fontSize: "0.75rem", "&:hover": { bgcolor: alpha(ORO, 0.06) } }}>
           Vedi tutti
         </Button>
       </Stack>
@@ -651,24 +786,31 @@ const CouponsSection = ({ coupons, loading }) => {
             <Card sx={{
               borderRadius: 3, overflow: "hidden", height: "100%",
               border: `1px solid ${isUsed ? "#e0e0e0" : alpha(ORO, 0.3)}`,
-              opacity: isUsed ? 0.6 : 1,
+              opacity: isUsed ? 0.55 : 1,
               bgcolor: "#fff",
+              position: "relative",
+              transition: "transform .2s ease, box-shadow .2s ease, border-color .2s ease",
+              "&:hover": isUsed ? {} : { transform: "translateY(-2px)", boxShadow: `0 6px 16px ${alpha(ORO, 0.18)}`, borderColor: alpha(ORO, 0.5) },
             }}>
               <Box sx={{ display: "flex", height: "100%" }}>
                 {/* Left accent */}
-                <Box sx={{ width: 6, bgcolor: isUsed ? "#ccc" : ORO, flexShrink: 0 }} />
+                <Box sx={{ width: 6, background: isUsed ? "#ccc" : `linear-gradient(180deg, ${ORO} 0%, ${alpha(ORO, 0.6)} 100%)`, flexShrink: 0 }} />
                 <Box sx={{ p: 2, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
                   <Stack direction="row" alignItems="center" justifyContent="space-between">
                     <Box>
-                      <Typography sx={{ fontSize: "0.75rem", color: WARM_GRAY, textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700, mb: 0.3 }}>
+                      <Typography sx={{ fontSize: "0.72rem", color: WARM_GRAY, textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 700, mb: 0.3 }}>
                         {typeName}
                       </Typography>
-                      <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: isUsed ? "#aaa" : ORO, lineHeight: 1 }}>
+                      <Typography sx={{ fontSize: "1.6rem", fontWeight: 800, color: isUsed ? "#aaa" : ORO, lineHeight: 1, letterSpacing: "-0.5px" }}>
                         €{amount.toFixed(2)}
                       </Typography>
                     </Box>
-                    <Box sx={{ width: 44, height: 44, borderRadius: "50%", bgcolor: alpha(isUsed ? "#ccc" : ORO, 0.08), display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <Iconify icon={isUsed ? "mdi:check-circle" : "mdi:ticket-percent"} width={24} sx={{ color: isUsed ? "#aaa" : ORO }} />
+                    <Box sx={{
+                      width: 44, height: 44, borderRadius: "50%",
+                      background: isUsed ? alpha("#ccc", 0.12) : `linear-gradient(135deg, ${alpha(ORO, 0.15)} 0%, ${alpha(ORO, 0.05)} 100%)`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                    }}>
+                      <Iconify icon={isUsed ? "mdi:check-circle-outline" : "mdi:ticket-percent-outline"} width={24} sx={{ color: isUsed ? "#aaa" : ORO }} />
                     </Box>
                   </Stack>
                   <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1.5 }}>

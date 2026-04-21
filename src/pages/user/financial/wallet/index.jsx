@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Card, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, LinearProgress, Stack, Tab, Tabs, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Card, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, LinearProgress, Stack, Tab, Tabs, TextField, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useCallback, useEffect, useState } from "react";
 import Iconify from "src/components/Iconify";
@@ -170,15 +170,64 @@ const GiftCardTab = () => {
         <Card sx={{ p: 3, borderRadius: 3, border: "1px solid #f0ece6" }}>
           <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 1.5 }}>Storico Gift Card</Typography>
           <Stack spacing={0.8}>
-            {history.map((h) => (
-              <Stack key={h.id} direction="row" alignItems="center" justifyContent="space-between" sx={{ py: 0.8, borderBottom: "1px solid #f5f0ea" }}>
-                <Box>
-                  <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: ESPRESSO }}>{h.note}</Typography>
-                  <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>{new Date(h.created_at).toLocaleDateString("it", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" })}</Typography>
-                </Box>
-                <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ORO }}>€{Number(h.total_amount).toLocaleString("it", { minimumFractionDigits: 2 })}</Typography>
-              </Stack>
-            ))}
+            {history.map((h) => {
+              const isCancelled = h.payment_status === "cancelled" || (h.note || "").includes("CANCELLATA");
+              const canCancel = h.is_cancellable === true;
+              const currentBalance = typeof h.current_balance === "number" ? h.current_balance : null;
+              const initial = Number(h.total_amount);
+              const partial = currentBalance !== null && currentBalance < initial;
+              const handleCancel = async () => {
+                const refundText = currentBalance !== null
+                  ? `Verranno rimborsati €${currentBalance.toFixed(2)}${partial ? ` (di €${initial.toFixed(2)} iniziali; il resto era gia stato usato)` : ""}.`
+                  : `Il saldo verra' ripristinato nel wallet.`;
+                if (!window.confirm(`Cancellare questa gift card? ${refundText}`)) return;
+                try {
+                  const { data } = await fetchUser.post(`gift-card/cancel/${h.id}`);
+                  if (data.status) {
+                    enqueueSnackbar(data.message || "Gift card cancellata", { variant: "success" });
+                    fetchData();
+                  } else {
+                    enqueueSnackbar(data.message || "Errore", { variant: "error" });
+                  }
+                } catch (err) {
+                  enqueueSnackbar(err?.response?.data?.message || "Errore nella cancellazione", { variant: "error" });
+                }
+              };
+              return (
+                <Stack key={h.id} direction="row" alignItems="center" justifyContent="space-between" sx={{ py: 0.8, borderBottom: "1px solid #f5f0ea" }}>
+                  <Box sx={{ flex: 1, minWidth: 0 }}>
+                    <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: isCancelled ? MUTED : ESPRESSO, textDecoration: isCancelled ? "line-through" : "none" }}>{h.note}</Typography>
+                    <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>
+                      {new Date(h.created_at).toLocaleDateString("it", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" })}
+                    </Typography>
+                  </Box>
+                  <Stack direction="row" alignItems="center" spacing={0.5}>
+                    <Box sx={{ textAlign: "right", mr: 0.5 }}>
+                      {!isCancelled && currentBalance !== null ? (
+                        <>
+                          <Typography sx={{ fontSize: "0.9rem", fontWeight: 800, color: currentBalance > 0 ? SUCCESS : "#E24B4A", lineHeight: 1.1 }}>
+                            €{currentBalance.toFixed(2)}
+                          </Typography>
+                          <Typography sx={{ fontSize: "0.62rem", color: MUTED, lineHeight: 1.1 }}>
+                            su €{initial.toLocaleString("it", { minimumFractionDigits: 2 })}
+                          </Typography>
+                        </>
+                      ) : (
+                        <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: isCancelled ? MUTED : ORO, textDecoration: isCancelled ? "line-through" : "none" }}>
+                          €{initial.toLocaleString("it", { minimumFractionDigits: 2 })}
+                        </Typography>
+                      )}
+                    </Box>
+                    {!isCancelled && canCancel && (
+                      <IconButton size="small" onClick={handleCancel} title={partial ? `Cancella e rimborsa €${currentBalance.toFixed(2)} rimanenti` : "Cancella gift card e ripristina saldo"}
+                        sx={{ color: "#E24B4A", "&:hover": { bgcolor: alpha("#E24B4A", 0.1) } }}>
+                        <Iconify icon="mdi:close" width={16} />
+                      </IconButton>
+                    )}
+                  </Stack>
+                </Stack>
+              );
+            })}
           </Stack>
         </Card>
       )}
@@ -234,14 +283,18 @@ const WalletPage = () => {
         <Tabs
           value={tab}
           onChange={(_, v) => setTab(v)}
+          variant="scrollable"
+          scrollButtons="auto"
+          allowScrollButtonsMobile
           sx={{
             mb: 2,
             "& .MuiTab-root": {
               textTransform: "none", fontWeight: 600, fontSize: "0.85rem",
-              minHeight: 44, py: 1,
+              minHeight: 44, py: 1, minWidth: "auto", px: 1.5,
             },
             "& .Mui-selected": { color: ORO },
             "& .MuiTabs-indicator": { bgcolor: ORO, height: 3, borderRadius: 2 },
+            "& .MuiTabs-scrollButtons.Mui-disabled": { opacity: 0.3 },
           }}
         >
           {TABS.map((t) => (

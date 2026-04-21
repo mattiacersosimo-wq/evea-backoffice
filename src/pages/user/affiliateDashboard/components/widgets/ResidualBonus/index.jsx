@@ -33,7 +33,7 @@ const ResidualBonus = () => {
 
   return (
     <BonusWidget
-      icon="mdi:chart-timeline-variant"
+      icon="mdi:chart-line"
       color="#607D8B"
       title={t("user_dashboard.residual_bonus")}
     >

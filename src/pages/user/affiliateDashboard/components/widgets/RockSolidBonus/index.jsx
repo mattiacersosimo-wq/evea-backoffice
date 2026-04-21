@@ -33,7 +33,7 @@ const RockSolidBonus = () => {
 
   return (
     <BonusWidget
-      icon="mdi:diamond-stone"
+      icon="mdi:diamond-outline"
       color="#455A64"
       title={t("user_dashboard.rock_solid_bonus")}
     >

@@ -98,26 +98,28 @@ export default function DashboardHeader({
           >
             {/* {!isDesktop && <QuickPopover />} */}
 
-            <CurrencyPopOver />
+            {isAdmin && <CurrencyPopOver />}
             {!isAdmin && <ShopToken/>}
             <NotificationsPopover />
-            <Badge
-              color="error"
-              variant="dot"
-              sx={{
-                "& .MuiBadge-badge": {
-                  top: "7px",
-                  right: "7px",
-                },
-              }}
-            >
-              <IconButtonAnimate
-                onClick={() => handleOpenSettings()}
-                className={classes.rotateIcon}
+            {isAdmin && (
+              <Badge
+                color="error"
+                variant="dot"
+                sx={{
+                  "& .MuiBadge-badge": {
+                    top: "7px",
+                    right: "7px",
+                  },
+                }}
               >
-                <Iconify icon="solar:settings-bold-duotone" />
-              </IconButtonAnimate>
-            </Badge>
+                <IconButtonAnimate
+                  onClick={() => handleOpenSettings()}
+                  className={classes.rotateIcon}
+                >
+                  <Iconify icon="solar:settings-bold-duotone" />
+                </IconButtonAnimate>
+              </Badge>
+            )}
 
             <Suspense fallback={<CircularProgress />}>
               <LanguagePopover />

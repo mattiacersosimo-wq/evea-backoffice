@@ -42,16 +42,77 @@ const formatDate = (dateStr) => {
 };
 
 // ═══════════════════════════════════════
+// ITEMS VIEWER MODAL (read-only + portal link)
+// Seal API does not support item modification via API — user must use Seal's customer portal.
+// ═══════════════════════════════════════
+const ItemsManager = ({ open, onClose, sub }) => {
+  const items = sub?.items || [];
+  const portalUrl = sub?.edit_url;
+
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+      <DialogTitle sx={{ fontWeight: 700, color: ESPRESSO }}>Gestisci abbonamento</DialogTitle>
+      <DialogContent dividers>
+        <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: "#7A6A5C", mb: 1 }}>Prodotti attuali</Typography>
+        {items.length === 0 ? (
+          <Typography sx={{ fontSize: "0.8rem", color: "#aaa", py: 1 }}>Nessun prodotto</Typography>
+        ) : (
+          <Stack spacing={1} sx={{ mb: 2 }}>
+            {items.map((it, i) => (
+              <Stack key={it.id || i} direction="row" alignItems="center" spacing={1} sx={{ p: 1.2, borderRadius: 2, border: `1px solid ${SABBIA}`, bgcolor: "#fff" }}>
+                <Box sx={{ flex: 1, minWidth: 0 }}>
+                  <Typography sx={{ fontSize: "0.85rem", fontWeight: 600, color: ESPRESSO }}>{it.title}</Typography>
+                  <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>{"\u20AC"}{Number(it.price).toFixed(2)} x {it.quantity}</Typography>
+                </Box>
+                <Chip label={`${"\u20AC"}${(Number(it.price) * it.quantity).toFixed(2)}`} size="small"
+                  sx={{ bgcolor: alpha(ORO, 0.1), color: ORO, fontWeight: 700 }} />
+              </Stack>
+            ))}
+          </Stack>
+        )}
+
+        <Box sx={{ p: 2, borderRadius: 2, bgcolor: alpha(ORO, 0.06), border: `1px solid ${alpha(ORO, 0.2)}`, mt: 2 }}>
+          <Stack direction="row" alignItems="flex-start" spacing={1.5}>
+            <Iconify icon="mdi:information" width={22} sx={{ color: ORO, mt: 0.2 }} />
+            <Box sx={{ flex: 1 }}>
+              <Typography sx={{ fontSize: "0.82rem", fontWeight: 700, color: ESPRESSO, mb: 0.5 }}>
+                Come modificare i prodotti
+              </Typography>
+              <Typography sx={{ fontSize: "0.78rem", color: "#5A4A3C", mb: 1 }}>
+                Dal portale cliente puoi aggiungere, rimuovere o modificare le quantita dei prodotti, l'indirizzo di spedizione e il metodo di pagamento.
+              </Typography>
+              <Typography sx={{ fontSize: "0.72rem", color: "#7A6A5C", mb: 1.5, fontStyle: "italic" }}>
+                Al primo accesso Shopify potrebbe chiederti di confermare la tua email: riceverai un link via email per entrare. Dopo il primo login resterai sempre connesso automaticamente.
+              </Typography>
+              {portalUrl && (
+                <Button variant="contained" size="small"
+                  startIcon={<Iconify icon="mdi:open-in-new" />}
+                  href={portalUrl} target="_blank" rel="noopener noreferrer"
+                  sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, textTransform: "none", fontWeight: 700, borderRadius: 2 }}>
+                  Apri portale clienti
+                </Button>
+              )}
+            </Box>
+          </Stack>
+        </Box>
+      </DialogContent>
+      <DialogActions sx={{ p: 2 }}>
+        <Button onClick={onClose} sx={{ textTransform: "none", color: "#7A6A5C" }}>Chiudi</Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
+// ═══════════════════════════════════════
 // SEAL SUBSCRIPTION CARD
 // ═══════════════════════════════════════
 const SealCard = ({ sub, onAction }) => {
   const [showHistory, setShowHistory] = useState(false);
   const [history, setHistory] = useState(null);
   const [historyLoading, setHistoryLoading] = useState(false);
-  const [showReschedule, setShowReschedule] = useState(false);
-  const [newDate, setNewDate] = useState("");
   const [cancelOpen, setCancelOpen] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
+  const [itemsOpen, setItemsOpen] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
   const status = STATUS_MAP[sub.status] || STATUS_MAP.expired;
@@ -85,21 +146,6 @@ const SealCard = ({ sub, onAction }) => {
     setCancelOpen(false);
   };
 
-  const handleReschedule = async () => {
-    if (!newDate) return;
-    setActionLoading(true);
-    try {
-      await axiosInstance.put(`api/wp/seal/subscription/${sub.id}/reschedule`, {
-        date: newDate, time: "09:00", timezone: "+02:00",
-      });
-      enqueueSnackbar("Data rinnovo aggiornata", { variant: "success" });
-      setShowReschedule(false);
-      onAction();
-    } catch (e) {
-      enqueueSnackbar(e?.error || "Errore nel riprogrammare", { variant: "error" });
-    }
-    setActionLoading(false);
-  };
 
   return (
     <Card sx={{ bgcolor: "#fff", border: `1px solid ${SABBIA}`, borderRadius: 3, overflow: "hidden", mb: 2 }}>
@@ -143,9 +189,9 @@ const SealCard = ({ sub, onAction }) => {
             {(sub.status === "active" || sub.status === "paused") && (
               <>
                 <Button size="small" variant="outlined" disabled={actionLoading}
-                  onClick={() => setShowReschedule(!showReschedule)}
+                  onClick={() => setItemsOpen(true)}
                   sx={{ borderColor: SABBIA, color: ESPRESSO, textTransform: "none", fontWeight: 600, borderRadius: 2 }}>
-                  Cambia data
+                  Cambio prodotti / data
                 </Button>
                 <Button size="small" variant="outlined" disabled={actionLoading}
                   onClick={() => setCancelOpen(true)}
@@ -160,20 +206,6 @@ const SealCard = ({ sub, onAction }) => {
           </Stack>
         </Stack>
 
-        <Collapse in={showReschedule}>
-          <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mt: 2, p: 1.5, bgcolor: alpha(ORO, 0.04), borderRadius: 2, border: `1px solid ${alpha(ORO, 0.15)}` }}>
-            <Iconify icon="mdi:calendar-edit" width={20} sx={{ color: ORO }} />
-            <TextField type="date" size="small" value={newDate}
-              onChange={(e) => setNewDate(e.target.value)}
-              inputProps={{ min: new Date().toISOString().split("T")[0] }}
-              sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2 } }} />
-            <Button size="small" variant="contained" disabled={!newDate || actionLoading}
-              onClick={handleReschedule}
-              sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, textTransform: "none", fontWeight: 700, borderRadius: 2 }}>
-              Conferma
-            </Button>
-          </Stack>
-        </Collapse>
       </Box>
 
       <Collapse in={showHistory}>
@@ -212,6 +244,8 @@ const SealCard = ({ sub, onAction }) => {
           )}
         </Box>
       </Collapse>
+
+      <ItemsManager open={itemsOpen} onClose={() => setItemsOpen(false)} sub={sub} />
 
       <Dialog open={cancelOpen} onClose={() => setCancelOpen(false)} maxWidth="xs" fullWidth>
         <DialogTitle sx={{ fontWeight: 700, color: ESPRESSO }}>Conferma cancellazione</DialogTitle>

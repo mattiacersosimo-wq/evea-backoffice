@@ -50,6 +50,12 @@ const tabs = [
     plans: [binary, roi, matrix, uniLevel, monoLine],
   },
   {
+    value: "Fast Start Bonus",
+    icon: "mdi:rocket",
+    name: "faststartbonus",
+    plans: [binary, roi, matrix, uniLevel, monoLine],
+  },
+  {
     value: "settings.network.pmb_bonus_settings",
     icon: "material-symbols:social-leaderboard-outline-rounded",
     name: "pmbbonus",

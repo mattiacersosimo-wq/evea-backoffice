@@ -18,18 +18,18 @@ const RankSummary = () => {
   return (
     <>
       <Box sx={{ py: 1 }}>
-        <Grid container spacing={2} alignItems="stretch">
-          <Grid item xs={12} sm={6} md={3}>
+        <Grid container spacing={{ xs: 1, sm: 2 }} alignItems="stretch">
+          <Grid item xs={showPackageTimer ? 6 : 12} sm={6} md={showPackageTimer ? 3 : 4}>
             <Card
-              sx={{ p: 2, textAlign: "center", height: "100%", boxShadow: 3 }}
+              sx={{ p: { xs: 1.5, sm: 2 }, textAlign: "center", height: "100%", boxShadow: 3 }}
             >
               <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
-                <img src={TimerImage} style={{ width: 35, height: 35 }} />
+                <img src={TimerImage} style={{ width: 32, height: 32 }} />
               </Box>
 
               <Typography
-                sx={{ pr: 1 }}
-                fontSize={12}
+                sx={{ pr: 1, lineHeight: 1.2 }}
+                fontSize={11}
                 variant="subtitle2"
                 color="text.secondary"
               >
@@ -41,84 +41,18 @@ const RankSummary = () => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} sm={6} md={showPackageTimer ? 2 : 3}>
-            <Card
-              sx={{ p: 2, textAlign: "center", height: "100%", boxShadow: 3 }}
-            >
-              <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
-                <img src={CurrentRankImage} style={{ width: 35, height: 35 }} />
-              </Box>
-              <Typography
-                fontSize={12}
-                variant="subtitle2"
-                color="text.secondary"
-              >
-                {t("affiliate_dashboard.currentRank")}
-              </Typography>
-              <Typography variant="h6" fontWeight="bold">
-                {rankSummary?.current_rank}
-              </Typography>
-            </Card>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={showPackageTimer ? 2 : 3}>
-            <Card
-              sx={{ p: 2, textAlign: "center", height: "100%", boxShadow: 3 }}
-            >
-              <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
-                <img
-                  src={RecognisedRankImage}
-                  style={{ width: 40, height: 40 }}
-                />
-              </Box>
-              <Typography
-                fontSize={12}
-                variant="subtitle2"
-                color="text.secondary"
-              >
-                {t("affiliate_dashboard.recognition_rank")}
-              </Typography>
-              <Typography variant="h6" fontWeight="bold">
-                {rankSummary?.paid_rank}
-              </Typography>
-            </Card>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={showPackageTimer ? 2 : 3}>
-            <Card
-              sx={{ p: 2, textAlign: "center", height: "100%", boxShadow: 3 }}
-            >
-              <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
-                <img
-                  src={AchievedRankImage}
-                  style={{ width: 40, height: 40 }}
-                />
-              </Box>
-              <Typography
-                fontSize={12}
-                variant="subtitle2"
-                color="text.secondary"
-              >
-                {t("affiliate_dashboard.achieved_rank")}
-              </Typography>
-              <Typography variant="h6" fontWeight="bold">
-                {rankSummary?.achieved_rank}
-              </Typography>
-            </Card>
-          </Grid>
-
           {showPackageTimer && (
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid item xs={6} sm={6} md={3}>
               <Card
-                sx={{ p: 2, textAlign: "center", height: "100%", boxShadow: 3 }}
+                sx={{ p: { xs: 1.5, sm: 2 }, textAlign: "center", height: "100%", boxShadow: 3 }}
               >
                 <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
-                  <img src={TimerImage} style={{ width: 35, height: 35 }} />
+                  <img src={TimerImage} style={{ width: 32, height: 32 }} />
                 </Box>
 
                 <Typography
-                  sx={{ pr: 1 }}
-                  fontSize={12}
+                  sx={{ pr: 1, lineHeight: 1.2 }}
+                  fontSize={11}
                   variant="subtitle2"
                   color="text.secondary"
                 >
@@ -130,6 +64,75 @@ const RankSummary = () => {
               </Card>
             </Grid>
           )}
+
+          <Grid item xs={4} sm={6} md={showPackageTimer ? 2 : 4}>
+            <Card
+              sx={{ p: { xs: 1, sm: 2 }, textAlign: "center", height: "100%", boxShadow: 3 }}
+            >
+              <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
+                <img src={CurrentRankImage} style={{ width: 30, height: 30 }} />
+              </Box>
+              <Typography
+                fontSize={11}
+                variant="subtitle2"
+                color="text.secondary"
+                sx={{ lineHeight: 1.2 }}
+              >
+                {t("affiliate_dashboard.currentRank")}
+              </Typography>
+              <Typography sx={{ fontSize: { xs: "0.85rem", sm: "1.25rem" } }} fontWeight="bold">
+                {rankSummary?.current_rank}
+              </Typography>
+            </Card>
+          </Grid>
+
+          <Grid item xs={4} sm={6} md={showPackageTimer ? 2 : 4}>
+            <Card
+              sx={{ p: { xs: 1, sm: 2 }, textAlign: "center", height: "100%", boxShadow: 3 }}
+            >
+              <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
+                <img
+                  src={RecognisedRankImage}
+                  style={{ width: 34, height: 34 }}
+                />
+              </Box>
+              <Typography
+                fontSize={11}
+                variant="subtitle2"
+                color="text.secondary"
+                sx={{ lineHeight: 1.2 }}
+              >
+                {t("affiliate_dashboard.recognition_rank")}
+              </Typography>
+              <Typography sx={{ fontSize: { xs: "0.85rem", sm: "1.25rem" } }} fontWeight="bold">
+                {rankSummary?.paid_rank}
+              </Typography>
+            </Card>
+          </Grid>
+
+          <Grid item xs={4} sm={6} md={showPackageTimer ? 2 : 4}>
+            <Card
+              sx={{ p: { xs: 1, sm: 2 }, textAlign: "center", height: "100%", boxShadow: 3 }}
+            >
+              <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
+                <img
+                  src={AchievedRankImage}
+                  style={{ width: 34, height: 34 }}
+                />
+              </Box>
+              <Typography
+                fontSize={11}
+                variant="subtitle2"
+                color="text.secondary"
+                sx={{ lineHeight: 1.2 }}
+              >
+                {t("affiliate_dashboard.achieved_rank")}
+              </Typography>
+              <Typography sx={{ fontSize: { xs: "0.85rem", sm: "1.25rem" } }} fontWeight="bold">
+                {rankSummary?.achieved_rank}
+              </Typography>
+            </Card>
+          </Grid>
         </Grid>
       </Box>
     </>

@@ -23,6 +23,7 @@ import RankProgressBar from "./components/widgets/rankProgressBar/rankProgressBa
 import GoMVPBonus from "./components/widgets/goMPVBonus";
 import RockSolidMVPBonus from "./components/widgets/RockSolidMVPBonus";
 import DirectSalesBonus from "./components/widgets/DirectSalesBonus";
+import FastStartBonus from "./components/widgets/FastStartBonus";
 import ThreeFFBonusNew from "./components/widgets/ThreeFFBonusNew";
 import RecurringOrderBonus from "./components/widgets/recurringOrderBonus";
 import MVPMentorBonus from "./components/widgets/MPVMentorBonus";
@@ -42,7 +43,13 @@ const WARM = "#6B5E54";
 // ══════════════════════════════════════
 const HeroSection = () => {
   const { user } = useAuth();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isIt = i18n.language?.startsWith("it");
+  const L = {
+    currentRank: isIt ? "Rank Attuale" : "Current Rank",
+    recognitionRank: isIt ? "Rank Riconosciuto" : "Recognition Rank",
+    achievedRank: isIt ? "Rank Raggiunto" : "Achieved Rank",
+  };
   const [rankSummary, setRankSummary] = useState(null);
   const [pkgPeriod, setPkgPeriod] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -77,24 +84,19 @@ const HeroSection = () => {
   return (
     <Card
       sx={{
-        bgcolor: "#FAF6EF",
+        background: `linear-gradient(135deg, #FAF6EF 0%, #F5EEDE 60%, #F0E7CF 100%)`,
         color: ESPRESSO,
-        borderRadius: 4,
+        borderRadius: 3,
         p: { xs: 3, md: 4 },
         position: "relative",
         overflow: "hidden",
-        border: `1px solid ${alpha(ORO, 0.2)}`,
+        border: `1px solid ${alpha(ORO, 0.25)}`,
+        boxShadow: `0 2px 16px ${alpha(ORO, 0.08)}`,
       }}
     >
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: -30, right: -30,
-          width: 120, height: 120,
-          borderRadius: "50%",
-          bgcolor: alpha(ORO, 0.06),
-        }}
-      />
+      {/* Decorative orbs */}
+      <Box sx={{ position: "absolute", bottom: -40, right: -40, width: 180, height: 180, borderRadius: "50%", background: `radial-gradient(circle, ${alpha(ORO, 0.12)} 0%, transparent 70%)` }} />
+      <Box sx={{ position: "absolute", top: -60, left: "30%", width: 220, height: 220, borderRadius: "50%", background: `radial-gradient(circle, ${alpha(ORO, 0.08)} 0%, transparent 70%)`, pointerEvents: "none" }} />
 
       <Stack
         direction={{ xs: "column", md: "row" }}
@@ -105,10 +107,11 @@ const HeroSection = () => {
         <Avatar
           src={profile.profile_image}
           sx={{
-            width: 72, height: 72,
-            border: `3px solid ${alpha(ORO, 0.3)}`,
-            bgcolor: alpha(ORO, 0.1),
-            color: ORO, fontSize: 28, fontWeight: 700,
+            width: 80, height: 80,
+            border: `3px solid ${alpha(ORO, 0.4)}`,
+            boxShadow: `0 0 0 6px ${alpha(ORO, 0.08)}, 0 4px 12px ${alpha(ORO, 0.2)}`,
+            bgcolor: "#fff",
+            color: ORO, fontSize: 30, fontWeight: 800,
           }}
         >
           {fullName.charAt(0).toUpperCase()}
@@ -137,53 +140,65 @@ const HeroSection = () => {
           {loading ? (
             <Skeleton height={70} sx={{ mt: 2, bgcolor: alpha(ORO, 0.06), borderRadius: 2 }} />
           ) : rankSummary ? (
-            <Stack direction="row" spacing={1.5} sx={{ mt: 1.5, flexWrap: "wrap", gap: 1 }}>
+            <Box
+              sx={{
+                mt: 1.5,
+                display: "grid",
+                gap: 1,
+                // Mobile: 2 timer in riga 1, 3 rank in riga 2
+                // Desktop: tutto su una riga (max 5 colonne)
+                gridTemplateColumns: {
+                  xs: "repeat(6, 1fr)",
+                  md: "repeat(10, 1fr)",
+                },
+              }}
+            >
               {rankSummary.month_end && (
-                <Box sx={{ bgcolor: alpha(ORO, 0.05), borderRadius: 2, px: 1.5, py: 1, textAlign: "center", border: `1px solid ${alpha(ORO, 0.25)}`, minWidth: 100, flex: "1 1 0" }}>
+                <Box sx={{ gridColumn: { xs: showPkgTimer ? "span 3" : "span 6", md: "span 2" }, bgcolor: "rgba(255,255,255,0.7)", backdropFilter: "blur(4px)", borderRadius: 2, px: 1, py: 1.2, textAlign: "center", border: `1px solid ${alpha(ORO, 0.2)}`, minWidth: 0, transition: "transform .2s ease, box-shadow .2s ease", "&:hover": { transform: "translateY(-2px)", boxShadow: `0 4px 12px ${alpha(ORO, 0.15)}`, borderColor: alpha(ORO, 0.4) } }}>
                   <Iconify icon="mdi:clock-outline" width={18} sx={{ color: ORO, mb: 0.3 }} />
-                  <Typography sx={{ fontSize: "0.6rem", color: "#7A6A5C", mb: 0.2 }}>
+                  <Typography sx={{ fontSize: "0.6rem", color: "#7A6A5C", mb: 0.2, lineHeight: 1.1 }}>
                     {t("affiliate_dashboard.current_period_ends_in")}
                   </Typography>
                   <Timer expiryDate={rankSummary.month_end} />
                 </Box>
               )}
-              {rankSummary.current_rank && (
-                <Box sx={{ bgcolor: alpha(ORO, 0.05), borderRadius: 2, px: 1.5, py: 1, textAlign: "center", border: `1px solid ${alpha(ORO, 0.25)}`, minWidth: 90, flex: "1 1 0" }}>
-                  <Iconify icon="mdi:shield-star" width={18} sx={{ color: ORO, mb: 0.3 }} />
-                  <Typography sx={{ fontSize: "0.6rem", color: "#7A6A5C", mb: 0.2 }}>
-                    {t("affiliate_dashboard.current_rank")}
-                  </Typography>
-                  <Typography sx={{ fontWeight: 700, fontSize: "0.85rem", color: ESPRESSO }}>{rankSummary.current_rank}</Typography>
-                </Box>
-              )}
-              {rankSummary.paid_rank && (
-                <Box sx={{ bgcolor: alpha(ORO, 0.05), borderRadius: 2, px: 1.5, py: 1, textAlign: "center", border: `1px solid ${alpha(ORO, 0.25)}`, minWidth: 90, flex: "1 1 0" }}>
-                  <Iconify icon="mdi:medal-outline" width={18} sx={{ color: ORO, mb: 0.3 }} />
-                  <Typography sx={{ fontSize: "0.6rem", color: "#7A6A5C", mb: 0.2 }}>
-                    {t("affiliate_dashboard.recognition_rank")}
-                  </Typography>
-                  <Typography sx={{ fontWeight: 700, fontSize: "0.85rem", color: ESPRESSO }}>{rankSummary.paid_rank}</Typography>
-                </Box>
-              )}
-              {rankSummary.achieved_rank && (
-                <Box sx={{ bgcolor: alpha(ORO, 0.05), borderRadius: 2, px: 1.5, py: 1, textAlign: "center", border: `1px solid ${alpha(ORO, 0.25)}`, minWidth: 90, flex: "1 1 0" }}>
-                  <Iconify icon="mdi:trophy-outline" width={18} sx={{ color: ORO, mb: 0.3 }} />
-                  <Typography sx={{ fontSize: "0.6rem", color: "#7A6A5C", mb: 0.2 }}>
-                    {t("affiliate_dashboard.achieved_rank")}
-                  </Typography>
-                  <Typography sx={{ fontWeight: 700, fontSize: "0.85rem", color: ESPRESSO }}>{rankSummary.achieved_rank}</Typography>
-                </Box>
-              )}
               {showPkgTimer && pkgPeriod.period_end && (
-                <Box sx={{ bgcolor: alpha(ORO, 0.05), borderRadius: 2, px: 1.5, py: 1, textAlign: "center", border: `1px solid ${alpha(ORO, 0.25)}`, minWidth: 100, flex: "1 1 0" }}>
+                <Box sx={{ gridColumn: { xs: "span 3", md: "span 2" }, bgcolor: "rgba(255,255,255,0.7)", backdropFilter: "blur(4px)", borderRadius: 2, px: 1, py: 1.2, textAlign: "center", border: `1px solid ${alpha(ORO, 0.2)}`, minWidth: 0, transition: "transform .2s ease, box-shadow .2s ease", "&:hover": { transform: "translateY(-2px)", boxShadow: `0 4px 12px ${alpha(ORO, 0.15)}`, borderColor: alpha(ORO, 0.4) } }}>
                   <Iconify icon="mdi:timer-sand" width={18} sx={{ color: ORO, mb: 0.3 }} />
-                  <Typography sx={{ fontSize: "0.6rem", color: "#7A6A5C", mb: 0.2 }}>
+                  <Typography sx={{ fontSize: "0.6rem", color: "#7A6A5C", mb: 0.2, lineHeight: 1.1 }}>
                     {t("affiliate_dashboard.dsp_ends_in")}
                   </Typography>
                   <Timer expiryDate={pkgPeriod.period_end} />
                 </Box>
               )}
-            </Stack>
+              {rankSummary.current_rank && (
+                <Box sx={{ gridColumn: { xs: "span 2", md: "span 2" }, bgcolor: "rgba(255,255,255,0.7)", backdropFilter: "blur(4px)", borderRadius: 2, px: 1, py: 1.2, textAlign: "center", border: `1px solid ${alpha(ORO, 0.2)}`, minWidth: 0, transition: "transform .2s ease, box-shadow .2s ease", "&:hover": { transform: "translateY(-2px)", boxShadow: `0 4px 12px ${alpha(ORO, 0.15)}`, borderColor: alpha(ORO, 0.4) } }}>
+                  <Iconify icon="mdi:shield-star" width={18} sx={{ color: ORO, mb: 0.3 }} />
+                  <Typography sx={{ fontSize: "0.62rem", color: "#7A6A5C", mb: 0.2, lineHeight: 1.1, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.3 }}>
+                    {L.currentRank}
+                  </Typography>
+                  <Typography sx={{ fontWeight: 700, fontSize: "0.78rem", color: ESPRESSO }}>{rankSummary.current_rank}</Typography>
+                </Box>
+              )}
+              {rankSummary.paid_rank && (
+                <Box sx={{ gridColumn: { xs: "span 2", md: "span 2" }, bgcolor: "rgba(255,255,255,0.7)", backdropFilter: "blur(4px)", borderRadius: 2, px: 1, py: 1.2, textAlign: "center", border: `1px solid ${alpha(ORO, 0.2)}`, minWidth: 0, transition: "transform .2s ease, box-shadow .2s ease", "&:hover": { transform: "translateY(-2px)", boxShadow: `0 4px 12px ${alpha(ORO, 0.15)}`, borderColor: alpha(ORO, 0.4) } }}>
+                  <Iconify icon="mdi:medal-outline" width={18} sx={{ color: ORO, mb: 0.3 }} />
+                  <Typography sx={{ fontSize: "0.62rem", color: "#7A6A5C", mb: 0.2, lineHeight: 1.1, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.3 }}>
+                    {L.recognitionRank}
+                  </Typography>
+                  <Typography sx={{ fontWeight: 700, fontSize: "0.78rem", color: ESPRESSO }}>{rankSummary.paid_rank}</Typography>
+                </Box>
+              )}
+              {rankSummary.achieved_rank && (
+                <Box sx={{ gridColumn: { xs: "span 2", md: "span 2" }, bgcolor: "rgba(255,255,255,0.7)", backdropFilter: "blur(4px)", borderRadius: 2, px: 1, py: 1.2, textAlign: "center", border: `1px solid ${alpha(ORO, 0.2)}`, minWidth: 0, transition: "transform .2s ease, box-shadow .2s ease", "&:hover": { transform: "translateY(-2px)", boxShadow: `0 4px 12px ${alpha(ORO, 0.15)}`, borderColor: alpha(ORO, 0.4) } }}>
+                  <Iconify icon="mdi:trophy-outline" width={18} sx={{ color: ORO, mb: 0.3 }} />
+                  <Typography sx={{ fontSize: "0.62rem", color: "#7A6A5C", mb: 0.2, lineHeight: 1.1, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.3 }}>
+                    {L.achievedRank}
+                  </Typography>
+                  <Typography sx={{ fontWeight: 700, fontSize: "0.78rem", color: ESPRESSO }}>{rankSummary.achieved_rank}</Typography>
+                </Box>
+              )}
+            </Box>
           ) : null}
         </Box>
       </Stack>
@@ -198,14 +213,15 @@ const BONUS_CONFIG = [
   { key: "gomvp", url: "affiliate-dashboard/gomvp-Progressbar", label: "Go MVP", icon: "mdi:rocket-launch-outline", color: "#4CAF50", pendingField: "pending_bonus_amount", freq: "weekly" },
   { key: "rsp", url: "affiliate-dashboard/rsp-Progressbar", label: "Rock Solid MVP", icon: "mdi:shield-star-outline", color: "#2196F3", pendingField: "pending_bonus_amount", prevField: "previous_month_pending_commission_additional", freq: "weekly" },
   { key: "dsb", url: "affiliate-dashboard/dsb-Progressbar", label: "Direct Sales", icon: "mdi:account-cash-outline", color: "#FF9800", pendingField: "pending_amount", nestedKey: "direct_sales_bonus", freq: "weekly" },
+  { key: "faststart", url: "affiliate-dashboard/faststart-Progressbar", label: "Fast Start", icon: "mdi:flash-outline", color: "#FF4081", pendingField: "pending_bonus_amount", freq: "weekly" },
   { key: "pmb", url: "affiliate-dashboard/pmb-Progressbar", label: "MVP Mentor", icon: "mdi:account-group-outline", color: "#9C27B0", pendingField: "pending_bonus_amount", freq: "weekly" },
   { key: "isb", url: "affiliate-dashboard/isb-Progressbar", label: "Indirect Sales", icon: "mdi:sitemap-outline", color: "#00BCD4", pendingField: "pending_commission", freq: "weekly" },
-  { key: "rob", url: "affiliate-dashboard/rob-Progressbar", label: "Recurring Order", icon: "mdi:refresh-circle", color: "#8BC34A", pendingField: "pending_bonus_amount", freq: "monthly" },
-  { key: "threeff", url: "affiliate-dashboard/threeff-Progressbar", label: "3 For Free", icon: "mdi:gift-outline", color: "#E91E63", pendingField: "current_bonus_amount", freq: "monthly" },
-  { key: "residual", url: "affiliate-dashboard/residual-Progressbar", label: "Residual", icon: "mdi:chart-timeline-variant", color: "#607D8B", pendingField: "pending_commission_total", freq: "monthly" },
+  { key: "rob", url: "affiliate-dashboard/rob-Progressbar", label: "Recurring Order", icon: "mdi:autorenew", color: "#8BC34A", pendingField: "pending_bonus_amount", freq: "monthly", isCoupon: true },
+  { key: "threeff", url: "affiliate-dashboard/threeff-Progressbar", label: "3 For Free", icon: "mdi:gift-outline", color: "#E91E63", pendingField: "current_bonus_amount", freq: "monthly", isCoupon: true },
+  { key: "residual", url: "affiliate-dashboard/residual-Progressbar", label: "Residual", icon: "mdi:chart-line", color: "#607D8B", pendingField: "pending_commission_total", freq: "monthly" },
   { key: "leadership", url: "affiliate-dashboard/leadership-Progressbar", label: "Leadership", icon: "mdi:crown-outline", color: ORO, pendingField: "pending_bonus_amount", freq: "monthly" },
-  { key: "residualmatching", url: "affiliate-dashboard/residualmatching-Progressbar", label: "Residual Matching", icon: "mdi:swap-horizontal", color: "#795548", pendingField: "pending_bonus_amount", freq: "monthly" },
-  { key: "rgomvp", url: "affiliate-dashboard/rgomvp-Progressbar", label: "Rock Solid Bonus", icon: "mdi:diamond-stone", color: "#455A64", pendingField: "pending_bonus_amount", freq: "monthly" },
+  { key: "residualmatching", url: "affiliate-dashboard/residualmatching-Progressbar", label: "Residual Matching", icon: "mdi:swap-horizontal-circle-outline", color: "#795548", pendingField: "pending_bonus_amount", freq: "monthly" },
+  { key: "rgomvp", url: "affiliate-dashboard/rgomvp-Progressbar", label: "Rock Solid Bonus", icon: "mdi:diamond-outline", color: "#455A64", pendingField: "pending_bonus_amount", freq: "monthly" },
   { key: "evolving", url: "affiliate-dashboard/eveolving-Progressbar", label: "Evolving Bonus", icon: "mdi:trending-up", color: "#FF5722", pendingField: "pending_bonus_amount", freq: "monthly" },
 ];
 
@@ -262,27 +278,34 @@ const BonusSummaryGrid = () => {
   const weeklyTotal = weeklyBonuses.reduce((s, b) => s + Number(b.pendingCurrentWeek ?? b.pending ?? 0), 0);
   const weeklyPrevTotal = weeklyBonuses.reduce((s, b) => s + Number(b.pendingPreviousWeek ?? 0), 0);
   const monthlyTotal = monthlyBonuses.reduce((s, b) => s + Number(b.pending || 0), 0);
-  const monthlyPrevTotal = monthlyBonuses.reduce((s, b) => s + Number(b.prevMonth || 0), 0);
+  const monthlyPrevTotal = monthlyBonuses.filter((b) => !b.isCoupon).reduce((s, b) => s + Number(b.prevMonth || 0), 0);
 
   const BonusCard = ({ b }) => (
     <Card
       sx={{
         p: 2, borderRadius: 3, bgcolor: "#fff",
         border: "1px solid #f0ece6",
-        boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+        boxShadow: "0 1px 3px rgba(44, 26, 14, 0.04)",
         height: "100%", position: "relative", overflow: "hidden",
+        transition: "transform .2s ease, box-shadow .2s ease, border-color .2s ease",
+        cursor: "default",
+        "&:hover": {
+          transform: "translateY(-2px)",
+          boxShadow: `0 6px 16px ${alpha(b.color, 0.18)}`,
+          borderColor: alpha(b.color, 0.35),
+        },
       }}
     >
-      <Box sx={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, bgcolor: b.color }} />
+      <Box sx={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${b.color} 0%, ${alpha(b.color, 0.5)} 100%)` }} />
       <Stack direction="row" alignItems="center" spacing={1} mb={1}>
         <Box
           sx={{
-            width: 32, height: 32, borderRadius: 1.5,
-            bgcolor: alpha(b.color, 0.1),
+            width: 34, height: 34, borderRadius: 1.8,
+            background: `linear-gradient(135deg, ${alpha(b.color, 0.18)} 0%, ${alpha(b.color, 0.06)} 100%)`,
             display: "flex", alignItems: "center", justifyContent: "center",
           }}
         >
-          <Iconify icon={b.icon} width={18} sx={{ color: b.color }} />
+          <Iconify icon={b.icon} width={19} sx={{ color: b.color }} />
         </Box>
         <Typography sx={{ fontSize: "0.82rem", fontWeight: 700, color: ESPRESSO, lineHeight: 1.2 }}>
           {b.label}
@@ -311,7 +334,10 @@ const BonusSummaryGrid = () => {
           <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: Number(b.pending) > 0 ? b.color : "#ccc", lineHeight: 1.2 }}>
             €{Number(b.pending || 0).toFixed(2)}
           </Typography>
-          <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: ESPRESSO, mt: 0.3 }}>{t("evea.current_month")}</Typography>
+          <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: ESPRESSO, mt: 0.3 }}>
+            {b.isCoupon ? t("evea.current_month") + " (coupon)" : t("evea.current_month")}
+          </Typography>
+          {!b.isCoupon && (
           <Box sx={{ mt: 1, pt: 1, borderTop: "1px solid #f0ece6" }}>
             <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Typography sx={{ fontSize: "0.75rem", fontWeight: 600, color: "#7A6A5C" }}>{t("evea.awaiting_approval")}</Typography>
@@ -320,31 +346,44 @@ const BonusSummaryGrid = () => {
               </Typography>
             </Stack>
           </Box>
+          )}
         </>
       )}
     </Card>
   );
 
   const TotalHeader = ({ icon, label, total, color, timer, prevTotal }) => (
-    <Box sx={{ mb: 2, p: 2.5, borderRadius: 3, bgcolor: alpha(color, 0.05), border: `1px solid ${alpha(color, 0.15)}` }}>
+    <Box sx={{
+      mb: 2, p: 2.5, borderRadius: 3,
+      background: `linear-gradient(135deg, ${alpha(color, 0.08)} 0%, ${alpha(color, 0.02)} 100%)`,
+      border: `1px solid ${alpha(color, 0.18)}`,
+      position: "relative",
+      overflow: "hidden",
+      "&::before": { content: '""', position: "absolute", left: 0, top: 0, bottom: 0, width: 4, background: `linear-gradient(180deg, ${color} 0%, ${alpha(color, 0.3)} 100%)` },
+    }}>
       <Stack direction="row" alignItems="center" spacing={1.5}>
-        <Box sx={{ width: 42, height: 42, borderRadius: 2, bgcolor: alpha(color, 0.12), display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <Iconify icon={icon} width={22} sx={{ color }} />
+        <Box sx={{
+          width: 46, height: 46, borderRadius: 2,
+          background: `linear-gradient(135deg, ${alpha(color, 0.2)} 0%, ${alpha(color, 0.08)} 100%)`,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          boxShadow: `0 2px 8px ${alpha(color, 0.15)}`,
+        }}>
+          <Iconify icon={icon} width={24} sx={{ color }} />
         </Box>
         <Box sx={{ flex: 1 }}>
-          <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: "#2C1A0E" }}>
+          <Typography sx={{ fontSize: "0.88rem", fontWeight: 800, color: "#2C1A0E", letterSpacing: "-0.2px" }}>
             {label}
           </Typography>
           {timer && (
-            <Typography sx={{ fontSize: "0.72rem", color: "#7A6A5C", mt: 0.2 }}>{timer}</Typography>
+            <Typography sx={{ fontSize: "0.72rem", color: "#7A6A5C", mt: 0.3, fontWeight: 500 }}>{timer}</Typography>
           )}
         </Box>
         <Box sx={{ textAlign: "right" }}>
-          <Typography sx={{ fontSize: "1.8rem", fontWeight: 800, color: total > 0 ? color : "#ccc", lineHeight: 1 }}>
+          <Typography sx={{ fontSize: "1.9rem", fontWeight: 800, color: total > 0 ? color : "#c8c0b4", lineHeight: 1, letterSpacing: "-0.5px" }}>
             €{total.toFixed(2)}
           </Typography>
-          <Typography sx={{ fontSize: "0.75rem", color: "#7A6A5C", mt: 0.3 }}>
-            {t("evea.awaiting_approval")}: <b style={{ color: prevTotal > 0 ? "#2C1A0E" : "#ccc" }}>€{(prevTotal || 0).toFixed(2)}</b>
+          <Typography sx={{ fontSize: "0.72rem", color: "#7A6A5C", mt: 0.4 }}>
+            {t("evea.awaiting_approval")}: <b style={{ color: prevTotal > 0 ? "#2C1A0E" : "#c8c0b4" }}>€{(prevTotal || 0).toFixed(2)}</b>
           </Typography>
         </Box>
       </Stack>
@@ -460,6 +499,9 @@ const AffiliateDashboard = () => {
             )}
             {isPromoter && (
               <Grid item xs={12} md={6}><DirectSalesBonus /></Grid>
+            )}
+            {isPromoter && (
+              <Grid item xs={12} md={6}><FastStartBonus /></Grid>
             )}
             <Grid item xs={12} md={6}><RecurringOrderBonus /></Grid>
             <Grid item xs={12} md={6}><ThreeFFBonusNew /></Grid>

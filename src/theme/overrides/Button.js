@@ -5,8 +5,14 @@ export default function Button(theme) {
     MuiButton: {
       styleOverrides: {
         root: {
+          borderRadius: 10,
+          transition: 'transform .15s ease, box-shadow .15s ease, background-color .15s ease',
           '&:hover': {
             boxShadow: 'none',
+            transform: 'translateY(-1px)',
+          },
+          '&:active': {
+            transform: 'translateY(0)',
           },
         },
         sizeLarge: {

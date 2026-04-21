@@ -1,4 +1,4 @@
-import { Avatar, Box, Card, Chip, CircularProgress, Grid, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Avatar, Box, Card, Chip, CircularProgress, FormControl, Grid, InputLabel, MenuItem, Select, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -65,26 +65,60 @@ const LeaderboardCard = ({ title, icon, items, myId, emptyText }) => (
   </Card>
 );
 
+const MONTHS_IT = ["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"];
+const MONTHS_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
 const Leaderboard = () => {
   const { t, i18n } = useTranslation();
   const isIt = i18n.language?.startsWith("it");
+  const MONTHS = isIt ? MONTHS_IT : MONTHS_EN;
+  const now = new Date();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState(0);
+  const [month, setMonth] = useState(now.getMonth() + 1);
+  const [year, setYear] = useState(now.getFullYear());
+
+  const years = [];
+  for (let y = now.getFullYear(); y >= 2026; y--) years.push(y);
 
   const fetchData = useCallback(async () => {
+    setLoading(true);
     try {
-      const { data: r } = await axiosInstance.get("api/wp/reports/leaderboard");
+      const { data: r } = await axiosInstance.get(`api/wp/reports/leaderboard?month=${month}&year=${year}`);
       setData(r?.data);
     } catch (e) { /* silent */ }
     setLoading(false);
-  }, []);
+  }, [month, year]);
 
   useEffect(() => { fetchData(); }, [fetchData]);
 
-  if (loading) return <Box sx={{ textAlign: "center", py: 6 }}><CircularProgress sx={{ color: ORO }} /></Box>;
-  if (!data) return null;
+  return (
+    <Stack spacing={2}>
+      {/* Period filter */}
+      <Stack direction="row" spacing={1.5} alignItems="center">
+        <FormControl size="small" sx={{ minWidth: 140 }}>
+          <InputLabel>{isIt ? "Mese" : "Month"}</InputLabel>
+          <Select value={month} label={isIt ? "Mese" : "Month"} onChange={(e) => setMonth(e.target.value)}>
+            {MONTHS.map((m, i) => <MenuItem key={i+1} value={i+1}>{m}</MenuItem>)}
+          </Select>
+        </FormControl>
+        <FormControl size="small" sx={{ minWidth: 100 }}>
+          <InputLabel>{isIt ? "Anno" : "Year"}</InputLabel>
+          <Select value={year} label={isIt ? "Anno" : "Year"} onChange={(e) => setYear(e.target.value)}>
+            {years.map((y) => <MenuItem key={y} value={y}>{y}</MenuItem>)}
+          </Select>
+        </FormControl>
+      </Stack>
 
+      {loading && <Box sx={{ textAlign: "center", py: 6 }}><CircularProgress sx={{ color: ORO }} /></Box>}
+      {!loading && !data && <Typography sx={{ color: "#aaa", textAlign: "center", py: 4 }}>{isIt ? "Nessun dato" : "No data"}</Typography>}
+      {!loading && data && <LeaderboardContent data={data} tab={tab} setTab={setTab} isIt={isIt} />}
+    </Stack>
+  );
+};
+
+const LeaderboardContent = ({ data, tab, setTab, isIt }) => {
   return (
     <Stack spacing={2}>
       {/* My position */}
@@ -115,11 +149,12 @@ const Leaderboard = () => {
       </Card>
 
       {/* Tabs */}
-      <Tabs value={tab} onChange={(_, v) => setTab(v)}
+      <Tabs value={tab} onChange={(_, v) => setTab(v)} variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile
         sx={{
-          "& .MuiTab-root": { textTransform: "none", fontWeight: 600, fontSize: "0.82rem", minHeight: 40 },
+          "& .MuiTab-root": { textTransform: "none", fontWeight: 600, fontSize: "0.82rem", minHeight: 40, minWidth: "auto", px: 1.5 },
           "& .Mui-selected": { color: ORO },
           "& .MuiTabs-indicator": { bgcolor: ORO, height: 3, borderRadius: 2 },
+          "& .MuiTabs-scrollButtons.Mui-disabled": { opacity: 0.3 },
         }}>
         <Tab label={isIt ? "Guadagni Globale" : "Earnings Global"} />
         <Tab label={isIt ? "Reclutatori Globale" : "Recruiters Global"} />

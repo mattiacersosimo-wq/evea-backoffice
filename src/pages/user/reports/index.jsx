@@ -61,12 +61,13 @@ const Reports = () => {
         </Card>
 
         {/* Tabs */}
-        <Tabs value={tab} onChange={handleTab} variant="scrollable" scrollButtons="auto"
+        <Tabs value={tab} onChange={handleTab} variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile
           sx={{
             mb: 2, bgcolor: "#fff", borderRadius: 2, border: "1px solid #f0ece6", px: 1,
-            "& .MuiTab-root": { textTransform: "none", fontWeight: 600, fontSize: "0.82rem", minHeight: 48, py: 1 },
+            "& .MuiTab-root": { textTransform: "none", fontWeight: 600, fontSize: "0.82rem", minHeight: 48, py: 1, minWidth: "auto" },
             "& .Mui-selected": { color: ORO },
             "& .MuiTabs-indicator": { bgcolor: ORO, height: 3, borderRadius: 2 },
+            "& .MuiTabs-scrollButtons.Mui-disabled": { opacity: 0.3 },
           }}>
           {TABS.map((t) => (
             <Tab key={t.key} label={

@@ -9,10 +9,11 @@ export default function Card(theme) {
       styleOverrides: {
         root: {
           position: "relative",
-          // boxShadow: theme.customShadows.card,
-          borderRadius: "8px",
-          // borderRadius: Number(theme.shape.borderRadius) * 2,
-          zIndex: 0, // Fix Safari overflow: hidden with border radius
+          borderRadius: "12px",
+          border: "1px solid #f0ece6",
+          boxShadow: "0 1px 3px rgba(44, 26, 14, 0.04)",
+          zIndex: 0,
+          transition: "box-shadow .25s ease, transform .25s ease, border-color .25s ease",
         },
       },
     },
