@@ -326,11 +326,11 @@ const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
 // TICKER SCORREVOLE
 // ═══════════════════════════════════════════════
 const TICKER_MESSAGES = [
-  "🚚 Spedizione gratuita a partire da €97 di acquisti",
-  "💰 -10% su ogni ordine con lo Smartship attivo",
-  "🎁 Invita 3 amici e guadagna fino a €81 di bonus",
-  "🎟️ Coupon €30 ogni 3 consegne consecutive",
-  "☕ Scopri i nostri prodotti wellness su myevea.com",
+  { icon: "mdi:truck-fast-outline", text: "Spedizione gratuita a partire da €97 di acquisti" },
+  { icon: "mdi:sale-outline", text: "-10% su ogni ordine con lo Smartship attivo" },
+  { icon: "mdi:gift-outline", text: "Invita 3 amici e guadagna fino a €81 di bonus" },
+  { icon: "mdi:ticket-percent-outline", text: "Coupon €30 ogni 3 consegne consecutive" },
+  { icon: "mdi:coffee-outline", text: "Scopri i nostri prodotti wellness su myevea.com" },
 ];
 
 const Ticker = () => {
@@ -349,12 +349,12 @@ const Ticker = () => {
         },
       }}>
         {doubled.map((msg, i) => (
-          <Typography key={i} component="span" sx={{
-            fontSize: "0.92rem", fontWeight: 600, color: ESPRESSO,
-            mx: 4, flexShrink: 0,
-          }}>
-            {msg}
-          </Typography>
+          <Stack key={i} direction="row" alignItems="center" spacing={1} sx={{ mx: 4, flexShrink: 0 }}>
+            <Iconify icon={msg.icon} width={18} sx={{ color: ORO }} />
+            <Typography component="span" sx={{ fontSize: "0.92rem", fontWeight: 600, color: ESPRESSO }}>
+              {msg.text}
+            </Typography>
+          </Stack>
         ))}
       </Box>
     </Box>
