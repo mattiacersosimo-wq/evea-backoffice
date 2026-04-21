@@ -50,20 +50,36 @@ const ICON_MAP = {
   "autofatture": "/icons/ic_invoice.svg",
 };
 
+const DEFAULT_ICON = "/icons/ic_dashboard.svg";
+
 const resolveIcon = (item) => {
   const p = (item.path || "").toLowerCase();
   const t = (item.title || "").toLowerCase();
   for (const [kw, icon] of Object.entries(ICON_MAP)) {
     if (p.includes(kw) || t.includes(kw)) return icon;
   }
-  return item.icon;
+  const existing = item.icon;
+  // Keep existing only if it's already a local SVG path; otherwise fallback
+  if (typeof existing === "string" && existing.startsWith("/")) return existing;
+  return DEFAULT_ICON;
+};
+
+const applyIconsToItems = (items) => {
+  if (!Array.isArray(items)) return items;
+  return items.map((item) => {
+    const next = { ...item, icon: resolveIcon(item) };
+    if (Array.isArray(item.children)) {
+      next.children = applyIconsToItems(item.children);
+    }
+    return next;
+  });
 };
 
 const applyIcons = (menu) => {
   if (!Array.isArray(menu)) return menu;
   return menu.map((group) => ({
     ...group,
-    items: (group.items || []).map((item) => ({ ...item, icon: resolveIcon(item) })),
+    items: applyIconsToItems(group.items || []),
   }));
 };
 

@@ -166,6 +166,7 @@ NavItemContent.propTypes = {
 };
 
 function NavItemContent({ icon, title, children, subItem }) {
+  const isIconify = typeof icon === "string" && icon.includes(":") && !icon.startsWith("/");
   return (
     <>
       {icon && (
@@ -178,7 +179,11 @@ function NavItemContent({ icon, title, children, subItem }) {
             "& svg": { width: "100%", height: "100%" },
           }}
         >
-          <SvgIconStyle src={icon} sx={{ width: 1, height: 1 }} />
+          {isIconify ? (
+            <Iconify icon={icon} sx={{ width: 1, height: 1 }} />
+          ) : (
+            <SvgIconStyle src={icon} sx={{ width: 1, height: 1 }} />
+          )}
         </Box>
       )}
       {title}
