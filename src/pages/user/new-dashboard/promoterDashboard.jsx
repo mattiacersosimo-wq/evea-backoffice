@@ -944,12 +944,16 @@ const TeamSection = () => {
             ))}
           </Grid>
 
-          {/* Attivi vs Inattivi */}
+          {/* Team totale / Diretti / Attivi / Inattivi */}
           <Box sx={{ p: 1.5, bgcolor: alpha(ORO, 0.04), borderRadius: 2 }}>
             <Stack direction="row" justifyContent="space-around">
               <Box sx={{ textAlign: "center" }}>
+                <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: TEXT }}>{team.total_team ?? team.total_direct}</Typography>
+                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Team</Typography>
+              </Box>
+              <Box sx={{ textAlign: "center" }}>
                 <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: TEXT }}>{team.total_direct}</Typography>
-                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Totali</Typography>
+                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Diretti</Typography>
               </Box>
               <Box sx={{ textAlign: "center" }}>
                 <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: "#4CAF50" }}>{team.active_count}</Typography>
@@ -1271,7 +1275,7 @@ const PROD_COLORS = [ESPRESSO, ORO, "#D4B86A", "#4A5C3A", "#EF9F27", "#378ADD"];
 const TopProducts = () => {
   const { t } = useTranslation();
   const { data, loading } = useFetch(async () => {
-    const { data: r } = await axiosInstance.get("api/wp/admin/kpi/product-mix?period=month");
+    const { data: r } = await axiosInstance.get("api/wp/dashboard/my-top-products?period=month");
     return r?.data;
   });
   if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={150} /></Card>;
