@@ -119,9 +119,33 @@ const Leaderboard = () => {
 };
 
 const LeaderboardContent = ({ data, tab, setTab, isIt }) => {
+  const keyByTab = ["earnings", "recruiters", "achievers", "team"];
+  const labelByTab = isIt
+    ? ["Guadagni Globale", "Reclutatori Globale", "Rank Up Globale", "Il mio Team"]
+    : ["Earnings Global", "Recruiters Global", "Rank Up Global", "My Team"];
+  const valueLabelByTab = isIt
+    ? ["guadagni", "reclutati", "rank top", "guadagni team"]
+    : ["earnings", "recruits", "top rank", "team earnings"];
+
+  const myPos = data?.my_positions?.[keyByTab[tab]] || {
+    position: data?.my_position,
+    value: data?.my_earnings,
+    unit: "eur",
+  };
+
+  const renderValue = () => {
+    if (myPos.value == null || myPos.value === 0 || myPos.value === "") {
+      return <Typography sx={{ fontSize: "1.1rem", fontWeight: 700, color: "#aaa" }}>—</Typography>;
+    }
+    if (myPos.unit === "eur") return <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ESPRESSO }}>€{Number(myPos.value).toFixed(0)}</Typography>;
+    if (myPos.unit === "count") return <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ESPRESSO }}>{myPos.value}</Typography>;
+    if (myPos.unit === "rank") return <Typography sx={{ fontSize: "1.1rem", fontWeight: 700, color: ESPRESSO }}>{myPos.value}</Typography>;
+    return <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ESPRESSO }}>{myPos.value}</Typography>;
+  };
+
   return (
     <Stack spacing={2}>
-      {/* My position */}
+      {/* My position — dinamica in base alla tab */}
       <Card sx={{ p: 2.5, borderRadius: 3, border: `1px solid ${alpha(ORO, 0.2)}`, bgcolor: alpha(ORO, 0.03) }}>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <Stack direction="row" alignItems="center" spacing={2}>
@@ -130,19 +154,21 @@ const LeaderboardContent = ({ data, tab, setTab, isIt }) => {
             </Box>
             <Box>
               <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>
-                {isIt ? "La tua posizione" : "Your position"}
+                {isIt ? "La tua posizione" : "Your position"} — {labelByTab[tab]}
               </Typography>
               <Typography sx={{ fontSize: "0.72rem", color: "#7A6A5C" }}>{data.month}</Typography>
             </Box>
           </Stack>
           <Stack direction="row" spacing={3} alignItems="center">
             <Box sx={{ textAlign: "center" }}>
-              <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ORO }}>#{data.my_position}</Typography>
+              <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ORO }}>
+                {myPos.position ? `#${myPos.position}` : "—"}
+              </Typography>
               <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C" }}>{isIt ? "classifica" : "ranking"}</Typography>
             </Box>
             <Box sx={{ textAlign: "center" }}>
-              <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ESPRESSO }}>€{data.my_earnings?.toFixed(0)}</Typography>
-              <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C" }}>{isIt ? "guadagni" : "earnings"}</Typography>
+              {renderValue()}
+              <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C" }}>{valueLabelByTab[tab]}</Typography>
             </Box>
           </Stack>
         </Stack>
