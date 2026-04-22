@@ -9,6 +9,14 @@ const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
 const MEDAL = ["#FFD700", "#C0C0C0", "#CD7F32"];
 
+const formatValue = (item) => {
+  if (item.total_gv != null) return `${Number(item.total_gv).toFixed(0)} GV`;
+  if (item.total_recruited != null) return `${item.total_recruited}`;
+  if (item.rank_name != null) return item.rank_name;
+  if (item.total_earned != null) return `€${Number(item.total_earned).toFixed(0)}`;
+  return "";
+};
+
 const RankRow = ({ rank, item, isMe }) => (
   <Stack
     direction="row" alignItems="center" spacing={1.5}
@@ -37,14 +45,12 @@ const RankRow = ({ rank, item, isMe }) => (
       )}
     </Box>
     <Typography sx={{ fontSize: "0.9rem", fontWeight: 800, color: rank <= 3 ? MEDAL[rank - 1] : ORO }}>
-      {item.total_earned != null ? `€${item.total_earned.toFixed(0)}` : ""}
-      {item.total_recruited != null ? item.total_recruited : ""}
-      {item.rank_name != null && !item.total_earned && !item.total_recruited ? item.rank_name : ""}
+      {formatValue(item)}
     </Typography>
   </Stack>
 );
 
-const LeaderboardCard = ({ title, icon, items, myId, emptyText }) => (
+const LeaderboardCard = ({ title, icon, items, emptyText }) => (
   <Card sx={{ p: 2.5, borderRadius: 3, border: "1px solid #f0ece6", height: "100%" }}>
     <Stack direction="row" alignItems="center" spacing={1} mb={2}>
       <Box sx={{ width: 32, height: 32, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -58,7 +64,7 @@ const LeaderboardCard = ({ title, icon, items, myId, emptyText }) => (
     ) : (
       <Box sx={{ maxHeight: 500, overflowY: "auto", pr: 0.5 }}>
         {items.map((item, i) => (
-          <RankRow key={item.user_id + "-" + i} rank={i + 1} item={item} isMe={item.user_id === myId} />
+          <RankRow key={(item.user_id || i) + "-" + i} rank={i + 1} item={item} />
         ))}
       </Box>
     )}
@@ -69,7 +75,7 @@ const MONTHS_IT = ["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Lugl
 const MONTHS_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
 const Leaderboard = () => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const isIt = i18n.language?.startsWith("it");
   const MONTHS = isIt ? MONTHS_IT : MONTHS_EN;
   const now = new Date();
@@ -118,61 +124,88 @@ const Leaderboard = () => {
   );
 };
 
+// tab → scope+kind
+const TAB_CONFIG = [
+  { scope: "global", kind: "gv", dataKey: "top_gv" },
+  { scope: "global", kind: "recruiters", dataKey: "top_recruiters" },
+  { scope: "global", kind: "achievers", dataKey: "top_achievers" },
+  { scope: "team", kind: "gv", dataKey: "team_gv" },
+  { scope: "team", kind: "recruiters", dataKey: "team_recruiters" },
+  { scope: "team", kind: "achievers", dataKey: "team_achievers" },
+];
+
 const LeaderboardContent = ({ data, tab, setTab, isIt }) => {
-  const keyByTab = ["earnings", "recruiters", "achievers", "team"];
-  const labelByTab = isIt
-    ? ["Guadagni Globale", "Reclutatori Globale", "Rank Up Globale", "Il mio Team"]
-    : ["Earnings Global", "Recruiters Global", "Rank Up Global", "My Team"];
-  const valueLabelByTab = isIt
-    ? ["guadagni", "reclutati", "rank top", "guadagni team"]
-    : ["earnings", "recruits", "top rank", "team earnings"];
+  const current = TAB_CONFIG[tab];
+  const items = data?.[current.dataKey] || [];
 
-  const myPos = data?.my_positions?.[keyByTab[tab]] || {
-    position: data?.my_position,
-    value: data?.my_earnings,
-    unit: "eur",
-  };
+  const tabLabels = isIt
+    ? ["GV Globale", "Reclutatori Globale", "Rank Up Globale", "GV Team", "Reclutatori Team", "Rank Up Team"]
+    : ["GV Global", "Recruiters Global", "Rank Up Global", "GV Team", "Recruiters Team", "Rank Up Team"];
 
-  const renderValue = () => {
-    if (myPos.value == null || myPos.value === 0 || myPos.value === "") {
+  const cardTitles = isIt
+    ? ["Classifica GV — Globale", "Classifica Reclutatori — Globale", "Classifica Rank Up — Globale",
+       "Classifica GV — Team", "Classifica Reclutatori — Team", "Classifica Rank Up — Team"]
+    : ["GV Ranking — Global", "Recruiters Ranking — Global", "Rank Up Ranking — Global",
+       "GV Ranking — Team", "Recruiters Ranking — Team", "Rank Up Ranking — Team"];
+
+  const cardIcons = ["mdi:chart-box", "mdi:account-multiple-plus", "mdi:medal",
+                     "mdi:chart-box", "mdi:account-multiple-plus", "mdi:medal"];
+
+  const emptyTexts = isIt
+    ? ["Nessun GV questo mese", "Nessun reclutamento questo mese", "Nessun rank up questo mese",
+       "Nessun GV dal tuo team", "Nessun reclutamento dal team", "Nessun rank up nel team"]
+    : ["No GV this month", "No recruits this month", "No rank ups this month",
+       "No team GV", "No team recruits", "No team rank ups"];
+
+  // "La tua posizione" solo per scope globale
+  const myPos = current.scope === "global" ? data?.my_positions?.[current.kind] : null;
+
+  const renderMyValue = () => {
+    if (!myPos || myPos.value == null || myPos.value === "" || myPos.value === 0) {
       return <Typography sx={{ fontSize: "1.1rem", fontWeight: 700, color: "#aaa" }}>—</Typography>;
     }
-    if (myPos.unit === "eur") return <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ESPRESSO }}>€{Number(myPos.value).toFixed(0)}</Typography>;
+    if (myPos.unit === "gv") return <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ESPRESSO }}>{Number(myPos.value).toFixed(0)} GV</Typography>;
     if (myPos.unit === "count") return <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ESPRESSO }}>{myPos.value}</Typography>;
     if (myPos.unit === "rank") return <Typography sx={{ fontSize: "1.1rem", fontWeight: 700, color: ESPRESSO }}>{myPos.value}</Typography>;
     return <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ESPRESSO }}>{myPos.value}</Typography>;
   };
 
+  const valueLabels = isIt
+    ? { gv: "GV nel periodo", recruiters: "reclutati", achievers: "rank top" }
+    : { gv: "GV in period", recruiters: "recruits", achievers: "top rank" };
+
   return (
     <Stack spacing={2}>
-      {/* My position — dinamica in base alla tab */}
-      <Card sx={{ p: 2.5, borderRadius: 3, border: `1px solid ${alpha(ORO, 0.2)}`, bgcolor: alpha(ORO, 0.03) }}>
-        <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Box sx={{ width: 48, height: 48, borderRadius: 2, bgcolor: alpha(ORO, 0.12), display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <Iconify icon="mdi:podium-gold" width={28} sx={{ color: ORO }} />
-            </Box>
-            <Box>
-              <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>
-                {isIt ? "La tua posizione" : "Your position"} — {labelByTab[tab]}
-              </Typography>
-              <Typography sx={{ fontSize: "0.72rem", color: "#7A6A5C" }}>{data.month}</Typography>
-            </Box>
+      {/* My position (solo Globale) */}
+      {current.scope === "global" && (
+        <Card sx={{ p: 2.5, borderRadius: 3, border: `1px solid ${alpha(ORO, 0.2)}`, bgcolor: alpha(ORO, 0.03) }}>
+          <Stack direction="row" alignItems="center" justifyContent="space-between">
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Box sx={{ width: 48, height: 48, borderRadius: 2, bgcolor: alpha(ORO, 0.12), display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Iconify icon="mdi:podium-gold" width={28} sx={{ color: ORO }} />
+              </Box>
+              <Box>
+                <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>
+                  {isIt ? "La tua posizione" : "Your position"} — {tabLabels[tab]}
+                </Typography>
+                <Typography sx={{ fontSize: "0.72rem", color: "#7A6A5C" }}>{data.month}</Typography>
+              </Box>
+            </Stack>
+            <Stack direction="row" spacing={3} alignItems="center">
+              <Box sx={{ textAlign: "center" }}>
+                <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ORO }}>
+                  {myPos?.position ? `#${myPos.position}` : "—"}
+                </Typography>
+                <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C" }}>{isIt ? "classifica" : "ranking"}</Typography>
+              </Box>
+              <Box sx={{ textAlign: "center" }}>
+                {renderMyValue()}
+                <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C" }}>{valueLabels[current.kind]}</Typography>
+              </Box>
+            </Stack>
           </Stack>
-          <Stack direction="row" spacing={3} alignItems="center">
-            <Box sx={{ textAlign: "center" }}>
-              <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ORO }}>
-                {myPos.position ? `#${myPos.position}` : "—"}
-              </Typography>
-              <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C" }}>{isIt ? "classifica" : "ranking"}</Typography>
-            </Box>
-            <Box sx={{ textAlign: "center" }}>
-              {renderValue()}
-              <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C" }}>{valueLabelByTab[tab]}</Typography>
-            </Box>
-          </Stack>
-        </Stack>
-      </Card>
+        </Card>
+      )}
 
       {/* Tabs */}
       <Tabs value={tab} onChange={(_, v) => setTab(v)} variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile
@@ -182,33 +215,15 @@ const LeaderboardContent = ({ data, tab, setTab, isIt }) => {
           "& .MuiTabs-indicator": { bgcolor: ORO, height: 3, borderRadius: 2 },
           "& .MuiTabs-scrollButtons.Mui-disabled": { opacity: 0.3 },
         }}>
-        <Tab label={isIt ? "Guadagni Globale" : "Earnings Global"} />
-        <Tab label={isIt ? "Reclutatori Globale" : "Recruiters Global"} />
-        <Tab label={isIt ? "Rank Up Globale" : "Rank Up Global"} />
-        <Tab label={isIt ? "Il mio Team" : "My Team"} />
+        {tabLabels.map((l) => <Tab key={l} label={l} />)}
       </Tabs>
 
-      {/* Content */}
-      {tab === 0 && (
-        <LeaderboardCard title={isIt ? "Classifica Guadagni — Globale" : "Earnings Ranking — Global"}
-          icon="mdi:trophy" items={data.top_earners || []} myId={null}
-          emptyText={isIt ? "Nessun dato questo mese" : "No data this month"} />
-      )}
-      {tab === 1 && (
-        <LeaderboardCard title={isIt ? "Classifica Reclutatori — Globale" : "Recruiters Ranking — Global"}
-          icon="mdi:account-multiple-plus" items={data.top_recruiters || []} myId={null}
-          emptyText={isIt ? "Nessun reclutamento questo mese" : "No recruits this month"} />
-      )}
-      {tab === 2 && (
-        <LeaderboardCard title={isIt ? "Classifica Rank Up — Globale" : "Rank Achievements — Global"}
-          icon="mdi:medal" items={data.top_achievers || []} myId={null}
-          emptyText={isIt ? "Nessun rank up questo mese" : "No rank ups this month"} />
-      )}
-      {tab === 3 && (
-        <LeaderboardCard title={isIt ? "Classifica del tuo Team" : "Your Team Ranking"}
-          icon="mdi:account-group" items={data.team_earners || []} myId={null}
-          emptyText={isIt ? "Nessun membro nel team" : "No team members"} />
-      )}
+      <LeaderboardCard
+        title={cardTitles[tab]}
+        icon={cardIcons[tab]}
+        items={items}
+        emptyText={emptyTexts[tab]}
+      />
     </Stack>
   );
 };
