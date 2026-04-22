@@ -55,6 +55,10 @@ const Dashboard = Loadable(
   lazy(() => import(`src/pages/user/dashboardRouter`))
 );
 
+const CommunityPage = Loadable(
+  lazy(() => import("src/pages/user/community/index"))
+);
+
 const AffiliateDashboard = Loadable(
   lazy(() => import(`src/pages/user/affiliateDashboard`))
 );
@@ -259,6 +263,7 @@ const user = [
       { ...genealogy, element: <PromoterGuard>{genealogy.element || <Outlet />}</PromoterGuard> },
       { ...subscriptions },
       { ...financial, element: <PromoterGuard>{financial.element || <Outlet />}</PromoterGuard> },
+      { path: "community", element: <CommunityPage /> },
       { ...helpCenter },
       { ...profile },
       { path: "onboarding", element: <PromoterGuard><Onboarding /></PromoterGuard> },

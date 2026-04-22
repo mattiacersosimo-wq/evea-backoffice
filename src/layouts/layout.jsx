@@ -48,6 +48,7 @@ const ICON_MAP = {
   "move-user": "/icons/ic_member_management.svg",
   "compliance": "/icons/ic_analytics.svg",
   "autofatture": "/icons/ic_invoice.svg",
+  "community": "/icons/ic_member_management.svg",
 };
 
 const DEFAULT_ICON = "/icons/ic_dashboard.svg";
@@ -187,8 +188,14 @@ const filterMenu = (menu, isPromoter) => {
       }
       return item;
     });
+    // Inject Community (link diretto che apre SSO verso community.myevea.com)
+    // Solo se siamo in un gruppo menu "user" — evita che compaia lato admin
+    const isUserGroup = items.some((i) => (i.path || "").startsWith("/user/"));
+    if (isUserGroup && !items.some((i) => (i.path || "").includes("/user/community"))) {
+      items.push({ title: "Community", path: "/user/community", icon: "/icons/ic_member_management.svg" });
+    }
     // Tesserino e lettera sono dentro onboarding/profilo
-    const order = ["dashboard", "affiliate-dashboard", "genealog", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "income-report", "lettera-incarico", "tesserino", "profile"];
+    const order = ["dashboard", "affiliate-dashboard", "genealog", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "income-report", "lettera-incarico", "tesserino", "profile", "community"];
     items = items.sort((a, b) => {
       const pa = (a.path || a.title || "").toLowerCase();
       const pb = (b.path || b.title || "").toLowerCase();
