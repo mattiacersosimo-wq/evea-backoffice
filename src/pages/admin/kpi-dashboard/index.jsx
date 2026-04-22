@@ -667,15 +667,21 @@ const InventoryForecast = () => {
   const { data: ops } = useFetch("api/wp/admin/kpi/operations");
   const inv = ops?.inventory || [];
   if (!inv.length) return null;
+  const maxCnt = Math.max(...inv.map((p) => p.orders_30d || 0), 1);
   return (
     <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>Inventory forecast</Typography>
+      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>Top prodotti ultimi 30gg</Typography>
       <Stack spacing={1.5}>
-        {inv.slice(0, 6).map((p, i) => { const st = p.stock >= p.forecast ? "ok" : p.stock >= p.forecast * 0.5 ? "attenzione" : "riordina"; const sc = st === "ok" ? SUCCESS : st === "attenzione" ? WARNING : DANGER; return (
-          <Stack key={i} direction="row" alignItems="center" spacing={1}><Typography sx={{ fontSize: "0.82rem", color: TEXT, fontWeight: 700, flex: 1 }} noWrap>{p.product || "N/A"}</Typography>
-          <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>Stock: {p.stock}</Typography><Typography sx={{ fontSize: "0.68rem", fontWeight: 700, color: sc }}>Need: {p.forecast}</Typography>
-          <Chip label={st} size="small" sx={{ height: 18, fontSize: "0.58rem", fontWeight: 700, bgcolor: alpha(sc, 0.1), color: sc }} /></Stack>);
-        })}
+        {inv.slice(0, 6).map((p, i) => (
+          <Stack key={i} direction="row" alignItems="center" spacing={1.2}>
+            <Typography sx={{ fontSize: "0.82rem", color: TEXT, fontWeight: 600, flex: 1 }} noWrap>{p.product || "N/A"}</Typography>
+            <Box sx={{ width: 70 }}>
+              <LinearProgress variant="determinate" value={((p.orders_30d || 0) / maxCnt) * 100} sx={{ height: 5, borderRadius: 3, bgcolor: alpha(ORO, 0.1), "& .MuiLinearProgress-bar": { bgcolor: ORO, borderRadius: 3 } }} />
+            </Box>
+            <Typography sx={{ fontSize: "0.72rem", color: MUTED, fontWeight: 700, minWidth: 36, textAlign: "right" }}>{p.orders_30d || 0}x</Typography>
+            <Typography sx={{ fontSize: "0.78rem", fontWeight: 800, color: ORO, minWidth: 60, textAlign: "right" }}>€{(p.revenue || 0).toFixed(0)}</Typography>
+          </Stack>
+        ))}
       </Stack>
     </Card>
   );
