@@ -16,6 +16,8 @@ import fetchUser from "src/utils/fetchUser";
 import { WP_URL } from "src/config";
 import CommunityBanner from "src/components/CommunityBanner";
 import FounderCountdown from "src/components/FounderCountdown";
+import FounderBadge from "src/components/FounderBadge";
+import useFounderStatus from "src/hooks/useFounderStatus";
 import useOnboardingStatus from "src/hooks/useOnboardingStatus";
 
 // ═══════════════════════════════════════
@@ -245,6 +247,7 @@ const HeroCard = () => {
   const loading = rankLoading || heroLoading;
 
   const fullName = [hero?.first_name, hero?.last_name].filter(Boolean).join(" ") || user?.username || "";
+  const { is_founder: isFounder, founder_number: founderNumber } = useFounderStatus();
 
   return (
     <Card sx={{
@@ -302,6 +305,11 @@ const HeroCard = () => {
             <CountdownTimer expiryDate={rank.month_end} label={t("evea.monthly_period")} />
             {rank.dsp_end && <CountdownTimer expiryDate={rank.dsp_end} label={t("evea.dsb_boost_expires")} />}
           </Stack>
+        )}
+        {isFounder && (
+          <Box sx={{ flexShrink: 0 }}>
+            <FounderBadge number={founderNumber} size={72} />
+          </Box>
         )}
       </Stack>
 
