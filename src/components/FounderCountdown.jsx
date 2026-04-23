@@ -16,16 +16,11 @@ const FounderCountdown = () => {
     slots_total: total,
     slots_taken: taken,
     slots_available: avail,
-    days_to_launch: daysToLaunch,
+    days_to_launch: days,
     is_founder: isFounder,
   } = useFounderStatus();
 
-  if (!preActive && daysToLaunch === 0) return null;
-
-  // Giorni al 1° giugno 2026 (apertura pre-lancio)
-  const preLaunchStart = new Date("2026-06-01T00:00:00");
-  const msInDay = 1000 * 60 * 60 * 24;
-  const daysToPreLaunch = Math.max(0, Math.ceil((preLaunchStart - new Date()) / msInDay));
+  if (!preActive && days === 0) return null;
 
   const percent = total ? Math.round((taken / total) * 100) : 0;
 
@@ -49,12 +44,8 @@ const FounderCountdown = () => {
           </Stack>
           <Typography sx={{ fontSize: "0.82rem", color: alpha("#FAF6EF", 0.7), lineHeight: 1.4 }}>
             {preActive
-              ? isIt
-                ? `Lancio ufficiale EVEA tra ${daysToLaunch} giorni — 1° settembre 2026`
-                : `Official launch in ${daysToLaunch} days — September 1, 2026`
-              : isIt
-                ? `Pre-lancio tra ${daysToPreLaunch} giorni · 1° giugno 2026`
-                : `Pre-launch in ${daysToPreLaunch} days · June 1, 2026`}
+              ? isIt ? `Lancio ufficiale EVEA tra ${days} giorni — 1° settembre 2026` : `Official launch in ${days} days — September 1, 2026`
+              : isIt ? `Pre-launch inizia il 1° giugno · mancano ${days} giorni al lancio` : `Pre-launch starts June 1 · ${days} days to launch`}
           </Typography>
         </Box>
         <Box sx={{ minWidth: 110, textAlign: "right" }}>
