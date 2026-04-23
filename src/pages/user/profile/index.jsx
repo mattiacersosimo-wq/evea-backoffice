@@ -5,7 +5,8 @@ import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import useAuth from "src/hooks/useAuth";
-import { FounderChip } from "src/components/FounderCountdown";
+import FounderBadge from "src/components/FounderBadge";
+import useFounderStatus from "src/hooks/useFounderStatus";
 import ProfileTabs from "./components/profile-tabs";
 
 const ORO = "#B8963B";
@@ -18,6 +19,7 @@ const UserProfile = () => {
   const isIt = i18n.language?.startsWith("it");
   const profile = user?.user_profile || {};
   const fullName = [profile.first_name, profile.last_name].filter(Boolean).join(" ") || user?.username || "";
+  const { is_founder: isFounder, founder_number: founderNumber } = useFounderStatus();
 
   return (
     <Page title={isIt ? "Il mio Profilo" : "My Profile"}>
@@ -51,7 +53,6 @@ const UserProfile = () => {
                     border: `1px solid ${alpha(ORO, 0.3)}`,
                   }} />
                 )}
-                <FounderChip />
               </Stack>
               <Stack direction="row" spacing={2} flexWrap="wrap" sx={{ color: MUTED }}>
                 {user?.username && (
@@ -74,6 +75,11 @@ const UserProfile = () => {
                 )}
               </Stack>
             </Box>
+            {isFounder && (
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <FounderBadge number={founderNumber} size={80} />
+              </Box>
+            )}
           </Stack>
         </Card>
 
