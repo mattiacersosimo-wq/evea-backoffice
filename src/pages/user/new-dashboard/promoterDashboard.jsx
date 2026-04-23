@@ -17,6 +17,7 @@ import { WP_URL } from "src/config";
 import CommunityBanner from "src/components/CommunityBanner";
 import FounderCountdown from "src/components/FounderCountdown";
 import FounderBadge from "src/components/FounderBadge";
+import FounderPill from "src/components/FounderPill";
 import useFounderStatus from "src/hooks/useFounderStatus";
 import useOnboardingStatus from "src/hooks/useOnboardingStatus";
 
@@ -283,6 +284,7 @@ const HeroCard = () => {
                 })()}
               </Typography>
               {rank?.current_rank && <Chip label={rank.current_rank} size="small" sx={{ bgcolor: alpha(ORO, 0.15), color: ORO, fontWeight: 700, fontSize: "0.8rem", height: 24, border: `1px solid ${alpha(ORO, 0.3)}` }} />}
+              {isFounder && <FounderPill number={founderNumber} />}
             </Stack>
             <Typography sx={{ fontSize: "0.82rem", color: "#7A6A5C", mb: 0.5 }}>
               <b style={{ color: ESPRESSO }}>{fullName}</b>
@@ -305,11 +307,6 @@ const HeroCard = () => {
             <CountdownTimer expiryDate={rank.month_end} label={t("evea.monthly_period")} />
             {rank.dsp_end && <CountdownTimer expiryDate={rank.dsp_end} label={t("evea.dsb_boost_expires")} />}
           </Stack>
-        )}
-        {isFounder && (
-          <Box sx={{ flexShrink: 0 }}>
-            <FounderBadge number={founderNumber} size={72} />
-          </Box>
         )}
       </Stack>
 

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import useAuth from "src/hooks/useAuth";
-import FounderBadge from "src/components/FounderBadge";
+import FounderPill from "src/components/FounderPill";
 import useFounderStatus from "src/hooks/useFounderStatus";
 import ProfileTabs from "./components/profile-tabs";
 
@@ -53,6 +53,7 @@ const UserProfile = () => {
                     border: `1px solid ${alpha(ORO, 0.3)}`,
                   }} />
                 )}
+                {isFounder && <FounderPill number={founderNumber} />}
               </Stack>
               <Stack direction="row" spacing={2} flexWrap="wrap" sx={{ color: MUTED }}>
                 {user?.username && (
@@ -75,11 +76,6 @@ const UserProfile = () => {
                 )}
               </Stack>
             </Box>
-            {isFounder && (
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <FounderBadge number={founderNumber} size={80} />
-              </Box>
-            )}
           </Stack>
         </Card>
 
