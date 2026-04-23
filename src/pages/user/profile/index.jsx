@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import useAuth from "src/hooks/useAuth";
+import { FounderChip } from "src/components/FounderCountdown";
 import ProfileTabs from "./components/profile-tabs";
 
 const ORO = "#B8963B";
@@ -50,6 +51,7 @@ const UserProfile = () => {
                     border: `1px solid ${alpha(ORO, 0.3)}`,
                   }} />
                 )}
+                <FounderChip />
               </Stack>
               <Stack direction="row" spacing={2} flexWrap="wrap" sx={{ color: MUTED }}>
                 {user?.username && (

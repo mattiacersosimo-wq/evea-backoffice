@@ -24,6 +24,7 @@ import axiosInstance from "src/utils/axios";
 import fetchUser from "src/utils/fetchUser";
 import { WP_URL } from "src/config";
 import CustomerCommunityBanner from "src/components/CustomerCommunityBanner";
+import FounderCountdown from "src/components/FounderCountdown";
 
 // ── Palette ──
 const ORO = "#B8963B";
@@ -850,6 +851,7 @@ const UserDashboard = () => {
     <Page title="Dashboard">
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4 }}>
         <HeroCard hero={hero} ff={ff} rob={rob} totalOrders={totalOrders} badgesLoading={ffLoading || robLoading} />
+        <Box sx={{ mt: 2 }}><FounderCountdown /></Box>
         <Box sx={{ mt: 2 }}><CustomerCommunityBanner /></Box>
         <Ticker />
 

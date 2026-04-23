@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <radialGradient id="mg1" cx="50%" cy="40%">
+      <stop offset="0%" stop-color="#F0D480"/>
+      <stop offset="45%" stop-color="#D4B05A"/>
+      <stop offset="80%" stop-color="#B8963B"/>
+      <stop offset="100%" stop-color="#8B6F2A"/>
+    </radialGradient>
+    <filter id="sh1">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#2C1A0E" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <circle cx="60" cy="60" r="52" fill="url(#mg1)" stroke="#2C1A0E" stroke-width="2" filter="url(#sh1)"/>
+  <circle cx="60" cy="60" r="44" fill="none" stroke="#2C1A0E" stroke-width="1" opacity="0.35"/>
+  <circle cx="60" cy="60" r="40" fill="#FAF6EF"/>
+  <image xlink:href="/logo/evea_logo.png" x="28" y="42" width="64" height="32" />
+  <path d="M60 12 L64 18 L60 22 L56 18 Z" fill="#2C1A0E" opacity="0.6"/>
+  <text x="60" y="98" font-family="Georgia, serif" font-size="8" font-weight="bold" fill="#2C1A0E" text-anchor="middle" letter-spacing="3">FOUNDER</text>
+</svg>
