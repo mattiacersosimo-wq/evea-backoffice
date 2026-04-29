@@ -85,7 +85,7 @@ const EventList = () => {
         handleClickOpenEvent();
       }
     } catch (err) {
-      console.error(err);
+      /* console.error */ // (err);
     }
   };
 

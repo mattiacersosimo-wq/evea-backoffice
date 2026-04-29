@@ -76,7 +76,7 @@ const useAddEvent = () => {
       enqueueSnackbar(data.message, { variant: "error" });
     } catch (error) {
       enqueueSnackbar("Failed to add event", { variant: "error" });
-      console.error(error);
+      /* console.error */ // (error);
     }
   };
 

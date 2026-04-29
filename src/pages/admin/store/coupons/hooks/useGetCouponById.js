@@ -32,7 +32,7 @@ const useGetCouponById = () => {
           });
         }
       } catch (err) {
-        console.error(err);
+        /* console.error */ // (err);
       }
     };
 

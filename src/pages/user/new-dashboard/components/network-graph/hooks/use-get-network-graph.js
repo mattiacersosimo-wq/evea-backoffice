@@ -23,7 +23,7 @@ const useGetNetworkGraph = () => {
         }))
       );
     } catch (err) {
-      console.log(err);
+      /* console.log */ // (err);
     }
   };
 

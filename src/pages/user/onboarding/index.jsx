@@ -135,7 +135,7 @@ const OnboardingWizard = () => {
         // Open in new tab — the backend will serve the PDF as attachment
         window.open(downloadUrl, "_blank");
       } catch (e) {
-        console.error("PDF download failed:", e);
+        /* console.error */ // ("PDF download failed:", e);
         enqueueSnackbar("Lettera salvata. Puoi scaricarla in seguito dal profilo.", { variant: "info" });
       }
       setTimeout(() => navigate("/user/dashboard"), 2000);
