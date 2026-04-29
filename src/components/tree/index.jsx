@@ -8,10 +8,10 @@ import View from "./components/view";
 import Styles from "./style.module.css";
 
 const SPONSOR_LEGEND = [
-  { label: "Cliente", color: "#378ADD" },
-  { label: "Associate", color: "#9E9E9E" },
-  { label: "Starter", color: "#8BC34A" },
-  { label: "Builder", color: "#FF8A65" },
+  { label: "Cliente", color: "#64B5F6" },
+  { label: "Associate", color: "#BCAAA4" },
+  { label: "Starter", color: "#FFB74D" },
+  { label: "Builder", color: "#FF7043" },
   { label: "Senior Builder", color: "#00897B" },
   { label: "Platinum", color: "#B8963B" },
   { label: "Sapphire", color: "#00ACC1" },

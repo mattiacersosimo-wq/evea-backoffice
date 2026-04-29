@@ -20,19 +20,19 @@ import UserIcon from "src/images/tree-tooltip.png";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 
 const RANK_COLOR_MAP = {
-  "Associate": "#9E9E9E",
-  "Starter": "#8BC34A",
-  "Builder": "#FF8A65",
+  "Associate": "#BCAAA4",
+  "Starter": "#FFB74D",
+  "Builder": "#FF7043",
   "Senior Builder": "#00897B",
   "Platinum": "#B8963B",
   "Sapphire": "#00ACC1",
   "Ruby": "#E91E63",
   "Emerald": "#4CAF50",
   "Diamond": "#673AB7",
-  "Blue Diamond": "#1565C0",
-  "Crown Diamond": "#FFD700",
+  "Blue Diamond": "#5E35B1",
+  "Crown Diamond": "#4527A0",
 };
-const CUSTOMER_COLOR = "#378ADD";
+const CUSTOMER_COLOR = "#64B5F6";
 
 const getNodeColor = (user_type, rank_name) => {
   if (user_type === "customer") return CUSTOMER_COLOR;
