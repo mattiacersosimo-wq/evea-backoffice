@@ -554,7 +554,7 @@ const PACKAGE_ID_TO_LEVEL = { 9: 1, 8: 2, 7: 3 };
 const BASE_KITS = [
   { name: "Bronze", price: 229, bv: 160, qv: 240, products: 8, color: "#CD7F32", url: `${WP_URL.replace(/\/$/, "")}/products/bronze-pack` },
   { name: "Silver", price: 446, bv: 320, qv: 480, products: 16, color: "#A0A0A0", url: `${WP_URL.replace(/\/$/, "")}/products/silver-pack` },
-  { name: "Gold", price: 893, bv: 640, qv: 960, products: 33, color: ORO, recommended: true, url: `${WP_URL.replace(/\/$/, "")}/products/gold-pack-1` },
+  { name: "Gold", price: 893, bv: 640, qv: 960, products: 33, color: ORO, recommended: true, url: `${WP_URL.replace(/\/$/, "")}/products/gold-pack` },
 ];
 
 const UPGRADES_BY_LEVEL = {
