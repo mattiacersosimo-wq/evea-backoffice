@@ -1,4 +1,4 @@
-import { Chip, IconButton, TableCell, TableRow, Button } from "@mui/material";
+import { Chip, IconButton, TableCell, TableRow } from "@mui/material";
 import Iconify from "src/components/Iconify";
 import ParseDate from "src/components/date";
 import Ternary from "src/components/ternary";
@@ -13,7 +13,6 @@ const DataList = ({
   network,
   handleOpenMenu,
   rowNumber,
-  onOpenChangeDates,
 }) => {
   const {
     id,
@@ -67,16 +66,6 @@ const DataList = ({
       <TableCell>{engaged === true ? "Yes" : "No"}</TableCell>
       <TableCell>
         <ParseDate date={created_at} />
-      </TableCell>
-
-      <TableCell>
-        <Button
-          variant="contained"
-          size="small"
-          onClick={onOpenChangeDates(id)}
-        >
-          Change Dates
-        </Button>
       </TableCell>
 
       <TableCell>

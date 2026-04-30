@@ -28,7 +28,6 @@ import Transition from "src/utils/dialog-animation";
 import DataFilter from "./components/dataFilter";
 import useFilter from "./hooks/use-filter";
 import useMyOrders from "./hooks/useMyOrders";
-import ChangeDateDialog from "./components/changeDateDialog";
 import { capitalCase } from "change-case";
 
 const headers = [
@@ -39,7 +38,6 @@ const headers = [
   "global.payment_method",
   "search.status",
   "global.order_date",
-  "",
   "global.total_price",
   "global.action",
 ];
@@ -57,19 +55,6 @@ const MyOrders = () => {
   const [openCombo, setOpenCombo] = useState(false);
   const { state, fetchData, rowStart, ...rest } = useMyOrders(filter);
   const { data, ...dataProps } = state;
-
-  const [selectedOrderId, setSelectedOrderId] = useState(null);
-  const [openChangeDate, setOpenChangeDate] = useState(false);
-
-  const handleOpenChangeDate = (id) => () => {
-    setSelectedOrderId(id);
-    setOpenChangeDate(true);
-  };
-
-  const handleCloseChangeDate = () => {
-    setOpenChangeDate(false);
-    setSelectedOrderId(null);
-  };
 
   const onFilter = methods.handleSubmit(
     async (inputData) => {
@@ -149,16 +134,6 @@ const MyOrders = () => {
                     </TableCell>
 
                     <TableCell>
-                      <Button
-                        variant="contained"
-                        size="small"
-                        onClick={handleOpenChangeDate(row.id)}
-                      >
-                        Change Date
-                      </Button>
-                    </TableCell>
-
-                    <TableCell>
                       <Currency>{row?.total_amount}</Currency>
                     </TableCell>
                     <TableCell>
@@ -202,13 +177,6 @@ const MyOrders = () => {
       >
         <DialogTitle>{"usersMyOrders.combo"}</DialogTitle>
       </Dialog>
-
-      <ChangeDateDialog
-        open={openChangeDate}
-        onClose={handleCloseChangeDate}
-        selectedId={selectedOrderId}
-        reload={() => fetchData()}
-      />
     </Page>
   );
 };

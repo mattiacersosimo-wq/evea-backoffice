@@ -40,18 +40,6 @@ const DataTable = () => {
   const { state, fetchData, rowStart, ...rest } = useFetchEWallet(filter);
   const { data, ...dataProps } = state;
 
-  const [selectedOrderId, setSelectedOrderId] = useState(null);
-  const [openChangeDate, setOpenChangeDate] = useState(false);
-
-  const handleOpenChangeDate = (id) => () => {
-    setSelectedOrderId(id);
-    setOpenChangeDate(true);
-  };
-
-  const handleCloseChangeDate = () => {
-    setOpenChangeDate(false);
-    setSelectedOrderId(null);
-  };
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [openApprove, setOpenApprove] = useState(false);

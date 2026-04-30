@@ -16,7 +16,6 @@ import useMembers from "./hooks/useMembers";
 import TurnOfMail from "./turnOfMailDialog";
 import UpdatePasswordDialog from "./updatePasswordDialog";
 import VerifyMail from "./verifyMail";
-import UserDatesDialog from "./userDatesDialog";
 
 const defaultValues = {
   user_id: null,
@@ -36,7 +35,6 @@ const headers = [
   "network_members.paidActive",
   "network_members.engagedstatus",
   "network_members.createdAt",
-  "",
   "network_members.action",
 ];
 
@@ -85,19 +83,6 @@ const DataTable = () => {
     membersList.find((member) => member.id === selectedId).username;
 
   const [openChangeUsername, setOpenChangeUsername] = useState(false);
-
-  const [openUserDates, setOpenUserDates] = useState(false);
-  const [selectedUserId, setSelectedUserId] = useState(null);
-
-  const handleOpenUserDates = (id) => () => {
-    setSelectedUserId(id);
-    setOpenUserDates(true);
-  };
-
-  const handleCloseUserDates = () => {
-    setOpenUserDates(false);
-    setSelectedUserId(null);
-  };
 
   const handleClickOpenChangeUsername = () => {
     setUserName(getUserName());
@@ -157,7 +142,6 @@ const DataTable = () => {
                   handleOpenMenu={handleOpenMenu}
                   network={network}
                   rowNumber={rowStart + i}
-                  onOpenChangeDates={handleOpenUserDates}
                 />
               )}
             />
@@ -214,12 +198,6 @@ const DataTable = () => {
         onClose={handleCloseChangeUsername}
         username={username}
         fetchData={() => fetchMemberList(rest.page)}
-      />
-      <UserDatesDialog
-        open={openUserDates}
-        onClose={handleCloseUserDates}
-        selectedId={selectedUserId}
-        reload={() => fetchMemberList(rest.page || 1)}
       />
       <Ternary
         when={!dataProps.isArrayEmpty}

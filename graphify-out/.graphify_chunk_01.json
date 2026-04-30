@@ -1,0 +1,127 @@
+{
+  "nodes": [
+    {"id": "autofatture_index_page", "label": "Autofatture Page (Le Mie Autofatture)", "file_type": "code", "source_file": "src/pages/user/financial/autofatture/index.jsx", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "autofatture_statcard", "label": "Autofatture StatCard Component", "file_type": "code", "source_file": "src/pages/user/financial/autofatture/index.jsx", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "autofatture_api_list", "label": "API api/wp/autofatture/{userId}", "file_type": "code", "source_file": "src/pages/user/financial/autofatture/index.jsx", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "autofatture_api_xml", "label": "API api/wp/autofatture/{id}/xml", "file_type": "code", "source_file": "src/pages/user/financial/autofatture/index.jsx", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "autofatture_api_pdf", "label": "API api/wp/nota-compensi/{id}/pdf", "file_type": "code", "source_file": "src/pages/user/financial/autofatture/index.jsx", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "autofatture_status_config", "label": "STATUS_CONFIG (in_attesa, inviata, errore_sdi)", "file_type": "code", "source_file": "src/pages/user/financial/autofatture/index.jsx", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "addcredit_ecommercecheckout", "label": "EcommerceCheckout (Add Credit)", "file_type": "code", "source_file": "src/pages/user/financial/deposit/addCredit.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "addcredit_qontostepicon", "label": "QontoStepIcon (stepper icon)", "file_type": "code", "source_file": "src/pages/user/financial/deposit/addCredit.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "deposit_cards", "label": "Deposit Cards (summary tile)", "file_type": "code", "source_file": "src/pages/user/financial/deposit/cards.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "deposit_checkoutcart", "label": "CheckoutCart (deposit cart)", "file_type": "code", "source_file": "src/pages/user/financial/deposit/checkoutCart.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "deposit_datalist_stub", "label": "Deposit DataList (stub table)", "file_type": "code", "source_file": "src/pages/user/financial/deposit/dataList.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "deposit_filtercard_legacy", "label": "Deposit FilterCard (legacy)", "file_type": "code", "source_file": "src/pages/user/financial/deposit/filterCard.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "deposit_index_page", "label": "Deposit Wallet Page (Index)", "file_type": "code", "source_file": "src/pages/user/financial/deposit/index.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "deposit_paynow", "label": "PayNow (add credit form)", "file_type": "code", "source_file": "src/pages/user/financial/deposit/payNow.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "deposit_paynow_api", "label": "API POST deposit-wallet", "file_type": "code", "source_file": "src/pages/user/financial/deposit/payNow.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "deposit_datatable", "label": "Deposit DataTable (paginated)", "file_type": "code", "source_file": "src/pages/user/financial/deposit/components/dataTable.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "deposit_filter_component", "label": "Deposit FilterCard (active)", "file_type": "code", "source_file": "src/pages/user/financial/deposit/components/filter/index.jsx", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "deposit_rowsperpage", "label": "Deposit RowsPerPage select", "file_type": "code", "source_file": "src/pages/user/financial/deposit/components/filter/components/rowsPerPage.jsx", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "deposit_useFetchDepositWallet", "label": "useFetchDepositWallet hook", "file_type": "code", "source_file": "src/pages/user/financial/deposit/hooks/useFetchDepositWallet.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "deposit_api_list", "label": "API GET /deposit-wallet?query&page", "file_type": "code", "source_file": "src/pages/user/financial/deposit/hooks/useFetchDepositWallet.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "ewallet_index_page", "label": "eWallet Page (Index)", "file_type": "code", "source_file": "src/pages/user/financial/ewallet/index.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "ewallet_datalist", "label": "eWallet DataList", "file_type": "code", "source_file": "src/pages/user/financial/ewallet/components/dataList.jsx", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "ewallet_components_barrel", "label": "eWallet components barrel (index)", "file_type": "code", "source_file": "src/pages/user/financial/ewallet/components/index.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "ewallet_filtercard", "label": "eWallet FilterCard", "file_type": "code", "source_file": "src/pages/user/financial/ewallet/components/filter/index.jsx", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "ewallet_rowsperpage", "label": "eWallet RowsPerPage select", "file_type": "code", "source_file": "src/pages/user/financial/ewallet/components/filter/components/rowsPerPage.jsx", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "ewallet_summary_cards", "label": "eWallet Summary Card", "file_type": "code", "source_file": "src/pages/user/financial/ewallet/components/summary/cards.jsx", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "ewallet_summary_index", "label": "eWallet Summary (5-tile grid)", "file_type": "code", "source_file": "src/pages/user/financial/ewallet/components/summary/index.jsx", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "ewallet_useFetchEWallet", "label": "useFetchEWallet hook", "file_type": "code", "source_file": "src/pages/user/financial/ewallet/hooks/useFetchEWallet.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "ewallet_api_list", "label": "API GET ewallet?page", "file_type": "code", "source_file": "src/pages/user/financial/ewallet/hooks/useFetchEWallet.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "fundtransfer_cards", "label": "FundTransfer Card (summary tile)", "file_type": "code", "source_file": "src/pages/user/financial/fundTransfer/cards.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "fundtransfer_datalist", "label": "FundTransfer DataList", "file_type": "code", "source_file": "src/pages/user/financial/fundTransfer/dataList.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "fundtransfer_index_page", "label": "FundTransfer Page (Index)", "file_type": "code", "source_file": "src/pages/user/financial/fundTransfer/index.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "fundtransfer_sendform", "label": "FundTransfer SendForm", "file_type": "code", "source_file": "src/pages/user/financial/fundTransfer/sendForm.js", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+
+    {"id": "concept_financial_wallet_hub", "label": "User Financial Wallet Module", "file_type": "code", "source_file": "src/pages/user/financial", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "concept_summary_filter_table_pattern", "label": "Summary+Filter+PaginatedTable page pattern", "file_type": "code", "source_file": "src/pages/user/financial", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null},
+    {"id": "concept_fiscal_module", "label": "Fiscal Module (autofatture/payout)", "file_type": "code", "source_file": "src/pages/user/financial/autofatture", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null}
+  ],
+  "edges": [
+    {"source": "autofatture_index_page", "target": "autofatture_statcard", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/autofatture/index.jsx", "source_location": null, "weight": 1.0},
+    {"source": "autofatture_index_page", "target": "autofatture_api_list", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/autofatture/index.jsx", "source_location": null, "weight": 1.0},
+    {"source": "autofatture_index_page", "target": "autofatture_api_xml", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/autofatture/index.jsx", "source_location": null, "weight": 1.0},
+    {"source": "autofatture_index_page", "target": "autofatture_api_pdf", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/autofatture/index.jsx", "source_location": null, "weight": 1.0},
+    {"source": "autofatture_index_page", "target": "autofatture_status_config", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/autofatture/index.jsx", "source_location": null, "weight": 1.0},
+    {"source": "autofatture_index_page", "target": "concept_fiscal_module", "relation": "implements", "confidence": "INFERRED", "confidence_score": 0.9, "source_file": "src/pages/user/financial/autofatture/index.jsx", "source_location": null, "weight": 1.0},
+
+    {"source": "addcredit_ecommercecheckout", "target": "addcredit_qontostepicon", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/deposit/addCredit.js", "source_location": null, "weight": 1.0},
+    {"source": "addcredit_ecommercecheckout", "target": "deposit_index_page", "relation": "references", "confidence": "INFERRED", "confidence_score": 0.75, "source_file": "src/pages/user/financial/deposit/addCredit.js", "source_location": null, "weight": 1.0},
+
+    {"source": "deposit_index_page", "target": "deposit_cards", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/deposit/index.js", "source_location": null, "weight": 1.0},
+    {"source": "deposit_index_page", "target": "deposit_datatable", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/deposit/index.js", "source_location": null, "weight": 1.0},
+    {"source": "deposit_index_page", "target": "deposit_filter_component", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/deposit/index.js", "source_location": null, "weight": 1.0},
+    {"source": "deposit_index_page", "target": "deposit_paynow", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/deposit/index.js", "source_location": null, "weight": 1.0},
+    {"source": "deposit_index_page", "target": "concept_summary_filter_table_pattern", "relation": "implements", "confidence": "INFERRED", "confidence_score": 0.9, "source_file": "src/pages/user/financial/deposit/index.js", "source_location": null, "weight": 1.0},
+
+    {"source": "deposit_paynow", "target": "deposit_paynow_api", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/deposit/payNow.js", "source_location": null, "weight": 1.0},
+
+    {"source": "deposit_useFetchDepositWallet", "target": "deposit_api_list", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/deposit/hooks/useFetchDepositWallet.js", "source_location": null, "weight": 1.0},
+
+    {"source": "ewallet_index_page", "target": "ewallet_datalist", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/ewallet/index.js", "source_location": null, "weight": 1.0},
+    {"source": "ewallet_index_page", "target": "ewallet_filtercard", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/ewallet/index.js", "source_location": null, "weight": 1.0},
+    {"source": "ewallet_index_page", "target": "ewallet_summary_index", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/ewallet/index.js", "source_location": null, "weight": 1.0},
+    {"source": "ewallet_components_barrel", "target": "ewallet_datalist", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/ewallet/components/index.js", "source_location": null, "weight": 1.0},
+    {"source": "ewallet_components_barrel", "target": "ewallet_filtercard", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/ewallet/components/index.js", "source_location": null, "weight": 1.0},
+    {"source": "ewallet_components_barrel", "target": "ewallet_summary_cards", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/ewallet/components/index.js", "source_location": null, "weight": 1.0},
+    {"source": "ewallet_summary_index", "target": "ewallet_summary_cards", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/ewallet/components/summary/index.jsx", "source_location": null, "weight": 1.0},
+    {"source": "ewallet_index_page", "target": "concept_summary_filter_table_pattern", "relation": "implements", "confidence": "INFERRED", "confidence_score": 0.9, "source_file": "src/pages/user/financial/ewallet/index.js", "source_location": null, "weight": 1.0},
+
+    {"source": "ewallet_useFetchEWallet", "target": "ewallet_api_list", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/ewallet/hooks/useFetchEWallet.js", "source_location": null, "weight": 1.0},
+
+    {"source": "fundtransfer_index_page", "target": "fundtransfer_cards", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/fundTransfer/index.js", "source_location": null, "weight": 1.0},
+    {"source": "fundtransfer_index_page", "target": "fundtransfer_datalist", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/fundTransfer/index.js", "source_location": null, "weight": 1.0},
+    {"source": "fundtransfer_index_page", "target": "fundtransfer_sendform", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/fundTransfer/index.js", "source_location": null, "weight": 1.0},
+    {"source": "fundtransfer_index_page", "target": "concept_summary_filter_table_pattern", "relation": "implements", "confidence": "INFERRED", "confidence_score": 0.85, "source_file": "src/pages/user/financial/fundTransfer/index.js", "source_location": null, "weight": 1.0},
+
+    {"source": "deposit_index_page", "target": "concept_financial_wallet_hub", "relation": "conceptually_related_to", "confidence": "INFERRED", "confidence_score": 0.9, "source_file": "src/pages/user/financial/deposit/index.js", "source_location": null, "weight": 1.0},
+    {"source": "ewallet_index_page", "target": "concept_financial_wallet_hub", "relation": "conceptually_related_to", "confidence": "INFERRED", "confidence_score": 0.9, "source_file": "src/pages/user/financial/ewallet/index.js", "source_location": null, "weight": 1.0},
+    {"source": "fundtransfer_index_page", "target": "concept_financial_wallet_hub", "relation": "conceptually_related_to", "confidence": "INFERRED", "confidence_score": 0.9, "source_file": "src/pages/user/financial/fundTransfer/index.js", "source_location": null, "weight": 1.0},
+    {"source": "autofatture_index_page", "target": "concept_financial_wallet_hub", "relation": "conceptually_related_to", "confidence": "INFERRED", "confidence_score": 0.8, "source_file": "src/pages/user/financial/autofatture/index.jsx", "source_location": null, "weight": 1.0},
+
+    {"source": "deposit_cards", "target": "ewallet_summary_cards", "relation": "semantically_similar_to", "confidence": "INFERRED", "confidence_score": 0.9, "source_file": "src/pages/user/financial", "source_location": null, "weight": 1.0},
+    {"source": "deposit_cards", "target": "fundtransfer_cards", "relation": "semantically_similar_to", "confidence": "INFERRED", "confidence_score": 0.9, "source_file": "src/pages/user/financial", "source_location": null, "weight": 1.0},
+    {"source": "ewallet_summary_cards", "target": "fundtransfer_cards", "relation": "semantically_similar_to", "confidence": "INFERRED", "confidence_score": 0.9, "source_file": "src/pages/user/financial", "source_location": null, "weight": 1.0},
+    {"source": "autofatture_statcard", "target": "ewallet_summary_cards", "relation": "semantically_similar_to", "confidence": "INFERRED", "confidence_score": 0.7, "source_file": "src/pages/user/financial", "source_location": null, "weight": 1.0},
+
+    {"source": "deposit_rowsperpage", "target": "ewallet_rowsperpage", "relation": "semantically_similar_to", "confidence": "INFERRED", "confidence_score": 0.95, "source_file": "src/pages/user/financial", "source_location": null, "weight": 1.0},
+
+    {"source": "deposit_filter_component", "target": "ewallet_filtercard", "relation": "semantically_similar_to", "confidence": "INFERRED", "confidence_score": 0.9, "source_file": "src/pages/user/financial", "source_location": null, "weight": 1.0},
+    {"source": "deposit_filtercard_legacy", "target": "deposit_filter_component", "relation": "semantically_similar_to", "confidence": "INFERRED", "confidence_score": 0.8, "source_file": "src/pages/user/financial/deposit", "source_location": null, "weight": 1.0},
+
+    {"source": "deposit_datatable", "target": "ewallet_datalist", "relation": "semantically_similar_to", "confidence": "INFERRED", "confidence_score": 0.9, "source_file": "src/pages/user/financial", "source_location": null, "weight": 1.0},
+    {"source": "deposit_datatable", "target": "fundtransfer_datalist", "relation": "semantically_similar_to", "confidence": "INFERRED", "confidence_score": 0.85, "source_file": "src/pages/user/financial", "source_location": null, "weight": 1.0},
+    {"source": "ewallet_datalist", "target": "fundtransfer_datalist", "relation": "semantically_similar_to", "confidence": "INFERRED", "confidence_score": 0.85, "source_file": "src/pages/user/financial", "source_location": null, "weight": 1.0},
+    {"source": "deposit_datalist_stub", "target": "deposit_datatable", "relation": "semantically_similar_to", "confidence": "INFERRED", "confidence_score": 0.6, "source_file": "src/pages/user/financial/deposit", "source_location": null, "weight": 1.0},
+
+    {"source": "deposit_useFetchDepositWallet", "target": "ewallet_useFetchEWallet", "relation": "semantically_similar_to", "confidence": "INFERRED", "confidence_score": 0.9, "source_file": "src/pages/user/financial", "source_location": null, "weight": 1.0},
+
+    {"source": "deposit_index_page", "target": "deposit_useFetchDepositWallet", "relation": "shares_data_with", "confidence": "INFERRED", "confidence_score": 0.7, "source_file": "src/pages/user/financial/deposit", "source_location": null, "weight": 1.0},
+    {"source": "ewallet_index_page", "target": "ewallet_useFetchEWallet", "relation": "shares_data_with", "confidence": "INFERRED", "confidence_score": 0.7, "source_file": "src/pages/user/financial/ewallet", "source_location": null, "weight": 1.0},
+
+    {"source": "deposit_paynow", "target": "addcredit_ecommercecheckout", "relation": "semantically_similar_to", "confidence": "INFERRED", "confidence_score": 0.75, "source_file": "src/pages/user/financial/deposit", "source_location": null, "weight": 1.0},
+
+    {"source": "fundtransfer_sendform", "target": "deposit_paynow", "relation": "semantically_similar_to", "confidence": "INFERRED", "confidence_score": 0.7, "source_file": "src/pages/user/financial", "source_location": null, "weight": 1.0},
+
+    {"source": "deposit_checkoutcart", "target": "addcredit_ecommercecheckout", "relation": "conceptually_related_to", "confidence": "INFERRED", "confidence_score": 0.8, "source_file": "src/pages/user/financial/deposit", "source_location": null, "weight": 1.0}
+  ],
+  "hyperedges": [
+    {"id": "financial_wallet_listing_pattern", "label": "Summary + Filter + PaginatedTable pattern across wallet pages", "nodes": ["deposit_index_page", "ewallet_index_page", "fundtransfer_index_page", "concept_summary_filter_table_pattern"], "relation": "implement", "confidence": "INFERRED", "confidence_score": 0.9, "source_file": "src/pages/user/financial"},
+    {"id": "wallet_summary_tile_variants", "label": "Summary Card tile variants (deposit/ewallet/fundTransfer/autofatture)", "nodes": ["deposit_cards", "ewallet_summary_cards", "fundtransfer_cards", "autofatture_statcard"], "relation": "form", "confidence": "INFERRED", "confidence_score": 0.85, "source_file": "src/pages/user/financial"},
+    {"id": "autofatture_download_flow", "label": "Autofatture download flow (list + XML + PDF)", "nodes": ["autofatture_index_page", "autofatture_api_list", "autofatture_api_xml", "autofatture_api_pdf"], "relation": "participate_in", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/pages/user/financial/autofatture/index.jsx"}
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}
