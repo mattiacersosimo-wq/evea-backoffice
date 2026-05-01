@@ -788,7 +788,7 @@ const TopPerformers = () => {
   const [sortBy, setSortBy] = useState("gv");
   const [scope, setScope] = useState("team");
   const { data: top, loading } = useTopPerformers(sortBy, scope);
-  const labels = { gv: "GV", pqv: "PQV", commissions: "EUR" };
+  const labels = { gv: "GV", pqv: "PQV" };
   return (
     <Card sx={{ ...cardSx, p: 2.5, height: "100%", position: "relative", overflow: "hidden",
       "&::before": { content: '""', position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${ORO} 0%, ${alpha(ORO, 0.5)} 100%)` },
@@ -815,8 +815,8 @@ const TopPerformers = () => {
           </Stack>
         </Stack>
         <Stack direction="row" spacing={0.5} justifyContent="flex-end">
-          {["gv", "pqv", "commissions"].map((s) => (
-            <Chip key={s} label={s === "commissions" ? "Commissioni" : s.toUpperCase()} size="small"
+          {["gv", "pqv"].map((s) => (
+            <Chip key={s} label={s.toUpperCase()} size="small"
               onClick={() => setSortBy(s)}
               sx={{ height: 20, fontSize: "0.58rem", fontWeight: 700, cursor: "pointer", transition: "all .2s ease",
                 bgcolor: sortBy === s ? alpha("#607D8B", 0.12) : "transparent",
@@ -857,7 +857,7 @@ const TopPerformers = () => {
                   <Typography sx={{ fontSize: "0.62rem", color: MUTED }}>{p.rank || "Associate"}</Typography>
                 </Box>
                 <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: isTop3 ? medalColor : ORO, letterSpacing: "-0.2px" }}>
-                  {sortBy === "commissions" ? "€" : ""}{Number(p.sort_value || p.total_qv || 0).toFixed(0)} <span style={{ fontSize: "0.65rem", color: MUTED, fontWeight: 600 }}>{labels[sortBy]}</span>
+                  {Number(p.sort_value || p.total_qv || 0).toFixed(0)} <span style={{ fontSize: "0.65rem", color: MUTED, fontWeight: 600 }}>{labels[sortBy]}</span>
                 </Typography>
               </Stack>
             );
