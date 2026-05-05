@@ -275,11 +275,15 @@ const OnboardingWizard = () => {
                       <br /><br />
                       <strong>Quando scatta?</strong>
                       <br />
-                      • <strong>Senza Partita IVA</strong> (Incaricato Occasionale): solo dopo aver superato <strong>€5.000 di guadagni in un anno solare</strong>.
+                      • <strong>Senza Partita IVA</strong> (Incaricato Occasionale): solo sulla parte di guadagni che <strong>supera €5.000 in un anno solare</strong>.
+                      <br />
+                      <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}>Es: se guadagni €6.000 nell'anno, l'INPS si applica solo sui €1.000 eccedenti → trattenuta €350,30 o €240.</em>
                       <br />
                       • <strong>Con Partita IVA</strong> (Incaricato con P.IVA): si applica <strong>fin dal primo euro</strong>.
+                      <br />
+                      <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}>Es: su €100 di guadagno, trattenuta €35,03 o €24 → ti restano €64,97 o €76.</em>
                       <br /><br />
-                      <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}>L'aliquota (35,03% o 24%) dipende dalla situazione che selezioni qui sotto. Esempio: su €100 di guadagno trattenuto, restano €64,97 o €76 al netto INPS.</em>
+                      L'aliquota (35,03% o 24%) dipende dalla situazione che selezioni qui sotto.
                     </Typography>
                   </Box>
                 </Box>
