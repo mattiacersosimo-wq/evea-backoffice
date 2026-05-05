@@ -232,18 +232,15 @@ const OnboardingWizard = () => {
                 )}
               </Box>
 
-              {/* Domanda 2 — P.IVA */}
+              {/* Domanda 2 — P.IVA (Sì/No solamente; il numero si chiede sotto nel box Regime Fiscale) */}
               <Box sx={{ p: 2, bgcolor: "#fafafa", borderRadius: 2, border: "1px solid #eee" }}>
                 <Typography sx={{ fontSize: "0.85rem", fontWeight: 600, color: ESPRESSO, mb: 1.5 }}>
                   Sei già titolare di Partita IVA per attività di vendita a domicilio?
                 </Typography>
                 <Stack direction="row" spacing={2}>
-                  <FormControlLabel control={<Checkbox checked={!form.has_piva_ivd} onChange={() => { set("has_piva_ivd", false); set("piva_number", ""); }} />} label="No" />
+                  <FormControlLabel control={<Checkbox checked={!form.has_piva_ivd} onChange={() => { set("has_piva_ivd", false); set("piva_number", ""); set("vat_number", ""); }} />} label="No" />
                   <FormControlLabel control={<Checkbox checked={!!form.has_piva_ivd} onChange={() => set("has_piva_ivd", true)} />} label="Sì" />
                 </Stack>
-                {form.has_piva_ivd && (
-                  <TextField fullWidth size="small" label="Numero P.IVA" value={form.piva_number || ""} onChange={(e) => set("piva_number", e.target.value)} sx={{ mt: 1.5 }} inputProps={{ maxLength: 11 }} />
-                )}
               </Box>
 
               {/* Auto-derived regime display */}
@@ -253,7 +250,7 @@ const OnboardingWizard = () => {
                 </Typography>
                 {autoRegime === "partita_iva" && (
                   <Grid container spacing={2} sx={{ mt: 1 }}>
-                    <Grid item xs={12}><TextField fullWidth size="small" label="Partita IVA" value={form.vat_number || ""} onChange={(e) => set("vat_number", e.target.value)} inputProps={{ maxLength: 11 }} /></Grid>
+                    <Grid item xs={12}><TextField fullWidth size="small" label="Partita IVA" value={form.vat_number || ""} onChange={(e) => { set("vat_number", e.target.value); set("piva_number", e.target.value); }} inputProps={{ maxLength: 11 }} /></Grid>
                     <Grid item xs={6}><TextField fullWidth size="small" label="Codice SDI (facoltativo)" value={form.codice_sdi || ""} onChange={(e) => set("codice_sdi", e.target.value)} /></Grid>
                     <Grid item xs={6}><TextField fullWidth size="small" label="PEC (facoltativa)" value={form.pec || ""} onChange={(e) => set("pec", e.target.value)} /></Grid>
                   </Grid>
@@ -262,19 +259,57 @@ const OnboardingWizard = () => {
 
               {/* Domanda 3 — Previdenziale */}
               <Box sx={{ p: 2, bgcolor: "#fafafa", borderRadius: 2, border: "1px solid #eee" }}>
-                <Typography sx={{ fontSize: "0.85rem", fontWeight: 600, color: ESPRESSO, mb: 1.5 }}>
-                  Qual è la tua situazione previdenziale?
+                <Typography sx={{ fontSize: "0.85rem", fontWeight: 600, color: ESPRESSO, mb: 1 }}>
+                  Hai un altro lavoro o una pensione?
                 </Typography>
+
+                {/* Box info: cos'è l'INPS in questo contesto */}
+                <Box sx={{ mb: 1.5, p: 1.5, bgcolor: alpha(ORO, 0.06), borderRadius: 1.5, border: `1px solid ${alpha(ORO, 0.2)}`, display: "flex", gap: 1, alignItems: "flex-start" }}>
+                  <Iconify icon="mdi:information-outline" width={18} sx={{ color: ORO, flexShrink: 0, mt: 0.2 }} />
+                  <Box>
+                    <Typography sx={{ fontSize: "0.72rem", fontWeight: 700, color: ESPRESSO, mb: 0.3 }}>
+                      Cos'è l'INPS in questo contesto?
+                    </Typography>
+                    <Typography sx={{ fontSize: "0.7rem", color: "#5C4A3E", lineHeight: 1.4 }}>
+                      È una quota che viene <strong>trattenuta dai tuoi guadagni EVEA</strong> (non la paghi tu separatamente) e contribuisce alla tua pensione futura. La trattenuta scatta solo quando superi <strong>€5.000 di guadagni in un anno solare</strong>.
+                      <br />
+                      <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}>Esempio: se guadagni €100, la trattenuta è €35,03 o €24 a seconda della tua situazione qui sotto.</em>
+                    </Typography>
+                  </Box>
+                </Box>
+
                 <Stack spacing={0.5}>
                   {[
-                    { value: "none", label: "Nessuna posizione previdenziale obbligatoria", inps: "Aliquota INPS piena (35,03%)" },
-                    { value: "other_position", label: "Ho altra posizione previdenziale obbligatoria (es. lavoro dipendente)", inps: "Aliquota ridotta (24%)" },
-                    { value: "retired", label: "Sono titolare di pensione", inps: "Aliquota ridotta (24%)" },
+                    {
+                      value: "none",
+                      label: "No, EVEA sarà la mia unica entrata",
+                      inps: "INPS al 35,03% sui tuoi guadagni (quota piena, perché non hai altre coperture previdenziali)",
+                    },
+                    {
+                      value: "other_position",
+                      label: "Sì, ho un lavoro dipendente o un'altra attività",
+                      sublabel: "(es. lavoro in azienda, libero professionista)",
+                      inps: "INPS al 24% sui tuoi guadagni (quota ridotta, sei già coperto altrove)",
+                    },
+                    {
+                      value: "retired",
+                      label: "Sono in pensione",
+                      inps: "INPS al 24% sui tuoi guadagni (quota ridotta)",
+                    },
                   ].map((opt) => (
                     <FormControlLabel
                       key={opt.value}
-                      control={<Checkbox checked={form.previdential_status === opt.value} onChange={() => set("previdential_status", opt.value)} />}
-                      label={<><span>{opt.label}</span> <span style={{ fontSize: "0.75rem", color: ORO }}> — {opt.inps}</span></>}
+                      control={<Checkbox checked={form.previdential_status === opt.value} onChange={() => set("previdential_status", opt.value)} sx={{ alignSelf: "flex-start", pt: 0.5 }} />}
+                      sx={{ alignItems: "flex-start", mr: 0 }}
+                      label={
+                        <Box sx={{ py: 0.5 }}>
+                          <Typography sx={{ fontSize: "0.85rem", fontWeight: 600, color: ESPRESSO }}>
+                            {opt.label}
+                            {opt.sublabel && <span style={{ fontSize: "0.75rem", color: "#7A6A5C", fontWeight: 400 }}> {opt.sublabel}</span>}
+                          </Typography>
+                          <Typography sx={{ fontSize: "0.7rem", color: ORO, mt: 0.2 }}>{opt.inps}</Typography>
+                        </Box>
+                      }
                     />
                   ))}
                 </Stack>
