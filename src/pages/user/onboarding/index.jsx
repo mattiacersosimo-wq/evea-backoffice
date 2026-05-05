@@ -270,10 +270,16 @@ const OnboardingWizard = () => {
                     <Typography sx={{ fontSize: "0.72rem", fontWeight: 700, color: ESPRESSO, mb: 0.3 }}>
                       Cos'è l'INPS in questo contesto?
                     </Typography>
-                    <Typography sx={{ fontSize: "0.7rem", color: "#5C4A3E", lineHeight: 1.4 }}>
-                      È una quota che viene <strong>trattenuta dai tuoi guadagni EVEA</strong> (non la paghi tu separatamente) e contribuisce alla tua pensione futura. La trattenuta scatta solo quando superi <strong>€5.000 di guadagni in un anno solare</strong>.
+                    <Typography sx={{ fontSize: "0.7rem", color: "#5C4A3E", lineHeight: 1.5 }}>
+                      È una quota <strong>trattenuta dai tuoi guadagni EVEA</strong> (non la paghi tu separatamente) e contribuisce alla tua pensione futura.
+                      <br /><br />
+                      <strong>Quando scatta?</strong>
                       <br />
-                      <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}>Esempio: se guadagni €100, la trattenuta è €35,03 o €24 a seconda della tua situazione qui sotto.</em>
+                      • <strong>Senza Partita IVA</strong> (Incaricato Occasionale): solo dopo aver superato <strong>€5.000 di guadagni in un anno solare</strong>.
+                      <br />
+                      • <strong>Con Partita IVA</strong> (Incaricato con P.IVA): si applica <strong>fin dal primo euro</strong>.
+                      <br /><br />
+                      <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}>L'aliquota (35,03% o 24%) dipende dalla situazione che selezioni qui sotto. Esempio: su €100 di guadagno trattenuto, restano €64,97 o €76 al netto INPS.</em>
                     </Typography>
                   </Box>
                 </Box>
