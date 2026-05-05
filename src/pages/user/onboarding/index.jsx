@@ -1,12 +1,41 @@
-import { Alert, Box, Button, Card, Checkbox, CircularProgress, Divider, FormControlLabel, Grid, LinearProgress, MenuItem, Stack, Step, StepLabel, Stepper, TextField, Typography } from "@mui/material";
+import { Alert, Autocomplete, Box, Button, Card, Checkbox, CircularProgress, Divider, FormControlLabel, Grid, LinearProgress, MenuItem, Radio, RadioGroup, Stack, Step, StepLabel, Stepper, TextField, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import CodiceFiscale from "codice-fiscale-js";
+import { COMUNI } from "codice-fiscale-js/src/lista-comuni";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import axiosInstance from "src/utils/axios";
 import { invalidateOnboardingStatus } from "src/hooks/useOnboardingStatus";
+
+// Trasforma in formato Autocomplete {nome, prov, code}, solo comuni attivi
+const listaComuni = COMUNI
+  .filter((c) => c[3] === 1)
+  .map((c) => ({ code: c[0], prov: c[1], nome: c[2] }));
+
+// Calcola CF a partire dai dati anagrafici (ritorna stringa o null se dati incompleti)
+const computeCfFromForm = (f) => {
+  if (!f.first_name || !f.last_name || !f.date_of_birth || !f.gender || !f.birthplace) return null;
+  try {
+    const d = new Date(f.date_of_birth);
+    if (isNaN(d.getTime())) return null;
+    const cf = new CodiceFiscale({
+      name: f.first_name,
+      surname: f.last_name,
+      gender: f.gender,
+      day: d.getUTCDate(),
+      month: d.getUTCMonth() + 1,
+      year: d.getUTCFullYear(),
+      birthplace: f.birthplace,
+      birthplaceProvincia: f.birthplaceProvincia || undefined,
+    });
+    return cf.code;
+  } catch {
+    return null;
+  }
+};
 
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
@@ -186,13 +215,43 @@ const OnboardingWizard = () => {
               <Grid container spacing={2}>
                 <Grid item xs={6}><TextField fullWidth size="small" label="Nome *" value={form.first_name || ""} onChange={(e) => set("first_name", e.target.value)} /></Grid>
                 <Grid item xs={6}><TextField fullWidth size="small" label="Cognome *" value={form.last_name || ""} onChange={(e) => set("last_name", e.target.value)} /></Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} sm={6}>
                   <TextField fullWidth size="small" label="Data di nascita *" type="date" InputLabelProps={{ shrink: true }} value={form.date_of_birth || ""} onChange={(e) => set("date_of_birth", e.target.value)} />
                   {form.date_of_birth && !isAdult(form.date_of_birth) && (
                     <Typography sx={{ fontSize: "0.75rem", color: DANGER, mt: 0.5 }}>
                       Devi essere maggiorenne (18+ anni) per registrarti come Promotore.
                     </Typography>
                   )}
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField fullWidth size="small" select label="Sesso *" value={form.gender || ""} onChange={(e) => set("gender", e.target.value)}>
+                    <MenuItem value="M">Maschio</MenuItem>
+                    <MenuItem value="F">Femmina</MenuItem>
+                  </TextField>
+                </Grid>
+                <Grid item xs={12}>
+                  <Autocomplete
+                    size="small"
+                    options={listaComuni}
+                    getOptionLabel={(o) => typeof o === "string" ? o : `${o.nome} (${o.prov})`}
+                    isOptionEqualToValue={(o, v) => o.nome === v.nome && o.prov === v.prov}
+                    value={form.birthplace ? listaComuni.find((c) => c.nome === form.birthplace && c.prov === form.birthplaceProvincia) || null : null}
+                    onChange={(_, v) => {
+                      if (v) {
+                        set("birthplace", v.nome);
+                        set("birthplaceProvincia", v.prov);
+                      } else {
+                        set("birthplace", "");
+                        set("birthplaceProvincia", "");
+                      }
+                    }}
+                    renderInput={(params) => <TextField {...params} label="Comune di nascita *" placeholder="Inizia a digitare..." />}
+                    filterOptions={(opts, state) => {
+                      const q = state.inputValue.toLowerCase().trim();
+                      if (!q) return opts.slice(0, 50);
+                      return opts.filter((o) => o.nome.toLowerCase().startsWith(q)).slice(0, 50);
+                    }}
+                  />
                 </Grid>
               </Grid>
               <Stack direction="row" justifyContent="flex-end">
@@ -202,7 +261,12 @@ const OnboardingWizard = () => {
                     if (!form.first_name || !form.last_name) { enqueueSnackbar("Nome e Cognome sono obbligatori.", { variant: "error" }); return; }
                     if (!form.date_of_birth) { enqueueSnackbar("La data di nascita è obbligatoria.", { variant: "error" }); return; }
                     if (!isAdult(form.date_of_birth)) { enqueueSnackbar("Devi essere maggiorenne per registrarti come Promotore.", { variant: "error" }); return; }
-                    save("save-personal", { first_name: form.first_name, last_name: form.last_name, date_of_birth: form.date_of_birth });
+                    if (!form.gender) { enqueueSnackbar("Il sesso è obbligatorio.", { variant: "error" }); return; }
+                    if (!form.birthplace) { enqueueSnackbar("Il comune di nascita è obbligatorio.", { variant: "error" }); return; }
+                    save("save-personal", {
+                      first_name: form.first_name, last_name: form.last_name, date_of_birth: form.date_of_birth,
+                      gender: form.gender, birthplace: form.birthplace, birthplaceProvincia: form.birthplaceProvincia,
+                    });
                   }}
                   disabled={saving}
                   sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" } }}
@@ -216,7 +280,63 @@ const OnboardingWizard = () => {
             <Stack spacing={2.5}>
               <Typography variant="h6" fontWeight={700} color={ESPRESSO}>Dati Fiscali e Dichiarazioni</Typography>
 
-              <TextField fullWidth size="small" label="Codice Fiscale *" value={form.codice_fiscale || ""} onChange={(e) => set("codice_fiscale", e.target.value.toUpperCase())} inputProps={{ maxLength: 16 }} />
+              {/* Codice Fiscale auto-calcolato + verifica coerenza */}
+              {(() => {
+                const computed = computeCfFromForm(form);
+                const current = (form.codice_fiscale || "").toUpperCase();
+                const isFormallyValid = current.length === 16 && CodiceFiscale.check(current);
+                const matches = computed && current === computed;
+                const showMismatch = computed && current && !matches && current.length === 16;
+                return (
+                  <Box>
+                    <TextField
+                      fullWidth size="small" label="Codice Fiscale *"
+                      value={current}
+                      onChange={(e) => set("codice_fiscale", e.target.value.toUpperCase())}
+                      inputProps={{ maxLength: 16, style: { fontFamily: "monospace", letterSpacing: 1 } }}
+                      InputProps={{
+                        endAdornment: current && (
+                          isFormallyValid && (matches || !computed)
+                            ? <Iconify icon="mdi:check-circle" width={20} sx={{ color: "#4CAF50" }} />
+                            : current.length === 16
+                              ? <Iconify icon="mdi:alert-circle" width={20} sx={{ color: "#FF9800" }} />
+                              : null
+                        ),
+                      }}
+                    />
+                    {computed && !current && (
+                      <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1 }}>
+                        <Typography sx={{ fontSize: "0.75rem", color: ESPRESSO }}>
+                          Calcolato dai tuoi dati anagrafici: <strong style={{ fontFamily: "monospace", color: ORO }}>{computed}</strong>
+                        </Typography>
+                        <Button size="small" variant="text" onClick={() => set("codice_fiscale", computed)} sx={{ fontSize: "0.7rem", color: ORO, textTransform: "none" }}>
+                          Usa questo
+                        </Button>
+                      </Stack>
+                    )}
+                    {showMismatch && (
+                      <Box sx={{ mt: 1, p: 1, bgcolor: alpha("#FF9800", 0.08), borderRadius: 1, border: `1px solid ${alpha("#FF9800", 0.3)}`, display: "flex", gap: 1, alignItems: "flex-start" }}>
+                        <Iconify icon="mdi:alert-circle-outline" width={16} sx={{ color: "#FF9800", flexShrink: 0, mt: 0.2 }} />
+                        <Box sx={{ flex: 1 }}>
+                          <Typography sx={{ fontSize: "0.7rem", color: ESPRESSO }}>
+                            Il CF inserito non corrisponde ai dati anagrafici. Atteso: <strong style={{ fontFamily: "monospace" }}>{computed}</strong>.
+                            <br />
+                            <em style={{ color: "#7A6A5C" }}>Se hai casi di omocodia (CF ricalcolato dall'Agenzia Entrate per evitare duplicati) puoi ignorare questo messaggio. Altrimenti verifica i tuoi dati.</em>
+                          </Typography>
+                          <Button size="small" variant="text" onClick={() => set("codice_fiscale", computed)} sx={{ fontSize: "0.7rem", color: ORO, textTransform: "none", mt: 0.5 }}>
+                            Ricalcola da dati anagrafici
+                          </Button>
+                        </Box>
+                      </Box>
+                    )}
+                    {current.length === 16 && !isFormallyValid && (
+                      <Typography sx={{ fontSize: "0.7rem", color: DANGER, mt: 0.5 }}>
+                        Codice fiscale formalmente non valido (controllo carattere di controllo fallito).
+                      </Typography>
+                    )}
+                  </Box>
+                );
+              })()}
 
               {/* Domanda 1 — IVD income */}
               <Box sx={{ p: 2, bgcolor: "#fafafa", borderRadius: 2, border: "1px solid #eee" }}>

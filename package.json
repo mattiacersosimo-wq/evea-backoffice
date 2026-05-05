@@ -76,6 +76,7 @@
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
     "change-case": "^4.1.2",
+    "codice-fiscale-js": "^2.3.23",
     "countrycitystatejson": "^21.3.2702",
     "credit-card-type": "^9.1.0",
     "d3-array": "^3.1.1",
