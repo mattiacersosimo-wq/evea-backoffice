@@ -24,6 +24,9 @@ const MoveUser = Loadable(
 const AdminCompliance = Loadable(
   lazy(() => import("src/pages/admin/compliance/index"))
 );
+const AdminKycPending = Loadable(
+  lazy(() => import("src/pages/admin/compliance/kyc-pending/index"))
+);
 const CentroControllo = Loadable(
   lazy(() => import("src/pages/admin/centro-controllo/index"))
 );
@@ -79,7 +82,10 @@ const availableRoutes = [
   },
   {
     path: "compliance",
-    element: <AdminCompliance />,
+    children: [
+      { index: true, element: <AdminCompliance /> },
+      { path: "kyc-pending", element: <AdminKycPending /> },
+    ],
   },
   {
     path: "invoices",

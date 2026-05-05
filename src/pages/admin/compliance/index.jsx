@@ -2,6 +2,7 @@ import { Box, Button, Card, Grid, Stack, TextField, Typography } from "@mui/mate
 import { alpha } from "@mui/material/styles";
 import { useState } from "react";
 import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import HeaderBreadcrumbs from "src/components/HeaderBreadcrumbs";
@@ -22,6 +23,7 @@ const downloadBlob = async (url, filename, type = "text/csv") => {
 
 const Compliance = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
   const now = new Date();
   const [from, setFrom] = useState(new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString().slice(0, 10));
   const [to, setTo] = useState(now.toISOString().slice(0, 10));
@@ -64,6 +66,17 @@ const Compliance = () => {
         </Card>
 
         <Grid container spacing={2}>
+          {/* KYC Pending */}
+          <Grid item xs={12} md={4}>
+            <ExportCard
+              icon="mdi:card-account-details-outline" title="Verifica documenti KYC"
+              subtitle="Approva o rifiuta i documenti di identità caricati"
+              color="#9C27B0"
+              btnLabel="Apri verifica KYC"
+              onClick={() => navigate("/admin/compliance/kyc-pending")}
+            />
+          </Grid>
+
           {/* Questura - Nuovi iscritti */}
           <Grid item xs={12} md={4}>
             <ExportCard
