@@ -17,7 +17,7 @@ const cardSx = { bgcolor: "#fff", borderRadius: 3, border: "1px solid #f0ece6", 
 const BONUS_COLORS = {
   direct_sales_bonus: "#FF9800", fast_start_bonus: "#FF4081", indirect_sales_bonus: "#00BCD4", go_mvp_bonus: "#4CAF50",
   rock_solid_mvp_bonus: "#2196F3", pmb_bonus: "#9C27B0", residual_bonus: "#607D8B",
-  leadership_bonus: ORO, residual_matching: "#795548", rock_solid_bonus: "#455A64",
+  leadership_bonus: ORO, residual_matching: "#795548", ritual_bonus: "#455A64",
   eveolving_bonus: "#FF5722", first_order_bonus: "#8BC34A", rank_bonus: "#673AB7",
 };
 
@@ -31,7 +31,7 @@ const ALL_BONUSES = [
   { type: "residual_bonus", label: "Residual Bonus", freq: "monthly" },
   { type: "leadership_bonus", label: "Leadership Bonus", freq: "monthly" },
   { type: "residual_matching", label: "Residual Matching", freq: "monthly" },
-  { type: "rock_solid_bonus", label: "Rock Solid Bonus", freq: "monthly" },
+  { type: "ritual_bonus", label: "Ritual Bonus", freq: "monthly" },
   { type: "eveolving_bonus", label: "Evolving Bonus", freq: "monthly" },
 ];
 

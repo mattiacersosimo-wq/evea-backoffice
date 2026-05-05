@@ -131,8 +131,8 @@ const IndirectSales = Loadable(
 const EveolvingBonus = Loadable(
   lazy(() => import("src/pages/admin/settings/network/@pages/eveloving-bonus/index"))
 );
-const RockSolidBonus = Loadable(
-  lazy(() => import("src/pages/admin/settings/network/@pages/rock-solid-bonus/index"))
+const RitualBonus = Loadable(
+  lazy(() => import("src/pages/admin/settings/network/@pages/ritual-bonus/index"))
 );
 const Bronze = Loadable(
   lazy(() => import("src/pages/admin/settings/network/@pages/binary/index"))
@@ -286,8 +286,8 @@ const settings = [
             element: <EveolvingBonus />,
           },
           {
-            path: "rocksolidbonus",
-            element: <RockSolidBonus />,
+            path: "ritualbonus",
+            element: <RitualBonus />,
           },
           {
             path: "placementlaunchsettings",

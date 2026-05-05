@@ -26,7 +26,7 @@ import axiosInstance from "src/utils/axios";
 import useGetData from "./hooks/useGetData";
 import Translate from "src/components/translate";
 
-const RockSolidBonus = () => {
+const RitualBonus = () => {
   const { state, handleUpdate, onSubmit } = useGetData();
   const { data, ...dataProps } = state;
   return (
@@ -117,4 +117,4 @@ const LoadingTextField = ({ value, name, handleUpdate }) => {
   );
 };
 
-export default RockSolidBonus;
+export default RitualBonus;

@@ -14,7 +14,7 @@ const useGetData = () => {
     const fetchData = async () => {
       try {
         const { status, data } = await axiosInstance(
-          "/api/admin/rocksolid_bonus_settings"
+          "/api/admin/ritual_bonus_settings"
         );
         if (status === 200) {
           const { data: list } = data.data;
@@ -55,7 +55,7 @@ const useGetData = () => {
     reqData.append("data", datass);
     try {
       const { status, data } = await axiosInstance.post(
-        `api/admin/rocksolid_bonus_settings`,
+        `api/admin/ritual_bonus_settings`,
         reqData
       );
       if (status === 200) {

@@ -419,7 +419,7 @@ const ActivationCard = () => {
 // ═══════════════════════════════════════
 // 6. COMMISSION BREAKDOWN
 // ═══════════════════════════════════════
-const COMM_COLORS = { direct_sales_bonus: ORO, fast_start_bonus: "#FF4081", residual_bonus: SUCCESS, go_mvp_bonus: "#4CAF50", indirect_sales_bonus: INFO, leadership_bonus: "#9C27B0", rock_solid_bonus: "#455A64", evolving_bonus: "#FF5722", pmb_bonus: "#795548", residual_matching_bonus: WARNING, three_ff_bonus: "#E91E63", rock_solid_mvp_bonus: "#2196F3" };
+const COMM_COLORS = { direct_sales_bonus: ORO, fast_start_bonus: "#FF4081", residual_bonus: SUCCESS, go_mvp_bonus: "#4CAF50", indirect_sales_bonus: INFO, leadership_bonus: "#9C27B0", ritual_bonus: "#455A64", evolving_bonus: "#FF5722", pmb_bonus: "#795548", residual_matching_bonus: WARNING, three_ff_bonus: "#E91E63", rock_solid_mvp_bonus: "#2196F3" };
 const CommissionBreakdown = () => {
   const { data: cb, loading } = useFetch("api/wp/admin/kpi/commission-breakdown", true);
   if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={200} /></Card>;

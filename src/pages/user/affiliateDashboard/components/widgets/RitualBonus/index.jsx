@@ -27,7 +27,7 @@ const useHigherRank = () => {
   return { higherRank, state };
 };
 
-const RockSolidBonus = () => {
+const RitualBonus = () => {
   const { higherRank, state } = useHigherRank();
   const { t } = useTranslation();
 
@@ -35,11 +35,11 @@ const RockSolidBonus = () => {
     <BonusWidget
       icon="mdi:diamond-outline"
       color="#455A64"
-      title={t("user_dashboard.rock_solid_bonus")}
+      title={t("user_dashboard.ritual_bonus")}
     >
       <Progress higherRank={higherRank} state={state} />
     </BonusWidget>
   );
 };
 
-export default RockSolidBonus;
+export default RitualBonus;

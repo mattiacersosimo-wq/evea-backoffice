@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import ResidualBonus from "./components/widgets/ResidualBonus";
 import ResidualBonusMatching from "./components/widgets/ResidualBonusMatching";
-import RockSolidBonus from "./components/widgets/RockSolidBonus";
+import RitualBonus from "./components/widgets/RitualBonus";
 import LeadershipBonus from "./components/widgets/LeadershipBonus";
 import Ternary from "src/components/ternary";
 import useAuth from "src/hooks/useAuth";
@@ -75,7 +75,7 @@ const ResidualReward = () => {
                         <ResidualBonusMatching />
                       </Grid>
                       <Grid item lg={12} md={12} xs={12}>
-                        <RockSolidBonus />
+                        <RitualBonus />
                       </Grid>
                     </>
                   }

@@ -197,7 +197,7 @@ const SimulatorReport = () => {
     // 10. Evolving (one-time)
     const evolvingOneTime = EVOLVING[rankId] || 0;
 
-    // 11. Rock Solid (monthly)
+    // 11. Ritual (monthly)
     const rockSolid = ROCK_SOLID[rankId] || 0;
 
     // 12. ROB
@@ -350,7 +350,7 @@ const SimulatorReport = () => {
             <BonusRow icon="mdi:swap-horizontal" label="Residual Matching" amount={calc.resMatching} color="#795548" subtitle="20% L1 + 10% L2 team residual" />
             <BonusRow icon="mdi:gift" label="3 For Free" amount={calc.threeff} color="#E91E63" subtitle={clients >= 3 ? `${clients} cli ≥ 3 ✓` : "Need 3+"} />
             <BonusRow icon="mdi:shield-star" label="Rock Solid MVP" amount={calc.rspMvp} color="#2196F3" subtitle={hasMvp ? "€100 + €150 power-up" : "Need MVP"} />
-            <BonusRow icon="mdi:diamond-stone" label="Rock Solid Bonus" amount={calc.rockSolid} color="#455A64" subtitle={calc.rockSolid > 0 ? `€${calc.rockSolid.toLocaleString()}/mo (${currentRank.name})` : "Rank 4+"} />
+            <BonusRow icon="mdi:diamond-stone" label="Ritual Bonus" amount={calc.rockSolid} color="#455A64" subtitle={calc.rockSolid > 0 ? `€${calc.rockSolid.toLocaleString()}/mo (${currentRank.name})` : "Rank 4+"} />
 
             <Typography sx={{ fontSize: "0.6rem", fontWeight: 600, color: "#FF5722", textTransform: "uppercase", mt: 1.5, mb: 0.5 }}>
               One-Time
@@ -402,7 +402,7 @@ const SimulatorReport = () => {
             <Stack spacing={0.8}>
               {rankId < 4 && (
                 <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>
-                  👑 {isIt ? `Raggiungi Platinum per sbloccare Evolving (€400) e Rock Solid (€200/mese)` : `Reach Platinum to unlock Evolving (€400) and Rock Solid (€200/mo)`}
+                  👑 {isIt ? `Raggiungi Platinum per sbloccare Evolving (€400) e Ritual (€200/mese)` : `Reach Platinum to unlock Evolving (€400) and Ritual (€200/mo)`}
                 </Typography>
               )}
               {promotersPerPromoter < 3 && (
@@ -423,8 +423,8 @@ const SimulatorReport = () => {
               {rankId >= 8 && (
                 <Typography sx={{ fontSize: "0.75rem", color: SUCCESS, fontWeight: 600 }}>
                   🏆 {isIt
-                    ? `${currentRank.name}: Rock Solid €${(ROCK_SOLID[rankId] || 0).toLocaleString()}/mese + Evolving €${(EVOLVING[rankId] || 0).toLocaleString()} = vita da sogno!`
-                    : `${currentRank.name}: Rock Solid €${(ROCK_SOLID[rankId] || 0).toLocaleString()}/mo + Evolving €${(EVOLVING[rankId] || 0).toLocaleString()} = dream life!`}
+                    ? `${currentRank.name}: Ritual €${(ROCK_SOLID[rankId] || 0).toLocaleString()}/mese + Evolving €${(EVOLVING[rankId] || 0).toLocaleString()} = vita da sogno!`
+                    : `${currentRank.name}: Ritual €${(ROCK_SOLID[rankId] || 0).toLocaleString()}/mo + Evolving €${(EVOLVING[rankId] || 0).toLocaleString()} = dream life!`}
                 </Typography>
               )}
             </Stack>

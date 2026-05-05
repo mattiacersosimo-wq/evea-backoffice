@@ -33,8 +33,8 @@ const options = [
     label: "amount_types.eveolving_bonus",
   },
   {
-    value: "rock_solid_bonus",
-    label: "amount_types.rock_solid_bonus",
+    value: "ritual_bonus",
+    label: "amount_types.ritual_bonus",
   },
   {
     value: "residual_bonus",

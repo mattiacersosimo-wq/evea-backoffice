@@ -32,7 +32,7 @@ import EvolvingBonus from "./components/widgets/evolvingBonus";
 import ResidualBonus from "./components/widgets/ResidualBonus";
 import LeadershipBonus from "./components/widgets/LeadershipBonus";
 import ResidualBonusMatching from "./components/widgets/ResidualBonusMatching";
-import RockSolidBonus from "./components/widgets/RockSolidBonus";
+import RitualBonus from "./components/widgets/RitualBonus";
 
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
@@ -221,7 +221,7 @@ const BONUS_CONFIG = [
   { key: "residual", url: "affiliate-dashboard/residual-Progressbar", label: "Residual", icon: "mdi:chart-line", color: "#607D8B", pendingField: "pending_commission_total", freq: "monthly" },
   { key: "leadership", url: "affiliate-dashboard/leadership-Progressbar", label: "Leadership", icon: "mdi:crown-outline", color: ORO, pendingField: "pending_bonus_amount", freq: "monthly" },
   { key: "residualmatching", url: "affiliate-dashboard/residualmatching-Progressbar", label: "Residual Matching", icon: "mdi:swap-horizontal-circle-outline", color: "#795548", pendingField: "pending_bonus_amount", freq: "monthly" },
-  { key: "rgomvp", url: "affiliate-dashboard/rgomvp-Progressbar", label: "Rock Solid Bonus", icon: "mdi:diamond-outline", color: "#455A64", pendingField: "pending_bonus_amount", freq: "monthly" },
+  { key: "rgomvp", url: "affiliate-dashboard/rgomvp-Progressbar", label: "Ritual Bonus", icon: "mdi:diamond-outline", color: "#455A64", pendingField: "pending_bonus_amount", freq: "monthly" },
   { key: "evolving", url: "affiliate-dashboard/eveolving-Progressbar", label: "Evolving Bonus", icon: "mdi:trending-up", color: "#FF5722", pendingField: "pending_bonus_amount", freq: "monthly" },
 ];
 
@@ -524,7 +524,7 @@ const AffiliateDashboard = () => {
               <Grid item xs={12} md={6}><ResidualBonusMatching /></Grid>
             )}
             {isPromoter && (
-              <Grid item xs={12} md={6}><RockSolidBonus /></Grid>
+              <Grid item xs={12} md={6}><RitualBonus /></Grid>
             )}
           </Grid>
         </Stack>

@@ -111,9 +111,9 @@ const tabs = [
   },
 
   {
-    value: "settings.network.rocksolid_bonus_settings",
+    value: "settings.network.ritual_bonus_settings",
     icon: "solar:pen-2-linear",
-    name: "rocksolidbonus",
+    name: "ritualbonus",
     plans: [binary, roi, matrix, uniLevel, monoLine],
   },
 
