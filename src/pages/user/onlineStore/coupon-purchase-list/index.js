@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   Stack,
   Typography,
@@ -13,6 +14,7 @@ import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import Map from "src/components/map";
 import PaginationButtons from "src/components/pagination";
+import CopyCouponButton from "src/components/CopyCouponButton";
 import { PATH_DASHBOARD } from "src/routes/paths";
 import useCouponPurchase from "./hooks/useCouponPurchase";
 
@@ -43,12 +45,25 @@ const CouponList = () => {
           ))}
         </Grid>
       ) : isArrayEmpty || !data?.length ? (
-        <Card sx={{ p: 6, textAlign: "center", borderRadius: 3, border: "1px solid #f0ece6" }}>
-          <Iconify icon="mdi:ticket-outline" width={48} sx={{ color: "#ddd", mb: 1 }} />
-          <Typography variant="h6" color="text.secondary">Nessun coupon disponibile</Typography>
-          <Typography variant="body2" color="text.disabled" sx={{ mt: 0.5 }}>
-            Completa il programma 3 For Free o il Percorso Fedeltà per guadagnare coupon
+        <Card sx={{ p: 6, textAlign: "center", borderRadius: 3, border: `1px solid ${alpha(ORO, 0.25)}`, background: `linear-gradient(135deg, ${alpha(ORO, 0.04)} 0%, #fff 100%)` }}>
+          <Box sx={{ width: 72, height: 72, borderRadius: "50%", bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center", mx: "auto", mb: 2 }}>
+            <Iconify icon="mdi:ticket-percent-outline" width={40} sx={{ color: ORO }} />
+          </Box>
+          <Typography variant="h6" sx={{ color: ESPRESSO, fontWeight: 700 }}>Non hai ancora coupon disponibili</Typography>
+          <Typography variant="body2" sx={{ color: MUTED, mt: 1, maxWidth: 480, mx: "auto" }}>
+            Effettua un ordine smartship per iniziare a guadagnare coupon dal programma <strong>3 For Free</strong> e dal <strong>Percorso Fedeltà</strong>.
           </Typography>
+          <Button
+            variant="contained"
+            size="large"
+            href="https://www.myevea.com/"
+            target="_blank"
+            rel="noopener"
+            startIcon={<Iconify icon="mdi:storefront-outline" />}
+            sx={{ mt: 3, bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none", borderRadius: 2, px: 3 }}
+          >
+            Vai allo shop
+          </Button>
         </Card>
       ) : (
         <Grid container spacing={2}>
@@ -100,11 +115,14 @@ const CouponList = () => {
 
                         {/* Code */}
                         {code && (
-                          <Box sx={{ bgcolor: alpha(ORO, 0.06), borderRadius: 1.5, px: 1.5, py: 0.8, mb: 1.5, display: "inline-block" }}>
-                            <Typography sx={{ fontSize: "0.85rem", fontWeight: 800, color: ESPRESSO, fontFamily: "monospace", letterSpacing: "0.15em" }}>
-                              {code}
-                            </Typography>
-                          </Box>
+                          <Stack direction="row" alignItems="center" spacing={0.5} sx={{ mb: 1.5 }}>
+                            <Box sx={{ bgcolor: alpha(ORO, 0.06), borderRadius: 1.5, px: 1.5, py: 0.8, display: "inline-block" }}>
+                              <Typography sx={{ fontSize: "0.85rem", fontWeight: 800, color: ESPRESSO, fontFamily: "monospace", letterSpacing: "0.15em" }}>
+                                {code}
+                              </Typography>
+                            </Box>
+                            <CopyCouponButton code={code} />
+                          </Stack>
                         )}
 
                         {/* Dates */}

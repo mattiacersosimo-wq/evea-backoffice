@@ -24,6 +24,7 @@ import axiosInstance from "src/utils/axios";
 import fetchUser from "src/utils/fetchUser";
 import { WP_URL } from "src/config";
 import CustomerCommunityBanner from "src/components/CustomerCommunityBanner";
+import CopyCouponButton from "src/components/CopyCouponButton";
 
 // ── Palette ──
 const ORO = "#B8963B";
@@ -813,13 +814,16 @@ const CouponsSection = ({ coupons, loading }) => {
                       <Iconify icon={isUsed ? "mdi:check-circle-outline" : "mdi:ticket-percent-outline"} width={24} sx={{ color: isUsed ? "#aaa" : ORO }} />
                     </Box>
                   </Stack>
-                  <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1.5 }}>
+                  <Stack direction="row" alignItems="center" spacing={0.5} sx={{ mt: 1.5 }}>
                     {code && (
-                      <Typography sx={{ fontSize: "0.82rem", fontWeight: 800, color: ESPRESSO, bgcolor: alpha(ORO, 0.06), px: 1.2, py: 0.3, borderRadius: 1.5, fontFamily: "monospace", letterSpacing: "0.1em" }}>
-                        {code}
-                      </Typography>
+                      <>
+                        <Typography sx={{ fontSize: "0.82rem", fontWeight: 800, color: ESPRESSO, bgcolor: alpha(ORO, 0.06), px: 1.2, py: 0.3, borderRadius: 1.5, fontFamily: "monospace", letterSpacing: "0.1em" }}>
+                          {code}
+                        </Typography>
+                        {!isUsed && <CopyCouponButton code={code} size="tiny" />}
+                      </>
                     )}
-                    <Typography sx={{ fontSize: "0.65rem", color: "#aaa" }}>
+                    <Typography sx={{ fontSize: "0.65rem", color: "#aaa", ml: 0.5 }}>
                       {isUsed ? "Utilizzato" : `Scade il ${expiryLabel}`}
                     </Typography>
                   </Stack>

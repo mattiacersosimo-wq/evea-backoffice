@@ -289,7 +289,41 @@ const SealSection = () => {
   useEffect(() => { fetchSubs(); }, [fetchSubs]);
 
   if (loading) return <Box sx={{ textAlign: "center", py: 3 }}><CircularProgress sx={{ color: ORO }} size={28} /></Box>;
-  if (!subs.length) return null;
+  if (!subs.length) {
+    return (
+      <Box sx={{ mb: 3 }}>
+        <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 2 }}>
+          <Box sx={{ width: 36, height: 36, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Iconify icon="mdi:refresh-circle" width={20} sx={{ color: ORO }} />
+          </Box>
+          <Box>
+            <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ESPRESSO }}>Smartship</Typography>
+            <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>Gestisci i tuoi abbonamenti</Typography>
+          </Box>
+        </Stack>
+        <Card sx={{ p: { xs: 4, md: 6 }, textAlign: "center", borderRadius: 3, border: `1px solid ${alpha(ORO, 0.25)}`, background: `linear-gradient(135deg, ${alpha(ORO, 0.04)} 0%, #fff 100%)` }}>
+          <Box sx={{ width: 72, height: 72, borderRadius: "50%", bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center", mx: "auto", mb: 2 }}>
+            <Iconify icon="mdi:refresh-circle" width={40} sx={{ color: ORO }} />
+          </Box>
+          <Typography variant="h6" sx={{ color: ESPRESSO, fontWeight: 700 }}>Non hai abbonamenti attivi</Typography>
+          <Typography variant="body2" sx={{ color: "#7A6A5C", mt: 1, maxWidth: 520, mx: "auto" }}>
+            Attiva uno <strong>smartship</strong> e ottieni il <strong>10% di sconto a vita</strong> su tutti i prodotti, <strong>{"€"}30 di coupon ogni 3 consegne</strong> dal programma 3 For Free e una sola spedizione mensile.
+          </Typography>
+          <Button
+            variant="contained"
+            size="large"
+            href="https://www.myevea.com/"
+            target="_blank"
+            rel="noopener"
+            startIcon={<Iconify icon="mdi:storefront-outline" />}
+            sx={{ mt: 3, bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none", borderRadius: 2, px: 3 }}
+          >
+            Attiva smartship
+          </Button>
+        </Card>
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ mb: 3 }}>

@@ -20,6 +20,7 @@ import FounderBadge from "src/components/FounderBadge";
 import FounderPill from "src/components/FounderPill";
 import useFounderStatus from "src/hooks/useFounderStatus";
 import useOnboardingStatus from "src/hooks/useOnboardingStatus";
+import CopyCouponButton from "src/components/CopyCouponButton";
 
 // ═══════════════════════════════════════
 // PALETTE EVEA
@@ -1526,10 +1527,26 @@ const CouponsSection = ({ coupons, loading }) => {
   );
 
   if (!coupons?.length) return (
-    <Box sx={{ textAlign: "center", py: 4, bgcolor: "#fafafa", borderRadius: 3 }}>
-      <Iconify icon="mdi:ticket-outline" width={36} sx={{ color: "#ddd", mb: 1 }} />
-      <Typography variant="body2" color="text.secondary">Nessun coupon disponibile</Typography>
-    </Box>
+    <Card sx={{ p: { xs: 3, md: 4 }, textAlign: "center", borderRadius: 3, border: `1px solid ${alpha(ORO, 0.25)}`, background: `linear-gradient(135deg, ${alpha(ORO, 0.04)} 0%, #fff 100%)` }}>
+      <Box sx={{ width: 64, height: 64, borderRadius: "50%", bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center", mx: "auto", mb: 1.5 }}>
+        <Iconify icon="mdi:ticket-percent-outline" width={36} sx={{ color: ORO }} />
+      </Box>
+      <Typography variant="subtitle1" sx={{ color: ESPRESSO, fontWeight: 700 }}>Non hai ancora coupon disponibili</Typography>
+      <Typography variant="body2" sx={{ color: MUTED, mt: 0.5, maxWidth: 460, mx: "auto" }}>
+        Effettua un ordine smartship per iniziare a guadagnare coupon dal programma <strong>3 For Free</strong> e dal <strong>Percorso Fedeltà</strong>.
+      </Typography>
+      <Button
+        variant="contained"
+        size="medium"
+        href="https://www.myevea.com/"
+        target="_blank"
+        rel="noopener"
+        startIcon={<Iconify icon="mdi:storefront-outline" />}
+        sx={{ mt: 2, bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none", borderRadius: 2, px: 2.5 }}
+      >
+        Vai allo shop
+      </Button>
+    </Card>
   );
 
   return (
@@ -1569,9 +1586,14 @@ const CouponsSection = ({ coupons, loading }) => {
                       <Iconify icon={isUsed ? "mdi:check-circle-outline" : "mdi:ticket-percent-outline"} width={24} sx={{ color: isUsed ? "#aaa" : ORO }} />
                     </Box>
                   </Stack>
-                  <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1.5 }}>
-                    {code && <Typography sx={{ fontSize: "0.82rem", fontWeight: 800, color: ESPRESSO, bgcolor: alpha(ORO, 0.06), px: 1.2, py: 0.3, borderRadius: 1.5, fontFamily: "monospace", letterSpacing: "0.1em" }}>{code}</Typography>}
-                    <Typography sx={{ fontSize: "0.65rem", color: "#aaa" }}>{isUsed ? "Utilizzato" : `Scade il ${expiryLabel}`}</Typography>
+                  <Stack direction="row" alignItems="center" spacing={0.5} sx={{ mt: 1.5 }}>
+                    {code && (
+                      <>
+                        <Typography sx={{ fontSize: "0.82rem", fontWeight: 800, color: ESPRESSO, bgcolor: alpha(ORO, 0.06), px: 1.2, py: 0.3, borderRadius: 1.5, fontFamily: "monospace", letterSpacing: "0.1em" }}>{code}</Typography>
+                        {!isUsed && <CopyCouponButton code={code} size="tiny" />}
+                      </>
+                    )}
+                    <Typography sx={{ fontSize: "0.65rem", color: "#aaa", ml: 0.5 }}>{isUsed ? "Utilizzato" : `Scade il ${expiryLabel}`}</Typography>
                   </Stack>
                 </Box>
               </Box>
