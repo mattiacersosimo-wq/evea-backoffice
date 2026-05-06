@@ -312,22 +312,30 @@ const HeroCard = () => {
 
       {loading ? <Skeleton height={50} sx={{ mt: 2, bgcolor: alpha(ORO, 0.04), borderRadius: 2 }} /> : (
         <Stack direction="row" spacing={1} sx={{ mt: 2.5, flexWrap: "wrap", gap: 1 }}>
-          {[
-            { icon: "mdi:wallet-outline", label: t("evea.wallet"), value: `€${Number(hero?.wallet || 0).toFixed(2)}` },
-            { icon: "mdi:chart-bar", label: "PQV", value: hero?.pqv_mese || hero?.qv_mese || 0 },
-            {
-              icon: "mdi:account-group-outline",
-              label: t("evea.clients"),
-              value: `${hero?.clienti_diretti ?? 0} / ${hero?.clienti_rete ?? 0}`,
-              caption: "diretti / rete",
-            },
-            {
-              icon: "mdi:account-tie-outline",
-              label: t("evea.team"),
-              value: `${hero?.team_promoter ?? 0} / ${hero?.team_rete ?? 0}`,
-              caption: "diretti / rete",
-            },
-          ].map((m) => (
+          {(() => {
+            const clientiDiretti = Number(hero?.clienti_diretti || 0);
+            const clientiRete = Number(hero?.clienti_rete || 0);
+            const clientiDelta = Math.max(0, clientiRete - clientiDiretti);
+            const teamDiretti = Number(hero?.team_promoter || 0);
+            const teamRete = Number(hero?.team_rete || 0);
+            const teamDelta = Math.max(0, teamRete - teamDiretti);
+            return [
+              { icon: "mdi:wallet-outline", label: t("evea.wallet"), value: `€${Number(hero?.wallet || 0).toFixed(2)}` },
+              { icon: "mdi:chart-bar", label: "PQV", value: hero?.pqv_mese || hero?.qv_mese || 0 },
+              {
+                icon: "mdi:account-group-outline",
+                label: t("evea.clients"),
+                value: clientiDiretti,
+                sub: clientiDelta > 0 ? `+${clientiDelta} nella rete` : null,
+              },
+              {
+                icon: "mdi:account-tie-outline",
+                label: t("evea.team"),
+                value: teamDiretti,
+                sub: teamDelta > 0 ? `+${teamDelta} nella rete` : null,
+              },
+            ];
+          })().map((m) => (
             <Box key={m.label} sx={{
               flex: "1 1 0", minWidth: 80,
               bgcolor: "rgba(255,255,255,0.7)", backdropFilter: "blur(4px)",
@@ -343,8 +351,8 @@ const HeroCard = () => {
               <Iconify icon={m.icon} width={18} sx={{ color: ORO, mb: 0.3 }} />
               <Typography sx={{ fontSize: "1rem", fontWeight: 800 }}>{m.value}</Typography>
               <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C", fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.3 }}>{m.label}</Typography>
-              {m.caption && (
-                <Typography sx={{ fontSize: "0.55rem", color: "#9E8E80", fontStyle: "italic", mt: 0.1 }}>{m.caption}</Typography>
+              {m.sub && (
+                <Typography sx={{ fontSize: "0.6rem", color: ORO, fontWeight: 600, mt: 0.2 }}>{m.sub}</Typography>
               )}
             </Box>
           ))}
