@@ -4,23 +4,23 @@ import { useFormContext, useWatch } from "react-hook-form";
 import axiosInstance from "src/utils/axios";
 import useAuth from "src/hooks/useAuth";
 
-const SOGLIA_INPS = 6410;
+const SOGLIA_INPS = 6410.26;
 
-const getThresholdAlert = (totale) => {
+const getThresholdAlert = (totale, residuo) => {
   if (totale < 5000) return null;
   if (totale <= 6000)
     return {
       severity: "info",
-      text: "Hai gi\u00E0 percepito \u20AC" + totale.toFixed(2) + " lordi quest'anno. Ti stai avvicinando alla soglia INPS di \u20AC6.410.",
+      text: "Hai gi\u00E0 percepito \u20AC" + totale.toFixed(2) + " lordi quest'anno. Ti stai avvicinando alla soglia INPS di \u20AC6.410,26.",
     };
-  if (totale <= SOGLIA_INPS)
+  if (totale < SOGLIA_INPS)
     return {
       severity: "warning",
-      text: "Attenzione: hai gi\u00E0 percepito \u20AC" + totale.toFixed(2) + " su \u20AC6.410 lordi annui. Superata la soglia, scattano i contributi INPS.",
+      text: "Attenzione: hai percepito \u20AC" + totale.toFixed(2) + " su \u20AC6.410,26 lordi annui. Residuo richiedibile senza P.IVA: \u20AC" + (residuo || 0).toFixed(2) + ".",
     };
   return {
     severity: "error",
-    text: "Hai superato la soglia annua di \u20AC6.410. I contributi INPS si applicano sull'eccedenza. Valuta l'apertura di Partita IVA.",
+    text: "Hai raggiunto la soglia annua di \u20AC6.410,26. Per ricevere ulteriori payout devi aprire Partita IVA. L'importo richiesto resta nel wallet.",
   };
 };
 
@@ -31,6 +31,7 @@ const FiscalePreview = () => {
   const [calcolo, setCalcolo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [totaleLordo, setTotaleLordo] = useState(0);
+  const [residuoSoglia, setResiduoSoglia] = useState(SOGLIA_INPS);
   const [hasTotaleData, setHasTotaleData] = useState(false);
   const debounceRef = useRef(null);
 
@@ -44,6 +45,8 @@ const FiscalePreview = () => {
         const res = await axiosInstance.get("api/wp/payout/totale-annuo");
         if (!cancelled) {
           setTotaleLordo(parseFloat(res.data?.data?.totale_lordo) || 0);
+          const r = res.data?.data?.residuo_soglia;
+          if (r !== null && r !== undefined) setResiduoSoglia(parseFloat(r));
           setHasTotaleData(true);
         }
       } catch { if (!cancelled) setHasTotaleData(false); }
@@ -91,7 +94,21 @@ const FiscalePreview = () => {
   }
 
   const parsed = parseFloat(amount) || 0;
-  if (parsed <= 0) return null;
+
+  // Banner sempre visibile (anche prima di digitare amount) se utente non-P.IVA si avvicina/supera soglia
+  const baseAlert = hasTotaleData ? getThresholdAlert(totaleLordo, residuoSoglia) : null;
+  const willCap = parsed > 0 && residuoSoglia > 0 && parsed > residuoSoglia;
+  const blockedTotal = hasTotaleData && residuoSoglia <= 0;
+
+  if (parsed <= 0) {
+    // Mostra solo il banner soglia se rilevante, altrimenti niente
+    if (!baseAlert) return null;
+    return (
+      <Box sx={{ backgroundColor: "#FAF6EF", border: "1px solid #E8DDCA", borderRadius: 2, p: 2, mt: 1 }}>
+        <Alert severity={baseAlert.severity}>{baseAlert.text}</Alert>
+      </Box>
+    );
+  }
 
   if (loading) {
     return (
@@ -103,7 +120,7 @@ const FiscalePreview = () => {
 
   if (!calcolo) return null;
 
-  const alert = hasTotaleData ? getThresholdAlert(totaleLordo) : null;
+  const alert = baseAlert;
 
   const rows = [
     { label: "Imponibile (78%)", value: calcolo.imponibile },
@@ -130,6 +147,18 @@ const FiscalePreview = () => {
     <Box sx={{ backgroundColor: "#FAF6EF", border: "1px solid #E8DDCA", borderRadius: 2, p: 2, mt: 1 }}>
       {alert && (
         <Alert severity={alert.severity} sx={{ mb: 2 }}>{alert.text}</Alert>
+      )}
+
+      {blockedTotal && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          Hai raggiunto la soglia annua di €6.410,26. La richiesta verrà rifiutata: apri Partita IVA per ricevere altri payout.
+        </Alert>
+      )}
+
+      {willCap && !blockedTotal && (
+        <Alert severity="warning" sx={{ mb: 2 }}>
+          <strong>Cap automatico al residuo soglia:</strong> verrai pagato solo €{residuoSoglia.toFixed(2)} (residuo INPS). I restanti €{(parsed - residuoSoglia).toFixed(2)} resteranno nel wallet finché non apri Partita IVA.
+        </Alert>
       )}
 
       {rows.map(({ label, value, deduction, highlight, note }) => (

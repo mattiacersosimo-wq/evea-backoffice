@@ -21,6 +21,7 @@ import FounderPill from "src/components/FounderPill";
 import useFounderStatus from "src/hooks/useFounderStatus";
 import useOnboardingStatus from "src/hooks/useOnboardingStatus";
 import CopyCouponButton from "src/components/CopyCouponButton";
+import FiscalThresholdBanner from "src/components/FiscalThresholdBanner";
 
 // ═══════════════════════════════════════
 // PALETTE EVEA
@@ -1626,6 +1627,7 @@ const PromoterDashboard = () => {
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4, mx: { xs: -2, md: -3 }, mt: -2, pt: 2, bgcolor: "#f5f5f5", minHeight: "100vh" }}>
         <Stack spacing={2}>
           <HeroCard />
+          <FiscalThresholdBanner />
           <FounderCountdown />
           <CommunityBanner />
           <OnboardingBanner />
