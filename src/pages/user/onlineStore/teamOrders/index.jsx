@@ -3,7 +3,9 @@ import {
   Card,
   Chip,
   Dialog,
+  DialogContent,
   DialogTitle,
+  Divider,
   IconButton,
   MenuItem,
   Stack,
@@ -69,6 +71,8 @@ const TeamOrders = () => {
   const handleCloseMenu = () => setOpenMenuActions(null);
 
   const [openCombo, setOpenCombo] = useState(false);
+  const [orderDetail, setOrderDetail] = useState(null); // {row, products}
+  const closeOrderDetail = () => setOrderDetail(null);
   const { state, fetchData, rowStart, ...rest } = useMyOrders();
   const { data, ...dataProps } = state;
 
@@ -116,13 +120,36 @@ const TeamOrders = () => {
                       <Typography sx={{ fontSize: "0.82rem", fontWeight: 600, color: ESPRESSO }}>{row.user?.username}</Typography>
                     </TableCell>
                     <TableCell>
-                      <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Ternary
-                          when={row?.purchase_type === "coupon_purchase"}
-                          then={isIt ? "Acquisto Coupon" : "Coupon Purchase"}
-                          otherwise={row?.user_purchase_products[0]?.product?.name}
-                        />
-                      </Box>
+                      {(() => {
+                        if (row?.purchase_type === "coupon_purchase") {
+                          return <span>{isIt ? "Acquisto Coupon" : "Coupon Purchase"}</span>;
+                        }
+                        const items = row?.user_purchase_products || [];
+                        const first = items[0]?.product?.name || "—";
+                        const firstQty = items[0]?.quantity || items[0]?.qty || 1;
+                        const extraCount = items.length - 1;
+                        return (
+                          <Stack direction="row" alignItems="center" spacing={0.8}>
+                            <Typography sx={{ fontSize: "0.82rem", color: ESPRESSO }}>
+                              {first}{firstQty > 1 ? ` × ${firstQty}` : ""}
+                            </Typography>
+                            {extraCount > 0 && (
+                              <Chip
+                                label={`+${extraCount} ${isIt ? "altri" : "more"}`}
+                                size="small"
+                                onClick={() => setOrderDetail({ row, items })}
+                                sx={{
+                                  height: 20, fontSize: "0.65rem", fontWeight: 700,
+                                  bgcolor: alpha(ORO, 0.15), color: ORO,
+                                  border: `1px solid ${alpha(ORO, 0.4)}`,
+                                  cursor: "pointer",
+                                  "&:hover": { bgcolor: alpha(ORO, 0.25) },
+                                }}
+                              />
+                            )}
+                          </Stack>
+                        );
+                      })()}
                     </TableCell>
                     <TableCell>{row.total_cv}</TableCell>
                     <TableCell>{row.total_qv}</TableCell>
@@ -154,6 +181,57 @@ const TeamOrders = () => {
 
         <Dialog open={openCombo} onClose={() => setOpenCombo(false)} TransitionComponent={Transition}>
           <DialogTitle>{isIt ? "Dettaglio Combo" : "Combo Details"}</DialogTitle>
+        </Dialog>
+
+        {/* Dialog dettaglio multi-prodotto ordine team */}
+        <Dialog open={Boolean(orderDetail)} onClose={closeOrderDetail} maxWidth="sm" fullWidth TransitionComponent={Transition}>
+          <DialogTitle sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #f0ece6" }}>
+            <Box>
+              <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: ESPRESSO }}>
+                {isIt ? "Prodotti dell'ordine" : "Order products"}
+              </Typography>
+              <Typography sx={{ fontSize: "0.72rem", color: MUTED }}>
+                {orderDetail?.row?.user?.username} · <ParseDate date={orderDetail?.row?.date} />
+              </Typography>
+            </Box>
+            <IconButton onClick={closeOrderDetail} size="small"><Iconify icon="mdi:close" /></IconButton>
+          </DialogTitle>
+          <DialogContent sx={{ py: 2 }}>
+            <Stack spacing={1} sx={{ mt: 1 }}>
+              {(orderDetail?.items || []).map((it, idx) => {
+                const qty = it?.quantity || it?.qty || 1;
+                const unit = Number(it?.actual_price || it?.price || 0);
+                const total = Number(it?.total || (unit * qty) || 0);
+                return (
+                  <Box key={idx} sx={{ p: 1.5, borderRadius: 2, border: `1px solid ${alpha(ORO, 0.15)}`, bgcolor: alpha(ORO, 0.03) }}>
+                    <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+                      <Box sx={{ flex: 1 }}>
+                        <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: ESPRESSO }}>
+                          {it?.product?.name || "—"}
+                        </Typography>
+                        <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>
+                          {isIt ? "Quantità" : "Qty"}: <strong>{qty}</strong>
+                          {unit > 0 && (<> · {isIt ? "Prezzo unitario" : "Unit price"}: <Currency>{unit}</Currency></>)}
+                        </Typography>
+                      </Box>
+                      {total > 0 && (
+                        <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ORO }}>
+                          <Currency>{total}</Currency>
+                        </Typography>
+                      )}
+                    </Stack>
+                  </Box>
+                );
+              })}
+            </Stack>
+            <Divider sx={{ my: 2 }} />
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
+              <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>{isIt ? "Totale ordine" : "Order total"}</Typography>
+              <Typography sx={{ fontSize: "1rem", fontWeight: 800, color: ESPRESSO }}>
+                <Currency>{orderDetail?.row?.total_amount || 0}</Currency>
+              </Typography>
+            </Stack>
+          </DialogContent>
         </Dialog>
       </Box>
     </Page>
