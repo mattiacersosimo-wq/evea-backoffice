@@ -124,14 +124,29 @@ const TeamOrders = () => {
                         if (row?.purchase_type === "coupon_purchase") {
                           return <span>{isIt ? "Acquisto Coupon" : "Coupon Purchase"}</span>;
                         }
-                        const items = row?.user_purchase_products || [];
-                        const first = items[0]?.product?.name || "—";
-                        const firstQty = items[0]?.quantity || items[0]?.qty || 1;
+                        // Usa cart_details (ha quantity reale) come fonte primaria.
+                        // Fallback su user_purchase_products se cart_details non c'e.
+                        const cart = row?.user_payment?.cart_details || [];
+                        const items = cart.length > 0
+                          ? cart.map((c) => ({
+                              name: c?.product?.name || "—",
+                              qty: Number(c?.quantity || 1),
+                              unit: Number(c?.actual_price || 0),
+                              total: Number(c?.product_total || c?.price || 0),
+                            }))
+                          : (row?.user_purchase_products || []).map((p) => ({
+                              name: p?.product?.name || "—",
+                              qty: 1,
+                              unit: Number(p?.price || 0),
+                              total: Number(p?.price || 0),
+                            }));
+                        const first = items[0];
                         const extraCount = items.length - 1;
+                        if (!first) return <span>—</span>;
                         return (
                           <Stack direction="row" alignItems="center" spacing={0.8}>
                             <Typography sx={{ fontSize: "0.82rem", color: ESPRESSO }}>
-                              {first}{firstQty > 1 ? ` × ${firstQty}` : ""}
+                              {first.name}{first.qty > 1 ? ` × ${first.qty}` : ""}
                             </Typography>
                             {extraCount > 0 && (
                               <Chip
@@ -198,31 +213,26 @@ const TeamOrders = () => {
           </DialogTitle>
           <DialogContent sx={{ py: 2 }}>
             <Stack spacing={1} sx={{ mt: 1 }}>
-              {(orderDetail?.items || []).map((it, idx) => {
-                const qty = it?.quantity || it?.qty || 1;
-                const unit = Number(it?.actual_price || it?.price || 0);
-                const total = Number(it?.total || (unit * qty) || 0);
-                return (
-                  <Box key={idx} sx={{ p: 1.5, borderRadius: 2, border: `1px solid ${alpha(ORO, 0.15)}`, bgcolor: alpha(ORO, 0.03) }}>
-                    <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
-                      <Box sx={{ flex: 1 }}>
-                        <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: ESPRESSO }}>
-                          {it?.product?.name || "—"}
-                        </Typography>
-                        <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>
-                          {isIt ? "Quantità" : "Qty"}: <strong>{qty}</strong>
-                          {unit > 0 && (<> · {isIt ? "Prezzo unitario" : "Unit price"}: <Currency>{unit}</Currency></>)}
-                        </Typography>
-                      </Box>
-                      {total > 0 && (
-                        <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ORO }}>
-                          <Currency>{total}</Currency>
-                        </Typography>
-                      )}
-                    </Stack>
-                  </Box>
-                );
-              })}
+              {(orderDetail?.items || []).map((it, idx) => (
+                <Box key={idx} sx={{ p: 1.5, borderRadius: 2, border: `1px solid ${alpha(ORO, 0.15)}`, bgcolor: alpha(ORO, 0.03) }}>
+                  <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+                    <Box sx={{ flex: 1 }}>
+                      <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: ESPRESSO }}>
+                        {it.name}
+                      </Typography>
+                      <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>
+                        {isIt ? "Quantità" : "Qty"}: <strong>{it.qty}</strong>
+                        {it.unit > 0 && (<> · {isIt ? "Prezzo unitario" : "Unit price"}: <Currency>{it.unit}</Currency></>)}
+                      </Typography>
+                    </Box>
+                    {it.total > 0 && (
+                      <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ORO }}>
+                        <Currency>{it.total}</Currency>
+                      </Typography>
+                    )}
+                  </Stack>
+                </Box>
+              ))}
             </Stack>
             <Divider sx={{ my: 2 }} />
             <Stack direction="row" justifyContent="space-between" alignItems="center">
