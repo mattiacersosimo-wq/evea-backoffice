@@ -315,8 +315,18 @@ const HeroCard = () => {
           {[
             { icon: "mdi:wallet-outline", label: t("evea.wallet"), value: `€${Number(hero?.wallet || 0).toFixed(2)}` },
             { icon: "mdi:chart-bar", label: "PQV", value: hero?.pqv_mese || hero?.qv_mese || 0 },
-            { icon: "mdi:account-group-outline", label: t("evea.clients"), value: hero?.clienti_diretti || 0 },
-            { icon: "mdi:account-tie-outline", label: t("evea.team"), value: hero?.team_promoter || 0 },
+            {
+              icon: "mdi:account-group-outline",
+              label: t("evea.clients"),
+              value: `${hero?.clienti_diretti ?? 0} / ${hero?.clienti_rete ?? 0}`,
+              caption: "diretti / rete",
+            },
+            {
+              icon: "mdi:account-tie-outline",
+              label: t("evea.team"),
+              value: `${hero?.team_promoter ?? 0} / ${hero?.team_rete ?? 0}`,
+              caption: "diretti / rete",
+            },
           ].map((m) => (
             <Box key={m.label} sx={{
               flex: "1 1 0", minWidth: 80,
@@ -333,6 +343,9 @@ const HeroCard = () => {
               <Iconify icon={m.icon} width={18} sx={{ color: ORO, mb: 0.3 }} />
               <Typography sx={{ fontSize: "1rem", fontWeight: 800 }}>{m.value}</Typography>
               <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C", fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.3 }}>{m.label}</Typography>
+              {m.caption && (
+                <Typography sx={{ fontSize: "0.55rem", color: "#9E8E80", fontStyle: "italic", mt: 0.1 }}>{m.caption}</Typography>
+              )}
             </Box>
           ))}
         </Stack>
