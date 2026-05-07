@@ -17,7 +17,6 @@ const DataList = ({ payout, rowNumber }) => {
           : "—"}
       </TableCell>
       <TableCell>{payout?.status ? capitalCase(payout.status) : "—"}</TableCell>
-      <TableCell>{payout?.user_coin_address?.address || "—"}</TableCell>
       <TableCell>
         <Currency>{payout?.amount}</Currency>
       </TableCell>
@@ -27,7 +26,6 @@ const DataList = ({ payout, rowNumber }) => {
       <TableCell>
         <Currency>{payout?.released_amount}</Currency>
       </TableCell>
-      <TableCell>{payout?.available_coin?.name || "—"}</TableCell>
       <TableCell>
         <ParseDate date={payout?.created_at} />
       </TableCell>

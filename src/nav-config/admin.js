@@ -487,7 +487,7 @@ const adminNavConfig = [
             placement: 6,
           },
           {
-            title: "nav.reports.top",
+            title: "Leaderboard",
             parent: "nav.reports.title",
             path: PATH_DASHBOARD.report.top_earners,
             placement: 7,

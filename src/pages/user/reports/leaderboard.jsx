@@ -13,7 +13,7 @@ const formatValue = (item) => {
   if (item.total_gv != null) return `${Number(item.total_gv).toFixed(0)} GV`;
   if (item.total_recruited != null) return `${item.total_recruited}`;
   if (item.rank_name != null) return item.rank_name;
-  if (item.total_earned != null) return `€${Number(item.total_earned).toFixed(0)}`;
+  if (item.total_earned != null) return `€${Number(item.total_earned).toFixed(2)}`;
   return "";
 };
 
@@ -129,9 +129,11 @@ const TAB_CONFIG = [
   { scope: "global", kind: "gv", dataKey: "top_gv" },
   { scope: "global", kind: "recruiters", dataKey: "top_recruiters" },
   { scope: "global", kind: "achievers", dataKey: "top_achievers" },
+  { scope: "global", kind: "commissions", dataKey: "top_commissions" },
   { scope: "team", kind: "gv", dataKey: "team_gv" },
   { scope: "team", kind: "recruiters", dataKey: "team_recruiters" },
   { scope: "team", kind: "achievers", dataKey: "team_achievers" },
+  { scope: "team", kind: "commissions", dataKey: "team_commissions" },
 ];
 
 const LeaderboardContent = ({ data, tab, setTab, isIt }) => {
@@ -139,23 +141,25 @@ const LeaderboardContent = ({ data, tab, setTab, isIt }) => {
   const items = data?.[current.dataKey] || [];
 
   const tabLabels = isIt
-    ? ["GV Globale", "Reclutatori Globale", "Rank Up Globale", "GV Team", "Reclutatori Team", "Rank Up Team"]
-    : ["GV Global", "Recruiters Global", "Rank Up Global", "GV Team", "Recruiters Team", "Rank Up Team"];
+    ? ["GV Globale", "Reclutatori Globale", "Rank Up Globale", "Commissioni Globale",
+       "GV Team", "Reclutatori Team", "Rank Up Team", "Commissioni Team"]
+    : ["GV Global", "Recruiters Global", "Rank Up Global", "Commissions Global",
+       "GV Team", "Recruiters Team", "Rank Up Team", "Commissions Team"];
 
   const cardTitles = isIt
-    ? ["Classifica GV — Globale", "Classifica Reclutatori — Globale", "Classifica Rank Up — Globale",
-       "Classifica GV — Team", "Classifica Reclutatori — Team", "Classifica Rank Up — Team"]
-    : ["GV Ranking — Global", "Recruiters Ranking — Global", "Rank Up Ranking — Global",
-       "GV Ranking — Team", "Recruiters Ranking — Team", "Rank Up Ranking — Team"];
+    ? ["Classifica GV — Globale", "Classifica Reclutatori — Globale", "Classifica Rank Up — Globale", "Classifica Commissioni — Globale",
+       "Classifica GV — Team", "Classifica Reclutatori — Team", "Classifica Rank Up — Team", "Classifica Commissioni — Team"]
+    : ["GV Ranking — Global", "Recruiters Ranking — Global", "Rank Up Ranking — Global", "Commissions Ranking — Global",
+       "GV Ranking — Team", "Recruiters Ranking — Team", "Rank Up Ranking — Team", "Commissions Ranking — Team"];
 
-  const cardIcons = ["mdi:chart-box", "mdi:account-multiple-plus", "mdi:medal",
-                     "mdi:chart-box", "mdi:account-multiple-plus", "mdi:medal"];
+  const cardIcons = ["mdi:chart-box", "mdi:account-multiple-plus", "mdi:medal", "mdi:cash-multiple",
+                     "mdi:chart-box", "mdi:account-multiple-plus", "mdi:medal", "mdi:cash-multiple"];
 
   const emptyTexts = isIt
-    ? ["Nessun GV questo mese", "Nessun reclutamento questo mese", "Nessun rank up questo mese",
-       "Nessun GV dal tuo team", "Nessun reclutamento dal team", "Nessun rank up nel team"]
-    : ["No GV this month", "No recruits this month", "No rank ups this month",
-       "No team GV", "No team recruits", "No team rank ups"];
+    ? ["Nessun GV questo mese", "Nessun reclutamento questo mese", "Nessun rank up questo mese", "Nessuna commissione questo mese",
+       "Nessun GV dal tuo team", "Nessun reclutamento dal team", "Nessun rank up nel team", "Nessuna commissione dal team"]
+    : ["No GV this month", "No recruits this month", "No rank ups this month", "No commissions this month",
+       "No team GV", "No team recruits", "No team rank ups", "No team commissions"];
 
   // "La tua posizione" solo per scope globale
   const myPos = current.scope === "global" ? data?.my_positions?.[current.kind] : null;
@@ -167,12 +171,13 @@ const LeaderboardContent = ({ data, tab, setTab, isIt }) => {
     if (myPos.unit === "gv") return <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ESPRESSO }}>{Number(myPos.value).toFixed(0)} GV</Typography>;
     if (myPos.unit === "count") return <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ESPRESSO }}>{myPos.value}</Typography>;
     if (myPos.unit === "rank") return <Typography sx={{ fontSize: "1.1rem", fontWeight: 700, color: ESPRESSO }}>{myPos.value}</Typography>;
+    if (myPos.unit === "eur") return <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ESPRESSO }}>€{Number(myPos.value).toFixed(2)}</Typography>;
     return <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ESPRESSO }}>{myPos.value}</Typography>;
   };
 
   const valueLabels = isIt
-    ? { gv: "GV nel periodo", recruiters: "reclutati", achievers: "rank top" }
-    : { gv: "GV in period", recruiters: "recruits", achievers: "top rank" };
+    ? { gv: "GV nel periodo", recruiters: "reclutati", achievers: "rank top", commissions: "commissioni" }
+    : { gv: "GV in period", recruiters: "recruits", achievers: "top rank", commissions: "commissions" };
 
   return (
     <Stack spacing={2}>

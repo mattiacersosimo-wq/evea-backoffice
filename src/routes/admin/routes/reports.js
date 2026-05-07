@@ -28,7 +28,7 @@ const IncomeReport = Loadable(
 );
 
 const TopEarnersReport = Loadable(
-  lazy(() => import("src/pages/admin/reports/top-earners/index"))
+  lazy(() => import("src/pages/admin/reports/leaderboard/index"))
 );
 
 const reports = [
@@ -99,8 +99,8 @@ const reports = [
         path: "earners",
         element: (
           <TopEarnersReport
-            title="settings.reports.top_earners"
-            heading="settings.reports.top_earners"
+            title="Leaderboard"
+            heading="Leaderboard"
           />
         ),
       },

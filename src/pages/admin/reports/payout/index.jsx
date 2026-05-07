@@ -11,11 +11,9 @@ const headers = [
   "settings.reports.username",
   "settings.reports.fullName",
   "settings.reports.status",
-  "settings.reports.walletAddress",
   "settings.reports.requestedAmount",
   "settings.reports.adminFeeDeducted",
   "settings.reports.amountReleased",
-  "settings.reports.coin",
   "settings.reports.date",
 ];
 
