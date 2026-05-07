@@ -10,8 +10,8 @@ const DataList = ({ income, rowNumber }) => {
       <TableCell component="th" scope="row">
         {rowNumber}
       </TableCell>
-      <TableCell>{income?.user?.username}</TableCell>
-      <TableCell>{capitalCase(income?.payment_type)}</TableCell>
+      <TableCell>{income?.user?.username || "—"}</TableCell>
+      <TableCell>{income?.payment_type ? capitalCase(income.payment_type) : "—"}</TableCell>
       <TableCell>
         <Currency>{income?.total_amount}</Currency>
       </TableCell>

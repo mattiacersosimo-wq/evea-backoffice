@@ -17,9 +17,13 @@ const useReport = (uriKey, { title, heading }) => {
   const getReport = async (page = 1, filter = {}) => {
     const URI = `api/admin/${getUrl(uriKey)}`;
     actions.loading();
+    // Drop empty extra filter fields so backend can use isset/empty checks
+    const cleaned = Object.fromEntries(
+      Object.entries(filter).filter(([_, v]) => v !== "" && v !== null && v !== undefined)
+    );
     try {
       const { data, status } = await axiosInstance(URI, {
-        params: { ...filter, page },
+        params: { ...cleaned, page },
       });
       if (status === 200) {
         const { sum } = data;

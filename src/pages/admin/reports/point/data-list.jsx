@@ -9,9 +9,9 @@ const DataList = ({ point, rowNumber }) => {
       <TableCell component="th" scope="row">
         {rowNumber}
       </TableCell>
-      <TableCell>{point?.user?.username}</TableCell>
-      <TableCell>{point?.leg}</TableCell>
-      <TableCell>{point?.pv}</TableCell>
+      <TableCell>{point?.user?.username || "—"}</TableCell>
+      <TableCell>{point?.leg ?? "—"}</TableCell>
+      <TableCell>{point?.pv ?? "—"}</TableCell>
       <TableCell>
         <ParseDate date={point?.created_at} />
       </TableCell>

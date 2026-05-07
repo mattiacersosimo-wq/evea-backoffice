@@ -43,6 +43,11 @@ export const defaultReportFilter = {
   start_date: moment().startOf("month"),
   end_date: moment().endOf("month"),
   user_id: null,
+  status: "",
+  payment_type: "",
+  wallet_type: "",
+  coin_id: "",
+  bonus_type: "all",
 };
 
 const useFilter = () => {

@@ -1,6 +1,7 @@
 import { LoadingButton } from "@mui/lab";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, MenuItem, TextField, Typography } from "@mui/material";
 import { useEffect } from "react";
+import { Controller } from "react-hook-form";
 import { useOutletContext } from "react-router";
 import Iconify from "src/components/Iconify";
 import FilterBar from "src/components/filterBar";
@@ -11,11 +12,12 @@ import { defaultReportFilter } from "./hooks/use-filter";
 import Translate from "src/components/translate";
 import { Currency } from "src/components/with-prefix";
 
-const ReportFilter = ({ getReport, sum, isJoining, isPoint }) => {
+const ReportFilter = ({ getReport, sum, isJoining, isPoint, hideUserFilter, extraFilters }) => {
   const { methods } = useOutletContext();
   const {
     handleSubmit,
     formState: { isSubmitting },
+    control,
   } = methods;
 
   const onSubmit = async (inputData) => {
@@ -26,6 +28,11 @@ const ReportFilter = ({ getReport, sum, isJoining, isPoint }) => {
   useEffect(() => {
     return () => reset();
   }, []);
+
+  const extras = Array.isArray(extraFilters) ? extraFilters : [];
+  const baseCols = 2 + (hideUserFilter ? 0 : 1) + extras.length + 2;
+  const totalCols = isJoining || isPoint ? baseCols : baseCols + 1;
+
   return (
     <FilterBar>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -37,13 +44,36 @@ const ReportFilter = ({ getReport, sum, isJoining, isPoint }) => {
               rowGap: 3,
               gridTemplateColumns: {
                 xs: "repeat(1,1fr)",
-                sm: isJoining ? "repeat(5, 1fr)" : "repeat(6, 1fr)",
+                sm: `repeat(${totalCols}, 1fr)`,
               },
             }}
           >
             <RHFDatePicker label="date.start" size="small" name="start_date" />
             <RHFDatePicker label="date.end" size="small" name="end_date" />
-            <Users name="user_id" label="search.user" size="small" />
+            {!hideUserFilter && <Users name="user_id" label="search.user" size="small" />}
+
+            {extras.map((f) => (
+              <Controller
+                key={f.name}
+                name={f.name}
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    select
+                    size="small"
+                    label={f.label}
+                    value={field.value ?? (f.allValue ?? "")}
+                    SelectProps={{ displayEmpty: true }}
+                  >
+                    <MenuItem value={f.allValue ?? ""}><em>{f.allLabel || "Tutti"}</em></MenuItem>
+                    {(f.options || []).map((opt) => (
+                      <MenuItem key={opt.value} value={opt.value}>{opt.label}</MenuItem>
+                    ))}
+                  </TextField>
+                )}
+              />
+            ))}
 
             <LoadingButton
               loading={isSubmitting}
@@ -58,7 +88,7 @@ const ReportFilter = ({ getReport, sum, isJoining, isPoint }) => {
             <Button
               size="small"
               variant="outlined"
-              sx={{ height: "40px", width: "90px" }}
+              sx={{ height: "40px" }}
               onClick={() => {
                 reset();
                 getReport(1);

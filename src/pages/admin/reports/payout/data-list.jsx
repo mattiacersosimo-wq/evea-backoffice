@@ -10,12 +10,14 @@ const DataList = ({ payout, rowNumber }) => {
       <TableCell component="th" scope="row">
         {rowNumber}
       </TableCell>
-      <TableCell>{payout?.user?.username}</TableCell>
+      <TableCell>{payout?.user?.username || "—"}</TableCell>
       <TableCell>
-        {payout?.user_profile?.first_name} {payout?.user_profile?.last_name}
+        {(payout?.user_profile?.first_name || payout?.user_profile?.last_name)
+          ? `${payout?.user_profile?.first_name || ""} ${payout?.user_profile?.last_name || ""}`.trim()
+          : "—"}
       </TableCell>
-      <TableCell>{capitalCase(payout?.status)}</TableCell>
-      <TableCell>{payout?.user_coin_address?.address}</TableCell>
+      <TableCell>{payout?.status ? capitalCase(payout.status) : "—"}</TableCell>
+      <TableCell>{payout?.user_coin_address?.address || "—"}</TableCell>
       <TableCell>
         <Currency>{payout?.amount}</Currency>
       </TableCell>

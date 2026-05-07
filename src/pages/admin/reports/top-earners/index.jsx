@@ -20,7 +20,7 @@ const TopEarners = ({ title, heading }) => {
 
   return (
     <>
-      <ReportFilter getReport={getReport} sum={sum} />
+      <ReportFilter getReport={getReport} sum={sum} hideUserFilter />
       <DataHandlerTable sx={{pt:1}}
         name="topearners-table"
         headers={headers}

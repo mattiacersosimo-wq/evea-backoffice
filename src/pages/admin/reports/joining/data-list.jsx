@@ -8,9 +8,9 @@ const DataList = ({ joining, rowNumber }) => {
       <TableCell component="th" scope="row">
         {rowNumber}
       </TableCell>
-      <TableCell>{username}</TableCell>
-      <TableCell>{email}</TableCell>
-      <TableCell>{sponsor?.user?.username}</TableCell>
+      <TableCell>{username || "—"}</TableCell>
+      <TableCell>{email || "—"}</TableCell>
+      <TableCell>{sponsor?.user?.username || "—"}</TableCell>
       <TableCell>
         {" "}
         <ParseDate date={created_at} />

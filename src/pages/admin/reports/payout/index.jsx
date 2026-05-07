@@ -19,6 +19,30 @@ const headers = [
   "settings.reports.date",
 ];
 
+const PAYOUT_EXTRA_FILTERS = [
+  {
+    name: "status",
+    label: "Stato",
+    options: [
+      { value: "pending", label: "In attesa" },
+      { value: "approved", label: "Approvato" },
+      { value: "rejected", label: "Rifiutato" },
+      { value: "completed", label: "Completato" },
+      { value: "failed", label: "Fallito" },
+    ],
+  },
+  {
+    name: "coin_id",
+    label: "Coin",
+    options: [
+      { value: "1", label: "Litecoin (LTC)" },
+      { value: "2", label: "Ethereum (ETH)" },
+      { value: "3", label: "Bitcoin (BTC)" },
+      { value: "4", label: "Bitcoin Cash (BCH)" },
+    ],
+  },
+];
+
 const Payout = ({ title, heading }) => {
   const { getReport, state, rowStart, sum, ...rest } = useReport("payout", {
     title,
@@ -28,7 +52,7 @@ const Payout = ({ title, heading }) => {
 
   return (
     <>
-      <ReportFilter getReport={getReport} sum={sum} />
+      <ReportFilter getReport={getReport} sum={sum} extraFilters={PAYOUT_EXTRA_FILTERS} />
       <DataHandlerTable sx={{pt:1}}
         name="payout-table"
         headers={headers}

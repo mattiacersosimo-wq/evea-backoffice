@@ -9,8 +9,8 @@ const DataList = ({ builder, rowNumber }) => {
       <TableCell component="th" scope="row">
         {rowNumber}
       </TableCell>
-      <TableCell>{builder?.user?.username}</TableCell>
-      <TableCell>{builder?.user?.email}</TableCell>
+      <TableCell>{builder?.user?.username || "—"}</TableCell>
+      <TableCell>{builder?.user?.email || "—"}</TableCell>
       <TableCell>
         <Currency>{builder?.amount}</Currency>
       </TableCell>
