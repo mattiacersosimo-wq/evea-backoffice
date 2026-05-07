@@ -1,4 +1,4 @@
-import { Card, IconButton, TableCell, TableRow, Tooltip } from "@mui/material";
+import { Card, IconButton, TableCell, TableRow, Tooltip, Typography } from "@mui/material";
 import { capitalCase } from "change-case";
 import { useSnackbar } from "notistack";
 import Iconify from "src/components/Iconify";
@@ -26,6 +26,11 @@ const headers = [
 const DataList = ({ state, rowStart, onRefresh }) => {
     const { data, ...dataProps } = state;
     const { enqueueSnackbar } = useSnackbar();
+
+    const pageTotal = (data || []).reduce((s, r) => s + (parseFloat(r?.amount) || 0), 0);
+    const completedTotal = (data || [])
+        .filter((r) => ["completed", "approved", "paid", "complete"].includes(String(r?.status || "").toLowerCase()))
+        .reduce((s, r) => s + (parseFloat(r?.amount) || 0), 0);
 
     return (
         <>
@@ -179,6 +184,25 @@ const DataList = ({ state, rowStart, onRefresh }) => {
                                 );
                             }}
                         />
+                        {data && data.length > 0 && (
+                            <TableRow sx={{ bgcolor: "rgba(184, 150, 59, 0.08)", "& td": { borderTop: "2px solid rgba(184, 150, 59, 0.3)", borderBottom: "none", py: 1.5 } }}>
+                                <TableCell>
+                                    <Typography sx={{ fontSize: "0.75rem", color: "#7A6A5C", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                                        Totale pagina
+                                    </Typography>
+                                </TableCell>
+                                <TableCell colSpan={6}>
+                                    <Typography sx={{ fontSize: "0.95rem", fontWeight: 800, color: "#B8963B" }}>
+                                        <Currency>{pageTotal}</Currency>
+                                        {completedTotal > 0 && completedTotal !== pageTotal && (
+                                            <Typography component="span" sx={{ fontSize: "0.72rem", color: "#7A6A5C", fontWeight: 600, ml: 1.5 }}>
+                                                · di cui completati: <Currency>{completedTotal}</Currency>
+                                            </Typography>
+                                        )}
+                                    </Typography>
+                                </TableCell>
+                            </TableRow>
+                        )}
                     </DataHandlerTable>
                 </Scrollbar>
             </Card>
