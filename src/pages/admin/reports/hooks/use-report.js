@@ -6,13 +6,14 @@ import usePagination from "src/components/pagination/usePagination";
 import axiosInstance from "src/utils/axios";
 import { getUrl } from "../config";
 
-// month (1..12) + year -> start_date / end_date YYYY-MM-DD
+// month (1..12) + year -> start_date / end_date YYYY/MM/DD
+// Backend FormRequests validano date_format:Y/m/d (slash, non dash).
 const monthYearToRange = (month, year) => {
   if (!month || !year) return {};
   const m = moment().year(year).month(month - 1);
   return {
-    start_date: m.startOf("month").format("YYYY-MM-DD"),
-    end_date: m.endOf("month").format("YYYY-MM-DD"),
+    start_date: m.startOf("month").format("YYYY/MM/DD"),
+    end_date: m.endOf("month").format("YYYY/MM/DD"),
   };
 };
 
