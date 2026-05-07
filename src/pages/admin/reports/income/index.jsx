@@ -39,7 +39,7 @@ const Income = ({ title, heading }) => {
   const { getReport, state, rowStart, sum, ...rest } = useReport("income", {
     title,
     heading,
-  });
+  }, ["bonus_type"]);
   const { data, ...dataProps } = state;
 
   return (

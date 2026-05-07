@@ -16,7 +16,9 @@ const monthYearToRange = (month, year) => {
   };
 };
 
-const useReport = (uriKey, { title, heading }) => {
+const BASE_FIELDS = ["start_date", "end_date", "user_id", "page"];
+
+const useReport = (uriKey, { title, heading }, extraFields = []) => {
   const { setData, methods } = useOutletContext();
   const filter = methods.watch();
   const [report, setReport] = useState();
@@ -24,13 +26,18 @@ const useReport = (uriKey, { title, heading }) => {
   const [sum, setSum] = useState();
   const { count, onChange, page, seed, rowStart } = usePagination();
 
+  const allowed = new Set([...BASE_FIELDS, ...extraFields]);
+
   const getReport = async (page = 1, filterArg = {}) => {
     const URI = `api/admin/${getUrl(uriKey)}`;
     actions.loading();
     const { month, year, ...rest } = filterArg;
     const params = { ...rest, ...monthYearToRange(month, year), page };
+    // Whitelist by allowed fields + drop empty
     const cleaned = Object.fromEntries(
-      Object.entries(params).filter(([_, v]) => v !== "" && v !== null && v !== undefined)
+      Object.entries(params).filter(
+        ([k, v]) => allowed.has(k) && v !== "" && v !== null && v !== undefined
+      )
     );
     try {
       const { data, status } = await axiosInstance(URI, { params: cleaned });

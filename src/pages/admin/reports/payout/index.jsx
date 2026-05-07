@@ -37,7 +37,7 @@ const Payout = ({ title, heading }) => {
   const { getReport, state, rowStart, sum, ...rest } = useReport("payout", {
     title,
     heading,
-  });
+  }, ["status"]);
   const { data, ...dataProps } = state;
 
   return (
