@@ -46,7 +46,7 @@ const COLUMNS = [
   { id: "action", label: "", labelEn: "", width: 40, noSort: true },
 ];
 
-const TeamUnified = () => {
+const TeamUnified = ({ initialViewAs = null }) => {
   const { t, i18n } = useTranslation();
   const isIt = i18n.language?.startsWith("it");
   const [data, setData] = useState([]);
@@ -56,7 +56,7 @@ const TeamUnified = () => {
   const [search, setSearch] = useState("");
   const [orderBy, setOrderBy] = useState("level");
   const [order, setOrder] = useState("asc");
-  const [viewAs, setViewAs] = useState(null);
+  const [viewAs, setViewAs] = useState(initialViewAs);
   const [breadcrumb, setBreadcrumb] = useState([]);
 
   const fetchData = useCallback(async (userId) => {

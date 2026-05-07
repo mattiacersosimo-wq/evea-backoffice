@@ -25,7 +25,7 @@ const ProgressBar = ({ label, value, max, pct, color }) => (
   </Box>
 );
 
-const QualificationsReport = () => {
+const QualificationsReport = ({ initialViewAs = null }) => {
   const { t, i18n } = useTranslation();
   const isIt = i18n.resolvedLanguage === "it";
   const [data, setData] = useState(null);
@@ -34,11 +34,15 @@ const QualificationsReport = () => {
 
   useEffect(() => {
     (async () => {
-      try { const { data: r } = await axiosInstance.get("api/wp/reports/qualifications"); setData(r?.data); }
+      try {
+        const url = initialViewAs ? `api/wp/reports/qualifications?view_as=${initialViewAs}` : "api/wp/reports/qualifications";
+        const { data: r } = await axiosInstance.get(url);
+        setData(r?.data);
+      }
       catch {}
       setLoading(false);
     })();
-  }, []);
+  }, [initialViewAs]);
 
   const mvp = data?.mvp_progress || [];
   const rank = data?.rank_progress || [];

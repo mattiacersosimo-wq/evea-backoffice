@@ -43,7 +43,7 @@ const STATUS_BADGE = {
 
 const MONTHS_IT = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"];
 
-const IncomeReport = () => {
+const IncomeReport = ({ initialViewAs = null }) => {
   const { t } = useTranslation();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -59,11 +59,12 @@ const IncomeReport = () => {
       if (period === "week" && weekVal) params.week = weekVal;
       if (period === "month" && monthVal) params.month = monthVal;
       if (period === "year") params.year = yearVal;
+      if (initialViewAs) params.view_as = initialViewAs;
       const { data: r } = await axiosInstance.get("api/wp/income-report", { params });
       setData(r?.data);
     } catch { /* silent */ }
     setLoading(false);
-  }, [period, weekVal, monthVal, yearVal]);
+  }, [period, weekVal, monthVal, yearVal, initialViewAs]);
 
   useEffect(() => { fetchData(); }, [fetchData]);
 
