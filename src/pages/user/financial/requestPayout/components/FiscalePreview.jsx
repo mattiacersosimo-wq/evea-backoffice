@@ -6,21 +6,21 @@ import useAuth from "src/hooks/useAuth";
 
 const SOGLIA_INPS = 6410.26;
 
-const getThresholdAlert = (totale, residuo) => {
-  if (totale < 5000) return null;
-  if (totale <= 6000)
+const getThresholdAlert = (maturato, residuo) => {
+  if (maturato < 5000) return null;
+  if (maturato <= 6000)
     return {
       severity: "info",
-      text: "Hai gi\u00E0 percepito \u20AC" + totale.toFixed(2) + " lordi quest'anno. Ti stai avvicinando alla soglia INPS di \u20AC6.410,26.",
+      text: "Hai maturato \u20AC" + maturato.toFixed(2) + " lordi quest'anno. Ti stai avvicinando alla soglia INPS di \u20AC6.410,26.",
     };
-  if (totale < SOGLIA_INPS)
+  if (maturato < SOGLIA_INPS)
     return {
       severity: "warning",
-      text: "Attenzione: hai percepito \u20AC" + totale.toFixed(2) + " su \u20AC6.410,26 lordi annui. Residuo richiedibile senza P.IVA: \u20AC" + (residuo || 0).toFixed(2) + ".",
+      text: "Attenzione: hai maturato \u20AC" + maturato.toFixed(2) + " su \u20AC6.410,26 lordi annui. Residuo richiedibile senza P.IVA: \u20AC" + (residuo || 0).toFixed(2) + ".",
     };
   return {
     severity: "error",
-    text: "Hai raggiunto la soglia annua di \u20AC6.410,26. Per ricevere ulteriori payout devi aprire Partita IVA. L'importo richiesto resta nel wallet.",
+    text: "Hai superato la soglia annua di \u20AC6.410,26 (maturato \u20AC" + maturato.toFixed(2) + "). I prossimi prelievi senza P.IVA verranno cappati al residuo.",
   };
 };
 
@@ -30,7 +30,7 @@ const FiscalePreview = () => {
   const amount = useWatch({ control, name: "amount" });
   const [calcolo, setCalcolo] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [totaleLordo, setTotaleLordo] = useState(0);
+  const [maturatoAnno, setMaturatoAnno] = useState(0);
   const [residuoSoglia, setResiduoSoglia] = useState(SOGLIA_INPS);
   const [hasTotaleData, setHasTotaleData] = useState(false);
   const debounceRef = useRef(null);
@@ -44,8 +44,9 @@ const FiscalePreview = () => {
       try {
         const res = await axiosInstance.get("api/wp/payout/totale-annuo");
         if (!cancelled) {
-          setTotaleLordo(parseFloat(res.data?.data?.totale_lordo) || 0);
-          const r = res.data?.data?.residuo_soglia;
+          const d = res.data?.data || {};
+          setMaturatoAnno(parseFloat(d.maturato_anno ?? d.totale_lordo) || 0);
+          const r = d.residuo_soglia;
           if (r !== null && r !== undefined) setResiduoSoglia(parseFloat(r));
           setHasTotaleData(true);
         }
@@ -95,8 +96,9 @@ const FiscalePreview = () => {
 
   const parsed = parseFloat(amount) || 0;
 
-  // Banner sempre visibile (anche prima di digitare amount) se utente non-P.IVA si avvicina/supera soglia
-  const baseAlert = hasTotaleData ? getThresholdAlert(totaleLordo, residuoSoglia) : null;
+  // Banner sempre visibile (anche prima di digitare amount) se utente non-P.IVA si avvicina/supera soglia.
+  // Si basa sul maturato annuo (commissioni in wallet), non solo sui prelievi.
+  const baseAlert = hasTotaleData ? getThresholdAlert(maturatoAnno, residuoSoglia) : null;
   const willCap = parsed > 0 && residuoSoglia > 0 && parsed > residuoSoglia;
   const blockedTotal = hasTotaleData && residuoSoglia <= 0;
 
