@@ -74,7 +74,7 @@ const LeaderboardCard = ({ title, icon, items, emptyText }) => (
 const MONTHS_IT = ["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"];
 const MONTHS_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-const Leaderboard = () => {
+const Leaderboard = ({ globalOnly = false }) => {
   const { i18n } = useTranslation();
   const isIt = i18n.language?.startsWith("it");
   const MONTHS = isIt ? MONTHS_IT : MONTHS_EN;
@@ -119,7 +119,7 @@ const Leaderboard = () => {
 
       {loading && <Box sx={{ textAlign: "center", py: 6 }}><CircularProgress sx={{ color: ORO }} /></Box>}
       {!loading && !data && <Typography sx={{ color: "#aaa", textAlign: "center", py: 4 }}>{isIt ? "Nessun dato" : "No data"}</Typography>}
-      {!loading && data && <LeaderboardContent data={data} tab={tab} setTab={setTab} isIt={isIt} />}
+      {!loading && data && <LeaderboardContent data={data} tab={tab} setTab={setTab} isIt={isIt} globalOnly={globalOnly} />}
     </Stack>
   );
 };
@@ -136,30 +136,37 @@ const TAB_CONFIG = [
   { scope: "team", kind: "commissions", dataKey: "team_commissions" },
 ];
 
-const LeaderboardContent = ({ data, tab, setTab, isIt }) => {
-  const current = TAB_CONFIG[tab];
+const LeaderboardContent = ({ data, tab, setTab, isIt, globalOnly = false }) => {
+  const tabsConfig = globalOnly ? TAB_CONFIG.filter((t) => t.scope === "global") : TAB_CONFIG;
+  const safeTab = Math.min(tab, tabsConfig.length - 1);
+  const current = tabsConfig[safeTab];
   const items = data?.[current.dataKey] || [];
 
-  const tabLabels = isIt
+  const allTabLabels = isIt
     ? ["GV Globale", "Reclutatori Globale", "Rank Up Globale", "Commissioni Globale",
        "GV Team", "Reclutatori Team", "Rank Up Team", "Commissioni Team"]
     : ["GV Global", "Recruiters Global", "Rank Up Global", "Commissions Global",
        "GV Team", "Recruiters Team", "Rank Up Team", "Commissions Team"];
 
-  const cardTitles = isIt
+  const allCardTitles = isIt
     ? ["Classifica GV — Globale", "Classifica Reclutatori — Globale", "Classifica Rank Up — Globale", "Classifica Commissioni — Globale",
        "Classifica GV — Team", "Classifica Reclutatori — Team", "Classifica Rank Up — Team", "Classifica Commissioni — Team"]
     : ["GV Ranking — Global", "Recruiters Ranking — Global", "Rank Up Ranking — Global", "Commissions Ranking — Global",
        "GV Ranking — Team", "Recruiters Ranking — Team", "Rank Up Ranking — Team", "Commissions Ranking — Team"];
 
-  const cardIcons = ["mdi:chart-box", "mdi:account-multiple-plus", "mdi:medal", "mdi:cash-multiple",
-                     "mdi:chart-box", "mdi:account-multiple-plus", "mdi:medal", "mdi:cash-multiple"];
+  const allCardIcons = ["mdi:chart-box", "mdi:account-multiple-plus", "mdi:medal", "mdi:cash-multiple",
+                        "mdi:chart-box", "mdi:account-multiple-plus", "mdi:medal", "mdi:cash-multiple"];
 
-  const emptyTexts = isIt
+  const allEmptyTexts = isIt
     ? ["Nessun GV questo mese", "Nessun reclutamento questo mese", "Nessun rank up questo mese", "Nessuna commissione questo mese",
        "Nessun GV dal tuo team", "Nessun reclutamento dal team", "Nessun rank up nel team", "Nessuna commissione dal team"]
     : ["No GV this month", "No recruits this month", "No rank ups this month", "No commissions this month",
        "No team GV", "No team recruits", "No team rank ups", "No team commissions"];
+
+  const tabLabels = globalOnly ? allTabLabels.slice(0, 4) : allTabLabels;
+  const cardTitles = globalOnly ? allCardTitles.slice(0, 4) : allCardTitles;
+  const cardIcons = globalOnly ? allCardIcons.slice(0, 4) : allCardIcons;
+  const emptyTexts = globalOnly ? allEmptyTexts.slice(0, 4) : allEmptyTexts;
 
   // "La tua posizione" solo per scope globale
   const myPos = current.scope === "global" ? data?.my_positions?.[current.kind] : null;
@@ -181,8 +188,8 @@ const LeaderboardContent = ({ data, tab, setTab, isIt }) => {
 
   return (
     <Stack spacing={2}>
-      {/* My position (solo Globale) */}
-      {current.scope === "global" && (
+      {/* My position (solo Globale, e solo se NON globalOnly admin) */}
+      {!globalOnly && current.scope === "global" && (
         <Card sx={{ p: 2.5, borderRadius: 3, border: `1px solid ${alpha(ORO, 0.2)}`, bgcolor: alpha(ORO, 0.03) }}>
           <Stack direction="row" alignItems="center" justifyContent="space-between">
             <Stack direction="row" alignItems="center" spacing={2}>
