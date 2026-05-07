@@ -1,10 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
 import { useOutletContext } from "react-router";
+import moment from "moment";
 import useDataHandler from "src/components/data-handler/hooks/use-data-handler";
 import usePagination from "src/components/pagination/usePagination";
 import axiosInstance from "src/utils/axios";
 import { getUrl } from "../config";
-import serializeDate from "src/utils/serialize-date";
+
+// month (1..12) + year -> start_date / end_date YYYY-MM-DD
+const monthYearToRange = (month, year) => {
+  if (!month || !year) return {};
+  const m = moment().year(year).month(month - 1);
+  return {
+    start_date: m.startOf("month").format("YYYY-MM-DD"),
+    end_date: m.endOf("month").format("YYYY-MM-DD"),
+  };
+};
 
 const useReport = (uriKey, { title, heading }) => {
   const { setData, methods } = useOutletContext();
@@ -14,17 +24,16 @@ const useReport = (uriKey, { title, heading }) => {
   const [sum, setSum] = useState();
   const { count, onChange, page, seed, rowStart } = usePagination();
 
-  const getReport = async (page = 1, filter = {}) => {
+  const getReport = async (page = 1, filterArg = {}) => {
     const URI = `api/admin/${getUrl(uriKey)}`;
     actions.loading();
-    // Drop empty extra filter fields so backend can use isset/empty checks
+    const { month, year, ...rest } = filterArg;
+    const params = { ...rest, ...monthYearToRange(month, year), page };
     const cleaned = Object.fromEntries(
-      Object.entries(filter).filter(([_, v]) => v !== "" && v !== null && v !== undefined)
+      Object.entries(params).filter(([_, v]) => v !== "" && v !== null && v !== undefined)
     );
     try {
-      const { data, status } = await axiosInstance(URI, {
-        params: { ...cleaned, page },
-      });
+      const { data, status } = await axiosInstance(URI, { params: cleaned });
       if (status === 200) {
         const { sum } = data;
         setSum(sum);
@@ -46,12 +55,8 @@ const useReport = (uriKey, { title, heading }) => {
   }, [title, heading, uriKey]);
 
   useEffect(() => {
-    const { start_date, end_date, ...rest } = filter;
-    getReport(page, {
-      start_date: serializeDate(start_date),
-      end_date: serializeDate(end_date),
-      ...rest,
-    });
+    getReport(page, filter);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   return { state, report, getReport, count, onChange, page, rowStart, sum };

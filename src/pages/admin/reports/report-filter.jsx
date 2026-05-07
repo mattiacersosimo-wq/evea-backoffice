@@ -6,11 +6,28 @@ import { useOutletContext } from "react-router";
 import Iconify from "src/components/Iconify";
 import FilterBar from "src/components/filterBar";
 import { FormProvider } from "src/components/hook-form";
-import RHFDatePicker from "src/components/hook-form/RHFDatePicker";
 import Users from "src/components/users";
 import { defaultReportFilter } from "./hooks/use-filter";
 import Translate from "src/components/translate";
 import { Currency } from "src/components/with-prefix";
+
+const MONTHS = [
+  { value: 1, label: "Gennaio" },
+  { value: 2, label: "Febbraio" },
+  { value: 3, label: "Marzo" },
+  { value: 4, label: "Aprile" },
+  { value: 5, label: "Maggio" },
+  { value: 6, label: "Giugno" },
+  { value: 7, label: "Luglio" },
+  { value: 8, label: "Agosto" },
+  { value: 9, label: "Settembre" },
+  { value: 10, label: "Ottobre" },
+  { value: 11, label: "Novembre" },
+  { value: 12, label: "Dicembre" },
+];
+
+const CURRENT_YEAR = new Date().getFullYear();
+const YEARS = Array.from({ length: 6 }, (_, i) => CURRENT_YEAR - i); // current + 5 anni indietro
 
 const ReportFilter = ({ getReport, sum, isJoining, isPoint, hideUserFilter, extraFilters }) => {
   const { methods } = useOutletContext();
@@ -48,8 +65,40 @@ const ReportFilter = ({ getReport, sum, isJoining, isPoint, hideUserFilter, extr
               },
             }}
           >
-            <RHFDatePicker label="date.start" size="small" name="start_date" />
-            <RHFDatePicker label="date.end" size="small" name="end_date" />
+            <Controller
+              name="month"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  select
+                  size="small"
+                  label="Mese"
+                  value={field.value ?? ""}
+                >
+                  {MONTHS.map((m) => (
+                    <MenuItem key={m.value} value={m.value}>{m.label}</MenuItem>
+                  ))}
+                </TextField>
+              )}
+            />
+            <Controller
+              name="year"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  select
+                  size="small"
+                  label="Anno"
+                  value={field.value ?? ""}
+                >
+                  {YEARS.map((y) => (
+                    <MenuItem key={y} value={y}>{y}</MenuItem>
+                  ))}
+                </TextField>
+              )}
+            />
             {!hideUserFilter && <Users name="user_id" label="search.user" size="small" />}
 
             {extras.map((f) => (

@@ -31,16 +31,6 @@ const PAYOUT_EXTRA_FILTERS = [
       { value: "failed", label: "Fallito" },
     ],
   },
-  {
-    name: "coin_id",
-    label: "Coin",
-    options: [
-      { value: "1", label: "Litecoin (LTC)" },
-      { value: "2", label: "Ethereum (ETH)" },
-      { value: "3", label: "Bitcoin (BTC)" },
-      { value: "4", label: "Bitcoin Cash (BCH)" },
-    ],
-  },
 ];
 
 const Payout = ({ title, heading }) => {

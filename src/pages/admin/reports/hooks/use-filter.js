@@ -1,52 +1,20 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import moment from "moment";
 import { useForm } from "react-hook-form";
-import serializeDate from "src/utils/serialize-date";
-import { object, string } from "yup";
+import { number, object } from "yup";
 
 const schema = object().shape({
-  start_date: string()
-    .test("is-valid", "errors.date.valid_date.test", (v) => {
-      if (v === null) return true;
-      return moment(v, "YYYY/MM/DD").isValid();
-    })
-    .test("is-valid", "errors.date.valid_start.test", (v, ctx) => {
-      if (v === null) return true;
-      if (ctx.parent.end_date === null) return true;
-      return (
-        moment(ctx.parent.end_date, "YYYY/MM/DD").diff(
-          moment(v, "YYYY/MM/DD")
-        ) > 0
-      );
-    })
-    .transform((v) => serializeDate(v))
-    .nullable(),
-  end_date: string()
-    .test("is-valid", "errors.date.valid_date.test", (v) => {
-      if (v === null) return true;
-      return moment(v, "YYYY/MM/DD").isValid();
-    })
-    .test("is-valid", "errors.date.valid_end.test", (v, ctx) => {
-      if (v === null) return true;
-      if (ctx.parent.start_date === null) return true;
-      return (
-        moment(ctx.parent.start_date, "YYYY/MM/DD").diff(
-          moment(v, "YYYY/MM/DD")
-        ) < 0
-      );
-    })
-    .transform((v) => serializeDate(v))
-    .nullable(),
+  month: number().nullable(),
+  year: number().nullable(),
 });
 
 export const defaultReportFilter = {
-  start_date: moment().startOf("month"),
-  end_date: moment().endOf("month"),
+  month: moment().month() + 1, // 1..12
+  year: moment().year(),
   user_id: null,
   status: "",
   payment_type: "",
   wallet_type: "",
-  coin_id: "",
   bonus_type: "all",
 };
 
