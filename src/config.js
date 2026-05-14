@@ -9,7 +9,7 @@ export const AUTH_INFO = {
 export const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 export const IS_DEV_MODE = process.env.REACT_APP_DEV_MODE === "TRUE";
 export const PLAN_NAME = process.env.REACT_APP_PLAN_NAME;
-export const PROJECT_NAME = process.env.REACT_APP_PROJECT_NAME || "Cloud-MLM";
+export const PROJECT_NAME = process.env.REACT_APP_PROJECT_NAME || "EVEA";
 export const ADOBE_ID = process.env.REACT_APP_ADOBE_ID;
 export const STRIPE_PK = process.env.REACT_APP_STRIPE_PK || "";
 export const DEFAULT_FALLBACK_IMAGE = "https://placehold.co/600x400";

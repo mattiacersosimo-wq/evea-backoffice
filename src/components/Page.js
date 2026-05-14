@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { PROJECT_NAME } from "src/config";
 
 const Page = forwardRef(({ children, title = "", meta, ...other }, ref) => {
-    const favicon = localStorage.getItem("favicon");
+    const favicon = localStorage.getItem("favicon") || "/pwa-icon-192.png";
     const { t } = useTranslation();
     return (
         <>

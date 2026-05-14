@@ -6,12 +6,27 @@ export default function CommunityBanner() {
 
   const handleJoin = async () => {
     setLoading(true);
+    // Apriamo subito una scheda vuota per non far scattare il popup blocker:
+    // window.open dopo await viene considerato non user-initiated.
+    const win = window.open("about:blank", "_blank");
     try {
       const { data } = await axiosInstance.get("api/community/sso");
-      window.location.href = data?.url || "https://community.myevea.com";
+      const url = data?.url || "https://community.myevea.com";
+      if (win && !win.closed) {
+        win.opener = null;
+        win.location.href = url;
+      } else {
+        window.location.href = url;
+      }
     } catch (e) {
-      /* console.error */ // ("SSO error:", e);
-      window.location.href = "https://community.myevea.com";
+      if (win && !win.closed) {
+        win.opener = null;
+        win.location.href = "https://community.myevea.com";
+      } else {
+        window.location.href = "https://community.myevea.com";
+      }
+    } finally {
+      setLoading(false);
     }
   };
 

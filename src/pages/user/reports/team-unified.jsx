@@ -46,10 +46,16 @@ const COLUMNS = [
   { id: "action", label: "", labelEn: "", width: 40, noSort: true },
 ];
 
+const MONTHS_IT = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"];
+const MONTHS_EN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 const TeamUnified = ({ initialViewAs = null }) => {
   const { t, i18n } = useTranslation();
   const isIt = i18n.language?.startsWith("it");
+  const monthNames = isIt ? MONTHS_IT : MONTHS_EN;
+  const today = new Date();
   const [data, setData] = useState([]);
+  const [rootTotals, setRootTotals] = useState(null);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
   const [levelFilter, setLevelFilter] = useState("all");
@@ -58,19 +64,27 @@ const TeamUnified = ({ initialViewAs = null }) => {
   const [order, setOrder] = useState("asc");
   const [viewAs, setViewAs] = useState(initialViewAs);
   const [breadcrumb, setBreadcrumb] = useState([]);
+  const [monthFilter, setMonthFilter] = useState(today.getMonth() + 1);
+  const [yearFilter, setYearFilter] = useState(today.getFullYear());
 
-  const fetchData = useCallback(async (userId) => {
+  const fetchData = useCallback(async (userId, month, year) => {
     setLoading(true);
     try {
-      const url = userId ? `api/wp/reports/team-unified?view_as=${userId}` : "api/wp/reports/team-unified";
+      const params = new URLSearchParams();
+      if (userId) params.set("view_as", String(userId));
+      if (month) params.set("month", String(month));
+      if (year) params.set("year", String(year));
+      const qs = params.toString();
+      const url = qs ? `api/wp/reports/team-unified?${qs}` : "api/wp/reports/team-unified";
       const { data: r } = await axiosInstance.get(url);
       setData(r?.data || []);
       setBreadcrumb(r?.breadcrumb || []);
+      setRootTotals(r?.root_totals || null);
     } catch (e) { /* silent */ }
     setLoading(false);
   }, []);
 
-  useEffect(() => { fetchData(viewAs); }, [viewAs, fetchData]);
+  useEffect(() => { fetchData(viewAs, monthFilter, yearFilter); }, [viewAs, monthFilter, yearFilter, fetchData]);
 
   const handleViewTeam = (userId) => {
     setViewAs(userId);
@@ -140,10 +154,12 @@ const TeamUnified = ({ initialViewAs = null }) => {
     return order === "asc" ? va - vb : vb - va;
   });
 
+  // PQV/TV/GV: usiamo i totali del "root" (utente visualizzato) per evitare
+  // double counting dovuto alla gerarchia. Revenue invece somma le righe filtrate.
   const totals = {
-    pqv: filtered.reduce((s, m) => s + (m.pqv || 0), 0),
-    tv: filtered.reduce((s, m) => s + (m.tv || 0), 0),
-    gv: filtered.reduce((s, m) => s + (m.gv || 0), 0),
+    pqv: rootTotals?.pqv ?? filtered.reduce((s, m) => s + (m.pqv || 0), 0),
+    tv: rootTotals?.tv ?? filtered.reduce((s, m) => s + (m.tv || 0), 0),
+    gv: rootTotals?.gv ?? filtered.reduce((s, m) => s + (m.gv || 0), 0),
     revenue: filtered.reduce((s, m) => s + (m.revenue || 0), 0),
   };
 
@@ -235,6 +251,14 @@ const TeamUnified = ({ initialViewAs = null }) => {
             sx={{ width: 130, "& .MuiOutlinedInput-root": { borderRadius: 2, fontSize: "0.8rem" } }}>
             <MenuItem value="all" sx={{ fontSize: "0.8rem" }}>{isIt ? "Tutti i livelli" : "All levels"}</MenuItem>
             {[1,2,3,4,5,6,7,8,9,10].map((lv) => <MenuItem key={lv} value={String(lv)} sx={{ fontSize: "0.8rem" }}>{isIt ? `Livello ${lv}` : `Level ${lv}`}</MenuItem>)}
+          </TextField>
+          <TextField select size="small" value={monthFilter} onChange={(e) => setMonthFilter(Number(e.target.value))}
+            sx={{ width: 110, "& .MuiOutlinedInput-root": { borderRadius: 2, fontSize: "0.8rem" } }}>
+            {monthNames.map((m, i) => <MenuItem key={i + 1} value={i + 1} sx={{ fontSize: "0.8rem" }}>{m}</MenuItem>)}
+          </TextField>
+          <TextField select size="small" value={yearFilter} onChange={(e) => setYearFilter(Number(e.target.value))}
+            sx={{ width: 100, "& .MuiOutlinedInput-root": { borderRadius: 2, fontSize: "0.8rem" } }}>
+            {[2024, 2025, 2026, 2027].map((y) => <MenuItem key={y} value={y} sx={{ fontSize: "0.8rem" }}>{y}</MenuItem>)}
           </TextField>
           <Box sx={{ flex: 1 }} />
           <Stack direction="row" spacing={2}>
