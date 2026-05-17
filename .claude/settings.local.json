@@ -17,7 +17,20 @@
       "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"grep 'order cancel webhook\\\\|Order status cancellation\\\\|mapped_status\\\\|refund flow\\\\|cancel flow' /home/forge/api.myevea.com/current/storage/logs/lumen-2026-03-3*.log\")",
       "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"grep '7822942634330\\\\|order cancel webhook\\\\|mapped_status\\\\|refund' /home/forge/api.myevea.com/current/storage/logs/lumen-2026-03-30.log\")",
       "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"mysql -u forge -p'Kqpseqr0K4Ucgl3pxNaa' office_db -e \\\\\"SELECT u.username, u.first_name, u.last_name FROM users u WHERE LOWER\\(u.first_name\\) LIKE '%ivan%' OR LOWER\\(u.last_name\\) LIKE '%tapia%'\\\\\"\")",
-      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"mysql -u forge -p'Kqpseqr0K4Ucgl3pxNaa' office_db -e \\\\\"DESCRIBE users\\\\\" | head -20\")"
+      "Bash(ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ubuntu@57.131.21.48 \"mysql -u forge -p'Kqpseqr0K4Ucgl3pxNaa' office_db -e \\\\\"DESCRIBE users\\\\\" | head -20\")",
+      "Bash(ssh -o BatchMode=yes -o ConnectTimeout=5 forge@api.myevea.com \"echo OK; pwd; ls /home/forge/api.myevea.com/current/ | head -5\")",
+      "Bash(ssh -o BatchMode=yes -o ConnectTimeout=5 ubuntu@57.131.21.48 \"echo OK; ls /home/forge/api.myevea.com/current/ | head -10\")",
+      "Read(//dev/**)",
+      "Bash(scp ubuntu@57.131.21.48:/home/forge/api.myevea.com/current/app/Repositories/WordpressRepository.php /c/tmp/refund-fix/)",
+      "Bash(scp ubuntu@57.131.21.48:/home/forge/api.myevea.com/current/app/Http/Controllers/HealthCheckController.php /c/tmp/refund-fix/)",
+      "Bash(scp /c/tmp/refund-fix/WordpressRepository.php ubuntu@57.131.21.48:/tmp/WordpressRepository.php)",
+      "Bash(scp /c/tmp/refund-fix/HealthCheckController.php ubuntu@57.131.21.48:/tmp/HealthCheckController.php)",
+      "Bash(scp ubuntu@57.131.21.48:/home/forge/api.myevea.com/current/app/Repositories/User/AffiliateDashboardRepository.php /c/tmp/refund-fix/AffiliateDashboardRepository.php)",
+      "Bash(scp /c/tmp/refund-fix/ReportsController.php ubuntu@57.131.21.48:/tmp/ReportsController.php)",
+      "Bash(scp ubuntu@57.131.21.48:/home/forge/api.myevea.com/current/app/Http/Controllers/ReportsController.php /c/tmp/refund-fix/ReportsController.php)",
+      "Bash(grep -n \"use App\\\\\\\\\\\\\\\\Models\\\\\\\\\\\\\\\\RankSetting\\\\|use App\\\\\\\\\\\\\\\\Models\" /c/tmp/refund-fix/ReportsController.php)",
+      "Bash(scp /c/tmp/refund-fix/audit_team.php ubuntu@57.131.21.48:/tmp/audit_team.php)",
+      "Bash(scp /c/tmp/refund-fix/audit_deep.php ubuntu@57.131.21.48:/tmp/audit_deep.php)"
     ]
   }
 }

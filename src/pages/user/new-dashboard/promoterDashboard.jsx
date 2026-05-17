@@ -1622,6 +1622,7 @@ const PromoterDashboard = () => {
   const { user } = useAuth();
   const { data: heroData } = useHero();
   const { data: couponsData, loading: couponsLoading } = useCoupons();
+  const { pre_launch_active: preLaunchActive, is_founder: isFounder } = useFounderStatus();
   return (
     <Page title="Dashboard">
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4, mx: { xs: -2, md: -3 }, mt: -2, pt: 2, bgcolor: "#f5f5f5", minHeight: "100vh" }}>
@@ -1677,7 +1678,7 @@ const PromoterDashboard = () => {
           <Section icon="mdi:cash-multiple">{t("evea.earnings")}</Section>
           <EarningsSection />
 
-          {user?.is_promoter === 1 && heroData && (() => {
+          {user?.is_promoter === 1 && heroData && !preLaunchActive && (() => {
             const pkgLevel = PACKAGE_ID_TO_LEVEL[heroData.package_id] || 0;
             const daysRemaining = heroData.upgrade_days_remaining;
             const hasKit = !!heroData.has_starter_kit || pkgLevel > 0;
@@ -1698,6 +1699,45 @@ const PromoterDashboard = () => {
               </>
             );
           })()}
+
+          {preLaunchActive && !isFounder && (
+            <>
+              <Section icon="mdi:crown">Founder Pack</Section>
+              <Card sx={{ ...cardSx, p: 2.5, border: `2px solid ${ORO}`, position: "relative", overflow: "hidden" }}>
+                <Chip
+                  label="Edizione limitata · 100 posti"
+                  size="small"
+                  sx={{ position: "absolute", top: 12, right: 12, height: 22, fontSize: "0.65rem", fontWeight: 700, bgcolor: alpha(ORO, 0.12), color: ORO }}
+                />
+                <Stack direction={{ xs: "column", md: "row" }} spacing={2.5} alignItems={{ md: "center" }}>
+                  <Box sx={{ width: 56, height: 56, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <Iconify icon="mdi:crown" width={32} sx={{ color: ORO }} />
+                  </Box>
+                  <Box sx={{ flex: 1 }}>
+                    <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color: ESPRESSO, mb: 0.3 }}>
+                      Diventa Founder EVEA
+                    </Typography>
+                    <Typography sx={{ fontSize: "0.85rem", color: MUTED, lineHeight: 1.5 }}>
+                      Pacchetto Founder esclusivo: bonus FSB, pool ricavi e coupon mensili per 12 mesi. Posti limitati a 100.
+                    </Typography>
+                    <Typography sx={{ fontSize: "0.85rem", color: ESPRESSO, fontWeight: 700, mt: 1 }}>
+                      €1.100
+                    </Typography>
+                  </Box>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    href={`${WP_URL.replace(/\/$/, "")}/products/founder-pack`}
+                    target="_blank"
+                    rel="noreferrer"
+                    sx={{ bgcolor: ORO, color: "#fff", fontWeight: 700, px: 3, py: 1.2, fontSize: "0.85rem", letterSpacing: 1, "&:hover": { bgcolor: "#A07E2F" }, flexShrink: 0 }}
+                  >
+                    Acquista Founder Pack
+                  </Button>
+                </Stack>
+              </Card>
+            </>
+          )}
 
           <SmartAlerts />
 

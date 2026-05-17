@@ -15,7 +15,7 @@ const List = () => {
             { name: "genealogy.list.title" },
           ]}
         />
-        <TeamUnified />
+        <TeamUnified isAdmin />
       </Box>
     </Page>
   );

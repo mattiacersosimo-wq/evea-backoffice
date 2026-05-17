@@ -49,7 +49,7 @@ const COLUMNS = [
 const MONTHS_IT = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"];
 const MONTHS_EN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-const TeamUnified = ({ initialViewAs = null }) => {
+const TeamUnified = ({ initialViewAs = null, isAdmin = false }) => {
   const { t, i18n } = useTranslation();
   const isIt = i18n.language?.startsWith("it");
   const monthNames = isIt ? MONTHS_IT : MONTHS_EN;
@@ -180,19 +180,22 @@ const TeamUnified = ({ initialViewAs = null }) => {
   return (
     <Stack spacing={2}>
       {/* Breadcrumb navigation */}
-      {breadcrumb.length > 1 && (
+      {breadcrumb.length >= 1 && (
         <Card sx={{ p: 1.5, borderRadius: 2, border: "1px solid #f0ece6" }}>
           <Stack direction="row" alignItems="center" spacing={1}>
             <Iconify icon="mdi:account-supervisor" width={20} sx={{ color: ORO }} />
             <Breadcrumbs separator="›" sx={{ "& .MuiBreadcrumbs-separator": { color: "#ccc" } }}>
               {breadcrumb.map((b, i) => {
                 const isLast = i === breadcrumb.length - 1;
+                const rootLabel = isAdmin
+                  ? (isIt ? "Lista admin" : "Admin list")
+                  : (isIt ? "Il mio team" : "My team");
                 return isLast ? (
                   <Typography key={b.user_id} sx={{ fontSize: "0.82rem", fontWeight: 700, color: ORO }}>{b.username}</Typography>
                 ) : (
                   <Link key={b.user_id} underline="hover" sx={{ fontSize: "0.82rem", fontWeight: 600, color: ESPRESSO, cursor: "pointer" }}
                     onClick={() => handleBreadcrumb(i === 0 ? null : b.user_id)}>
-                    {i === 0 ? (isIt ? "Il mio team" : "My team") : b.username}
+                    {i === 0 ? rootLabel : b.username}
                   </Link>
                 );
               })}
@@ -201,7 +204,7 @@ const TeamUnified = ({ initialViewAs = null }) => {
             <Button size="small" startIcon={<Iconify icon="mdi:arrow-left" width={16} />}
               onClick={() => handleBreadcrumb(null)}
               sx={{ textTransform: "none", fontSize: "0.75rem", color: ESPRESSO }}>
-              {isIt ? "Torna al mio team" : "Back to my team"}
+              {isAdmin ? (isIt ? "Torna alla lista" : "Back to list") : (isIt ? "Torna al mio team" : "Back to my team")}
             </Button>
           </Stack>
         </Card>

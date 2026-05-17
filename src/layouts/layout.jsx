@@ -117,6 +117,14 @@ const EXTRA_MENU_ITEMS = [
       placement: 21,
     },
   },
+  {
+    match: "/admin/settings",
+    item: {
+      title: "Lead Orfani",
+      path: "/admin/lead-orfani",
+      placement: 22,
+    },
+  },
 ];
 
 const injectMenuItems = (menu) => {
@@ -194,8 +202,12 @@ const filterMenu = (menu, isPromoter) => {
     if (isUserGroup && !items.some((i) => (i.path || "").includes("/user/community"))) {
       items.push({ title: "Community", path: "/user/community", icon: "/icons/ic_member_management.svg" });
     }
+    // Inject "I miei Lead" — solo lato user, posizione decisa dall'order sotto
+    if (isUserGroup && !items.some((i) => (i.path || "").includes("/user/i-miei-lead"))) {
+      items.push({ title: "I miei Lead", path: "/user/i-miei-lead", icon: "/icons/ic_member_management.svg" });
+    }
     // Tesserino e lettera sono dentro onboarding/profilo
-    const order = ["dashboard", "affiliate-dashboard", "genealog", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "income-report", "lettera-incarico", "tesserino", "profile", "community"];
+    const order = ["dashboard", "affiliate-dashboard", "genealog", "i-miei-lead", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "income-report", "lettera-incarico", "tesserino", "profile", "community"];
     items = items.sort((a, b) => {
       const pa = (a.path || a.title || "").toLowerCase();
       const pb = (b.path || b.title || "").toLowerCase();
@@ -265,7 +277,7 @@ const Layout = () => {
         then={<Vertical navConfig={config} />}
         otherwise={<Horizontal navConfig={config} />}
       />
-      <AiChat />
+      {/* <AiChat /> nascosto temporaneamente — riattivare quando pronto */}
     </>
   );
 };

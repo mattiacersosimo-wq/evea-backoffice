@@ -20,6 +20,9 @@ const Onboarding = Loadable(
 const TesserinoPage = Loadable(
   lazy(() => import("src/pages/user/tesserino/index"))
 );
+const MyLeads = Loadable(
+  lazy(() => import("src/pages/user/my-leads/index"))
+);
 
 const ProductList = Loadable(
   lazy(() =>
@@ -266,6 +269,7 @@ const user = [
       { path: "community", element: <CommunityPage /> },
       { ...helpCenter },
       { ...profile },
+      { path: "i-miei-lead", element: <PromoterGuard><MyLeads /></PromoterGuard> },
       { path: "onboarding", element: <PromoterGuard><Onboarding /></PromoterGuard> },
       { path: "lettera-incarico", element: <PromoterGuard><LetteraIncarico /></PromoterGuard> },
       { path: "tesserino", element: <PromoterGuard><TesserinoPage /></PromoterGuard> },

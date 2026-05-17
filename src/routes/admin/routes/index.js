@@ -30,6 +30,9 @@ const AdminKycPending = Loadable(
 const CentroControllo = Loadable(
   lazy(() => import("src/pages/admin/centro-controllo/index"))
 );
+const LeadOrfani = Loadable(
+  lazy(() => import("src/pages/admin/lead-orfani/index"))
+);
 const InvoiceList = Loadable(
   lazy(() => import("src/pages/admin/invoices/list/index.jsx"))
 );
@@ -79,6 +82,10 @@ const availableRoutes = [
   {
     path: "centro-controllo",
     element: <CentroControllo />,
+  },
+  {
+    path: "lead-orfani",
+    element: <LeadOrfani />,
   },
   {
     path: "compliance",
