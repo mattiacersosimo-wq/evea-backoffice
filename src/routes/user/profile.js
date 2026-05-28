@@ -25,14 +25,11 @@ const Edit = Loadable(
 const Kyc = Loadable(
   lazy(() => import("src/pages/user/profile/sub-pages/approveKyc/approvekyc"))
 );
-const Payout = Loadable(
-  lazy(() => import("src/pages/user/profile/sub-pages/payout/index"))
-);
 const TesserinoPage = Loadable(
   lazy(() => import("src/pages/user/tesserino/index"))
 );
-const Onboarding = Loadable(
-  lazy(() => import("src/pages/user/onboarding/index"))
+const DocumentiCompliance = Loadable(
+  lazy(() => import("src/pages/user/profile/sub-pages/documenti-compliance/index"))
 );
 
 const profile = {
@@ -47,8 +44,7 @@ const profile = {
     { path: "edit", element: <Edit /> },
     { path: "kyc", element: <Kyc /> },
     { path: "tesserino", element: <TesserinoPage /> },
-    { path: "documenti", element: <Onboarding /> },
-    { path: "payout", element: <Payout /> },
+    { path: "documenti", element: <DocumentiCompliance /> },
   ],
 };
 

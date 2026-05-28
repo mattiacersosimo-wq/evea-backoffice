@@ -314,27 +314,6 @@ const EditInfo = () => {
 
                         </Box>
 
-                        {user?.lettera_accettata == 1 && (
-                            <Box sx={{ mt: 3, p: 2, borderRadius: 2, border: "1px solid #4CAF5040", bgcolor: "#4CAF5008" }}>
-                                <Stack direction="row" alignItems="center" spacing={2}>
-                                    <Box sx={{ width: 40, height: 40, borderRadius: 2, bgcolor: "#4CAF5020", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                                        <Iconify icon="mdi:file-check" width={22} sx={{ color: "#4CAF50" }} />
-                                    </Box>
-                                    <Box sx={{ flex: 1 }}>
-                                        <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: "#2C1A0E" }}>Lettera di Incarico firmata</Typography>
-                                        <Typography sx={{ fontSize: "0.75rem", color: "#7A6A5C" }}>Scarica la copia firmata digitalmente del tuo contratto</Typography>
-                                    </Box>
-                                    <Button
-                                        onClick={handleDownloadLetter}
-                                        startIcon={<Iconify icon="mdi:download" width={16} />}
-                                        sx={{ bgcolor: "#4CAF50", color: "#fff", textTransform: "none", fontWeight: 700, "&:hover": { bgcolor: "#388E3C" }, px: 2.5, py: 1, fontSize: "0.78rem", whiteSpace: "nowrap" }}
-                                    >
-                                        Scarica PDF
-                                    </Button>
-                                </Stack>
-                            </Box>
-                        )}
-
                         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
                             <LoadingButton
                                 type="submit"

@@ -746,6 +746,7 @@ const QuickAccess = () => {
   const { enqueueSnackbar } = useSnackbar();
   const { isActive } = useOnboardingStatus();
   const referralLink = user?.username ? `${WP_URL}?ref=${user.username}` : "";
+  const quizReferralLink = user?.username ? `${WP_URL.replace(/\/$/, "")}/pages/trova-il-tuo-rituale?ref=${user.username}` : "";
   const shortcuts = [
     { icon: "mdi:storefront-outline", label: t("evea.shop"), action: () => window.open("https://www.myevea.com/collections/all", "_blank") },
     {
@@ -756,6 +757,16 @@ const QuickAccess = () => {
       action: async () => {
         if (!isActive) { enqueueSnackbar("Firma la Lettera di Incarico per attivare il tuo link promotore", { variant: "warning" }); navigate("/user/onboarding"); return; }
         if (referralLink) { await navigator.clipboard.writeText(referralLink); enqueueSnackbar(t("evea.link_copied")); }
+      }
+    },
+    {
+      icon: "mdi:help-circle-outline",
+      label: "Link Quiz",
+      disabled: !isActive,
+      disabledTooltip: "Firma la Lettera di Incarico per attivare il tuo link quiz",
+      action: async () => {
+        if (!isActive) { enqueueSnackbar("Firma la Lettera di Incarico per attivare il tuo link quiz", { variant: "warning" }); navigate("/user/onboarding"); return; }
+        if (quizReferralLink) { await navigator.clipboard.writeText(quizReferralLink); enqueueSnackbar("Link Quiz copiato!"); }
       }
     },
     { icon: "mdi:wallet-outline", label: t("evea.wallet"), action: () => navigate("/user/financial/wallet") },

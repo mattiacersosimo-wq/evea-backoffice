@@ -105,7 +105,17 @@ const OnboardingWizard = () => {
       try {
         const { data: r } = await axiosInstance.get("api/wp/onboarding/status");
         setStatus(r?.data);
-        setForm(r?.data?.user || {});
+        const u = r?.data?.user || {};
+        // Mappa i nomi backend (id_document_*) verso quelli usati nel form (document_*)
+        setForm({
+          ...u,
+          document_type: u.document_type || u.id_document_type || "",
+          document_number: u.document_number || u.id_document_number || "",
+          document_issuer: u.document_issuer || u.id_document_issuer || "",
+          document_issued_at: u.document_issued_at || u.id_document_issued_at || "",
+          document_expires_at: u.document_expires_at || u.id_document_expires_at || "",
+          nationality: u.nationality || "IT",
+        });
         const steps = r?.data?.steps || {};
         const stepKeys = ['personal', 'fiscal', 'address', 'document', 'bank', 'lettera'];
         const firstIncomplete = stepKeys.findIndex((k) => !steps[k]);
@@ -229,7 +239,7 @@ const OnboardingWizard = () => {
                     <MenuItem value="F">Femmina</MenuItem>
                   </TextField>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} sm={8}>
                   <Autocomplete
                     size="small"
                     options={listaComuni}
@@ -253,6 +263,19 @@ const OnboardingWizard = () => {
                     }}
                   />
                 </Grid>
+                <Grid item xs={12} sm={4}>
+                  <TextField select fullWidth size="small" label="Cittadinanza *" value={form.nationality || "IT"} onChange={(e) => set("nationality", e.target.value)}>
+                    <MenuItem value="IT">Italiana</MenuItem>
+                    <MenuItem value="FR">Francese</MenuItem>
+                    <MenuItem value="DE">Tedesca</MenuItem>
+                    <MenuItem value="ES">Spagnola</MenuItem>
+                    <MenuItem value="CH">Svizzera</MenuItem>
+                    <MenuItem value="AT">Austriaca</MenuItem>
+                    <MenuItem value="GB">Britannica</MenuItem>
+                    <MenuItem value="US">Statunitense</MenuItem>
+                    <MenuItem value="ALTRA">Altra</MenuItem>
+                  </TextField>
+                </Grid>
               </Grid>
               <Stack direction="row" justifyContent="flex-end">
                 <Button
@@ -266,6 +289,7 @@ const OnboardingWizard = () => {
                     save("save-personal", {
                       first_name: form.first_name, last_name: form.last_name, date_of_birth: form.date_of_birth,
                       gender: form.gender, birthplace: form.birthplace, birthplaceProvincia: form.birthplaceProvincia,
+                      nationality: form.nationality || "IT",
                     });
                   }}
                   disabled={saving}
@@ -548,11 +572,25 @@ const OnboardingWizard = () => {
               <Alert severity="warning" sx={{ borderRadius: 2 }}>
                 Il documento è obbligatorio entro 30 giorni per il rilascio del Tesserino di Riconoscimento (D.Lgs. 114/1998).
               </Alert>
-              <TextField select fullWidth size="small" label="Tipo documento" value={form.document_type || ""} onChange={(e) => set("document_type", e.target.value)}>
+              <TextField select fullWidth size="small" label="Tipo documento *" value={form.document_type || ""} onChange={(e) => set("document_type", e.target.value)}>
                 <MenuItem value="carta_identita">Carta di Identità</MenuItem>
                 <MenuItem value="passaporto">Passaporto</MenuItem>
                 <MenuItem value="patente">Patente di Guida</MenuItem>
               </TextField>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField fullWidth size="small" label="Numero documento *" value={form.document_number || ""} onChange={(e) => set("document_number", e.target.value.toUpperCase())} placeholder="es. CA12345AB" />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField fullWidth size="small" label="Rilasciato da *" value={form.document_issuer || ""} onChange={(e) => set("document_issuer", e.target.value)} placeholder="es. Comune di Roma / Questura di Verona" />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField fullWidth size="small" type="date" label="Data rilascio *" InputLabelProps={{ shrink: true }} value={form.document_issued_at || ""} onChange={(e) => set("document_issued_at", e.target.value)} />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField fullWidth size="small" type="date" label="Data scadenza *" InputLabelProps={{ shrink: true }} value={form.document_expires_at || ""} onChange={(e) => set("document_expires_at", e.target.value)} />
+                </Grid>
+              </Grid>
               <Box>
                 <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: ESPRESSO, mb: 1 }}>Fronte</Typography>
                 <input ref={frontRef} type="file" accept="image/*,.pdf" style={{ display: "none" }} onChange={(e) => set("front_file", e.target.files[0])} />
@@ -576,6 +614,10 @@ const OnboardingWizard = () => {
                     if (form.front_file) fd.append("front", form.front_file);
                     if (form.back_file) fd.append("back", form.back_file);
                     fd.append("document_type", form.document_type || "");
+                    if (form.document_number) fd.append("document_number", form.document_number);
+                    if (form.document_issuer) fd.append("document_issuer", form.document_issuer);
+                    if (form.document_issued_at) fd.append("document_issued_at", form.document_issued_at);
+                    if (form.document_expires_at) fd.append("document_expires_at", form.document_expires_at);
                     setSaving(true);
                     axiosInstance.post("api/wp/onboarding/upload-document", fd).then(() => {
                       enqueueSnackbar("Documento caricato!", { variant: "success" });
@@ -592,7 +634,7 @@ const OnboardingWizard = () => {
           {step === 4 && (
             <Stack spacing={2}>
               <Typography variant="h6" fontWeight={700} color={ESPRESSO}>Dati Bancari</Typography>
-              <TextField fullWidth size="small" label="IBAN (facoltativo, puoi aggiungere in seguito)" value={form.iban || ""} onChange={(e) => set("iban", e.target.value.toUpperCase().replace(/\s/g, ""))} placeholder="IT60X0542811101000000123456" helperText="Formato europeo SEPA — necessario per ricevere i pagamenti" />
+              <TextField fullWidth size="small" required label="IBAN *" value={form.iban || ""} onChange={(e) => set("iban", e.target.value.toUpperCase().replace(/\s/g, ""))} placeholder="IT60X0542811101000000123456" helperText="Formato europeo SEPA — obbligatorio per ricevere i pagamenti" />
               {form.iban && !form.iban.startsWith("IT") && (
                 <TextField fullWidth size="small" label="BIC/SWIFT (obbligatorio per IBAN non italiano)" value={form.bic_swift || ""} onChange={(e) => set("bic_swift", e.target.value.toUpperCase())} placeholder="ABCDEFGH" />
               )}
@@ -602,7 +644,16 @@ const OnboardingWizard = () => {
                 <Button
                   variant="contained"
                   onClick={() => {
-                    save("save-bank", { iban: form.iban, bic_swift: form.bic_swift || "", bank_name: "", account_holder: form.account_holder || `${form.first_name || ""} ${form.last_name || ""}`.trim() });
+                    const iban = (form.iban || "").trim();
+                    if (!iban) {
+                      enqueueSnackbar("L'IBAN è obbligatorio per ricevere i pagamenti", { variant: "warning" });
+                      return;
+                    }
+                    if (!iban.startsWith("IT") && !(form.bic_swift || "").trim()) {
+                      enqueueSnackbar("BIC/SWIFT obbligatorio per IBAN non italiano", { variant: "warning" });
+                      return;
+                    }
+                    save("save-bank", { iban, bic_swift: form.bic_swift || "", bank_name: "", account_holder: form.account_holder || `${form.first_name || ""} ${form.last_name || ""}`.trim() });
                   }}
                   disabled={saving}
                   sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" } }}
@@ -656,7 +707,7 @@ const OnboardingWizard = () => {
                 />
                 <FormControlLabel
                   control={<Checkbox checked={allegato_b} onChange={(e) => setAllegatoB(e.target.checked)} sx={{ "&.Mui-checked": { color: ORO } }} />}
-                  label={<Stack direction="row" alignItems="center" spacing={1}><Typography sx={{ fontSize: "0.85rem" }}>Ho letto e accetto il <strong>Piano Compensi (Allegato B)</strong> *</Typography><Button size="small" href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/Evea_Global_02_Piano_Compensi_v3.pdf" target="_blank" rel="noreferrer" sx={{ color: ORO, fontSize: "0.75rem", p: 0, minWidth: 0 }}>Leggi →</Button></Stack>}
+                  label={<Stack direction="row" alignItems="center" spacing={1}><Typography sx={{ fontSize: "0.85rem" }}>Ho letto e accetto il <strong>Piano Compensi (Allegato B)</strong> *</Typography><Button size="small" href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/Evea_Global_02_Piano_Compensi_v4.pdf?v=1779642698" target="_blank" rel="noreferrer" sx={{ color: ORO, fontSize: "0.75rem", p: 0, minWidth: 0 }}>Leggi →</Button></Stack>}
                 />
                 <FormControlLabel
                   control={<Checkbox checked={allegato_c} onChange={(e) => setAllegatoC(e.target.checked)} sx={{ "&.Mui-checked": { color: ORO } }} />}

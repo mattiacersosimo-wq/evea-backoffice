@@ -24,15 +24,6 @@ const TABS = [
     isKyc: false,
   },
   {
-    label: "profile.tabs.payout",
-    icon: "ic:outline-payments",
-    name: "payout",
-    href: "payout",
-    is_holding: false,
-    isKyc: false,
-    promoterOnly: true,
-  },
-  {
     label: "kyc",
     icon: "basil:document-solid",
     href: "kyc",

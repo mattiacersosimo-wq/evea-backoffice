@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import axiosInstance from "src/utils/axios";
+import { displayName } from "src/utils/displayName";
 
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
@@ -34,11 +35,11 @@ const RankRow = ({ rank, item, isMe }) => (
       {rank}
     </Box>
     <Avatar sx={{ width: 32, height: 32, bgcolor: alpha(ORO, 0.15), color: ORO, fontSize: "0.75rem", fontWeight: 700 }}>
-      {(item.name?.[0] || item.username?.[0] || "?").toUpperCase()}
+      {(item.username?.[0] || "?").toUpperCase()}
     </Avatar>
     <Box sx={{ flex: 1, minWidth: 0 }}>
       <Typography sx={{ fontSize: "0.82rem", fontWeight: 700, color: ESPRESSO, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-        {item.name || item.username}
+        {displayName(item, "global")}
       </Typography>
       {item.rank && (
         <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C" }}>{item.rank}</Typography>

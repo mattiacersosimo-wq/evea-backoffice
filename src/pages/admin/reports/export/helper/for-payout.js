@@ -4,9 +4,7 @@ const forPayout = (data, line) => {
   const temp = {};
   temp.Line = line;
   temp.Username = data?.user?.username;
-  temp["Full Name"] = (data?.user_profile?.first_name)(
-    data?.user_profile?.last_name
-  );
+  temp["Full Name"] = `${data?.user_profile?.first_name || ""} ${data?.user_profile?.last_name || ""}`.trim();
   temp.Status = capitalCase(data?.status);
   temp["Requested Amount"] = data.user_coin_address?.address;
   temp["Requested Amount"] = data?.amount;
