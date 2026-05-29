@@ -36,9 +36,8 @@ const headers = [
 ];
 
 const STATUS_CONFIG = {
+  generata: { label: "Generata", color: "success" },
   in_attesa: { label: "In attesa", color: "warning" },
-  inviata: { label: "Inviata", color: "success" },
-  errore_sdi: { label: "Errore SDI", color: "error" },
 };
 
 const StatCard = ({ label, value }) => (
@@ -123,25 +122,6 @@ const Autofatture = () => {
     return { lordo, netto, count: data.length };
   }, [data]);
 
-  const handleDownloadXml = useCallback(async (id) => {
-    try {
-      const res = await axiosInstance.get(
-        `api/wp/autofatture/${id}/xml`,
-        { responseType: "blob" }
-      );
-      const blob = new Blob([res.data], { type: "application/xml" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `autofattura_${id}.xml`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } catch (err) {
-    }
-  }, []);
-
   const handleDownloadPdf = useCallback(async (id) => {
     try {
       const res = await axiosInstance.get(
@@ -169,12 +149,12 @@ const Autofatture = () => {
 
   return (
     <div>
-      <Page title="Le Mie Autofatture">
+      <Page title="Le Mie Note di Compenso">
         <HeaderBreadcrumbs
-          heading="Le Mie Autofatture"
+          heading="Le Mie Note di Compenso"
           links={[
             { name: "global.dashboard", href: PATH_USER.root },
-            { name: "Le Mie Autofatture" },
+            { name: "Le Mie Note di Compenso" },
           ]}
         />
 
@@ -255,25 +235,9 @@ const Autofatture = () => {
                       <TableCell>
                         <Button
                           size="small"
-                          variant="outlined"
-                          onClick={() => handleDownloadXml(row.id)}
-                          sx={{
-                            color: "#B8963B",
-                            borderColor: "#B8963B",
-                            "&:hover": {
-                              borderColor: "#967A2F",
-                              backgroundColor: "rgba(184, 150, 59, 0.04)",
-                            },
-                          }}
-                        >
-                          XML
-                        </Button>
-                        <Button
-                          size="small"
                           variant="contained"
                           onClick={() => handleDownloadPdf(row.id)}
                           sx={{
-                            ml: 1,
                             bgcolor: "#E24B4A",
                             "&:hover": { bgcolor: "#C0392B" },
                             fontWeight: 700,

@@ -88,7 +88,7 @@ const EXTRA_MENU_ITEMS = [
   {
     match: "/user/financial",
     item: {
-      title: "Le Mie Autofatture",
+      title: "Le Mie Note di Compenso",
       path: PATH_USER.financial.autofatture,
       placement: 5,
     },
@@ -96,7 +96,7 @@ const EXTRA_MENU_ITEMS = [
   {
     match: "/admin/financial",
     item: {
-      title: "Autofatture",
+      title: "Note di Compenso",
       path: PATH_DASHBOARD.financial.autofatture,
       placement: 9,
     },

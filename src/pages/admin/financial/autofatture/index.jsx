@@ -1,4 +1,3 @@
-import { LoadingButton } from "@mui/lab";
 import {
   Box,
   Button,
@@ -45,9 +44,8 @@ const HEADERS = [
 ];
 
 const STATUS_CONFIG = {
+  generata: { label: "Generata", color: "success" },
   in_attesa: { label: "In attesa", color: "warning" },
-  inviata: { label: "Inviata", color: "success" },
-  errore_sdi: { label: "Errore SDI", color: "error" },
 };
 
 const StatCard = ({ label, value, highlight }) => (
@@ -171,7 +169,6 @@ const AdminAutofatture = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [reinviaLoading, setReinviaLoading] = useState(null);
   const [monthExport, setMonthExport] = useState(new Date().getMonth() + 1);
 
   const handleExportMensile = useCallback(async () => {
@@ -250,25 +247,6 @@ const AdminAutofatture = () => {
     fetchData();
   }, [fetchData]);
 
-  const handleDownloadXml = useCallback(async (id) => {
-    try {
-      const res = await axiosInstance.get("api/wp/autofatture/" + id + "/xml", {
-        responseType: "blob",
-      });
-      const blob = new Blob([res.data], { type: "application/xml" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "autofattura_" + id + ".xml";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } catch (err) {
-      enqueueSnackbar("Download XML fallito", { variant: "error" });
-    }
-  }, [enqueueSnackbar]);
-
   const handleDownloadPdf = useCallback(async (id) => {
     try {
       const res = await axiosInstance.get("api/wp/nota-compensi/" + id + "/pdf", { responseType: "blob" });
@@ -286,34 +264,14 @@ const AdminAutofatture = () => {
     }
   }, [enqueueSnackbar]);
 
-  const handleReinvia = useCallback(
-    async (id) => {
-      setReinviaLoading(id);
-      try {
-        const { status, data: res } = await axiosInstance.post(
-          "api/wp/autofatture/" + id + "/reinvia"
-        );
-        if (status === 200) {
-          enqueueSnackbar(res.message || "Reinvio avviato");
-          fetchData();
-        }
-      } catch (err) {
-        enqueueSnackbar("Errore nel reinvio", { variant: "error" });
-      } finally {
-        setReinviaLoading(null);
-      }
-    },
-    [fetchData, enqueueSnackbar]
-  );
-
   const stats = useMemo(() => {
     if (!data.length)
-      return { lordo: 0, netto: 0, count: 0, errori: 0 };
+      return { lordo: 0, netto: 0, count: 0, ritenute: 0 };
     return {
       lordo: data.reduce((s, r) => s + (parseFloat(r.lordo) || 0), 0),
       netto: data.reduce((s, r) => s + (parseFloat(r.netto) || 0), 0),
       count: data.length,
-      errori: data.filter((r) => r.stato === "errore_sdi").length,
+      ritenute: data.reduce((s, r) => s + (parseFloat(r.ritenuta) || 0), 0),
     };
   }, [data]);
 
@@ -325,12 +283,12 @@ const AdminAutofatture = () => {
 
   return (
     <div>
-      <Page title="Autofatture">
+      <Page title="Note di Compenso">
         <HeaderBreadcrumbs
-          heading="Autofatture"
+          heading="Note di Compenso"
           links={[
             { name: "global.dashboard", href: PATH_DASHBOARD.root },
-            { name: "Autofatture" },
+            { name: "Note di Compenso" },
           ]}
         />
 
@@ -462,9 +420,8 @@ const AdminAutofatture = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
             <StatCard
-              label={"N\u00B0 Errori SDI"}
-              value={stats.errori}
-              highlight={stats.errori > 0 ? "error" : undefined}
+              label={"Ritenute"}
+              value={"\u20AC" + stats.ritenute.toFixed(2)}
             />
           </Grid>
         </Grid>
@@ -482,9 +439,6 @@ const AdminAutofatture = () => {
                 render={(row, i) => {
                   const statusCfg =
                     STATUS_CONFIG[row.stato] || STATUS_CONFIG.in_attesa;
-                  const canReinvia =
-                    row.stato === "errore_sdi" ||
-                    row.stato === "in_attesa";
 
                   return (
                     <TableRow
@@ -522,49 +476,16 @@ const AdminAutofatture = () => {
                         />
                       </TableCell>
                       <TableCell>
-                        <Stack direction="row" spacing={1}>
-                          <Tooltip title="Scarica XML">
-                            <Button
-                              size="small"
-                              variant="outlined"
-                              onClick={() => handleDownloadXml(row.id)}
-                              sx={{
-                                color: "#B8963B",
-                                borderColor: "#B8963B",
-                                "&:hover": {
-                                  borderColor: "#967A2F",
-                                  backgroundColor:
-                                    "rgba(184, 150, 59, 0.04)",
-                                },
-                              }}
-                            >
-                              XML
-                            </Button>
-                          </Tooltip>
-                          <Tooltip title="Scarica PDF">
-                            <Button
-                              size="small"
-                              variant="contained"
-                              onClick={() => handleDownloadPdf(row.id)}
-                              sx={{ bgcolor: "#E24B4A", "&:hover": { bgcolor: "#C0392B" }, fontWeight: 700, fontSize: "0.7rem" }}
-                            >
-                              PDF
-                            </Button>
-                          </Tooltip>
-                          {canReinvia && (
-                            <Tooltip title="Reinvia al Sistema di Interscambio">
-                              <LoadingButton
-                                size="small"
-                                variant="outlined"
-                                color="warning"
-                                loading={reinviaLoading === row.id}
-                                onClick={() => handleReinvia(row.id)}
-                              >
-                                Reinvia SDI
-                              </LoadingButton>
-                            </Tooltip>
-                          )}
-                        </Stack>
+                        <Tooltip title="Scarica nota di compenso PDF">
+                          <Button
+                            size="small"
+                            variant="contained"
+                            onClick={() => handleDownloadPdf(row.id)}
+                            sx={{ bgcolor: "#E24B4A", "&:hover": { bgcolor: "#C0392B" }, fontWeight: 700, fontSize: "0.7rem" }}
+                          >
+                            PDF
+                          </Button>
+                        </Tooltip>
                       </TableCell>
                     </TableRow>
                   );

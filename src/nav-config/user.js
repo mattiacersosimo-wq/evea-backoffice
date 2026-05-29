@@ -215,7 +215,7 @@ const userNavConfig = [
                         placement: 4,
                     },
                     {
-                        title: "Le Mie Autofatture",
+                        title: "Le Mie Note di Compenso",
                         path: PATH_USER.financial.autofatture,
                         placement: 5,
                     },
