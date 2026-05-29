@@ -1628,6 +1628,194 @@ const Section = ({ icon, children }) => (
 // ═══════════════════════════════════════
 // MAIN
 // ═══════════════════════════════════════
+// ═══════════════════════════════════════
+// CARD IVD-ABITUALE PAYOUT (visibile solo se has_piva_ivd=1 e ci sono richieste in attesa fattura / pronto al bonifico)
+// ═══════════════════════════════════════
+const IvdAbitualePayoutCard = () => {
+  const { user } = useAuth();
+  const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [expanded, setExpanded] = useState({});
+
+  useEffect(() => {
+    if (!user || (user.has_piva_ivd ?? 0) !== 1) { setLoading(false); return; }
+    let alive = true;
+    (async () => {
+      try {
+        // 1 sola chiamata + filtro client-side sui primi 10 record
+        const { data: r } = await axiosInstance.get("api/wp/payout-request");
+        const list = r?.data?.data || r?.data || [];
+        const filtered = (Array.isArray(list) ? list : [])
+          .filter((p) => ["in_attesa_fattura", "pronto_al_bonifico"].includes(p?.status))
+          .slice(0, 10);
+        if (alive) setRequests(filtered);
+      } catch { /* silent */ }
+      finally { if (alive) setLoading(false); }
+    })();
+    return () => { alive = false; };
+  }, [user]);
+
+  if (loading || !user || (user.has_piva_ivd ?? 0) !== 1 || requests.length === 0) return null;
+
+  const fmt = (n) => "€ " + Number(n || 0).toLocaleString("it-IT", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const giorniDa = (s) => {
+    if (!s) return null;
+    const d = Math.floor((Date.now() - new Date(s).getTime()) / 86400000);
+    return d;
+  };
+
+  // Dati EVEA per istruzioni emissione fattura (devono restare allineati con il messaggio backend PayoutRepository).
+  const EVEA = {
+    ragione_sociale: "EVEA Global S.r.l.",
+    piva: "18499281006",
+    cod_destinatario: "KRRH6B9",
+    pec: "eveaglobal@pec.it",
+    causale: "Provvigioni incaricato vendita a domicilio L. 173/2005",
+  };
+
+  return (
+    <Stack spacing={1.5}>
+      {requests.map((p) => {
+        const isAttesa = p.status === "in_attesa_fattura";
+        const imponibile = Number(p.imponibile) || 0;
+        const iva = Number(p.iva) || 0;
+        const ritenuta = Number(p.ritenuta) || 0;
+        const inpsQuotaProm = Number(p.inps_promoter) || 0;
+        const netto = Number(p.netto) || 0;
+        const esborsoEvea = +(imponibile + iva).toFixed(2);
+        const gg = giorniDa(p.created_at);
+        const isExpanded = !!expanded[p.id];
+
+        return (
+          <Card
+            key={p.id}
+            sx={{
+              p: 2.5, borderRadius: 3,
+              border: `2px solid ${isAttesa ? alpha(ORO, 0.4) : alpha("#2C5F2D", 0.4)}`,
+              bgcolor: isAttesa ? alpha(ORO, 0.04) : alpha("#2C5F2D", 0.04),
+              position: "relative",
+            }}
+          >
+            <Stack direction="row" alignItems="flex-start" spacing={1.5} mb={1.5}>
+              <Iconify icon={isAttesa ? "mdi:receipt-text-clock-outline" : "mdi:bank-check"} width={28}
+                sx={{ color: isAttesa ? ORO : "#2C5F2D", mt: 0.3 }} />
+              <Box sx={{ flex: 1 }}>
+                <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ESPRESSO }}>
+                  {isAttesa ? "Richiesta payout in attesa di fattura" : "Fattura ricevuta — bonifico in elaborazione"}
+                </Typography>
+                <Typography sx={{ fontSize: "0.75rem", color: MUTED, mt: 0.3 }}>
+                  Richiesta #{p.id} del {new Date(p.created_at).toLocaleDateString("it-IT")}
+                  {gg !== null && gg > 0 && ` — ${gg}gg fa`}
+                </Typography>
+              </Box>
+            </Stack>
+
+            {isAttesa ? (
+              <>
+                {/* Importo da fatturare in evidenza */}
+                <Box sx={{ p: 2, bgcolor: "#fff", borderRadius: 2, mb: 2, border: `1px solid ${alpha(ORO, 0.2)}` }}>
+                  <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase", letterSpacing: 0.5 }}>
+                    Importo da fatturare a EVEA
+                  </Typography>
+                  <Typography sx={{ fontSize: "1.8rem", fontWeight: 800, color: ORO, lineHeight: 1.1 }}>
+                    {fmt(esborsoEvea)}
+                  </Typography>
+                  <Typography sx={{ fontSize: "0.72rem", color: MUTED, mt: 0.3 }}>
+                    Imponibile {fmt(imponibile)} + IVA 22% {fmt(iva)}
+                  </Typography>
+                </Box>
+
+                {/* Dettaglio espandibile */}
+                <Button
+                  size="small"
+                  onClick={() => setExpanded((e) => ({ ...e, [p.id]: !e[p.id] }))}
+                  endIcon={<Iconify icon={isExpanded ? "mdi:chevron-up" : "mdi:chevron-down"} />}
+                  sx={{ textTransform: "none", color: ESPRESSO, mb: isExpanded ? 1 : 1.5, p: 0.5 }}
+                >
+                  {isExpanded ? "Nascondi" : "Mostra"} dettaglio calcolo
+                </Button>
+                {isExpanded && (
+                  <Box sx={{ p: 1.5, bgcolor: "#fafafa", borderRadius: 2, mb: 2 }}>
+                    <Stack spacing={0.6}>
+                      <Row label="Lordo provvigione" value={fmt(p.amount)} />
+                      <Row label="Imponibile (78%)" value={fmt(imponibile)} />
+                      <Row label="IVA 22%" value={`+${fmt(iva)}`} positive />
+                      <Row label="Ritenuta 23% (trattenuta EVEA)" value={`-${fmt(ritenuta)}`} negative />
+                      {inpsQuotaProm > 0 && (
+                        <Row label="INPS quota tua" value={`-${fmt(inpsQuotaProm)}`} negative />
+                      )}
+                      <Divider sx={{ my: 0.5 }} />
+                      <Row label="Netto bonifico" value={fmt(netto)} bold />
+                    </Stack>
+                  </Box>
+                )}
+
+                {/* Istruzioni operative */}
+                <Box sx={{ p: 2, bgcolor: "#fff", borderRadius: 2, border: `1px solid #eee` }}>
+                  <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO, mb: 1 }}>
+                    📋 Istruzioni per emettere la fattura
+                  </Typography>
+                  <Stack spacing={0.5}>
+                    <DataRow label="Ragione sociale" value={EVEA.ragione_sociale} />
+                    <DataRow label="P.IVA destinatario" value={EVEA.piva} mono />
+                    <DataRow label="Codice destinatario SDI" value={EVEA.cod_destinatario} mono highlight />
+                    <DataRow label="PEC (fallback)" value={EVEA.pec} />
+                    <DataRow label="Causale" value={EVEA.causale} />
+                    <DataRow label="Importo fattura" value={fmt(esborsoEvea)} bold />
+                  </Stack>
+                  <Typography sx={{ fontSize: "0.72rem", color: MUTED, mt: 1.5, fontStyle: "italic" }}>
+                    Una volta ricevuta la fattura, EVEA effettuera il bonifico di <strong>{fmt(netto)}</strong> (netto dopo ritenuta).
+                  </Typography>
+                </Box>
+              </>
+            ) : (
+              // pronto_al_bonifico
+              <Box sx={{ p: 2, bgcolor: "#fff", borderRadius: 2, border: `1px solid #eee` }}>
+                <Stack spacing={1}>
+                  <Typography sx={{ fontSize: "0.85rem", color: ESPRESSO }}>
+                    La tua fattura <strong>n. {p.numero_fattura_promoter || "—"}</strong> del{" "}
+                    <strong>{p.data_fattura_promoter ? new Date(p.data_fattura_promoter).toLocaleDateString("it-IT") : "—"}</strong>{" "}
+                    è stata registrata.
+                  </Typography>
+                  <Box sx={{ p: 1.5, bgcolor: alpha("#2C5F2D", 0.06), borderRadius: 1.5 }}>
+                    <Typography sx={{ fontSize: "0.72rem", color: MUTED, textTransform: "uppercase" }}>Bonifico in lavorazione</Typography>
+                    <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: "#2C5F2D" }}>{fmt(netto)}</Typography>
+                  </Box>
+                </Stack>
+              </Box>
+            )}
+          </Card>
+        );
+      })}
+    </Stack>
+  );
+};
+
+// Riga compatta etichetta + valore (per il dettaglio espandibile)
+const Row = ({ label, value, positive, negative, bold }) => (
+  <Stack direction="row" justifyContent="space-between">
+    <Typography sx={{ fontSize: "0.78rem", color: MUTED }}>{label}</Typography>
+    <Typography sx={{
+      fontSize: "0.82rem",
+      fontWeight: bold ? 800 : 600,
+      color: positive ? "#2C5F2D" : negative ? "#B23A48" : ESPRESSO,
+    }}>{value}</Typography>
+  </Stack>
+);
+
+// Riga etichetta + valore con stile dati anagrafici/fatturazione
+const DataRow = ({ label, value, mono, highlight, bold }) => (
+  <Stack direction="row" alignItems="baseline" spacing={1}>
+    <Typography sx={{ fontSize: "0.75rem", color: MUTED, minWidth: 150 }}>{label}:</Typography>
+    <Typography sx={{
+      fontSize: highlight ? "0.95rem" : (bold ? "0.9rem" : "0.82rem"),
+      fontWeight: highlight || bold ? 800 : 600,
+      color: highlight ? ORO : ESPRESSO,
+      fontFamily: mono ? "monospace" : "inherit",
+    }}>{value}</Typography>
+  </Stack>
+);
+
 const PromoterDashboard = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -1640,6 +1828,7 @@ const PromoterDashboard = () => {
         <Stack spacing={2}>
           <HeroCard />
           <FiscalThresholdBanner />
+          <IvdAbitualePayoutCard />
           <FounderCountdown />
           <CommunityBanner />
           <OnboardingBanner />
