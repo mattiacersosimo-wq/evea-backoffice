@@ -256,7 +256,7 @@ const TABS = [
   { label: "Movimenti", icon: "mdi:swap-horizontal", value: 0 },
   { label: "In Arrivo", icon: "mdi:clock-outline", value: 1 },
   { label: "Preleva", icon: "mdi:cash-fast", value: 2 },
-  { label: "Autofatture", icon: "mdi:file-document-outline", value: 3 },
+  { label: "Note di Compenso", icon: "mdi:file-document-outline", value: 3 },
   { label: "Gift Card", icon: "mdi:gift-outline", value: 4 },
 ];
 

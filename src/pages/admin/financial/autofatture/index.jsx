@@ -137,7 +137,7 @@ const exportPDF = (data, stats) => {
     )
     .join("");
   printWindow.document.write(
-    "<html><head><title>Autofatture</title>" +
+    "<html><head><title>Note di Compenso</title>" +
     "<style>" +
     "body { font-family: Arial, sans-serif; padding: 20px; }" +
     "table { width: 100%; border-collapse: collapse; margin-top: 20px; }" +
@@ -145,7 +145,7 @@ const exportPDF = (data, stats) => {
     "th { background-color: #FAF6EF; color: #7A6A5C; }" +
     ".total-row { font-weight: bold; background-color: #FAF6EF; }" +
     "</style></head><body>" +
-    "<h2>Autofatture</h2>" +
+    "<h2>Note di Compenso</h2>" +
     "<table><thead><tr>" +
     "<th>Promoter</th><th>N\u00B0 Fattura</th><th>Data</th><th>Lordo</th><th>Imponibile</th><th>Ritenuta</th><th>Netto</th><th>Stato</th>" +
     "</tr></thead><tbody>" +
