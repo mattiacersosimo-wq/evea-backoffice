@@ -125,6 +125,14 @@ const EXTRA_MENU_ITEMS = [
       placement: 22,
     },
   },
+  {
+    match: "/admin/settings",
+    item: {
+      title: "Payout Fatture",
+      path: "/admin/payout-fatture",
+      placement: 23,
+    },
+  },
 ];
 
 const injectMenuItems = (menu) => {

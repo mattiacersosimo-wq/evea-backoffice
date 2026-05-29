@@ -33,6 +33,9 @@ const CentroControllo = Loadable(
 const LeadOrfani = Loadable(
   lazy(() => import("src/pages/admin/lead-orfani/index"))
 );
+const PayoutFatture = Loadable(
+  lazy(() => import("src/pages/admin/payout-fatture/index"))
+);
 const InvoiceList = Loadable(
   lazy(() => import("src/pages/admin/invoices/list/index.jsx"))
 );
@@ -86,6 +89,10 @@ const availableRoutes = [
   {
     path: "lead-orfani",
     element: <LeadOrfani />,
+  },
+  {
+    path: "payout-fatture",
+    element: <PayoutFatture />,
   },
   {
     path: "compliance",
