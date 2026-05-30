@@ -687,7 +687,7 @@ const OnboardingWizard = () => {
                   ["Codice Fiscale", form.codice_fiscale],
                   ["Indirizzo", `${form.address || ""}, ${form.zipcode || ""} ${form.city || ""} (${form.provincia || ""})`],
                   ["IBAN", form.iban],
-                  ["Regime Fiscale", form.regime_fiscale === "partita_iva" ? "Incaricato con P.IVA" : "Incaricato Occasionale"],
+                  ["Regime Fiscale", autoRegime === "partita_iva" ? "Incaricato con P.IVA" : "Incaricato Occasionale"],
                 ].map(([label, value]) => value && (
                   <Stack key={label} direction="row" spacing={1} sx={{ py: 0.3 }}>
                     <Typography sx={{ fontSize: "0.78rem", color: "#888", minWidth: 140 }}>{label}:</Typography>
