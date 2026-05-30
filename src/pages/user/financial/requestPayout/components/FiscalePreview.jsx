@@ -125,17 +125,16 @@ const FiscalePreview = () => {
   // che il promoter deve emettere.
   let rows;
   if (isAbituale) {
+    // EVEA trattiene solo la ritenuta 23% sul 78% (art. 25-bis co.6 DPR 600/73).
+    // INPS Gestione Separata gestita dal promoter sulla propria posizione
+    // (e' professionista con P.IVA, conferma commercialista 2026-05-30).
     rows = [
       { label: "Imponibile (78%)", value: calcolo.imponibile },
       { label: "IVA 22%", value: calcolo.iva, positive: true, prefix: "+" },
       { label: "Ritenuta 23% (trattenuta EVEA)", value: -calcolo.ritenuta, deduction: true },
+      { label: "Totale da fatturare a EVEA", value: calcolo.esborso_evea, separator: true },
+      { label: "Netto bonifico al promoter", value: calcolo.netto, highlight: true },
     ];
-    if (calcolo.inps_quota_promoter > 0) {
-      const aliqPct = calcolo.aliquota_inps ? (calcolo.aliquota_inps * 100).toFixed(2) + "%" : "";
-      rows.push({ label: `INPS quota tua ${aliqPct ? "(" + aliqPct + " \u00D7 \u2153)" : ""}`, value: -calcolo.inps_quota_promoter, deduction: true });
-    }
-    rows.push({ label: "Totale da fatturare a EVEA", value: calcolo.esborso_evea, separator: true });
-    rows.push({ label: "Netto bonifico al promoter", value: calcolo.netto, highlight: true });
   } else {
     // \u2500\u2500 Ramo OCCASIONALE (has_piva_ivd=0) \u2014 invariato rispetto a prima \u2500\u2500
     rows = [
