@@ -31,6 +31,7 @@ const FiscalePreview = () => {
   const [calcolo, setCalcolo] = useState(null);
   const [flusso, setFlusso] = useState(null); // 'ivd_abituale' | 'occasionale' (server-side)
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
   const [maturatoAnno, setMaturatoAnno] = useState(0);
   const [residuoSoglia, setResiduoSoglia] = useState(SOGLIA_INPS);
   const [hasTotaleData, setHasTotaleData] = useState(false);
@@ -69,6 +70,7 @@ const FiscalePreview = () => {
 
     debounceRef.current = setTimeout(async () => {
       setLoading(true);
+      setErrorMsg(null);
       try {
         const form = new FormData();
         form.append("user_id", user?.id);
@@ -78,9 +80,12 @@ const FiscalePreview = () => {
           setCalcolo(data.calcolo);
           setFlusso(data.flusso || (data.ha_partita_iva ? "ivd_abituale" : "occasionale"));
         }
-      } catch {
+      } catch (err) {
         setCalcolo(null);
         setFlusso(null);
+        // Mostra il messaggio del backend (es. 422 KYC incompleto) invece di silenziare l'errore.
+        const apiMsg = err?.response?.data?.error || err?.response?.data?.message;
+        setErrorMsg(apiMsg || "Impossibile calcolare il riepilogo fiscale. Riprova.");
       }
       setLoading(false);
     }, 500);
@@ -111,6 +116,14 @@ const FiscalePreview = () => {
     return (
       <Box sx={{ backgroundColor: "#FAF6EF", border: "1px solid #E8DDCA", borderRadius: 2, p: 2, mt: 1, textAlign: "center" }}>
         <CircularProgress size={20} sx={{ color: "#B8963B" }} />
+      </Box>
+    );
+  }
+
+  if (errorMsg) {
+    return (
+      <Box sx={{ backgroundColor: "#FAF6EF", border: "1px solid #E8DDCA", borderRadius: 2, p: 2, mt: 1 }}>
+        <Alert severity="error">{errorMsg}</Alert>
       </Box>
     );
   }
