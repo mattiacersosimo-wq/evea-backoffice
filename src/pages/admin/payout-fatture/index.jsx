@@ -181,9 +181,37 @@ const PayoutFatture = () => {
           </Alert>
         )}
         {status === "pronto_al_bonifico" && (
-          <Alert severity="success" sx={{ mb: 2 }}>
-            Fattura ricevuta e registrata. Esegui il bonifico dal home banking, poi clicca il bottone ✓ "Approva" sulla riga per marcarlo come pagato.
-          </Alert>
+          <>
+            <Alert severity="success" sx={{ mb: 2 }}>
+              Fattura ricevuta e registrata. Esegui il bonifico dal home banking, poi clicca il bottone ✓ "Approva" sulla riga per marcarlo come pagato.
+            </Alert>
+            {data.length > 0 && (
+              <Stack direction="row" spacing={1.5} sx={{ mb: 2 }}>
+                <Button
+                  variant="outlined"
+                  startIcon={<Iconify icon="mdi:file-delimited-outline" />}
+                  onClick={() => {
+                    const url = `${axiosInstance.defaults.baseURL || ""}/api/wp/admin/payout-requests/export-sepa?format=csv&status=pronto_al_bonifico`;
+                    window.open(url, "_blank");
+                  }}
+                  sx={{ borderColor: VERDE, color: VERDE, "&:hover": { borderColor: VERDE, bgcolor: alpha(VERDE, 0.06) } }}
+                >
+                  Esporta CSV banca
+                </Button>
+                <Button
+                  variant="outlined"
+                  startIcon={<Iconify icon="mdi:xml" />}
+                  onClick={() => {
+                    const url = `${axiosInstance.defaults.baseURL || ""}/api/wp/admin/payout-requests/export-sepa?format=xml&status=pronto_al_bonifico`;
+                    window.open(url, "_blank");
+                  }}
+                  sx={{ borderColor: VERDE, color: VERDE, "&:hover": { borderColor: VERDE, bgcolor: alpha(VERDE, 0.06) } }}
+                >
+                  Esporta XML SEPA (pain.001)
+                </Button>
+              </Stack>
+            )}
+          </>
         )}
 
         <Card sx={{ borderRadius: 2 }}>
@@ -203,6 +231,9 @@ const PayoutFatture = () => {
                   <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="right">IVA</TableCell>
                   <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="right">Rit.</TableCell>
                   <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="right">Netto</TableCell>
+                  {(status === "pronto_al_bonifico" || status === "approved") && (
+                    <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem", bgcolor: alpha(VERDE, 0.08) }} align="right">Da bonificare</TableCell>
+                  )}
                   <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }}>Richiesta</TableCell>
                   <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }}>Età</TableCell>
                   {status === "in_attesa_fattura" && (
@@ -232,6 +263,11 @@ const PayoutFatture = () => {
                     <TableCell sx={{ fontSize: "0.78rem" }} align="right">{fmtEuro(p.iva)}</TableCell>
                     <TableCell sx={{ fontSize: "0.78rem" }} align="right">{fmtEuro(p.ritenuta)}</TableCell>
                     <TableCell sx={{ fontSize: "0.78rem", fontWeight: 700, color: VERDE }} align="right">{fmtEuro(p.netto)}</TableCell>
+                    {(status === "pronto_al_bonifico" || status === "approved") && (
+                      <TableCell sx={{ fontSize: "0.82rem", fontWeight: 800, color: ESPRESSO, bgcolor: alpha(VERDE, 0.08) }} align="right">
+                        {fmtEuro(Number(p.netto || 0) - Number(p.admin_fee_deducted || 0))}
+                      </TableCell>
+                    )}
                     <TableCell sx={{ fontSize: "0.78rem" }}>{fmtDate(p.created_at)}</TableCell>
                     <TableCell sx={{ fontSize: "0.78rem" }}>
                       <Chip
