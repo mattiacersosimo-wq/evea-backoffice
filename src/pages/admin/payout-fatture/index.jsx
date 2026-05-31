@@ -98,6 +98,33 @@ const PayoutFatture = () => {
     }
   };
 
+  const handleExportLotto = async (format) => {
+    try {
+      const r = await axiosInstance.get(
+        "api/wp/admin/payout-requests/export-sepa",
+        { params: { format, status: "pronto_al_bonifico" }, responseType: "blob" }
+      );
+      const mime = format === "xml" ? "application/xml" : "text/csv";
+      const ext = format === "xml" ? "xml" : "csv";
+      const blob = new Blob([r.data], { type: mime + ";charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      const today = new Date().toISOString().slice(0, 10);
+      a.href = url;
+      a.download = `bonifici_evea_${today}.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      enqueueSnackbar(`Esportato lotto bonifici (${format.toUpperCase()})`, { variant: "success" });
+    } catch (e) {
+      const errMsg = e?.response?.data instanceof Blob
+        ? "Errore export"
+        : (e?.response?.data?.error || "Errore export");
+      enqueueSnackbar(errMsg, { variant: "error" });
+    }
+  };
+
   const handleApprova = async (payout) => {
     if (!window.confirm(`Confermi l'approvazione del payout #${payout.id} (€${Number(payout.amount).toFixed(2)} lordo)? Significa che il bonifico e' stato gia' eseguito dall'home banking.`)) {
       return;
@@ -190,10 +217,7 @@ const PayoutFatture = () => {
                 <Button
                   variant="outlined"
                   startIcon={<Iconify icon="mdi:file-delimited-outline" />}
-                  onClick={() => {
-                    const url = `${axiosInstance.defaults.baseURL || ""}/api/wp/admin/payout-requests/export-sepa?format=csv&status=pronto_al_bonifico`;
-                    window.open(url, "_blank");
-                  }}
+                  onClick={() => handleExportLotto("csv")}
                   sx={{ borderColor: VERDE, color: VERDE, "&:hover": { borderColor: VERDE, bgcolor: alpha(VERDE, 0.06) } }}
                 >
                   Esporta CSV banca
@@ -201,10 +225,7 @@ const PayoutFatture = () => {
                 <Button
                   variant="outlined"
                   startIcon={<Iconify icon="mdi:xml" />}
-                  onClick={() => {
-                    const url = `${axiosInstance.defaults.baseURL || ""}/api/wp/admin/payout-requests/export-sepa?format=xml&status=pronto_al_bonifico`;
-                    window.open(url, "_blank");
-                  }}
+                  onClick={() => handleExportLotto("xml")}
                   sx={{ borderColor: VERDE, color: VERDE, "&:hover": { borderColor: VERDE, bgcolor: alpha(VERDE, 0.06) } }}
                 >
                   Esporta XML SEPA (pain.001)
