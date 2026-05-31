@@ -137,6 +137,13 @@ const FiscalePreview = () => {
   // Si mostra anche il "Totale da fatturare a EVEA" che e' il valore della fattura
   // che il promoter deve emettere.
   let rows;
+  // Commissione amministrativa (NON fiscale): copre il costo SEPA del bonifico.
+  // Backend la calcola in admin_fee e ritorna anche netto_bonifico = netto - admin_fee.
+  const adminFee = parseFloat(calcolo.admin_fee) || 0;
+  const nettoBonifico = (calcolo.netto_bonifico !== undefined && calcolo.netto_bonifico !== null)
+    ? parseFloat(calcolo.netto_bonifico)
+    : parseFloat(calcolo.netto) - adminFee;
+
   if (isAbituale) {
     // EVEA trattiene solo la ritenuta 23% sul 78% (art. 25-bis co.6 DPR 600/73).
     // INPS Gestione Separata gestita dal promoter sulla propria posizione
@@ -146,10 +153,13 @@ const FiscalePreview = () => {
       { label: "IVA 22%", value: calcolo.iva, positive: true, prefix: "+" },
       { label: "Ritenuta 23% (trattenuta EVEA)", value: -calcolo.ritenuta, deduction: true },
       { label: "Totale da fatturare a EVEA", value: calcolo.esborso_evea, separator: true },
-      { label: "Netto bonifico al promoter", value: calcolo.netto, highlight: true },
     ];
+    if (adminFee > 0) {
+      rows.push({ label: "Commissione bonifico (costo SEPA)", value: -adminFee, deduction: true });
+    }
+    rows.push({ label: "Netto bonifico al promoter", value: nettoBonifico, highlight: true });
   } else {
-    // \u2500\u2500 Ramo OCCASIONALE (has_piva_ivd=0) \u2014 invariato rispetto a prima \u2500\u2500
+    // \u2500\u2500 Ramo OCCASIONALE (has_piva_ivd=0) \u2500\u2500
     rows = [
       { label: "Imponibile (78%)", value: calcolo.imponibile },
     ];
@@ -169,7 +179,11 @@ const FiscalePreview = () => {
       rows.push({ label: "Imposta di bollo", value: -calcolo.bollo, deduction: true });
     }
 
-    rows.push({ label: "Netto accreditato", value: calcolo.netto, highlight: true });
+    if (adminFee > 0) {
+      rows.push({ label: "Commissione bonifico (costo SEPA)", value: -adminFee, deduction: true });
+    }
+
+    rows.push({ label: "Netto accreditato", value: nettoBonifico, highlight: true });
   }
 
   return (
