@@ -24,13 +24,13 @@ const BankInfo = () => {
   }, [paymentType]);
 
   const dataInputted = useMemo(() => {
-    return (
-      Boolean(iban) &&
-      Boolean(bank_country) &&
-      Boolean(bank_name) &&
-      Boolean(swift)
-    );
-  }, [iban, bank_country, bank_name, swift]);
+    // IBAN obbligatorio sempre.
+    // Per IBAN non italiani serve anche SWIFT/BIC.
+    // bank_country e bank_name sono cosmetici, non bloccanti per il prelievo.
+    if (!iban) return false;
+    if (!iban.startsWith("IT") && !swift) return false;
+    return true;
+  }, [iban, swift]);
 
   const { palette } = useTheme();
 
