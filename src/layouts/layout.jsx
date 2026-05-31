@@ -126,11 +126,11 @@ const EXTRA_MENU_ITEMS = [
     },
   },
   {
-    match: "/admin/settings",
+    match: "/admin/financial",
     item: {
-      title: "Payout Fatture",
+      title: "Pagamenti IVD-Abituali",
       path: "/admin/payout-fatture",
-      placement: 23,
+      placement: 9.5,
     },
   },
 ];

@@ -123,13 +123,14 @@ const PayoutFatture = () => {
   const kpi = meta.kpi || {};
 
   return (
-    <Page title="Payout Fatture — In attesa fattura">
+    <Page title="Pagamenti IVD-Abituali">
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4 }}>
         <HeaderBreadcrumbs
-          heading="Payout Fatture Promoter IVD-Abituali"
+          heading="Pagamenti IVD-Abituali"
           links={[
             { name: "Dashboard", href: "/admin/dashboard" },
-            { name: "Payout Fatture" },
+            { name: "Finanziario" },
+            { name: "Pagamenti IVD-Abituali" },
           ]}
         />
 
