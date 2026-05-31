@@ -58,7 +58,7 @@ const StripeInfo = () => {
           otherwise={
             <span style={{ color: "#59657e", fontSize: "12px" }}>
               <Translate>global.update_bank</Translate>{" "}
-              <Button component={Link} to={"/user/profile/payout"}>
+              <Button component={Link} to={"/user/profile/documenti"}>
                 <span
                   style={{
                     color: palette.primary.main,

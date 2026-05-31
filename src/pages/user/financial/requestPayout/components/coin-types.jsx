@@ -75,7 +75,7 @@ const CoinTypes = () => {
                             <Translate>global.update_coin</Translate>{" "}
                             <Button
                               component={HashLink}
-                              to={"/user/profile/payout#coin-address"}
+                              to={"/user/profile/documenti#coin-address"}
                             >
                               <span
                                 style={{
