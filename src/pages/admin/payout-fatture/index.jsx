@@ -98,6 +98,21 @@ const PayoutFatture = () => {
     }
   };
 
+  const handleApprova = async (payout) => {
+    if (!window.confirm(`Confermi l'approvazione del payout #${payout.id} (€${Number(payout.amount).toFixed(2)} lordo)? Significa che il bonifico e' stato gia' eseguito dall'home banking.`)) {
+      return;
+    }
+    try {
+      const r = await axiosInstance.patch(
+        `api/wp/admin/payout-requests/${payout.id}/approva`
+      );
+      enqueueSnackbar(r?.data?.message || "Approvato", { variant: "success" });
+      await load();
+    } catch (e) {
+      enqueueSnackbar(e?.response?.data?.error || "Errore approvazione", { variant: "error" });
+    }
+  };
+
   const submitAnnulla = async () => {
     if (!annMotivo.trim()) {
       enqueueSnackbar("Motivo obbligatorio", { variant: "warning" });
@@ -167,7 +182,7 @@ const PayoutFatture = () => {
         )}
         {status === "pronto_al_bonifico" && (
           <Alert severity="success" sx={{ mb: 2 }}>
-            Fattura ricevuta e registrata. Esegui il bonifico dal home banking, poi marca come "approved" da centro controllo.
+            Fattura ricevuta e registrata. Esegui il bonifico dal home banking, poi clicca il bottone ✓ "Approva" sulla riga per marcarlo come pagato.
           </Alert>
         )}
 
@@ -195,6 +210,9 @@ const PayoutFatture = () => {
                   )}
                   {(status === "pronto_al_bonifico" || status === "approved") && (
                     <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }}>N. Fattura</TableCell>
+                  )}
+                  {status === "pronto_al_bonifico" && (
+                    <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="center">Azioni</TableCell>
                   )}
                 </TableRow>
               </TableHead>
@@ -239,7 +257,31 @@ const PayoutFatture = () => {
                         </Stack>
                       </TableCell>
                     )}
-                    {(status === "pronto_al_bonifico" || status === "approved") && (
+                    {status === "pronto_al_bonifico" && (
+                      <TableCell sx={{ fontSize: "0.78rem" }}>
+                        <Stack>
+                          <Typography sx={{ fontSize: "0.82rem", fontWeight: 600 }}>{p.numero_fattura_promoter || "—"}</Typography>
+                          <Typography sx={{ fontSize: "0.7rem", color: GRIGIO }}>{fmtDate(p.data_fattura_promoter)}</Typography>
+                        </Stack>
+                      </TableCell>
+                    )}
+                    {status === "pronto_al_bonifico" && (
+                      <TableCell align="center">
+                        <Stack direction="row" spacing={0.5} justifyContent="center">
+                          <Tooltip title="Bonifico eseguito → marca come approvato">
+                            <IconButton size="small" onClick={() => handleApprova(p)} sx={{ color: VERDE }}>
+                              <Iconify icon="mdi:check-circle" width={20} />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip title="Annulla richiesta (ricredita wallet)">
+                            <IconButton size="small" onClick={() => setAnnDlg({ open: true, payout: p })} sx={{ color: ROSSO }}>
+                              <Iconify icon="mdi:close-circle-outline" width={20} />
+                            </IconButton>
+                          </Tooltip>
+                        </Stack>
+                      </TableCell>
+                    )}
+                    {status === "approved" && (
                       <TableCell sx={{ fontSize: "0.78rem" }}>
                         <Stack>
                           <Typography sx={{ fontSize: "0.82rem", fontWeight: 600 }}>{p.numero_fattura_promoter || "—"}</Typography>
