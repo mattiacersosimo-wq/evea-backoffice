@@ -29,7 +29,6 @@ const Node = ({ node, parent, onClick, openAdd }) => {
     leg,
     profile_pic,
     rank_name,
-    rank_recognition_name,
     pv,
     bv,
     ev,
@@ -58,7 +57,6 @@ const Node = ({ node, parent, onClick, openAdd }) => {
         profile={profile_pic}
         join_date={join_date}
         rank_name={rank_name}
-        rank_recognition_name={rank_recognition_name}
         pv={pv}
         name={name}
         bv={bv}

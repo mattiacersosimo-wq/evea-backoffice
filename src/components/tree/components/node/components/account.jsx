@@ -59,7 +59,6 @@ const Account = ({
   country,
   pv,
   rank_name,
-  rank_recognition_name,
   bv,
   ev,
   qv,
@@ -75,11 +74,9 @@ const Account = ({
   profile,
   onClick,
 }) => {
-  // Pallino interno: ACHIEVEMENT (rank_name = max storico permanente).
-  // Cerchio esterno: RECOGNITION (rank_recognition_name = rank del mese corrente).
-  // Se sono uguali, l'effetto e' un singolo bordo elegante.
+  // Pallino: ACHIEVEMENT (rank_name = max storico permanente, mai decrementato).
+  // Scelta product: il pallino dell'albero rappresenta il traguardo del promoter.
   const achievementColor = getNodeColor(user_type, rank_name);
-  const recognitionColor = getNodeColor(user_type, rank_recognition_name || rank_name);
   const classes = useStyles();
   const { palette } = useTheme();
   const [{ isDragging }, drag] = useDrag({
@@ -137,23 +134,6 @@ const Account = ({
                     Rank Raggiunto : &nbsp;
                   </span>
                   {rank_name}
-                </Typography>
-
-                <Typography
-                  variant="caption"
-                  sx={{ color: "#000", padding: "2px" }}
-                >
-                  <span
-                    style={{
-                      color: "#000",
-                      fontSize: "11px",
-                      fontWeight: 600,
-                      letterSpacing: 1,
-                    }}
-                  >
-                    Rank Riconosciuto : &nbsp;
-                  </span>
-                  {rank_recognition_name || rank_name}
                 </Typography>
 
                 <Typography
@@ -360,30 +340,22 @@ const Account = ({
           style={{ cursor: "pointer" }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            {/* Wrapper: cerchio esterno = RECOGNITION (rank del mese corrente).
-                Avatar interno: ACHIEVEMENT (max storico). Se i due coincidono
-                visivamente si fondono in un singolo bordo elegante. */}
-            <Box
+            {/* Pallino = ACHIEVEMENT (rank raggiunto, max storico permanente).
+                Scelta product: il pallino dell'albero rappresenta il traguardo
+                raggiunto dal promoter (non scende mai), per motivare e valorizzare
+                la storia. Il recognition mensile resta visibile in dashboard, non qui. */}
+            <Avatar
+              className={classes.avatar}
+              src={profile}
               sx={{
-                p: 0.4,
+                backgroundColor: alpha(achievementColor, 0.15),
+                border: `2.5px solid ${achievementColor}`,
                 borderRadius: "50%",
-                border: `2.5px solid ${recognitionColor}`,
-                display: "inline-flex",
+                p: "0 !important",
               }}
             >
-              <Avatar
-                className={classes.avatar}
-                src={profile}
-                sx={{
-                  backgroundColor: alpha(achievementColor, 0.15),
-                  border: `2.5px solid ${achievementColor}`,
-                  borderRadius: "50%",
-                  p: "0 !important",
-                }}
-              >
-                <AccountCircleOutlinedIcon sx={{ color: achievementColor }} />
-              </Avatar>
-            </Box>
+              <AccountCircleOutlinedIcon sx={{ color: achievementColor }} />
+            </Avatar>
           </Box>
           <Card
             sx={{
