@@ -59,6 +59,7 @@ const Account = ({
   country,
   pv,
   rank_name,
+  rank_recognition_name,
   bv,
   ev,
   qv,
@@ -74,6 +75,11 @@ const Account = ({
   profile,
   onClick,
 }) => {
+  // Pallino interno: ACHIEVEMENT (rank_name = max storico permanente).
+  // Cerchio esterno: RECOGNITION (rank_recognition_name = rank del mese corrente).
+  // Se sono uguali, l'effetto e' un singolo bordo elegante.
+  const achievementColor = getNodeColor(user_type, rank_name);
+  const recognitionColor = getNodeColor(user_type, rank_recognition_name || rank_name);
   const classes = useStyles();
   const { palette } = useTheme();
   const [{ isDragging }, drag] = useDrag({
@@ -128,9 +134,26 @@ const Account = ({
                       letterSpacing: 1,
                     }}
                   >
-                    <Translate>network_members.rank</Translate> : &nbsp;
+                    Rank Raggiunto : &nbsp;
                   </span>
                   {rank_name}
+                </Typography>
+
+                <Typography
+                  variant="caption"
+                  sx={{ color: "#000", padding: "2px" }}
+                >
+                  <span
+                    style={{
+                      color: "#000",
+                      fontSize: "11px",
+                      fontWeight: 600,
+                      letterSpacing: 1,
+                    }}
+                  >
+                    Rank Riconosciuto : &nbsp;
+                  </span>
+                  {rank_recognition_name || rank_name}
                 </Typography>
 
                 <Typography
@@ -337,18 +360,30 @@ const Account = ({
           style={{ cursor: "pointer" }}
         >
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <Avatar
-              className={classes.avatar}
-              src={profile}
+            {/* Wrapper: cerchio esterno = RECOGNITION (rank del mese corrente).
+                Avatar interno: ACHIEVEMENT (max storico). Se i due coincidono
+                visivamente si fondono in un singolo bordo elegante. */}
+            <Box
               sx={{
-                backgroundColor: alpha(getNodeColor(user_type, rank_name), 0.15),
-                border: `2.5px solid ${getNodeColor(user_type, rank_name)}`,
+                p: 0.4,
                 borderRadius: "50%",
-                p: "0 !important",
+                border: `2.5px solid ${recognitionColor}`,
+                display: "inline-flex",
               }}
             >
-              <AccountCircleOutlinedIcon sx={{ color: getNodeColor(user_type, rank_name) }} />
-            </Avatar>
+              <Avatar
+                className={classes.avatar}
+                src={profile}
+                sx={{
+                  backgroundColor: alpha(achievementColor, 0.15),
+                  border: `2.5px solid ${achievementColor}`,
+                  borderRadius: "50%",
+                  p: "0 !important",
+                }}
+              >
+                <AccountCircleOutlinedIcon sx={{ color: achievementColor }} />
+              </Avatar>
+            </Box>
           </Box>
           <Card
             sx={{
