@@ -48,9 +48,9 @@ export default function BlogNewPostPreview({
     <DialogAnimate fullScreen open={isOpen} onClose={onClose}>
       <DialogActions sx={{ py: 2, px: 3 }}>
         <Typography variant="subtitle1" sx={{ flexGrow: 1 }}>
-          Preview Post
+          Anteprima post
         </Typography>
-        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={onClose}>Annulla</Button>
         <LoadingButton
           type="submit"
           variant="contained"

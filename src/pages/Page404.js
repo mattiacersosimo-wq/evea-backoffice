@@ -20,7 +20,7 @@ export default function Page404() {
   const { logout } = useAuth();
 
   return (
-    <Page title="404 Page Not Found" sx={{ height: 1 }}>
+    <Page title="404 — Pagina non trovata" sx={{ height: 1 }}>
       <RootStyle>
         <Container component={MotionContainer}>
           <Box sx={{ maxWidth: 480, margin: "auto", textAlign: "center" }}>
@@ -28,16 +28,16 @@ export default function Page404() {
               <Typography variant="h3" paragraph>
                 <Ternary
                   when={isSubAdmin}
-                  then="Issue with your permission"
-                  otherwise="Sorry, page not found!"
+                  then="Permessi non sufficienti"
+                  otherwise="Pagina non trovata"
                 />
               </Typography>
             </m.div>
             <Typography sx={{ color: "text.secondary" }}>
               <Ternary
                 when={isSubAdmin}
-                then="Sorry, we couldn't find proper permissions for you, please contact admin"
-                otherwise="Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL? Be sure to check your spelling."
+                then="Non hai i permessi necessari per accedere a questa pagina. Contatta un amministratore."
+                otherwise="La pagina che stai cercando non esiste. Controlla che l'indirizzo sia corretto."
               />
             </Typography>
 

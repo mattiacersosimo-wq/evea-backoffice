@@ -62,9 +62,9 @@ const UpdateOwner = ({
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={onCloseDialogue}>Cancel</Button>
+            <Button onClick={onCloseDialogue}>Annulla</Button>
             <Button variant="contained" type="submit">
-              update
+              Aggiorna
             </Button>
           </DialogActions>
         </FormProvider>

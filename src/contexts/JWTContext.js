@@ -294,14 +294,13 @@ function AuthProvider({ children }) {
 
   const logout = async () => {
     try {
-      const { status } = await axiosInstance.post("api/logout");
-      if (status === 200) {
-        clearSession();
-        dispatch({ type: "LOGOUT" });
-        window.location = "/auth/login";
-      }
+      await axiosInstance.post("api/logout");
     } catch (err) {
+      console.error("logout API failed, clearing client session anyway", err);
     }
+    clearSession();
+    dispatch({ type: "LOGOUT" });
+    window.location = "/auth/login";
   };
 
   const resetPassword = async (reqData) => {
@@ -313,7 +312,10 @@ function AuthProvider({ children }) {
     try {
       const res = await axiosInstance.post(`/reset-password`, data);
       return res.status === 200;
-    } catch (error) {}
+    } catch (error) {
+      console.error("resetPassword failed", error);
+      return false;
+    }
   };
 
   const getUser = async () => {

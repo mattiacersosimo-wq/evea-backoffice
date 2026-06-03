@@ -73,11 +73,11 @@ const Index = () => {
                 <Alert severity="error">
                   <Ternary
                     when={summary?.withdrawal_open_days?.length === 0}
-                    then="Payout is not available today"
+                    then="I payout non sono disponibili oggi"
                     otherwise={
                       <Ternary
                         when={summary?.withdrawal_open_days?.length > 0}
-                        then={`Payout available on ${summary?.withdrawal_open_days}`}
+                        then={`Payout disponibili nei giorni: ${summary?.withdrawal_open_days}`}
                       />
                     }
                   />
