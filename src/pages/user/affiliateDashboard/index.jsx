@@ -310,9 +310,6 @@ const BonusSummaryGrid = () => {
         <Typography sx={{ fontSize: "0.82rem", fontWeight: 700, color: ESPRESSO, lineHeight: 1.2 }}>
           {b.label}
         </Typography>
-        {b.expired && (
-          <Chip label="Expired" size="small" color="error" sx={{ height: 18, fontSize: "0.6rem", ml: "auto" }} />
-        )}
       </Stack>
       {b.freq === "weekly" && b.pendingCurrentWeek !== null ? (
         <>
