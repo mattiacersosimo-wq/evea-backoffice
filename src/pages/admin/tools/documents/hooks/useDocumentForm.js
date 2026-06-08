@@ -25,7 +25,7 @@ export const documentFormDefaultValues = {
 
 const useDocumentForm = () => {
   return useForm({
-    documentFormDefaultValues,
+    defaultValues: documentFormDefaultValues,
     resolver: yupResolver(ValidationSchema),
   });
 };
