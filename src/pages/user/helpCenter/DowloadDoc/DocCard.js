@@ -7,8 +7,8 @@ import Ternary from "src/components/ternary";
 import useGetDoc from "./hook/useGetDoc";
 import Translate from "src/components/translate";
 
-const DocCard = () => {
-  const { state, timeOut, ...rest } = useGetDoc();
+const DocCard = ({ language = "it" }) => {
+  const { state, timeOut, ...rest } = useGetDoc(language);
   const { data, ...dataProps } = state;
   return (
     <>

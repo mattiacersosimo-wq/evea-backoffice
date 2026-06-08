@@ -50,7 +50,7 @@ const Index = () => {
             <Tab value="en" label={<Stack direction="row" alignItems="center" spacing={1}><span role="img" aria-label="en">🇬🇧</span><span>English</span></Stack>} />
           </Tabs>
         </Card>
-        {lang === "it" ? <DocCard /> : <EnglishEmpty />}
+        <DocCard language={lang} key={lang} />
       </Box>
     </Page>
   );

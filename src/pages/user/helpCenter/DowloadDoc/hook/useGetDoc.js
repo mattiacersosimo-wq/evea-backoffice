@@ -5,7 +5,7 @@ import useTimeOut from "src/components/timeout/hooks/useTimeOut";
 import useErrors from "src/hooks/useErrors";
 import fetchUser from "src/utils/fetchUser";
 
-const useGetDoc = () => {
+const useGetDoc = (language = "it") => {
   const [documents, setDocuments] = useState([]);
   const [state, actions] = useDataHandler();
   const handleErrors = useErrors();
@@ -18,7 +18,7 @@ const useGetDoc = () => {
     actions.loading();
     try {
       const { status, data } = await (
-        await fetchUser(`user-documents?page=${page}`)
+        await fetchUser(`user-documents?page=${page}&language=${language}`)
       ).data;
       if (status) {
         const { data: document, last_page, from } = data;
@@ -35,7 +35,7 @@ const useGetDoc = () => {
   };
   useEffect(() => {
     fetchData(page);
-  }, [page]);
+  }, [page, language]);
   return { state, documents, page, count, onChange, rowStart, timeOut };
 };
 export default useGetDoc;

@@ -20,6 +20,7 @@ export const documentFormDefaultValues = {
   title: "",
   sort_order: "",
   document_url: "",
+  language: "it",
 };
 
 const useDocumentForm = () => {
