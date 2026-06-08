@@ -13,7 +13,6 @@ import { useTranslation } from "react-i18next";
 
 import { FormProvider, RHFTextField } from "src/components/hook-form";
 import RHFSelect from "src/components/hook-form/RHFSelect";
-import { MenuItem } from "@mui/material";
 import Translate from "src/components/translate";
 
 const Form = ({ methods, onSubmit, onClose }) => {
@@ -52,8 +51,8 @@ const Form = ({ methods, onSubmit, onClose }) => {
           <Box mt={3}>
             <FormControl fullWidth>
               <RHFSelect name="language" label="Lingua">
-                <MenuItem value="it">🇮🇹 Italiano</MenuItem>
-                <MenuItem value="en">🇬🇧 English</MenuItem>
+                <option value="it">🇮🇹 Italiano</option>
+                <option value="en">🇬🇧 English</option>
               </RHFSelect>
             </FormControl>
           </Box>
