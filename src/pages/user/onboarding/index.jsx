@@ -443,13 +443,13 @@ const OnboardingWizard = () => {
                       <br />
                       • <strong>Senza Partita IVA</strong> (Incaricato Occasionale): solo sulla parte di guadagni che <strong>supera €5.000 in un anno solare</strong>.
                       <br />
-                      <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}>Es: se guadagni €6.000 nell'anno, l'INPS si applica solo sui €1.000 eccedenti → trattenuta €350,30 o €240.</em>
+                      <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}>Es: se guadagni €6.000 nell'anno, la trattenuta a tuo carico scatta solo sui €1.000 eccedenti.</em>
                       <br />
                       • <strong>Con Partita IVA</strong> (Incaricato con P.IVA): si applica <strong>fin dal primo euro</strong>.
                       <br />
-                      <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}>Es: su €100 di guadagno, trattenuta €35,03 o €24 → ti restano €64,97 o €76.</em>
+                      <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}>Es: su €100 di guadagno, ti viene trattenuto circa €8,77 (quota piena) o €6,24 (quota ridotta).</em>
                       <br /><br />
-                      L'aliquota (35,03% o 24%) dipende dalla situazione che selezioni qui sotto.
+                      La trattenuta a tuo carico (~8,77% o ~6,24%) dipende dalla situazione che selezioni qui sotto.
                     </Typography>
                   </Box>
                 </Box>
@@ -459,18 +459,18 @@ const OnboardingWizard = () => {
                     {
                       value: "none",
                       label: "No, EVEA sarà la mia unica entrata",
-                      inps: "INPS al 35,03% sui tuoi guadagni (quota piena, perché non hai altre coperture previdenziali)",
+                      inps: "Trattenuta INPS a tuo carico: ~8,77% sui guadagni (quota piena)",
                     },
                     {
                       value: "other_position",
                       label: "Sì, ho un lavoro dipendente o un'altra attività",
                       sublabel: "(es. lavoro in azienda, libero professionista)",
-                      inps: "INPS al 24% sui tuoi guadagni (quota ridotta, sei già coperto altrove)",
+                      inps: "Trattenuta INPS a tuo carico: ~6,24% sui guadagni (quota ridotta, sei già coperto altrove)",
                     },
                     {
                       value: "retired",
                       label: "Sono in pensione",
-                      inps: "INPS al 24% sui tuoi guadagni (quota ridotta)",
+                      inps: "Trattenuta INPS a tuo carico: ~6,24% sui guadagni (quota ridotta)",
                     },
                   ].map((opt) => (
                     <FormControlLabel
