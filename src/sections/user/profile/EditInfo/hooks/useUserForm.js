@@ -61,6 +61,10 @@ export const defaultValues = {
   regime_fiscale: "incaricato_occasionale",
   codice_sdi: "",
   pec: "",
+  has_co_holder: false,
+  co_holder_first_name: "",
+  co_holder_last_name: "",
+  co_holder_date_of_birth: "",
   social: {
     scope_phone: 0,
     scope_email: 0,

@@ -276,6 +276,24 @@ const OnboardingWizard = () => {
                     <MenuItem value="ALTRA">Altra</MenuItem>
                   </TextField>
                 </Grid>
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={<Checkbox checked={!!form.has_co_holder} onChange={(e) => { set("has_co_holder", e.target.checked); if (!e.target.checked) { set("co_holder_first_name", ""); set("co_holder_last_name", ""); set("co_holder_date_of_birth", ""); } }} />}
+                    label="Aggiungi un co-intestatario (es. coniuge, familiare)"
+                  />
+                </Grid>
+                {form.has_co_holder && (
+                  <>
+                    <Grid item xs={12}>
+                      <Typography sx={{ fontSize: "0.75rem", color: "#7A6A5C", fontStyle: "italic" }}>
+                        Il co-intestatario è una figura informativa (es. coniuge): commissioni, ritenute e note di compenso restano intestate solo al titolare principale.
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={4}><TextField fullWidth size="small" label="Nome co-intestatario" value={form.co_holder_first_name || ""} onChange={(e) => set("co_holder_first_name", e.target.value)} /></Grid>
+                    <Grid item xs={12} sm={4}><TextField fullWidth size="small" label="Cognome co-intestatario" value={form.co_holder_last_name || ""} onChange={(e) => set("co_holder_last_name", e.target.value)} /></Grid>
+                    <Grid item xs={12} sm={4}><TextField fullWidth size="small" type="date" label="Data di nascita co-intestatario" InputLabelProps={{ shrink: true }} value={form.co_holder_date_of_birth || ""} onChange={(e) => set("co_holder_date_of_birth", e.target.value)} /></Grid>
+                  </>
+                )}
               </Grid>
               <Stack direction="row" justifyContent="flex-end">
                 <Button
@@ -286,10 +304,14 @@ const OnboardingWizard = () => {
                     if (!isAdult(form.date_of_birth)) { enqueueSnackbar("Devi essere maggiorenne per registrarti come Promotore.", { variant: "error" }); return; }
                     if (!form.gender) { enqueueSnackbar("Il sesso è obbligatorio.", { variant: "error" }); return; }
                     if (!form.birthplace) { enqueueSnackbar("Il comune di nascita è obbligatorio.", { variant: "error" }); return; }
+                    if (form.has_co_holder && (!form.co_holder_first_name || !form.co_holder_last_name)) { enqueueSnackbar("Nome e cognome co-intestatario sono obbligatori (oppure deseleziona la voce).", { variant: "error" }); return; }
                     save("save-personal", {
                       first_name: form.first_name, last_name: form.last_name, date_of_birth: form.date_of_birth,
                       gender: form.gender, birthplace: form.birthplace, birthplaceProvincia: form.birthplaceProvincia,
                       nationality: form.nationality || "IT",
+                      co_holder_first_name: form.has_co_holder ? form.co_holder_first_name : "",
+                      co_holder_last_name: form.has_co_holder ? form.co_holder_last_name : "",
+                      co_holder_date_of_birth: form.has_co_holder ? form.co_holder_date_of_birth : "",
                     });
                   }}
                   disabled={saving}

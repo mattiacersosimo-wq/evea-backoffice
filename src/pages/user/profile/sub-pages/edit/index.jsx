@@ -1,5 +1,5 @@
 import { LoadingButton } from "@mui/lab";
-import { Box, Button, Card, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Stack, TextField as MuiTextField, Typography } from "@mui/material";
+import { Box, Button, Card, Checkbox, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, Grid, Stack, TextField as MuiTextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useSnackbar } from "notistack";
 import Iconify from "src/components/Iconify";
@@ -94,6 +94,51 @@ const ChangeEmailDialog = ({ open, onClose, currentEmail }) => {
                 )}
             </DialogActions>
         </Dialog>
+    );
+};
+
+const CoHolderSection = () => {
+    const { control, register, setValue } = useFormContext();
+    const hasCoHolder = useWatch({ control, name: "has_co_holder" });
+
+    return (
+        <Box sx={{ gridColumn: "1 / -1", mt: 1, p: 2, border: "1px solid #E5DCC9", borderRadius: 1, bgcolor: "#FAF7F0" }}>
+            <FormControlLabel
+                control={
+                    <Checkbox
+                        checked={Boolean(hasCoHolder)}
+                        onChange={(e) => {
+                            const checked = e.target.checked;
+                            setValue("has_co_holder", checked);
+                            if (!checked) {
+                                setValue("co_holder_first_name", "");
+                                setValue("co_holder_last_name", "");
+                                setValue("co_holder_date_of_birth", "");
+                            }
+                        }}
+                        sx={{ color: "#B8963B", "&.Mui-checked": { color: "#B8963B" } }}
+                    />
+                }
+                label={<Typography sx={{ fontWeight: 600 }}>Aggiungi un co-intestatario (es. coniuge, familiare)</Typography>}
+            />
+            <Typography variant="caption" sx={{ display: "block", color: "#7A6A5C", mt: 0.5, fontSize: "0.75rem", fontStyle: "italic" }}>
+                Il co-intestatario e&apos; una figura informativa indicata sulla lettera d&apos;incarico. Il codice fiscale e l&apos;eventuale Partita IVA restano intestati al titolare principale.
+            </Typography>
+            {hasCoHolder && (
+                <Box sx={{ display: "grid", columnGap: 2, rowGap: 2, gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr 1fr" }, mt: 2 }}>
+                    <RHFTextField name="co_holder_first_name" label="Nome co-intestatario" />
+                    <RHFTextField name="co_holder_last_name" label="Cognome co-intestatario" />
+                    <RHFTextField
+                        name="co_holder_date_of_birth"
+                        label="Data di nascita"
+                        type="date"
+                        InputLabelProps={{ shrink: true }}
+                    />
+                </Box>
+            )}
+            {/* keep RHF registration alive even when collapsed */}
+            <input type="hidden" {...register("has_co_holder")} />
+        </Box>
     );
 };
 
@@ -241,6 +286,8 @@ const EditInfo = () => {
                                     shrink: true,
                                 }}
                             />
+
+                            <CoHolderSection />
 
                             {user?.is_promoter === 1 && (
                             <>

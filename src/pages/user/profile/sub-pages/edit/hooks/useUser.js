@@ -38,15 +38,20 @@ const useUser = () => {
   };
 
   useEffect(() => {
+    const profile = user?.user_profile || {};
     methods.reset({
       username: user.username,
-      ...user?.user_profile,
+      ...profile,
       email: user.email,
       tax_code: user.tax_code || "",
       vat_number: user.vat_number || "",
       regime_fiscale: user.regime_fiscale || "incaricato_occasionale",
       codice_sdi: user.codice_sdi || "",
       pec: user.pec || "",
+      has_co_holder: Boolean(profile.co_holder_first_name || profile.co_holder_last_name),
+      co_holder_first_name: profile.co_holder_first_name || "",
+      co_holder_last_name: profile.co_holder_last_name || "",
+      co_holder_date_of_birth: profile.co_holder_date_of_birth || "",
       social: {
         scope_email: user?.user_profile?.scope_email,
         scope_facebook: user?.user_profile?.scope_facebook,
