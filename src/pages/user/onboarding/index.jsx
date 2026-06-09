@@ -423,19 +423,27 @@ const OnboardingWizard = () => {
                 )}
               </Box>
 
-              {/* Inquadramento fiscale UNIFICATO (IRPEF + INPS + riepilogo dinamico) */}
+              {/* Inquadramento fiscale UNIFICATO — stile scontrino */}
               {(() => {
                 const isPiva = autoRegime === "partita_iva";
                 const isRidotta = form.previdential_status === "other_position" || form.previdential_status === "retired";
+                const inpsPct = isRidotta ? "6,24" : "8,77";
+                const inpsEur1000 = isRidotta ? "62,40" : "87,67";
+                // Stili scontrino
+                const row = { display: "flex", justifyContent: "space-between", fontSize: "0.78rem", fontFamily: "monospace", color: "#3D3229", py: 0.15 };
+                const totalRow = { ...row, fontWeight: 700, color: ESPRESSO, borderTop: `1px solid ${alpha(ORO, 0.4)}`, mt: 0.5, pt: 0.5 };
+
                 return (
                   <Box sx={{ p: 2, bgcolor: "#fafafa", borderRadius: 2, border: "1px solid #eee" }}>
-                    <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 1.2 }}>
+                    <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 1 }}>
                       Inquadramento fiscale e previdenziale
                     </Typography>
 
-                    {/* IRPEF in 1 riga */}
-                    <Typography sx={{ fontSize: "0.72rem", color: "#5C4A3E", lineHeight: 1.6, mb: 1.2 }}>
-                      EVEA è <strong>sostituto d'imposta</strong> (art. 25-bis co. 6 DPR 600/73): trattiene <strong>17,94% IRPEF</strong> sul lordo {isPiva ? "(a titolo d'acconto, conguaglio in dichiarazione)" : "(a titolo d'imposta — non vai in dichiarazione)"}.
+                    {/* Riga IRPEF in linguaggio umano */}
+                    <Typography sx={{ fontSize: "0.74rem", color: "#5C4A3E", lineHeight: 1.55, mb: 1.5 }}>
+                      EVEA <strong>trattiene automaticamente</strong> la tassa IRPEF dai tuoi guadagni e la versa per te all'Agenzia delle Entrate.
+                      {!isPiva && <> Per gli Incaricati Occasionali <strong>non devi dichiararli nel 730</strong>: sono già chiusi qui.</>}
+                      {isPiva && <> Per chi ha Partita IVA è ritenuta a titolo d'acconto e si conguaglia in dichiarazione annuale col tuo commercialista.</>}
                     </Typography>
 
                     {/* Domanda previdenziale */}
@@ -444,9 +452,9 @@ const OnboardingWizard = () => {
                     </Typography>
                     <Stack spacing={0.3} sx={{ mb: 1.5 }}>
                       {[
-                        { value: "none", label: "No, EVEA sarà la mia unica entrata", inps: "INPS quota piena" },
-                        { value: "other_position", label: "Sì, ho un lavoro dipendente o un'altra attività", sublabel: "(es. lavoro in azienda, libero professionista)", inps: "INPS quota ridotta" },
-                        { value: "retired", label: "Sono in pensione", inps: "INPS quota ridotta" },
+                        { value: "none", label: "No, EVEA sarà la mia unica entrata", inps: "Trattenuta INPS più alta (non hai altre coperture previdenziali)" },
+                        { value: "other_position", label: "Sì, ho un lavoro dipendente o un'altra attività", sublabel: "(es. lavoro in azienda, libero professionista)", inps: "Trattenuta INPS ridotta (sei già coperto altrove)" },
+                        { value: "retired", label: "Sono in pensione", inps: "Trattenuta INPS ridotta (sei già coperto dalla pensione)" },
                       ].map((opt) => (
                         <FormControlLabel
                           key={opt.value}
@@ -465,23 +473,34 @@ const OnboardingWizard = () => {
                       ))}
                     </Stack>
 
-                    {/* Riepilogo dinamico con esempio numerico */}
-                    <Box sx={{ p: 1.3, bgcolor: alpha(ORO, 0.08), borderRadius: 1.2, border: `1px solid ${alpha(ORO, 0.2)}` }}>
-                      <Typography sx={{ fontSize: "0.74rem", fontWeight: 700, color: ESPRESSO, mb: 0.4 }}>
-                        Cosa ti trattiene EVEA al payout
+                    {/* Scontrino dinamico */}
+                    <Box sx={{ p: 1.5, bgcolor: "#fffdf7", borderRadius: 1.5, border: `1px solid ${alpha(ORO, 0.3)}` }}>
+                      <Typography sx={{ fontSize: "0.74rem", fontWeight: 700, color: ESPRESSO, mb: 0.7, textAlign: "center" }}>
+                        Esempio su €100 di provvigione
                       </Typography>
+
                       {!isPiva ? (
-                        <Typography sx={{ fontSize: "0.7rem", color: "#5C4A3E", lineHeight: 1.55 }}>
-                          • IRPEF 17,94% sempre · INPS quota promoter ~{isRidotta ? "6,24" : "8,77"}% <strong>solo sull'eccedenza oltre €5.000 netti/anno</strong> · bollo €2 fisso se la singola provvigione supera €77,47.
-                          <br />
-                          <strong>Esempio su €100</strong> (sotto soglia): IRPEF €17,94 + bollo €2 → <strong>€80,06 in tasca</strong>. Su €1.000 in eccedenza: IRPEF €179,40 + INPS €{isRidotta ? "62,40" : "87,67"} + bollo €2 → <strong>€{(1000 - 179.40 - (isRidotta ? 62.40 : 87.67) - 2).toFixed(2).replace(".", ",")}</strong>.
-                        </Typography>
+                        <>
+                          <Box sx={row}><span>Provvigione lorda</span><span>€100,00</span></Box>
+                          <Box sx={row}><span>− IRPEF</span><span>− €17,94</span></Box>
+                          <Box sx={row}><span>− Marca da bollo</span><span>− €2,00</span></Box>
+                          <Box sx={totalRow}><span>Sul tuo conto</span><span style={{ color: ORO }}>€80,06</span></Box>
+                          <Typography sx={{ fontSize: "0.68rem", color: "#7A6A5C", mt: 1.2, lineHeight: 1.5, fontStyle: "italic", textAlign: "center" }}>
+                            Oltre €5.000 netti/anno scatta anche INPS<br />
+                            <strong>~€{inpsPct} ogni €100</strong> sulla sola parte in eccedenza
+                          </Typography>
+                        </>
                       ) : (
-                        <Typography sx={{ fontSize: "0.7rem", color: "#5C4A3E", lineHeight: 1.55 }}>
-                          • Imponibile = 78% del lordo (abbattimento 22%) · IVA 22% in fattura · IRPEF 17,94% trattenuta da EVEA · <strong>INPS NON trattenuta</strong>: la versi tu sulla tua posizione P.IVA.
-                          <br />
-                          <strong>Esempio su €100 lordi</strong>: imponibile €78 + IVA €17,16 − IRPEF €17,94 → <strong>bonifico €77,22</strong> (l'IVA €17,16 la versi all'AdE; l'INPS Gestione Separata col tuo commercialista).
-                        </Typography>
+                        <>
+                          <Box sx={row}><span>Imponibile (78%)</span><span>€78,00</span></Box>
+                          <Box sx={row}><span>+ IVA 22%</span><span>+ €17,16</span></Box>
+                          <Box sx={row}><span>− IRPEF (acconto)</span><span>− €17,94</span></Box>
+                          <Box sx={totalRow}><span>Bonifico EVEA</span><span style={{ color: ORO }}>€77,22</span></Box>
+                          <Typography sx={{ fontSize: "0.68rem", color: "#7A6A5C", mt: 1.2, lineHeight: 1.5, fontStyle: "italic", textAlign: "center" }}>
+                            L'IVA <strong>€17,16</strong> la versi tu all'Agenzia Entrate.<br />
+                            L'<strong>INPS Gestione Separata</strong> la gestisci col tuo commercialista (EVEA non trattiene).
+                          </Typography>
+                        </>
                       )}
                     </Box>
                   </Box>
