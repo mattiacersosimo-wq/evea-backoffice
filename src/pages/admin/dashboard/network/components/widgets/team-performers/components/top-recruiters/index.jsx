@@ -5,11 +5,13 @@ import useGetTeamPerformance from "../../hooks/use-get-team-performance";
 import PerformersCard from "../performers-card";
 import PerformersCardItem from "../performers-card-item";
 import { useTranslation } from "react-i18next";
+import { stripHiddenUsers } from "src/utils/displayName";
 
 const TopRecruiters = () => {
   const state = useGetTeamPerformance("api/admin/dashboard/top-recruiters");
   const { t } = useTranslation();
-  const { data, ...dataProps } = state;
+  const { data: rawData, ...dataProps } = state;
+  const data = stripHiddenUsers(rawData || []);
   return (
     <PerformersCard
       title="global.top_recruiters"

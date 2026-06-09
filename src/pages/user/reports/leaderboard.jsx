@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import axiosInstance from "src/utils/axios";
-import { displayName } from "src/utils/displayName";
+import { displayName, stripHiddenUsers } from "src/utils/displayName";
 
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
@@ -141,7 +141,7 @@ const LeaderboardContent = ({ data, tab, setTab, isIt, globalOnly = false }) => 
   const tabsConfig = globalOnly ? TAB_CONFIG.filter((t) => t.scope === "global") : TAB_CONFIG;
   const safeTab = Math.min(tab, tabsConfig.length - 1);
   const current = tabsConfig[safeTab];
-  const items = data?.[current.dataKey] || [];
+  const items = stripHiddenUsers(data?.[current.dataKey] || []);
 
   const allTabLabels = isIt
     ? ["GV Globale", "Reclutatori Globale", "Rank Up Globale", "Commissioni Globale",

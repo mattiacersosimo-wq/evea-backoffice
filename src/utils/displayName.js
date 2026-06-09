@@ -28,4 +28,18 @@ export const displayName = (user, context = "global") => {
   return full || username;
 };
 
+// Account interni/di servizio nascosti dalle classifiche pubbliche e dal ticker.
+const HIDDEN_USERNAMES = new Set(["mlmadmin", "eveaglobal", "evea"]);
+
+export const isHiddenUsername = (username) =>
+  typeof username === "string" && HIDDEN_USERNAMES.has(username.toLowerCase());
+
+// Filtra un array di item leaderboard/ticker togliendo gli username di servizio.
+// Tollera item.username, item.user?.username, item.uname.
+export const stripHiddenUsers = (items = []) =>
+  items.filter((it) => {
+    const u = it?.username || it?.user?.username || it?.uname || "";
+    return !isHiddenUsername(u);
+  });
+
 export default displayName;

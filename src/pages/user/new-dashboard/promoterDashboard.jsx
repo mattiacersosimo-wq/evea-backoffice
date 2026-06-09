@@ -22,6 +22,7 @@ import useFounderStatus from "src/hooks/useFounderStatus";
 import useOnboardingStatus from "src/hooks/useOnboardingStatus";
 import CopyCouponButton from "src/components/CopyCouponButton";
 import FiscalThresholdBanner from "src/components/FiscalThresholdBanner";
+import { stripHiddenUsers } from "src/utils/displayName";
 
 // ═══════════════════════════════════════
 // PALETTE EVEA
@@ -368,7 +369,6 @@ const HeroCard = () => {
 // 2. TICKER
 // ═══════════════════════════════════════
 const scroll = keyframes`0% { transform: translateX(0); } 100% { transform: translateX(-50%); }`;
-const TICKER_HIDDEN_USERNAMES = new Set(["mlmadmin", "eveaglobal", "evea"]);
 const isPromoterKit = (product) => typeof product === "string" && /promoter\s*kit/i.test(product);
 
 const TickerBar = () => {
@@ -377,15 +377,13 @@ const TickerBar = () => {
   if (!ticker) return null;
   const rawItems = [...(ticker.sales || []), ...(ticker.new_members || []), ...(ticker.ranks || [])]
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-  const items = rawItems
-    .filter((it) => !TICKER_HIDDEN_USERNAMES.has((it.username || "").toLowerCase()))
-    .map((it) => {
-      // Il kit promoter da 79€ è l'iscrizione: mostralo come "nuovo promoter", solo nickname
-      if (it.type === "sale" && isPromoterKit(it.product)) {
-        return { ...it, type: "new_member", is_promoter: 1, product: undefined, amount: undefined };
-      }
-      return it;
-    });
+  const items = stripHiddenUsers(rawItems).map((it) => {
+    // Il kit promoter da 79€ è l'iscrizione: mostralo come "nuovo promoter", solo nickname
+    if (it.type === "sale" && isPromoterKit(it.product)) {
+      return { ...it, type: "new_member", is_promoter: 1, product: undefined, amount: undefined };
+    }
+    return it;
+  });
   if (!items.length) return null;
   return (
     <Box sx={{
