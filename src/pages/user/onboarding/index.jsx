@@ -515,40 +515,65 @@ const OnboardingWizard = () => {
                 </Stack>
               </Box>
 
-              {/* Riepilogo dinamico — Carico fiscale TOTALE */}
+              {/* Riepilogo dinamico — Cosa trattiene EVEA al payout */}
               {(() => {
                 const isPiva = autoRegime === "partita_iva";
                 const isRidotta = form.previdential_status === "other_position" || form.previdential_status === "retired";
-                // Occasionale: 17,94% IRPEF, niente INPS sotto soglia €5.000 netti
-                // Abituale (P.IVA) standard: 17,94 + 8,77 = 26,71%
-                // Abituale (P.IVA) ridotta: 17,94 + 6,24 = 24,18%
+                // Logica allineata a FiscaleService.php:
+                //  - Occasionale: IRPEF 17,94% sempre, INPS 8,77% (standard) / 6,24% (ridotta) SOLO sull'eccedenza oltre €5.000 netti/anno
+                //  - Abituale (P.IVA): EVEA trattiene SOLO 17,94% IRPEF. L'INPS Gestione Separata la gestisce il promoter sulla propria posizione (NON trattenuta da EVEA). IVA 22% va versata dal promoter all'AdE.
                 const irpef = 17.94;
-                const inps = !isPiva ? 0 : isRidotta ? 6.24 : 8.77;
-                const totale = irpef + inps;
-                const netto = 100 - totale;
                 return (
                   <Box sx={{ p: 2, bgcolor: "#fff", borderRadius: 2, border: `1px dashed ${ORO}` }}>
                     <Stack direction="row" spacing={1} alignItems="flex-start">
                       <Iconify icon="mdi:calculator-variant-outline" width={20} sx={{ color: ORO, flexShrink: 0, mt: 0.2 }} />
                       <Box sx={{ flex: 1 }}>
                         <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO, mb: 0.7 }}>
-                          Carico fiscale totale a tuo carico — riepilogo
+                          {isPiva ? "Cosa ti trattiene EVEA al payout — regime Partita IVA" : "Cosa ti trattiene EVEA al payout — regime Occasionale"}
                         </Typography>
-                        <Typography sx={{ fontSize: "0.72rem", color: "#5C4A3E", lineHeight: 1.7 }}>
-                          • Ritenuta IRPEF: <strong>{irpef.toFixed(2).replace(".", ",")}%</strong> sul lordo<br />
-                          • INPS quota promoter: <strong>{inps === 0 ? "0%" : "~" + inps.toFixed(2).replace(".", ",") + "%"}</strong> sul lordo
-                          {!isPiva && <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}> (scatta solo oltre €5.000 netti/anno)</em>}
-                          {isPiva && isRidotta && <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}> (quota ridotta)</em>}
-                          {isPiva && !isRidotta && <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}> (quota piena)</em>}
-                        </Typography>
-                        <Box sx={{ mt: 1, p: 1.2, bgcolor: alpha(ORO, 0.08), borderRadius: 1 }}>
-                          <Typography sx={{ fontSize: "0.78rem", fontWeight: 700, color: ESPRESSO }}>
-                            Totale trattenute: ~{totale.toFixed(2).replace(".", ",")}% → su €100 di provvigione ti restano €{netto.toFixed(2).replace(".", ",")}
-                          </Typography>
-                        </Box>
-                        <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C", mt: 0.7, fontStyle: "italic" }}>
-                          I 2/3 del contributo INPS sono a carico di EVEA e versati direttamente all'INPS, non li paghi tu. La ritenuta IRPEF è già operata da EVEA come sostituto d'imposta.
-                        </Typography>
+
+                        {!isPiva && (
+                          <>
+                            <Typography sx={{ fontSize: "0.72rem", color: "#5C4A3E", lineHeight: 1.7 }}>
+                              • Ritenuta IRPEF: <strong>17,94%</strong> sul lordo (sempre, a titolo d'imposta — non vai in dichiarazione)
+                              <br />
+                              • INPS Gestione Separata: <strong>0%</strong> sotto €5.000 netti/anno; sopra soglia EVEA trattiene <strong>~{isRidotta ? "6,24" : "8,77"}%</strong> sull'eccedenza ({isRidotta ? "quota ridotta" : "quota piena"})
+                            </Typography>
+                            <Box sx={{ mt: 1, p: 1.2, bgcolor: alpha(ORO, 0.08), borderRadius: 1 }}>
+                              <Typography sx={{ fontSize: "0.78rem", fontWeight: 700, color: ESPRESSO }}>
+                                Esempio su €100 di provvigione (sotto soglia annua):<br />
+                                Trattenuta totale ~17,94% → ti arrivano <strong>€82,06</strong> sul conto.
+                              </Typography>
+                              <Typography sx={{ fontSize: "0.7rem", color: "#5C4A3E", mt: 0.5 }}>
+                                Una volta superati €5.000 netti nell'anno, sulla parte eccedente si applica anche l'INPS quota promoter (~{isRidotta ? "6,24" : "8,77"}%) → netto su €100 eccedenza: <strong>€{(100 - irpef - (isRidotta ? 6.24 : 8.77)).toFixed(2).replace(".", ",")}</strong>.
+                              </Typography>
+                            </Box>
+                            <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C", mt: 0.7, fontStyle: "italic" }}>
+                              I 2/3 dell'INPS Gestione Separata sono a carico di EVEA (versati direttamente all'INPS, non li paghi tu). Aggiungi €2 di marca da bollo se la provvigione singola supera €77,47.
+                            </Typography>
+                          </>
+                        )}
+
+                        {isPiva && (
+                          <>
+                            <Typography sx={{ fontSize: "0.72rem", color: "#5C4A3E", lineHeight: 1.7 }}>
+                              • Ritenuta IRPEF: <strong>17,94%</strong> sul lordo (a titolo d'acconto — conguaglio in dichiarazione annuale)
+                              <br />
+                              • IVA <strong>22%</strong>: la incassi tu nella fattura e la versi all'Agenzia Entrate
+                              <br />
+                              • INPS Gestione Separata: <strong>EVEA non trattiene</strong>. Sei tu, come professionista con P.IVA, a gestire i contributi previdenziali sulla tua posizione fiscale.
+                            </Typography>
+                            <Box sx={{ mt: 1, p: 1.2, bgcolor: alpha(ORO, 0.08), borderRadius: 1 }}>
+                              <Typography sx={{ fontSize: "0.78rem", fontWeight: 700, color: ESPRESSO }}>
+                                Esempio su €100 di imponibile (provvigione):<br />
+                                IVA €22 (incassata e versata) — IRPEF €17,94 trattenuta → bonifico EVEA <strong>€104,06</strong>* (* €100 imponibile + €22 IVA − €17,94 IRPEF).
+                              </Typography>
+                            </Box>
+                            <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C", mt: 0.7, fontStyle: "italic" }}>
+                              L'INPS Gestione Separata (~26-33% sul reddito imponibile) la versi tu autonomamente con F24, secondo la tua aliquota previdenziale. EVEA non interviene su quella partita. Confronta col tuo commercialista per il calcolo annuale netto.
+                            </Typography>
+                          </>
+                        )}
                       </Box>
                     </Stack>
                   </Box>
