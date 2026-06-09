@@ -48,29 +48,31 @@ const RANKS = [
 ];
 
 // Preset realistici per rank.
-// dupDecay = fattore di decadimento tra livelli (0..100):
-//   ogni livello produce decay% rispetto al precedente (60% = i livelli profondi calano del 40%).
+// dropoff = % di calo tra un livello e il successivo (0..80):
+//   40% significa che ogni livello produce il 60% del precedente.
+//   Alto = decadimento alto = team meno produttivo in profondità.
 // activePct = % di promoter del team che sono qualificati / producono BV nel mese.
 // growthPct = crescita mensile stimata della proiezione 12 mesi.
 const RANK_PRESETS = {
-  1:  { clients: 2,  avgOrder: 27, smartship: 30, promoters: 0,  clientsPerPromoter: 3, promotersPerPromoter: 0, dupLevels: 0, dupDecay: 60, activePct: 100, growthPct: 2 },
-  2:  { clients: 5,  avgOrder: 27, smartship: 50, promoters: 2,  clientsPerPromoter: 3, promotersPerPromoter: 1, dupLevels: 1, dupDecay: 65, activePct: 80,  growthPct: 4 },
-  3:  { clients: 8,  avgOrder: 30, smartship: 55, promoters: 3,  clientsPerPromoter: 4, promotersPerPromoter: 2, dupLevels: 2, dupDecay: 60, activePct: 70,  growthPct: 4 },
-  4:  { clients: 10, avgOrder: 30, smartship: 60, promoters: 5,  clientsPerPromoter: 4, promotersPerPromoter: 2, dupLevels: 3, dupDecay: 60, activePct: 65,  growthPct: 5 },
-  5:  { clients: 12, avgOrder: 35, smartship: 65, promoters: 7,  clientsPerPromoter: 5, promotersPerPromoter: 3, dupLevels: 4, dupDecay: 55, activePct: 60,  growthPct: 5 },
-  6:  { clients: 15, avgOrder: 35, smartship: 70, promoters: 10, clientsPerPromoter: 5, promotersPerPromoter: 3, dupLevels: 5, dupDecay: 55, activePct: 60,  growthPct: 4 },
-  7:  { clients: 18, avgOrder: 40, smartship: 75, promoters: 12, clientsPerPromoter: 5, promotersPerPromoter: 3, dupLevels: 6, dupDecay: 50, activePct: 55,  growthPct: 4 },
-  8:  { clients: 20, avgOrder: 40, smartship: 80, promoters: 15, clientsPerPromoter: 6, promotersPerPromoter: 4, dupLevels: 7, dupDecay: 50, activePct: 55,  growthPct: 3 },
-  9:  { clients: 25, avgOrder: 45, smartship: 85, promoters: 18, clientsPerPromoter: 6, promotersPerPromoter: 4, dupLevels: 8, dupDecay: 45, activePct: 50,  growthPct: 3 },
-  10: { clients: 30, avgOrder: 50, smartship: 90, promoters: 20, clientsPerPromoter: 7, promotersPerPromoter: 5, dupLevels: 9, dupDecay: 45, activePct: 50,  growthPct: 2 },
+  1:  { clients: 2,  avgOrder: 27, smartship: 30, promoters: 0,  clientsPerPromoter: 3, promotersPerPromoter: 0, dupLevels: 0, dropoff: 40, activePct: 100, growthPct: 2 },
+  2:  { clients: 5,  avgOrder: 27, smartship: 50, promoters: 2,  clientsPerPromoter: 3, promotersPerPromoter: 1, dupLevels: 1, dropoff: 35, activePct: 80,  growthPct: 4 },
+  3:  { clients: 8,  avgOrder: 30, smartship: 55, promoters: 3,  clientsPerPromoter: 4, promotersPerPromoter: 2, dupLevels: 2, dropoff: 40, activePct: 70,  growthPct: 4 },
+  4:  { clients: 10, avgOrder: 30, smartship: 60, promoters: 5,  clientsPerPromoter: 4, promotersPerPromoter: 2, dupLevels: 3, dropoff: 40, activePct: 65,  growthPct: 5 },
+  5:  { clients: 12, avgOrder: 35, smartship: 65, promoters: 7,  clientsPerPromoter: 5, promotersPerPromoter: 3, dupLevels: 4, dropoff: 45, activePct: 60,  growthPct: 5 },
+  6:  { clients: 15, avgOrder: 35, smartship: 70, promoters: 10, clientsPerPromoter: 5, promotersPerPromoter: 3, dupLevels: 5, dropoff: 45, activePct: 60,  growthPct: 4 },
+  7:  { clients: 18, avgOrder: 40, smartship: 75, promoters: 12, clientsPerPromoter: 5, promotersPerPromoter: 3, dupLevels: 6, dropoff: 50, activePct: 55,  growthPct: 4 },
+  8:  { clients: 20, avgOrder: 40, smartship: 80, promoters: 15, clientsPerPromoter: 6, promotersPerPromoter: 4, dupLevels: 7, dropoff: 50, activePct: 55,  growthPct: 3 },
+  9:  { clients: 25, avgOrder: 45, smartship: 85, promoters: 18, clientsPerPromoter: 6, promotersPerPromoter: 4, dupLevels: 8, dropoff: 55, activePct: 50,  growthPct: 3 },
+  10: { clients: 30, avgOrder: 50, smartship: 90, promoters: 20, clientsPerPromoter: 7, promotersPerPromoter: 5, dupLevels: 9, dropoff: 55, activePct: 50,  growthPct: 2 },
 };
 
-// Scenario preset: applica un moltiplicatore globale a decay + active % per mostrare
-// 3 prospettive realistiche (basse aspettative / aspettative tipiche / massima crescita).
+// Scenario preset: moltiplicatori globali su dropoff, active% e smartship.
+// Pessimistico = piu' decadimento, meno attivi, meno smartship.
+// Ottimistico = meno decadimento, piu' attivi, piu' smartship.
 const SCENARIOS = {
-  pessimistic: { decayMul: 0.75, activeMul: 0.75, smartshipMul: 0.80, label: "Pessimistico" },
-  realistic:   { decayMul: 1.00, activeMul: 1.00, smartshipMul: 1.00, label: "Realistico" },
-  optimistic:  { decayMul: 1.20, activeMul: 1.15, smartshipMul: 1.10, label: "Ottimistico" },
+  pessimistic: { dropoffMul: 1.25, activeMul: 0.75, smartshipMul: 0.80, label: "Pessimistico" },
+  realistic:   { dropoffMul: 1.00, activeMul: 1.00, smartshipMul: 1.00, label: "Realistico" },
+  optimistic:  { dropoffMul: 0.75, activeMul: 1.15, smartshipMul: 1.10, label: "Ottimistico" },
 };
 
 const cs = { bgcolor: "#fff", borderRadius: 3, border: "1px solid #f0ece6", boxShadow: "0 1px 4px rgba(0,0,0,0.04)" };
@@ -117,11 +119,12 @@ const SimulatorReport = () => {
   const [clientsPerPromoter, setClientsPerPromoter] = useState(3);
   const [promotersPerPromoter, setPromotersPerPromoter] = useState(1);
   const [dupLevels, setDupLevels] = useState(2);
-  // Decay: ogni livello produce X% rispetto al precedente. Realistico: 50-65%.
-  const [dupDecay, setDupDecay] = useState(65);
+  // Dropoff: % di scarto tra un livello e il successivo. Alto = piu' decadimento.
+  // 40% significa che il livello successivo produce il 60% del precedente.
+  const [dropoff, setDropoff] = useState(40);
   // Active %: quota del team che è effettivamente qualificata e produce BV nel mese.
   const [activePct, setActivePct] = useState(70);
-  // Growth %: crescita mensile stimata della proiezione 12 mesi (era hardcoded 5%).
+  // Growth %: crescita mensile usata SOLO nella proiezione 12 mesi (grafico).
   const [growthPct, setGrowthPct] = useState(4);
   const [scenario, setScenario] = useState("realistic");
   const [rankId, setRankId] = useState(5);
@@ -138,7 +141,7 @@ const SimulatorReport = () => {
     setClientsPerPromoter(p.clientsPerPromoter);
     setPromotersPerPromoter(p.promotersPerPromoter);
     setDupLevels(p.dupLevels);
-    setDupDecay(p.dupDecay);
+    setDropoff(p.dropoff);
     setActivePct(p.activePct);
     setGrowthPct(p.growthPct);
     setScenario("realistic");
@@ -158,8 +161,11 @@ const SimulatorReport = () => {
     const effSmartshipPct = Math.min(100, smartshipPct * sc.smartshipMul);
     const smartshipClients = Math.round(clients * effSmartshipPct / 100);
     const smartshipBV = smartshipClients * bvClient;
-    // Decay effettivo (cap a 95% per realismo: anche nei migliori scenari c'è drop tra livelli).
-    const decay = Math.min(0.95, (dupDecay / 100) * sc.decayMul);
+    // Dropoff effettivo (cap 95% di scarto = il livello successivo produce 5%).
+    // Scenario "pessimistic" amplifica lo scarto, "optimistic" lo riduce.
+    const effDropoff = Math.min(0.95, (dropoff / 100) * sc.dropoffMul);
+    // Decay = fattore di produzione del livello successivo (1 - scarto).
+    const decay = Math.max(0.05, 1 - effDropoff);
     // Active %: quota promoter effettivamente attivi nel mese.
     const effActive = Math.min(1, (activePct / 100) * sc.activeMul);
 
@@ -265,7 +271,7 @@ const SimulatorReport = () => {
       smartshipClients, unlockedLevels, activeTeamPromoters, effActive, effSmartshipPct,
       scenario: sc,
     };
-  }, [clients, avgOrder, smartshipPct, promoters, clientsPerPromoter, promotersPerPromoter, dupLevels, dupDecay, activePct, growthPct, scenario, rankId, hasKit, hasMvp]);
+  }, [clients, avgOrder, smartshipPct, promoters, clientsPerPromoter, promotersPerPromoter, dupLevels, dropoff, activePct, growthPct, scenario, rankId, hasKit, hasMvp]);
 
   const maxBar = Math.max(...calc.projection.map(p => p.total), 1);
   const currentRank = RANKS.find(r => r.id === rankId) || RANKS[0];
@@ -327,9 +333,9 @@ const SimulatorReport = () => {
                     border: `1px solid ${scenario === key ? ORO : "#eee"}` }} />
               ))}
             </Stack>
-            <SliderInput icon="mdi:trending-down" label={isIt ? "Decadimento per livello" : "Per-level decay"} value={dupDecay} onChange={setDupDecay} min={20} max={95} step={5} unit="%" color="#FF7043" />
+            <SliderInput icon="mdi:trending-down" label={isIt ? "Scarto per livello (più alto = più calo)" : "Per-level dropoff (higher = bigger drop)"} value={dropoff} onChange={setDropoff} min={0} max={80} step={5} unit="%" color="#FF7043" />
             <SliderInput icon="mdi:account-check" label={isIt ? "Promoter attivi" : "Active promoters"} value={activePct} onChange={setActivePct} min={20} max={100} step={5} unit="%" color="#26A69A" />
-            <SliderInput icon="mdi:chart-line" label={isIt ? "Crescita mensile" : "Monthly growth"} value={growthPct} onChange={setGrowthPct} min={0} max={15} unit="%" color="#7E57C2" />
+            <SliderInput icon="mdi:chart-line" label={isIt ? "Crescita mensile (solo proiezione 12m)" : "Monthly growth (12m chart only)"} value={growthPct} onChange={setGrowthPct} min={0} max={15} unit="%" color="#7E57C2" />
 
             {/* Team summary */}
             <Box sx={{ mt: 1.5, p: 1.5, borderRadius: 2, bgcolor: alpha(ORO, 0.04), border: `1px solid ${alpha(ORO, 0.1)}` }}>
@@ -495,8 +501,8 @@ const SimulatorReport = () => {
             <Box sx={{ mt: 1.5, pt: 1.2, borderTop: `1px dashed ${alpha(ORO, 0.2)}` }}>
               <Typography sx={{ fontSize: "0.65rem", color: MUTED, fontStyle: "italic", lineHeight: 1.4 }}>
                 {isIt
-                  ? `⚠ Stima indicativa. Tiene conto di decadimento per livello (${Math.round(dupDecay * (calc.scenario.decayMul))}%), promoter attivi (${Math.round(activePct * calc.scenario.activeMul)}%) e smartship calante in profondità. Nella realtà MLM i risultati variano in base a churn, capacità di reclutamento e tasso di chiusura clienti. Non garantisce alcun guadagno.`
-                  : `⚠ Indicative estimate. Includes per-level decay (${Math.round(dupDecay * (calc.scenario.decayMul))}%), active promoters (${Math.round(activePct * calc.scenario.activeMul)}%) and decreasing smartship at depth. Real MLM results vary based on churn, recruiting and close rate. No earnings guaranteed.`}
+                  ? `⚠ Stima indicativa. Tiene conto di scarto per livello (${Math.round(dropoff * calc.scenario.dropoffMul)}%), promoter attivi (${Math.round(activePct * calc.scenario.activeMul)}%) e smartship calante in profondità. Nella realtà MLM i risultati variano in base a churn, capacità di reclutamento e tasso di chiusura clienti. Non garantisce alcun guadagno.`
+                  : `⚠ Indicative estimate. Includes per-level dropoff (${Math.round(dropoff * calc.scenario.dropoffMul)}%), active promoters (${Math.round(activePct * calc.scenario.activeMul)}%) and decreasing smartship at depth. Real MLM results vary based on churn, recruiting and close rate. No earnings guaranteed.`}
               </Typography>
             </Box>
           </Card>
