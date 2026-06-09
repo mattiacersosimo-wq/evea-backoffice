@@ -423,6 +423,30 @@ const OnboardingWizard = () => {
                 )}
               </Box>
 
+              {/* Box info — Ritenuta IRPEF (sempre presente) */}
+              <Box sx={{ p: 2, bgcolor: alpha(ORO, 0.04), borderRadius: 2, border: `1px solid ${alpha(ORO, 0.15)}` }}>
+                <Stack direction="row" spacing={1} alignItems="flex-start">
+                  <Iconify icon="mdi:percent-outline" width={18} sx={{ color: ORO, flexShrink: 0, mt: 0.2 }} />
+                  <Box>
+                    <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: ESPRESSO, mb: 0.3 }}>
+                      Ritenuta fiscale (IRPEF) — si applica sempre, dal primo euro
+                    </Typography>
+                    <Typography sx={{ fontSize: "0.7rem", color: "#5C4A3E", lineHeight: 1.5 }}>
+                      EVEA agisce come <strong>sostituto d'imposta</strong> (art. 25-bis co. 6 DPR 600/1973).
+                      Sulle tue provvigioni viene trattenuto il <strong>17,94% sul lordo</strong> (= 23% × 78% imponibile)
+                      e versato direttamente all'Agenzia delle Entrate per tuo conto.
+                      <br />
+                      <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}>
+                        Es: su €100 di provvigione → trattenuta IRPEF €17,94 → ti restano €82,06 (al lordo dell'eventuale INPS).
+                      </em>
+                      <br />
+                      Per gli <strong>Incaricati Occasionali</strong> è ritenuta a <strong>titolo d'imposta</strong>: questi compensi non vanno dichiarati nel 730/UNICO.
+                      Per gli Incaricati con P.IVA è a titolo d'acconto e si dichiara in fase di dichiarazione annuale.
+                    </Typography>
+                  </Box>
+                </Stack>
+              </Box>
+
               {/* Domanda 3 — Previdenziale */}
               <Box sx={{ p: 2, bgcolor: "#fafafa", borderRadius: 2, border: "1px solid #eee" }}>
                 <Typography sx={{ fontSize: "0.85rem", fontWeight: 600, color: ESPRESSO, mb: 1 }}>
@@ -490,6 +514,46 @@ const OnboardingWizard = () => {
                   ))}
                 </Stack>
               </Box>
+
+              {/* Riepilogo dinamico — Carico fiscale TOTALE */}
+              {(() => {
+                const isPiva = autoRegime === "partita_iva";
+                const isRidotta = form.previdential_status === "other_position" || form.previdential_status === "retired";
+                // Occasionale: 17,94% IRPEF, niente INPS sotto soglia €5.000 netti
+                // Abituale (P.IVA) standard: 17,94 + 8,77 = 26,71%
+                // Abituale (P.IVA) ridotta: 17,94 + 6,24 = 24,18%
+                const irpef = 17.94;
+                const inps = !isPiva ? 0 : isRidotta ? 6.24 : 8.77;
+                const totale = irpef + inps;
+                const netto = 100 - totale;
+                return (
+                  <Box sx={{ p: 2, bgcolor: "#fff", borderRadius: 2, border: `1px dashed ${ORO}` }}>
+                    <Stack direction="row" spacing={1} alignItems="flex-start">
+                      <Iconify icon="mdi:calculator-variant-outline" width={20} sx={{ color: ORO, flexShrink: 0, mt: 0.2 }} />
+                      <Box sx={{ flex: 1 }}>
+                        <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO, mb: 0.7 }}>
+                          Carico fiscale totale a tuo carico — riepilogo
+                        </Typography>
+                        <Typography sx={{ fontSize: "0.72rem", color: "#5C4A3E", lineHeight: 1.7 }}>
+                          • Ritenuta IRPEF: <strong>{irpef.toFixed(2).replace(".", ",")}%</strong> sul lordo<br />
+                          • INPS quota promoter: <strong>{inps === 0 ? "0%" : "~" + inps.toFixed(2).replace(".", ",") + "%"}</strong> sul lordo
+                          {!isPiva && <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}> (scatta solo oltre €5.000 netti/anno)</em>}
+                          {isPiva && isRidotta && <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}> (quota ridotta)</em>}
+                          {isPiva && !isRidotta && <em style={{ fontSize: "0.65rem", color: "#7A6A5C" }}> (quota piena)</em>}
+                        </Typography>
+                        <Box sx={{ mt: 1, p: 1.2, bgcolor: alpha(ORO, 0.08), borderRadius: 1 }}>
+                          <Typography sx={{ fontSize: "0.78rem", fontWeight: 700, color: ESPRESSO }}>
+                            Totale trattenute: ~{totale.toFixed(2).replace(".", ",")}% → su €100 di provvigione ti restano €{netto.toFixed(2).replace(".", ",")}
+                          </Typography>
+                        </Box>
+                        <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C", mt: 0.7, fontStyle: "italic" }}>
+                          I 2/3 del contributo INPS sono a carico di EVEA e versati direttamente all'INPS, non li paghi tu. La ritenuta IRPEF è già operata da EVEA come sostituto d'imposta.
+                        </Typography>
+                      </Box>
+                    </Stack>
+                  </Box>
+                );
+              })()}
 
               {/* Domanda 4 — Dipendente PA */}
               <Box sx={{ p: 2, bgcolor: "#fafafa", borderRadius: 2, border: "1px solid #eee" }}>
