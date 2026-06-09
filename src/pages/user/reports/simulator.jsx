@@ -274,6 +274,13 @@ const SimulatorReport = () => {
   }, [clients, avgOrder, smartshipPct, promoters, clientsPerPromoter, promotersPerPromoter, dupLevels, dropoff, activePct, growthPct, scenario, rankId, hasKit, hasMvp]);
 
   const maxBar = Math.max(...calc.projection.map(p => p.total), 1);
+  const minBar = Math.min(...calc.projection.map(p => p.total), 0);
+  // Scala min-max: la barra piu' bassa parte al 30%, la piu' alta al 100%.
+  // Cosi' anche M1 e' ben visibile e si percepisce chiaramente la crescita.
+  const barHeight = (total) => {
+    if (maxBar === minBar) return 60;
+    return 30 + ((total - minBar) / (maxBar - minBar)) * 70;
+  };
   const currentRank = RANKS.find(r => r.id === rankId) || RANKS[0];
 
   return (
@@ -438,18 +445,19 @@ const SimulatorReport = () => {
             <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO, mb: 1.5 }}>
               {isIt ? `Proiezione 12 mesi (+${growthPct}%/mese, scenario ${calc.scenario.label.toLowerCase()})` : `12-month projection (+${growthPct}%/mo, ${scenario})`}
             </Typography>
-            <Box sx={{ height: 160, display: "flex", alignItems: "flex-end", gap: "4px" }}>
+            <Box sx={{ height: 240, display: "flex", alignItems: "flex-end", gap: "5px", px: 0.5 }}>
               {calc.projection.map((p) => (
-                <Box key={p.month} sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                  <Typography sx={{ fontSize: "0.5rem", color: ORO, fontWeight: 700, mb: 0.2 }}>
+                <Box key={p.month} sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", height: "100%", justifyContent: "flex-end" }}>
+                  <Typography sx={{ fontSize: "0.7rem", color: ESPRESSO, fontWeight: 800, mb: 0.4, whiteSpace: "nowrap" }}>
                     €{p.total >= 1000 ? `${(p.total / 1000).toFixed(1)}k` : p.total}
                   </Typography>
                   <Box sx={{
-                    width: "100%", borderRadius: "3px 3px 0 0", transition: "height 0.5s",
-                    height: `${Math.max(6, (p.total / maxBar) * 100)}%`, minHeight: 6,
-                    background: `linear-gradient(180deg, ${ORO} 0%, ${alpha(ORO, 0.3)} 100%)`,
+                    width: "100%", borderRadius: "4px 4px 0 0", transition: "height 0.5s",
+                    height: `${barHeight(p.total)}%`, minHeight: 12,
+                    background: `linear-gradient(180deg, ${ORO} 0%, ${alpha(ORO, 0.35)} 100%)`,
+                    boxShadow: `inset 0 -2px 0 ${alpha(ORO, 0.4)}`,
                   }} />
-                  <Typography sx={{ fontSize: "0.5rem", color: MUTED, mt: 0.2 }}>M{p.month}</Typography>
+                  <Typography sx={{ fontSize: "0.65rem", color: MUTED, mt: 0.4, fontWeight: 600 }}>M{p.month}</Typography>
                 </Box>
               ))}
             </Box>
@@ -461,51 +469,14 @@ const SimulatorReport = () => {
             </Box>
           </Card>
 
-          {/* Motivation */}
-          <Card sx={{ p: 2, borderRadius: 3, bgcolor: alpha(ORO, 0.04), border: `1px solid ${alpha(ORO, 0.15)}` }}>
-            <Stack direction="row" alignItems="center" spacing={1} mb={1}>
-              <Iconify icon="mdi:lightbulb-on" width={20} sx={{ color: ORO }} />
-              <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO }}>
-                {isIt ? "Come crescere" : "How to grow"}
-              </Typography>
-            </Stack>
-            <Stack spacing={0.8}>
-              {rankId < 4 && (
-                <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>
-                  👑 {isIt ? `Raggiungi Platinum per sbloccare Evolving (€400) e Ritual (€200/mese)` : `Reach Platinum to unlock Evolving (€400) and Ritual (€200/mo)`}
-                </Typography>
-              )}
-              {promotersPerPromoter < 3 && (
-                <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>
-                  🤝 {isIt ? `Se ogni promoter porta 3 promoter invece di ${promotersPerPromoter}, il team cresce ${Math.pow(3, 3)} volte più velocemente` : `If each promoter recruits 3 instead of ${promotersPerPromoter}, team grows ${Math.pow(3, 3)}x faster`}
-                </Typography>
-              )}
-              {smartshipPct < 80 && (
-                <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>
-                  🔄 {isIt ? `Porta lo smartship all'80%: il residual raddoppia e diventa reddito passivo` : `Push smartship to 80%: residual doubles and becomes passive income`}
-                </Typography>
-              )}
-              {!hasKit && (
-                <Typography sx={{ fontSize: "0.75rem", color: "#E24B4A", fontWeight: 600 }}>
-                  ⚡ {isIt ? "Lo Starter Kit raddoppia il DSB dal 15% al 30%!" : "Starter Kit doubles DSB from 15% to 30%!"}
-                </Typography>
-              )}
-              {rankId >= 8 && (
-                <Typography sx={{ fontSize: "0.75rem", color: SUCCESS, fontWeight: 600 }}>
-                  🏆 {isIt
-                    ? `${currentRank.name}: Ritual €${(ROCK_SOLID[rankId] || 0).toLocaleString()}/mese + Evolving €${(EVOLVING[rankId] || 0).toLocaleString()} = vita da sogno!`
-                    : `${currentRank.name}: Ritual €${(ROCK_SOLID[rankId] || 0).toLocaleString()}/mo + Evolving €${(EVOLVING[rankId] || 0).toLocaleString()} = dream life!`}
-                </Typography>
-              )}
-            </Stack>
-            <Box sx={{ mt: 1.5, pt: 1.2, borderTop: `1px dashed ${alpha(ORO, 0.2)}` }}>
-              <Typography sx={{ fontSize: "0.65rem", color: MUTED, fontStyle: "italic", lineHeight: 1.4 }}>
-                {isIt
-                  ? `⚠ Stima indicativa. Tiene conto di scarto per livello (${Math.round(dropoff * calc.scenario.dropoffMul)}%), promoter attivi (${Math.round(activePct * calc.scenario.activeMul)}%) e smartship calante in profondità. Nella realtà MLM i risultati variano in base a churn, capacità di reclutamento e tasso di chiusura clienti. Non garantisce alcun guadagno.`
-                  : `⚠ Indicative estimate. Includes per-level dropoff (${Math.round(dropoff * calc.scenario.dropoffMul)}%), active promoters (${Math.round(activePct * calc.scenario.activeMul)}%) and decreasing smartship at depth. Real MLM results vary based on churn, recruiting and close rate. No earnings guaranteed.`}
-              </Typography>
-            </Box>
-          </Card>
+          {/* Disclaimer compliance (la card "Come crescere" è stata rimossa) */}
+          <Box sx={{ p: 1.5, borderRadius: 2, bgcolor: alpha(ORO, 0.03), border: `1px dashed ${alpha(ORO, 0.2)}` }}>
+            <Typography sx={{ fontSize: "0.65rem", color: MUTED, fontStyle: "italic", lineHeight: 1.4 }}>
+              {isIt
+                ? `⚠ Stima indicativa. Tiene conto di scarto per livello (${Math.round(dropoff * calc.scenario.dropoffMul)}%), promoter attivi (${Math.round(activePct * calc.scenario.activeMul)}%) e smartship calante in profondità. Nella realtà MLM i risultati variano in base a churn, capacità di reclutamento e tasso di chiusura clienti. Non garantisce alcun guadagno.`
+                : `⚠ Indicative estimate. Includes per-level dropoff (${Math.round(dropoff * calc.scenario.dropoffMul)}%), active promoters (${Math.round(activePct * calc.scenario.activeMul)}%) and decreasing smartship at depth. Real MLM results vary based on churn, recruiting and close rate. No earnings guaranteed.`}
+            </Typography>
+          </Box>
         </Grid>
       </Grid>
     </Box>
