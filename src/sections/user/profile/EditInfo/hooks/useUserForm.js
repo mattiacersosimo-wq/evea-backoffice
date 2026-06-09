@@ -58,6 +58,7 @@ export const defaultValues = {
   profile_image: "",
   vat_number: "",
   tax_code: "",
+  codice_fiscale: "",
   regime_fiscale: "incaricato_occasionale",
   codice_sdi: "",
   pec: "",

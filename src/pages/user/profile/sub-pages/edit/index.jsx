@@ -247,7 +247,7 @@ const EditInfo = () => {
                                 type="date"
                                 InputLabelProps={{ shrink: true }}
                             />
-                            <Countries />
+                            <Countries type="alpha_2" />
 
                             <RHFTextField
                                 name="state"
@@ -280,11 +280,12 @@ const EditInfo = () => {
                             </Typography>
 
                             <RHFTextField
-                                name="tax_code"
+                                name="codice_fiscale"
                                 label="profile.edit.tax_code"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                inputProps={{ maxLength: 16, style: { textTransform: "uppercase" } }}
                             />
 
                             <CoHolderSection />
