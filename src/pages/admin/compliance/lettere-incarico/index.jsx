@@ -118,7 +118,7 @@ const LettereIncarico = () => {
             <ToggleButtonGroup
               size="small" exclusive value={filter}
               onChange={(_, v) => v && setFilter(v)}
-              sx={{ "& .MuiToggleButton-root": { textTransform: "none", fontWeight: 700, fontSize: "0.75rem", px: 2 },
+              sx={{ flexWrap: "wrap", "& .MuiToggleButton-root": { textTransform: "none", fontWeight: 700, fontSize: "0.75rem", px: 2 },
                 "& .Mui-selected": { bgcolor: `${alpha(ORO, 0.15)} !important`, color: `${ORO} !important` } }}
             >
               <ToggleButton value="all">Tutti ({counts.all})</ToggleButton>
@@ -139,7 +139,7 @@ const LettereIncarico = () => {
         </Card>
 
         {/* Tabella */}
-        <Card sx={{ ...cs, overflow: "hidden" }}>
+        <Card sx={{ ...cs }}>
           {loading ? (
             <Box sx={{ textAlign: "center", py: 6 }}><CircularProgress sx={{ color: ORO }} /></Box>
           ) : filtered.length === 0 ? (
@@ -150,7 +150,8 @@ const LettereIncarico = () => {
               </Typography>
             </Box>
           ) : (
-            <Table>
+            <Box sx={{ width: "100%", overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+            <Table sx={{ minWidth: 700 }}>
               <TableHead>
                 <TableRow sx={{ bgcolor: "#fafafa" }}>
                   <TableCell sx={{ fontWeight: 700, fontSize: "0.72rem", color: ESPRESSO }}>Promoter</TableCell>
@@ -212,6 +213,7 @@ const LettereIncarico = () => {
                 ))}
               </TableBody>
             </Table>
+            </Box>
           )}
         </Card>
       </Box>

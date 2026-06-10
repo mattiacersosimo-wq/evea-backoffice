@@ -105,7 +105,7 @@ const LeadOrphans = () => {
           {meta && <strong style={{ marginLeft: 8 }}>{meta.total} totali</strong>}
         </Typography>
 
-        <Card sx={{ borderRadius: 3, border: "1px solid #f0ece6", overflow: "hidden" }}>
+        <Card sx={{ borderRadius: 3, border: "1px solid #f0ece6" }}>
           {loading ? (
             <Box sx={{ textAlign: "center", py: 5 }}><CircularProgress sx={{ color: ORO }} /></Box>
           ) : data.length === 0 ? (
@@ -113,7 +113,8 @@ const LeadOrphans = () => {
               Nessun lead orfano da assegnare 🎉
             </Box>
           ) : (
-            <Table size="small">
+            <Box sx={{ width: "100%", overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+            <Table size="small" sx={{ minWidth: 900 }}>
               <TableHead>
                 <TableRow sx={{ bgcolor: "#FAF6EF" }}>
                   <TableCell sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED }}>Data</TableCell>
@@ -145,6 +146,7 @@ const LeadOrphans = () => {
                 ))}
               </TableBody>
             </Table>
+            </Box>
           )}
         </Card>
 

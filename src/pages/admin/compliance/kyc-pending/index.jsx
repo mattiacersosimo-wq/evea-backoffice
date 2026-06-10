@@ -161,8 +161,9 @@ const KycPending = () => {
           </Stack>
         </Card>
 
-        <Card sx={{ ...cs, overflow: "hidden" }}>
-          <Table size="small">
+        <Card sx={{ ...cs }}>
+          <Box sx={{ width: "100%", overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+          <Table size="small" sx={{ minWidth: 800 }}>
             <TableHead sx={{ bgcolor: "#f9f6f0" }}>
               <TableRow>
                 <TableCell sx={{ fontWeight: 700, fontSize: "0.72rem", color: ESPRESSO }}>Utente</TableCell>
@@ -210,6 +211,7 @@ const KycPending = () => {
               ))}
             </TableBody>
           </Table>
+          </Box>
         </Card>
       </Box>
 

@@ -47,7 +47,17 @@ export default function Scrollbar({ children, sx, ...other }) {
 
   if (isMobile) {
     return (
-      <Box sx={{ overflowX: 'auto', ...sx }} {...other}>
+      <Box
+        sx={{
+          width: '100%',
+          overflowX: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          // assicura che il wrapper genitori non blocchi lo scroll
+          maxWidth: '100%',
+          ...sx,
+        }}
+        {...other}
+      >
         {children}
       </Box>
     );
