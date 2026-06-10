@@ -377,12 +377,21 @@ const TickerBar = () => {
   if (!ticker) return null;
   const rawItems = [...(ticker.sales || []), ...(ticker.new_members || []), ...(ticker.ranks || [])]
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-  const items = stripHiddenUsers(rawItems).map((it) => {
+  const normalized = stripHiddenUsers(rawItems).map((it) => {
     // Il kit promoter da 79€ è l'iscrizione: mostralo come "nuovo promoter", solo nickname
     if (it.type === "sale" && isPromoterKit(it.product)) {
       return { ...it, type: "new_member", is_promoter: 1, product: undefined, amount: undefined };
     }
     return it;
+  });
+  // Dedup: stesso username + stesso type → tieni il primo (il più recente, già ordinato).
+  // Serve perché il "Nuovo Promoter" arriva sia da sales (kit €79) sia da new_members.
+  const seen = new Set();
+  const items = normalized.filter((it) => {
+    const key = `${(it.username || "").toLowerCase()}|${it.type}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
   });
   if (!items.length) return null;
   return (
