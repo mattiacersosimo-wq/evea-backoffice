@@ -77,6 +77,17 @@ const Compliance = () => {
             />
           </Grid>
 
+          {/* Lettere di Incarico */}
+          <Grid item xs={12} md={4}>
+            <ExportCard
+              icon="mdi:file-sign" title="Lettere di Incarico"
+              subtitle="Visualizza promoter e scarica le lettere firmate"
+              color="#00BCD4"
+              btnLabel="Apri elenco lettere"
+              onClick={() => navigate("/admin/compliance/lettere-incarico")}
+            />
+          </Grid>
+
           {/* Questura - Nuovi iscritti */}
           <Grid item xs={12} md={4}>
             <ExportCard

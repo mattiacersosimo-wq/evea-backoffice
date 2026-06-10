@@ -27,6 +27,9 @@ const AdminCompliance = Loadable(
 const AdminKycPending = Loadable(
   lazy(() => import("src/pages/admin/compliance/kyc-pending/index"))
 );
+const AdminLettereIncarico = Loadable(
+  lazy(() => import("src/pages/admin/compliance/lettere-incarico/index"))
+);
 const CentroControllo = Loadable(
   lazy(() => import("src/pages/admin/centro-controllo/index"))
 );
@@ -99,6 +102,7 @@ const availableRoutes = [
     children: [
       { index: true, element: <AdminCompliance /> },
       { path: "kyc-pending", element: <AdminKycPending /> },
+      { path: "lettere-incarico", element: <AdminLettereIncarico /> },
     ],
   },
   {
