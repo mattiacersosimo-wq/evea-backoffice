@@ -452,7 +452,7 @@ const OnboardingWizard = () => {
                     </Typography>
                     <Stack spacing={0.3} sx={{ mb: 1.5 }}>
                       {[
-                        { value: "none", label: "No, EVEA sarà la mia unica entrata", inps: "Trattenuta INPS più alta (non hai altre coperture previdenziali)" },
+                        { value: "none", label: "No, il Network Marketing è la mia unica entrata", inps: "Trattenuta INPS più alta (non hai altre coperture previdenziali)" },
                         { value: "other_position", label: "Sì, ho un lavoro dipendente o un'altra attività", sublabel: "(es. lavoro in azienda, libero professionista)", inps: "Trattenuta INPS ridotta (sei già coperto altrove)" },
                         { value: "retired", label: "Sono in pensione", inps: "Trattenuta INPS ridotta (sei già coperto dalla pensione)" },
                       ].map((opt) => (
