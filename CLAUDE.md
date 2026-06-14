@@ -94,6 +94,7 @@ Queste sono le decisioni e i fix accumulati in sessioni precedenti, ricordate qu
 - **Promoter Kit Evea (€79)**: l'iscrizione standard promoter su Shopify. NON va contato come "vendita" nei top products / ticker (è un kit di setup, non un prodotto rivendibile). Filtro: `store_products.is_starter_package = 1`.
 - **Co-intestatario**: campi opzionali `co_holder_first_name/last_name/date_of_birth` su `user_profile`, raccolti in onboarding step Personali e profile edit. Solo informativi sulla lettera di incarico, niente impatto fiscale (CF/PIVA restano del titolare).
 - **GLS Label Service**: integrazione completata, flag `GLS_ENABLED=false` di default. Comando di test: `php artisan gls:test-label <wp_order_id> [--dry-run]`. Test su contratto 3100 → NumeroSpedizione + PDF A6 ricevuti. Bug pre-esistente: `now()` helper Lumen e `url()` helper Lumen non funzionano in CLI — usare `\Carbon\Carbon::now()` e `config('app.url')`.
+- **GLS: lanciare il comando come `forge`, non come `ubuntu`/root**: `sudo -u forge php artisan gls:test-label <wp_order_id>`. Se lanciato come `ubuntu` il comando crasha sul log Lumen (`storage/logs/*.log` sono `forge:forge`, `ubuntu` non è nel gruppo). Se lanciato come root crea `storage/app/gls` di `root:root 700`, che poi blocca il salvataggio etichette anche al processo web. La cartella `storage/app/gls` deve restare `forge:forge`. Riverificato il 14/6/2026: GLS test risponde OK (NumeroSpedizione 661720180, PDF salvato).
 
 ## Pattern di lavoro
 
