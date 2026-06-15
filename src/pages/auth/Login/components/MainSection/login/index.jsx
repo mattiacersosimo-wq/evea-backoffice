@@ -17,7 +17,7 @@ import ErrorBanner from "./components/error-banner";
 import useLogin from "./hooks/use-login";
 
 const LoginForm = () => {
-  const { onSubmit, methods } = useLogin();
+  const { onSubmit, methods, authError } = useLogin();
 
   const {
     watch,
@@ -31,7 +31,7 @@ const LoginForm = () => {
       <FormProvider methods={methods} onSubmit={onSubmit}>
         <Stack spacing={2} mb={2}>
           <AuthHelper />
-          <ErrorBanner />
+          <ErrorBanner message={authError} />
         </Stack>
 
         <Box>
