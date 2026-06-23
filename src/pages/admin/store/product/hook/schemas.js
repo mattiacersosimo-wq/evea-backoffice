@@ -1,5 +1,5 @@
-﻿import { paramCase } from "change-case";
-import moment from "src/utils/dayjs";
+import { paramCase } from "change-case";
+import moment from "moment";
 import serializeDate from "src/utils/serialize-date";
 import { mixed, number, object, string } from "yup";
 

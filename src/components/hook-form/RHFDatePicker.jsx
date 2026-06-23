@@ -1,5 +1,5 @@
-﻿import dayjs from "dayjs";
-import moment from "src/utils/dayjs";
+import dayjs from "dayjs";
+import moment from "moment";
 import { Controller, useFormContext } from "react-hook-form";
 import BaseDatePicker from "../base-date-picker";
 

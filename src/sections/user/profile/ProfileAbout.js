@@ -1,4 +1,4 @@
-﻿import moment from "src/utils/dayjs";
+import moment from "moment";
 
 import { Card, Stack, Tooltip, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";

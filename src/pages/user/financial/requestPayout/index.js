@@ -1,9 +1,9 @@
-﻿import { Alert, Box, Card, Grid } from "@mui/material";
+import { Alert, Box, Card, Grid } from "@mui/material";
 import HeaderBreadcrumbs from "src/components/HeaderBreadcrumbs";
 import Page from "src/components/Page";
 import PaginationButtons from "src/components/pagination";
 
-import moment from "src/utils/dayjs";
+import moment from "moment";
 import { useMemo } from "react";
 import Ternary from "src/components/ternary";
 import { PATH_DASHBOARD } from "src/routes/paths";

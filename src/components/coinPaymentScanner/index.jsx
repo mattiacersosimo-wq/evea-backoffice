@@ -1,4 +1,4 @@
-﻿import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
   AccordionDetails,
@@ -11,7 +11,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import moment from "src/utils/dayjs";
+import moment from "moment";
 import { useMemo } from "react";
 import { useNavigate } from "react-router";
 import useCountDown from "src/hooks/use-count-down";

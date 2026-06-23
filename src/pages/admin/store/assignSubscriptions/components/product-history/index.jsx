@@ -1,5 +1,5 @@
-﻿import { yupResolver } from "@hookform/resolvers/yup";
-import moment from "src/utils/dayjs";
+import { yupResolver } from "@hookform/resolvers/yup";
+import moment from "moment";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Page from "src/components/Page";

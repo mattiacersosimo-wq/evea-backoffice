@@ -1,4 +1,4 @@
-﻿import moment from "src/utils/dayjs";
+import moment from "moment";
 
 const getThreeYearsFromNow = () => moment().add(3, "years");
 

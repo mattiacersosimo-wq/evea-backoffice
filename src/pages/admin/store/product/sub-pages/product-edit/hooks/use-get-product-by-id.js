@@ -1,4 +1,4 @@
-﻿import moment from "src/utils/dayjs";
+import moment from "moment";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
 import { useParams } from "react-router";

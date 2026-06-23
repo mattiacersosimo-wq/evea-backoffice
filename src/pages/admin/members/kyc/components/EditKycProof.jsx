@@ -1,4 +1,4 @@
-﻿import { DialogContent } from "@mui/material";
+import { DialogContent } from "@material-ui/core";
 import { Button, Dialog, DialogTitle, Stack, TextField } from "@mui/material";
 import { useSnackbar } from "notistack";
 import axiosInstance from "src/utils/axios";

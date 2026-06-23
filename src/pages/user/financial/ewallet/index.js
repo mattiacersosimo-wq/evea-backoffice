@@ -1,9 +1,9 @@
-﻿import { Box, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import HeaderBreadcrumbs from "src/components/HeaderBreadcrumbs";
 import Page from "src/components/Page";
 
 import { yupResolver } from "@hookform/resolvers/yup";
-import moment from "src/utils/dayjs";
+import moment from "moment";
 import { useForm } from "react-hook-form";
 import { PATH_USER } from "src/routes/paths";
 import serializeDate from "src/utils/serialize-date";

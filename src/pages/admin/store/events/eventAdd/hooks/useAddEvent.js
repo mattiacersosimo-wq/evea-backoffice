@@ -1,4 +1,4 @@
-﻿import { useSnackbar } from "notistack";
+import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 
 import { PATH_DASHBOARD } from "src/routes/paths";
 
-import moment from "src/utils/dayjs";
+import moment from "moment";
 import axiosInstance from "src/utils/axios";
 import serializeDate from "src/utils/serialize-date";
 import genReqData from "../../utils/genReqData";

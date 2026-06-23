@@ -1,4 +1,4 @@
-﻿import {
+import {
   Box,
   Button,
   Card,
@@ -13,7 +13,7 @@
   Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import moment from "src/utils/dayjs";
+import moment from "moment";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Iconify from "src/components/Iconify";
 import Scrollbar from "src/components/Scrollbar";

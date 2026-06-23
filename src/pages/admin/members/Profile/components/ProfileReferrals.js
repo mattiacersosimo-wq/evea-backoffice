@@ -1,4 +1,4 @@
-﻿import {
+import {
   Card,
   Table,
   TableBody,
@@ -8,7 +8,7 @@
   TableRow,
   Typography,
 } from "@mui/material";
-import moment from "src/utils/dayjs";
+import moment from "moment";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";

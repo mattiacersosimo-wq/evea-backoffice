@@ -1,4 +1,4 @@
-﻿import moment from "src/utils/dayjs";
+import moment from "moment";
 import { DATE_FORMAT } from "src/config";
 
 const parseDate = (arg, inputFormat = "YYYY-MM-DD") =>

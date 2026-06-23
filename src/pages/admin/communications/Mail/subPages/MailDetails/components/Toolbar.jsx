@@ -1,4 +1,4 @@
-﻿import { Box, IconButton, Link, Tooltip, Typography } from "@mui/material";
+import { Box, IconButton, Link, Tooltip, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import PropTypes from "prop-types";
 import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
@@ -9,7 +9,7 @@ import useAuth from "src/hooks/useAuth";
 import useResponsive from "src/hooks/useResponsive";
 import { PATH_DASHBOARD, PATH_USER } from "src/routes/paths";
 import createAvatar from "src/utils/createAvatar";
-import moment from "src/utils/dayjs";
+import moment from "moment";
 import { fDateTimeSuffix } from "src/utils/formatTime";
 const RootStyle = styled("div")(({ theme }) => ({
   height: 84,

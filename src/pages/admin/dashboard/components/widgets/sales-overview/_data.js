@@ -1,4 +1,4 @@
-﻿import moment from "src/utils/dayjs";
+import moment from "moment";
 import { DATE_FORMAT } from "src/config";
 import Pastmonth from "src/images/admindasboard/past-month.png";
 import PastweekIcon from "src/images/admindasboard/past-week.png";

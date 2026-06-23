@@ -1,4 +1,4 @@
-﻿import moment from "src/utils/dayjs";
+import moment from "moment";
 import PropTypes from "prop-types";
 import React from "react";
 

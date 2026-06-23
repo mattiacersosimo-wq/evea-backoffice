@@ -1,4 +1,4 @@
-﻿import {
+import {
   Badge,
   Box,
   Divider,
@@ -7,7 +7,7 @@
   ListItemText,
   Typography,
 } from "@mui/material";
-import moment from "src/utils/dayjs";
+import moment from "moment";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import Iconify from "src/components/Iconify";

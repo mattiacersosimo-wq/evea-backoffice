@@ -1,9 +1,9 @@
-﻿import { Card, CardContent, CardHeader, Typography } from "@mui/material";
+import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useEffect, useReducer, useState } from "react";
 import useErrors from "src/hooks/useErrors";
 
-import moment from "src/utils/dayjs";
+import moment from "moment";
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import Translate from "src/components/translate";
 import axiosInstance from "src/utils/axios";
