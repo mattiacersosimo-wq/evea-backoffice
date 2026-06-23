@@ -1,4 +1,4 @@
-import {
+﻿import {
   Avatar,
   Card,
   CardHeader,
@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import moment from "moment";
+import moment from "src/utils/dayjs";
 import { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import MyAvatar from "src/components/MyAvatar";

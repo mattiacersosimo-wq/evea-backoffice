@@ -1,4 +1,4 @@
-import moment from "moment";
+﻿import moment from "src/utils/dayjs";
 
 const serializeDate = (date = null) => {
   if (date) {

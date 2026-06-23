@@ -1,4 +1,4 @@
-import {
+﻿import {
   Box,
   Button,
   Card,
@@ -7,7 +7,7 @@ import {
   Tabs,
   Typography,
 } from "@mui/material";
-import moment from "moment";
+import moment from "src/utils/dayjs";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";

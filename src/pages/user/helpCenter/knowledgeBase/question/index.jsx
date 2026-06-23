@@ -1,6 +1,6 @@
-import { Box, Card, Typography } from "@mui/material";
+﻿import { Box, Card, Typography } from "@mui/material";
 import { capitalCase } from "change-case";
-import moment from "moment";
+import moment from "src/utils/dayjs";
 import { useState } from "react";
 import ReactQuill from "react-quill";
 import { useParams } from "react-router";

@@ -1,4 +1,4 @@
-import moment from "moment";
+﻿import moment from "src/utils/dayjs";
 import { DATE_FORMAT } from "src/config";
 
 export const getClientTime = (time) => {

@@ -1,4 +1,4 @@
-import moment from "moment";
+﻿import moment from "src/utils/dayjs";
 import { useEffect, useReducer, useState } from "react";
 import useErrors from "src/hooks/useErrors";
 import axiosInstance from "src/utils/axios";

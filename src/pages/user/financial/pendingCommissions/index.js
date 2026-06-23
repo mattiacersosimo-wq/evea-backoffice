@@ -1,4 +1,4 @@
-import {
+﻿import {
   Box,
   Button,
   Card,
@@ -8,7 +8,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import moment from "moment";
+import moment from "src/utils/dayjs";
 import { useMemo, useState } from "react";
 import HeaderBreadcrumbs from "src/components/HeaderBreadcrumbs";
 import Page from "src/components/Page";

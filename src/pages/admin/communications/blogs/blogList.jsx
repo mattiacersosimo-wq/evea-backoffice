@@ -1,7 +1,7 @@
-import { yupResolver } from "@hookform/resolvers/yup";
+﻿import { yupResolver } from "@hookform/resolvers/yup";
 import { Card, Grid, Tab, Tabs } from "@mui/material";
 import { last } from "lodash";
-import moment from "moment";
+import moment from "src/utils/dayjs";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router";

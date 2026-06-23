@@ -1,5 +1,5 @@
-import Box from "@material-ui/core/Box";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+﻿import Box from "@mui/material/Box";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import styles from "../../style.module.css";
 

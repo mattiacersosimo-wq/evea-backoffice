@@ -1,5 +1,5 @@
-import { Box, Card, CardHeader, Stack, Typography } from "@mui/material";
-import moment from "moment";
+﻿import { Box, Card, CardHeader, Stack, Typography } from "@mui/material";
+import moment from "src/utils/dayjs";
 import MyAvatar from "src/components/MyAvatar";
 import PaginationButtons from "src/components/pagination";
 import useAuth from "src/hooks/useAuth";

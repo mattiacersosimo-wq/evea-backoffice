@@ -1,4 +1,4 @@
-import {
+﻿import {
   Button,
   Card,
   Dialog,
@@ -16,7 +16,7 @@ import Scrollbar from "src/components/Scrollbar";
 import { object, string } from "yup";
 
 import { LoadingButton } from "@mui/lab";
-import moment from "moment";
+import moment from "src/utils/dayjs";
 import DataHandlerTable from "src/components/data-handler/table";
 import ParseDate from "src/components/date";
 import Map from "src/components/map";

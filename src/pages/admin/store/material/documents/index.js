@@ -1,4 +1,4 @@
-import {
+﻿import {
   Button,
   Card,
   Dialog,
@@ -9,7 +9,7 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import moment from "moment";
+import moment from "src/utils/dayjs";
 import { Link } from "react-router-dom";
 import { Delete, Edit, View } from "src/components/Icons";
 import Scrollbar from "src/components/Scrollbar";

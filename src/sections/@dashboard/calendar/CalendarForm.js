@@ -1,5 +1,5 @@
-import { Divider, Stack, Typography } from "@mui/material";
-import moment from "moment";
+﻿import { Divider, Stack, Typography } from "@mui/material";
+import moment from "src/utils/dayjs";
 import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
 import Iconify from "src/components/Iconify";

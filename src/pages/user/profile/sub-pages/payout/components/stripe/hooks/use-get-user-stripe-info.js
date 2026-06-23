@@ -1,4 +1,4 @@
-import moment from "moment";
+﻿import moment from "src/utils/dayjs";
 import { useEffect } from "react";
 import axiosInstance from "src/utils/axios";
 import useStripeForm from "./use-stripe-form";

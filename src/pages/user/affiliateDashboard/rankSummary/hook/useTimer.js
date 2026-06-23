@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import moment from "moment";
+﻿import { useEffect, useState } from "react";
+import moment from "src/utils/dayjs";
 
 const useTimer = (expiry_date) => {
   const [currentTime, setCurrentTime] = useState(Date.now());

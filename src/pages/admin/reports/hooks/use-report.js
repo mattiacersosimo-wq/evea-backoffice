@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { useOutletContext } from "react-router";
-import moment from "moment";
+import moment from "src/utils/dayjs";
 import useDataHandler from "src/components/data-handler/hooks/use-data-handler";
 import usePagination from "src/components/pagination/usePagination";
 import axiosInstance from "src/utils/axios";

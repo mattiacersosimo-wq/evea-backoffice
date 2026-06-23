@@ -1,7 +1,7 @@
-import { Stack, TextField } from "@mui/material";
+﻿import { Stack, TextField } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import moment from "moment";
+import moment from "src/utils/dayjs";
 import { DATE_FORMAT } from "src/config";
 import serializeDate from "src/utils/serialize-date";
 

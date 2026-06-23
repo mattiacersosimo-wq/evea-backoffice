@@ -1,4 +1,4 @@
-import {
+﻿import {
   Box,
   Card,
   FormControl,
@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
-import moment from "moment";
+import moment from "src/utils/dayjs";
 import PropTypes from "prop-types";
 import { useEffect, useReducer, useState } from "react";
 import Iconify from "src/components/Iconify";

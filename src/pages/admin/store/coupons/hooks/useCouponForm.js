@@ -1,8 +1,8 @@
-import { yupResolver } from "@hookform/resolvers/yup";
+﻿import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 
-import moment from "moment";
+import moment from "src/utils/dayjs";
 import serializeDate from "src/utils/serialize-date";
 
 const CouponAddSchema = Yup.object().shape({

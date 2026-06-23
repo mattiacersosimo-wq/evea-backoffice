@@ -1,5 +1,5 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import moment from "moment";
+﻿import { yupResolver } from "@hookform/resolvers/yup";
+import moment from "src/utils/dayjs";
 import { useForm } from "react-hook-form";
 import serializeDate from "src/utils/serialize-date";
 import { number, object, string } from "yup";

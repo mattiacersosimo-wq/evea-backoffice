@@ -1,4 +1,4 @@
-import moment from "moment";
+﻿import moment from "src/utils/dayjs";
 import { useMemo, useState } from "react";
 import Calendar from "src/pages/user/dashboard/components/events/components/calender.js";
 

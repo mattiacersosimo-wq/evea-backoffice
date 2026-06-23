@@ -1,5 +1,5 @@
-import dayjs from "dayjs";
-import moment from "moment";
+﻿import dayjs from "dayjs";
+import moment from "src/utils/dayjs";
 import { useEffect, useState } from "react";
 import axiosInstance from "src/utils/axios";
 import serializeDate from "src/utils/serialize-date";

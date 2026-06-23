@@ -1,4 +1,4 @@
-import {
+﻿import {
   Card,
   Table,
   TableBody,
@@ -8,7 +8,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import moment from "moment";
+import moment from "src/utils/dayjs";
 import { useEffect, useState } from "react";
 import Scrollbar from "src/components/Scrollbar";
 import ParseDate from "src/components/date";

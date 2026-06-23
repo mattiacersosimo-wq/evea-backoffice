@@ -1,5 +1,5 @@
-import { Button } from "@mui/material";
-import moment from "moment";
+﻿import { Button } from "@mui/material";
+import moment from "src/utils/dayjs";
 import { exportToExcel } from "react-json-to-excel";
 import Iconify from "src/components/Iconify";
 import axiosInstance from "src/utils/axios";

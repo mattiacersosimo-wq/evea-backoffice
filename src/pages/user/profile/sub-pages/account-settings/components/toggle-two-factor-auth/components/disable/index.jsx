@@ -1,4 +1,4 @@
-import { Dialog } from "@material-ui/core";
+﻿import { Dialog } from "@mui/material";
 import { FormProvider } from "src/components/hook-form";
 import TwoFactorVerificationDialog from "../two-factor-verification-dialog";
 import useDisable from "./hooks/useDisable";

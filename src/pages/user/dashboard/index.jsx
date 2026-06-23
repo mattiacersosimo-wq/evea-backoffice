@@ -1,8 +1,8 @@
-import { Grid } from "@mui/material";
+﻿import { Grid } from "@mui/material";
 import Page from "src/components/Page";
 import Events from "./components/events";
 
-import moment from "moment";
+import moment from "src/utils/dayjs";
 import useFetchEvents from "src/pages/user/dashboard/components/events/hooks/useFetchEvents.js";
 import { HideFromHoldingTank } from "./components/wrappers";
 import {
