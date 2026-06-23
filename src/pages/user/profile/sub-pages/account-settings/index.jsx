@@ -1,8 +1,8 @@
 import ShowTwoFactorAuth from "src/components/show-two-factor-auth";
 import Ternary from "src/components/ternary";
 import LocalStorageClear from "src/sections/user/profile/LocalStorageClear";
+import MarketingPreferences from "./components/marketing-preferences";
 import ToggleTwoFactorAuth from "./components/toggle-two-factor-auth";
-import TransactionPassword from "./components/transaction-password";
 import UpdatePassword from "./components/update-password";
 
 const ProfileAccountSettings = () => {
@@ -11,13 +11,13 @@ const ProfileAccountSettings = () => {
   return (
     <div>
       <UpdatePassword />
-      <TransactionPassword />
 
       {/* <ProfilePayoutInfo /> */}
       {/* <ProfileEnable /> */}
       <ShowTwoFactorAuth>
         <ToggleTwoFactorAuth />
       </ShowTwoFactorAuth>
+      <MarketingPreferences />
       <Ternary when={!isImpersonate} then={<LocalStorageClear />} />
     </div>
   );
