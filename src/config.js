@@ -67,6 +67,12 @@ export const WP_URL =
 export const WEBSITE_URL =
     process.env.REACT_APP_WEBSITE_URL || window.location.origin;
 
+export const COMMUNITY_URL =
+    process.env.REACT_APP_COMMUNITY_URL || "https://community.myevea.com";
+
+export const ACCOUNT_URL =
+    process.env.REACT_APP_ACCOUNT_URL || "https://account.myevea.com/";
+
 export const MAPBOX_API = process.env.REACT_APP_MAPBOX;
 
 // ROOT PATH AFTER LOGIN SUCCESSFUL

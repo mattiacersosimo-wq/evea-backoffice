@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { COMMUNITY_URL } from "src/config";
 import axiosInstance from "src/utils/axios";
 
 const ORO = "#B8963B";
@@ -33,7 +34,7 @@ const CommunityRedirect = () => {
     const win = preOpenedWin || window.open("about:blank", "_blank");
     try {
       const { data } = await axiosInstance.get("api/community/sso");
-      const url = data?.url || "https://community.myevea.com";
+      const url = data?.url || COMMUNITY_URL;
       if (win && !win.closed) {
         win.opener = null;
         win.location.href = url;
@@ -46,7 +47,7 @@ const CommunityRedirect = () => {
     } catch (e) {
       if (win && !win.closed) {
         win.opener = null;
-        win.location.href = "https://community.myevea.com";
+        win.location.href = COMMUNITY_URL;
         setOpened(true);
         goBack();
       } else {

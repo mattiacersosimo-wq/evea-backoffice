@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { COMMUNITY_URL } from "src/config";
 import axiosInstance from "src/utils/axios";
 
 export default function CustomerCommunityBanner() {
@@ -11,7 +12,7 @@ export default function CustomerCommunityBanner() {
     const win = window.open("about:blank", "_blank");
     try {
       const { data } = await axiosInstance.get("api/community/sso");
-      const url = data?.url || "https://community.myevea.com";
+      const url = data?.url || COMMUNITY_URL;
       if (win && !win.closed) {
         win.opener = null;
         win.location.href = url;
@@ -21,9 +22,9 @@ export default function CustomerCommunityBanner() {
     } catch (e) {
       if (win && !win.closed) {
         win.opener = null;
-        win.location.href = "https://community.myevea.com";
+        win.location.href = COMMUNITY_URL;
       } else {
-        window.location.href = "https://community.myevea.com";
+        window.location.href = COMMUNITY_URL;
       }
     } finally {
       setLoading(false);

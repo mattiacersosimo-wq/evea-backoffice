@@ -1,14 +1,12 @@
 import { Badge, IconButton } from "@mui/material";
 import Iconify from "src/components/Iconify";
-import { WP_URL } from "src/config";
+import { ACCOUNT_URL } from "src/config";
 
 export default function ShopToken() {
   const handleClick = () => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
-      // const redirectUrl = `${WP_URL}/wp-json/custom-login/v1/login?token=${accessToken}`;
-      const redirectUrl = `https://account.myevea.com/`;
-      window.open(redirectUrl, "_blank");
+      window.open(ACCOUNT_URL, "_blank");
     } else {
     }
   };

@@ -768,7 +768,7 @@ const QuickAccess = () => {
   const referralLink = user?.username ? `${WP_URL}?ref=${user.username}` : "";
   const quizReferralLink = user?.username ? `${WP_URL.replace(/\/$/, "")}/pages/trova-il-tuo-rituale?ref=${user.username}` : "";
   const shortcuts = [
-    { icon: "mdi:storefront-outline", label: t("evea.shop"), action: () => window.open("https://www.myevea.com/collections/all", "_blank") },
+    { icon: "mdi:storefront-outline", label: t("evea.shop"), action: () => window.open(`${WP_URL.replace(/\/$/, "")}/collections/all`, "_blank") },
     {
       icon: "mdi:link-variant",
       label: t("evea.referral_link"),
@@ -1570,7 +1570,7 @@ const CouponsSection = ({ coupons, loading }) => {
       <Button
         variant="contained"
         size="medium"
-        href="https://www.myevea.com/"
+        href={WP_URL}
         target="_blank"
         rel="noopener"
         startIcon={<Iconify icon="mdi:storefront-outline" />}

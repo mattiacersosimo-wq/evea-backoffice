@@ -15,6 +15,7 @@ import Page from "src/components/Page";
 import Map from "src/components/map";
 import PaginationButtons from "src/components/pagination";
 import CopyCouponButton from "src/components/CopyCouponButton";
+import { WP_URL } from "src/config";
 import { PATH_DASHBOARD } from "src/routes/paths";
 import useCouponPurchase from "./hooks/useCouponPurchase";
 
@@ -56,7 +57,7 @@ const CouponList = () => {
           <Button
             variant="contained"
             size="large"
-            href="https://www.myevea.com/"
+            href={WP_URL}
             target="_blank"
             rel="noopener"
             startIcon={<Iconify icon="mdi:storefront-outline" />}

@@ -12,6 +12,7 @@ import Page from "src/components/Page";
 import DataHandlerList from "src/components/data-handler/list";
 import Map from "src/components/map";
 import PaginationButtons from "src/components/pagination";
+import { WP_URL } from "src/config";
 import axiosInstance from "src/utils/axios";
 import useAuth from "src/hooks/useAuth";
 // My Subscriptions (kit distributore)
@@ -312,7 +313,7 @@ const SealSection = () => {
           <Button
             variant="contained"
             size="large"
-            href="https://www.myevea.com/"
+            href={WP_URL}
             target="_blank"
             rel="noopener"
             startIcon={<Iconify icon="mdi:storefront-outline" />}
