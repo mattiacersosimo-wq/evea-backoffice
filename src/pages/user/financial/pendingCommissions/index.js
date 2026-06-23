@@ -277,13 +277,17 @@ var PendingCommissions = function () {
                       <TableCell>{row.from_user ? row.from_user.username : ""}</TableCell>
                       <TableCell>{row.type}</TableCell>
                       <TableCell>
-                        {row.payment_type === "Go Mvp Bonus"
+                        {row.payment_type === "founder_fsb" || row.payment_type === "Founder Fsb"
+                          ? "Fast Start Bonus Founder Pack"
+                          : row.payment_type === "fast_start_bonus" || row.payment_type === "Fast Start Bonus"
+                          ? "Fast Start Bonus"
+                          : row.payment_type === "go_mvp_bonus" || row.payment_type === "Go Mvp Bonus"
                           ? "Go MVP Bonus"
-                          : row.payment_type === "Rock Solid Mvp Bonus"
+                          : row.payment_type === "rock_solid_mvp_bonus" || row.payment_type === "Rock Solid Mvp Bonus"
                           ? "Rock Solid MVP Bonus"
-                          : row.payment_type === "Rock Solid Mvp Additional Bonus"
+                          : row.payment_type === "rock_solid_mvp_additional_bonus" || row.payment_type === "Rock Solid Mvp Additional Bonus"
                           ? "Rock Solid MVP Additional Bonus"
-                          : row.payment_type === "Pmb Bonus"
+                          : row.payment_type === "pmb_bonus" || row.payment_type === "Pmb Bonus"
                           ? "MVP Mentor Bonus"
                           : row.payment_type}
                       </TableCell>

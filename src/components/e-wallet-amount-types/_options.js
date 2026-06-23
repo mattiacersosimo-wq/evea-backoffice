@@ -21,6 +21,10 @@ const options = [
     label: "Fast Start Bonus",
   },
   {
+    value: "founder_fsb",
+    label: "Fast Start Bonus Founder Pack",
+  },
+  {
     value: "pmb_bonus",
     label: "amount_types.pmb_bonus",
   },
