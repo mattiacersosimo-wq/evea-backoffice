@@ -660,7 +660,7 @@ const OnboardingWizard = () => {
                     axiosInstance.post("api/wp/onboarding/upload-document", fd).then(() => {
                       enqueueSnackbar("Documento caricato!", { variant: "success" });
                       setStep(4);
-                      axiosInstance.get("api/wp/onboarding/status").then(({ data: r }) => setStatus(r?.data));
+                      axiosInstance.get("api/wp/onboarding/status").then(({ data: r }) => setStatus(r?.data)).catch(() => {});
                     }).catch(() => enqueueSnackbar("Errore upload", { variant: "error" })).finally(() => setSaving(false));
                   }} disabled={saving} sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" } }}>Carica e continua</Button>
                 </Stack>
