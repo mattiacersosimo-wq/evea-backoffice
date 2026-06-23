@@ -22,6 +22,29 @@ const STATUS_OPTIONS = [
   { value: "all", label: "Tutti", color: "#9E9E9E" },
 ];
 
+const DocumentPreview = ({ doc, label, emptyText }) => {
+  if (!doc?.url) {
+    return <Typography sx={{ color: "#9E9E9E", fontSize: "0.8rem" }}>{emptyText}</Typography>;
+  }
+  const isPdf = (doc.mime || "").toLowerCase().includes("pdf");
+  if (isPdf) {
+    return (
+      <Box sx={{ width: "100%", height: 500, border: "1px solid #ddd", borderRadius: 1, overflow: "hidden" }}>
+        <Box component="iframe" src={doc.url} title={label} sx={{ width: "100%", height: "100%", border: 0 }} />
+      </Box>
+    );
+  }
+  return (
+    <Box
+      component="img"
+      src={doc.url}
+      alt={label}
+      sx={{ width: "100%", borderRadius: 1, border: "1px solid #ddd" }}
+      onContextMenu={(e) => e.preventDefault()}
+    />
+  );
+};
+
 const StatusChip = ({ status }) => {
   const cfg = {
     pending: { label: "In attesa", color: "#FF9800" },
@@ -71,7 +94,7 @@ const KycPending = () => {
 
   const fetchDocBlob = async (userId, type) => {
     const res = await axiosInstance.get(`api/wp/compliance/document/${userId}/${type}`, { responseType: "blob" });
-    return URL.createObjectURL(res.data);
+    return { url: URL.createObjectURL(res.data), mime: res.data.type || "" };
   };
 
   const openViewer = async (row) => {
@@ -92,8 +115,8 @@ const KycPending = () => {
   };
 
   const closeViewer = () => {
-    if (docUrls.front) URL.revokeObjectURL(docUrls.front);
-    if (docUrls.back) URL.revokeObjectURL(docUrls.back);
+    if (docUrls.front?.url) URL.revokeObjectURL(docUrls.front.url);
+    if (docUrls.back?.url) URL.revokeObjectURL(docUrls.back.url);
     setDocUrls({ front: null, back: null });
     setSelected(null);
     setOpenModal(false);
@@ -242,19 +265,11 @@ const KycPending = () => {
             <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
               <Box sx={{ flex: 1 }}>
                 <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: ESPRESSO, mb: 1 }}>FRONTE</Typography>
-                {docUrls.front ? (
-                  <Box component="img" src={docUrls.front} alt="Fronte" sx={{ width: "100%", borderRadius: 1, border: "1px solid #ddd" }} onContextMenu={(e) => e.preventDefault()} />
-                ) : (
-                  <Typography sx={{ color: "#9E9E9E" }}>Documento non disponibile</Typography>
-                )}
+                <DocumentPreview doc={docUrls.front} label="Fronte" emptyText="Documento non disponibile" />
               </Box>
               <Box sx={{ flex: 1 }}>
                 <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: ESPRESSO, mb: 1 }}>RETRO</Typography>
-                {docUrls.back ? (
-                  <Box component="img" src={docUrls.back} alt="Retro" sx={{ width: "100%", borderRadius: 1, border: "1px solid #ddd" }} onContextMenu={(e) => e.preventDefault()} />
-                ) : (
-                  <Typography sx={{ color: "#9E9E9E", fontSize: "0.8rem" }}>Retro non caricato</Typography>
-                )}
+                <DocumentPreview doc={docUrls.back} label="Retro" emptyText="Retro non caricato" />
               </Box>
             </Stack>
           )}
