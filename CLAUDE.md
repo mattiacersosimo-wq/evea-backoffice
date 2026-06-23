@@ -35,9 +35,25 @@ EVEA Global S.r.l. è un'azienda Italiana di **caffè wellness** distribuita con
 - SSH: `ssh ubuntu@57.131.21.48`
 - Backend Lumen live: `/home/forge/api.myevea.com/current/`
 - Frontend backoffice live: `/home/forge/backoffice.myevea.com/current/build/` (release symlink atomico)
+- Frontend backoffice staging: `/home/forge/staging.backoffice.myevea.com/current/build/` (stesso pattern; punta allo STESSO backend prod, quindi non usarlo per azioni distruttive su DB live)
 - DB MySQL: database `office_db`, user `forge` (password in `.env`)
-- Deploy frontend: build locale → `tar` → `scp` → atomic `ln -sfn` su `current` → `nginx` ricarica automaticamente
+- Deploy frontend: `scripts/deploy.sh staging|prod` (build locale → `tar` → `scp` → atomic `ln -sfn` su `current` → cleanup release vecchie >10)
+- Rollback rapido: `scripts/rollback.sh staging|prod` (lista release e ripristina quella scelta in 2 secondi)
 - Deploy backend: modifiche fatte direttamente sul VPS via SSH (con `.bak.*` backup pre-modifica), poi commit/push su GitHub quando stabile.
+
+## Workflow staging (testa prima di prod)
+
+Lo staging serve a vedere il backoffice esattamente come lo vedrà l'utente PRIMA che il codice arrivi a `backoffice.myevea.com`. Indispensabile per refactor visuali (libreria UI, layout, traduzioni) — il browser ne mostra subito eventuali rotture che la build non rileva.
+
+1. Lavora su un branch dedicato: `git checkout -b refactor/<scope>`
+2. Builda e pubblica in staging: `./scripts/deploy.sh staging`
+3. Apri `https://staging.backoffice.myevea.com` e clicca ogni pagina toccata dal cambio (login condiviso con prod — basta lo stesso utente)
+4. Se OK → merge su `main` e poi `./scripts/deploy.sh prod`
+5. Se rotto → rollback non serve (staging non impatta utenti), fix nel branch e ridepoloya staging
+
+Limiti del setup attuale:
+- Staging punta al backend prod (`api.myevea.com`) → ogni POST/PUT modifica il DB live. Usa solo l'utente di test e NON cliccare "approva/cancella/rimborsa" su record reali.
+- Se in futuro serve isolamento totale (DB+backend di test), si clona `api.myevea.com` → `staging-api.myevea.com` con `office_db_staging`.
 
 ## Provider esterni
 
