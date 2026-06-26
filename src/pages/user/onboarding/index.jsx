@@ -769,7 +769,7 @@ const OnboardingWizard = () => {
                 <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 1.5 }}>Approvazione Clausole Vessatorie (artt. 1341-1342 c.c.)</Typography>
                 <Box sx={{ p: 1.5, bgcolor: "#fff", borderRadius: 1, border: "1px solid #eee", mb: 1.5, maxHeight: 160, overflowY: "auto" }}>
                   <Typography sx={{ fontSize: "0.78rem", color: "#555", lineHeight: 1.7 }}>
-                    Clausole di recesso e cessazione automatica — Assenza di zona esclusiva — Divieto di incassare — Divieto e-commerce — Clawback provvigioni — Modifica unilaterale dei Documenti Contrattuali — Decadenza provvigioni indirette alla disdetta — Foro di Roma — Cross-sponsoring vietato — Inattività e chiusura codice — Regole cambio sponsor — Riservatezza triennale post-cessazione — Divieto di chargeback — Chiusura a discrezione della Società.
+                    Clausole di recesso e cessazione automatica — Assenza di zona esclusiva — Divieto di incassare — Divieto e-commerce — Clawback provvigioni — Modifica unilaterale dei Documenti Contrattuali — Decadenza provvigioni indirette alla disdetta — Foro di Roma — Cross-sponsoring vietato — Inattività e chiusura codice — Regole cambio sponsor — Riservatezza triennale post-cessazione — Divieto di chargeback.
                   </Typography>
                 </Box>
                 <FormControlLabel
