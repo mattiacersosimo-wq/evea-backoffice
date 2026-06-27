@@ -38,7 +38,8 @@ const Referral = () => {
 
   useEffect(() => {
     if (user?.username) {
-      setReferralLink(`${WP_URL}?ref=${user.username}`);
+      const refSlug = user.username.toLowerCase().replace(/\s+/g, "");
+      setReferralLink(`${WP_URL}?ref=${refSlug}`);
     }
   }, [user]);
 

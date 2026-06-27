@@ -370,7 +370,8 @@ const ThreeFFCard = ({ ff, loading = false }) => {
   const { user } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
 
-  const referralLink = user?.username ? `${WP_URL}?ref=${user.username}` : "";
+  const refSlug = user?.username ? user.username.toLowerCase().replace(/\s+/g, "") : "";
+  const referralLink = refSlug ? `${WP_URL}?ref=${refSlug}` : "";
   const copy = async () => {
     if (!referralLink) return;
     await navigator.clipboard.writeText(referralLink);

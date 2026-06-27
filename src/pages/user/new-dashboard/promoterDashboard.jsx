@@ -765,8 +765,9 @@ const QuickAccess = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const { isActive } = useOnboardingStatus();
-  const referralLink = user?.username ? `${WP_URL}?ref=${user.username}` : "";
-  const quizReferralLink = user?.username ? `${WP_URL.replace(/\/$/, "")}/pages/trova-il-tuo-rituale?ref=${user.username}` : "";
+  const refSlug = user?.username ? user.username.toLowerCase().replace(/\s+/g, "") : "";
+  const referralLink = refSlug ? `${WP_URL}?ref=${refSlug}` : "";
+  const quizReferralLink = refSlug ? `${WP_URL.replace(/\/$/, "")}/pages/trova-il-tuo-rituale?ref=${refSlug}` : "";
   const shortcuts = [
     { icon: "mdi:storefront-outline", label: t("evea.shop"), action: () => window.open(`${WP_URL.replace(/\/$/, "")}/collections/all`, "_blank") },
     {
@@ -1102,7 +1103,8 @@ const ThreeFFCard = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const { isActive } = useOnboardingStatus();
-  const referralLink = user?.username ? `${WP_URL}?ref=${user.username}` : "";
+  const refSlug = user?.username ? user.username.toLowerCase().replace(/\s+/g, "") : "";
+  const referralLink = refSlug ? `${WP_URL}?ref=${refSlug}` : "";
   const copy = async () => {
     if (!isActive) {
       enqueueSnackbar("Firma la Lettera di Incarico per attivare il tuo link promotore", { variant: "warning" });
