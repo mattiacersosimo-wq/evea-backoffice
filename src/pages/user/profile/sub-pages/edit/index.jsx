@@ -250,6 +250,8 @@ const EditInfo = () => {
                                 label="Data di Nascita"
                                 type="date"
                                 InputLabelProps={{ shrink: true }}
+                                disabled
+                                helperText="Dato fissato in onboarding (legato al Codice Fiscale). Per modifiche contatta l'assistenza."
                             />
                             <Countries type="alpha_2" />
 
@@ -290,6 +292,8 @@ const EditInfo = () => {
                                     shrink: true,
                                 }}
                                 inputProps={{ maxLength: 16, style: { textTransform: "uppercase" } }}
+                                disabled
+                                helperText="Dato fissato in onboarding e collegato a IRPEF/INPS. Per modifiche contatta l'assistenza."
                             />
 
                             <CoHolderSection />
