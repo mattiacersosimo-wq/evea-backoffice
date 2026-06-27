@@ -234,11 +234,15 @@ const EditInfo = () => {
                                 name="first_name"
                                 label="profile.edit.first_name"
                                 onBlur={onBlur}
+                                disabled
+                                helperText="Dato fissato in onboarding (legato al Codice Fiscale). Per modifiche contatta l'assistenza."
                             />
                             <RHFTextField
                                 name="last_name"
                                 label="profile.edit.last_name"
                                 onBlur={onBlur}
+                                disabled
+                                helperText="Dato fissato in onboarding (legato al Codice Fiscale). Per modifiche contatta l'assistenza."
                             />
 
                             <RHFTextField
