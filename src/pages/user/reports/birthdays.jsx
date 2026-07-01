@@ -102,11 +102,12 @@ const BirthdaysReport = () => {
           <BirthdaySection title="This Week" icon="mdi:calendar-week" color={ORO} members={thisWeek} />
           <BirthdaySection title="This Month" icon="mdi:calendar-month" color="#4CAF50" members={thisMonth} />
 
-          {all.length > 0 && (today.length > 0 || thisWeek.length > 0 || thisMonth.length > 0) && (
+          {all.length > 0 && (
             <Box sx={{ mt: 3 }}>
               <Stack direction="row" alignItems="center" spacing={1} mb={1.5}>
                 <Iconify icon="mdi:cake-variant" width={20} sx={{ color: MUTED }} />
                 <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>All Upcoming</Typography>
+                <Chip label={all.filter((m) => !m.is_today && !m.is_this_week && !m.is_this_month).length} size="small" sx={{ height: 22, fontWeight: 700, bgcolor: alpha(MUTED, 0.1), color: MUTED }} />
               </Stack>
               <Stack spacing={1}>
                 {all.filter((m) => !m.is_today && !m.is_this_week && !m.is_this_month).slice(0, 20).map((m) => (
