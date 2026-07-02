@@ -223,13 +223,9 @@ const filterMenu = (menu, isPromoter) => {
     // (matrix, binary, mono, sponsor sono concetti solo promoter).
     if (isUserGroup && !items.some((i) => (i.path || "").includes("/user/genealogy"))) {
       items.push({
-        title: "user_nav.genealogy.genealogy",
-        path: "/user/genealogy",
+        title: "Genealogia",
+        path: "/user/genealogy/tree",
         icon: "/icons/ic_kanban.svg",
-        children: [
-          { title: "user_nav.genealogy.tree", path: "/user/genealogy/tree" },
-          { title: "user_nav.genealogy.list", path: "/user/genealogy/list" },
-        ],
       });
     }
     // Tesserino e lettera sono dentro onboarding/profilo
