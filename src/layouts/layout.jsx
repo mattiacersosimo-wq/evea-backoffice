@@ -217,29 +217,9 @@ const filterMenu = (menu, isPromoter) => {
     if (isPromoter && isUserGroup && !items.some((i) => (i.path || "").includes("/user/i-miei-lead"))) {
       items.push({ title: "I miei Lead", path: "/user/i-miei-lead", icon: "/icons/ic_member_management.svg" });
     }
-    // Genealogia: nel menu_list DB e' presente con isAffiliate: true, che
-    // la nasconde per i customer. Sovrascriviamo l'item (o iniettiamo se
-    // mancante) rimuovendo isAffiliate e mettendo Tree + List come sotto-voci
-    // (le sotto-voci del DB "Albero" e "Team" hanno isAffiliate e puntano a
-    // path che il customer non deve vedere).
-    if (isUserGroup) {
-      const genealogyItem = {
-        title: "user_nav.genealogy.genealogy",
-        path: "/user/genealogy",
-        icon: "/icons/ic_tree.svg",
-        children: [
-          { title: "user_nav.genealogy.tree", path: "/user/genealogy/tree", icon: "/icons/ic_tree.svg" },
-          { title: "user_nav.genealogy.list", path: "/user/genealogy/list", icon: "/icons/ic_tree.svg" },
-        ],
-      };
-      const genealogyIdx = items.findIndex((i) => (i.path || "") === "/user/genealogy");
-      if (genealogyIdx >= 0) {
-        // Sovrascrivi: rimuovi isAffiliate dal parent + rimpiazza children
-        items = items.map((it, idx) => (idx === genealogyIdx ? genealogyItem : it));
-      } else {
-        items.push(genealogyItem);
-      }
-    }
+    // Nota: Genealogia e' gestita direttamente nel menu_list DB (id 6, 7, 8)
+    // — rimosso isAffiliate dal parent + children Tree/List. Nessun inject
+    // qui necessario. Fix del 02/07/2026.
     // Tesserino e lettera sono dentro onboarding/profilo
     const order = ["dashboard", "affiliate-dashboard", "genealog", "i-miei-lead", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "income-report", "lettera-incarico", "tesserino", "profile", "community"];
     items = items.sort((a, b) => {
