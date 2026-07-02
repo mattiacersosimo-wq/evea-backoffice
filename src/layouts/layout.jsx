@@ -217,21 +217,16 @@ const filterMenu = (menu, isPromoter) => {
     if (isPromoter && isUserGroup && !items.some((i) => (i.path || "").includes("/user/i-miei-lead"))) {
       items.push({ title: "I miei Lead", path: "/user/i-miei-lead", icon: "/icons/ic_member_management.svg" });
     }
-    // Genealogia customer-only: il promoter la riceve dal menu_list DB gia'
-    // configurato (Albero + Team, gated con isAffiliate=true). Il customer non
-    // vedrebbe niente. Iniettiamo qui una versione customer con Albero + Team
-    // che puntano alle stesse pagine del promoter.
+    // Genealogia customer: solo "Albero" (Team rimosso — non rilevante per
+    // il cliente). Sostituisce la voce Genealogia dal menu_list DB con un
+    // link diretto a /user/genealogy/sponsor (nessuna sotto-voce).
     if (isUserGroup && !isPromoter) {
       const customerGenealogy = {
         title: "Genealogia",
-        path: "/user/genealogy",
+        path: "/user/genealogy/sponsor",
         icon: "/icons/ic_tree.svg",
-        children: [
-          { title: "Albero", path: "/user/genealogy/sponsor" },
-          { title: "Team", path: "/user/income-report?tab=team" },
-        ],
       };
-      const gIdx = items.findIndex((i) => (i.path || "") === "/user/genealogy");
+      const gIdx = items.findIndex((i) => (i.path || "").startsWith("/user/genealogy"));
       if (gIdx >= 0) {
         items = items.map((it, idx) => (idx === gIdx ? customerGenealogy : it));
       } else {

@@ -104,6 +104,10 @@ const OnboardingWizard = () => {
     (async () => {
       try {
         const { data: r } = await axiosInstance.get("api/wp/onboarding/status");
+        if (r?.data?.onboarding_done) {
+          navigate("/user/dashboard");
+          return;
+        }
         setStatus(r?.data);
         const u = r?.data?.user || {};
         // Mappa i nomi backend (id_document_*) verso quelli usati nel form (document_*)
