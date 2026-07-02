@@ -228,8 +228,8 @@ const filterMenu = (menu, isPromoter) => {
         path: "/user/genealogy",
         icon: "/icons/ic_tree.svg",
         children: [
-          { title: "user_nav.genealogy.tree", path: "/user/genealogy/tree" },
-          { title: "user_nav.genealogy.list", path: "/user/genealogy/list" },
+          { title: "user_nav.genealogy.tree", path: "/user/genealogy/tree", icon: "/icons/ic_tree.svg" },
+          { title: "user_nav.genealogy.list", path: "/user/genealogy/list", icon: "/icons/ic_tree.svg" },
         ],
       };
       const genealogyIdx = items.findIndex((i) => (i.path || "") === "/user/genealogy");
