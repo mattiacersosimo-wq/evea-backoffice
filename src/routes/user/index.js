@@ -263,7 +263,9 @@ const user = [
         ],
       },
       { ...businessBuilder, element: <PromoterGuard>{businessBuilder.element || <Outlet />}</PromoterGuard> },
-      { ...genealogy, element: <PromoterGuard>{genealogy.element || <Outlet />}</PromoterGuard> },
+      // Genealogia: accessibile a customer + promoter (rimosso PromoterGuard il 02/07/2026).
+      // Customer vede solo tree + list, promoter tutte le sotto-voci come prima.
+      { ...genealogy, element: genealogy.element || <Outlet /> },
       { ...subscriptions },
       { ...financial, element: <PromoterGuard>{financial.element || <Outlet />}</PromoterGuard> },
       { path: "community", element: <CommunityPage /> },
