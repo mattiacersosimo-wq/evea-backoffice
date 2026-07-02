@@ -235,7 +235,10 @@ const user = [
           { path: ":id", element: <BlogPost /> },
         ],
       },
-      { path: "income-report", element: <PromoterGuard><IncomeReport /></PromoterGuard> },
+      // Rimosso PromoterGuard: il customer accede a income-report solo per il
+      // tab "team" (via menu Genealogia > Team). Se income-report mostra
+      // dati promoter-only tipo commissioni, in futuro si differenzia lato UI.
+      { path: "income-report", element: <IncomeReport /> },
       { path: "missed-points", element: <PromoterGuard><MissedPoints /></PromoterGuard> },
       {
         path: "leads",
