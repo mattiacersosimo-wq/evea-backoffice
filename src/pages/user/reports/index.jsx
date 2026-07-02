@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import LoadingScreen from "src/components/LoadingScreen";
+import useAuth from "src/hooks/useAuth";
 
 const IncomeReport = lazy(() => import("../income-report/index"));
 const TeamUnified = lazy(() => import("./team-unified"));
@@ -33,9 +34,14 @@ const TAB_KEYS = [
 
 const Reports = () => {
   const { t } = useTranslation();
-  const TABS = TAB_KEYS.map((tk) => ({ ...tk, label: t(tk.labelKey) }));
+  const { user } = useAuth();
+  const isPromoter = Boolean(Number(user?.is_promoter));
+  // Customer vede solo il tab Team (gli altri tab sono per promoter — commissioni,
+  // rank, payout, ecc. non hanno senso per un cliente).
+  const filteredTabs = isPromoter ? TAB_KEYS : TAB_KEYS.filter((tk) => tk.key === "team");
+  const TABS = filteredTabs.map((tk) => ({ ...tk, label: t(tk.labelKey) }));
   const [params, setParams] = useSearchParams();
-  const tabKey = params.get("tab") || "income";
+  const tabKey = params.get("tab") || (isPromoter ? "income" : "team");
   const tabIndex = TABS.findIndex((tb) => tb.key === tabKey);
   const [tab, setTab] = useState(tabIndex >= 0 ? tabIndex : 0);
 
@@ -79,16 +85,17 @@ const Reports = () => {
           ))}
         </Tabs>
 
-        {/* Content */}
+        {/* Content: routing per tab key invece che indice (l'array TABS puo'
+            essere filtrato per customer vs promoter, gli indici cambiano). */}
         <Suspense fallback={<LoadingScreen />}>
-          {tab === 0 && <IncomeReport />}
-          {tab === 1 && <TeamUnified />}
-          {tab === 2 && <QualificationsReport />}
-          {tab === 3 && <RankHistoryReport />}
-          {tab === 4 && <PayoutHistoryReport />}
-          {tab === 5 && <BirthdaysReport />}
-          {tab === 6 && <SimulatorReport />}
-          {tab === 7 && <LeaderboardReport />}
+          {TABS[tab]?.key === "income" && <IncomeReport />}
+          {TABS[tab]?.key === "team" && <TeamUnified />}
+          {TABS[tab]?.key === "qualifications" && <QualificationsReport />}
+          {TABS[tab]?.key === "rank" && <RankHistoryReport />}
+          {TABS[tab]?.key === "payout" && <PayoutHistoryReport />}
+          {TABS[tab]?.key === "birthdays" && <BirthdaysReport />}
+          {TABS[tab]?.key === "simulator" && <SimulatorReport />}
+          {TABS[tab]?.key === "leaderboard" && <LeaderboardReport />}
         </Suspense>
       </Box>
     </Page>
