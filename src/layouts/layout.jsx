@@ -210,9 +210,27 @@ const filterMenu = (menu, isPromoter) => {
     if (isUserGroup && !items.some((i) => (i.path || "").includes("/user/community"))) {
       items.push({ title: "Community", path: "/user/community", icon: "/icons/ic_member_management.svg" });
     }
-    // Inject "I miei Lead" — solo lato user, posizione decisa dall'order sotto
-    if (isUserGroup && !items.some((i) => (i.path || "").includes("/user/i-miei-lead"))) {
+    // Inject "I miei Lead" — SOLO promoter (i customer non hanno lead da
+    // gestire). Modifica del 02/07/2026: prima il menu veniva iniettato per
+    // qualsiasi utente user-group indipendentemente da is_promoter,
+    // rendendolo visibile anche ai customer. Aggiunto isPromoter come gate.
+    if (isPromoter && isUserGroup && !items.some((i) => (i.path || "").includes("/user/i-miei-lead"))) {
       items.push({ title: "I miei Lead", path: "/user/i-miei-lead", icon: "/icons/ic_member_management.svg" });
+    }
+    // Inject "Genealogia" per customer (che nel menu_list backend non lo hanno).
+    // I promoter ce l'hanno gia' nel loro menu_list, il check !items.some() evita
+    // duplicati. Per i customer mostriamo solo Tree e List come sotto-voci
+    // (matrix, binary, mono, sponsor sono concetti solo promoter).
+    if (isUserGroup && !items.some((i) => (i.path || "").includes("/user/genealogy"))) {
+      items.push({
+        title: "user_nav.genealogy.genealogy",
+        path: "/user/genealogy",
+        icon: "/icons/ic_kanban.svg",
+        children: [
+          { title: "user_nav.genealogy.tree", path: "/user/genealogy/tree" },
+          { title: "user_nav.genealogy.list", path: "/user/genealogy/list" },
+        ],
+      });
     }
     // Tesserino e lettera sono dentro onboarding/profilo
     const order = ["dashboard", "affiliate-dashboard", "genealog", "i-miei-lead", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "income-report", "lettera-incarico", "tesserino", "profile", "community"];
