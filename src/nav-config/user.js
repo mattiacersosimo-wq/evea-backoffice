@@ -115,7 +115,10 @@ const userNavConfig = [
                 icon: ICONS.kanban,
                 path: PATH_USER.genealogy.root,
                 placement: 6,
-                isAffiliate: true,
+                // Rimosso isAffiliate: true per mostrare la sezione anche ai
+                // customer (che vedono solo tree + list — le sotto-voci
+                // matrix/monoLine/binary/sponsor/binaryLeg restano solo
+                // promoter grazie al loro isAffiliate: true).
                 children: [
                     {
                         plans: [matrix],
@@ -154,13 +157,13 @@ const userNavConfig = [
                         title: "user_nav.genealogy.tree",
                         path: PATH_USER.genealogy.tree,
                         placement: 5,
-                        isAffiliate: true,
+                        // Nessun isAffiliate — visibile anche ai customer.
                     },
                     {
                         title: "user_nav.genealogy.list",
                         path: PATH_USER.genealogy.list,
                         placement: 5,
-                        isAffiliate: true,
+                        // Nessun isAffiliate — visibile anche ai customer.
                     },
                     {
                         plans: [roi, binary],
@@ -300,6 +303,7 @@ const userNavConfig = [
                 path: PATH_USER.leads.root,
                 icon: ICONS.leads,
                 isLead: true,
+                isAffiliate: true, // Solo promoter — customer non ha lead
                 placement: 12,
             },
         ],

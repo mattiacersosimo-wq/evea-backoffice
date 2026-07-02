@@ -296,7 +296,9 @@ const EditInfo = () => {
                                 helperText="Dato fissato in onboarding e collegato a IRPEF/INPS. Per modifiche contatta l'assistenza."
                             />
 
-                            <CoHolderSection />
+                            {/* Co-intestatario: solo promoter — e' informazione */}
+                            {/* legata alla lettera d'incarico, non applicabile ai customer. */}
+                            {user?.is_promoter === 1 && <CoHolderSection />}
 
                             {user?.is_promoter === 1 && (
                             <>
