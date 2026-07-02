@@ -217,9 +217,27 @@ const filterMenu = (menu, isPromoter) => {
     if (isPromoter && isUserGroup && !items.some((i) => (i.path || "").includes("/user/i-miei-lead"))) {
       items.push({ title: "I miei Lead", path: "/user/i-miei-lead", icon: "/icons/ic_member_management.svg" });
     }
-    // Nota: Genealogia e' gestita direttamente nel menu_list DB (id 6, 7, 8)
-    // — rimosso isAffiliate dal parent + children Tree/List. Nessun inject
-    // qui necessario. Fix del 02/07/2026.
+    // Genealogia customer-only: il promoter la riceve dal menu_list DB gia'
+    // configurato (Albero + Team, gated con isAffiliate=true). Il customer non
+    // vedrebbe niente. Iniettiamo qui una versione customer con Albero + Team
+    // che puntano alle stesse pagine del promoter.
+    if (isUserGroup && !isPromoter) {
+      const customerGenealogy = {
+        title: "Genealogia",
+        path: "/user/genealogy",
+        icon: "/icons/ic_tree.svg",
+        children: [
+          { title: "Albero", path: "/user/genealogy/sponsor" },
+          { title: "Team", path: "/user/income-report?tab=team" },
+        ],
+      };
+      const gIdx = items.findIndex((i) => (i.path || "") === "/user/genealogy");
+      if (gIdx >= 0) {
+        items = items.map((it, idx) => (idx === gIdx ? customerGenealogy : it));
+      } else {
+        items.push(customerGenealogy);
+      }
+    }
     // Tesserino e lettera sono dentro onboarding/profilo
     const order = ["dashboard", "affiliate-dashboard", "genealog", "i-miei-lead", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "income-report", "lettera-incarico", "tesserino", "profile", "community"];
     items = items.sort((a, b) => {
