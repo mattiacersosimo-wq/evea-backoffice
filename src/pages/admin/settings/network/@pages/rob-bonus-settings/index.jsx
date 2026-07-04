@@ -1,28 +1,22 @@
 import { LoadingButton } from "@mui/lab";
 import {
+  Alert,
   Box,
-  InputAdornment,
+  Divider,
+  FormControlLabel,
   Stack,
+  Switch,
   Table,
   TableBody,
   TableCell,
-  TableContainer,
   TableHead,
   TableRow,
   TextField,
   Typography,
 } from "@mui/material";
-import { useSnackbar } from "notistack";
-import { useState } from "react";
-import Iconify from "src/components/Iconify";
 import Scrollbar from "src/components/Scrollbar";
-import { BodyRow } from "src/components/custom-table";
 import DataHandlerList from "src/components/data-handler/list";
-import EmptyTable from "src/components/emptyTable";
 import Map from "src/components/map";
-import useErrors from "src/hooks/useErrors";
-
-import axiosInstance from "src/utils/axios";
 import useGetData from "./hooks/useGetData";
 import Translate from "src/components/translate";
 
@@ -32,7 +26,6 @@ const RobBonus = () => {
   return (
     <Scrollbar>
       <DataHandlerList dataProps={{ ...dataProps }}>
-        {/* <TableContainer sx={{ maxWidth: 500 }}> */}
         <Table>
           <TableHead>
             <TableRow>
@@ -51,7 +44,7 @@ const RobBonus = () => {
               </TableCell>
               <TableCell>
                 <Translate>settings.network.bonus_coupon_value</Translate>
-                (%){" "}
+                (fisso)
               </TableCell>
             </TableRow>
           </TableHead>
@@ -71,7 +64,29 @@ const RobBonus = () => {
             />
           </TableBody>
         </Table>
-        {/* </TableContainer> */}
+
+        {/* ROB Proporzionale (variante G) — sezione dedicata */}
+        <Box sx={{ mt: 4 }}>
+          <Divider sx={{ mb: 2 }} />
+          <Typography variant="h6" sx={{ mb: 1 }}>
+            ROB Proporzionale (formula)
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 2, color: "text.secondary" }}>
+            Formula: <code>coupon = min(cap, max(floor, coefficient × subtotale_minimo_del_ciclo))</code>.
+            Con lo switch OFF il coupon torna al valore fisso configurato sopra (fallback sicuro).
+          </Typography>
+          <Map
+            list={data}
+            render={(item) => (
+              <ProportionalRow
+                key={`prop-${item.id}`}
+                {...item}
+                handleUpdate={handleUpdate}
+              />
+            )}
+          />
+        </Box>
+
         <Box textAlign="right">
           <Stack alignItems="flex-end" sx={{ mt: 3 }}>
             <LoadingButton onClick={onSubmit} type="submit" variant="contained">
@@ -129,10 +144,79 @@ const Row = ({
   );
 };
 
+const ProportionalRow = ({
+  id,
+  formula_coefficient,
+  formula_cap,
+  formula_floor,
+  use_proportional_formula,
+  handleUpdate,
+}) => {
+  const isOn = Boolean(Number(use_proportional_formula));
+  const onSwitchChange = (e) => {
+    handleUpdate(id)({
+      target: { name: "use_proportional_formula", value: e.target.checked ? 1 : 0 },
+    });
+  };
+  return (
+    <Box sx={{ mb: 2 }}>
+      <Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap">
+        <FormControlLabel
+          control={
+            <Switch checked={isOn} onChange={onSwitchChange} color="primary" />
+          }
+          label={
+            <Typography variant="body2">
+              Usa formula proporzionale ({isOn ? "ATTIVA" : "OFF - fallback fisso"})
+            </Typography>
+          }
+        />
+        <TextField
+          label="Coefficient (es. 0.6667 = 2/3)"
+          size="small"
+          type="number"
+          value={formula_coefficient ?? ""}
+          name="formula_coefficient"
+          onChange={handleUpdate(id)}
+          inputProps={{ step: "0.0001", min: 0, max: 2 }}
+          sx={{ width: 200 }}
+          disabled={!isOn}
+        />
+        <TextField
+          label="Cap (€)"
+          size="small"
+          type="number"
+          value={formula_cap ?? ""}
+          name="formula_cap"
+          onChange={handleUpdate(id)}
+          inputProps={{ step: "0.01", min: 0 }}
+          sx={{ width: 140 }}
+          disabled={!isOn}
+        />
+        <TextField
+          label="Floor (€)"
+          size="small"
+          type="number"
+          value={formula_floor ?? ""}
+          name="formula_floor"
+          onChange={handleUpdate(id)}
+          inputProps={{ step: "0.01", min: 0 }}
+          sx={{ width: 140 }}
+          disabled={!isOn}
+        />
+      </Stack>
+      {isOn && (
+        <Alert severity="info" sx={{ mt: 1 }}>
+          Con questi parametri il coupon sara' calcolato dinamicamente sul subtotale minimo del
+          ciclo di {formula_coefficient} x subtotale, con floor {formula_floor}€ e cap {formula_cap}€.
+        </Alert>
+      )}
+    </Box>
+  );
+};
+
 const LoadingTextField = ({ value, name, handleUpdate }) => {
-  const [loading, setLoading] = useState(false);
   const onChange = (e) => {
-    setLoading(true);
     handleUpdate(e);
   };
 

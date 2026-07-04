@@ -64,6 +64,131 @@ Limiti del setup attuale:
 - **Aruba PEC**: ricezione passiva fatture passive (NO emissione SDI)
 - **Sentry**: NON installato
 
+## Dati economici (aggiornati luglio 2026)
+
+Numeri di riferimento per analisi margine, pricing, strategia commerciale. Business plan completo in `c:\tmp\evea-business-plan.pdf`.
+
+### Costi prodotto (COGS)
+
+Fornitore cinese FOB Fuzhou, cambio 1 USD ≈ 0,92 EUR:
+
+| Prodotto | FOB | + Aluminum bag | COGS sbarcato IT (+ 10% dazi + 10% IVA + €0,3125/pezzo spedizione internazionale su 8k pz per €2500) |
+|---|---|---|---|
+| 3 in 1 Mushroom Latte / Mocha (210g) | $3,12 | $1,60 | **€5,56/bag** |
+| 4 in 1 Mushroom Black Coffee (75g) | $3,85 | $1,20 | **€5,94/bag** |
+| Organic Green Tea + Ganoderma (25 sachets) | $3,70 | $0,50 | **€4,98/box** |
+
+**COGS medio mix bilanciato usato nei calcoli (via marittima)**: **€5,50/busta** (con margine di sicurezza per fluttuazioni cambio).
+
+Plate-making fee one-shot: $620 aluminum bags, $760 sachet tea, $380 hand tag (ammortizzati sui primi lotti).
+
+### Confronto spedizione internazionale marittima vs aerea
+
+| Modalità | Costo 8.000 pz | Costo/pezzo | COGS medio/busta | Tempi consegna |
+|---|---|---|---|---|
+| **Marittima** (attuale) | €2.500 | €0,3125 | **€5,50** | 30-45 gg |
+| **Aerea** | €10.000 | €1,25 | **€6,44** | 5-10 gg |
+| **Δ** | +€7.500 | +€0,9375 | +€0,94/busta | -25/35 gg |
+
+Impatto aerea su margine EVEA/anno per cliente:
+- Cliente 1 box: da +€15 a **+€4** (praticamente zero, rischio perdita se altri costi salgono)
+- Cliente 3 box: da +€326 a +€292 (-10%)
+- Cliente 12 box: da +€1.571 a +€1.436 (-9%)
+- Aggregato 100 clienti smartship: da €15.796 a €13.551/anno **(-€2.245/anno differenza margine)**
+
+**Quando aerea**: rischio stockout, agilità riordini, test nuovi prodotti, cambi formulazione. **Quando marittima**: volume stabile prevedibile, priorità margine. **Raccomandazione**: default marittima, aerea come "riserva strategica" solo per riordini urgenti best-seller in stockout imminente.
+
+### Logistica magazzino DCA Consulting (Verona, contratto 01/06/2026-31/12/2027, referente Susanne Kusoglu)
+
+**Fissi mensili con 10 palette**:
+- Magazzinaggio (fino a 50 plt): €2,50/settimana/plt = ~€108/mese
+- Contributo smaltimento rifiuti: €25/mese fisso
+- Assicurazione Incendio/Furto (opz): €70/mese
+- **Totale fissi**: €133-203/mese = €1.596-2.436/anno
+
+**Variabili per spedizione**:
+- Preparazione ordine: €0,15/pezzo, **minimo €2,50/spedizione** (copre 1-16 pezzi)
+- Etichetta destinatario: €0,90/etichetta
+- Assemblaggio kit: €3/kit
+- Scarico merce entrante: €2/palette
+
+**Costo logistica totale per pacco spedito** (assumendo 1.560 pacchi/anno di volume):
+- GLS: €4,30 (contratto 1463, sede V1, cliente 413084, tariffa Light fino 5kg Out of Home)
+- DCA prep + etichetta: €3,40 (min)
+- DCA fissi ammortizzati: €1,56
+- **TOTALE: €9,26/pacco standard, €14,46/pacco per 12 box (2 pacchi >5kg)**
+
+### Free shipping cliente
+
+- Contributo cliente: **€7,60/spedizione sotto €97 di ordine**
+- **Gratuita sopra €97** (scatta al 4° box smartship: €26,73 × 4 = €106,92)
+- Impatto EVEA: -€1,66/pacco netto sotto soglia, -€9,26/pacco sopra (assorbita interamente)
+
+### Commissioni MLM effettive medie
+
+- Direct Sales (DSB): 15% listino (30% starter kit)
+- Indirect Sales (ISB): 4%+3%+3% su 3 livelli
+- Residual smartship: ~5-8% variabile per rank
+- Leadership: solo rank 5+
+- Considerando i gate (50 PQV, rank, profondità), **percentuale effettiva pagata da EVEA ~22% del listino netto** = **€5,35/busta** (range realistico 20-25%)
+- Piattaforme (Shopify 2% + Seal + Klaviyo): **~€0,50/busta**
+
+### Prezzi listino
+
+- **Prezzo listino busta**: €29,70 lordo IVA (€27,00 netto IVA 10%)
+- **Prezzo smartship (-10%)**: €26,73 lordo (€24,30 netto)
+
+### Margine EVEA per profilo cliente smartship (con ROB fisso €30 attuale)
+
+| Profilo | Costo/busta EVEA | Ricavo/busta EVEA | Margine/busta | **Margine/anno cliente** |
+|---|---|---|---|---|
+| 1 box/mese | €20,61 | €21,90 | +€1,29 | **+€15 (breakeven)** |
+| 2 box/mese | €15,86 | €22,25 | +€6,39 | +€153 |
+| 3 box/mese | €14,44 | €23,50 | +€9,06 | +€326 |
+| 4 box/mese | €13,67 | €22,80 | +€9,13 | +€438 |
+| 6 box/mese | €12,89 | €22,63 | +€9,74 | +€701 |
+| 12 box/mese | €12,56 | €23,47 | +€10,91 | **+€1.571** |
+
+Aggregato 100 clienti smartship distribuzione realistica (55% 1box, 25% 2box, 12% 3-4box, 6% 5-6box, 2% 12box): **~€15.800/anno margine EVEA**.
+
+### Strategia ROB Proporzionale (formula finale scelta — luglio 2026)
+
+**Problema**: listino attuale incoerente — chi compra di più paga di più/busta (1 box=€16,73, 6 box=€25,03). Nessun incentivo upgrade + apre vettore stuffing.
+
+**Formula scelta**: `coupon_ROB = min(€60, max(€26,73, 0.667 × subtotale_mensile_minimo_del_ciclo))`
+
+Il pavimento €26,73 = prezzo di una busta smartship = **il cliente 1 box riceve effettivamente 1 busta gratis ogni 3 mesi**. Comunicazione commerciale forte per tutti i profili.
+
+**Prezzi/busta risultanti**:
+- 1 box → €17,82 (era €16,73, +€1,09 = +6,5% appena percettibile)
+- 2 box → €20,79 (era €21,73, -€0,94)
+- 3 box → €20,79 (era €23,40, -€2,61)
+- 4 box → €21,73 (era €24,23, -€2,50)
+- 6 box → €23,40 (era €25,03, -€1,63)
+- 12 box → €25,06 (era €26,00, -€0,94)
+
+**Bilancio economico su 100 clienti smartship**:
+- Costo extra EVEA base: **-€2.093/anno**
+- Recupero anti-stuffing (15% stuffer): +€5.490
+- Retention high-volume: +€2.500
+- Effetto upgrade 1→2-3 box: +€600
+- **Guadagno netto atteso: +€6.497/anno su 100 clienti**
+
+**Perché il pavimento €26,73 e non €30 (attuale) o €0 (senza pavimento)**:
+- vs €30: cliente 1 box passa da €16,73 a €17,82/busta (+€1,09), risparmio EVEA €715/anno
+- vs €0 (senza pav): cliente 1 box paga solo €17,82 invece di €20,79 (evita shock -33%)
+- **Zero rischio politico sui clienti 1 box esistenti**, nessun grandfathering necessario
+- Comunicazione chiara: "1 busta gratis ogni 3 mesi" per tutti
+
+**Implementazione tecnica**:
+- Aggiungere colonne a `recurring_order_bonus_settings`: `formula_coefficient` (default 0.6667), `formula_cap` (60.00), `formula_floor` (26.73), `use_proportional_formula` (bool)
+- Modificare `WordpressRepository::consecutivePurchaseCoupon` (~riga 2080) con la nuova formula gated dal flag
+- Flag `users.legacy_rob_grandfathered` per eventuale grandfathering (non necessario con questo pavimento, ma utile come safety-net)
+- Cap 3FF proposto ridotto da €90 a €80 (proposta Tommaso, zero dev)
+- Anti-stuffing gestito con **dashboard alert admin** (no automazione bloccante)
+
+Effort totale: **1,5-2 giornate developer** (backend logic + migration + admin UI + test). Ricognizione tecnica completa in `c:\tmp\RICOGNIZIONE_ROB_SPEDIZIONI.md`.
+
 ## Fiscalità (parte del piano compensi)
 
 - **Soglia attività occasionale**: €5.000 netti/anno (€6.410,26 lordi). Sotto: solo IRPEF 17,94% (a titolo d'imposta).
