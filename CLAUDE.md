@@ -180,14 +180,22 @@ Il pavimento €26,73 = prezzo di una busta smartship = **il cliente 1 box ricev
 - **Zero rischio politico sui clienti 1 box esistenti**, nessun grandfathering necessario
 - Comunicazione chiara: "1 busta gratis ogni 3 mesi" per tutti
 
-**Implementazione tecnica**:
-- Aggiungere colonne a `recurring_order_bonus_settings`: `formula_coefficient` (default 0.6667), `formula_cap` (60.00), `formula_floor` (26.73), `use_proportional_formula` (bool)
-- Modificare `WordpressRepository::consecutivePurchaseCoupon` (~riga 2080) con la nuova formula gated dal flag
-- Flag `users.legacy_rob_grandfathered` per eventuale grandfathering (non necessario con questo pavimento, ma utile come safety-net)
-- Cap 3FF proposto ridotto da €90 a €80 (proposta Tommaso, zero dev)
-- Anti-stuffing gestito con **dashboard alert admin** (no automazione bloccante)
+**Implementazione tecnica — DEPLOYATA 04/07/2026** (commit backend `ad8b79c3`+`8916f6fe`, frontend `39af2c6`):
+- Migration `2026_07_04_120000_add_proportional_formula_to_recurring_order_bonus_settings`: 4 colonne (`formula_coefficient` default 0.6667, `formula_cap` 60.00, `formula_floor` 26.73, `use_proportional_formula` default **false**)
+- `WordpressRepository::consecutivePurchaseCoupon` esteso: raccolta subtotali pre-coupon nel loop consecutività + calcolo `min(cap, max(floor, coefficient × subtotale_min_ciclo))` gated dal switch, altrimenti fallback €30 fisso
+- Base pre-coupon (anti-ricorsione T-G6): `cart.price + max(0, discount_amount - consecutive_discount_amount)`. Riaggiunge la porzione coupon (ROB/3FF) al prezzo netto, NON lo sconto SmartShip -10%. Senza questo, ogni ciclo con riscatto ROB precedente farebbe oscillare il coupon successivo
+- Admin UI: sezione "ROB Proporzionale (formula)" con switch + 3 input (`coefficient`, `cap`, `floor`), campi disabilitati quando switch OFF
+- Test `tests/rob_proportional_test.php`: T-G1..T-G8 tutti verdi su `office_test` (T-G6 è la guardia anti-ricorsione)
+- **Cap 3FF applicato**: `three_for_free_settings.max_bonus_value` 90 → 80 il 04/07/2026 (backup pre-modifica in `~/backups/three_for_free_settings.pre-cap-80.*.sql`)
+- **Master switch attualmente OFF** (`recurring_order_bonus_settings.use_proportional_formula = 0`): il ROB continua a essere €30 fisso in produzione. Per attivare: `UPDATE recurring_order_bonus_settings SET use_proportional_formula = 1 WHERE is_active = 1` o via admin UI backoffice. Rollback: rimettere il valore a 0.
+- V1 (cumulo ROB+3FF): `$stackableTypes = ['3ff_programe', '3ff_residual', 'rob_bonus']` in `app/Rules/ValidCoupon.php:59`. Sommabili sullo stesso ordine fino a max 3 coupon per cart item. Payout aggregato massimo €140+ per ordine se combinati (60 ROB + 80 3FF). Nessun cap complessivo codificato.
+- V2 (categoria 'subscription' esclusa dal loop consecutività): esclude solo il Kit Promoter EVEA (€79, category `'subscription'`), NON gli ordini SmartShip che hanno category `'product'`. Comportamento corretto — non è un bug.
+- V3 (soglia €97 free shipping): nessun hardcoded backend, tutto lato Shopify. Nessun ricalcolo lato server. **Da verificare manualmente su Shopify Admin** se la soglia valuta subtotale PRE-coupon o POST-coupon (test empirico: carrello €106,92 + coupon ROB → shipping deve restare €0). Se POST-coupon, fix su Shopify shipping profile, non backend.
 
-Effort totale: **1,5-2 giornate developer** (backend logic + migration + admin UI + test). Ricognizione tecnica completa in `c:\tmp\RICOGNIZIONE_ROB_SPEDIZIONI.md`.
+Documento tecnico completo di implementazione: `c:\tmp\IMPLEMENTAZIONE_ROB_G.md`.
+Ricognizione read-only pre-implementazione: `c:\tmp\RICOGNIZIONE_ROB_SPEDIZIONI.md`.
+
+Anti-stuffing gestito con **dashboard alert admin** (no automazione bloccante) — implementazione separata quando pronti (fuori scope variante G).
 
 ## Fiscalità (parte del piano compensi)
 
