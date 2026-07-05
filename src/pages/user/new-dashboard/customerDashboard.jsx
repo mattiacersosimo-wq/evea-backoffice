@@ -329,8 +329,8 @@ const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
 const TICKER_MESSAGES = [
   { icon: "mdi:truck-fast-outline", text: "Spedizione gratuita a partire da €97 di acquisti" },
   { icon: "mdi:sale-outline", text: "-10% su ogni ordine con lo Smartship attivo" },
-  { icon: "mdi:gift-outline", text: "Invita 3 amici e guadagna fino a €81 di bonus" },
-  { icon: "mdi:ticket-percent-outline", text: "Coupon €30 ogni 3 consegne consecutive" },
+  { icon: "mdi:gift-outline", text: "Invita 3 amici e guadagna fino a €80 di bonus" },
+  { icon: "mdi:gift-outline", text: "1 prodotto in regalo ogni 3 consegne consecutive" },
   { icon: "mdi:coffee-outline", text: "Scopri i nostri prodotti wellness su myevea.com" },
 ];
 
@@ -394,7 +394,7 @@ const ThreeFFCard = ({ ff, loading = false }) => {
         </Box>
         <Box>
           <Tooltip
-            title="Porta 3 amici che ordinano almeno €30 ciascuno e ricevi un bonus fino a €81. Condividi il tuo link!"
+            title="Porta 3 amici che ordinano almeno €30 ciascuno e ricevi un bonus fino a €80. Condividi il tuo link!"
             arrow
             placement="top"
           >
@@ -513,7 +513,7 @@ const ROBCard = ({ rob, loading = false }) => {
     const isFirstEver = cycleNum === 1 && i === 0;
     let label;
     if (isFirstEver) label = t("evea.first_delivery") || "1ª consegna";
-    else if (isCoupon) label = "-10% + €30";
+    else if (isCoupon) label = "-10% + 🎁";
     else label = "-10%";
     return { month: i + 1, completed: i < posInCycle, isCurrent: i === posInCycle, label, isCoupon };
   });
@@ -544,7 +544,7 @@ const ROBCard = ({ rob, loading = false }) => {
               {t("evea.loyalty_path") || "Percorso Fedeltà"}
             </Typography>
             <Typography variant="caption" sx={{ color: WARM_GRAY, lineHeight: 1 }}>
-              {t("evea.loyalty_sub") || "-10% per sempre + coupon ogni 3 consegne"}
+              {t("evea.loyalty_sub") || "-10% per sempre + 1 prodotto in regalo ogni 3 consegne"}
             </Typography>
           </Box>
         </Stack>
@@ -611,6 +611,10 @@ const ROBCard = ({ rob, loading = false }) => {
                 sx={{ width: i === page ? 16 : 6, height: 6, borderRadius: 3, bgcolor: i === page ? ORO : "#ddd", transition: "all 0.3s", cursor: "pointer" }} />
             ))}
           </Stack>
+
+          <Typography sx={{ fontSize: "0.7rem", color: WARM_GRAY, textAlign: "center", mb: 2, px: 1, fontStyle: "italic", lineHeight: 1.4 }}>
+            {t("evea.loyalty_gift_hint") || "🎁 1 prodotto in regalo ogni 3 consegne — cresce con il tuo ordine. Spedizione esclusa."}
+          </Typography>
 
           <Box sx={{ bgcolor: alpha(ORO, 0.06), borderRadius: 2, p: 2, mb: 2, textAlign: "center" }}>
             <Stack direction="row" alignItems="center" justifyContent="center" spacing={0.5} mb={0.5}>
