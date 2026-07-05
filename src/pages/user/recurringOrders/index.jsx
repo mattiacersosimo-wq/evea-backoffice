@@ -308,7 +308,7 @@ const SealSection = () => {
           </Box>
           <Typography variant="h6" sx={{ color: ESPRESSO, fontWeight: 700 }}>Non hai abbonamenti attivi</Typography>
           <Typography variant="body2" sx={{ color: "#7A6A5C", mt: 1, maxWidth: 520, mx: "auto" }}>
-            Attiva uno <strong>smartship</strong> e ottieni il <strong>10% di sconto a vita</strong> su tutti i prodotti, <strong>{"€"}30 di coupon ogni 3 consegne</strong> dal programma 3 For Free e una sola spedizione mensile.
+            Attiva uno <strong>smartship</strong> e ottieni il <strong>10% di sconto a vita</strong> su tutti i prodotti, <strong>un regalo che cresce con il tuo ordine ogni 3 mesi</strong> e una sola spedizione mensile.
           </Typography>
           <Button
             variant="contained"
