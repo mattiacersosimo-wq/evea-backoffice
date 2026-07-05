@@ -1275,7 +1275,7 @@ const ROBCard = () => {
           </Stack>
 
           <Typography sx={{ fontSize: "0.7rem", color: MUTED, textAlign: "center", mb: 2, px: 1, fontStyle: "italic", lineHeight: 1.4 }}>
-            {t("evea.loyalty_gift_hint_v2") || "🎁 Più il tuo ordine cresce, più grande è il regalo. Applicato automaticamente ogni 3 mesi."}
+            {t("evea.loyalty_gift_hint_v2") || "🎁 Più ordini, più grande il regalo. Un coupon ogni 3 mesi, da usare quando vuoi."}
           </Typography>
 
           {/* Risparmio */}
