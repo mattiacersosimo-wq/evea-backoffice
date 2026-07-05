@@ -277,18 +277,25 @@ const Layout = () => {
   const isAdmin = user?.is_super_admin === 1 || user?.is_sub_admin === 1;
   const config = useMemo(() => {
     let menu = filterMenu(injectMenuItems(raw), isPromoter);
-    // Inject Centro Controllo for admin
+    // Inject Centro Controllo + Sostenibilita' for admin (subito dopo Dashboard)
     if (isAdmin && Array.isArray(menu)) {
       menu = menu.map((group) => {
         if (!group.items) return group;
         const hasDashboard = group.items.some((i) => (i.path || "").includes("/admin/dashboard"));
-        if (hasDashboard && !group.items.some((i) => (i.path || "").includes("centro-controllo"))) {
-          const dashIdx = group.items.findIndex((i) => (i.path || "").includes("/admin/dashboard"));
-          const items = [...group.items];
+        if (!hasDashboard) return group;
+        let items = [...group.items];
+        // Centro Controllo (se non gia' presente)
+        if (!items.some((i) => (i.path || "").includes("centro-controllo"))) {
+          const dashIdx = items.findIndex((i) => (i.path || "").includes("/admin/dashboard"));
           items.splice(dashIdx + 1, 0, { title: "Centro Controllo", path: "/admin/centro-controllo", icon: "/icons/ic_analytics.svg" });
-          return { ...group, items };
         }
-        return group;
+        // Sostenibilita' Piano Compensi (04/07/2026) — subito dopo Centro Controllo
+        if (!items.some((i) => (i.path || "").includes("kpi-sustainability"))) {
+          const ccIdx = items.findIndex((i) => (i.path || "").includes("centro-controllo"));
+          const insertAt = ccIdx >= 0 ? ccIdx + 1 : items.length;
+          items.splice(insertAt, 0, { title: "Sostenibilità", path: "/admin/kpi-sustainability", icon: "/icons/ic_analytics.svg" });
+        }
+        return { ...group, items };
       });
     }
     return applyIcons(menu);

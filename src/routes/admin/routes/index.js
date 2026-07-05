@@ -33,6 +33,9 @@ const AdminLettereIncarico = Loadable(
 const CentroControllo = Loadable(
   lazy(() => import("src/pages/admin/centro-controllo/index"))
 );
+const KpiSustainability = Loadable(
+  lazy(() => import("src/pages/admin/kpi-sustainability/index"))
+);
 const LeadOrfani = Loadable(
   lazy(() => import("src/pages/admin/lead-orfani/index"))
 );
@@ -88,6 +91,10 @@ const availableRoutes = [
   {
     path: "centro-controllo",
     element: <CentroControllo />,
+  },
+  {
+    path: "kpi-sustainability",
+    element: <KpiSustainability />,
   },
   {
     path: "lead-orfani",
