@@ -260,7 +260,7 @@ const KpiSustainability = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data: r } = await axiosInstance.get("api/admin/kpi/sustainability");
+        const { data: r } = await axiosInstance.get("api/wp/admin/kpi/sustainability");
         setData(r?.data);
       } catch (e) {
         setError(e?.response?.data?.message || e.message || "Errore caricamento KPI");
