@@ -544,7 +544,7 @@ const ROBCard = ({ rob, loading = false }) => {
               {t("evea.loyalty_path") || "Percorso Fedeltà"}
             </Typography>
             <Typography variant="caption" sx={{ color: WARM_GRAY, lineHeight: 1 }}>
-              {t("evea.loyalty_sub") || "-10% per sempre + un regalo che cresce con il tuo ordine, ogni 3 mesi"}
+              {t("evea.loyalty_sub_v2") || "-10% per sempre + un regalo che cresce con il tuo ordine, ogni 3 mesi"}
             </Typography>
           </Box>
         </Stack>
@@ -613,7 +613,7 @@ const ROBCard = ({ rob, loading = false }) => {
           </Stack>
 
           <Typography sx={{ fontSize: "0.7rem", color: WARM_GRAY, textAlign: "center", mb: 2, px: 1, fontStyle: "italic", lineHeight: 1.4 }}>
-            {t("evea.loyalty_gift_hint") || "🎁 Un regalo che cresce con il tuo ordine, ogni 3 mesi. Spedizione esclusa."}
+            {t("evea.loyalty_gift_hint_v2") || "🎁 Un regalo che cresce con il tuo ordine, ogni 3 mesi. Spedizione esclusa."}
           </Typography>
 
           <Box sx={{ bgcolor: alpha(ORO, 0.06), borderRadius: 2, p: 2, mb: 2, textAlign: "center" }}>

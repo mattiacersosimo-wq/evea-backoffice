@@ -3355,6 +3355,8 @@
         "loyalty_path": "Percorso Fedeltà",
         "loyalty_sub": "-10% per sempre + un regalo che cresce con il tuo ordine, ogni 3 mesi",
         "loyalty_gift_hint": "🎁 Un regalo che cresce con il tuo ordine, ogni 3 mesi. Spedizione esclusa.",
+        "loyalty_sub_v2": "-10% per sempre + un regalo che cresce con il tuo ordine, ogni 3 mesi",
+        "loyalty_gift_hint_v2": "🎁 Un regalo che cresce con il tuo ordine, ogni 3 mesi. Spedizione esclusa.",
         "your_savings": "Il tuo risparmio finora",
         "copy_invite": "Copia e Invita Ora",
         "your_rewards": "I Tuoi Premi",

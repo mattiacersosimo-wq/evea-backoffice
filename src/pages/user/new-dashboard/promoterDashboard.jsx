@@ -1220,7 +1220,7 @@ const ROBCard = () => {
           </Box>
           <Box>
             <Typography variant="subtitle2" fontWeight={700} color={ESPRESSO}>{t("evea.loyalty_path")}</Typography>
-            <Typography variant="caption" sx={{ color: MUTED, lineHeight: 1 }}>{t("evea.loyalty_sub")}</Typography>
+            <Typography variant="caption" sx={{ color: MUTED, lineHeight: 1 }}>{t("evea.loyalty_sub_v2")}</Typography>
           </Box>
         </Stack>
         {!loading && totalConsec > 0 && <Chip label={`${t("evea.cycle")} ${cycleNum} · ${posInCycle}/${CYCLE_LEN}`} size="small" sx={{ bgcolor: alpha(ORO, 0.12), color: ORO, fontWeight: 700, fontSize: "0.7rem", height: 24, border: `1px solid ${alpha(ORO, 0.25)}` }} />}
@@ -1275,7 +1275,7 @@ const ROBCard = () => {
           </Stack>
 
           <Typography sx={{ fontSize: "0.7rem", color: MUTED, textAlign: "center", mb: 2, px: 1, fontStyle: "italic", lineHeight: 1.4 }}>
-            {t("evea.loyalty_gift_hint") || "🎁 Un regalo che cresce con il tuo ordine, ogni 3 mesi. Spedizione esclusa."}
+            {t("evea.loyalty_gift_hint_v2") || "🎁 Un regalo che cresce con il tuo ordine, ogni 3 mesi. Spedizione esclusa."}
           </Typography>
 
           {/* Risparmio */}

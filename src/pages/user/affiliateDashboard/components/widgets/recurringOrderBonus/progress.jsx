@@ -148,7 +148,7 @@ const Progress = ({ higherRank }) => {
       </Stack>
 
       <Typography sx={{ fontSize: "0.7rem", color: WARM, textAlign: "center", mb: 2, px: 1, fontStyle: "italic", lineHeight: 1.4 }}>
-        {t("evea.loyalty_gift_hint") || "🎁 Un regalo che cresce con il tuo ordine, ogni 3 mesi. Spedizione esclusa."}
+        {t("evea.loyalty_gift_hint_v2") || "🎁 Un regalo che cresce con il tuo ordine, ogni 3 mesi. Spedizione esclusa."}
       </Typography>
 
       {/* ── Savings ── */}
