@@ -1202,7 +1202,7 @@ const ROBCard = () => {
   const allMilestones = Array.from({ length: CYCLE_LEN }, (_, i) => {
     const isCoupon = COUPON_MONTHS.includes(i);
     const isFirstEver = cycleNum === 1 && i === 0;
-    return { month: i + 1, completed: i < posInCycle, isCurrent: i === posInCycle, label: isFirstEver ? "1ª consegna" : isCoupon ? "-10% + €30" : "-10%", isCoupon };
+    return { month: i + 1, completed: i < posInCycle, isCurrent: i === posInCycle, label: isFirstEver ? "1ª consegna" : isCoupon ? "-10% + 🎁" : "-10%", isCoupon };
   });
   const totalPages = Math.ceil(CYCLE_LEN / PAGE_SIZE);
   const visible = allMilestones.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
@@ -1273,6 +1273,10 @@ const ROBCard = () => {
               <Box key={i} onClick={() => setPage(i)} sx={{ width: i === page ? 16 : 6, height: 6, borderRadius: 3, bgcolor: i === page ? ORO : "#ddd", transition: "all 0.3s", cursor: "pointer" }} />
             ))}
           </Stack>
+
+          <Typography sx={{ fontSize: "0.7rem", color: MUTED, textAlign: "center", mb: 2, px: 1, fontStyle: "italic", lineHeight: 1.4 }}>
+            {t("evea.loyalty_gift_hint") || "🎁 Un regalo che cresce con il tuo ordine, ogni 3 mesi. Spedizione esclusa."}
+          </Typography>
 
           {/* Risparmio */}
           {(() => {

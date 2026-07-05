@@ -330,7 +330,7 @@ const TICKER_MESSAGES = [
   { icon: "mdi:truck-fast-outline", text: "Spedizione gratuita a partire da €97 di acquisti" },
   { icon: "mdi:sale-outline", text: "-10% su ogni ordine con lo Smartship attivo" },
   { icon: "mdi:gift-outline", text: "Invita 3 amici e guadagna fino a €80 di bonus" },
-  { icon: "mdi:gift-outline", text: "1 prodotto in regalo ogni 3 consegne consecutive" },
+  { icon: "mdi:gift-outline", text: "Un regalo che cresce con il tuo ordine, ogni 3 mesi" },
   { icon: "mdi:coffee-outline", text: "Scopri i nostri prodotti wellness su myevea.com" },
 ];
 
@@ -544,7 +544,7 @@ const ROBCard = ({ rob, loading = false }) => {
               {t("evea.loyalty_path") || "Percorso Fedeltà"}
             </Typography>
             <Typography variant="caption" sx={{ color: WARM_GRAY, lineHeight: 1 }}>
-              {t("evea.loyalty_sub") || "-10% per sempre + 1 prodotto in regalo ogni 3 consegne"}
+              {t("evea.loyalty_sub") || "-10% per sempre + un regalo che cresce con il tuo ordine, ogni 3 mesi"}
             </Typography>
           </Box>
         </Stack>
@@ -613,7 +613,7 @@ const ROBCard = ({ rob, loading = false }) => {
           </Stack>
 
           <Typography sx={{ fontSize: "0.7rem", color: WARM_GRAY, textAlign: "center", mb: 2, px: 1, fontStyle: "italic", lineHeight: 1.4 }}>
-            {t("evea.loyalty_gift_hint") || "🎁 1 prodotto in regalo ogni 3 consegne — cresce con il tuo ordine. Spedizione esclusa."}
+            {t("evea.loyalty_gift_hint") || "🎁 Un regalo che cresce con il tuo ordine, ogni 3 mesi. Spedizione esclusa."}
           </Typography>
 
           <Box sx={{ bgcolor: alpha(ORO, 0.06), borderRadius: 2, p: 2, mb: 2, textAlign: "center" }}>

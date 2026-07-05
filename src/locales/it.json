@@ -2092,6 +2092,8 @@
     "invoices": "Note di Compenso",
     "my_subscriptions": "I miei abbonamenti",
     "loyalty_path": "Percorso Fedeltà — gestisci i tuoi abbonamenti",
+    "loyalty_sub": "-10% per sempre + un regalo che cresce con il tuo ordine, ogni 3 mesi",
+    "loyalty_gift_hint": "🎁 Un regalo che cresce con il tuo ordine, ogni 3 mesi. Spedizione esclusa.",
     "promoter_kit": "Kit Distributore",
     "your_promoter_subscription": "Il tuo abbonamento promoter",
     "active_from": "Attivo dal",

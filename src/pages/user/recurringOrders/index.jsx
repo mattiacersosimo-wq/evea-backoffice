@@ -343,7 +343,7 @@ const SealSection = () => {
         <Stack direction="row" alignItems="center" spacing={1.5}>
           <Iconify icon="mdi:leaf" width={20} sx={{ color: MUSCHIO }} />
           <Typography sx={{ fontSize: "0.72rem", color: "#7A6A5C" }}>
-            Mantieni il tuo abbonamento attivo per sbloccare -10% su ogni consegna e un coupon {"\u20AC"}30 ogni 3 mesi
+            Mantieni il tuo abbonamento attivo per sbloccare -10% su ogni consegna e un regalo che cresce con il tuo ordine, ogni 3 mesi
           </Typography>
         </Stack>
       </Card>

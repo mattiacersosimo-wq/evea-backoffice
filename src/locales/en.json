@@ -2109,6 +2109,8 @@
     "invoices": "Invoices",
     "my_subscriptions": "My Subscriptions",
     "loyalty_path": "Loyalty Path — manage your subscriptions",
+    "loyalty_sub": "-10% forever + a gift that grows with your order, every 3 months",
+    "loyalty_gift_hint": "🎁 A gift that grows with your order, every 3 months. Shipping not included.",
     "promoter_kit": "Distributor Kit",
     "your_promoter_subscription": "Your promoter subscription",
     "active_from": "Active from",

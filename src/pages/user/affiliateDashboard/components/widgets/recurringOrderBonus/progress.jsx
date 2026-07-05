@@ -29,7 +29,7 @@ const Progress = ({ higherRank }) => {
     const isFirstEver = cycleNum === 1 && i === 0;
     let label;
     if (isFirstEver) label = "1ª consegna";
-    else if (isCoupon) label = "-10% + €30";
+    else if (isCoupon) label = "-10% + 🎁";
     else label = "-10%";
     return {
       month: i + 1,
@@ -146,6 +146,10 @@ const Progress = ({ higherRank }) => {
           />
         ))}
       </Stack>
+
+      <Typography sx={{ fontSize: "0.7rem", color: WARM, textAlign: "center", mb: 2, px: 1, fontStyle: "italic", lineHeight: 1.4 }}>
+        {t("evea.loyalty_gift_hint") || "🎁 Un regalo che cresce con il tuo ordine, ogni 3 mesi. Spedizione esclusa."}
+      </Typography>
 
       {/* ── Savings ── */}
       <Box sx={{ bgcolor: alpha(ORO, 0.06), borderRadius: 2, p: 2, mb: 2, textAlign: "center" }}>
