@@ -2,9 +2,12 @@ import { Card, FormControlLabel, Stack, Switch, Typography } from "@mui/material
 import { useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
 import axiosInstance from "src/utils/axios";
+import useAuth from "src/hooks/useAuth";
 
 const MarketingPreferences = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const { user } = useAuth();
+  const isPromoter = Number(user?.is_promoter) === 1;
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [marketing, setMarketing] = useState(false);
@@ -53,7 +56,9 @@ const MarketingPreferences = () => {
         Consensi e Comunicazioni
       </Typography>
       <Typography variant="caption" color="text.secondary" sx={{ display: "block", mb: 2 }}>
-        Puoi modificare in qualsiasi momento i consensi facoltativi rilasciati al momento della firma della Lettera di Incarico.
+        {isPromoter
+          ? "Puoi modificare in qualsiasi momento i consensi facoltativi rilasciati al momento della firma della Lettera di Incarico."
+          : "Puoi modificare in qualsiasi momento i consensi facoltativi."}
       </Typography>
 
       {error && (
@@ -76,20 +81,25 @@ const MarketingPreferences = () => {
               </Typography>
             }
           />
-          <FormControlLabel
-            control={
-              <Switch
-                disabled={loading || saving}
-                checked={image}
-                onChange={(e) => update("consent_image", e.target.checked)}
-              />
-            }
-            label={
-              <Typography sx={{ fontSize: "0.9rem" }}>
-                Utilizzo della mia immagine/voce per finalita' promozionali
-              </Typography>
-            }
-          />
+          {/* Consenso immagine/voce: SOLO per promoter (rilasciato con Lettera
+              di Incarico, usato per foto/video eventi network). Non ha senso
+              per un customer semplice. */}
+          {isPromoter && (
+            <FormControlLabel
+              control={
+                <Switch
+                  disabled={loading || saving}
+                  checked={image}
+                  onChange={(e) => update("consent_image", e.target.checked)}
+                />
+              }
+              label={
+                <Typography sx={{ fontSize: "0.9rem" }}>
+                  Utilizzo della mia immagine/voce per finalita' promozionali
+                </Typography>
+              }
+            />
+          )}
         </Stack>
       )}
     </Card>
