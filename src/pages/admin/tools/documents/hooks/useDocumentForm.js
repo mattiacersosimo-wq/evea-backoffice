@@ -21,6 +21,7 @@ export const documentFormDefaultValues = {
   sort_order: "",
   document_url: "",
   language: "it",
+  visibility: "promoter",
 };
 
 const useDocumentForm = () => {

@@ -3,6 +3,7 @@ const genDocData = (data) => {
   reqData.append("sort_order", data.sort_order);
   reqData.append("title", data.title);
   reqData.append("language", data.language || "it");
+  reqData.append("visibility", data.visibility || "promoter");
   if (typeof data.document_url !== "string") {
     reqData.append("document_url", data.document_url[0]);
   }

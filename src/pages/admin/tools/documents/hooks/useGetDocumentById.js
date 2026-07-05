@@ -13,8 +13,14 @@ const useGetDocumentById = (id) => {
           `/api/admin/tool-documents/${id}`
         );
         if (status === 200) {
-          const { title, sort_order, doc_url, language } = data.data;
-          methods.reset({ document_url: doc_url, sort_order, title, language: language || "it" });
+          const { title, sort_order, doc_url, language, visibility } = data.data;
+          methods.reset({
+            document_url: doc_url,
+            sort_order,
+            title,
+            language: language || "it",
+            visibility: visibility || "promoter",
+          });
         }
       } catch (err) {
         handleError(err);

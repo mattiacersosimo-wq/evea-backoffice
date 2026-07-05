@@ -58,6 +58,15 @@ const Form = ({ methods, onSubmit, onClose }) => {
           </Box>
           <Box mt={3}>
             <FormControl fullWidth>
+              <RHFSelect name="visibility" label="Visibile a">
+                <option value="promoter">Solo Promoter</option>
+                <option value="customer">Solo Cliente</option>
+                <option value="both">Entrambi (Promoter + Cliente)</option>
+              </RHFSelect>
+            </FormControl>
+          </Box>
+          <Box mt={3}>
+            <FormControl fullWidth>
               <TextField
                 type="file"
                 inputProps={{ accept: ".xlsx, .xls, .pdf" }}
