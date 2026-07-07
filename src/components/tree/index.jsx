@@ -1,5 +1,6 @@
 import { Box, Chip, Grid, Stack } from "@mui/material";
 import { alpha } from "@mui/material/styles";
+import useAuth from "src/hooks/useAuth";
 import useGetTree from "src/hooks/useGetTree";
 import Legend from "./components/legend";
 import SearchByUser from "./components/search";
@@ -31,27 +32,34 @@ const Tree = ({ legends = [], username, ...rest }) => {
 
 export const TreeWithoutLegend = ({ links, title, url, ...props }) => {
     const getTree = useGetTree(url);
+    const { user } = useAuth();
+    // Nasconde la legenda rank ai customer: non hanno carriera rank,
+    // vedere Associate/Starter/Builder/... e' confusionario per loro.
+    // I promoter continuano a vedere la legenda come prima.
+    const isPromoter = Number(user?.is_promoter) === 1;
 
     return (
         <TreeWrapper title={title} links={links}>
             <Box sx={{ mb: 2, display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 1 }}>
                 <SearchByUser search={getTree.onSearch} />
-                <Stack direction="row" spacing={0.5} flexWrap="wrap" sx={{ gap: 0.5 }}>
-                    {SPONSOR_LEGEND.map((l) => (
-                        <Chip
-                            key={l.label}
-                            label={l.label}
-                            size="small"
-                            sx={{
-                                height: 22, fontSize: "0.65rem", fontWeight: 600,
-                                bgcolor: alpha(l.color, 0.1), color: l.color,
-                                border: `1px solid ${alpha(l.color, 0.3)}`,
-                                "& .MuiChip-label": { px: 1 },
-                            }}
-                            icon={<Box sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: l.color, ml: "8px !important" }} />}
-                        />
-                    ))}
-                </Stack>
+                {isPromoter && (
+                    <Stack direction="row" spacing={0.5} flexWrap="wrap" sx={{ gap: 0.5 }}>
+                        {SPONSOR_LEGEND.map((l) => (
+                            <Chip
+                                key={l.label}
+                                label={l.label}
+                                size="small"
+                                sx={{
+                                    height: 22, fontSize: "0.65rem", fontWeight: 600,
+                                    bgcolor: alpha(l.color, 0.1), color: l.color,
+                                    border: `1px solid ${alpha(l.color, 0.3)}`,
+                                    "& .MuiChip-label": { px: 1 },
+                                }}
+                                icon={<Box sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: l.color, ml: "8px !important" }} />}
+                            />
+                        ))}
+                    </Stack>
+                )}
             </Box>
             <Tree {...props} {...getTree} />
         </TreeWrapper>
