@@ -436,7 +436,7 @@ const SimulatorReport = () => {
             <BonusRow icon="mdi:trending-up" label="Evolving Bonus" amount={calc.evolvingOneTime} color="#FF5722" subtitle={calc.evolvingOneTime > 0 ? `€${calc.evolvingOneTime.toLocaleString()} (${currentRank.name})` : "Rank 4+"} />
 
             <Box sx={{ mt: 1, pt: 1, borderTop: "2px solid #f0ece6" }}>
-              <BonusRow icon="mdi:refresh-circle" label="ROB Savings" amount={calc.robSavings} color="#8BC34A" subtitle="-10% + €30/3mo" />
+              <BonusRow icon="mdi:refresh-circle" label="ROB Savings" amount={calc.robSavings} color="#8BC34A" subtitle="-10% + 🎁/3mo" />
             </Box>
           </Card>
 
