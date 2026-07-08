@@ -55,6 +55,25 @@ Limiti del setup attuale:
 - Staging punta al backend prod (`api.myevea.com`) → ogni POST/PUT modifica il DB live. Usa solo l'utente di test e NON cliccare "approva/cancella/rimborsa" su record reali.
 - Se in futuro serve isolamento totale (DB+backend di test), si clona `api.myevea.com` → `staging-api.myevea.com` con `office_db_staging`.
 
+## Compliance L. 173/2005 — Notifiche Questura
+
+Elenco degli incaricati alla vendita a domicilio va comunicato periodicamente alla Questura territoriale (per EVEA: Verona). Portale: https://webserver.polizia.stato.it/UpubAgentiRappresentanti/ (VERONA 735).
+
+**Tracciamento in DB**: colonna `users.questura_notified_at` (datetime nullable, migration `2026_07_07_140000_add_questura_notified_at_to_users`). NULL = mai comunicato, valorizzato = già notificato in quella data.
+
+**Query utile per prossimo invio**:
+```sql
+SELECT u.id, u.username, up.first_name, up.last_name, u.promoter_at
+FROM users u JOIN user_profile up ON u.id = up.user_id
+WHERE u.is_promoter = 1 AND u.lettera_accettata = 1 AND u.questura_notified_at IS NULL
+ORDER BY u.promoter_at;
+```
+
+**Storia invii**:
+- **07/07/2026**: primo invio di **23 promoter** con lettera d'incarico firmata (ids: 1326, 1327, 1328, 1329, 1330, 1331, 1332, 1333, 1334, 1335, 1336, 1338, 1342, 1343, 1345, 1347, 1348, 1349, 1370, 1371, 1375, 1376, 1377). Backup CSV su VPS in `~/backups/questura_notifiche_20260707.csv`. Fatto contestualmente al fix del CSV admin export (commit `d56f646e`) che pescava erroneamente `user_profile.city` (residenza) invece di `user_profile.birthplace` come Comune Nascita.
+
+**Endpoint admin per generare CSV**: `GET /api/wp/compliance/export-questura?from=YYYY-MM-DD&to=YYYY-MM-DD` — file `app/Http/Controllers/Admin/ComplianceController.php::exportQuestura`. Colonne CSV: Nome, Cognome, Data Nascita, Comune Nascita, Provincia Nascita, Codice Fiscale, Indirizzo Residenza, CAP Residenza, Comune Residenza, Provincia Residenza, N. Tesserino, Data Incarico.
+
 ## Provider esterni
 
 - **Shopify**: storefront + checkout + webhook ordini → `/api/wp/shopify-checkout` (HMAC verificato)
