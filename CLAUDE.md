@@ -78,7 +78,7 @@ ORDER BY u.promoter_at;
 
 - **Shopify**: storefront + checkout + webhook ordini → `/api/wp/shopify-checkout` (HMAC verificato)
 - **OVH**: VPS + backup giornaliero automatico
-- **GLS Italia**: integrazione Label Service per etichette spedizione (config in `config/gls.php`, flag `GLS_ENABLED=false` di default). Contratto TEST: 3100 / Sede V1 / Cliente 413084
+- **GLS Italia**: integrazione Label Service per etichette spedizione (config in `config/gls.php`, flag `GLS_ENABLED=false` di default). Contratto TEST: 3100 / Sede V1 / Cliente 413084. Contratto commerciale attivo **V1-00-26-51578** (offerta 29/05/2026, agente Claudia Barchiesi 1151-4O, POT S000223591, Verona 045 8566911). Tariffe rilevanti: Light OOH fino 5kg **€4,30**, Light Nazionale €5,00, Servizio giacenza (10gg deposito) **€7,00**, Riconsegna giacenza €8/100kg, Nulla al Passaggio €5, ZTL €1,65, Peak Season +€0,25 (1/11-15/1), Safety&Energy +€0,20, Sell&Send €0,20/sped. Fuel Surcharge mensile su nolo. Reso al mittente non esplicito nel listino — chiedere a Claudia per conferma se applica riconsegna €8/100kg o nuovo nolo €4,30. Estero: EuroBusinessParcel (Austria €11-13/kg1-10, Germania €11-14, Francia €16-21, UK €18-26 zone 1-2, Spagna €20-25). Assicurazione All-In €5/sped (opz), max €1.500/sped. Pesotassato: rapporto 1:300 (1m3 = 300kg).
 - **Brevo**: mail transazionali + lista promoter
 - **Aruba PEC**: ricezione passiva fatture passive (NO emissione SDI)
 - **Sentry**: NON installato
