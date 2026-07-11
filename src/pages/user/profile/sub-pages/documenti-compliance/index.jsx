@@ -7,6 +7,7 @@ import { alpha } from "@mui/material/styles";
 import { useSnackbar } from "notistack";
 import Iconify from "src/components/Iconify";
 import axiosInstance from "src/utils/axios";
+import { convertHeicIfNeeded } from "src/utils/heicConverter";
 
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
@@ -370,14 +371,22 @@ const DocumentiCompliance = () => {
             </Stack>
             <Box>
               <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: ESPRESSO, mb: 1 }}>Fronte</Typography>
-              <input ref={docFrontRef} type="file" accept="image/*,.pdf" style={{ display: "none" }} onChange={(e) => setDocFrontFile(e.target.files[0])} />
+              <input ref={docFrontRef} type="file" accept="image/*,.heic,.heif,.pdf" style={{ display: "none" }} onChange={async (e) => {
+                const f = e.target.files[0]; if (!f) return;
+                try { setDocFrontFile(await convertHeicIfNeeded(f)); }
+                catch { enqueueSnackbar("Impossibile leggere la foto. Riprova o usa JPG/PDF.", { variant: "error" }); }
+              }} />
               <Button variant="outlined" onClick={() => docFrontRef.current?.click()} startIcon={<Iconify icon="mdi:upload" />} sx={{ borderColor: alpha(ORO, 0.3), color: ORO }}>
                 {docFrontFile ? docFrontFile.name : "Carica fronte"}
               </Button>
             </Box>
             <Box>
               <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: ESPRESSO, mb: 1 }}>Retro</Typography>
-              <input ref={docBackRef} type="file" accept="image/*,.pdf" style={{ display: "none" }} onChange={(e) => setDocBackFile(e.target.files[0])} />
+              <input ref={docBackRef} type="file" accept="image/*,.heic,.heif,.pdf" style={{ display: "none" }} onChange={async (e) => {
+                const f = e.target.files[0]; if (!f) return;
+                try { setDocBackFile(await convertHeicIfNeeded(f)); }
+                catch { enqueueSnackbar("Impossibile leggere la foto. Riprova o usa JPG/PDF.", { variant: "error" }); }
+              }} />
               <Button variant="outlined" onClick={() => docBackRef.current?.click()} startIcon={<Iconify icon="mdi:upload" />} sx={{ borderColor: alpha(ORO, 0.3), color: ORO }}>
                 {docBackFile ? docBackFile.name : "Carica retro"}
               </Button>

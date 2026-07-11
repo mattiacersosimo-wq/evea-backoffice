@@ -9,6 +9,7 @@ import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import axiosInstance from "src/utils/axios";
 import { invalidateOnboardingStatus } from "src/hooks/useOnboardingStatus";
+import { convertHeicIfNeeded } from "src/utils/heicConverter";
 
 // Trasforma in formato Autocomplete {nome, prov, code}, solo comuni attivi
 const listaComuni = COMUNI
@@ -635,14 +636,32 @@ const OnboardingWizard = () => {
               </Grid>
               <Box>
                 <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: ESPRESSO, mb: 1 }}>Fronte</Typography>
-                <input ref={frontRef} type="file" accept="image/*,.pdf" style={{ display: "none" }} onChange={(e) => set("front_file", e.target.files[0])} />
+                <input ref={frontRef} type="file" accept="image/*,.heic,.heif,.pdf" style={{ display: "none" }} onChange={async (e) => {
+                  const f = e.target.files[0]; if (!f) return;
+                  try {
+                    setSaving(true);
+                    const converted = await convertHeicIfNeeded(f);
+                    set("front_file", converted);
+                  } catch (err) {
+                    enqueueSnackbar("Impossibile leggere la foto. Riprova o usa JPG/PDF.", { variant: "error" });
+                  } finally { setSaving(false); }
+                }} />
                 <Button variant="outlined" onClick={() => frontRef.current?.click()} startIcon={<Iconify icon="mdi:upload" />} sx={{ borderColor: alpha(ORO, 0.3), color: ORO }}>
                   {form.front_file ? form.front_file.name : (form.has_document_front ? "✓ Già caricato" : "Carica fronte")}
                 </Button>
               </Box>
               <Box>
                 <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: ESPRESSO, mb: 1 }}>Retro</Typography>
-                <input ref={backRef} type="file" accept="image/*,.pdf" style={{ display: "none" }} onChange={(e) => set("back_file", e.target.files[0])} />
+                <input ref={backRef} type="file" accept="image/*,.heic,.heif,.pdf" style={{ display: "none" }} onChange={async (e) => {
+                  const f = e.target.files[0]; if (!f) return;
+                  try {
+                    setSaving(true);
+                    const converted = await convertHeicIfNeeded(f);
+                    set("back_file", converted);
+                  } catch (err) {
+                    enqueueSnackbar("Impossibile leggere la foto. Riprova o usa JPG/PDF.", { variant: "error" });
+                  } finally { setSaving(false); }
+                }} />
                 <Button variant="outlined" onClick={() => backRef.current?.click()} startIcon={<Iconify icon="mdi:upload" />} sx={{ borderColor: alpha(ORO, 0.3), color: ORO }}>
                   {form.back_file ? form.back_file.name : (form.has_document_back ? "✓ Già caricato" : "Carica retro")}
                 </Button>
