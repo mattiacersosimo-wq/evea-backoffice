@@ -54,8 +54,8 @@ const RANKS = [
 // activePct = % di promoter del team che sono qualificati / producono BV nel mese.
 // growthPct = crescita mensile stimata della proiezione 12 mesi.
 const RANK_PRESETS = {
-  1:  { clients: 2,  avgOrder: 27, smartship: 30, promoters: 0,  clientsPerPromoter: 3, promotersPerPromoter: 0, dupLevels: 0, dropoff: 40, activePct: 100, growthPct: 2 },
-  2:  { clients: 5,  avgOrder: 27, smartship: 50, promoters: 2,  clientsPerPromoter: 3, promotersPerPromoter: 1, dupLevels: 1, dropoff: 35, activePct: 80,  growthPct: 4 },
+  1:  { clients: 2,  avgOrder: 27, smartship: 30, promoters: 0,  clientsPerPromoter: 3, promotersPerPromoter: 0, dupLevels: 0, dropoff: 40, activePct: 100, growthPct: 1 },
+  2:  { clients: 5,  avgOrder: 27, smartship: 50, promoters: 2,  clientsPerPromoter: 3, promotersPerPromoter: 1, dupLevels: 1, dropoff: 35, activePct: 80,  growthPct: 3 },
   3:  { clients: 8,  avgOrder: 30, smartship: 55, promoters: 3,  clientsPerPromoter: 4, promotersPerPromoter: 2, dupLevels: 2, dropoff: 40, activePct: 70,  growthPct: 4 },
   4:  { clients: 10, avgOrder: 30, smartship: 60, promoters: 5,  clientsPerPromoter: 4, promotersPerPromoter: 2, dupLevels: 3, dropoff: 40, activePct: 65,  growthPct: 5 },
   5:  { clients: 12, avgOrder: 35, smartship: 65, promoters: 7,  clientsPerPromoter: 5, promotersPerPromoter: 3, dupLevels: 4, dropoff: 45, activePct: 60,  growthPct: 5 },
@@ -252,6 +252,59 @@ const SimulatorReport = () => {
     const monthlyRecurring = dsb + isb + residual + threeff + leadership + resMatching + rockSolid + rspMvp + mvpMentor;
     const oneTime = goMvp + evolvingOneTime;
 
+    // Split Personal vs Team: aiuta il promoter a capire quanto viene dal proprio
+    // lavoro diretto vs quanto matura dal team costruito. Impatto pedagogico:
+    // ai rank alti la quota "team" cresce e mostra il valore della duplicazione.
+    const personalMonthly = dsb + threeff + rspMvp + mvpMentor;
+    const teamMonthly = isb + residual + leadership + resMatching + rockSolid;
+
+    // Sensitivity analysis: mostra quanto cambia il ricorrente aggiungendo 1
+    // unita' a ciascuna leva. Utile per capire dove concentrare l'energia.
+    // Delta client: DSB del cliente aggiuntivo (piu' contributo residual se smartship attivo).
+    const deltaClient1 = bvClient * (hasKit ? DSB_PCT.starter : DSB_PCT.default)
+      + bvClient * (effSmartshipPct / 100) * RESIDUAL_PCT[0]; // residual personal del cliente extra
+    // Delta promoter: ISB L1 (4%) del BV del promoter attivo + il suo contributo residual
+    // level 1 (se rank basso, unlocked). NB: qui ipotizziamo che sia gia' attivo.
+    const deltaPromoter1 = clientsPerPromoter * bvClient * ISB_PCT[0]
+      + (unlockedLevels >= 2 ? clientsPerPromoter * bvClient * (effSmartshipPct / 100) * RESIDUAL_PCT[1] : 0);
+    // Delta smartship: incluso l'impatto sui livelli team downline (dove il residual scala).
+    // Metodo: rifaccio il calcolo residual con smartshipRatio applicato ovunque, sottraggo il vecchio.
+    const newSmartshipPct = Math.min(100, effSmartshipPct + 10);
+    const smartshipRatio = effSmartshipPct > 0 ? newSmartshipPct / effSmartshipPct : 1;
+    let deltaSmartship10pt = smartshipBV * (smartshipRatio - 1) * RESIDUAL_PCT[0]; // personal delta
+    for (let i = 1; i < Math.min(unlockedLevels, levels.length + 1); i++) {
+      const lvlIdx = i - 1;
+      if (lvlIdx < levels.length) {
+        deltaSmartship10pt += lvlBVProducing[lvlIdx].smartshipBVLvl * (smartshipRatio - 1) * (RESIDUAL_PCT[i] || 0);
+      }
+    }
+
+    // Break-even Kit Promoter (€79) e Founder Pack (€1000) sul ricorrente
+    // atteso. Risponde alla domanda #1 di ogni nuovo promoter: "in quanto
+    // tempo rientro dall'investimento iniziale?"
+    const breakEvenKit = monthlyRecurring > 0 ? Math.ceil(79 / monthlyRecurring) : null;
+    const breakEvenFounder = monthlyRecurring > 0 ? Math.ceil(1000 / monthlyRecurring) : null;
+
+    // Next rank preview: quanto guadagni SE sali al rank successivo.
+    // Sblocchi: piu' livelli residual (+% variabile), Ritual bonus fisso,
+    // Evolving bonus one-time.
+    const nextRankId = Math.min(rankId + 1, 10);
+    const nextRank = RANKS.find(r => r.id === nextRankId) || RANKS[9];
+    const nextUnlockedLevels = RESIDUAL_UNLOCK.filter(r => r <= nextRankId).length;
+    // Guadagno extra dai livelli residual che si sbloccano col rank up
+    let extraResidualFromUpgrade = 0;
+    for (let i = unlockedLevels; i < Math.min(nextUnlockedLevels, levels.length + 1); i++) {
+      const lvlIdx = i - 1;
+      if (lvlIdx >= 0 && lvlIdx < levels.length) {
+        extraResidualFromUpgrade += lvlBVProducing[lvlIdx].smartshipBVLvl * (RESIDUAL_PCT[i] || 0);
+      }
+    }
+    const nextRitual = ROCK_SOLID[nextRankId] || 0;
+    const nextRitualDelta = nextRitual - rockSolid;
+    const nextLeadershipBoost = (rankId < 5 && nextRankId >= 5) ? (gen1BV * LEADERSHIP_GEN1 + gen2BV * LEADERSHIP_GEN2) : 0;
+    const nextRankExtraMonthly = extraResidualFromUpgrade + nextRitualDelta + nextLeadershipBoost;
+    const nextRankOneTime = (EVOLVING[nextRankId] || 0);
+
     // Projection 12 months con growth compound (più realistico di lineare)
     const gMonthly = growthPct / 100;
     const projection = Array.from({ length: 12 }, (_, i) => {
@@ -270,6 +323,11 @@ const SimulatorReport = () => {
       totalClientBV, totalTeamBV, totalTeamPromoters, totalTeamClients, levels,
       smartshipClients, unlockedLevels, activeTeamPromoters, effActive, effSmartshipPct,
       scenario: sc,
+      // v2 pedagogic
+      personalMonthly, teamMonthly,
+      deltaClient1, deltaPromoter1, deltaSmartship10pt,
+      breakEvenKit, breakEvenFounder,
+      nextRank, nextUnlockedLevels, nextRankExtraMonthly, nextRankOneTime,
     };
   }, [clients, avgOrder, smartshipPct, promoters, clientsPerPromoter, promotersPerPromoter, dupLevels, dropoff, activePct, growthPct, scenario, rankId, hasKit, hasMvp]);
 
@@ -351,10 +409,24 @@ const SimulatorReport = () => {
               </Typography>
               {calc.levels.map((l, i) => {
                 const active = Math.round(l.promoters * calc.effActive);
+                // Livello sbloccato per residual? unlockedLevels vale 4 per rank 5, ecc.
+                // I livelli con index >= unlockedLevels sono locked (nessun residual).
+                // NB: ISB copre L1-L3 sempre, indipendente dal rank.
+                const isResidualUnlocked = i + 1 <= calc.unlockedLevels;
+                const isIsbLevel = i < 3;
+                const anyBonus = isResidualUnlocked || isIsbLevel;
                 return (
-                  <Stack key={i} direction="row" justifyContent="space-between">
-                    <Typography sx={{ fontSize: "0.6rem", color: MUTED }}>L{i + 1}</Typography>
-                    <Typography sx={{ fontSize: "0.6rem", color: ESPRESSO, fontWeight: 600 }}>
+                  <Stack key={i} direction="row" justifyContent="space-between" alignItems="center">
+                    <Stack direction="row" spacing={0.3} alignItems="center">
+                      <Typography sx={{ fontSize: "0.6rem", color: MUTED }}>L{i + 1}</Typography>
+                      {!anyBonus && (
+                        <Iconify icon="mdi:lock" width={10} sx={{ color: "#bbb" }} title={isIt ? "Livello non sbloccato al tuo rank" : "Level not unlocked at your rank"} />
+                      )}
+                      {isResidualUnlocked && i >= 3 && (
+                        <Iconify icon="mdi:check-circle" width={10} sx={{ color: SUCCESS }} title={isIt ? "Residual sbloccato" : "Residual unlocked"} />
+                      )}
+                    </Stack>
+                    <Typography sx={{ fontSize: "0.6rem", color: anyBonus ? ESPRESSO : "#bbb", fontWeight: 600 }}>
                       {l.promoters} promo ({active} {isIt ? "att." : "act."}) × {l.clientsEach} cli
                     </Typography>
                   </Stack>
@@ -373,6 +445,17 @@ const SimulatorReport = () => {
 
         {/* ── RIGHT: Results ── */}
         <Grid item xs={12} md={8}>
+          {/* Compliance banner v2 — sempre visibile in top */}
+          <Box sx={{ mb: 1.5, p: 1.2, borderRadius: 2, bgcolor: "#fff8e1", border: "1px solid #ffe082", display: "flex", alignItems: "center", gap: 1 }}>
+            <Iconify icon="mdi:information-outline" width={16} sx={{ color: "#f57c00", flexShrink: 0 }} />
+            <Typography sx={{ fontSize: "0.68rem", color: "#5d4037", lineHeight: 1.35 }}>
+              {isIt
+                ? <>Stima <strong>indicativa</strong> non garantita. I risultati dipendono da impegno individuale, mercato e capacità di reclutamento. Fa fede il <a href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/EVEA_Piano_Compensi_v1.1.pdf?v=1783497739" target="_blank" rel="noreferrer" style={{ color: "#B8963B", fontWeight: 700 }}>Piano Compensi ufficiale v1.1</a>.</>
+                : <>Estimate for <strong>illustrative purposes only</strong>. Results depend on individual effort. See <a href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/EVEA_Piano_Compensi_v1.1.pdf?v=1783497739" target="_blank" rel="noreferrer" style={{ color: "#B8963B", fontWeight: 700 }}>official Compensation Plan v1.1</a>.</>
+              }
+            </Typography>
+          </Box>
+
           {/* Total card */}
           <Card sx={{ p: 3, mb: 2, borderRadius: 3, bgcolor: ESPRESSO, position: "relative", overflow: "hidden" }}>
             <Box sx={{ position: "absolute", top: -30, right: -30, width: 120, height: 120, borderRadius: "50%", bgcolor: alpha(ORO, 0.06) }} />
@@ -409,6 +492,126 @@ const SimulatorReport = () => {
             </Grid>
           </Card>
 
+          {/* v2 — Split Personal vs Team */}
+          <Card sx={{ ...cs, p: 2, mb: 2 }}>
+            <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: ESPRESSO, mb: 1 }}>
+              <Iconify icon="mdi:chart-donut-variant" width={14} sx={{ mr: 0.5, verticalAlign: "middle", color: ORO }} />
+              {isIt ? "Da dove viene il tuo guadagno" : "Where your income comes from"}
+            </Typography>
+            <Grid container spacing={1.5}>
+              <Grid item xs={6}>
+                <Box sx={{ p: 1.5, borderRadius: 2, bgcolor: alpha("#FF9800", 0.08), border: `1px solid ${alpha("#FF9800", 0.2)}` }}>
+                  <Stack direction="row" alignItems="center" spacing={0.5} mb={0.3}>
+                    <Iconify icon="mdi:account-star" width={14} sx={{ color: "#FF9800" }} />
+                    <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: "#E65100" }}>
+                      {isIt ? "Il tuo lavoro diretto" : "Your direct work"}
+                    </Typography>
+                  </Stack>
+                  <Typography sx={{ fontSize: "1.4rem", fontWeight: 900, color: "#FF9800", lineHeight: 1 }}>
+                    €{Math.round(calc.personalMonthly).toLocaleString("it-IT")}
+                  </Typography>
+                  <Typography sx={{ fontSize: "0.55rem", color: MUTED, mt: 0.3 }}>
+                    DSB + 3FF + MVP + Mentor
+                  </Typography>
+                  <Typography sx={{ fontSize: "0.6rem", fontWeight: 700, color: "#FF9800", mt: 0.3 }}>
+                    {calc.monthlyRecurring > 0 ? Math.round(calc.personalMonthly / calc.monthlyRecurring * 100) : 0}% {isIt ? "del totale" : "of total"}
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item xs={6}>
+                <Box sx={{ p: 1.5, borderRadius: 2, bgcolor: alpha(ORO, 0.08), border: `1px solid ${alpha(ORO, 0.2)}` }}>
+                  <Stack direction="row" alignItems="center" spacing={0.5} mb={0.3}>
+                    <Iconify icon="mdi:account-group" width={14} sx={{ color: ORO }} />
+                    <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: ESPRESSO }}>
+                      {isIt ? "Il tuo team" : "Your team"}
+                    </Typography>
+                  </Stack>
+                  <Typography sx={{ fontSize: "1.4rem", fontWeight: 900, color: ORO, lineHeight: 1 }}>
+                    €{Math.round(calc.teamMonthly).toLocaleString("it-IT")}
+                  </Typography>
+                  <Typography sx={{ fontSize: "0.55rem", color: MUTED, mt: 0.3 }}>
+                    ISB + Residual + Leadership + Ritual
+                  </Typography>
+                  <Typography sx={{ fontSize: "0.6rem", fontWeight: 700, color: ORO, mt: 0.3 }}>
+                    {calc.monthlyRecurring > 0 ? Math.round(calc.teamMonthly / calc.monthlyRecurring * 100) : 0}% {isIt ? "del totale" : "of total"}
+                  </Typography>
+                </Box>
+              </Grid>
+            </Grid>
+            <Typography sx={{ fontSize: "0.62rem", color: MUTED, mt: 1, fontStyle: "italic", textAlign: "center" }}>
+              {isIt
+                ? `💡 Ai rank alti la quota "Team" cresce: e' il valore della duplicazione`
+                : `💡 At higher ranks the "Team" share grows: it's the value of duplication`}
+            </Typography>
+          </Card>
+
+          {/* v2 — Sensitivity + Break-even */}
+          <Grid container spacing={1.5} sx={{ mb: 2 }}>
+            <Grid item xs={12} md={6}>
+              <Card sx={{ ...cs, p: 1.5, height: "100%" }}>
+                <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: ESPRESSO, mb: 0.7 }}>
+                  <Iconify icon="mdi:trending-up" width={13} sx={{ mr: 0.4, verticalAlign: "middle", color: SUCCESS }} />
+                  {isIt ? "Cosa cambia se..." : "What if..."}
+                </Typography>
+                <Stack spacing={0.5}>
+                  <Stack direction="row" justifyContent="space-between" alignItems="center">
+                    <Typography sx={{ fontSize: "0.63rem", color: MUTED }}>{isIt ? "+1 cliente" : "+1 client"}</Typography>
+                    <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: SUCCESS }}>+€{calc.deltaClient1.toFixed(0)}/{isIt ? "mese" : "mo"}</Typography>
+                  </Stack>
+                  <Stack direction="row" justifyContent="space-between" alignItems="center">
+                    <Typography sx={{ fontSize: "0.63rem", color: MUTED }}>{isIt ? "+1 promoter attivo" : "+1 active promoter"}</Typography>
+                    <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: SUCCESS }}>+€{calc.deltaPromoter1.toFixed(0)}/{isIt ? "mese" : "mo"}</Typography>
+                  </Stack>
+                  <Stack direction="row" justifyContent="space-between" alignItems="center">
+                    <Typography sx={{ fontSize: "0.63rem", color: MUTED }}>{isIt ? "+10% smartship" : "+10% smartship"}</Typography>
+                    <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: SUCCESS }}>+€{Math.max(0, calc.deltaSmartship10pt).toFixed(0)}/{isIt ? "mese" : "mo"}</Typography>
+                  </Stack>
+                  {rankId < 10 && (
+                    <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ pt: 0.4, borderTop: "1px dashed #eee" }}>
+                      <Typography sx={{ fontSize: "0.63rem", color: ORO, fontWeight: 700 }}>{isIt ? `Sali a ${calc.nextRank.name}` : `Reach ${calc.nextRank.name}`}</Typography>
+                      <Typography sx={{ fontSize: "0.75rem", fontWeight: 800, color: ORO }}>
+                        +€{Math.round(calc.nextRankExtraMonthly).toLocaleString("it-IT")}/{isIt ? "mese" : "mo"}
+                      </Typography>
+                    </Stack>
+                  )}
+                </Stack>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Card sx={{ ...cs, p: 1.5, height: "100%" }}>
+                <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: ESPRESSO, mb: 0.7 }}>
+                  <Iconify icon="mdi:cash-refund" width={13} sx={{ mr: 0.4, verticalAlign: "middle", color: "#2196F3" }} />
+                  {isIt ? "Break-even investimento" : "Investment break-even"}
+                </Typography>
+                <Stack spacing={0.5}>
+                  <Stack direction="row" justifyContent="space-between" alignItems="center">
+                    <Typography sx={{ fontSize: "0.63rem", color: MUTED }}>Kit Promoter €79</Typography>
+                    <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: "#2196F3" }}>
+                      {calc.breakEvenKit ? `~${calc.breakEvenKit} ${isIt ? (calc.breakEvenKit === 1 ? "mese" : "mesi") : (calc.breakEvenKit === 1 ? "mo" : "mos")}` : "—"}
+                    </Typography>
+                  </Stack>
+                  <Stack direction="row" justifyContent="space-between" alignItems="center">
+                    <Typography sx={{ fontSize: "0.63rem", color: MUTED }}>Founder Pack €1.000</Typography>
+                    <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: "#2196F3" }}>
+                      {calc.breakEvenFounder ? `~${calc.breakEvenFounder} ${isIt ? (calc.breakEvenFounder === 1 ? "mese" : "mesi") : (calc.breakEvenFounder === 1 ? "mo" : "mos")}` : "—"}
+                    </Typography>
+                  </Stack>
+                  {calc.nextRankOneTime > 0 && rankId < 10 && (
+                    <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ pt: 0.4, borderTop: "1px dashed #eee" }}>
+                      <Typography sx={{ fontSize: "0.62rem", color: ORO }}>{isIt ? `Bonus Evolving ${calc.nextRank.name}` : `Evolving Bonus ${calc.nextRank.name}`}</Typography>
+                      <Typography sx={{ fontSize: "0.7rem", fontWeight: 800, color: ORO }}>
+                        €{calc.nextRankOneTime.toLocaleString("it-IT")}
+                      </Typography>
+                    </Stack>
+                  )}
+                </Stack>
+                <Typography sx={{ fontSize: "0.55rem", color: MUTED, mt: 0.7, fontStyle: "italic" }}>
+                  {isIt ? "Al ricorrente mensile attuale, senza crescita" : "At current monthly recurring, no growth"}
+                </Typography>
+              </Card>
+            </Grid>
+          </Grid>
+
           {/* Breakdown */}
           <Card sx={{ ...cs, p: 2, mb: 2 }}>
             <Typography sx={{ fontSize: "0.6rem", fontWeight: 600, color: "#4CAF50", textTransform: "uppercase", mb: 0.5 }}>
@@ -442,9 +645,24 @@ const SimulatorReport = () => {
 
           {/* Chart */}
           <Card sx={{ ...cs, p: 2, mb: 2 }}>
-            <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO, mb: 1.5 }}>
-              {isIt ? `Proiezione 12 mesi (+${growthPct}%/mese, scenario ${calc.scenario.label.toLowerCase()})` : `12-month projection (+${growthPct}%/mo, ${scenario})`}
+            <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO, mb: 0.3 }}>
+              {isIt ? `Proiezione 12 mesi — SE mantieni +${growthPct}%/mese` : `12-month projection — IF you maintain +${growthPct}%/mo`}
             </Typography>
+            <Typography sx={{ fontSize: "0.6rem", color: MUTED, mb: 1.5, fontStyle: "italic" }}>
+              {isIt
+                ? `Il grafico applica la crescita che hai impostato al ricorrente attuale. E' teorico: dipende da nuovi clienti e promoter reali.`
+                : `Chart applies the growth you set to your current recurring. It's theoretical: depends on real new clients and promoters.`}
+            </Typography>
+            {promoters === 0 && growthPct > 2 && (
+              <Box sx={{ mb: 1.5, p: 1, borderRadius: 1.5, bgcolor: alpha("#FF5722", 0.08), border: `1px solid ${alpha("#FF5722", 0.25)}`, display: "flex", alignItems: "center", gap: 0.8 }}>
+                <Iconify icon="mdi:alert-circle" width={14} sx={{ color: "#FF5722", flexShrink: 0 }} />
+                <Typography sx={{ fontSize: "0.65rem", color: "#5D4037", lineHeight: 1.35 }}>
+                  {isIt
+                    ? `Con 0 promoter diretti la crescita organica reale e' vicino allo zero. Il grafico e' puramente ipotetico.`
+                    : `With 0 direct promoters real organic growth is near zero. The chart is purely hypothetical.`}
+                </Typography>
+              </Box>
+            )}
             <Box sx={{ height: 240, display: "flex", alignItems: "flex-end", gap: "5px", px: 0.5 }}>
               {calc.projection.map((p) => (
                 <Box key={p.month} sx={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", height: "100%", justifyContent: "flex-end" }}>
