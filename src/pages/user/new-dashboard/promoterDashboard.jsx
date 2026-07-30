@@ -768,6 +768,11 @@ const QuickAccess = () => {
   const refSlug = user?.username ? user.username.toLowerCase().replace(/\s+/g, "") : "";
   const referralLink = refSlug ? `${WP_URL}?ref=${refSlug}` : "";
   const quizReferralLink = refSlug ? `${WP_URL.replace(/\/$/, "")}/pages/trova-il-tuo-rituale?ref=${refSlug}` : "";
+  // Link invito ospite eVea Community: chi entra da qui viene attribuito
+  // come guest dello sponsor (username) via ?sponsor=<username>.
+  const communityGuestLink = user?.username
+    ? `https://community.myevea.com/ospite?sponsor=${encodeURIComponent(user.username)}`
+    : "";
   const shortcuts = [
     { icon: "mdi:storefront-outline", label: t("evea.shop"), action: () => window.open(`${WP_URL.replace(/\/$/, "")}/collections/all`, "_blank") },
     {
@@ -788,6 +793,33 @@ const QuickAccess = () => {
       action: async () => {
         if (!isActive) { enqueueSnackbar("Firma la Lettera di Incarico per attivare il tuo link quiz", { variant: "warning" }); navigate("/user/onboarding"); return; }
         if (quizReferralLink) { await navigator.clipboard.writeText(quizReferralLink); enqueueSnackbar("Link Quiz copiato!"); }
+      }
+    },
+    {
+      icon: "mdi:account-group-outline",
+      label: "Invito Community",
+      disabled: !isActive,
+      disabledTooltip: "Firma la Lettera di Incarico per invitare ospiti nella community",
+      action: async () => {
+        if (!isActive) { enqueueSnackbar("Firma la Lettera di Incarico per invitare ospiti nella community", { variant: "warning" }); navigate("/user/onboarding"); return; }
+        if (!communityGuestLink) return;
+        // Mobile: usa share sheet nativo se disponibile.
+        // Desktop / browser senza Web Share API: fallback clipboard.
+        if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+          try {
+            await navigator.share({
+              title: "eVea Community — invito ospite",
+              text: "Ti invito a scoprire la eVea Community. Chi entra da questo link diventa mio ospite.",
+              url: communityGuestLink,
+            });
+            return;
+          } catch (e) {
+            // User annulla il share sheet: fall through al copy per lasciargli
+            // comunque il link a portata di paste.
+          }
+        }
+        await navigator.clipboard.writeText(communityGuestLink);
+        enqueueSnackbar("Link invito Community copiato!");
       }
     },
     { icon: "mdi:wallet-outline", label: t("evea.wallet"), action: () => navigate("/user/financial/wallet") },
