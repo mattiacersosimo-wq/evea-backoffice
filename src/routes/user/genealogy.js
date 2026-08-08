@@ -35,6 +35,10 @@ const MonoLine = Loadable(
     lazy(() => import("src/pages/user/genealogy/mono-line/index"))
 );
 
+const EffectiveTeam = Loadable(
+    lazy(() => import("src/pages/user/genealogy/effective-team/index"))
+);
+
 const { binary, matrix, roi, uniLevel, monoLine } = PLANS;
 
 const getPath = () => {
@@ -100,6 +104,7 @@ const genealogy = {
         { path: "affiliate", element: <Affiliate /> },
         { path: "list", element: <List /> },
         { path: "tree", element: <Tree /> },
+        { path: "effective-team", element: <EffectiveTeam /> },
     ],
 };
 

@@ -452,6 +452,7 @@ export const PATH_USER = {
     list: path(ROOTS_USER, "/genealogy/list"),
     tree: path(ROOTS_USER, "/genealogy/tree"),
     binaryLeg: path(ROOTS_USER, "/genealogy/binaryLeg"),
+    effectiveTeam: path(ROOTS_USER, "/genealogy/effective-team"),
   },
 
   referals: {
