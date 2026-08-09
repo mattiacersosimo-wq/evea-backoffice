@@ -450,8 +450,8 @@ const SimulatorReport = () => {
             <Iconify icon="mdi:information-outline" width={16} sx={{ color: "#f57c00", flexShrink: 0 }} />
             <Typography sx={{ fontSize: "0.68rem", color: "#5d4037", lineHeight: 1.35 }}>
               {isIt
-                ? <>Stima <strong>indicativa</strong> non garantita. I risultati dipendono da impegno individuale, mercato e capacità di reclutamento. Fa fede il <a href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/Evea_Global_02_Piano_Compensi_v1_4.pdf?v=1786221005" target="_blank" rel="noreferrer" style={{ color: "#B8963B", fontWeight: 700 }}>Piano Compensi ufficiale v1.4</a>.</>
-                : <>Estimate for <strong>illustrative purposes only</strong>. Results depend on individual effort. See <a href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/Evea_Global_02_Piano_Compensi_v1_4.pdf?v=1786221005" target="_blank" rel="noreferrer" style={{ color: "#B8963B", fontWeight: 700 }}>official Compensation Plan v1.4</a>.</>
+                ? <>Stima <strong>indicativa</strong> non garantita. I risultati dipendono da impegno individuale, mercato e capacità di reclutamento. Fa fede il <a href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/Evea_Global_02_Piano_Compensi_v1_8.pdf?v=1786290950" target="_blank" rel="noreferrer" style={{ color: "#B8963B", fontWeight: 700 }}>Piano Compensi ufficiale v1.8</a>.</>
+                : <>Estimate for <strong>illustrative purposes only</strong>. Results depend on individual effort. See <a href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/Evea_Global_02_Piano_Compensi_v1_8.pdf?v=1786290950" target="_blank" rel="noreferrer" style={{ color: "#B8963B", fontWeight: 700 }}>official Compensation Plan v1.8</a>.</>
               }
             </Typography>
           </Box>
