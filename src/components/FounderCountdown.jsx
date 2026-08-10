@@ -53,7 +53,7 @@ const FounderCountdown = () => {
             {taken}/{total}
           </Typography>
           <Typography sx={{ fontSize: "0.68rem", color: alpha("#FAF6EF", 0.55), letterSpacing: 1.2 }}>
-            {isIt ? "FOUNDERS ISCRITTI" : "FOUNDERS JOINED"}
+            {isIt ? "SLOT FOUNDERS" : "FOUNDER SLOTS"}
           </Typography>
         </Box>
       </Stack>
