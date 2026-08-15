@@ -121,6 +121,11 @@ const OnboardingWizard = () => {
           document_expires_at: u.document_expires_at || u.id_document_expires_at || "",
           nationality: u.nationality || "IT",
         });
+        // Pre-flag consensi facoltativi con lo stato attuale (GDPR-safe: se
+        // l'utente ha gia' acconsentito al signup Shopify deve vedere il
+        // checkbox flaggato e poter revocare esplicitamente togliendo la spunta).
+        setConsentMarketing(u.marketing_consent === true);
+        setConsentImage(u.consent_image === true);
         const steps = r?.data?.steps || {};
         const stepKeys = ['personal', 'fiscal', 'address', 'document', 'bank', 'lettera'];
         const firstIncomplete = stepKeys.findIndex((k) => !steps[k]);
@@ -165,7 +170,11 @@ const OnboardingWizard = () => {
         allegato_b_accepted: true,
         allegato_c_accepted: true,
         clausole_vessatorie_accepted: true,
-        consent_marketing,
+        // Nome canonico allineato al signup Shopify (/register-promoter).
+        // Inviamo sempre il valore corrente esplicito (true/false) — mai
+        // omettere il campo, altrimenti il backend lascerebbe lo stato invariato
+        // e non potremmo mai revocare via unchecking del checkbox.
+        marketing_consent: consent_marketing,
         consent_image,
       });
       // Invalidate cache so all components see the new active status
@@ -781,7 +790,16 @@ const OnboardingWizard = () => {
               {/* Consensi facoltativi */}
               <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>Consensi Facoltativi</Typography>
               <Stack spacing={0.5}>
-                <FormControlLabel control={<Checkbox checked={consent_marketing} onChange={(e) => setConsentMarketing(e.target.checked)} />} label={<Typography sx={{ fontSize: "0.85rem" }}>Accetto di ricevere comunicazioni di marketing e newsletter (facoltativo)</Typography>} />
+                <FormControlLabel
+                  control={<Checkbox checked={consent_marketing} onChange={(e) => setConsentMarketing(e.target.checked)} />}
+                  label={
+                    <Typography sx={{ fontSize: "0.85rem" }}>
+                      {status?.user?.marketing_consent === true
+                        ? "Sei iscritto/a alle comunicazioni eVea (rituali, storie dal Fujian, offerte esclusive). Togli la spunta per revocare il consenso."
+                        : "Iscrivimi alle comunicazioni eVea via email: rituali, storie dal Fujian e offerte esclusive. (facoltativo)"}
+                    </Typography>
+                  }
+                />
                 <FormControlLabel control={<Checkbox checked={consent_image} onChange={(e) => setConsentImage(e.target.checked)} />} label={<Typography sx={{ fontSize: "0.85rem" }}>Autorizzo l'utilizzo della mia immagine per materiali promozionali (facoltativo)</Typography>} />
               </Stack>
 
