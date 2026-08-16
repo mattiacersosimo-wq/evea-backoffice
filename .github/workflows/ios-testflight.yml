@@ -46,7 +46,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install JS deps
@@ -66,9 +66,11 @@ jobs:
 
       # Stage GoogleService-Info.plist se presente in secret (per FCM push)
       - name: Stage GoogleService-Info.plist (Firebase)
-        if: ${{ secrets.IOS_GOOGLE_SERVICE_PLIST_BASE64 != '' }}
+        env:
+          PLIST_B64: ${{ secrets.IOS_GOOGLE_SERVICE_PLIST_BASE64 }}
+        if: env.PLIST_B64 != ''
         run: |
-          echo -n "${{ secrets.IOS_GOOGLE_SERVICE_PLIST_BASE64 }}" | base64 --decode > ios/App/App/GoogleService-Info.plist
+          echo -n "$PLIST_B64" | base64 --decode > ios/App/App/GoogleService-Info.plist
           echo "GoogleService-Info.plist installed"
 
       # PATCH CRITICO: AppDelegate.swift APNs handlers per push notifications
