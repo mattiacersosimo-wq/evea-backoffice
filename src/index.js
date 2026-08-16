@@ -53,8 +53,17 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import AppConfig from "./store/app-config";
 import CurrencyProvider from "./store/currency";
 import { PlanProvider } from "./store/plan";
+import { initNativeShell, registerPushNotifications, isNative } from "./utils/native";
 
 // ----------------------------------------------------------------------
+
+if (isNative()) {
+  initNativeShell();
+  // Register push after auth token exists (called again from JWT context on login)
+  if (localStorage.getItem("accessToken")) {
+    registerPushNotifications();
+  }
+}
 
 ReactDOM.render(
   <Suspense fallback={<></>}>

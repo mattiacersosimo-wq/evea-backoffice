@@ -1,0 +1,366 @@
+name: iOS TestFlight Release (Backoffice)
+
+# Builds a signed IPA of eVea Backoffice and uploads it to TestFlight.
+# Runs only on manual trigger (workflow_dispatch).
+#
+# REQUIRED GITHUB SECRETS (Settings → Secrets and variables → Actions):
+#
+#   IOS_DIST_CERT_P12_BASE64        - base64 of your .p12 (cert + private key)
+#   IOS_DIST_CERT_P12_PASSWORD      - password you set on the .p12 export
+#   IOS_PROVISION_PROFILE_BASE64    - base64 of the App Store .mobileprovision
+#                                     (NEW profile for com.evea.backoffice)
+#   ASC_API_KEY_ID                  - App Store Connect API Key ID
+#   ASC_API_ISSUER_ID               - App Store Connect Issuer ID (UUID)
+#   ASC_API_KEY_BASE64              - base64 of the AuthKey_XXX.p8
+#   KEYCHAIN_PASSWORD               - any random string for temp CI keychain
+#   IOS_GOOGLE_SERVICE_PLIST_BASE64 - base64 of GoogleService-Info.plist (opz. per push)
+#
+# REQUIRED VARIABLES (Settings → Secrets and variables → Actions → Variables tab):
+#
+#   IOS_TEAM_ID                     - stesso della community (es. 9ZMGYF5KC6)
+#   IOS_BUNDLE_ID                   - com.evea.backoffice
+#   IOS_PROVISION_PROFILE_NAME      - Name del provisioning profile (nuovo)
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_notes:
+        description: 'What to test in this build (shown in TestFlight)'
+        required: false
+        default: 'Internal build'
+
+jobs:
+  build-and-upload:
+    runs-on: macos-15
+    timeout-minutes: 45
+    env:
+      IOS_TEAM_ID: ${{ vars.IOS_TEAM_ID }}
+      IOS_BUNDLE_ID: ${{ vars.IOS_BUNDLE_ID }}
+      IOS_PROFILE_NAME: ${{ vars.IOS_PROVISION_PROFILE_NAME }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '26'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install JS deps
+        run: npm ci --legacy-peer-deps
+
+      - name: Build web (production)
+        run: CI=false npm run build
+
+      - name: Scaffold iOS project (CocoaPods)
+        run: npx cap add ios --packagemanager CocoaPods
+
+      - name: Generate iOS icon + splash
+        run: npx capacitor-assets generate --ios --iconBackgroundColor "#FFFFFF" --iconBackgroundColorDark "#FFFFFF" --splashBackgroundColor "#FFFFFF" --splashBackgroundColorDark "#FFFFFF"
+
+      - name: Sync web assets + plugins into ios/App
+        run: npx cap sync ios
+
+      # Stage GoogleService-Info.plist se presente in secret (per FCM push)
+      - name: Stage GoogleService-Info.plist (Firebase)
+        if: ${{ secrets.IOS_GOOGLE_SERVICE_PLIST_BASE64 != '' }}
+        run: |
+          echo -n "${{ secrets.IOS_GOOGLE_SERVICE_PLIST_BASE64 }}" | base64 --decode > ios/App/App/GoogleService-Info.plist
+          echo "GoogleService-Info.plist installed"
+
+      # PATCH CRITICO: AppDelegate.swift APNs handlers per push notifications
+      - name: Patch AppDelegate.swift con handler APNs
+        working-directory: ios/App
+        run: |
+          python3 <<'PY'
+          p = 'App/AppDelegate.swift'
+          with open(p) as f:
+              s = f.read()
+          if 'didRegisterForRemoteNotifications' in s:
+              print('AppDelegate: already patched')
+          else:
+              patch = '''
+              func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+                  NotificationCenter.default.post(name: .capacitorDidRegisterForRemoteNotifications, object: deviceToken)
+              }
+
+              func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+                  NotificationCenter.default.post(name: .capacitorDidFailToRegisterForRemoteNotifications, object: error)
+              }
+          }'''
+              s = s.rstrip()
+              if s.endswith('}'):
+                  s = s[:-1] + patch
+                  with open(p, 'w') as f:
+                      f.write(s)
+                  print('AppDelegate: APNs handlers patched in')
+              else:
+                  raise SystemExit('AppDelegate.swift non termina con }')
+          PY
+
+      # ViewController subclass per disabilitare bounce WKWebView (già rodato in community)
+      - name: Create ViewController.swift (subclasse CAPBridgeViewController)
+        working-directory: ios/App
+        run: |
+          cat > App/ViewController.swift <<'SWIFT_EOF'
+          import UIKit
+          import Capacitor
+          import WebKit
+
+          class ViewController: CAPBridgeViewController, UIScrollViewDelegate {
+              private let bg = UIColor.white
+
+              override func viewDidLoad() {
+                  super.viewDidLoad()
+                  self.applyAllFixes()
+              }
+
+              override func viewDidAppear(_ animated: Bool) {
+                  super.viewDidAppear(animated)
+                  self.applyAllFixes()
+              }
+
+              override func viewDidLayoutSubviews() {
+                  super.viewDidLayoutSubviews()
+                  self.applyAllFixes()
+              }
+
+              private func applyAllFixes() {
+                  guard let wv = self.webView, let sv = self.webView?.scrollView else { return }
+                  sv.bounces = false
+                  sv.alwaysBounceVertical = false
+                  sv.alwaysBounceHorizontal = false
+                  if #available(iOS 15.0, *) {
+                      wv.underPageBackgroundColor = bg
+                  }
+                  wv.isOpaque = false
+                  wv.backgroundColor = bg
+                  sv.backgroundColor = bg
+                  if sv.delegate !== self {
+                      sv.delegate = self
+                  }
+              }
+
+              func scrollViewDidScroll(_ scrollView: UIScrollView) {
+                  var offset = scrollView.contentOffset
+                  var clamped = false
+                  if offset.y < 0 { offset.y = 0; clamped = true }
+                  let maxY = max(0, scrollView.contentSize.height - scrollView.bounds.height)
+                  if offset.y > maxY { offset.y = maxY; clamped = true }
+                  if clamped {
+                      scrollView.setContentOffset(offset, animated: false)
+                  }
+              }
+          }
+          SWIFT_EOF
+
+      - name: Patch Main.storyboard per usare ViewController subclass
+        working-directory: ios/App
+        run: |
+          python3 <<'PY'
+          import re, os
+          p = 'App/Base.lproj/Main.storyboard'
+          if not os.path.exists(p):
+              raise SystemExit(f'Storyboard not found: {p}')
+          with open(p) as f:
+              s = f.read()
+          if 'customClass="ViewController" customModule="App"' in s:
+              print('Storyboard: already patched')
+          else:
+              pattern = r'customClass="CAPBridgeViewController"(?:\s+customModule="[^"]*")?(?:\s+customModuleProvider="[^"]*")?'
+              replacement = 'customClass="ViewController" customModule="App" customModuleProvider="target"'
+              new_s, n = re.subn(pattern, replacement, s, count=1)
+              if n == 1:
+                  with open(p, 'w') as f:
+                      f.write(new_s)
+                  print('Storyboard: patched customClass -> ViewController')
+              else:
+                  raise SystemExit(1)
+          PY
+
+      - name: Aggiungi ViewController.swift al target Xcode
+        working-directory: ios/App
+        run: |
+          ruby <<'RUBY'
+          require 'xcodeproj'
+          project = Xcodeproj::Project.open('App.xcodeproj')
+          app = project.targets.find { |t| t.name == 'App' } or abort("App target not found")
+          app_group = project.main_group['App'] or abort("App group not found")
+          already = app.source_build_phase.files.any? do |bf|
+            bf.file_ref && bf.file_ref.path == 'ViewController.swift'
+          end
+          if !already
+            file_ref = app_group.files.find { |f| f.path == 'ViewController.swift' } \
+                       || app_group.new_file('ViewController.swift')
+            app.source_build_phase.add_file_reference(file_ref)
+            project.save
+            puts "ViewController.swift: added to App target"
+          end
+          RUBY
+
+      - name: Install CocoaPods
+        working-directory: ios/App
+        run: pod install --repo-update
+
+      - name: Bump iOS build + marketing version
+        working-directory: ios/App
+        run: |
+          MARKETING_VERSION="1.0.${{ github.run_number }}"
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${{ github.run_number }}" App/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $MARKETING_VERSION" App/Info.plist
+
+      # Camera + Photo permissions per KYC upload / profile pic
+      - name: Add usage descriptions to Info.plist
+        working-directory: ios/App
+        run: |
+          for KEY_PAIR in \
+            "NSCameraUsageDescription|eVea Backoffice usa la fotocamera per caricare documenti KYC e aggiornare la foto profilo." \
+            "NSPhotoLibraryUsageDescription|eVea Backoffice accede alla libreria foto per caricare documenti KYC e foto profilo." \
+            "NSPhotoLibraryAddUsageDescription|eVea Backoffice salva le ricevute e i documenti generati nella libreria solo su tua richiesta." \
+            "NSMicrophoneUsageDescription|eVea Backoffice non registra audio. iOS mostra la richiesta insieme a fotocamera nell'action sheet."
+          do
+            KEY="${KEY_PAIR%%|*}"
+            VALUE="${KEY_PAIR##*|}"
+            if /usr/libexec/PlistBuddy -c "Print :$KEY" App/Info.plist >/dev/null 2>&1; then
+              /usr/libexec/PlistBuddy -c "Set :$KEY '$VALUE'" App/Info.plist
+            else
+              /usr/libexec/PlistBuddy -c "Add :$KEY string '$VALUE'" App/Info.plist
+            fi
+          done
+
+      - name: Set ITSAppUsesNonExemptEncryption = false
+        working-directory: ios/App
+        run: |
+          if /usr/libexec/PlistBuddy -c "Print :ITSAppUsesNonExemptEncryption" App/Info.plist >/dev/null 2>&1; then
+            /usr/libexec/PlistBuddy -c "Set :ITSAppUsesNonExemptEncryption false" App/Info.plist
+          else
+            /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" App/Info.plist
+          fi
+
+      - name: Import signing certificate into temp keychain
+        env:
+          CERT_B64: ${{ secrets.IOS_DIST_CERT_P12_BASE64 }}
+          CERT_PW:  ${{ secrets.IOS_DIST_CERT_P12_PASSWORD }}
+          KC_PW:    ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          CERT_PATH="$RUNNER_TEMP/dist.p12"
+          KEYCHAIN_PATH="$RUNNER_TEMP/build.keychain-db"
+          echo -n "$CERT_B64" | base64 --decode -o "$CERT_PATH"
+          security create-keychain -p "$KC_PW" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KC_PW" "$KEYCHAIN_PATH"
+          security import "$CERT_PATH" -P "$CERT_PW" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+          security set-key-partition-list -S apple-tool:,apple: -k "$KC_PW" "$KEYCHAIN_PATH"
+          security list-keychains -d user -s "$KEYCHAIN_PATH" $(security list-keychains -d user | xargs)
+
+      - name: Install provisioning profile
+        env:
+          PROFILE_B64: ${{ secrets.IOS_PROVISION_PROFILE_BASE64 }}
+        run: |
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          echo -n "$PROFILE_B64" | base64 --decode -o ~/Library/MobileDevice/Provisioning\ Profiles/build.mobileprovision
+
+      - name: Stage App Store Connect API key
+        env:
+          ASC_KEY_B64: ${{ secrets.ASC_API_KEY_BASE64 }}
+          ASC_KEY_ID:  ${{ secrets.ASC_API_KEY_ID }}
+        run: |
+          mkdir -p "$HOME/.appstoreconnect/private_keys"
+          echo -n "$ASC_KEY_B64" | base64 --decode > "$HOME/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+
+      - name: Create App.entitlements con Push Notifications + Universal Links
+        working-directory: ios/App
+        run: |
+          cat > App/App.entitlements <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>aps-environment</key>
+              <string>production</string>
+              <key>com.apple.developer.associated-domains</key>
+              <array>
+                  <string>applinks:backoffice.myevea.com</string>
+              </array>
+          </dict>
+          </plist>
+          EOF
+
+      - name: Bake manual-signing settings + entitlements into App target
+        working-directory: ios/App
+        run: |
+          ruby <<'RUBY'
+          require 'xcodeproj'
+          project = Xcodeproj::Project.open('App.xcodeproj')
+          app = project.targets.find { |t| t.name == 'App' } or abort("App target not found")
+          app.build_configurations.each do |c|
+            next unless c.name == 'Release'
+            c.build_settings['CODE_SIGN_STYLE'] = 'Manual'
+            c.build_settings['DEVELOPMENT_TEAM'] = ENV['IOS_TEAM_ID']
+            c.build_settings['PROVISIONING_PROFILE_SPECIFIER'] = ENV['IOS_PROFILE_NAME']
+            c.build_settings['CODE_SIGN_IDENTITY'] = 'Apple Distribution'
+            c.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] = ENV['IOS_BUNDLE_ID']
+            c.build_settings['CODE_SIGN_ENTITLEMENTS'] = 'App/App.entitlements'
+          end
+          project.save
+          RUBY
+
+      - name: Archive
+        working-directory: ios/App
+        run: |
+          xcodebuild \
+            -workspace App.xcworkspace \
+            -scheme App \
+            -configuration Release \
+            -archivePath "$RUNNER_TEMP/App.xcarchive" \
+            -destination 'generic/platform=iOS' \
+            clean archive
+
+      - name: Create ExportOptions.plist
+        run: |
+          cat > "$RUNNER_TEMP/ExportOptions.plist" <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key><string>app-store</string>
+            <key>teamID</key><string>${IOS_TEAM_ID}</string>
+            <key>signingStyle</key><string>manual</string>
+            <key>uploadSymbols</key><true/>
+            <key>compileBitcode</key><false/>
+            <key>provisioningProfiles</key>
+            <dict>
+              <key>${IOS_BUNDLE_ID}</key><string>${IOS_PROFILE_NAME}</string>
+            </dict>
+          </dict>
+          </plist>
+          EOF
+
+      - name: Export IPA
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath "$RUNNER_TEMP/App.xcarchive" \
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" \
+            -exportPath "$RUNNER_TEMP/ipa"
+
+      - name: Upload to TestFlight
+        env:
+          ASC_KEY_ID:    ${{ secrets.ASC_API_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_API_ISSUER_ID }}
+        run: |
+          IPA=$(ls "$RUNNER_TEMP/ipa/"*.ipa | head -1)
+          xcrun altool --upload-app -f "$IPA" -t ios \
+            --apiKey "$ASC_KEY_ID" \
+            --apiIssuer "$ASC_ISSUER_ID"
+
+      - name: Upload IPA as workflow artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eVea-Backoffice-ipa
+          path: ${{ runner.temp }}/ipa/*.ipa
+          if-no-files-found: warn
+          retention-days: 14

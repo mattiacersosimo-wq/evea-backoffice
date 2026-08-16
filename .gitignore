@@ -1,5 +1,22 @@
-﻿node_modules/
+node_modules/
 build/
 
 # Claude Code local state (permessi, lock task pianificati, ecc.)
 .claude/
+
+# Capacitor iOS project (rigenerato dal CI ad ogni build)
+ios/
+
+# Capacitor Android build outputs
+android/app/build/
+android/build/
+android/.gradle/
+android/local.properties
+android/app/release/
+android/keystore/
+
+# Firebase config (SEGRETI — non versionare, distribuire manualmente o via CI secret)
+android/app/google-services.json
+ios/App/App/GoogleService-Info.plist
+
+# (resources/ va commitato — CI usa icon.png per rigenerare tutti i formati)
