@@ -188,6 +188,15 @@ const useCoupons = () => useFetch(async () => {
   return data?.data?.data?.slice(0, 4) || [];
 });
 
+const usePoolPreview = () => useFetch(async () => {
+  try {
+    const { data } = await axiosInstance.get("api/wp/founder/pool-preview");
+    return data?.data || { eligible: false };
+  } catch {
+    return { eligible: false };
+  }
+});
+
 const OnboardingBanner = () => {
   const [status, setStatus] = useState(null);
   const navigate = useNavigate();
@@ -496,6 +505,61 @@ const CelebrationBanner = () => {
 // ═══════════════════════════════════════
 // 5. GUADAGNI
 // ═══════════════════════════════════════
+const PoolFounderCard = () => {
+  const { data: pool, loading } = usePoolPreview();
+  if (loading || !pool?.eligible) return null;
+
+  const MESI_IT = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
+  const monthLabel = MESI_IT[(pool.period_month || 1) - 1] + " " + pool.period_year;
+
+  return (
+    <Card sx={{
+      ...cardSx, p: 2.5, position: "relative", overflow: "hidden",
+      border: `2px solid ${alpha(ORO, 0.35)}`,
+      background: `linear-gradient(135deg, #fff 60%, ${alpha(ORO, 0.05)} 100%)`,
+      "&::before": { content: '""', position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${ORO} 0%, ${alpha(ORO, 0.5)} 100%)` },
+    }}>
+      <Stack direction={{ xs: "column", md: "row" }} spacing={2} alignItems={{ md: "center" }} mb={2}>
+        <Box sx={{ width: 48, height: 48, borderRadius: 2, background: `linear-gradient(135deg, ${alpha(ORO, 0.18)} 0%, ${alpha(ORO, 0.06)} 100%)`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          <Iconify icon="mdi:crown-outline" width={26} sx={{ color: ORO }} />
+        </Box>
+        <Box sx={{ flex: 1 }}>
+          <Typography sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED, textTransform: "uppercase", letterSpacing: 0.6 }}>Pool Founder — {monthLabel}</Typography>
+          <Typography sx={{ fontSize: "1.6rem", fontWeight: 800, color: ORO, lineHeight: 1.1, letterSpacing: "-0.3px" }}>
+            €{(pool.user_estimate || 0).toFixed(2)}
+          </Typography>
+          <Typography sx={{ fontSize: "0.78rem", color: ESPRESSO, fontWeight: 600, mt: 0.4 }}>
+            Stima maturata questo mese ({pool.user_quotas} quot{pool.user_quotas === 1 ? "a" : "e"} su {pool.total_quotas})
+          </Typography>
+        </Box>
+      </Stack>
+      <Box sx={{ pt: 1.5, borderTop: "1px solid #f5f0e8" }}>
+        <Grid container spacing={1.5}>
+          <Grid item xs={6} md={3}>
+            <Typography sx={{ fontSize: "0.7rem", color: MUTED, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.4 }}>Fatturato mese</Typography>
+            <Typography sx={{ fontSize: "0.95rem", color: ESPRESSO, fontWeight: 700 }}>€{(pool.revenue_month || 0).toFixed(2)}</Typography>
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <Typography sx={{ fontSize: "0.7rem", color: MUTED, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.4 }}>Pool ({pool.pool_percent}%)</Typography>
+            <Typography sx={{ fontSize: "0.95rem", color: ESPRESSO, fontWeight: 700 }}>€{(pool.pool_amount || 0).toFixed(2)}</Typography>
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <Typography sx={{ fontSize: "0.7rem", color: MUTED, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.4 }}>Per quota</Typography>
+            <Typography sx={{ fontSize: "0.95rem", color: ESPRESSO, fontWeight: 700 }}>€{(pool.per_quota || 0).toFixed(2)}</Typography>
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <Typography sx={{ fontSize: "0.7rem", color: MUTED, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.4 }}>Tue quote</Typography>
+            <Typography sx={{ fontSize: "0.95rem", color: ESPRESSO, fontWeight: 700 }}>{pool.user_quotas}</Typography>
+          </Grid>
+        </Grid>
+      </Box>
+      <Typography sx={{ mt: 1.5, fontSize: "0.72rem", color: "#7A6A5C", fontStyle: "italic" }}>
+        Stima progressiva del mese in corso. Il pool viene liquidato a fine mese in base al fatturato consolidato.
+      </Typography>
+    </Card>
+  );
+};
+
 const EarningsSection = () => {
   const { t, i18n } = useTranslation();
   const isIt = i18n.language?.startsWith("it");
@@ -1935,6 +1999,8 @@ const PromoterDashboard = () => {
 
           <Section icon="mdi:cash-multiple">{t("evea.earnings")}</Section>
           <EarningsSection />
+
+          {!preLaunchActive && <PoolFounderCard />}
 
           {user?.is_promoter === 1 && heroData && !preLaunchActive && (() => {
             const pkgLevel = PACKAGE_ID_TO_LEVEL[heroData.package_id] || 0;

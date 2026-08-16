@@ -1,4 +1,5 @@
-import { Box } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
+import { Link } from "react-router-dom";
 import HeaderBreadcrumbs from "src/components/HeaderBreadcrumbs";
 import Page from "src/components/Page";
 import DataHandlerTable from "src/components/data-handler/table";
@@ -30,6 +31,32 @@ const Mail = () => {
             { name: "global.dashboard", href: PATH_DASHBOARD.root },
             { name: "email_settings.title" },
           ]}
+          action={
+            <Stack direction="row" spacing={1}>
+              <Button
+                variant="outlined"
+                component={Link}
+                to={PATH_DASHBOARD.settings.email_settings.flow}
+              >
+                Flusso
+              </Button>
+              <Button
+                variant="outlined"
+                component={Link}
+                to={PATH_DASHBOARD.settings.email_settings.analytics}
+              >
+                Analytics
+              </Button>
+              <Button
+                variant="contained"
+                component={Link}
+                to={PATH_DASHBOARD.settings.email_settings.new}
+                sx={{ background: "#B8963B", "&:hover": { background: "#a08333" } }}
+              >
+                + Nuova email
+              </Button>
+            </Stack>
+          }
         />
 
         <DataHandlerTable headers={headers} dataProps={dataProps}>

@@ -172,6 +172,18 @@ const DefaultTemplate = Loadable(
   lazy(() => import("src/pages/admin/settings/mail/template/index"))
 );
 
+const EmailAnalytics = Loadable(
+  lazy(() => import("src/pages/admin/settings/mail/analytics/index"))
+);
+
+const EmailFlow = Loadable(
+  lazy(() => import("src/pages/admin/settings/mail/flow/index"))
+);
+
+const NewEmailTemplate = Loadable(
+  lazy(() => import("src/pages/admin/settings/mail/template/new"))
+);
+
 // const Stair = Loadable(
 //   lazy(() => import("src/pages/admin/settings/network/@pages/stair/index"))
 // );
@@ -394,6 +406,9 @@ const settings = [
         path: "mail",
         children: [
           { index: true, element: <MailSettings /> },
+          { path: "analytics", element: <EmailAnalytics /> },
+          { path: "flow", element: <EmailFlow /> },
+          { path: "new", element: <NewEmailTemplate /> },
           { path: ":id", element: <DefaultTemplate /> },
         ],
       },

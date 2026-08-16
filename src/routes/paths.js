@@ -299,6 +299,9 @@ export const PATH_DASHBOARD = {
     },
     email_settings: {
       root: buildPath(ROOTS_DASHBOARD, "settings/mail"),
+      analytics: buildPath(ROOTS_DASHBOARD, "settings/mail/analytics"),
+      flow: buildPath(ROOTS_DASHBOARD, "settings/mail/flow"),
+      new: buildPath(ROOTS_DASHBOARD, "settings/mail/new"),
       view: (id, params) =>
         squashPathAndQueryString(
           buildPath(ROOTS_DASHBOARD, "settings/mail", id),
