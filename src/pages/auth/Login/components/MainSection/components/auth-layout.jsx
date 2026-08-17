@@ -1,8 +1,41 @@
 import { Box, Container, Paper } from "@mui/material";
+import { useEffect } from "react";
 import useGetLogo from "src/components/logo/hooks/use-logo";
 
 const AuthLayout = ({ children }) => {
   const logo = useGetLogo();
+
+  // iOS Safari WebView "rubber band scroll" ignora overflow:hidden sul Box
+  // fisso interno. Serve bloccare a livello body/html quando siamo in login,
+  // poi ripristinare a unmount cosi' il resto dell'app scrolla normalmente.
+  useEffect(() => {
+    const originalBodyStyle = {
+      overflow: document.body.style.overflow,
+      position: document.body.style.position,
+      width: document.body.style.width,
+      height: document.body.style.height,
+      overscrollBehavior: document.body.style.overscrollBehavior,
+      touchAction: document.body.style.touchAction,
+    };
+    const originalHtmlStyle = {
+      overflow: document.documentElement.style.overflow,
+      overscrollBehavior: document.documentElement.style.overscrollBehavior,
+    };
+    // Blocca rubber band iOS
+    document.documentElement.style.overflow = "hidden";
+    document.documentElement.style.overscrollBehavior = "none";
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+    document.body.style.height = "100%";
+    document.body.style.overscrollBehavior = "none";
+    document.body.style.touchAction = "manipulation";
+    return () => {
+      // Ripristina esattamente com'era (non forza "" se aveva altri valori)
+      Object.assign(document.body.style, originalBodyStyle);
+      Object.assign(document.documentElement.style, originalHtmlStyle);
+    };
+  }, []);
 
   return (
     <Box
