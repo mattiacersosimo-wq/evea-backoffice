@@ -22,64 +22,85 @@ const NewRankCard = ({ higherRank, state }) => {
 
   return (
     <Box sx={{ mt: 2 }}>
-      {/* ── Step bar ── */}
-      <Box sx={{ position: "relative", mb: 3, px: 2 }}>
-        {/* connector line */}
+      {/* ── Step bar (scroll orizzontale su mobile, space-between su desktop) ── */}
+      <Box
+        sx={{
+          position: "relative",
+          mb: 3,
+          // Scroll orizzontale con snap: rank overflow non tagliano piu'
+          overflowX: "auto",
+          overflowY: "hidden",
+          WebkitOverflowScrolling: "touch",
+          scrollbarWidth: "none",
+          "&::-webkit-scrollbar": { display: "none" },
+          px: { xs: 1, sm: 2 },
+        }}
+      >
+        {/* wrapper inner con min-width per garantire spazio a ogni rank */}
         <Box
           sx={{
-            position: "absolute",
-            top: 16, left: 40, right: 40, height: 3,
-            bgcolor: "#eee", zIndex: 0,
+            position: "relative",
+            minWidth: { xs: `${allRanks.length * 72}px`, sm: "100%" },
           }}
-        />
-        <Box
-          sx={{
-            position: "absolute",
-            top: 16, left: 40, height: 3,
-            width: `${currentIndex >= 0 ? Math.round((currentIndex / Math.max(allRanks.length - 1, 1)) * 100) : 0}%`,
-            maxWidth: "calc(100% - 80px)",
-            bgcolor: ORO, zIndex: 1,
-            borderRadius: 2,
-          }}
-        />
-        <Stack direction="row" justifyContent="space-between" sx={{ position: "relative", zIndex: 2 }}>
-          {allRanks.map((rank, i) => {
-            const isCurrent = rank.current_rank === 1;
-            const achieved = rank.achieved === 1;
-            return (
-              <Box
-                key={rank.id || i}
-                sx={{ textAlign: "center", flex: 1, cursor: "pointer" }}
-                onClick={() => setExpandedId(expandedId === rank.id ? null : rank.id)}
-              >
+        >
+          {/* connector line */}
+          <Box
+            sx={{
+              position: "absolute",
+              top: 16, left: 40, right: 40, height: 3,
+              bgcolor: "#eee", zIndex: 0,
+            }}
+          />
+          <Box
+            sx={{
+              position: "absolute",
+              top: 16, left: 40, height: 3,
+              width: `${currentIndex >= 0 ? Math.round((currentIndex / Math.max(allRanks.length - 1, 1)) * 100) : 0}%`,
+              maxWidth: "calc(100% - 80px)",
+              bgcolor: ORO, zIndex: 1,
+              borderRadius: 2,
+            }}
+          />
+          <Stack direction="row" justifyContent="space-between" sx={{ position: "relative", zIndex: 2 }}>
+            {allRanks.map((rank, i) => {
+              const isCurrent = rank.current_rank === 1;
+              const achieved = rank.achieved === 1;
+              return (
                 <Box
-                  sx={{
-                    width: 32, height: 32, borderRadius: "50%", mx: "auto",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontWeight: 700, fontSize: "0.65rem", transition: "all 0.3s",
-                    ...(isCurrent
-                      ? { bgcolor: ORO, color: "#fff", boxShadow: `0 0 0 4px ${alpha(ORO, 0.2)}` }
-                      : achieved
-                      ? { bgcolor: ORO, color: "#fff" }
-                      : { bgcolor: "#f0f0f0", color: "#bbb" }),
-                  }}
+                  key={rank.id || i}
+                  sx={{ textAlign: "center", flex: 1, minWidth: 60, cursor: "pointer" }}
+                  onClick={() => setExpandedId(expandedId === rank.id ? null : rank.id)}
                 >
-                  {achieved ? <Iconify icon="mdi:check" width={16} /> : i + 1}
+                  <Box
+                    sx={{
+                      width: 32, height: 32, borderRadius: "50%", mx: "auto",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontWeight: 700, fontSize: "0.65rem", transition: "all 0.3s",
+                      ...(isCurrent
+                        ? { bgcolor: ORO, color: "#fff", boxShadow: `0 0 0 4px ${alpha(ORO, 0.2)}` }
+                        : achieved
+                        ? { bgcolor: ORO, color: "#fff" }
+                        : { bgcolor: "#f0f0f0", color: "#bbb" }),
+                    }}
+                  >
+                    {achieved ? <Iconify icon="mdi:check" width={16} /> : i + 1}
+                  </Box>
+                  <Typography
+                    sx={{
+                      fontSize: "0.58rem", fontWeight: isCurrent ? 700 : 500,
+                      color: isCurrent ? ORO : achieved ? "#2C1A0E" : "#bbb",
+                      mt: 0.5, lineHeight: 1.2,
+                      px: 0.5,
+                    }}
+                    noWrap
+                  >
+                    {rank.rank_name}
+                  </Typography>
                 </Box>
-                <Typography
-                  sx={{
-                    fontSize: "0.58rem", fontWeight: isCurrent ? 700 : 500,
-                    color: isCurrent ? ORO : achieved ? "#2C1A0E" : "#bbb",
-                    mt: 0.5, lineHeight: 1.2,
-                  }}
-                  noWrap
-                >
-                  {rank.rank_name}
-                </Typography>
-              </Box>
-            );
-          })}
-        </Stack>
+              );
+            })}
+          </Stack>
+        </Box>
       </Box>
 
       {/* ── Expanded rank details ── */}

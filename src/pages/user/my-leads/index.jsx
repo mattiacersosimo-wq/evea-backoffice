@@ -242,15 +242,39 @@ const MyLeads = () => {
           Lead generati dal quiz "Trova il tuo rituale" su myevea.com
         </Typography>
 
-        {/* Stats */}
-        <Card sx={{ p: 2, mb: 3, borderRadius: 3, border: "1px solid #f0ece6" }}>
-          <Stack direction="row" divider={<Box sx={{ width: "1px", bgcolor: "#f0ece6" }} />} justifyContent="space-around">
-            <StatItem label="questo mese" value={stats.total_this_month ?? 0} color={ORO} />
-            <StatItem label="nuovi" value={stats.new ?? 0} color={STATUS_LABELS.new.color} />
-            <StatItem label="contattati" value={stats.contacted ?? 0} color={STATUS_LABELS.contacted.color} />
-            <StatItem label="in trattativa" value={stats.in_progress ?? 0} color={STATUS_LABELS.in_progress.color} />
-            <StatItem label="convertiti" value={stats.converted ?? 0} color={STATUS_LABELS.converted.color} />
-          </Stack>
+        {/* Stats - scroll orizzontale su mobile (5 items non ci stanno in 380px) */}
+        <Card sx={{ p: 2, mb: 3, borderRadius: 3, border: "1px solid #f0ece6", overflow: "hidden" }}>
+          <Box
+            sx={{
+              overflowX: "auto",
+              WebkitOverflowScrolling: "touch",
+              scrollbarWidth: "none",
+              "&::-webkit-scrollbar": { display: "none" },
+            }}
+          >
+            <Stack
+              direction="row"
+              divider={<Box sx={{ width: "1px", bgcolor: "#f0ece6", flexShrink: 0 }} />}
+              justifyContent={{ xs: "flex-start", sm: "space-around" }}
+              sx={{ minWidth: { xs: "max-content", sm: "auto" } }}
+            >
+              <Box sx={{ minWidth: { xs: 90, sm: "auto" }, flex: { sm: 1 }, px: { xs: 1.5, sm: 0 } }}>
+                <StatItem label="questo mese" value={stats.total_this_month ?? 0} color={ORO} />
+              </Box>
+              <Box sx={{ minWidth: { xs: 90, sm: "auto" }, flex: { sm: 1 }, px: { xs: 1.5, sm: 0 } }}>
+                <StatItem label="nuovi" value={stats.new ?? 0} color={STATUS_LABELS.new.color} />
+              </Box>
+              <Box sx={{ minWidth: { xs: 90, sm: "auto" }, flex: { sm: 1 }, px: { xs: 1.5, sm: 0 } }}>
+                <StatItem label="contattati" value={stats.contacted ?? 0} color={STATUS_LABELS.contacted.color} />
+              </Box>
+              <Box sx={{ minWidth: { xs: 100, sm: "auto" }, flex: { sm: 1 }, px: { xs: 1.5, sm: 0 } }}>
+                <StatItem label="in trattativa" value={stats.in_progress ?? 0} color={STATUS_LABELS.in_progress.color} />
+              </Box>
+              <Box sx={{ minWidth: { xs: 90, sm: "auto" }, flex: { sm: 1 }, px: { xs: 1.5, sm: 0 } }}>
+                <StatItem label="convertiti" value={stats.converted ?? 0} color={STATUS_LABELS.converted.color} />
+              </Box>
+            </Stack>
+          </Box>
         </Card>
 
         {/* Filters */}

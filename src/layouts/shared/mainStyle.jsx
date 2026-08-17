@@ -9,6 +9,10 @@ export default styled("main", {
   paddingBottom: `calc(${HEADER.MOBILE_HEIGHT + 24}px + env(safe-area-inset-bottom))`,
   paddingLeft: 16,
   paddingRight: 16,
+  // Impedisce a card/grid con margin negativi (MUI Grid spacing) di uscire
+  // dal viewport a destra su mobile — fix "card tagliata al bordo"
+  overflowX: "hidden",
+  maxWidth: "100%",
   [theme.breakpoints.up("lg")]: {
     paddingTop: HEADER.DASHBOARD_DESKTOP_HEIGHT + 24,
     paddingBottom: HEADER.DASHBOARD_DESKTOP_HEIGHT + 24,

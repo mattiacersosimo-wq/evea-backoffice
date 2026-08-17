@@ -20,6 +20,7 @@ import { useSnackbar } from "notistack";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import useAuth from "src/hooks/useAuth";
+import useResponsive from "src/hooks/useResponsive";
 import axiosInstance from "src/utils/axios";
 import fetchUser from "src/utils/fetchUser";
 import { WP_URL } from "src/config";
@@ -497,12 +498,13 @@ const ThreeFFCard = ({ ff, loading = false }) => {
 // ROB — Percorso Fedeltà (unchanged)
 // ═══════════════════════════════════════════════
 const CYCLE_LEN = 12;
-const PAGE_SIZE = 8;
 const COUPON_MONTHS = [3, 6, 9];
 
 const ROBCard = ({ rob, loading = false }) => {
   const { t } = useTranslation();
   const [page, setPage] = useState(0);
+  const isMobile = useResponsive("down", "sm");
+  const pageSize = isMobile ? 4 : 8;
 
   const totalConsec = rob?.current_consecutive_months || 0;
   const cycleNum = Math.floor(totalConsec / CYCLE_LEN) + 1;
@@ -518,9 +520,9 @@ const ROBCard = ({ rob, loading = false }) => {
     return { month: i + 1, completed: i < posInCycle, isCurrent: i === posInCycle, label, isCoupon };
   });
 
-  const totalPages = Math.ceil(CYCLE_LEN / PAGE_SIZE);
-  const pageStart = page * PAGE_SIZE;
-  const pageEnd = Math.min(pageStart + PAGE_SIZE, CYCLE_LEN);
+  const totalPages = Math.ceil(CYCLE_LEN / pageSize);
+  const pageStart = page * pageSize;
+  const pageEnd = Math.min(pageStart + pageSize, CYCLE_LEN);
   const visible = allMilestones.slice(pageStart, pageEnd);
   const completedOnPage = visible.filter((m) => m.completed).length;
   const connectorPct = visible.length > 1 ? Math.round((completedOnPage / (visible.length - 1)) * 100) : 0;
