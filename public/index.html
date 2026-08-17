@@ -10,12 +10,12 @@
     <link rel="apple-touch-icon" sizes="192x192" href="%PUBLIC_URL%/pwa-icon-192.png" />
     <meta name="theme-color" content="#B8963B" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="EVEA" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="eVea Backoffice" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no, viewport-fit=cover"
     />
 
     <!-- Using Google Font -->
@@ -50,28 +50,44 @@
       href="%PUBLIC_URL%/fonts/index.css"
     />
 
-    <title>EVEA — Backoffice</title>
-    <meta name="description" content="EVEA Backoffice" />
+    <title>eVea Backoffice</title>
+    <meta name="description" content="eVea Backoffice" />
     <style>
-      /* body{
-      background-color:#f7f7f7 !important;
-    } */
-      /* ::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: var(--white-background-color);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--primary-button-color);
-} */
+      /* Native app safe-area handling (iOS notch/dynamic island + Android edge-to-edge) */
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        width: 100%;
+        min-height: 100vh;
+        min-height: 100dvh;
+        background: #f5f5f5;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+      }
+      body {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+      }
+      #root {
+        min-height: 100vh;
+        min-height: 100dvh;
+        width: 100%;
+        overflow-x: hidden;
+      }
+      /* Blocca doppio tap zoom su iOS in webview */
+      * {
+        touch-action: manipulation;
+      }
     </style>
   </head>
 
 
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root" style="height: 100%"></div>
+    <div id="root"></div>
   </body>
 
   <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
