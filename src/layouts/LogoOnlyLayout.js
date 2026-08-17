@@ -12,9 +12,16 @@ const HeaderStyle = styled("header")(({ theme }) => ({
   lineHeight: 0,
   width: "100%",
   position: "absolute",
-  padding: theme.spacing(3, 3, 0),
+  paddingTop: `calc(${theme.spacing(3)} + env(safe-area-inset-top))`,
+  paddingLeft: theme.spacing(3),
+  paddingRight: theme.spacing(3),
+  paddingBottom: 0,
+  display: "flex",
+  justifyContent: "center",
   [theme.breakpoints.up("sm")]: {
-    padding: theme.spacing(5, 5, 0),
+    paddingTop: `calc(${theme.spacing(5)} + env(safe-area-inset-top))`,
+    paddingLeft: theme.spacing(5),
+    paddingRight: theme.spacing(5),
   },
 }));
 
@@ -24,7 +31,7 @@ export default function LogoOnlyLayout() {
   return (
     <>
       <HeaderStyle>
-        <Logo />
+        <Logo width={180} />
       </HeaderStyle>
       <Outlet />
     </>

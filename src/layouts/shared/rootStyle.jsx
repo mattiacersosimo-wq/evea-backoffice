@@ -9,7 +9,8 @@ export default styled(AppBar, {
 })(({ isCollapse, isOffset, verticalLayout, theme }) => ({
   ...cssStyles(theme).bgBlur(),
   boxShadow: "none",
-  height: HEADER.MOBILE_HEIGHT,
+  height: `calc(${HEADER.MOBILE_HEIGHT}px + env(safe-area-inset-top))`,
+  paddingTop: "env(safe-area-inset-top)",
   zIndex: theme.zIndex.appBar + 1,
   transition: theme.transitions.create(["width", "height"], {
     duration: theme.transitions.duration.shorter,

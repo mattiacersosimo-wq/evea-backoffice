@@ -1,33 +1,37 @@
 import { Box, Container, Paper } from "@mui/material";
 import useGetLogo from "src/components/logo/hooks/use-logo";
-import { useTheme } from "@mui/material/styles";
 
 const AuthLayout = ({ children }) => {
   const logo = useGetLogo();
-  const { palette } = useTheme();
 
   return (
     <Box
       sx={{
         width: "100%",
-        height: "100%",
         minHeight: "100vh",
-        backgroundColor: palette.background.neutral,
-        py: "150px",
+        backgroundColor: "#FFFFFF",
+        pt: { xs: "calc(24px + env(safe-area-inset-top))", md: "80px" },
+        pb: { xs: "calc(24px + env(safe-area-inset-bottom))", md: "80px" },
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       <Container
-        fixed
-        maxWidth="md"
+        maxWidth="sm"
         sx={{
-          height: "100%",
           textAlign: "center",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
         }}
       >
-        <Paper variant="outlined" sx={{ padding: 3 }}>
+        <Paper
+          variant="outlined"
+          sx={{
+            padding: { xs: 2.5, md: 3 },
+            border: { xs: "none", md: "1px solid" },
+            borderColor: { md: "divider" },
+            boxShadow: { xs: "none", md: "0 4px 20px rgba(0,0,0,0.04)" },
+          }}
+        >
           <Box
             sx={{
               display: "flex",
@@ -35,7 +39,11 @@ const AuthLayout = ({ children }) => {
               justifyContent: "center",
             }}
           >
-            <img style={{ width: "80px", height: "auto" }} src={logo} />
+            <img
+              style={{ width: "180px", height: "auto", maxWidth: "60%" }}
+              src={logo}
+              alt="eVea Backoffice"
+            />
           </Box>
           {children}
         </Paper>
