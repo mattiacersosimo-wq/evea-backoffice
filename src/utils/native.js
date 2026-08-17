@@ -1,11 +1,17 @@
 import { Capacitor } from "@capacitor/core";
 import { PushNotifications } from "@capacitor/push-notifications";
-import { FirebaseMessaging } from "@capacitor-firebase/messaging";
 import { StatusBar, Style } from "@capacitor/status-bar";
 import { SplashScreen } from "@capacitor/splash-screen";
 import { Preferences } from "@capacitor/preferences";
 import { App as CapApp } from "@capacitor/app";
 import axiosInstance from "./axios";
+
+// NOTE: Firebase Messaging import rimosso temporaneamente per evitare crash
+// all'avvio. FirebaseApp.configure() richiede GoogleService-Info.plist nel
+// bundle Xcode target — Capacitor lo copia in filesystem ma non lo aggiunge
+// al pbxproj. Serve fix via post_install hook Podfile o manuale su Xcode.
+// Fino ad allora, push iOS restano non funzionanti (backend logga
+// "invalid FCM registration token") ma app non crasha piu'.
 
 export const isNative = () => Capacitor.isNativePlatform();
 
@@ -39,34 +45,27 @@ export const registerPushNotifications = async () => {
   }
 
   return new Promise((resolve) => {
-    // Deep-link handler quando l'utente tocca una notifica
     PushNotifications.addListener("pushNotificationActionPerformed", (evt) => {
       const url = evt.notification?.data?.deep_link || evt.notification?.data?.url;
       if (url) window.location.hash = url.startsWith("/") ? url : `/${url}`;
     });
 
-    // Su iOS PushNotifications.register() abilita APNs a livello sistema.
-    // Su Android usa gia' FCM sotto il cofano.
-    // In entrambi i casi FirebaseMessaging.getToken() ci da' il FCM token
-    // (che e' quello che il backend PushBackofficeService si aspetta).
-    PushNotifications.addListener("registration", async () => {
+    PushNotifications.addListener("registration", async (token) => {
+      // NOTE: su iOS token.value = APNs token raw (hex 64 char) NON FCM
+      // token. Il backend attualmente si aspetta FCM token quindi le push
+      // iOS non arrivano finche' non integriamo @capacitor-firebase/messaging
+      // con GoogleService-Info.plist nel bundle target correttamente.
+      // Su Android token.value = FCM token nativo (funziona).
       try {
-        const { token: fcmToken } = await FirebaseMessaging.getToken();
-        if (!fcmToken) {
-          console.warn("FCM token empty after registration");
-          resolve(null);
-          return;
-        }
         await axiosInstance.post("api/wp/user/push-token", {
-          token: fcmToken,
+          token: token.value,
           platform: Capacitor.getPlatform(),
           app: "backoffice",
         });
-        resolve(fcmToken);
       } catch (e) {
         console.warn("push-token upload failed", e);
-        resolve(null);
       }
+      resolve(token.value);
     });
 
     PushNotifications.addListener("registrationError", (err) => {
