@@ -5,11 +5,11 @@ export default styled("main", {
   shouldForwardProp: (prop) => prop !== "collapseClick",
 })(({ collapseClick, theme }) => ({
   flexGrow: 1,
-  paddingTop: HEADER.MOBILE_HEIGHT + 24,
-  paddingBottom: HEADER.MOBILE_HEIGHT + 24,
+  paddingTop: `calc(${HEADER.MOBILE_HEIGHT + 24}px + env(safe-area-inset-top))`,
+  paddingBottom: `calc(${HEADER.MOBILE_HEIGHT + 24}px + env(safe-area-inset-bottom))`,
+  paddingLeft: 16,
+  paddingRight: 16,
   [theme.breakpoints.up("lg")]: {
-    paddingLeft: 16,
-    paddingRight: 16,
     paddingTop: HEADER.DASHBOARD_DESKTOP_HEIGHT + 24,
     paddingBottom: HEADER.DASHBOARD_DESKTOP_HEIGHT + 24,
     width: `calc(100% - ${NAVBAR.DASHBOARD_WIDTH}px)`,
@@ -19,9 +19,5 @@ export default styled("main", {
     ...(collapseClick && {
       marginLeft: NAVBAR.DASHBOARD_COLLAPSE_WIDTH,
     }),
-  },
-  [theme.breakpoints.down("lg")]: {
-    marginLeft: 6,
-    marginRight: 6,
   },
 }));

@@ -8,7 +8,9 @@ const AuthLayout = ({ children }) => {
     <Box
       sx={{
         width: "100%",
-        minHeight: "100vh",
+        height: "100vh",
+        maxHeight: "100dvh",
+        overflow: "hidden",
         backgroundColor: "#FFFFFF",
         pt: { xs: "calc(24px + env(safe-area-inset-top))", md: "80px" },
         pb: { xs: "calc(24px + env(safe-area-inset-bottom))", md: "80px" },

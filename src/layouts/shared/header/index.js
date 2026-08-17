@@ -73,6 +73,9 @@ export default function DashboardHeader({
           sx={{
             backgroundColor: "background.paper",
             minHeight: "100% !important",
+            height: "100%",
+            alignItems: "flex-start",
+            pt: 1,
             px: { lg: 5 },
           }}
         >
