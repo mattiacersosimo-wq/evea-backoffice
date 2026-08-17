@@ -8,6 +8,7 @@ export default styled(AppBar, {
     prop !== "isCollapse" && prop !== "isOffset" && prop !== "verticalLayout",
 })(({ isCollapse, isOffset, verticalLayout, theme }) => ({
   ...cssStyles(theme).bgBlur(),
+  backgroundColor: `${theme.palette.background.paper} !important`,
   boxShadow: "none",
   height: `calc(${HEADER.MOBILE_HEIGHT}px + env(safe-area-inset-top))`,
   paddingTop: "env(safe-area-inset-top)",
