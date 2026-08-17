@@ -243,7 +243,50 @@ const MyLeads = () => {
         </Typography>
 
         {/* Stats - scroll orizzontale su mobile (5 items non ci stanno in 380px) */}
-        <Card sx={{ p: 2, mb: 3, borderRadius: 3, border: "1px solid #f0ece6", overflow: "hidden" }}>
+        <Card
+          sx={{
+            p: 2,
+            mb: 3,
+            borderRadius: 3,
+            border: "1px solid #f0ece6",
+            overflow: "hidden",
+            position: "relative",
+            // Gradient fade a destra su mobile per suggerire lo scroll disponibile
+            "&::after": {
+              content: '""',
+              display: { xs: "block", sm: "none" },
+              position: "absolute",
+              top: 0,
+              right: 0,
+              width: 40,
+              height: "100%",
+              pointerEvents: "none",
+              background: "linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 100%)",
+              zIndex: 2,
+            },
+          }}
+        >
+          {/* Freccia scroll indicator (solo mobile) */}
+          <Box
+            sx={{
+              display: { xs: "flex", sm: "none" },
+              position: "absolute",
+              top: "50%",
+              right: 6,
+              transform: "translateY(-50%)",
+              zIndex: 3,
+              color: ORO,
+              pointerEvents: "none",
+              alignItems: "center",
+              animation: "leadArrowPulse 1.5s ease-in-out infinite",
+              "@keyframes leadArrowPulse": {
+                "0%, 100%": { transform: "translateY(-50%) translateX(0)", opacity: 0.7 },
+                "50%": { transform: "translateY(-50%) translateX(3px)", opacity: 1 },
+              },
+            }}
+          >
+            <Iconify icon="mdi:chevron-right" width={22} />
+          </Box>
           <Box
             sx={{
               overflowX: "auto",
@@ -256,7 +299,7 @@ const MyLeads = () => {
               direction="row"
               divider={<Box sx={{ width: "1px", bgcolor: "#f0ece6", flexShrink: 0 }} />}
               justifyContent={{ xs: "flex-start", sm: "space-around" }}
-              sx={{ minWidth: { xs: "max-content", sm: "auto" } }}
+              sx={{ minWidth: { xs: "max-content", sm: "auto" }, pr: { xs: 4, sm: 0 } }}
             >
               <Box sx={{ minWidth: { xs: 90, sm: "auto" }, flex: { sm: 1 }, px: { xs: 1.5, sm: 0 } }}>
                 <StatItem label="questo mese" value={stats.total_this_month ?? 0} color={ORO} />

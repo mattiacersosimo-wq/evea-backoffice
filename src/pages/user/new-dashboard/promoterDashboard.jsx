@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import useAuth from "src/hooks/useAuth";
+import useResponsive from "src/hooks/useResponsive";
 import axiosInstance from "src/utils/axios";
 import fetchUser from "src/utils/fetchUser";
 import { WP_URL } from "src/config";
@@ -1285,13 +1286,14 @@ const ThreeFFCard = () => {
 };
 
 const CYCLE_LEN = 12;
-const PAGE_SIZE = 8;
 const COUPON_MONTHS = [3, 6, 9];
 
 const ROBCard = () => {
   const { t } = useTranslation();
   const { data: rob, loading } = useROB();
   const [page, setPage] = useState(0);
+  const isMobile = useResponsive("down", "sm");
+  const pageSize = isMobile ? 4 : 8;
   const totalConsec = rob?.current_consecutive_months || 0;
   const cycleNum = Math.floor(totalConsec / CYCLE_LEN) + 1;
   const posInCycle = totalConsec % CYCLE_LEN;
@@ -1300,8 +1302,8 @@ const ROBCard = () => {
     const isFirstEver = cycleNum === 1 && i === 0;
     return { month: i + 1, completed: i < posInCycle, isCurrent: i === posInCycle, label: isFirstEver ? "1ª consegna" : isCoupon ? "-10% + 🎁" : "-10%", isCoupon };
   });
-  const totalPages = Math.ceil(CYCLE_LEN / PAGE_SIZE);
-  const visible = allMilestones.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
+  const totalPages = Math.ceil(CYCLE_LEN / pageSize);
+  const visible = allMilestones.slice(page * pageSize, page * pageSize + pageSize);
   const completedOnPage = visible.filter((m) => m.completed).length;
   const connectorPct = visible.length > 1 ? Math.round((completedOnPage / (visible.length - 1)) * 100) : 0;
 

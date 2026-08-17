@@ -7,9 +7,15 @@ const AuthLayout = ({ children }) => {
   return (
     <Box
       sx={{
+        // position fixed: il Box occupa tutto il viewport senza contribuire
+        // allo scroll del body — blocca scroll su/giu del login su iOS
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         width: "100%",
-        height: "100vh",
-        maxHeight: "100dvh",
+        height: "100dvh",
         overflow: "hidden",
         backgroundColor: "#FFFFFF",
         pt: { xs: "calc(24px + env(safe-area-inset-top))", md: "80px" },
@@ -17,6 +23,7 @@ const AuthLayout = ({ children }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        zIndex: 1,
       }}
     >
       <Container
