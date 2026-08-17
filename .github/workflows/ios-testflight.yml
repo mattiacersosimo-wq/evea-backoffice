@@ -73,16 +73,19 @@ jobs:
           echo -n "$PLIST_B64" | base64 --decode > ios/App/App/GoogleService-Info.plist
           echo "GoogleService-Info.plist installed"
 
-      # PATCH CRITICO: AppDelegate.swift APNs handlers per push notifications
-      - name: Patch AppDelegate.swift con handler APNs
+      # PATCH CRITICO: AppDelegate.swift APNs handlers + FirebaseApp.configure()
+      - name: Patch AppDelegate.swift con handler APNs + Firebase init
         working-directory: ios/App
         run: |
           python3 <<'PY'
+          import re
           p = 'App/AppDelegate.swift'
           with open(p) as f:
               s = f.read()
+
+          # 1. APNs handlers (per Capacitor push registration)
           if 'didRegisterForRemoteNotifications' in s:
-              print('AppDelegate: already patched')
+              print('AppDelegate: APNs handlers already present')
           else:
               patch = '''
               func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -96,11 +99,33 @@ jobs:
               s = s.rstrip()
               if s.endswith('}'):
                   s = s[:-1] + patch
-                  with open(p, 'w') as f:
-                      f.write(s)
-                  print('AppDelegate: APNs handlers patched in')
+                  print('AppDelegate: APNs handlers patched')
               else:
                   raise SystemExit('AppDelegate.swift non termina con }')
+
+          # 2. Firebase init (per @capacitor-firebase/messaging che serve FCM token su iOS)
+          if 'FirebaseApp.configure' in s:
+              print('AppDelegate: Firebase already initialized')
+          else:
+              # Import Firebase (dopo import Capacitor se presente)
+              if 'import FirebaseCore' not in s:
+                  if 'import Capacitor' in s:
+                      s = s.replace('import Capacitor', 'import Capacitor\nimport FirebaseCore', 1)
+                  else:
+                      s = 'import FirebaseCore\n' + s
+                  print('AppDelegate: import FirebaseCore added')
+
+              # Inserisci FirebaseApp.configure() dentro didFinishLaunchingWithOptions
+              m = re.search(r'(func application\([^{]*didFinishLaunchingWithOptions[^{]*\{)', s)
+              if m:
+                  insert_pos = m.end()
+                  s = s[:insert_pos] + '\n        FirebaseApp.configure()' + s[insert_pos:]
+                  print('AppDelegate: FirebaseApp.configure() injected')
+              else:
+                  print('WARN: didFinishLaunchingWithOptions not found - Firebase NOT initialized')
+
+          with open(p, 'w') as f:
+              f.write(s)
           PY
 
       # ViewController subclass per disabilitare bounce WKWebView (già rodato in community)

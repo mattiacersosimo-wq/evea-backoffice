@@ -1,5 +1,6 @@
 import { Capacitor } from "@capacitor/core";
 import { PushNotifications } from "@capacitor/push-notifications";
+import { FirebaseMessaging } from "@capacitor-firebase/messaging";
 import { StatusBar, Style } from "@capacitor/status-bar";
 import { SplashScreen } from "@capacitor/splash-screen";
 import { Preferences } from "@capacitor/preferences";
@@ -38,27 +39,39 @@ export const registerPushNotifications = async () => {
   }
 
   return new Promise((resolve) => {
-    PushNotifications.addListener("registration", async (token) => {
+    // Deep-link handler quando l'utente tocca una notifica
+    PushNotifications.addListener("pushNotificationActionPerformed", (evt) => {
+      const url = evt.notification?.data?.deep_link || evt.notification?.data?.url;
+      if (url) window.location.hash = url.startsWith("/") ? url : `/${url}`;
+    });
+
+    // Su iOS PushNotifications.register() abilita APNs a livello sistema.
+    // Su Android usa gia' FCM sotto il cofano.
+    // In entrambi i casi FirebaseMessaging.getToken() ci da' il FCM token
+    // (che e' quello che il backend PushBackofficeService si aspetta).
+    PushNotifications.addListener("registration", async () => {
       try {
+        const { token: fcmToken } = await FirebaseMessaging.getToken();
+        if (!fcmToken) {
+          console.warn("FCM token empty after registration");
+          resolve(null);
+          return;
+        }
         await axiosInstance.post("api/wp/user/push-token", {
-          token: token.value,
+          token: fcmToken,
           platform: Capacitor.getPlatform(),
           app: "backoffice",
         });
+        resolve(fcmToken);
       } catch (e) {
         console.warn("push-token upload failed", e);
+        resolve(null);
       }
-      resolve(token.value);
     });
 
     PushNotifications.addListener("registrationError", (err) => {
       console.warn("push registration error", err);
       resolve(null);
-    });
-
-    PushNotifications.addListener("pushNotificationActionPerformed", (evt) => {
-      const url = evt.notification?.data?.url;
-      if (url) window.location.hash = url.startsWith("/") ? url : `/${url}`;
     });
 
     PushNotifications.register();
