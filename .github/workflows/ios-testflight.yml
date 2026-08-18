@@ -135,6 +135,12 @@ jobs:
                   sv.bounces = false
                   sv.alwaysBounceVertical = false
                   sv.alwaysBounceHorizontal = false
+                  // Fix v10: disabilita l'inset automatico WKWebView per status bar.
+                  // Al cold start iOS aggiungeva ~44px di padding top che sommato
+                  // al CSS env(safe-area-inset-top) dell'AppBar dava doppio padding
+                  // e menu spinto giu' di 44px. Con .never la safe area la gestisce
+                  // solo il CSS come previsto.
+                  sv.contentInsetAdjustmentBehavior = .never
                   if #available(iOS 15.0, *) {
                       wv.underPageBackgroundColor = bg
                   }
