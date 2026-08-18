@@ -1,0 +1,30 @@
+Il centro di controllo per i promoter eVea.
+
+L'app eVea Backoffice ti permette di gestire in mobilita la tua attivita di incaricato alla vendita a domicilio: monitora la tua rete, le vendite, le commissioni maturate, gli obiettivi mensili e i pagamenti — tutto in un unico posto, sempre aggiornato in tempo reale.
+
+FUNZIONI PRINCIPALI
+
+- Dashboard personale con PQV del mese, rank corrente, saldo commissioni e progressione verso il prossimo obiettivo.
+- Rete e team: visualizza la tua struttura, i clienti diretti e indiretti, i nuovi incaricati entrati sotto di te.
+- Commissioni: consulta ogni bonus maturato (Fast Start, Direct Sales, Indirect Sales, ROB, 3 For Free, MVP, Rock Solid MVP, Residual, Leadership, Ritual, Evolving) con dettaglio importi, stato pending/confermato e storico completo.
+- Portafoglio e pagamenti: saldo disponibile, storico bonifici, IBAN, ricevute mensili scaricabili.
+- Compliance: stato KYC/documenti, lettera d'incarico, invii Questura, comunicazioni fiscali.
+- Lead: gestisci i nominativi arrivati dai quiz sul sito, tracciando conversione a cliente.
+- SmartShip: monitora gli ordini ricorrenti dei tuoi clienti, con notifiche su rinnovi e streak.
+- Ordini: ordina prodotti eVea per te o per un cliente, segui la spedizione GLS.
+- Formazione: accedi a materiali, tutorial e novita commerciali dedicati ai promoter.
+- Notifiche push in tempo reale: nuovo cliente iscritto, nuova commissione, nuovo rank raggiunto, ordine spedito, pagamento partito, promemoria qualifica PQV a fine mese.
+
+REQUISITI
+
+L'app e destinata esclusivamente ai promoter eVea gia registrati. L'accesso richiede username e password del backoffice ufficiale eVea (backoffice.myevea.com). Se non sei ancora un promoter eVea, contatta il tuo sponsor o visita myevea.com per informazioni.
+
+PRIVACY
+
+Rispettiamo la tua privacy: nessun dato personale viene condiviso con terze parti a fini pubblicitari. Trattiamo i tuoi dati esclusivamente per finalita legate all'operativita del programma promoter, in conformita al GDPR (Reg. UE 2016/679) e alla normativa italiana sulla vendita a domicilio (L. 173/2005). Consulta la Privacy Policy completa: https://myevea.com/pages/privacy-policy-app
+
+SUPPORTO
+
+Per assistenza: support@myevea.com
+
+eVea Global S.r.l. — P.IVA 18499281006 — Via Trasaghis 18, Roma — PEC eveaglobal@pec.it

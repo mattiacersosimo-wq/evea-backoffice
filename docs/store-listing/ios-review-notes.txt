@@ -1,0 +1,5 @@
+Questa app è riservata ai promoter (incaricati alla vendita a domicilio) di eVea Global S.r.l., ai sensi della L. 173/2005. Per accedere occorre un account promoter attivo.
+
+L'account demo appstore-review@myevea.com è configurato per il review: profilo promoter attivo da 30 giorni, KYC approvata, 2 clienti in downline diretta, 3 commissioni pending nel wallet (Fast Start €30, Direct Sales €12, ROB €26,73).
+
+L'app consente al promoter di consultare la propria attività commerciale, commissioni, stato del team, ordini dei clienti, dati fiscali. Non contiene funzionalità di vendita al pubblico né raccolta ordini da consumatori non registrati.
