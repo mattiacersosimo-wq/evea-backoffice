@@ -305,6 +305,8 @@ jobs:
           project = Xcodeproj::Project.open('App.xcodeproj')
           app = project.targets.find { |t| t.name == 'App' } or abort("App target not found")
           app.build_configurations.each do |c|
+            # iPhone only (skip iPad screenshot requirement in App Store)
+            c.build_settings['TARGETED_DEVICE_FAMILY'] = '1'
             next unless c.name == 'Release'
             c.build_settings['CODE_SIGN_STYLE'] = 'Manual'
             c.build_settings['DEVELOPMENT_TEAM'] = ENV['IOS_TEAM_ID']
