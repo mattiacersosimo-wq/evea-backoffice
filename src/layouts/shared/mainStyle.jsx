@@ -6,7 +6,7 @@ export default styled("main", {
 })(({ collapseClick, theme }) => ({
   flexGrow: 1,
   paddingTop: `calc(${HEADER.MOBILE_HEIGHT + 24}px + env(safe-area-inset-top))`,
-  paddingBottom: `calc(${HEADER.MOBILE_HEIGHT + 24}px + env(safe-area-inset-bottom))`,
+  paddingBottom: `calc(16px + env(safe-area-inset-bottom))`,
   paddingLeft: 16,
   paddingRight: 16,
   // Impedisce a card/grid con margin negativi (MUI Grid spacing) di uscire

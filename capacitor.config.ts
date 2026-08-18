@@ -5,7 +5,11 @@ const config: CapacitorConfig = {
   appName: 'eVea Backoffice',
   webDir: 'build',
   ios: {
-    contentInset: 'always',
+    // 'never': disabilita il contentInset automatico del WKWebView.
+    // Con 'always' il WebView aggiungeva ~44px di padding top che sommato
+    // al CSS env(safe-area-inset-top) dava doppio padding e menu spinto
+    // giu' al cold start.
+    contentInset: 'never',
   },
   android: {
     allowMixedContent: false,
