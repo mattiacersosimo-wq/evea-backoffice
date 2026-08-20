@@ -246,7 +246,7 @@ Il piano compensi eVea è **meno adatto a**:
 Per approfondimenti tecnici:
 
 - [Piano Compensi eVea v1.1 (PDF ufficiale)](https://cdn.shopify.com/s/files/1/1013/1629/7050/files/EVEA_Piano_Compensi_v1.1.pdf)
-- [Lettera di Incarico v4](https://cdn.shopify.com/s/files/1/1013/1629/7050/files/Evea_Global_01_Lettera_Compatta_v4.pdf)
+- [Lettera di Incarico v5](https://cdn.shopify.com/s/files/1/1013/1629/7050/files/Evea_Global_01_Lettera_Compatta_v5.pdf?v=1787252951)
 - [Codice di Condotta v3](https://cdn.shopify.com/s/files/1/1013/1629/7050/files/Evea_Global_Allegato_A_Codice_Condotta_v3.pdf)
 - [Allegato C Privacy](https://cdn.shopify.com/s/files/1/1013/1629/7050/files/Evea_Global_Allegato_C_Privacy_v1.pdf)
 - [Termini e Condizioni](https://www.myevea.com/policies/terms-of-service)

@@ -743,7 +743,7 @@ const OnboardingWizard = () => {
                   <Typography sx={{ fontSize: "0.85rem", color: ESPRESSO, flex: 1 }}>
                     Leggi il testo completo della Lettera di Incarico prima di accettare
                   </Typography>
-                  <Button size="small" href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/Evea_Global_01_Lettera_Compatta_v4.pdf?v=1780084550" target="_blank" rel="noreferrer" sx={{ color: ORO, fontWeight: 700, textTransform: "none" }}>
+                  <Button size="small" href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/Evea_Global_01_Lettera_Compatta_v5.pdf?v=1787252951" target="_blank" rel="noreferrer" sx={{ color: ORO, fontWeight: 700, textTransform: "none" }}>
                     Apri PDF →
                   </Button>
                 </Stack>
