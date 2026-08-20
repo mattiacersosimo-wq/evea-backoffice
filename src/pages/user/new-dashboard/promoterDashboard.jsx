@@ -838,6 +838,12 @@ const QuickAccess = () => {
   const communityGuestLink = user?.username
     ? `https://community.myevea.com/ospite?sponsor=${encodeURIComponent(user.username)}`
     : "";
+  // Landing "Scopri Opportunita" community: pagina informativa per prospect
+  // che vogliono capire il progetto eVea prima di iscriversi. Attribuisce
+  // lo sponsor via ?sponsor=<username> come le altre landing community.
+  const opportunityLink = user?.username
+    ? `https://community.myevea.com/scopri-opportunita?sponsor=${encodeURIComponent(user.username)}`
+    : "";
   const shortcuts = [
     { icon: "mdi:storefront-outline", label: t("evea.shop"), action: () => window.open(`${WP_URL.replace(/\/$/, "")}/collections/all`, "_blank") },
     {
@@ -885,6 +891,30 @@ const QuickAccess = () => {
         }
         await navigator.clipboard.writeText(communityGuestLink);
         enqueueSnackbar("Link invito Community copiato!");
+      }
+    },
+    {
+      icon: "mdi:rocket-launch-outline",
+      label: "Landing Page Opportunità",
+      disabled: !isActive,
+      disabledTooltip: "Firma la Lettera di Incarico per condividere la Landing Page Opportunità",
+      action: async () => {
+        if (!isActive) { enqueueSnackbar("Firma la Lettera di Incarico per condividere la landing Opportunità", { variant: "warning" }); navigate("/user/onboarding"); return; }
+        if (!opportunityLink) return;
+        if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+          try {
+            await navigator.share({
+              title: "Scopri l'opportunità eVea",
+              text: "Ti invito a scoprire il progetto eVea e le sue opportunità.",
+              url: opportunityLink,
+            });
+            return;
+          } catch (e) {
+            // fall through al copy
+          }
+        }
+        await navigator.clipboard.writeText(opportunityLink);
+        enqueueSnackbar("Link Opportunità copiato!");
       }
     },
     { icon: "mdi:wallet-outline", label: t("evea.wallet"), action: () => navigate("/user/financial/wallet") },
