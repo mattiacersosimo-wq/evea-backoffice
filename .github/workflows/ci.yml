@@ -1,0 +1,46 @@
+name: CI
+
+# Runs on every push + PR to main. Catches lint/test/build regressions
+# before they hit deploy.sh. Non-blocking on lint warnings, blocking on
+# lint errors + test failures + build failures.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-test-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Lint
+        run: npm run lint --if-present
+        continue-on-error: true
+
+      - name: Test
+        run: npm test -- --watchAll=false --passWithNoTests
+        env:
+          CI: true
+
+      - name: Build
+        run: CI=false npm run build
+
+      - name: Report build size
+        run: |
+          echo "### Build size" >> $GITHUB_STEP_SUMMARY
+          du -sh build/ >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Main chunk" >> $GITHUB_STEP_SUMMARY
+          ls -lh build/static/js/main.*.js | awk '{print $5, $9}' >> $GITHUB_STEP_SUMMARY

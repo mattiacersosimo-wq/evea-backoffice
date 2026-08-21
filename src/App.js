@@ -1,6 +1,7 @@
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import { useEffect } from "react";
+import ErrorBoundary from "./components/ErrorBoundary";
 import NotistackProvider from "./components/NotistackProvider";
 import { ProgressBarStyle } from "./components/ProgressBar";
 import RtlLayout from "./components/RtlLayout";
@@ -76,33 +77,35 @@ export default function App() {
   const { pathname } = useLocation();
   const isLoginPath = pathname?.includes("admin") || pathname?.includes("user");
   return (
-    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      <ThemeProvider>
-        <ThemeColorPresets>
-          <RtlLayout>
-            <NotistackProvider>
-              <MotionLazyContainer>
-                <ProgressBarStyle />
-                <ChartStyle />
-                <Settings />
-                <ScrollToTop />
-                <Router />
-                {/* <FloatingAction /> */}
+    <ErrorBoundary>
+      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+        <ThemeProvider>
+          <ThemeColorPresets>
+            <RtlLayout>
+              <NotistackProvider>
+                <MotionLazyContainer>
+                  <ProgressBarStyle />
+                  <ChartStyle />
+                  <Settings />
+                  <ScrollToTop />
+                  <Router />
+                  {/* <FloatingAction /> */}
 
-                <Ternary
-                  when={
-                    ENABLE_VISITOR_MODE &&
-                    isLoggedIn &&
-                    Boolean(user) &&
-                    isLoginPath
-                  }
-                  then={<Visitor />}
-                />
-              </MotionLazyContainer>
-            </NotistackProvider>
-          </RtlLayout>
-        </ThemeColorPresets>
-      </ThemeProvider>
-    </GoogleOAuthProvider>
+                  <Ternary
+                    when={
+                      ENABLE_VISITOR_MODE &&
+                      isLoggedIn &&
+                      Boolean(user) &&
+                      isLoginPath
+                    }
+                    then={<Visitor />}
+                  />
+                </MotionLazyContainer>
+              </NotistackProvider>
+            </RtlLayout>
+          </ThemeColorPresets>
+        </ThemeProvider>
+      </GoogleOAuthProvider>
+    </ErrorBoundary>
   );
 }
