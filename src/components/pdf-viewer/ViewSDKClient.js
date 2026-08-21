@@ -1,16 +1,34 @@
 import { ADOBE_ID } from "src/config";
 
+const ADOBE_SDK_URL = "https://documentcloud.adobe.com/view-sdk/main.js";
+
+/**
+ * Carica lo script Adobe View SDK una sola volta, on-demand.
+ * Prima veniva incluso in <script> in public/index.html → scaricato su ogni
+ * pagina (~200KB) anche in login/dashboard che non lo usano. Ora viene
+ * caricato solo quando serve davvero un PDF viewer.
+ */
+let adobeSdkPromise = null;
+function loadAdobeSdk() {
+  if (adobeSdkPromise) return adobeSdkPromise;
+  adobeSdkPromise = new Promise((resolve, reject) => {
+    if (window.AdobeDC) return resolve();
+    const script = document.createElement("script");
+    script.src = ADOBE_SDK_URL;
+    script.async = true;
+    script.onload = () => {
+      if (window.AdobeDC) resolve();
+      else document.addEventListener("adobe_dc_view_sdk.ready", () => resolve(), { once: true });
+    };
+    script.onerror = () => reject(new Error("Failed to load Adobe View SDK"));
+    document.head.appendChild(script);
+  });
+  return adobeSdkPromise;
+}
+
 class ViewSDKClient {
   constructor() {
-    this.readyPromise = new Promise((resolve) => {
-      if (window.AdobeDC) {
-        resolve();
-      } else {
-        document.addEventListener("adobe_dc_view_sdk.ready", () => {
-          resolve();
-        });
-      }
-    });
+    this.readyPromise = loadAdobeSdk();
     this.adobeDCView = undefined;
   }
   ready() {
