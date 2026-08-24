@@ -1,4 +1,5 @@
 import { Alert, Button } from "@mui/material";
+import { useSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
 import useAuth from "src/hooks/useAuth";
 
@@ -8,7 +9,11 @@ import { setSession } from "src/utils/jwt";
 const ImpersonationBanner = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
-  const isImpersonate = localStorage.getItem("isImpersonate");
+  const { enqueueSnackbar } = useSnackbar();
+  // localStorage restituisce stringhe: con Boolean(false) salvato diventa
+  // "false", che e' truthy. Senza il confronto esplicito il banner comparirebbe
+  // anche a chi non sta impersonando nessuno.
+  const isImpersonate = localStorage.getItem("isImpersonate") === "true";
   const goBackToAdmin = async () => {
     const params = {
       sub_admin_impersonate: localStorage.getItem("source_id") || null,
@@ -17,13 +22,18 @@ const ImpersonationBanner = () => {
     try {
       const {
         status,
-        data: { access_token, menu_list },
+        data: { access_token, menu_list, user: adminUser },
       } = await fetchUser.get("back-to-admin", { params });
       if (status === 200) {
         localStorage.removeItem("profile");
-        localStorage.setItem("isAdmin", true);
+        // I flag vanno letti dal payload, non forzati: chi torna indietro puo'
+        // essere un sub-admin (il parametro sub_admin_impersonate lo dice), e
+        // scrivere isAdmin=true gli sbloccherebbe lato client le sezioni da
+        // super-admin. Il backend le rifiuta comunque, ma l'utente vedrebbe
+        // menu che non gli competono e una sfilza di "Unauthorized".
+        localStorage.setItem("isAdmin", Boolean(adminUser?.is_super_admin));
+        localStorage.setItem("isSubAdmin", Boolean(adminUser?.is_sub_admin));
         localStorage.setItem("menu", JSON.stringify(menu_list));
-        localStorage.removeItem("isSubAdmin");
         localStorage.removeItem("isImpersonate");
         setSession(access_token);
 
@@ -38,6 +48,12 @@ const ImpersonationBanner = () => {
         }
       }
     } catch (err) {
+      // Senza questo l'utente resta bloccato in impersonation senza capire
+      // perche' il pulsante non faccia nulla.
+      enqueueSnackbar(
+        err?.message || "Impossibile tornare all'account admin. Riprova.",
+        { variant: "error" }
+      );
     }
   };
   return isImpersonate ? (

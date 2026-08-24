@@ -33,6 +33,13 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 // redux
+// Lo store esisteva ma nessun Provider era montato: 14 componenti importano
+// useSelector/useDispatch da ./redux/store e sollevavano "could not find
+// react-redux context value" al primo render. Due sono route raggiungibili
+// (/user/business-builder/subscriptions/pay-now e
+// /user/financial/deposit-wallet/add-credit), quindi crashavano sempre.
+import { Provider as ReduxProvider } from "react-redux";
+import { store } from "./redux/store";
 // contexts
 import { CollapseDrawerProvider } from "./contexts/CollapseDrawerContext";
 import { SettingsProvider } from "./contexts/SettingsContext";
@@ -67,27 +74,29 @@ if (isNative()) {
 
 ReactDOM.render(
   <Suspense fallback={<></>}>
-    <PlanProvider>
-      <AuthProvider>
-        <HelmetProvider>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <SettingsProvider>
-              <CollapseDrawerProvider>
-                <BrowserRouter>
-                  <CurrencyProvider>
-                    <Suspense fallback={<Navigate to="/" />}>
-                      <AppConfig>
-                        <App />
-                      </AppConfig>
-                    </Suspense>
-                  </CurrencyProvider>
-                </BrowserRouter>
-              </CollapseDrawerProvider>
-            </SettingsProvider>
-          </LocalizationProvider>
-        </HelmetProvider>
-      </AuthProvider>
-    </PlanProvider>
+    <ReduxProvider store={store}>
+      <PlanProvider>
+        <AuthProvider>
+          <HelmetProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <SettingsProvider>
+                <CollapseDrawerProvider>
+                  <BrowserRouter>
+                    <CurrencyProvider>
+                      <Suspense fallback={<Navigate to="/" />}>
+                        <AppConfig>
+                          <App />
+                        </AppConfig>
+                      </Suspense>
+                    </CurrencyProvider>
+                  </BrowserRouter>
+                </CollapseDrawerProvider>
+              </SettingsProvider>
+            </LocalizationProvider>
+          </HelmetProvider>
+        </AuthProvider>
+      </PlanProvider>
+    </ReduxProvider>
   </Suspense>,
 
   document.getElementById("root")

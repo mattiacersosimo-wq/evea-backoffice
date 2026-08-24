@@ -6,7 +6,8 @@ import ToggleTwoFactorAuth from "./components/toggle-two-factor-auth";
 import UpdatePassword from "./components/update-password";
 
 const ProfileAccountSettings = () => {
-  const isImpersonate = localStorage.getItem("isImpersonate");
+  // Confronto esplicito: localStorage salva stringhe, e "false" e' truthy.
+  const isImpersonate = localStorage.getItem("isImpersonate") === "true";
 
   return (
     <div>

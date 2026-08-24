@@ -10,7 +10,8 @@ import Enable from "./components/enable";
 
 const ToggleTwoFactorAuth = () => {
   const { user } = useAuth();
-  const isImpersonate = localStorage.getItem("isImpersonate");
+  // Confronto esplicito: localStorage salva stringhe, e "false" e' truthy.
+  const isImpersonate = localStorage.getItem("isImpersonate") === "true";
 
   const isEnabled = Boolean(parseInt(user.google2fa_secret_url));
   const [dialog, setDialog] = useState(null);
