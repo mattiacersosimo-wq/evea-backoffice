@@ -1,6 +1,7 @@
 import { Alert, Autocomplete, Box, Button, Card, Checkbox, CircularProgress, Divider, FormControlLabel, Grid, LinearProgress, MenuItem, Radio, RadioGroup, Stack, Step, StepLabel, Stepper, TextField, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useEffect, useMemo, useRef, useState } from "react";
+import apiError from "src/utils/api-error";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import CodiceFiscale from "codice-fiscale-js";
@@ -61,6 +62,35 @@ const isAdult = (dateString) => {
   return age >= 18;
 };
 
+// Bozza dello step Lettera, tenuta in locale per sopravvivere al ricaricamento
+// dell'app: su Android uscire verso la mail per leggere il codice azzerava il
+// form. Viene ripulita a firma completata e da clearSession al logout.
+const LETTER_DRAFT_KEY = "onboarding_letter_draft";
+
+const readLetterDraft = () => {
+  try {
+    return JSON.parse(localStorage.getItem(LETTER_DRAFT_KEY)) || {};
+  } catch (e) {
+    return {};
+  }
+};
+
+const writeLetterDraft = (draft) => {
+  try {
+    localStorage.setItem(LETTER_DRAFT_KEY, JSON.stringify(draft));
+  } catch (e) {
+    /* storage pieno o non disponibile: la bozza e' un comfort, non un requisito */
+  }
+};
+
+const clearLetterDraft = () => {
+  try {
+    localStorage.removeItem(LETTER_DRAFT_KEY);
+  } catch (e) {
+    /* idem */
+  }
+};
+
 const OnboardingWizard = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -74,15 +104,19 @@ const OnboardingWizard = () => {
   const nullaOstaRef = useRef(null);
 
   // Step 6 checkboxes
-  const [allegato_a, setAllegatoA] = useState(false);
-  const [allegato_b, setAllegatoB] = useState(false);
-  const [allegato_c, setAllegatoC] = useState(false);
-  const [clausole, setClausole] = useState(false);
+  // Su Android l'app viene ricaricata quando l'utente esce per leggere la mail
+  // col codice: senza persistenza tornava indietro con le caselle svuotate e
+  // il campo del codice sparito, pur avendo un OTP valido nella casella.
+  // Il codice NON si salva: e' una firma elettronica, resta solo in memoria.
+  const [allegato_a, setAllegatoA] = useState(() => readLetterDraft().allegato_a === true);
+  const [allegato_b, setAllegatoB] = useState(() => readLetterDraft().allegato_b === true);
+  const [allegato_c, setAllegatoC] = useState(() => readLetterDraft().allegato_c === true);
+  const [clausole, setClausole] = useState(() => readLetterDraft().clausole === true);
   const [consent_marketing, setConsentMarketing] = useState(false);
   const [consent_image, setConsentImage] = useState(false);
 
   // OTP for letter signature
-  const [otpSent, setOtpSent] = useState(false);
+  const [otpSent, setOtpSent] = useState(() => readLetterDraft().otpSent === true);
   const [otpCode, setOtpCode] = useState("");
   const [otpVerified, setOtpVerified] = useState(false);
   const [otpSending, setOtpSending] = useState(false);
@@ -93,10 +127,14 @@ const OnboardingWizard = () => {
     try {
       const { data } = await axiosInstance.post("api/wp/onboarding/send-letter-otp", {});
       setOtpSent(true);
+      setOtpCode("");
       setOtpEmail(data?.message || "Codice inviato alla tua email");
-      enqueueSnackbar("Codice OTP inviato alla tua email", { variant: "success" });
+      enqueueSnackbar(
+        "Codice inviato. Vale 15 minuti: usa l'ultimo che ricevi, i precedenti non sono più validi.",
+        { variant: "success" }
+      );
     } catch (e) {
-      enqueueSnackbar(e?.response?.data?.error || "Errore invio codice", { variant: "error" });
+      enqueueSnackbar(apiError(e, "Errore invio codice"), { variant: "error" });
     }
     setOtpSending(false);
   };
@@ -135,6 +173,12 @@ const OnboardingWizard = () => {
     })();
   }, []);
 
+  // Salva la bozza a ogni cambio: se l'app si ricarica mentre l'utente e' nella
+  // casella di posta, al rientro ritrova le caselle spuntate e il campo codice.
+  useEffect(() => {
+    writeLetterDraft({ allegato_a, allegato_b, allegato_c, clausole, otpSent });
+  }, [allegato_a, allegato_b, allegato_c, clausole, otpSent]);
+
   const set = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
   const save = async (endpoint, data) => {
@@ -148,7 +192,7 @@ const OnboardingWizard = () => {
       const { data: r } = await axiosInstance.get("api/wp/onboarding/status");
       setStatus(r?.data);
     } catch (e) {
-      enqueueSnackbar(e?.response?.data?.error || "Errore nel salvataggio", { variant: "error" });
+      enqueueSnackbar(apiError(e, "Errore nel salvataggio"), { variant: "error" });
     }
     setSaving(false);
   };
@@ -177,6 +221,8 @@ const OnboardingWizard = () => {
         marketing_consent: consent_marketing,
         consent_image,
       });
+      // Firma completata: la bozza non serve piu'.
+      clearLetterDraft();
       // Invalidate cache so all components see the new active status
       await invalidateOnboardingStatus();
       enqueueSnackbar("Onboarding completato! Scaricamento Lettera in corso...", { variant: "success" });
@@ -193,7 +239,7 @@ const OnboardingWizard = () => {
       }
       setTimeout(() => navigate("/user/dashboard"), 2000);
     } catch (e) {
-      enqueueSnackbar(e?.response?.data?.error || "Errore", { variant: "error" });
+      enqueueSnackbar(apiError(e, "Errore durante la firma. Riprova."), { variant: "error" });
     }
     setSaving(false);
   };

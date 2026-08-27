@@ -56,6 +56,7 @@ const clearSession = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("package_status");
     localStorage.removeItem("reg-config");
+    localStorage.removeItem("onboarding_letter_draft");
 };
 
 const getSession = () => Boolean(localStorage.getItem("accessToken"));
