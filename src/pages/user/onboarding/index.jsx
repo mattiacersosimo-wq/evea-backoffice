@@ -12,10 +12,23 @@ import axiosInstance from "src/utils/axios";
 import { invalidateOnboardingStatus } from "src/hooks/useOnboardingStatus";
 import { convertHeicIfNeeded } from "src/utils/heicConverter";
 
-// Trasforma in formato Autocomplete {nome, prov, code}, solo comuni attivi
+// Trasforma in formato Autocomplete {nome, prov, code}, solo comuni attivi.
+// La lista include anche gli Stati esteri (provincia "EE", codici Z___): chi e'
+// nato all'estero ha nel CF il codice dello Stato, non della citta'.
 const listaComuni = COMUNI
   .filter((c) => c[3] === 1)
   .map((c) => ({ code: c[0], prov: c[1], nome: c[2] }));
+
+// L'elenco ministeriale scrive gli accenti come apostrofo finale: PERU',
+// CITTA' DEL VATICANO, SAO TOME'. Chi digita usa l'accento vero, quindi senza
+// normalizzare "Peru'" e "Perù" non si trovano e l'utente conclude di non poter
+// completare l'onboarding.
+const normalizzaRicerca = (s) => (s || "")
+  .toLowerCase()
+  .normalize("NFD")
+  .replace(/[̀-ͯ]/g, "")
+  .replace(/['`’]/g, "")
+  .trim();
 
 // Calcola CF a partire dai dati anagrafici (ritorna stringa o null se dati incompleti)
 const computeCfFromForm = (f) => {
@@ -303,7 +316,7 @@ const OnboardingWizard = () => {
                   <Autocomplete
                     size="small"
                     options={listaComuni}
-                    getOptionLabel={(o) => typeof o === "string" ? o : `${o.nome} (${o.prov})`}
+                    getOptionLabel={(o) => typeof o === "string" ? o : `${o.nome} (${o.prov === "EE" ? "Estero" : o.prov})`}
                     isOptionEqualToValue={(o, v) => o.nome === v.nome && o.prov === v.prov}
                     value={form.birthplace ? listaComuni.find((c) => c.nome === form.birthplace && c.prov === form.birthplaceProvincia) || null : null}
                     onChange={(_, v) => {
@@ -315,11 +328,24 @@ const OnboardingWizard = () => {
                         set("birthplaceProvincia", "");
                       }
                     }}
-                    renderInput={(params) => <TextField {...params} label="Comune di nascita *" placeholder="Inizia a digitare..." />}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Comune o Stato estero di nascita *"
+                        placeholder="Inizia a digitare..."
+                        helperText="Se sei nato all'estero cerca lo Stato (es. Perù), non la città."
+                      />
+                    )}
                     filterOptions={(opts, state) => {
-                      const q = state.inputValue.toLowerCase().trim();
+                      const q = normalizzaRicerca(state.inputValue);
                       if (!q) return opts.slice(0, 50);
-                      return opts.filter((o) => o.nome.toLowerCase().startsWith(q)).slice(0, 50);
+                      // Prima chi inizia con la stringa cercata, poi chi la contiene:
+                      // "stati uniti" continua a venire prima, ma "america" trova
+                      // comunque STATI UNITI D'AMERICA invece di non dare nulla.
+                      const conNome = opts.map((o) => ({ o, n: normalizzaRicerca(o.nome) }));
+                      const iniziano = conNome.filter((x) => x.n.startsWith(q));
+                      const contengono = conNome.filter((x) => !x.n.startsWith(q) && x.n.includes(q));
+                      return [...iniziano, ...contengono].slice(0, 50).map((x) => x.o);
                     }}
                   />
                 </Grid>
@@ -363,7 +389,7 @@ const OnboardingWizard = () => {
                     if (!form.date_of_birth) { enqueueSnackbar("La data di nascita è obbligatoria.", { variant: "error" }); return; }
                     if (!isAdult(form.date_of_birth)) { enqueueSnackbar("Devi essere maggiorenne per registrarti come Promotore.", { variant: "error" }); return; }
                     if (!form.gender) { enqueueSnackbar("Il sesso è obbligatorio.", { variant: "error" }); return; }
-                    if (!form.birthplace) { enqueueSnackbar("Il comune di nascita è obbligatorio.", { variant: "error" }); return; }
+                    if (!form.birthplace) { enqueueSnackbar("Il luogo di nascita è obbligatorio: seleziona il comune o, se sei nato all'estero, lo Stato.", { variant: "error" }); return; }
                     if (form.has_co_holder && (!form.co_holder_first_name || !form.co_holder_last_name)) { enqueueSnackbar("Nome e cognome co-intestatario sono obbligatori (oppure deseleziona la voce).", { variant: "error" }); return; }
                     save("save-personal", {
                       first_name: form.first_name, last_name: form.last_name, date_of_birth: form.date_of_birth,
