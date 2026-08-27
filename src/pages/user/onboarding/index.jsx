@@ -512,7 +512,13 @@ const OnboardingWizard = () => {
                     </Typography>
                     <Stack spacing={0.3} sx={{ mb: 1.5 }}>
                       {[
-                        { value: "none", label: "No, il Network Marketing è la mia unica entrata", inps: "Trattenuta INPS più alta (non hai altre coperture previdenziali)" },
+                        // Chi è disoccupato, studente o casalinga deve riconoscersi qui:
+                        // senza altre coperture previdenziali paga l'aliquota piena.
+                        // La formulazione precedente ("il Network Marketing è la mia unica
+                        // entrata") non li includeva in modo evidente, col rischio che
+                        // spuntassero un'altra opzione e si prendessero l'aliquota ridotta
+                        // senza averne diritto.
+                        { value: "none", label: "No, non ho altri lavori né una pensione", sublabel: "(es. disoccupato, studente, in cerca di occupazione, oppure il Network Marketing è la tua unica entrata)", inps: "Trattenuta INPS più alta (non hai altre coperture previdenziali)" },
                         { value: "other_position", label: "Sì, ho un lavoro dipendente o un'altra attività", sublabel: "(es. lavoro in azienda, libero professionista)", inps: "Trattenuta INPS ridotta (sei già coperto altrove)" },
                         { value: "retired", label: "Sono in pensione", inps: "Trattenuta INPS ridotta (sei già coperto dalla pensione)" },
                       ].map((opt) => (
