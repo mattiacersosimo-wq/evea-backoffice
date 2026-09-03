@@ -318,7 +318,16 @@ const TeamUnified = ({ initialViewAs = null, isAdmin = false }) => {
                   </TableCell>
                   <TableCell sx={{ fontSize: "0.72rem", color: ESPRESSO }}>{m.rank}</TableCell>
                   <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: m.pqv > 0 ? ESPRESSO : "#ccc" }}>{m.pqv}</TableCell>
-                  <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: m.tv > 0 ? "#4CAF50" : "#ccc" }}>{m.tv}</TableCell>
+                  {/* Colonna TV = quanto QUESTO downline contribuisce al MIO TV.
+                     Regola compensation plan: solo i primi 3 livelli sotto di me contribuiscono.
+                     Se level > 3 mostro "—" con tooltip esplicativo. */}
+                  <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: m.level <= 3 && m.pqv > 0 ? "#4CAF50" : "#ccc" }}>
+                    {m.level <= 3 ? m.pqv : (
+                      <Tooltip title={isIt ? "Fuori profondità (oltre 3° livello) — non concorre al tuo TV" : "Out of depth (beyond 3rd level) — does not contribute to your TV"} arrow>
+                        <span style={{ cursor: "help" }}>—</span>
+                      </Tooltip>
+                    )}
+                  </TableCell>
                   <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: m.gv > 0 ? "#2196F3" : "#ccc" }}>{m.gv}</TableCell>
                   <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: m.revenue > 0 ? "#FF9800" : "#ccc" }}>€{m.revenue}</TableCell>
                   <TableCell>
@@ -360,7 +369,7 @@ const TeamUnified = ({ initialViewAs = null, isAdmin = false }) => {
                             <Stack spacing={0.8}>
                               {[
                                 { label: "PQV", value: m.pqv, color: ORO },
-                                { label: "TV", value: m.tv, color: "#4CAF50" },
+                                { label: isIt ? "TV (concorre)" : "TV (contributes)", value: m.level <= 3 ? m.pqv : 0, color: "#4CAF50" },
                                 { label: "GV", value: m.gv, color: "#2196F3" },
                               ].map((v) => (
                                 <Box key={v.label}>
