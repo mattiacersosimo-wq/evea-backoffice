@@ -1,4 +1,4 @@
-import { Avatar, Box, Card, Chip, CircularProgress, FormControl, Grid, InputLabel, MenuItem, Select, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Avatar, Box, Card, Chip, CircularProgress, FormControl, InputLabel, MenuItem, Select, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -14,7 +14,6 @@ const formatValue = (item) => {
   if (item.total_gv != null) return `${Number(item.total_gv).toFixed(0)} GV`;
   if (item.total_recruited != null) return `${item.total_recruited}`;
   if (item.rank_name != null) return item.rank_name;
-  if (item.total_earned != null) return `€${Number(item.total_earned).toFixed(2)}`;
   return "";
 };
 
@@ -130,11 +129,9 @@ const TAB_CONFIG = [
   { scope: "global", kind: "gv", dataKey: "top_gv" },
   { scope: "global", kind: "recruiters", dataKey: "top_recruiters" },
   { scope: "global", kind: "achievers", dataKey: "top_achievers" },
-  { scope: "global", kind: "commissions", dataKey: "top_commissions" },
   { scope: "team", kind: "gv", dataKey: "team_gv" },
   { scope: "team", kind: "recruiters", dataKey: "team_recruiters" },
   { scope: "team", kind: "achievers", dataKey: "team_achievers" },
-  { scope: "team", kind: "commissions", dataKey: "team_commissions" },
 ];
 
 const LeaderboardContent = ({ data, tab, setTab, isIt, globalOnly = false }) => {
@@ -144,30 +141,30 @@ const LeaderboardContent = ({ data, tab, setTab, isIt, globalOnly = false }) => 
   const items = stripHiddenUsers(data?.[current.dataKey] || []);
 
   const allTabLabels = isIt
-    ? ["GV Globale", "Reclutatori Globale", "Rank Up Globale", "Commissioni Globale",
-       "GV Team", "Reclutatori Team", "Rank Up Team", "Commissioni Team"]
-    : ["GV Global", "Recruiters Global", "Rank Up Global", "Commissions Global",
-       "GV Team", "Recruiters Team", "Rank Up Team", "Commissions Team"];
+    ? ["GV Globale", "Reclutatori Globale", "Rank Up Globale",
+       "GV Team", "Reclutatori Team", "Rank Up Team"]
+    : ["GV Global", "Recruiters Global", "Rank Up Global",
+       "GV Team", "Recruiters Team", "Rank Up Team"];
 
   const allCardTitles = isIt
-    ? ["Classifica GV — Globale", "Classifica Reclutatori — Globale", "Classifica Rank Up — Globale", "Classifica Commissioni — Globale",
-       "Classifica GV — Team", "Classifica Reclutatori — Team", "Classifica Rank Up — Team", "Classifica Commissioni — Team"]
-    : ["GV Ranking — Global", "Recruiters Ranking — Global", "Rank Up Ranking — Global", "Commissions Ranking — Global",
-       "GV Ranking — Team", "Recruiters Ranking — Team", "Rank Up Ranking — Team", "Commissions Ranking — Team"];
+    ? ["Classifica GV — Globale", "Classifica Reclutatori — Globale", "Classifica Rank Up — Globale",
+       "Classifica GV — Team", "Classifica Reclutatori — Team", "Classifica Rank Up — Team"]
+    : ["GV Ranking — Global", "Recruiters Ranking — Global", "Rank Up Ranking — Global",
+       "GV Ranking — Team", "Recruiters Ranking — Team", "Rank Up Ranking — Team"];
 
-  const allCardIcons = ["mdi:chart-box", "mdi:account-multiple-plus", "mdi:medal", "mdi:cash-multiple",
-                        "mdi:chart-box", "mdi:account-multiple-plus", "mdi:medal", "mdi:cash-multiple"];
+  const allCardIcons = ["mdi:chart-box", "mdi:account-multiple-plus", "mdi:medal",
+                        "mdi:chart-box", "mdi:account-multiple-plus", "mdi:medal"];
 
   const allEmptyTexts = isIt
-    ? ["Nessun GV questo mese", "Nessun reclutamento questo mese", "Nessun rank up questo mese", "Nessuna commissione questo mese",
-       "Nessun GV dal tuo team", "Nessun reclutamento dal team", "Nessun rank up nel team", "Nessuna commissione dal team"]
-    : ["No GV this month", "No recruits this month", "No rank ups this month", "No commissions this month",
-       "No team GV", "No team recruits", "No team rank ups", "No team commissions"];
+    ? ["Nessun GV questo mese", "Nessun reclutamento questo mese", "Nessun rank up questo mese",
+       "Nessun GV dal tuo team", "Nessun reclutamento dal team", "Nessun rank up nel team"]
+    : ["No GV this month", "No recruits this month", "No rank ups this month",
+       "No team GV", "No team recruits", "No team rank ups"];
 
-  const tabLabels = globalOnly ? allTabLabels.slice(0, 4) : allTabLabels;
-  const cardTitles = globalOnly ? allCardTitles.slice(0, 4) : allCardTitles;
-  const cardIcons = globalOnly ? allCardIcons.slice(0, 4) : allCardIcons;
-  const emptyTexts = globalOnly ? allEmptyTexts.slice(0, 4) : allEmptyTexts;
+  const tabLabels = globalOnly ? allTabLabels.slice(0, 3) : allTabLabels;
+  const cardTitles = globalOnly ? allCardTitles.slice(0, 3) : allCardTitles;
+  const cardIcons = globalOnly ? allCardIcons.slice(0, 3) : allCardIcons;
+  const emptyTexts = globalOnly ? allEmptyTexts.slice(0, 3) : allEmptyTexts;
 
   // "La tua posizione" solo per scope globale
   const myPos = current.scope === "global" ? data?.my_positions?.[current.kind] : null;
@@ -184,8 +181,8 @@ const LeaderboardContent = ({ data, tab, setTab, isIt, globalOnly = false }) => 
   };
 
   const valueLabels = isIt
-    ? { gv: "GV nel periodo", recruiters: "reclutati", achievers: "rank top", commissions: "commissioni" }
-    : { gv: "GV in period", recruiters: "recruits", achievers: "top rank", commissions: "commissions" };
+    ? { gv: "GV nel periodo", recruiters: "reclutati", achievers: "rank top" }
+    : { gv: "GV in period", recruiters: "recruits", achievers: "top rank" };
 
   return (
     <Stack spacing={2}>

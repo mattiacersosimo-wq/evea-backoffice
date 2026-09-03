@@ -29,7 +29,7 @@ export const displayName = (user, context = "global") => {
 };
 
 // Account interni/di servizio nascosti dalle classifiche pubbliche e dal ticker.
-const HIDDEN_USERNAMES = new Set(["mlmadmin", "eveaglobal", "evea"]);
+const HIDDEN_USERNAMES = new Set(["mlmadmin", "eveaglobal", "evea", "ag prime"]);
 
 export const isHiddenUsername = (username) =>
   typeof username === "string" && HIDDEN_USERNAMES.has(username.toLowerCase());
