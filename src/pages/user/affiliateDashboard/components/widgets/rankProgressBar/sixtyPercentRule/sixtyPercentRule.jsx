@@ -13,16 +13,22 @@ import { useTranslation } from "react-i18next";
 
 const ORO = "#B8963B";
 
-const SixtyPercentRule = ({ team_wise_users = [], state }) => {
+const SixtyPercentRule = ({ team_wise_users = [], state, max_team_percentage = 100 }) => {
   const [open, setOpen] = useState(false);
   const { data, ...dataProps } = state;
   const { t } = useTranslation();
 
   if (!team_wise_users || !team_wise_users.length) return null;
 
+  // La regola del cap gamba si attiva solo dai rank dove max_team_percentage < 100.
+  // Nel piano EVEA e' 100 per Associate..Senior Builder (rank 1-4) e 60 per
+  // Platinum..Crown Diamond (rank 5-11). A rank basso il widget e' irrilevante.
+  const threshold = Number(max_team_percentage) || 100;
+  if (threshold >= 100) return null;
+
   // Find the max contributor
   const maxPct = Math.max(...team_wise_users.map((u) => Number(u?.contribution_percentage) || 0), 0);
-  const isViolating = maxPct > 60;
+  const isViolating = maxPct > threshold;
 
   return (
     <Box sx={{ mt: 2 }}>
@@ -73,7 +79,7 @@ const SixtyPercentRule = ({ team_wise_users = [], state }) => {
         <Box sx={{ mt: 1.5, mb: 1 }}>
           {team_wise_users.map((item, i) => {
             const pct = Number(item?.contribution_percentage) || 0;
-            const over = pct > 60;
+            const over = pct > threshold;
             return (
               <Box key={item?.id || i} sx={{ mb: 1 }}>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={0.3}>
@@ -104,15 +110,15 @@ const SixtyPercentRule = ({ team_wise_users = [], state }) => {
                     bgcolor: "#f0ece6",
                     "& .MuiLinearProgress-bar": {
                       borderRadius: 3,
-                      bgcolor: over ? "#E53935" : pct > 50 ? "#FF9800" : ORO,
+                      bgcolor: over ? "#E53935" : pct > threshold * 0.85 ? "#FF9800" : ORO,
                     },
                   }}
                 />
-                {/* 60% threshold line */}
+                {/* threshold line (dinamico in base a max_team_percentage) */}
                 <Box sx={{ position: "relative", height: 0 }}>
                   <Box
                     sx={{
-                      position: "absolute", top: -6, left: "60%",
+                      position: "absolute", top: -6, left: `${threshold}%`,
                       width: "1px", height: 6, bgcolor: alpha("#E53935", 0.4),
                     }}
                   />

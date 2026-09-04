@@ -119,7 +119,7 @@ const NewRankCard = ({ higherRank, state }) => {
               )}
             </Stack>
             <NextRankDetails current_rank_details={rank.current_rank_details} />
-            <SixtyPercentRule state={state} team_wise_users={rank.team_wise_users} />
+            <SixtyPercentRule state={state} team_wise_users={rank.team_wise_users} max_team_percentage={rank.max_team_percentage} />
           </Box>
         </Collapse>
       ))}
