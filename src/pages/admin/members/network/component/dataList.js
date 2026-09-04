@@ -20,6 +20,9 @@ const DataList = ({
     unique_id,
     email,
     created_at,
+    customer_at,
+    promoter_at,
+    is_promoter,
     is_turn_on_email,
     active,
     email_verified_at,
@@ -32,6 +35,8 @@ const DataList = ({
   } = network;
 
   const checkBlock = block_type === null;
+  const effectiveDate =
+    (is_promoter && promoter_at) || customer_at || created_at;
 
   return (
     <TableRow key={id}>
@@ -65,7 +70,7 @@ const DataList = ({
       <TableCell>{paid_active === 0 ? "No" : "Yes"}</TableCell>
       <TableCell>{engaged === true ? "Yes" : "No"}</TableCell>
       <TableCell>
-        <ParseDate date={created_at} />
+        <ParseDate date={effectiveDate} />
       </TableCell>
 
       <TableCell>

@@ -9,6 +9,9 @@ const memberRow =
       username,
       email,
       created_at,
+      customer_at,
+      promoter_at,
+      is_promoter,
       is_turn_on_email,
       active,
       email_verified_at,
@@ -17,6 +20,8 @@ const memberRow =
     },
     i
   ) => {
+    const effectiveDate =
+      (is_promoter && promoter_at) || customer_at || created_at;
     return (
       <TableRow key={id}>
         <TableCell>{i + row}</TableCell>
@@ -26,7 +31,7 @@ const memberRow =
         <TableCell>{paid_active === 0 ? "no" : "yes"}</TableCell>
 
         <TableCell>
-          {new Date(created_at).toLocaleDateString("en-GB")}
+          {new Date(effectiveDate).toLocaleDateString("en-GB")}
         </TableCell>
         <TableCell>
           <IconButton
