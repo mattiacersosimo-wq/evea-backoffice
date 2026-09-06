@@ -385,7 +385,7 @@ const TickerBar = () => {
   const { t } = useTranslation();
   const ticker = useTicker();
   if (!ticker) return null;
-  const rawItems = [...(ticker.sales || []), ...(ticker.new_members || []), ...(ticker.ranks || [])]
+  const rawItems = [...(ticker.sales || []), ...(ticker.new_members || []), ...(ticker.ranks || []), ...(ticker.mvps || [])]
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   const normalized = stripHiddenUsers(rawItems).map((it) => {
     // Il kit promoter da 79€ è l'iscrizione: mostralo come "nuovo promoter", solo nickname
@@ -426,7 +426,7 @@ const TickerBar = () => {
         <Box sx={{ display: "flex", animation: `${scroll} ${Math.max(items.length * 5, 20)}s linear infinite`, width: "max-content" }}>
           {[...items, ...items].map((it, i) => (
             <Stack key={i} direction="row" alignItems="center" spacing={0.8} sx={{ px: 2.5, flexShrink: 0 }}>
-              <Chip label={it.type === "sale" ? t("evea.sale") : it.type === "rank" ? t("evea.qualification") : it.is_promoter ? t("evea.new_promoter") : t("evea.new_customer")} size="small" sx={{ height: 22, fontSize: "0.72rem", fontWeight: 700, bgcolor: it.type === "sale" ? alpha("#4CAF50", 0.1) : it.type === "rank" ? alpha(ORO, 0.1) : alpha("#2196F3", 0.1), color: it.type === "sale" ? "#4CAF50" : it.type === "rank" ? ORO : "#2196F3" }} />
+              <Chip label={it.type === "sale" ? t("evea.sale") : it.type === "rank" ? t("evea.qualification") : it.type === "mvp" ? t("evea.new_mvp") : it.is_promoter ? t("evea.new_promoter") : t("evea.new_customer")} size="small" sx={{ height: 22, fontSize: "0.72rem", fontWeight: 700, bgcolor: it.type === "sale" ? alpha("#4CAF50", 0.1) : it.type === "rank" ? alpha(ORO, 0.1) : it.type === "mvp" ? alpha("#9C27B0", 0.12) : alpha("#2196F3", 0.1), color: it.type === "sale" ? "#4CAF50" : it.type === "rank" ? ORO : it.type === "mvp" ? "#9C27B0" : "#2196F3" }} />
               <Typography sx={{ fontSize: "0.88rem", color: ESPRESSO, fontWeight: 600 }}>{it.username}</Typography>
               {it.product && <Typography sx={{ fontSize: "0.82rem", color: MUTED }}>{it.product}</Typography>}
               {it.rank && <Typography sx={{ fontSize: "0.82rem", color: ORO, fontWeight: 700 }}>{it.rank}</Typography>}
