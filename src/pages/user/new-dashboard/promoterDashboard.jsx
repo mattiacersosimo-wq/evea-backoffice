@@ -385,7 +385,7 @@ const TickerBar = () => {
   const { t } = useTranslation();
   const ticker = useTicker();
   if (!ticker) return null;
-  const rawItems = [...(ticker.sales || []), ...(ticker.new_members || []), ...(ticker.ranks || []), ...(ticker.mvps || [])]
+  const rawItems = [...(ticker.sales || []), ...(ticker.new_members || []), ...(ticker.ranks || [])]
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   const normalized = stripHiddenUsers(rawItems).map((it) => {
     // Il kit promoter da 79€ è l'iscrizione: mostralo come "nuovo promoter", solo nickname
