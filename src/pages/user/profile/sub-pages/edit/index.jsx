@@ -1,6 +1,6 @@
 import { LoadingButton } from "@mui/lab";
 import { Box, Button, Card, Checkbox, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, Grid, Stack, TextField as MuiTextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSnackbar } from "notistack";
 import Iconify from "src/components/Iconify";
 import axiosInstance from "src/utils/axios";
@@ -188,6 +188,38 @@ const EditInfo = () => {
     // Promoter: bloccati perché legati al Codice Fiscale (INPS/IRPEF).
     const isCustomerOnly = Number(user?.is_customer) === 1 && Number(user?.is_promoter) === 0;
 
+    // Real-time check disponibilità username (solo cliente puro).
+    // Debounce 500ms; salta chiamata se username == quello attuale.
+    const [usernameCheck, setUsernameCheck] = useState({ status: "idle", message: "" });
+    const watchedUsername = useWatch({ control: methods.control, name: "username" });
+
+    useEffect(() => {
+        if (!isCustomerOnly) return;
+        const trimmed = (watchedUsername || "").trim();
+        if (!trimmed) { setUsernameCheck({ status: "idle", message: "" }); return; }
+        if (trimmed === user?.username) { setUsernameCheck({ status: "current", message: "Username attuale" }); return; }
+        if (!/^[a-zA-Z0-9]+$/.test(trimmed)) { setUsernameCheck({ status: "invalid", message: "Solo lettere e numeri, senza spazi" }); return; }
+        if (trimmed.length < 3) { setUsernameCheck({ status: "invalid", message: "Almeno 3 caratteri" }); return; }
+
+        setUsernameCheck({ status: "checking", message: "Verifico..." });
+        const timer = setTimeout(async () => {
+            try {
+                const { data } = await axiosInstance.post("/api/wp/validate-username", { username: trimmed });
+                if (data?.available) {
+                    setUsernameCheck({ status: "available", message: `Disponibile — nuovo link: community.myevea.com/scopri/${trimmed}` });
+                } else {
+                    setUsernameCheck({ status: "taken", message: "Questo username è già in uso" });
+                }
+            } catch (e) {
+                setUsernameCheck({ status: "idle", message: "" });
+            }
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, [watchedUsername, user?.username, isCustomerOnly, methods.control]);
+
+    const usernameBlocksSubmit = usernameCheck.status === "taken" || usernameCheck.status === "invalid" || usernameCheck.status === "checking";
+
     const { t } = useTranslation();
     const [emailDialogOpen, setEmailDialogOpen] = useState(false);
 
@@ -231,7 +263,27 @@ const EditInfo = () => {
                                     name="username"
                                     label={"profile.username"}
                                     onBlur={onBlur}
-                                    helperText={isCustomerOnly ? "Puoi cambiare il tuo username. Dev'essere univoco." : undefined}
+                                    error={isCustomerOnly && (usernameCheck.status === "taken" || usernameCheck.status === "invalid")}
+                                    helperText={
+                                        isCustomerOnly
+                                            ? (usernameCheck.message || "Puoi cambiare il tuo username. Dev'essere univoco.")
+                                            : undefined
+                                    }
+                                    InputProps={{
+                                        endAdornment: isCustomerOnly ? (
+                                            usernameCheck.status === "checking" ? (
+                                                <CircularProgress size={18} sx={{ color: "#B8963B" }} />
+                                            ) : usernameCheck.status === "available" ? (
+                                                <Iconify icon="mdi:check-circle" width={20} sx={{ color: "#27500A" }} />
+                                            ) : usernameCheck.status === "taken" ? (
+                                                <Iconify icon="mdi:close-circle" width={20} sx={{ color: "#c62828" }} />
+                                            ) : usernameCheck.status === "invalid" ? (
+                                                <Iconify icon="mdi:alert-circle" width={20} sx={{ color: "#F57F17" }} />
+                                            ) : usernameCheck.status === "current" ? (
+                                                <Iconify icon="mdi:information-outline" width={20} sx={{ color: "#7A6A5C" }} />
+                                            ) : null
+                                        ) : null,
+                                    }}
                                 />
                             )}
 
@@ -382,6 +434,7 @@ const EditInfo = () => {
                                 type="submit"
                                 variant="contained"
                                 loading={methods.formState.isSubmitting}
+                                disabled={usernameBlocksSubmit}
                                 name="save"
                             >
                                 <Translate>profile.edit.update</Translate>
