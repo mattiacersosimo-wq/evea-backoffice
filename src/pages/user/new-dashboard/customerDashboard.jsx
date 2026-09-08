@@ -864,108 +864,106 @@ const UserDashboard = () => {
         <Box sx={{ mt: 2 }}><CustomerCommunityBanner /></Box>
         <Ticker />
 
-        {/* CTA "Diventa Distributore" — solo per clienti puri (no promoter, no guest).
-            Link diretto al cart Shopify con il Kit Promoter (variant 53665179631962). */}
-        {user && Number(user.is_customer) === 1 && Number(user.is_promoter) === 0 && Number(user.is_guest) === 0 && (
-          <Box sx={{
-            mt: 2, p: 2.5, borderRadius: 3,
-            background: `linear-gradient(135deg, ${alpha(ORO, 0.10)} 0%, ${alpha(ORO, 0.03)} 100%)`,
-            border: `1.5px solid ${alpha(ORO, 0.35)}`,
-            display: "flex", flexDirection: { xs: "column", sm: "row" },
-            alignItems: { xs: "flex-start", sm: "center" }, gap: 2, justifyContent: "space-between",
-          }}>
-            <Stack direction="row" alignItems="center" spacing={1.8} sx={{ flex: 1 }}>
-              <Box sx={{
-                width: 46, height: 46, borderRadius: 2, flexShrink: 0,
-                background: `linear-gradient(135deg, ${ORO} 0%, ${ORO_LIGHT} 100%)`,
-                display: "flex", alignItems: "center", justifyContent: "center",
-              }}>
-                <Iconify icon="mdi:rocket-launch" width={26} sx={{ color: "#fff" }} />
-              </Box>
-              <Box>
-                <Typography sx={{ fontSize: "0.95rem", fontWeight: 800, color: ESPRESSO, lineHeight: 1.3 }}>
-                  Vuoi diventare Distributore eVea?
-                </Typography>
-                <Typography sx={{ fontSize: "0.78rem", color: WARM_GRAY, mt: 0.3, lineHeight: 1.4 }}>
-                  Con il <b>Kit Promotore &euro;79</b> attivi commissioni, referral e strumenti di team.
-                  Il tuo account cliente diventa automaticamente distributore.
-                </Typography>
-              </Box>
-            </Stack>
-            <Button
-              variant="contained" size="large"
-              href={`${WP_URL.replace(/\/$/, "")}/cart/53665179631962:1`}
-              target="_blank" rel="noopener"
-              endIcon={<Iconify icon="mdi:arrow-right" width={18} />}
-              sx={{
-                bgcolor: ORO, color: "#fff", fontWeight: 700, textTransform: "none",
-                borderRadius: 2, px: 3, py: 1.2, whiteSpace: "nowrap",
-                boxShadow: `0 4px 12px ${alpha(ORO, 0.35)}`,
-                "&:hover": { bgcolor: "#A07E2F", boxShadow: `0 6px 16px ${alpha(ORO, 0.5)}` },
-              }}
-            >
-              Diventa Distributore
-            </Button>
-          </Box>
-        )}
-
-        {/* Loyalty Discount Banner */}
+        {/* Loyalty Discount Banner + Diventa Distributore (affiancati per cliente puro senza smartship) */}
         {(() => {
           const smartshipStatus = hero?.smartship_status || "none";
           const hasDiscount = smartshipStatus === "active" || (user?.has_smartship_discount === 1 && smartshipStatus !== "paused");
+          const isCustomerOnly = user && Number(user.is_customer) === 1 && Number(user.is_promoter) === 0 && Number(user.is_guest) === 0;
 
-          if (smartshipStatus === "paused") {
-            return (
-              <Box sx={{ bgcolor: "#FFF8E1", border: "1px solid #F9A825", borderRadius: 3, p: 2, mt: 2, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <Stack direction="row" alignItems="center" spacing={1.5}>
-                  <Iconify icon="mdi:pause-circle-outline" width={24} sx={{ color: "#F57F17" }} />
-                  <Box>
-                    <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: "#E65100" }}>
-                      Smartship in pausa — lo sconto del 10% è sospeso
-                    </Typography>
-                    <Typography sx={{ fontSize: "0.75rem", color: "#BF360C" }}>
-                      Riprendi il tuo abbonamento per continuare a risparmiare
-                    </Typography>
-                  </Box>
-                </Stack>
-                <Button size="small" variant="contained" href="/user/recurring-orders"
-                  sx={{ bgcolor: "#F57F17", "&:hover": { bgcolor: "#E65100" }, textTransform: "none", fontWeight: 700, borderRadius: 2 }}>
-                  Riprendi
-                </Button>
-              </Box>
-            );
-          }
-
-          return hasDiscount ? (
-            <Box sx={{ bgcolor: "#EAF3DE", border: "1px solid #4A5C3A", borderRadius: 3, p: 2, mt: 2, display: "flex", alignItems: "center", gap: 1.5 }}>
-              <Iconify icon="mdi:check-circle" width={24} sx={{ color: "#4A5C3A" }} />
-              <Box>
-                <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: "#27500A" }}>
-                  {t("evea.loyalty_active") || "Sconto Fedeltà attivo — 10% su tutti i tuoi acquisti"}
-                </Typography>
-                <Typography sx={{ fontSize: "0.75rem", color: "#4A5C3A" }}>
-                  {t("evea.loyalty_active_sub") || "Mantieni il tuo smartship attivo per continuare a risparmiare"}
-                </Typography>
-              </Box>
-            </Box>
-          ) : (
-            <Box sx={{ bgcolor: "#FAF6EF", border: `1px solid ${alpha(ORO, 0.2)}`, borderRadius: 3, p: 2, mt: 2, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <Stack direction="row" alignItems="center" spacing={1.5}>
-                <Iconify icon="mdi:tag-heart-outline" width={24} sx={{ color: ORO }} />
-                <Box>
-                  <Typography sx={{ fontSize: "0.88rem", fontWeight: 700, color: ESPRESSO }}>
-                    {t("evea.loyalty_inactive") || "Attiva lo Smartship per ottenere il 10% su tutti i tuoi ordini"}
+          // Banner compatto "Diventa Distributore" per cliente puro
+          const distributorBanner = isCustomerOnly ? (
+            <Box sx={{
+              p: 1.5, borderRadius: 3, height: "100%",
+              background: `linear-gradient(135deg, ${alpha(ORO, 0.10)} 0%, ${alpha(ORO, 0.03)} 100%)`,
+              border: `1.5px solid ${alpha(ORO, 0.35)}`,
+              display: "flex", alignItems: "center", justifyContent: "space-between", gap: 1.5,
+            }}>
+              <Stack direction="row" alignItems="center" spacing={1.2} sx={{ minWidth: 0, flex: 1 }}>
+                <Iconify icon="mdi:rocket-launch" width={22} sx={{ color: ORO, flexShrink: 0 }} />
+                <Box sx={{ minWidth: 0 }}>
+                  <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO, lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    Diventa Distributore eVea
                   </Typography>
-                  <Typography sx={{ fontSize: "0.75rem", color: WARM_GRAY }}>
-                    {t("evea.loyalty_inactive_sub") || "Abbonati ora e risparmia su ogni acquisto"}
+                  <Typography sx={{ fontSize: "0.7rem", color: WARM_GRAY, lineHeight: 1.2 }}>
+                    Kit Promotore &euro;79
                   </Typography>
                 </Box>
               </Stack>
-              <Button size="small" variant="contained" href={`${WP_URL}/collections/all`} target="_blank"
-                sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, textTransform: "none", fontWeight: 700, borderRadius: 2 }}>
-                {t("evea.activate_now") || "Attiva ora"}
+              <Button
+                variant="contained" size="small"
+                href={`${WP_URL.replace(/\/$/, "")}/cart/53665179631962:1`}
+                target="_blank" rel="noopener"
+                sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, textTransform: "none", fontWeight: 700, borderRadius: 2, whiteSpace: "nowrap", flexShrink: 0 }}
+              >
+                Attiva
               </Button>
             </Box>
+          ) : null;
+
+          const smartshipBanner = (() => {
+            if (smartshipStatus === "paused") {
+              return (
+                <Box sx={{ bgcolor: "#FFF8E1", border: "1px solid #F9A825", borderRadius: 3, p: 1.5, height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 1.5 }}>
+                  <Stack direction="row" alignItems="center" spacing={1.2} sx={{ minWidth: 0, flex: 1 }}>
+                    <Iconify icon="mdi:pause-circle-outline" width={22} sx={{ color: "#F57F17", flexShrink: 0 }} />
+                    <Box sx={{ minWidth: 0 }}>
+                      <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: "#E65100", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                        Smartship in pausa
+                      </Typography>
+                      <Typography sx={{ fontSize: "0.7rem", color: "#BF360C", lineHeight: 1.2 }}>
+                        Sconto 10% sospeso
+                      </Typography>
+                    </Box>
+                  </Stack>
+                  <Button size="small" variant="contained" href="/user/recurring-orders"
+                    sx={{ bgcolor: "#F57F17", "&:hover": { bgcolor: "#E65100" }, textTransform: "none", fontWeight: 700, borderRadius: 2, flexShrink: 0 }}>
+                    Riprendi
+                  </Button>
+                </Box>
+              );
+            }
+            return hasDiscount ? (
+              <Box sx={{ bgcolor: "#EAF3DE", border: "1px solid #4A5C3A", borderRadius: 3, p: 1.5, height: "100%", display: "flex", alignItems: "center", gap: 1.2 }}>
+                <Iconify icon="mdi:check-circle" width={22} sx={{ color: "#4A5C3A", flexShrink: 0 }} />
+                <Box sx={{ minWidth: 0 }}>
+                  <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: "#27500A", lineHeight: 1.2 }}>
+                    {t("evea.loyalty_active") || "Sconto Fedeltà attivo — 10%"}
+                  </Typography>
+                  <Typography sx={{ fontSize: "0.7rem", color: "#4A5C3A", lineHeight: 1.2 }}>
+                    Su tutti i tuoi acquisti smartship
+                  </Typography>
+                </Box>
+              </Box>
+            ) : (
+              <Box sx={{ bgcolor: "#FAF6EF", border: `1px solid ${alpha(ORO, 0.2)}`, borderRadius: 3, p: 1.5, height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 1.5 }}>
+                <Stack direction="row" alignItems="center" spacing={1.2} sx={{ minWidth: 0, flex: 1 }}>
+                  <Iconify icon="mdi:tag-heart-outline" width={22} sx={{ color: ORO, flexShrink: 0 }} />
+                  <Box sx={{ minWidth: 0 }}>
+                    <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO, lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                      Attiva lo Smartship
+                    </Typography>
+                    <Typography sx={{ fontSize: "0.7rem", color: WARM_GRAY, lineHeight: 1.2 }}>
+                      Ottieni il 10% su ogni ordine
+                    </Typography>
+                  </Box>
+                </Stack>
+                <Button size="small" variant="contained" href={`${WP_URL}/collections/all`} target="_blank"
+                  sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, textTransform: "none", fontWeight: 700, borderRadius: 2, flexShrink: 0 }}>
+                  {t("evea.activate_now") || "Attiva ora"}
+                </Button>
+              </Box>
+            );
+          })();
+
+          // Layout: se cliente puro, i 2 banner sulla stessa riga (Grid 2 col).
+          // Altrimenti solo smartship a tutta larghezza.
+          return distributorBanner ? (
+            <Grid container spacing={2} sx={{ mt: 0 }}>
+              <Grid item xs={12} md={6}>{smartshipBanner}</Grid>
+              <Grid item xs={12} md={6}>{distributorBanner}</Grid>
+            </Grid>
+          ) : (
+            <Box sx={{ mt: 2 }}>{smartshipBanner}</Box>
           );
         })()}
 
