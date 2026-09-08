@@ -184,6 +184,10 @@ const EditInfo = () => {
     const onBlur = ({ target: { value, name } }) =>
         methods.setValue(name, value.trim());
 
+    // Cliente puro: può modificare nome/cognome/username (nessun vincolo fiscale).
+    // Promoter: bloccati perché legati al Codice Fiscale (INPS/IRPEF).
+    const isCustomerOnly = Number(user?.is_customer) === 1 && Number(user?.is_promoter) === 0;
+
     const { t } = useTranslation();
     const [emailDialogOpen, setEmailDialogOpen] = useState(false);
 
@@ -222,27 +226,28 @@ const EditInfo = () => {
                                 },
                             }}
                         >
-                            <ShowForAdmin>
+                            {(isAdmin || isCustomerOnly) && (
                                 <RHFTextField
                                     name="username"
                                     label={"profile.username"}
                                     onBlur={onBlur}
+                                    helperText={isCustomerOnly ? "Puoi cambiare il tuo username. Dev'essere univoco." : undefined}
                                 />
-                            </ShowForAdmin>
+                            )}
 
                             <RHFTextField
                                 name="first_name"
                                 label="profile.edit.first_name"
                                 onBlur={onBlur}
-                                disabled
-                                helperText="Dato fissato in onboarding (legato al Codice Fiscale). Per modifiche contatta l'assistenza."
+                                disabled={!isCustomerOnly}
+                                helperText={isCustomerOnly ? undefined : "Dato fissato in onboarding (legato al Codice Fiscale). Per modifiche contatta l'assistenza."}
                             />
                             <RHFTextField
                                 name="last_name"
                                 label="profile.edit.last_name"
                                 onBlur={onBlur}
-                                disabled
-                                helperText="Dato fissato in onboarding (legato al Codice Fiscale). Per modifiche contatta l'assistenza."
+                                disabled={!isCustomerOnly}
+                                helperText={isCustomerOnly ? undefined : "Dato fissato in onboarding (legato al Codice Fiscale). Per modifiche contatta l'assistenza."}
                             />
 
                             <RHFTextField
