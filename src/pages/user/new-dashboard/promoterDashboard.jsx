@@ -873,33 +873,6 @@ const QuickAccess = () => {
       }
     },
     {
-      icon: "mdi:account-group-outline",
-      label: "Invito Community",
-      disabled: !isActive,
-      disabledTooltip: "Firma la Lettera di Incarico per invitare ospiti nella community",
-      action: async () => {
-        if (!isActive) { enqueueSnackbar("Firma la Lettera di Incarico per invitare ospiti nella community", { variant: "warning" }); navigate("/user/onboarding"); return; }
-        if (!communityGuestLink) return;
-        // Mobile: usa share sheet nativo se disponibile.
-        // Desktop / browser senza Web Share API: fallback clipboard.
-        if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
-          try {
-            await navigator.share({
-              title: "eVea Community — invito ospite",
-              text: "Ti invito a scoprire la eVea Community. Chi entra da questo link diventa mio ospite.",
-              url: communityGuestLink,
-            });
-            return;
-          } catch (e) {
-            // User annulla il share sheet: fall through al copy per lasciargli
-            // comunque il link a portata di paste.
-          }
-        }
-        await navigator.clipboard.writeText(communityGuestLink);
-        enqueueSnackbar("Link invito Community copiato!");
-      }
-    },
-    {
       icon: "mdi:rocket-launch-outline",
       label: "Landing Page Opportunità",
       disabled: !isActive,
