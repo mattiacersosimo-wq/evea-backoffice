@@ -844,6 +844,12 @@ const QuickAccess = () => {
   const opportunityLink = user?.username
     ? `https://community.myevea.com/scopri-opportunita?sponsor=${encodeURIComponent(user.username)}`
     : "";
+  // Landing "Scopri Prodotto" community: pagina informativa per prospect
+  // interessati al caffè (non al piano opportunità). Attribuisce lo sponsor
+  // via path param /scopri/<username> come le altre landing community.
+  const productLandingLink = user?.username
+    ? `https://community.myevea.com/scopri/${encodeURIComponent(user.username)}`
+    : "";
   const shortcuts = [
     { icon: "mdi:storefront-outline", label: t("evea.shop"), action: () => window.open(`${WP_URL.replace(/\/$/, "")}/collections/all`, "_blank") },
     {
@@ -915,6 +921,30 @@ const QuickAccess = () => {
         }
         await navigator.clipboard.writeText(opportunityLink);
         enqueueSnackbar("Link Opportunità copiato!");
+      }
+    },
+    {
+      icon: "mdi:coffee-outline",
+      label: "Landing Page Prodotto",
+      disabled: !isActive,
+      disabledTooltip: "Firma la Lettera di Incarico per condividere la Landing Page Prodotto",
+      action: async () => {
+        if (!isActive) { enqueueSnackbar("Firma la Lettera di Incarico per condividere la landing Prodotto", { variant: "warning" }); navigate("/user/onboarding"); return; }
+        if (!productLandingLink) return;
+        if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+          try {
+            await navigator.share({
+              title: "Scopri il caffè eVea",
+              text: "Ti faccio scoprire il caffè funzionale eVea — un rituale quotidiano che cambia la giornata.",
+              url: productLandingLink,
+            });
+            return;
+          } catch (e) {
+            // fall through al copy
+          }
+        }
+        await navigator.clipboard.writeText(productLandingLink);
+        enqueueSnackbar("Link Prodotto copiato!");
       }
     },
     { icon: "mdi:wallet-outline", label: t("evea.wallet"), action: () => navigate("/user/financial/wallet") },

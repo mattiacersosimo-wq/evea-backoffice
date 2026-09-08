@@ -864,6 +864,51 @@ const UserDashboard = () => {
         <Box sx={{ mt: 2 }}><CustomerCommunityBanner /></Box>
         <Ticker />
 
+        {/* CTA "Diventa Distributore" — solo per clienti puri (no promoter, no guest).
+            Link diretto al cart Shopify con il Kit Promoter (variant 53665179631962). */}
+        {user && Number(user.is_customer) === 1 && Number(user.is_promoter) === 0 && Number(user.is_guest) === 0 && (
+          <Box sx={{
+            mt: 2, p: 2.5, borderRadius: 3,
+            background: `linear-gradient(135deg, ${alpha(ORO, 0.10)} 0%, ${alpha(ORO, 0.03)} 100%)`,
+            border: `1.5px solid ${alpha(ORO, 0.35)}`,
+            display: "flex", flexDirection: { xs: "column", sm: "row" },
+            alignItems: { xs: "flex-start", sm: "center" }, gap: 2, justifyContent: "space-between",
+          }}>
+            <Stack direction="row" alignItems="center" spacing={1.8} sx={{ flex: 1 }}>
+              <Box sx={{
+                width: 46, height: 46, borderRadius: 2, flexShrink: 0,
+                background: `linear-gradient(135deg, ${ORO} 0%, ${ORO_LIGHT} 100%)`,
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}>
+                <Iconify icon="mdi:rocket-launch" width={26} sx={{ color: "#fff" }} />
+              </Box>
+              <Box>
+                <Typography sx={{ fontSize: "0.95rem", fontWeight: 800, color: ESPRESSO, lineHeight: 1.3 }}>
+                  Vuoi diventare Distributore eVea?
+                </Typography>
+                <Typography sx={{ fontSize: "0.78rem", color: WARM_GRAY, mt: 0.3, lineHeight: 1.4 }}>
+                  Con il <b>Kit Promotore &euro;79</b> attivi commissioni, referral e strumenti di team.
+                  Il tuo account cliente diventa automaticamente distributore.
+                </Typography>
+              </Box>
+            </Stack>
+            <Button
+              variant="contained" size="large"
+              href={`${WP_URL.replace(/\/$/, "")}/cart/53665179631962:1`}
+              target="_blank" rel="noopener"
+              endIcon={<Iconify icon="mdi:arrow-right" width={18} />}
+              sx={{
+                bgcolor: ORO, color: "#fff", fontWeight: 700, textTransform: "none",
+                borderRadius: 2, px: 3, py: 1.2, whiteSpace: "nowrap",
+                boxShadow: `0 4px 12px ${alpha(ORO, 0.35)}`,
+                "&:hover": { bgcolor: "#A07E2F", boxShadow: `0 6px 16px ${alpha(ORO, 0.5)}` },
+              }}
+            >
+              Diventa Distributore
+            </Button>
+          </Box>
+        )}
+
         {/* Loyalty Discount Banner */}
         {(() => {
           const smartshipStatus = hero?.smartship_status || "none";
