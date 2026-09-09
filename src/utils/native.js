@@ -45,7 +45,9 @@ export const initNativeShell = async () => {
   }
 
   // Check per bundle nuovo in background (non blocca UI).
-  // Al prossimo cold-start dell'app viene applicata la versione scaricata.
+  // Bug precedente: download() scaricava il bundle ma non era mai
+  // attivato per l'apply successivo. Serve chiamare next({id}) per
+  // marcare quale bundle applicare al prossimo cold-start.
   try {
     const manifestUrl = "https://api.myevea.com/updates/manifest.json";
     const res = await fetch(manifestUrl, { cache: "no-store" });
@@ -55,12 +57,20 @@ export const initNativeShell = async () => {
         const current = await CapacitorUpdater.current();
         if (current?.bundle?.version !== manifest.version) {
           console.log(`[OTA] Nuovo bundle ${manifest.version} disponibile, download in corso...`);
-          await CapacitorUpdater.download({
+          const bundle = await CapacitorUpdater.download({
             url: manifest.url,
             version: manifest.version,
             checksum: manifest.checksum || undefined,
           });
-          console.log(`[OTA] Bundle ${manifest.version} scaricato, sara' attivo al prossimo restart`);
+          // Marca il bundle come "next" — sara' attivato al prossimo cold-start.
+          // Senza next() il download restava dormant e l'app continuava sul
+          // bundle bundled originale (bug scoperto 09/09/2026).
+          if (bundle?.id) {
+            await CapacitorUpdater.next({ id: bundle.id });
+            console.log(`[OTA] Bundle ${manifest.version} scaricato + marked next, sara' attivo al prossimo restart`);
+          } else {
+            console.warn("[OTA] Download completato ma bundle.id mancante — non posso chiamare next()");
+          }
         }
       }
     }
