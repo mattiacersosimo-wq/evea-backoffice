@@ -91,7 +91,10 @@ export const registerPushNotifications = async () => {
       // con GoogleService-Info.plist nel bundle target correttamente.
       // Su Android token.value = FCM token nativo (funziona).
       try {
-        await axiosInstance.post("api/wp/user/push-token", {
+        // Endpoint mappato in web.php dentro il gruppo user (auth+is_user):
+        // /api/user/push-token — NON /api/wp/user/push-token (path errato
+        // in versioni precedenti che causava 404 silenzioso e token perso).
+        await axiosInstance.post("api/user/push-token", {
           token: token.value,
           platform: Capacitor.getPlatform(),
           app: "backoffice",
