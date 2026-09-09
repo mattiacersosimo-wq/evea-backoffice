@@ -229,6 +229,22 @@ function AuthProvider({ children }) {
           localStorage.setItem("package_status", Boolean(package_status));
 
           setSession(access_token);
+
+          // Push notifications: trigger la registrazione + prompt permessi iOS
+          // subito dopo login riuscito. Prima era chiamato solo al bootstrap
+          // di index.js con guard su accessToken esistente — quindi al fresh
+          // install il popup permessi non appariva mai fino al primo restart.
+          // Adesso appare al primo login. Fire-and-forget: se fallisce (permesso
+          // negato, non native, ecc.) non blocca il flusso login.
+          try {
+            const nativeMod = await import("../utils/native");
+            if (nativeMod?.isNative && nativeMod.isNative()) {
+              nativeMod.registerPushNotifications();
+            }
+          } catch (e) {
+            console.warn("push registration on login skipped", e);
+          }
+
           if (Boolean(user.is_sub_admin)) {
             setPlan(reqObj.plan);
             const [menu] = menu_lists;
