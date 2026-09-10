@@ -237,8 +237,9 @@ function AuthProvider({ children }) {
           // Adesso appare al primo login. Fire-and-forget: se fallisce (permesso
           // negato, non native, ecc.) non blocca il flusso login.
           try {
+            const isImpersonating = localStorage.getItem("isImpersonate") === "true";
             const nativeMod = await import("../utils/native");
-            if (nativeMod?.isNative && nativeMod.isNative()) {
+            if (!isImpersonating && nativeMod?.isNative && nativeMod.isNative()) {
               nativeMod.registerPushNotifications();
             }
           } catch (e) {
