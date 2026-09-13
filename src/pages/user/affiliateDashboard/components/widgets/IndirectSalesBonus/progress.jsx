@@ -60,6 +60,24 @@ const Progress = ({ higherRank, state }) => {
         <Chip label={higherRank?.current_rank || "—"} size="small" sx={{ height: 22, fontWeight: 600, bgcolor: alpha(ORO, 0.1), color: ORO, fontSize: "0.75rem" }} />
       </Box>
 
+      {(Number(higherRank?.pending_current_week ?? 0) > 0 || Number(higherRank?.pending_previous_week ?? 0) > 0) && (
+        <Box sx={{ mt: 1.5, px: 1, display: "flex", flexWrap: "wrap", gap: 1 }}>
+          <Chip
+            label={`Settimana corrente: €${Number(higherRank?.pending_current_week ?? 0).toFixed(2)}`}
+            size="small"
+            sx={{ height: 24, fontWeight: 600, bgcolor: alpha("#43A047", 0.1), color: "#2E7D32", fontSize: "0.72rem" }}
+          />
+          {Number(higherRank?.pending_previous_week ?? 0) > 0 && (
+            <Chip
+              label={`In approvazione: €${Number(higherRank?.pending_previous_week ?? 0).toFixed(2)}`}
+              size="small"
+              title="Commissioni di settimane precedenti in attesa di auto-approvazione (15 giorni dalla creazione)"
+              sx={{ height: 24, fontWeight: 600, bgcolor: alpha("#FF9800", 0.1), color: "#EF6C00", fontSize: "0.72rem" }}
+            />
+          )}
+        </Box>
+      )}
+
       <LevelDetails levels={levels} />
     </Box>
   );
