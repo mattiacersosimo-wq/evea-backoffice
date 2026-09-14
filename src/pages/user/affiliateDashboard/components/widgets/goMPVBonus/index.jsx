@@ -36,7 +36,7 @@ const GoMVPBonus = () => {
       color="#4CAF50"
       title={t("user_dashboard.go_MVP_bonus")} expired={higherRank?.is_expired === 1 && !isCompleted} completed={isCompleted}
     >
-      {!isCompleted && <Progress higherRank={higherRank} />}
+      <Progress higherRank={higherRank} />
     </BonusWidget>
   );
 };
