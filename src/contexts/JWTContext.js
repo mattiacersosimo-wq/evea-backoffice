@@ -230,6 +230,22 @@ function AuthProvider({ children }) {
 
           setSession(access_token);
 
+          // Shared referral cookie sul dominio root .myevea.com: quando
+          // l'incaricato apre myevea.com direttamente (fuori dal backoffice)
+          // il tema Shopify legge questo cookie e NON mostra il banner
+          // "chi ti ha invitato?" perche' e' gia' un promoter attivo.
+          // TTL 90 giorni per coprire i vari device/browser dove fa login.
+          try {
+            const username = user?.username || "";
+            if (username && !localStorage.getItem("isImpersonate")) {
+              const safeUsername = encodeURIComponent(username.toLowerCase().replace(/\s+/g, ""));
+              const isSecure = window.location.protocol === "https:";
+              document.cookie = `evea_ref=${safeUsername}; domain=.myevea.com; path=/; max-age=${90 * 24 * 60 * 60}; SameSite=Lax${isSecure ? "; Secure" : ""}`;
+            }
+          } catch (e) {
+            console.warn("cross-domain ref cookie set failed", e);
+          }
+
           // Push notifications: trigger la registrazione + prompt permessi iOS
           // subito dopo login riuscito. Prima era chiamato solo al bootstrap
           // di index.js con guard su accessToken esistente — quindi al fresh
