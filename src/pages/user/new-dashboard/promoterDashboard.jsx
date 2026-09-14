@@ -2049,7 +2049,11 @@ const PromoterDashboard = () => {
           {user?.is_promoter === 1 && heroData && !preLaunchActive && (() => {
             const pkgLevel = PACKAGE_ID_TO_LEVEL[heroData.package_id] || 0;
             const daysRemaining = heroData.upgrade_days_remaining;
-            const hasKit = !!heroData.has_starter_kit || pkgLevel > 0;
+            // hasKit basato solo su pkgLevel (Bronze/Silver/Gold mappati).
+            // Founder Pack NON conta come starter perche' e' tier separato -
+            // un Founder puo' comunque comprare Bronze/Silver/Gold se vuole
+            // avere piu prodotti fisicamente o attivare il DSB boost mappato.
+            const hasKit = pkgLevel > 0;
             const isGold = pkgLevel === 3;
             const canUpgrade = hasKit && !isGold && daysRemaining !== null && daysRemaining > 0;
             const needsKit = !hasKit;
