@@ -678,10 +678,19 @@ const UPGRADES_BY_LEVEL = {
 
 const KitUpgrade = ({ packageId = 0, upgradeDaysRemaining = null, packagePurchasedAt = null }) => {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const currentLevel = PACKAGE_ID_TO_LEVEL[packageId] || 0;
   const isUpgrade = currentLevel > 0;
   const upgrades = UPGRADES_BY_LEVEL[currentLevel] || [];
-  const kits = isUpgrade ? upgrades : BASE_KITS;
+  // Aggiungi ?ref=<propria_username> alle URL dei pack. Serve a NON
+  // mostrare il banner "chi ti ha invitato?" sul theme myevea.com quando
+  // il promoter arriva senza cookie ref. Il webhook backend riconosce
+  // comunque l'utente come promoter esistente e assegna l'FSB al sponsor
+  // reale gia' in DB, non al ref passato (safe).
+  const refSlug = user?.username ? user.username.toLowerCase().replace(/\s+/g, "") : "";
+  const appendRef = (url) => (refSlug && url ? `${url}${url.includes("?") ? "&" : "?"}ref=${refSlug}` : url);
+  const rawKits = isUpgrade ? upgrades : BASE_KITS;
+  const kits = rawKits.map((k) => ({ ...k, url: appendRef(k.url) }));
 
   // If user has Gold (level 3) or is past 60 days window with a kit, show nothing
   if (isUpgrade && (currentLevel === 3 || (upgradeDaysRemaining !== null && upgradeDaysRemaining <= 0))) {
@@ -851,7 +860,7 @@ const QuickAccess = () => {
     ? `https://community.myevea.com/scopri/${encodeURIComponent(user.username)}`
     : "";
   const shortcuts = [
-    { icon: "mdi:storefront-outline", label: t("evea.shop"), action: () => window.open(`${WP_URL.replace(/\/$/, "")}/collections/all`, "_blank") },
+    { icon: "mdi:storefront-outline", label: t("evea.shop"), action: () => window.open(refSlug ? `${WP_URL.replace(/\/$/, "")}/collections/all?ref=${refSlug}` : `${WP_URL.replace(/\/$/, "")}/collections/all`, "_blank") },
     {
       icon: "mdi:link-variant",
       label: t("evea.referral_link"),
