@@ -91,7 +91,19 @@ export const registerPushNotifications = async () => {
   return new Promise((resolve) => {
     PushNotifications.addListener("pushNotificationActionPerformed", (evt) => {
       const url = evt.notification?.data?.deep_link || evt.notification?.data?.url;
-      if (url) window.location.hash = url.startsWith("/") ? url : `/${url}`;
+      if (!url) return;
+      const path = url.startsWith("/") ? url : `/${url}`;
+      // BrowserRouter (path-based) NON ascolta window.location.hash change
+      // (bug pre-14/09/2026: tap push -> restava sulla pagina attuale).
+      // history.pushState + dispatch popstate simula una back/forward
+      // navigation che React Router intercetta correttamente.
+      try {
+        window.history.pushState({}, "", path);
+        window.dispatchEvent(new PopStateEvent("popstate"));
+      } catch (e) {
+        // Fallback: reload completo alla nuova path (sempre funziona)
+        window.location.assign(path);
+      }
     });
 
     PushNotifications.addListener("registration", async (token) => {
