@@ -12,11 +12,15 @@ import { WP_URL } from "src/config";
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
 
+// Variant IDs verificate 16/09/2026 estraendo item.variant_id dalle sub Seal
+// esistenti via API. Le variant vecchie nel codice storico erano incorrette
+// (Latte era mappato al variant di Mocha, ecc) - non era mai stato notato
+// perche' il flusso admin mappava manualmente i prodotti in Seal.
 const PRODUCTS = [
-  { name: "Black Coffee", variant_id: "53545847095642" },
-  { name: "Latte", variant_id: "53545846604122" },
-  { name: "Mocha", variant_id: "53545846636890" },
-  { name: "Green Tea Ganoderma", variant_id: "53545847292250" },
+  { name: "Black Coffee", variant_id: "53545847095642", product_id: "10730370335066" },
+  { name: "Latte", variant_id: "53545844605274", product_id: "10730369286490" },
+  { name: "Mocha", variant_id: "53545846604122", product_id: "10730369974618" },
+  { name: "Green Tea Ganoderma", variant_id: "53545847816538", product_id: "10730370957658" },
 ];
 
 const SmartshipActivateCard = ({ renderTrigger }) => {
@@ -83,9 +87,17 @@ const SmartshipActivateCard = ({ renderTrigger }) => {
         product_name: products.map((p) => `${p.name} x${p.qty}`).join(" + "),
         frequency_days: 30,
         quantity: totalQty,
+        items: products.map((p) => ({
+          variant_id: p.variant_id,
+          product_id: p.product_id,
+          title: p.name,
+          quantity: p.qty,
+        })),
       });
       enqueueSnackbar(data?.data?.message || "Richiesta inviata.", { variant: "success" });
-      setReason("request_pending");
+      // Se auto-attivato -> reason=smartship_already_active (sub gia' live).
+      // Se manuale -> reason=request_pending (in attesa admin).
+      setReason(data?.data?.auto_activated ? "smartship_already_active" : "request_pending");
       setDialogOpen(false);
     } catch (e) {
       const msg = e?.response?.data?.error || "Errore durante l'attivazione. Riprova.";
