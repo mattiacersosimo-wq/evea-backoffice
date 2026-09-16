@@ -18,7 +18,7 @@ const PRODUCTS = [
   { name: "Green Tea Ganoderma", variant_id: "53545847292250" },
 ];
 
-const SmartshipActivateCard = () => {
+const SmartshipActivateCard = ({ variant = "card" }) => {
   const [eligible, setEligible] = useState(false);
   const [loading, setLoading] = useState(true);
   const [reason, setReason] = useState(null);
@@ -66,6 +66,77 @@ const SmartshipActivateCard = () => {
   };
 
   if (loading || !eligible) return null;
+
+  if (variant === "inline") {
+    return (
+      <>
+        <Button
+          variant="contained"
+          size="large"
+          onClick={() => setDialogOpen(true)}
+          startIcon={<Iconify icon="mdi:autorenew" />}
+          sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none", borderRadius: 2, px: 3 }}
+        >
+          Attiva smartship
+        </Button>
+
+        <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} fullWidth maxWidth="xs">
+          <DialogTitle sx={{ fontWeight: 800 }}>Attiva SmartShip</DialogTitle>
+          <DialogContent>
+            <Stack spacing={2.5} sx={{ mt: 1 }}>
+              <TextField
+                select fullWidth label="Prodotto"
+                value={productIdx}
+                onChange={(e) => setProductIdx(Number(e.target.value))}
+              >
+                {PRODUCTS.map((p, idx) => (
+                  <MenuItem key={p.variant_id} value={idx}>{p.name}</MenuItem>
+                ))}
+              </TextField>
+
+              <TextField
+                select fullWidth label="Frequenza"
+                value={frequency}
+                onChange={(e) => setFrequency(Number(e.target.value))}
+              >
+                <MenuItem value={30}>Ogni 30 giorni</MenuItem>
+                <MenuItem value={60}>Ogni 60 giorni</MenuItem>
+              </TextField>
+
+              <TextField
+                type="number" fullWidth label="Quantita per ordine"
+                value={quantity}
+                onChange={(e) => setQuantity(Math.max(1, Math.min(12, Number(e.target.value) || 1)))}
+                inputProps={{ min: 1, max: 12 }}
+              />
+
+              <Box sx={{
+                p: 1.5, borderRadius: 2, bgcolor: alpha(ORO, 0.06),
+                border: `1px solid ${alpha(ORO, 0.2)}`,
+              }}>
+                <Typography sx={{ fontSize: "0.78rem", color: "#6B5E54", lineHeight: 1.5 }}>
+                  <b>Prima consegna:</b> tra 30 giorni dalla conferma.<br />
+                  <b>Prezzo:</b> €26,73/busta (invece di €29,70) con -10% SmartShip.<br />
+                  <b>Cancellazione:</b> puoi disattivare in qualsiasi momento.
+                </Typography>
+              </Box>
+            </Stack>
+          </DialogContent>
+          <DialogActions sx={{ px: 3, pb: 2 }}>
+            <Button onClick={() => setDialogOpen(false)} disabled={submitting}>Annulla</Button>
+            <Button
+              variant="contained"
+              onClick={handleSubmit}
+              disabled={submitting}
+              sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700 }}
+            >
+              {submitting ? "Invio..." : "Conferma"}
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </>
+    );
+  }
 
   return (
     <>

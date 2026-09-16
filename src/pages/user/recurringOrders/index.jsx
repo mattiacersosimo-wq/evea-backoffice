@@ -9,6 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
+import SmartshipActivateCard from "src/components/SmartshipActivateCard";
 import DataHandlerList from "src/components/data-handler/list";
 import Map from "src/components/map";
 import PaginationButtons from "src/components/pagination";
@@ -310,17 +311,9 @@ const SealSection = () => {
           <Typography variant="body2" sx={{ color: "#7A6A5C", mt: 1, maxWidth: 520, mx: "auto" }}>
             Attiva uno <strong>smartship</strong> e ottieni il <strong>10% di sconto a vita</strong> su tutti i prodotti, <strong>un regalo che cresce con il tuo ordine ogni 3 mesi</strong> e una sola spedizione mensile.
           </Typography>
-          <Button
-            variant="contained"
-            size="large"
-            href={WP_URL}
-            target="_blank"
-            rel="noopener"
-            startIcon={<Iconify icon="mdi:storefront-outline" />}
-            sx={{ mt: 3, bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none", borderRadius: 2, px: 3 }}
-          >
-            Attiva smartship
-          </Button>
+          <Box sx={{ mt: 3 }}>
+            <SmartshipActivateCard variant="inline" />
+          </Box>
         </Card>
       </Box>
     );

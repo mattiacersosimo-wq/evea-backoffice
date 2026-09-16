@@ -19,7 +19,6 @@ import CommunityBanner from "src/components/CommunityBanner";
 import FounderCountdown from "src/components/FounderCountdown";
 import FounderBadge from "src/components/FounderBadge";
 import FounderPill from "src/components/FounderPill";
-import SmartshipActivateCard from "src/components/SmartshipActivateCard";
 import useFounderStatus from "src/hooks/useFounderStatus";
 import useOnboardingStatus from "src/hooks/useOnboardingStatus";
 import CopyCouponButton from "src/components/CopyCouponButton";
@@ -2046,8 +2045,6 @@ const PromoterDashboard = () => {
           <EarningsSection />
 
           {!preLaunchActive && <PoolFounderCard />}
-
-          {!preLaunchActive && <SmartshipActivateCard />}
 
           {user?.is_promoter === 1 && heroData && !preLaunchActive && (() => {
             const pkgLevel = PACKAGE_ID_TO_LEVEL[heroData.package_id] || 0;
