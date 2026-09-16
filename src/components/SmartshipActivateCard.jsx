@@ -66,14 +66,18 @@ const SmartshipActivateCard = ({ variant = "card" }) => {
     }
   };
 
-  if (loading) return null;
-
   // Se ha sub Seal attiva o richiesta pending non mostra nulla.
-  if (reason === "smartship_already_active" || reason === "request_pending") return null;
+  // NON gattiamo su loading: mostriamo comunque il bottone come default
+  // (link a myevea.com) durante il caricamento -> UX resiliente anche
+  // se l'endpoint eligibility fallisce/e' lento. Se poi eligibility
+  // arriva con smartship_already_active/request_pending, il bottone
+  // scompare.
+  if (!loading && (reason === "smartship_already_active" || reason === "request_pending")) return null;
 
-  // Se non ha ordini pregressi -> fallback link Shopify per primo ordine
-  // in modalita smartship (parte subito col discount).
-  const isFallback = reason === "no_past_order";
+  // Se ha ordini pregressi -> apre dialog delayed +30gg (usa flag Seal).
+  // Se NO ordini o loading -> link diretto a myevea.com (comportamento
+  // originale, sempre funzionante).
+  const useDialog = !loading && reason === null; // eligible=true (ordini pregressi + no sub)
 
   if (variant === "inline") {
     return (
@@ -81,8 +85,8 @@ const SmartshipActivateCard = ({ variant = "card" }) => {
         <Button
           variant="contained"
           size="large"
-          onClick={() => isFallback ? window.open(`${WP_URL.replace(/\/$/, "")}/collections/all`, "_blank") : setDialogOpen(true)}
-          startIcon={<Iconify icon={isFallback ? "mdi:storefront-outline" : "mdi:autorenew"} />}
+          onClick={() => useDialog ? setDialogOpen(true) : window.open(`${WP_URL.replace(/\/$/, "")}/collections/all`, "_blank")}
+          startIcon={<Iconify icon={useDialog ? "mdi:autorenew" : "mdi:storefront-outline"} />}
           sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none", borderRadius: 2, px: 3 }}
         >
           Attiva smartship
