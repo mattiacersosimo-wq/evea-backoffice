@@ -20,7 +20,7 @@ const PRODUCTS = [
   { name: "Black Coffee", variant_id: "53545847095642", product_id: "10730370335066" },
   { name: "Latte", variant_id: "53545844605274", product_id: "10730369286490" },
   { name: "Mocha", variant_id: "53545846604122", product_id: "10730369974618" },
-  { name: "Green Tea Ganoderma", variant_id: "53545847816538", product_id: "10730370957658" },
+  { name: "Green Tea", variant_id: "53545847816538", product_id: "10730370957658" },
 ];
 
 const SmartshipActivateCard = ({ renderTrigger }) => {
@@ -219,7 +219,8 @@ const SmartshipActivateCard = ({ renderTrigger }) => {
               <Typography sx={{ fontSize: "0.78rem", color: "#6B5E54", lineHeight: 1.5 }}>
                 <b>Frequenza:</b> ogni 30 giorni.<br />
                 <b>Prima consegna:</b> tra 30 giorni dalla conferma.<br />
-                <b>Prezzo:</b> €26,73/busta (invece di €29,70) con -10% SmartShip.<br />
+                <b>Primo mese:</b> €29,70/busta (prezzo pieno).<br />
+                <b>Dal 2° mese:</b> €26,73/busta con -10% SmartShip.<br />
                 <b>Cancellazione:</b> puoi disattivare in qualsiasi momento.
               </Typography>
             </Box>

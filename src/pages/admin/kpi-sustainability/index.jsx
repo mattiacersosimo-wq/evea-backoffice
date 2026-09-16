@@ -1,9 +1,11 @@
-import { Alert, Box, Card, Chip, Grid, LinearProgress, Skeleton, Stack, Typography } from "@mui/material";
+import { Alert, Box, Card, Chip, FormControl, Grid, LinearProgress, MenuItem, Select, Skeleton, Stack, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import axiosInstance from "src/utils/axios";
+
+const MONTH_NAMES = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
 
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
@@ -80,12 +82,13 @@ const KpiCard = ({ kpi }) => {
 
 const FinancialCard = ({ financial }) => {
   const grossMargin = financial.gross_margin || 0;
-  const marginPct = financial.revenue_mtd > 0
-    ? Math.round((grossMargin / financial.revenue_mtd) * 100)
-    : 0;
+  const netMargin = financial.net_margin ?? grossMargin;
+  const netMarginPct = financial.net_margin_pct ?? 0;
+  const opCosts = financial.operational_costs || {};
   const revDelta = financial.revenue_prev_month > 0
     ? Math.round(((financial.revenue_mtd - financial.revenue_prev_month) / financial.revenue_prev_month) * 100)
     : 0;
+  const fmt = (n) => (n ?? 0).toLocaleString("it-IT", { minimumFractionDigits: 2 });
 
   return (
     <Card sx={cardSx}>
@@ -94,9 +97,9 @@ const FinancialCard = ({ financial }) => {
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={6} md={3}>
-          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Fatturato lordo</Typography>
+          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Fatturato commerciale</Typography>
           <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: ESPRESSO }}>
-            €{financial.revenue_mtd?.toLocaleString("it-IT", { minimumFractionDigits: 2 }) || "0"}
+            €{fmt(financial.revenue_mtd)}
           </Typography>
           {revDelta !== 0 && (
             <Chip
@@ -112,27 +115,36 @@ const FinancialCard = ({ financial }) => {
           )}
         </Grid>
         <Grid item xs={6} md={3}>
-          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Bonus pagati</Typography>
+          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Bonus MLM</Typography>
           <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: DANGER }}>
-            -€{financial.total_bonus_cost?.toLocaleString("it-IT", { minimumFractionDigits: 2 }) || "0"}
+            -€{fmt(financial.total_bonus_cost)}
+          </Typography>
+          <Typography sx={{ fontSize: "0.65rem", color: MUTED, mt: 0.3 }}>
+            Margine lordo: €{fmt(grossMargin)}
           </Typography>
         </Grid>
         <Grid item xs={6} md={3}>
-          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Margine lordo</Typography>
-          <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: grossMargin >= 0 ? SUCCESS : DANGER }}>
-            €{grossMargin.toLocaleString("it-IT", { minimumFractionDigits: 2 })}
+          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Costi operativi</Typography>
+          <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: DANGER }}>
+            -€{fmt(opCosts.total)}
           </Typography>
-          <Typography sx={{ fontSize: "0.7rem", color: MUTED, mt: 0.3 }}>
-            {marginPct}% del fatturato
+          <Typography sx={{ fontSize: "0.6rem", color: MUTED, mt: 0.3, lineHeight: 1.3 }}>
+            COGS €{fmt(opCosts.cogs)} · Log €{fmt(opCosts.logistics)} · Fissi €{fmt(opCosts.fixed_monthly)}
           </Typography>
         </Grid>
         <Grid item xs={6} md={3}>
-          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Clienti / Promoter</Typography>
-          <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: ESPRESSO }}>
-            {financial.active_customers} / {financial.active_promoters}
+          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Margine netto</Typography>
+          <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: netMargin >= 0 ? SUCCESS : DANGER }}>
+            €{fmt(netMargin)}
           </Typography>
           <Typography sx={{ fontSize: "0.7rem", color: MUTED, mt: 0.3 }}>
-            {financial.churned_customers} churned questo mese
+            {netMarginPct}% del fatturato
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography sx={{ fontSize: "0.7rem", color: MUTED, mt: 1 }}>
+            Clienti / Promoter attivi: <b>{financial.active_customers} / {financial.active_promoters}</b>
+            {" · "}Churn mese: <b>{financial.churned_customers}</b>
           </Typography>
         </Grid>
       </Grid>
@@ -253,14 +265,26 @@ const TrendTable = ({ trend }) => (
 );
 
 const KpiSustainability = () => {
+  const now = new Date();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [year, setYear] = useState(now.getFullYear());
+  const [month, setMonth] = useState(now.getMonth() + 1);
+
+  const years = useMemo(() => {
+    const y = now.getFullYear();
+    return [y - 2, y - 1, y, y + 1];
+  }, []);
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
+      setError(null);
       try {
-        const { data: r } = await axiosInstance.get("api/wp/admin/kpi/sustainability");
+        const { data: r } = await axiosInstance.get("api/wp/admin/kpi/sustainability", {
+          params: { year, month },
+        });
         setData(r?.data);
       } catch (e) {
         setError(e?.response?.data?.message || e.message || "Errore caricamento KPI");
@@ -268,23 +292,46 @@ const KpiSustainability = () => {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [year, month]);
 
   return (
     <Page title="Sostenibilità Piano Compensi">
       <Box sx={{ p: { xs: 2, md: 3 }, bgcolor: "#f5f5f5", minHeight: "100vh" }}>
-        <Stack direction="row" alignItems="center" spacing={2} mb={3}>
-          <Box sx={{ width: 44, height: 44, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Iconify icon="mdi:scale-balance" width={26} sx={{ color: ORO }} />
-          </Box>
-          <Box>
-            <Typography variant="h5" sx={{ fontWeight: 700, color: ESPRESSO }}>
-              Sostenibilità Piano Compensi
-            </Typography>
-            <Typography sx={{ fontSize: "0.82rem", color: MUTED }}>
-              3 KPI critici + breakdown costi mensili (analisi 04/07/2026)
-            </Typography>
-          </Box>
+        <Stack direction={{ xs: "column", sm: "row" }} alignItems={{ xs: "flex-start", sm: "center" }} justifyContent="space-between" spacing={2} mb={3}>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Box sx={{ width: 44, height: 44, borderRadius: 2, bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Iconify icon="mdi:scale-balance" width={26} sx={{ color: ORO }} />
+            </Box>
+            <Box>
+              <Typography variant="h5" sx={{ fontWeight: 700, color: ESPRESSO }}>
+                Sostenibilità Piano Compensi
+              </Typography>
+              <Typography sx={{ fontSize: "0.82rem", color: MUTED }}>
+                3 KPI critici + breakdown costi mensili
+                {data?.period ? ` — ${MONTH_NAMES[data.period.month - 1]} ${data.period.year}` : ""}
+              </Typography>
+            </Box>
+          </Stack>
+          <Stack direction="row" spacing={1}>
+            <FormControl size="small" sx={{ minWidth: 130, bgcolor: "#fff", borderRadius: 1 }}>
+              <Select value={month} onChange={(e) => setMonth(e.target.value)}>
+                {MONTH_NAMES.map((name, idx) => (
+                  <MenuItem key={idx + 1} value={idx + 1}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl size="small" sx={{ minWidth: 90, bgcolor: "#fff", borderRadius: 1 }}>
+              <Select value={year} onChange={(e) => setYear(e.target.value)}>
+                {years.map((y) => (
+                  <MenuItem key={y} value={y}>
+                    {y}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Stack>
         </Stack>
 
         {loading && (
