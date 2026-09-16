@@ -1,244 +1,33 @@
-import { useEffect, useState } from "react";
-import {
-  Box, Button, Dialog, DialogActions, DialogContent,
-  DialogTitle, IconButton, Stack, Typography,
-} from "@mui/material";
-import { alpha } from "@mui/material/styles";
+import { Button } from "@mui/material";
 import Iconify from "src/components/Iconify";
-import fetchUser from "src/utils/fetchUser";
-import { useSnackbar } from "notistack";
 import { WP_URL } from "src/config";
 
 const ORO = "#B8963B";
-const ESPRESSO = "#2C1A0E";
 
-// Variant IDs verificate 16/09/2026 estraendo item.variant_id dalle sub Seal
-// esistenti via API. Le variant vecchie nel codice storico erano incorrette
-// (Latte era mappato al variant di Mocha, ecc) - non era mai stato notato
-// perche' il flusso admin mappava manualmente i prodotti in Seal.
-const PRODUCTS = [
-  { name: "Black Coffee", variant_id: "53545847095642", product_id: "10730370335066" },
-  { name: "Latte", variant_id: "53545844605274", product_id: "10730369286490" },
-  { name: "Mocha", variant_id: "53545846604122", product_id: "10730369974618" },
-  { name: "Green Tea", variant_id: "53545847816538", product_id: "10730370957658" },
-];
-
+// Componente wrapper del bottone "Attiva smartship". Ora e' un semplice
+// redirect alla pagina Shopify /collections/all. Fase 2 (attivazione via
+// API Seal delayed +30gg) messa in pausa: Seal richiede payment_method_id
+// interno che possiamo ottenere solo se il cliente ha gia' completato un
+// checkout subscription su Shopify - non fattibile per clienti spot.
 const SmartshipActivateCard = ({ renderTrigger }) => {
-  const [loading, setLoading] = useState(true);
-  const [reason, setReason] = useState(null);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  // Multi-select prodotti: array di indices selezionati
-  const [selectedProducts, setSelectedProducts] = useState([0]);
-  // Quantita' per prodotto: mappa { [idx]: number }
-  const [quantities, setQuantities] = useState({ 0: 1 });
-  const [submitting, setSubmitting] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
+  const targetUrl = `${WP_URL.replace(/\/$/, "")}/collections/all`;
 
-  const toggleProduct = (idx) => {
-    setSelectedProducts((prev) => {
-      if (prev.includes(idx)) {
-        setQuantities((q) => {
-          const next = { ...q };
-          delete next[idx];
-          return next;
-        });
-        return prev.filter((i) => i !== idx);
-      }
-      setQuantities((q) => ({ ...q, [idx]: q[idx] || 1 }));
-      return [...prev, idx];
-    });
-  };
+  const handleClick = () => window.open(targetUrl, "_blank");
 
-  const bumpQty = (idx, delta) => {
-    setQuantities((q) => {
-      const current = q[idx] || 1;
-      const next = Math.max(1, Math.min(12, current + delta));
-      return { ...q, [idx]: next };
-    });
-  };
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await fetchUser.get("smartship/eligibility");
-        setReason(data?.data?.reason || null);
-      } catch (e) {
-        // fallback: bottone come link a myevea.com
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
-
-  const handleSubmit = async () => {
-    if (selectedProducts.length === 0) {
-      enqueueSnackbar("Seleziona almeno un prodotto.", { variant: "warning" });
-      return;
-    }
-    setSubmitting(true);
-    try {
-      const products = selectedProducts.map((idx) => ({
-        ...PRODUCTS[idx],
-        qty: quantities[idx] || 1,
-      }));
-      const totalQty = products.reduce((sum, p) => sum + p.qty, 0);
-      const { data } = await fetchUser.post("smartship/activate", {
-        product_variant_id: products.map((p) => p.variant_id).join(","),
-        product_name: products.map((p) => `${p.name} x${p.qty}`).join(" + "),
-        frequency_days: 30,
-        quantity: totalQty,
-        items: products.map((p) => ({
-          variant_id: p.variant_id,
-          product_id: p.product_id,
-          title: p.name,
-          quantity: p.qty,
-        })),
-      });
-      enqueueSnackbar(data?.data?.message || "Richiesta inviata.", { variant: "success" });
-      // Se auto-attivato -> reason=smartship_already_active (sub gia' live).
-      // Se manuale -> reason=request_pending (in attesa admin).
-      setReason(data?.data?.auto_activated ? "smartship_already_active" : "request_pending");
-      setDialogOpen(false);
-    } catch (e) {
-      const msg = e?.response?.data?.error || "Errore durante l'attivazione. Riprova.";
-      enqueueSnackbar(msg, { variant: "error" });
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  // Se ha sub Seal attiva o richiesta pending non mostra nulla.
-  // NON gattiamo su loading: mostriamo comunque il bottone come default
-  // (link a myevea.com) durante il caricamento -> UX resiliente anche
-  // se l'endpoint eligibility fallisce/e' lento.
-  if (!loading && (reason === "smartship_already_active" || reason === "request_pending")) return null;
-
-  // Se ha ordini pregressi -> apre dialog delayed +30gg (usa flag Seal).
-  // Se NO ordini o loading -> link diretto a myevea.com (comportamento
-  // originale, sempre funzionante).
-  const useDialog = !loading && reason === null;
-  const handleClick = () => useDialog
-    ? setDialogOpen(true)
-    : window.open(`${WP_URL.replace(/\/$/, "")}/collections/all`, "_blank");
-
-  const trigger = renderTrigger
-    ? renderTrigger({ onClick: handleClick, useDialog })
-    : (
-      <Button
-        variant="contained"
-        size="large"
-        onClick={handleClick}
-        startIcon={<Iconify icon={useDialog ? "mdi:autorenew" : "mdi:storefront-outline"} />}
-        sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none", borderRadius: 2, px: 3 }}
-      >
-        Attiva smartship
-      </Button>
-    );
+  if (renderTrigger) {
+    return renderTrigger({ onClick: handleClick, useDialog: false });
+  }
 
   return (
-    <>
-      {trigger}
-
-      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} fullWidth maxWidth="xs">
-        <DialogTitle sx={{ fontWeight: 800 }}>Attiva SmartShip</DialogTitle>
-        <DialogContent>
-          <Stack spacing={2} sx={{ mt: 1 }}>
-            <Box>
-              <Typography sx={{ fontSize: "0.85rem", fontWeight: 600, color: ESPRESSO, mb: 1 }}>
-                Scegli i prodotti e le quantita
-              </Typography>
-              <Stack spacing={1}>
-                {PRODUCTS.map((p, idx) => {
-                  const active = selectedProducts.includes(idx);
-                  const qty = quantities[idx] || 1;
-                  return (
-                    <Box
-                      key={p.variant_id}
-                      sx={{
-                        p: 1.25, borderRadius: 2,
-                        border: `2px solid ${active ? ORO : "#e5dcc9"}`,
-                        bgcolor: active ? alpha(ORO, 0.08) : "#fff",
-                        display: "flex", alignItems: "center", gap: 1.25,
-                        transition: "all 0.15s",
-                      }}
-                    >
-                      <Box
-                        onClick={() => toggleProduct(idx)}
-                        sx={{
-                          display: "flex", alignItems: "center", gap: 1.25,
-                          cursor: "pointer", flex: 1, minWidth: 0,
-                        }}
-                      >
-                        <Box sx={{
-                          width: 22, height: 22, borderRadius: "50%",
-                          border: `2px solid ${active ? ORO : "#c9c0ad"}`,
-                          bgcolor: active ? ORO : "transparent",
-                          display: "flex", alignItems: "center", justifyContent: "center",
-                          flexShrink: 0,
-                        }}>
-                          {active && <Iconify icon="mdi:check" width={14} sx={{ color: "#fff" }} />}
-                        </Box>
-                        <Typography sx={{ fontSize: "0.9rem", fontWeight: 600, color: ESPRESSO }}>
-                          {p.name}
-                        </Typography>
-                      </Box>
-
-                      {active && (
-                        <Stack direction="row" alignItems="center" spacing={0.5} sx={{ flexShrink: 0 }}>
-                          <IconButton
-                            size="small"
-                            onClick={() => bumpQty(idx, -1)}
-                            disabled={qty <= 1}
-                            sx={{ border: `1px solid ${alpha(ORO, 0.3)}`, width: 26, height: 26, borderRadius: 1 }}
-                          >
-                            <Iconify icon="mdi:minus" width={14} sx={{ color: ORO }} />
-                          </IconButton>
-                          <Typography sx={{ minWidth: 22, textAlign: "center", fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>
-                            {qty}
-                          </Typography>
-                          <IconButton
-                            size="small"
-                            onClick={() => bumpQty(idx, 1)}
-                            disabled={qty >= 12}
-                            sx={{ border: `1px solid ${alpha(ORO, 0.3)}`, width: 26, height: 26, borderRadius: 1 }}
-                          >
-                            <Iconify icon="mdi:plus" width={14} sx={{ color: ORO }} />
-                          </IconButton>
-                        </Stack>
-                      )}
-                    </Box>
-                  );
-                })}
-              </Stack>
-            </Box>
-
-            <Box sx={{
-              p: 1.5, borderRadius: 2, bgcolor: alpha(ORO, 0.06),
-              border: `1px solid ${alpha(ORO, 0.2)}`,
-            }}>
-              <Typography sx={{ fontSize: "0.78rem", color: "#6B5E54", lineHeight: 1.5 }}>
-                <b>Frequenza:</b> ogni 30 giorni.<br />
-                <b>Prima consegna:</b> tra 30 giorni dalla conferma.<br />
-                <b>Primo mese:</b> €29,70/busta (prezzo pieno).<br />
-                <b>Dal 2° mese:</b> €26,73/busta con -10% SmartShip.<br />
-                <b>Cancellazione:</b> puoi disattivare in qualsiasi momento.
-              </Typography>
-            </Box>
-          </Stack>
-        </DialogContent>
-        <DialogActions sx={{ px: 3, pb: 2 }}>
-          <Button onClick={() => setDialogOpen(false)} disabled={submitting}>Annulla</Button>
-          <Button
-            variant="contained"
-            onClick={handleSubmit}
-            disabled={submitting}
-            sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700 }}
-          >
-            {submitting ? "Invio..." : "Conferma"}
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
+    <Button
+      variant="contained"
+      size="large"
+      onClick={handleClick}
+      startIcon={<Iconify icon="mdi:storefront-outline" />}
+      sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none", borderRadius: 2, px: 3 }}
+    >
+      Attiva smartship
+    </Button>
   );
 };
 
