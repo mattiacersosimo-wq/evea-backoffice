@@ -26,6 +26,7 @@ import fetchUser from "src/utils/fetchUser";
 import { WP_URL } from "src/config";
 import CustomerCommunityBanner from "src/components/CustomerCommunityBanner";
 import CopyCouponButton from "src/components/CopyCouponButton";
+import SmartshipActivateCard from "src/components/SmartshipActivateCard";
 
 // ── Palette ──
 const ORO = "#B8963B";
@@ -947,10 +948,12 @@ const UserDashboard = () => {
                     </Typography>
                   </Box>
                 </Stack>
-                <Button size="small" variant="contained" href={`${WP_URL}/collections/all`} target="_blank"
-                  sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, textTransform: "none", fontWeight: 700, borderRadius: 2, flexShrink: 0 }}>
-                  {t("evea.activate_now") || "Attiva ora"}
-                </Button>
+                <SmartshipActivateCard renderTrigger={({ onClick }) => (
+                  <Button size="small" variant="contained" onClick={onClick}
+                    sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, textTransform: "none", fontWeight: 700, borderRadius: 2, flexShrink: 0 }}>
+                    {t("evea.activate_now") || "Attiva ora"}
+                  </Button>
+                )} />
               </Box>
             );
           })();
