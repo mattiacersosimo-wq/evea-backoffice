@@ -22,6 +22,7 @@ import FounderPill from "src/components/FounderPill";
 import useFounderStatus from "src/hooks/useFounderStatus";
 import useOnboardingStatus from "src/hooks/useOnboardingStatus";
 import CopyCouponButton from "src/components/CopyCouponButton";
+import SmartshipActivateCard from "src/components/SmartshipActivateCard";
 import FiscalThresholdBanner from "src/components/FiscalThresholdBanner";
 import { stripHiddenUsers } from "src/utils/displayName";
 
@@ -2024,10 +2025,12 @@ const PromoterDashboard = () => {
                           <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>{t("evea.loyalty_inactive_sub")}</Typography>
                         </Box>
                       </Stack>
-                      <Button size="small" variant="contained" href={`${WP_URL}/collections/all`} target="_blank"
-                        sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, textTransform: "none", fontWeight: 700, borderRadius: 2 }}>
-                        {t("evea.activate_now")}
-                      </Button>
+                      <SmartshipActivateCard renderTrigger={({ onClick }) => (
+                        <Button size="small" variant="contained" onClick={onClick}
+                          sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, textTransform: "none", fontWeight: 700, borderRadius: 2 }}>
+                          {t("evea.activate_now")}
+                        </Button>
+                      )} />
                     </Box>
                   );
                 })()}
