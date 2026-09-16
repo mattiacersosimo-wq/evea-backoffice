@@ -7,6 +7,7 @@ import { alpha } from "@mui/material/styles";
 import Iconify from "src/components/Iconify";
 import fetchUser from "src/utils/fetchUser";
 import { useSnackbar } from "notistack";
+import { WP_URL } from "src/config";
 
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
@@ -65,7 +66,14 @@ const SmartshipActivateCard = ({ variant = "card" }) => {
     }
   };
 
-  if (loading || !eligible) return null;
+  if (loading) return null;
+
+  // Se ha sub Seal attiva o richiesta pending non mostra nulla.
+  if (reason === "smartship_already_active" || reason === "request_pending") return null;
+
+  // Se non ha ordini pregressi -> fallback link Shopify per primo ordine
+  // in modalita smartship (parte subito col discount).
+  const isFallback = reason === "no_past_order";
 
   if (variant === "inline") {
     return (
@@ -73,8 +81,8 @@ const SmartshipActivateCard = ({ variant = "card" }) => {
         <Button
           variant="contained"
           size="large"
-          onClick={() => setDialogOpen(true)}
-          startIcon={<Iconify icon="mdi:autorenew" />}
+          onClick={() => isFallback ? window.open(`${WP_URL.replace(/\/$/, "")}/collections/all`, "_blank") : setDialogOpen(true)}
+          startIcon={<Iconify icon={isFallback ? "mdi:storefront-outline" : "mdi:autorenew"} />}
           sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none", borderRadius: 2, px: 3 }}
         >
           Attiva smartship
