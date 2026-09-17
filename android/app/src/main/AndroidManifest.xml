@@ -32,4 +32,8 @@
     <!-- Permissions -->
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Android 13+ (API 33+) richiede POST_NOTIFICATIONS runtime per
+         mostrare push. Senza questo permesso l'app riceve il token FCM ma
+         il sistema scarta silenziosamente le notifiche. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 </manifest>
