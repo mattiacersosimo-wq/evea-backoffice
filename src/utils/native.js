@@ -46,7 +46,12 @@ export const initNativeShell = async () => {
   // o download fallisce, fallback su next() come prima (attivo al prossimo boot).
   // Motivo: prima gli utenti vedevano per ~1s la "schermata vecchia" al primo
   // boot dopo un deploy, poi al restart successivo apparivano gli update.
-  const OTA_TIMEOUT_MS = 4000;
+  //
+  // Timeout aumentato 4s -> 15s (17/09/2026): bundle da 6.7MB su 4G/Wi-Fi
+  // lento non riusciva a completarsi in 4s, cadeva su next() ma il cold
+  // start successivo non arrivava mai (utenti aprono da background).
+  // 15s dà margine per completare il download in condizioni realistiche.
+  const OTA_TIMEOUT_MS = 15000;
   const otaCheck = (async () => {
     const res = await fetch("https://api.myevea.com/updates/manifest.json", { cache: "no-store" });
     if (!res.ok) return "no-manifest";
