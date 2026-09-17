@@ -26,10 +26,6 @@ export const initNativeShell = async () => {
     console.warn("StatusBar init failed", e);
   }
 
-  setTimeout(() => {
-    SplashScreen.hide().catch(() => {});
-  }, 800);
-
   CapApp.addListener("backButton", ({ canGoBack }) => {
     if (canGoBack) window.history.back();
     else CapApp.exitApp();
@@ -44,38 +40,60 @@ export const initNativeShell = async () => {
     console.warn("CapacitorUpdater notifyAppReady failed", e);
   }
 
-  // Check per bundle nuovo in background (non blocca UI).
-  // Bug precedente: download() scaricava il bundle ma non era mai
-  // attivato per l'apply successivo. Serve chiamare next({id}) per
-  // marcare quale bundle applicare al prossimo cold-start.
+  // Check OTA SINCRONO con timeout 4s: se c'e' un update disponibile e riusciamo
+  // a scaricarlo + applicarlo in tempo, l'utente vede subito la versione nuova
+  // (set() ricarica il WebView col bundle appena scaricato). Se timeout scade
+  // o download fallisce, fallback su next() come prima (attivo al prossimo boot).
+  // Motivo: prima gli utenti vedevano per ~1s la "schermata vecchia" al primo
+  // boot dopo un deploy, poi al restart successivo apparivano gli update.
+  const OTA_TIMEOUT_MS = 4000;
+  const otaCheck = (async () => {
+    const res = await fetch("https://api.myevea.com/updates/manifest.json", { cache: "no-store" });
+    if (!res.ok) return "no-manifest";
+    const manifest = await res.json();
+    if (!manifest.url || !manifest.version) return "no-manifest";
+    const current = await CapacitorUpdater.current();
+    if (current?.bundle?.version === manifest.version) return "up-to-date";
+    console.log(`[OTA] Nuovo bundle ${manifest.version} disponibile, download in corso...`);
+    const bundle = await CapacitorUpdater.download({
+      url: manifest.url,
+      version: manifest.version,
+      checksum: manifest.checksum || undefined,
+    });
+    if (!bundle?.id) return "no-bundle-id";
+    // Marca come next: se set() sotto va in timeout, l'update si applica
+    // comunque al prossimo restart (fallback identico al comportamento precedente).
+    await CapacitorUpdater.next({ id: bundle.id });
+    // set() ricarica il WebView col nuovo bundle SUBITO. Il codice dopo non viene
+    // eseguito (l'app riparte). Se set() fallisce o e' bloccato, il race col
+    // timeout esterno prosegue col bundle attuale — l'update sara' comunque
+    // attivo al prossimo cold-start grazie al next() sopra.
+    await CapacitorUpdater.set({ id: bundle.id });
+    return "reloaded";
+  })();
+
+  const timeout = new Promise((resolve) => setTimeout(() => resolve("timeout"), OTA_TIMEOUT_MS));
+
   try {
-    const manifestUrl = "https://api.myevea.com/updates/manifest.json";
-    const res = await fetch(manifestUrl, { cache: "no-store" });
-    if (res.ok) {
-      const manifest = await res.json();
-      if (manifest.url && manifest.version) {
-        const current = await CapacitorUpdater.current();
-        if (current?.bundle?.version !== manifest.version) {
-          console.log(`[OTA] Nuovo bundle ${manifest.version} disponibile, download in corso...`);
-          const bundle = await CapacitorUpdater.download({
-            url: manifest.url,
-            version: manifest.version,
-            checksum: manifest.checksum || undefined,
-          });
-          // Marca il bundle come "next" — sara' attivato al prossimo cold-start.
-          // Senza next() il download restava dormant e l'app continuava sul
-          // bundle bundled originale (bug scoperto 09/09/2026).
-          if (bundle?.id) {
-            await CapacitorUpdater.next({ id: bundle.id });
-            console.log(`[OTA] Bundle ${manifest.version} scaricato + marked next, sara' attivo al prossimo restart`);
-          } else {
-            console.warn("[OTA] Download completato ma bundle.id mancante — non posso chiamare next()");
-          }
-        }
-      }
+    const result = await Promise.race([otaCheck, timeout]);
+    console.log(`[OTA] result=${result}`);
+    if (result === "reloaded") {
+      // App si sta ricaricando col nuovo bundle. Non nascondere splash qui:
+      // il nuovo bundle chiamera' initNativeShell() di nuovo e gestira' hide.
+      return;
     }
   } catch (e) {
-    console.warn("OTA check failed (silent)", e);
+    console.warn("OTA immediate check failed (silent, proceeding)", e);
+  }
+
+  // Nasconde splash — l'app procede col bundle attuale.
+  // Casi: (1) nessun update disponibile, (2) update scaricato ma set() lento
+  // (timeout), (3) errore rete, (4) manifest non raggiungibile.
+  // In tutti i casi, meglio mostrare l'app rispetto a bloccare l'utente.
+  try {
+    await SplashScreen.hide();
+  } catch (e) {
+    console.warn("SplashScreen.hide failed", e);
   }
 };
 

@@ -14,7 +14,7 @@ AuthGuard.propTypes = {
 };
 
 export default function AuthGuard({ children }) {
-  const { isAuthenticated, isInitialized } = useAuth();
+  const { isAuthenticated, isInitialized, user } = useAuth();
   const { pathname } = useLocation();
   const [requestedLocation, setRequestedLocation] = useState(null);
 
@@ -28,6 +28,15 @@ export default function AuthGuard({ children }) {
       setRequestedLocation(pathname);
     }
     return <Login />;
+  }
+
+  // Al bootstrap con token valido, JWTContext.initialize() imposta user={}
+  // e App.js chiama getUser() in un secondo momento. Senza questa guardia
+  // il DashboardRouter renderizzerebbe CustomerDashboard di default (perche'
+  // user.is_promoter !== 1) per la manciata di ms fino al ritorno di getUser,
+  // causando il "flash" del contenuto sbagliato.
+  if (user && !Object.keys(user).length) {
+    return <LoadingScreen />;
   }
 
   if (requestedLocation && pathname !== requestedLocation) {
