@@ -846,6 +846,127 @@ const CouponsSection = ({ coupons, loading }) => {
 };
 
 // ═══════════════════════════════════════════════
+// QUICK ACCESS (cliente puro)
+// Shortcut per condividere: shop, quiz, landing prodotto e opportunita.
+// Il ref sui link porta lead / potenziali promoter attribuiti al cliente
+// (chi si iscrive tramite quel link viene assegnato allo sponsor del cliente
+// se il cliente non e' ancora promoter, o al cliente stesso se diventa
+// promoter — la logica backend gia' gestisce entrambi i casi).
+// ═══════════════════════════════════════════════
+const QuickAccessCustomer = () => {
+  const { user } = useAuth();
+  const { enqueueSnackbar } = useSnackbar();
+  const refSlug = user?.username ? user.username.toLowerCase().replace(/\s+/g, "") : "";
+  const shopLink = refSlug
+    ? `${WP_URL.replace(/\/$/, "")}/collections/all?ref=${refSlug}`
+    : `${WP_URL.replace(/\/$/, "")}/collections/all`;
+  const quizLink = refSlug
+    ? `${WP_URL.replace(/\/$/, "")}/pages/trova-il-tuo-rituale?ref=${refSlug}`
+    : "";
+  const productLandingLink = user?.username
+    ? `https://community.myevea.com/scopri/${encodeURIComponent(user.username)}`
+    : "";
+  const opportunityLink = user?.username
+    ? `https://community.myevea.com/scopri-opportunita?sponsor=${encodeURIComponent(user.username)}`
+    : "";
+
+  const shareOrCopy = async (url, title, text, snackbarMsg) => {
+    if (!url) return;
+    if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+      try {
+        await navigator.share({ title, text, url });
+        return;
+      } catch (e) {
+        // fall through al copy
+      }
+    }
+    await navigator.clipboard.writeText(url);
+    enqueueSnackbar(snackbarMsg);
+  };
+
+  const shortcuts = [
+    {
+      icon: "mdi:storefront-outline",
+      label: "Negozio",
+      action: () => window.open(shopLink, "_blank"),
+    },
+    {
+      icon: "mdi:help-circle-outline",
+      label: "Link Quiz",
+      action: async () => {
+        if (!quizLink) return;
+        await navigator.clipboard.writeText(quizLink);
+        enqueueSnackbar("Link Quiz copiato!");
+      },
+    },
+    {
+      icon: "mdi:coffee-outline",
+      label: "Landing Prodotto",
+      action: () => shareOrCopy(
+        productLandingLink,
+        "Scopri il caffè eVea",
+        "Ti faccio scoprire il caffè funzionale eVea — un rituale quotidiano che cambia la giornata.",
+        "Link Prodotto copiato!"
+      ),
+    },
+    {
+      icon: "mdi:rocket-launch-outline",
+      label: "Landing Opportunità",
+      action: () => shareOrCopy(
+        opportunityLink,
+        "Scopri l'opportunità eVea",
+        "Ti invito a scoprire il progetto eVea e le sue opportunità.",
+        "Link Opportunità copiato!"
+      ),
+    },
+  ];
+
+  return (
+    <Box>
+      <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1.5, mt: 3 }}>
+        <Iconify icon="mdi:flash" width={20} sx={{ color: ORO }} />
+        <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ESPRESSO }}>
+          Accesso Rapido
+        </Typography>
+      </Stack>
+      <Grid container spacing={1.5}>
+        {shortcuts.map((s) => (
+          <Grid item xs={6} md={3} key={s.label}>
+            <Card onClick={s.action} sx={{
+              ...cardSx, p: 1.5, textAlign: "center",
+              cursor: "pointer",
+              transition: "transform .2s ease, box-shadow .2s ease, border-color .2s ease",
+              position: "relative", overflow: "hidden",
+              "&:hover": {
+                transform: "translateY(-3px)",
+                boxShadow: `0 6px 16px ${alpha(ORO, 0.18)}`,
+                borderColor: alpha(ORO, 0.4),
+                "& .qa-icon-box": {
+                  background: `linear-gradient(135deg, ${alpha(ORO, 0.22)} 0%, ${alpha(ORO, 0.08)} 100%)`,
+                },
+              },
+            }}>
+              <Box className="qa-icon-box" sx={{
+                width: 40, height: 40, borderRadius: 2,
+                background: `linear-gradient(135deg, ${alpha(ORO, 0.14)} 0%, ${alpha(ORO, 0.04)} 100%)`,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                mx: "auto", mb: 0.8,
+                transition: "background .2s ease",
+              }}>
+                <Iconify icon={s.icon} width={20} sx={{ color: ORO }} />
+              </Box>
+              <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: ESPRESSO }}>
+                {s.label}
+              </Typography>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
+  );
+};
+
+// ═══════════════════════════════════════════════
 // MAIN
 // ═══════════════════════════════════════════════
 const UserDashboard = () => {
@@ -864,6 +985,7 @@ const UserDashboard = () => {
         <HeroCard hero={hero} ff={ff} rob={rob} totalOrders={totalOrders} badgesLoading={ffLoading || robLoading} />
         <Box sx={{ mt: 2 }}><CustomerCommunityBanner /></Box>
         <Ticker />
+        <QuickAccessCustomer />
 
         {/* Loyalty Discount Banner + Diventa Distributore (affiancati per cliente puro senza smartship) */}
         {(() => {
