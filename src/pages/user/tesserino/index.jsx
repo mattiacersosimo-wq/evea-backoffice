@@ -17,15 +17,37 @@ const Tesserino = () => {
   const { user } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
   const canvasRef = useRef(null);
-  const profile = user?.user_profile || {};
+  // Fetch profilo dedicato: il payload di /api/profile potrebbe non
+  // includere user_profile in modo affidabile. Chiamata a /api/user-profile
+  // (o fallback su /api/profile) garantisce dati anagrafici sempre presenti.
+  const [profileData, setProfileData] = useState(null);
+  const profile = profileData || user?.user_profile || user?.userProfile || {};
 
   const [photo, setPhoto] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(profile.profile_image || null);
   const [uploading, setUploading] = useState(false);
   const [generated, setGenerated] = useState(false);
+  const [profileLoaded, setProfileLoaded] = useState(false);
+
+  useEffect(() => {
+    // Refetch profilo per garantire dati anagrafici presenti (fix 18/09/2026:
+    // useAuth.user.user_profile a volte non e' popolato al primo render).
+    (async () => {
+      try {
+        const { data } = await axiosInstance.get("api/profile");
+        const u = data?.data?.user || {};
+        const p = u.user_profile || u.userProfile || {};
+        setProfileData(p);
+      } catch (e) {
+        // fallback: usa user_profile da useAuth se c'e'
+      } finally {
+        setProfileLoaded(true);
+      }
+    })();
+  }, []);
 
   const nome = [profile.first_name, profile.last_name].filter(Boolean).join(" ") || user?.username || "";
-  const cf = user?.codice_fiscale || user?.tax_code || "N/A";
+  const cf = user?.codice_fiscale || user?.tax_code || profileData?.codice_fiscale || "N/A";
   const citta = profile.city || "N/A";
   const dob = profile.date_of_birth ? new Date(profile.date_of_birth).toLocaleDateString("it-IT") : "N/A";
   const numero = `EVEA-${String(user?.id || 0).padStart(6, "0")}`;
@@ -76,10 +98,11 @@ const Tesserino = () => {
     ctx.textAlign = "center";
     ctx.fillText("EVEA Global S.r.l.", W / 2, 38);
 
-    // Subtitle
+    // Subtitle (letterSpacing rimosso: non standard Canvas 2D, supportato
+    // solo Chrome >=99 / Firefox >=118. Su browser piu' vecchi puo' bloccare
+    // silenziosamente il rendering del resto del canvas).
     ctx.fillStyle = ORO;
     ctx.font = "bold 10px Arial";
-    ctx.letterSpacing = "2px";
     ctx.fillText("TESSERINO INCARICATO ALLA VENDITA A DOMICILIO", W / 2, 58);
 
     // Photo area
@@ -173,8 +196,11 @@ const Tesserino = () => {
   }, [photoUrl, nome, cf, citta, dob, dataRilascio, numero]);
 
   useEffect(() => {
+    // Aspetta il caricamento del profilo prima di generare (evita render con
+    // dati vuoti che potrebbero rimanere se il ri-render non scatta).
+    if (!profileLoaded) return;
     generateCard();
-  }, [generateCard]);
+  }, [generateCard, profileLoaded]);
 
   const handleDownload = () => {
     const canvas = canvasRef.current;
