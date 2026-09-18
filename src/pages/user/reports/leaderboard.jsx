@@ -144,16 +144,16 @@ const LeaderboardContent = ({ data, tab, setTab, isIt, globalOnly = false }) => 
   const items = stripHiddenUsers(data?.[current.dataKey] || []);
 
   const allTabLabels = isIt
-    ? ["GV Globale", "Reclutatori Globale", "Clienti Globale", "Rank Up Globale",
-       "GV Team", "Reclutatori Team", "Clienti Team", "Rank Up Team"]
-    : ["GV Global", "Recruiters Global", "Customers Global", "Rank Up Global",
-       "GV Team", "Recruiters Team", "Customers Team", "Rank Up Team"];
+    ? ["GV Globale", "Reclutatori Promoter", "Reclutatori Clienti", "Rank Up Globale",
+       "GV Team", "Team - Reclut. Promoter", "Team - Reclut. Clienti", "Rank Up Team"]
+    : ["GV Global", "Promoter Recruiters", "Customer Recruiters", "Rank Up Global",
+       "GV Team", "Team - Promoter Recr.", "Team - Customer Recr.", "Rank Up Team"];
 
   const allCardTitles = isIt
-    ? ["Classifica GV — Globale", "Classifica Reclutatori — Globale", "Classifica Clienti — Globale", "Classifica Rank Up — Globale",
-       "Classifica GV — Team", "Classifica Reclutatori — Team", "Classifica Clienti — Team", "Classifica Rank Up — Team"]
-    : ["GV Ranking — Global", "Recruiters Ranking — Global", "Customers Ranking — Global", "Rank Up Ranking — Global",
-       "GV Ranking — Team", "Recruiters Ranking — Team", "Customers Ranking — Team", "Rank Up Ranking — Team"];
+    ? ["Classifica GV — Globale", "Reclutatori di Promoter — Globale", "Reclutatori di Clienti — Globale", "Classifica Rank Up — Globale",
+       "Classifica GV — Team", "Reclutatori di Promoter — Team", "Reclutatori di Clienti — Team", "Classifica Rank Up — Team"]
+    : ["GV Ranking — Global", "Promoter Recruiters — Global", "Customer Recruiters — Global", "Rank Up Ranking — Global",
+       "GV Ranking — Team", "Promoter Recruiters — Team", "Customer Recruiters — Team", "Rank Up Ranking — Team"];
 
   const allCardIcons = ["mdi:chart-box", "mdi:account-multiple-plus", "mdi:account-group", "mdi:medal",
                         "mdi:chart-box", "mdi:account-multiple-plus", "mdi:account-group", "mdi:medal"];
