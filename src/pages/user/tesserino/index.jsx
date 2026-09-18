@@ -71,6 +71,10 @@ const Tesserino = () => {
     const H = 400;
     canvas.width = W;
     canvas.height = H;
+    // Debug: log dati usati per generare (utile se ancora vuoto in prod)
+    if (typeof window !== "undefined" && window.console) {
+      console.log("[Tesserino] generateCard", { nome, cf, citta, dob, numero, hasPhoto: !!photoUrl });
+    }
 
     // Background gradient
     const grad = ctx.createLinearGradient(0, 0, W, H);
@@ -111,6 +115,24 @@ const Tesserino = () => {
     const photoW = 100;
     const photoH = 125;
 
+    // Helper: disegna placeholder foto + fields (usato in caso no photo
+    // o quando la foto fallisce a caricarsi)
+    const drawPlaceholderAndFields = () => {
+      ctx.strokeStyle = "#ccc";
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.roundRect(photoX, photoY, photoW, photoH, 4);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = "#ccc";
+      ctx.font = "11px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText("Carica foto", photoX + photoW / 2, photoY + photoH / 2);
+      drawFields(ctx, W, H);
+      setGenerated(true);
+    };
+
     if (photoUrl) {
       const img = new Image();
       img.crossOrigin = "anonymous";
@@ -130,22 +152,16 @@ const Tesserino = () => {
         drawFields(ctx, W, H);
         setGenerated(true);
       };
+      // Fix 18/09/2026: se la foto fallisce a caricare (URL rotto, CORS,
+      // 404) il canvas restava vuoto senza dati. Fallback su placeholder
+      // + drawFields cosi' il tesserino mostra almeno i dati anagrafici.
+      img.onerror = () => {
+        console.warn("[Tesserino] photo failed to load, using placeholder", photoUrl);
+        drawPlaceholderAndFields();
+      };
       img.src = photoUrl;
     } else {
-      // Placeholder
-      ctx.strokeStyle = "#ccc";
-      ctx.lineWidth = 1.5;
-      ctx.setLineDash([4, 4]);
-      ctx.beginPath();
-      ctx.roundRect(photoX, photoY, photoW, photoH, 4);
-      ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle = "#ccc";
-      ctx.font = "11px Arial";
-      ctx.textAlign = "center";
-      ctx.fillText("Carica foto", photoX + photoW / 2, photoY + photoH / 2);
-      drawFields(ctx, W, H);
-      setGenerated(true);
+      drawPlaceholderAndFields();
     }
 
     function drawFields(ctx, W, H) {
@@ -196,11 +212,13 @@ const Tesserino = () => {
   }, [photoUrl, nome, cf, citta, dob, dataRilascio, numero]);
 
   useEffect(() => {
-    // Aspetta il caricamento del profilo prima di generare (evita render con
-    // dati vuoti che potrebbero rimanere se il ri-render non scatta).
-    if (!profileLoaded) return;
+    // Genera SEMPRE, anche prima del fetch profilo (mostra i dati parziali
+    // disponibili da useAuth). Quando arriva il profilo dal fetch, un
+    // re-render scatta e il canvas viene rigenerato con dati completi.
+    // Nessun gate su profileLoaded: se il fetch fallisce, il canvas mostra
+    // comunque i dati di useAuth invece di restare vuoto.
     generateCard();
-  }, [generateCard, profileLoaded]);
+  }, [generateCard]);
 
   const handleDownload = () => {
     const canvas = canvasRef.current;
