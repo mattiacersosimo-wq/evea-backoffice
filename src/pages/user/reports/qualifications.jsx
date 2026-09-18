@@ -8,11 +8,25 @@ import axiosInstance from "src/utils/axios";
 const ORO = "#B8963B"; const ESPRESSO = "#2C1A0E"; const MUTED = "#7A6A5C";
 const cs = { bgcolor: "#fff", borderRadius: 3, border: "1px solid #f0ece6", boxShadow: "0 1px 4px rgba(0,0,0,0.04)" };
 
-const getBadge = (pct) => {
-  if (pct >= 90) return { label: "Ready!", color: "#4A5C3A", bg: "#EAF3DE" };
-  if (pct >= 70) return { label: "Almost!", color: ORO, bg: alpha(ORO, 0.1) };
+// Ready = TUTTI i requisiti al 100% (piano Sez.2: per raggiungere un rank
+// servono tutti e 3 i requisiti PQV+TV+GV soddisfatti, non la media).
+const getBadge = (pct, allSatisfied = false) => {
+  if (allSatisfied) return { label: "Ready!", color: "#4A5C3A", bg: "#EAF3DE" };
+  if (pct >= 90) return { label: "Quasi!", color: ORO, bg: alpha(ORO, 0.1) };
+  if (pct >= 70) return { label: "In corsa", color: ORO, bg: alpha(ORO, 0.08) };
   return { label: "In progress", color: MUTED, bg: "#f5f5f5" };
 };
+
+// Verifica se tutti e 3 i requisiti del rank sono al 100% (o non richiesti)
+const isRankReady = (r) => {
+  const pqvOk = (r.pqv_required || 0) === 0 || (r.pqv_pct || 0) >= 100;
+  const tvOk  = (r.tv_required  || 0) === 0 || (r.tv_pct  || 0) >= 100;
+  const gvOk  = (r.gv_required  || 0) === 0 || (r.gv_pct  || 0) >= 100;
+  return pqvOk && tvOk && gvOk;
+};
+
+// MVP ready: PQV + DQV + customers tutti al 100%
+const isMvpReady = (m) => (m.pqv_pct || 0) >= 100 && (m.dqv_pct || 0) >= 100 && (m.customers_pct || 0) >= 100;
 
 const ProgressBar = ({ label, value, max, pct, color }) => (
   <Box sx={{ mb: 0.8 }}>
@@ -100,7 +114,7 @@ const QualificationsReport = ({ initialViewAs = null }) => {
             ) : (
               <Stack spacing={1.5}>
                 {mvp.map((m) => {
-                  const badge = getBadge(m.avg_pct);
+                  const badge = getBadge(m.avg_pct, isMvpReady(m));
                   return (
                     <Box key={m.user_id} sx={{ p: 2, borderRadius: 2, bgcolor: m.expired ? alpha("#E24B4A", 0.03) : "#fafafa", border: `1px solid ${m.expired ? alpha("#E24B4A", 0.15) : "#f0ece6"}` }}>
                       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1.2}>
@@ -148,7 +162,7 @@ const QualificationsReport = ({ initialViewAs = null }) => {
             ) : (
               <Stack spacing={1.5}>
                 {rank.map((r) => {
-                  const badge = getBadge(r.avg_pct);
+                  const badge = getBadge(r.avg_pct, isRankReady(r));
                   return (
                     <Box key={r.user_id} sx={{ p: 2, borderRadius: 2, bgcolor: "#fafafa", border: "1px solid #f0ece6" }}>
                       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1.2}>
