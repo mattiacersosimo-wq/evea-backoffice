@@ -13,6 +13,7 @@ const MEDAL = ["#FFD700", "#C0C0C0", "#CD7F32"];
 const formatValue = (item) => {
   if (item.total_gv != null) return `${Number(item.total_gv).toFixed(0)} GV`;
   if (item.total_recruited != null) return `${item.total_recruited}`;
+  if (item.total_customers != null) return `${item.total_customers}`;
   if (item.rank_name != null) return item.rank_name;
   return "";
 };
@@ -128,9 +129,11 @@ const Leaderboard = ({ globalOnly = false }) => {
 const TAB_CONFIG = [
   { scope: "global", kind: "gv", dataKey: "top_gv" },
   { scope: "global", kind: "recruiters", dataKey: "top_recruiters" },
+  { scope: "global", kind: "customers", dataKey: "top_customers" },
   { scope: "global", kind: "achievers", dataKey: "top_achievers" },
   { scope: "team", kind: "gv", dataKey: "team_gv" },
   { scope: "team", kind: "recruiters", dataKey: "team_recruiters" },
+  { scope: "team", kind: "customers", dataKey: "team_customers" },
   { scope: "team", kind: "achievers", dataKey: "team_achievers" },
 ];
 
@@ -141,30 +144,30 @@ const LeaderboardContent = ({ data, tab, setTab, isIt, globalOnly = false }) => 
   const items = stripHiddenUsers(data?.[current.dataKey] || []);
 
   const allTabLabels = isIt
-    ? ["GV Globale", "Reclutatori Globale", "Rank Up Globale",
-       "GV Team", "Reclutatori Team", "Rank Up Team"]
-    : ["GV Global", "Recruiters Global", "Rank Up Global",
-       "GV Team", "Recruiters Team", "Rank Up Team"];
+    ? ["GV Globale", "Reclutatori Globale", "Clienti Globale", "Rank Up Globale",
+       "GV Team", "Reclutatori Team", "Clienti Team", "Rank Up Team"]
+    : ["GV Global", "Recruiters Global", "Customers Global", "Rank Up Global",
+       "GV Team", "Recruiters Team", "Customers Team", "Rank Up Team"];
 
   const allCardTitles = isIt
-    ? ["Classifica GV — Globale", "Classifica Reclutatori — Globale", "Classifica Rank Up — Globale",
-       "Classifica GV — Team", "Classifica Reclutatori — Team", "Classifica Rank Up — Team"]
-    : ["GV Ranking — Global", "Recruiters Ranking — Global", "Rank Up Ranking — Global",
-       "GV Ranking — Team", "Recruiters Ranking — Team", "Rank Up Ranking — Team"];
+    ? ["Classifica GV — Globale", "Classifica Reclutatori — Globale", "Classifica Clienti — Globale", "Classifica Rank Up — Globale",
+       "Classifica GV — Team", "Classifica Reclutatori — Team", "Classifica Clienti — Team", "Classifica Rank Up — Team"]
+    : ["GV Ranking — Global", "Recruiters Ranking — Global", "Customers Ranking — Global", "Rank Up Ranking — Global",
+       "GV Ranking — Team", "Recruiters Ranking — Team", "Customers Ranking — Team", "Rank Up Ranking — Team"];
 
-  const allCardIcons = ["mdi:chart-box", "mdi:account-multiple-plus", "mdi:medal",
-                        "mdi:chart-box", "mdi:account-multiple-plus", "mdi:medal"];
+  const allCardIcons = ["mdi:chart-box", "mdi:account-multiple-plus", "mdi:account-group", "mdi:medal",
+                        "mdi:chart-box", "mdi:account-multiple-plus", "mdi:account-group", "mdi:medal"];
 
   const allEmptyTexts = isIt
-    ? ["Nessun GV questo mese", "Nessun reclutamento questo mese", "Nessun rank up questo mese",
-       "Nessun GV dal tuo team", "Nessun reclutamento dal team", "Nessun rank up nel team"]
-    : ["No GV this month", "No recruits this month", "No rank ups this month",
-       "No team GV", "No team recruits", "No team rank ups"];
+    ? ["Nessun GV questo mese", "Nessun promoter reclutato questo mese", "Nessun cliente acquisito questo mese", "Nessun rank up questo mese",
+       "Nessun GV dal tuo team", "Nessun promoter reclutato dal team", "Nessun cliente acquisito dal team", "Nessun rank up nel team"]
+    : ["No GV this month", "No promoters recruited this month", "No customers acquired this month", "No rank ups this month",
+       "No team GV", "No team promoters recruited", "No team customers", "No team rank ups"];
 
-  const tabLabels = globalOnly ? allTabLabels.slice(0, 3) : allTabLabels;
-  const cardTitles = globalOnly ? allCardTitles.slice(0, 3) : allCardTitles;
-  const cardIcons = globalOnly ? allCardIcons.slice(0, 3) : allCardIcons;
-  const emptyTexts = globalOnly ? allEmptyTexts.slice(0, 3) : allEmptyTexts;
+  const tabLabels = globalOnly ? allTabLabels.slice(0, 4) : allTabLabels;
+  const cardTitles = globalOnly ? allCardTitles.slice(0, 4) : allCardTitles;
+  const cardIcons = globalOnly ? allCardIcons.slice(0, 4) : allCardIcons;
+  const emptyTexts = globalOnly ? allEmptyTexts.slice(0, 4) : allEmptyTexts;
 
   // "La tua posizione" solo per scope globale
   const myPos = current.scope === "global" ? data?.my_positions?.[current.kind] : null;
@@ -181,8 +184,8 @@ const LeaderboardContent = ({ data, tab, setTab, isIt, globalOnly = false }) => 
   };
 
   const valueLabels = isIt
-    ? { gv: "GV nel periodo", recruiters: "reclutati", achievers: "rank top" }
-    : { gv: "GV in period", recruiters: "recruits", achievers: "top rank" };
+    ? { gv: "GV nel periodo", recruiters: "promoter reclutati", customers: "clienti acquisiti", achievers: "rank top" }
+    : { gv: "GV in period", recruiters: "promoters recruited", customers: "customers acquired", achievers: "top rank" };
 
   return (
     <Stack spacing={2}>
