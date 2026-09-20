@@ -18,6 +18,8 @@ const RankHistoryReport = () => {
   const formatDate = (d) => d ? new Date(d).toLocaleDateString("it-IT", { day: "2-digit", month: "short", year: "numeric" }) : "—";
   const nr = data?.next_rank;
   const pqvPct = nr && nr.pqv_required > 0 ? Math.min(100, (nr.current_pqv / nr.pqv_required) * 100) : 0;
+  const tvPct  = nr && nr.tv_required  > 0 ? Math.min(100, (nr.current_tv  / nr.tv_required)  * 100) : 0;
+  const gvPct  = nr && nr.gv_required  > 0 ? Math.min(100, ((nr.current_gv_qualifying ?? nr.current_gv) / nr.gv_required)  * 100) : 0;
 
   return (
     <Box>
@@ -44,8 +46,35 @@ const RankHistoryReport = () => {
                       <Typography sx={{ fontSize: "0.72rem", color: MUTED, mt: 0.5 }}>{t("evea.missing")}: <b style={{ color: ORO }}>{nr.pqv_remaining} QV</b></Typography>
                     )}
                   </Box>
-                  {nr.tv_required > 0 && <Typography sx={{ fontSize: "0.72rem", color: MUTED }}>TV Required: {nr.tv_required}</Typography>}
-                  {nr.gv_required > 0 && <Typography sx={{ fontSize: "0.72rem", color: MUTED }}>GV Required: {nr.gv_required}</Typography>}
+                  {nr.tv_required > 0 && (
+                    <Box mb={1.5}>
+                      <Stack direction="row" justifyContent="space-between" mb={0.3}>
+                        <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>TV</Typography>
+                        <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>{Math.round(nr.current_tv || 0)}/{nr.tv_required}</Typography>
+                      </Stack>
+                      <LinearProgress variant="determinate" value={tvPct} sx={{ height: 8, borderRadius: 4, bgcolor: "#f0ece6", "& .MuiLinearProgress-bar": { bgcolor: "#2196F3", borderRadius: 4 } }} />
+                      {nr.tv_remaining > 0 && (
+                        <Typography sx={{ fontSize: "0.72rem", color: MUTED, mt: 0.5 }}>{t("evea.missing")}: <b style={{ color: "#2196F3" }}>{Math.round(nr.tv_remaining)} QV</b></Typography>
+                      )}
+                    </Box>
+                  )}
+                  {nr.gv_required > 0 && (
+                    <Box mb={1.5}>
+                      <Stack direction="row" justifyContent="space-between" mb={0.3}>
+                        <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>GV</Typography>
+                        <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>{Math.round(nr.current_gv_qualifying ?? nr.current_gv ?? 0)}/{nr.gv_required}</Typography>
+                      </Stack>
+                      <LinearProgress variant="determinate" value={gvPct} sx={{ height: 8, borderRadius: 4, bgcolor: "#f0ece6", "& .MuiLinearProgress-bar": { bgcolor: ORO, borderRadius: 4 } }} />
+                      {nr.gv_remaining > 0 && (
+                        <Typography sx={{ fontSize: "0.72rem", color: MUTED, mt: 0.5 }}>{t("evea.missing")}: <b style={{ color: ORO }}>{Math.round(nr.gv_remaining)} QV</b></Typography>
+                      )}
+                      {nr.current_gv > (nr.current_gv_qualifying ?? nr.current_gv) && (
+                        <Typography sx={{ fontSize: "0.68rem", color: "#F57C00", mt: 0.5, fontStyle: "italic" }}>
+                          GV totale: {Math.round(nr.current_gv)} · Regola {nr.max_team_pct}%: {(nr.capped_legs || []).length} leg oltre soglia
+                        </Typography>
+                      )}
+                    </Box>
+                  )}
                 </Box>
               )}
             </Stack>
