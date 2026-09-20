@@ -52,28 +52,75 @@ export const initNativeShell = async () => {
   // start successivo non arrivava mai (utenti aprono da background).
   // 15s dà margine per completare il download in condizioni realistiche.
   const OTA_TIMEOUT_MS = 15000;
+  // OTA_TELEMETRY 2026-09-20: riporta ogni step al server per debug remoto.
+  // Endpoint pubblico /api/wp/ota/report accetta {step, detail, current_version, target_version, platform}.
+  // No-op se network down, no user impact.
+  const otaReport = async (step, detail = null, extra = {}) => {
+    try {
+      await fetch("https://api.myevea.com/api/wp/ota/report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          step, detail,
+          platform: Capacitor.getPlatform(),
+          ...extra,
+        }),
+      });
+    } catch (_) { /* silent */ }
+  };
+
   const otaCheck = (async () => {
-    const res = await fetch("https://api.myevea.com/updates/manifest.json", { cache: "no-store" });
-    if (!res.ok) return "no-manifest";
-    const manifest = await res.json();
-    if (!manifest.url || !manifest.version) return "no-manifest";
-    const current = await CapacitorUpdater.current();
-    if (current?.bundle?.version === manifest.version) return "up-to-date";
-    console.log(`[OTA] Nuovo bundle ${manifest.version} disponibile, download in corso...`);
-    const bundle = await CapacitorUpdater.download({
-      url: manifest.url,
-      version: manifest.version,
-      checksum: manifest.checksum || undefined,
-    });
-    if (!bundle?.id) return "no-bundle-id";
-    // Marca come next: se set() sotto va in timeout, l'update si applica
-    // comunque al prossimo restart (fallback identico al comportamento precedente).
-    await CapacitorUpdater.next({ id: bundle.id });
-    // set() ricarica il WebView col nuovo bundle SUBITO. Il codice dopo non viene
-    // eseguito (l'app riparte). Se set() fallisce o e' bloccato, il race col
-    // timeout esterno prosegue col bundle attuale — l'update sara' comunque
-    // attivo al prossimo cold-start grazie al next() sopra.
-    await CapacitorUpdater.set({ id: bundle.id });
+    let current, manifest;
+    try {
+      current = await CapacitorUpdater.current();
+    } catch (e) {
+      otaReport("current_error", String(e?.message || e));
+      return "current-error";
+    }
+    otaReport("current", null, { current_version: current?.bundle?.version });
+
+    try {
+      const res = await fetch("https://api.myevea.com/updates/manifest.json", { cache: "no-store" });
+      if (!res.ok) { otaReport("manifest_http_error", String(res.status)); return "no-manifest"; }
+      manifest = await res.json();
+    } catch (e) {
+      otaReport("manifest_fetch_error", String(e?.message || e));
+      return "manifest-fetch-error";
+    }
+    if (!manifest.url || !manifest.version) {
+      otaReport("manifest_invalid", JSON.stringify(manifest).slice(0, 200));
+      return "no-manifest";
+    }
+    if (current?.bundle?.version === manifest.version) {
+      otaReport("up_to_date", null, { current_version: current?.bundle?.version, target_version: manifest.version });
+      return "up-to-date";
+    }
+    otaReport("download_start", null, { current_version: current?.bundle?.version, target_version: manifest.version });
+
+    let bundle;
+    try {
+      bundle = await CapacitorUpdater.download({
+        url: manifest.url,
+        version: manifest.version,
+        checksum: manifest.checksum || undefined,
+      });
+    } catch (e) {
+      otaReport("download_error", String(e?.message || e), { target_version: manifest.version });
+      return "download-error";
+    }
+    if (!bundle?.id) { otaReport("download_no_id", null, { target_version: manifest.version }); return "no-bundle-id"; }
+    otaReport("download_ok", null, { target_version: manifest.version, bundle_id: bundle.id });
+
+    try { await CapacitorUpdater.next({ id: bundle.id }); }
+    catch (e) { otaReport("next_error", String(e?.message || e)); }
+
+    try {
+      await CapacitorUpdater.set({ id: bundle.id });
+    } catch (e) {
+      otaReport("set_error", String(e?.message || e));
+      return "set-error";
+    }
+    otaReport("set_ok", null, { target_version: manifest.version });
     return "reloaded";
   })();
 
@@ -82,12 +129,10 @@ export const initNativeShell = async () => {
   try {
     const result = await Promise.race([otaCheck, timeout]);
     console.log(`[OTA] result=${result}`);
-    if (result === "reloaded") {
-      // App si sta ricaricando col nuovo bundle. Non nascondere splash qui:
-      // il nuovo bundle chiamera' initNativeShell() di nuovo e gestira' hide.
-      return;
-    }
+    otaReport("final_result", result);
+    if (result === "reloaded") return;
   } catch (e) {
+    otaReport("race_error", String(e?.message || e));
     console.warn("OTA immediate check failed (silent, proceeding)", e);
   }
 
