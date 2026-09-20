@@ -222,7 +222,7 @@ const AppBadge = ({ app }) => {
   return null;
 };
 
-const LeadRow = ({ lead, onOpen, onCopyEmail, onOpenWa }) => {
+const LeadRow = ({ lead, onOpen, onCopyEmail, onOpenWa, onDelete }) => {
   const src = SOURCE_CONFIG[lead.source] || SOURCE_CONFIG.quiz;
   const hasFollowUpToday = isToday(lead.follow_up_at);
   const hasFollowUpPast = isPast(lead.follow_up_at) && lead.status !== "converted" && lead.status !== "lost";
@@ -296,6 +296,11 @@ const LeadRow = ({ lead, onOpen, onCopyEmail, onOpenWa }) => {
             <Tooltip title="Dettaglio / Note">
               <IconButton size="small" onClick={() => onOpen?.(lead)}>
                 <Iconify icon="mdi:note-edit-outline" width={20} sx={{ color: ESPRESSO }} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title={lead.source === "manual" ? "Cancella lead" : "Nascondi lead (segna come perso)"}>
+              <IconButton size="small" onClick={(e) => { e.stopPropagation(); onDelete?.(lead); }}>
+                <Iconify icon="mdi:close" width={18} sx={{ color: alpha("#D32F2F", 0.7) }} />
               </IconButton>
             </Tooltip>
           </Stack>
@@ -842,15 +847,17 @@ const MyLeads = () => {
   const totalPages = useMemo(() => Math.max(1, Math.ceil((meta?.total || 0) / (meta?.per_page || 50))), [meta]);
 
   // Apply quick filters client-side (over already loaded page)
+  const [showLost, setShowLost] = useState(false);
   const filteredData = useMemo(() => {
-    if (quickFilter === "all") return data;
-    return data.filter((l) => {
+    let d = showLost ? data : data.filter((l) => l.status !== "lost");
+    if (quickFilter === "all") return d;
+    return d.filter((l) => {
       if (quickFilter === "with_phone") return !!l.phone;
       if (quickFilter === "not_contacted") return !l.status || l.status === "new";
       if (quickFilter === "video_ended") return l.video?.status === "ended";
       return true;
     });
-  }, [data, quickFilter]);
+  }, [data, quickFilter, showLost]);
 
   // Follow-up sections
   const followUpToday = useMemo(() => filteredData.filter((l) => isToday(l.follow_up_at) && l.status !== "converted" && l.status !== "lost"), [filteredData]);
@@ -879,6 +886,26 @@ const MyLeads = () => {
         fetchStats();
       } catch (e) { /* silent */ }
     }
+  };
+
+  const [deleteConfirm, setDeleteConfirm] = useState(null);
+
+  const doDelete = async (lead) => {
+    try {
+      if (lead.source === "manual") {
+        await axiosInstance.delete(`api/wp/promoter/me/leads/${lead.id}`);
+        setSnackbar("Lead cancellato");
+      } else {
+        await axiosInstance.patch(`api/wp/promoter/me/leads/${lead.id}`, { status: "lost" });
+        setSnackbar("Lead nascosto (segnato come perso)");
+      }
+      setData((d) => d.filter((x) => x.id !== lead.id));
+      fetchStats();
+    } catch (e) {
+      const msg = e?.response?.data?.message || "Errore cancellazione";
+      setSnackbar(msg);
+    }
+    setDeleteConfirm(null);
   };
 
   const exportCsv = () => {
@@ -956,20 +983,17 @@ const MyLeads = () => {
         <Card sx={{ p: 1.5, mb: 1.5, borderRadius: 3, border: "1px solid #f0ece6" }}>
           <Stack direction={{ xs: "column", md: "row" }} spacing={1.25}>
             <TextField size="small" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Cerca nome / email / telefono / note…" InputProps={{ startAdornment: <Iconify icon="mdi:magnify" width={18} sx={{ color: MUTED, mr: 1 }} /> }} sx={{ flex: 1 }} />
-            <TextField select size="small" value={source} onChange={(e) => setSource(e.target.value)} label="Fonte" sx={{ width: { md: 180 } }}>
-              <MenuItem value="all">Tutte le fonti</MenuItem>
-              <MenuItem value="quiz">Quiz</MenuItem>
-              <MenuItem value="landing-prodotto">Landing Prodotto</MenuItem>
-              <MenuItem value="landing-opportunita">Landing Opportunita</MenuItem>
-              <MenuItem value="manual">Manuali</MenuItem>
-            </TextField>
-            <TextField select size="small" value={sort} onChange={(e) => setSort(e.target.value)} label="Ordinamento" sx={{ width: { md: 200 } }}>
-              <MenuItem value="-heat">Più caldi</MenuItem>
-              <MenuItem value="heat">Meno caldi</MenuItem>
+            <TextField select size="small" value={sort} onChange={(e) => setSort(e.target.value)} label="Ordina per" sx={{ width: { md: 220 } }}>
+              <MenuItem value="-heat">🔥 Più caldi</MenuItem>
               <MenuItem value="follow_up_at">📞 Prossimi follow-up</MenuItem>
-              <MenuItem value="-created_at">Più recenti</MenuItem>
+              <MenuItem value="-created_at">🕒 Più recenti</MenuItem>
               <MenuItem value="created_at">Più vecchi</MenuItem>
             </TextField>
+            {source !== "all" && (
+              <Button size="small" variant="text" onClick={() => setSource("all")} startIcon={<Iconify icon="mdi:close-circle" width={16} />} sx={{ textTransform: "none", color: MUTED }}>
+                Mostra tutte le fonti
+              </Button>
+            )}
           </Stack>
           {/* Quick filters */}
           <Stack direction="row" spacing={1} sx={{ mt: 1.5, flexWrap: "wrap", rowGap: 0.75 }}>
@@ -983,6 +1007,8 @@ const MyLeads = () => {
               <Chip key={f.k} label={f.l} size="small" onClick={() => setQuickFilter(f.k)}
                 sx={{ cursor: "pointer", fontWeight: 600, fontSize: "0.7rem", bgcolor: quickFilter === f.k ? alpha(ORO, 0.15) : "#f5f5f5", color: quickFilter === f.k ? ORO : MUTED, border: quickFilter === f.k ? `1px solid ${alpha(ORO, 0.4)}` : "1px solid transparent" }} />
             ))}
+            <Chip label={showLost ? "👁 Persi visibili" : "🚫 Mostra persi"} size="small" onClick={() => setShowLost(!showLost)}
+              sx={{ cursor: "pointer", fontWeight: 600, fontSize: "0.7rem", bgcolor: showLost ? alpha("#D32F2F", 0.15) : "#f5f5f5", color: showLost ? "#D32F2F" : MUTED, border: showLost ? `1px solid ${alpha("#D32F2F", 0.4)}` : "1px solid transparent" }} />
           </Stack>
         </Card>
 
@@ -1015,7 +1041,7 @@ const MyLeads = () => {
                 </Stack>
                 <Box sx={{ p: 1, borderRadius: 3, bgcolor: alpha("#D32F2F", 0.04), border: `1px solid ${alpha("#D32F2F", 0.15)}` }}>
                   <Stack spacing={1}>
-                    {followUpOverdue.map((l) => <LeadRow key={l.id} lead={l} onOpen={setSelected} onCopyEmail={copyEmail} onOpenWa={openWa} />)}
+                    {followUpOverdue.map((l) => <LeadRow key={l.id} lead={l} onOpen={setSelected} onCopyEmail={copyEmail} onOpenWa={openWa} onDelete={setDeleteConfirm} />)}
                   </Stack>
                 </Box>
               </Box>
@@ -1031,7 +1057,7 @@ const MyLeads = () => {
                 </Stack>
                 <Box sx={{ p: 1, borderRadius: 3, bgcolor: alpha("#F57C00", 0.04), border: `1px solid ${alpha("#F57C00", 0.15)}` }}>
                   <Stack spacing={1}>
-                    {followUpToday.map((l) => <LeadRow key={l.id} lead={l} onOpen={setSelected} onCopyEmail={copyEmail} onOpenWa={openWa} />)}
+                    {followUpToday.map((l) => <LeadRow key={l.id} lead={l} onOpen={setSelected} onCopyEmail={copyEmail} onOpenWa={openWa} onDelete={setDeleteConfirm} />)}
                   </Stack>
                 </Box>
               </Box>
@@ -1047,7 +1073,7 @@ const MyLeads = () => {
                 </Stack>
                 <Box sx={{ p: 1, borderRadius: 3, bgcolor: alpha(HEAT_BUCKETS.hot.color, 0.04), border: `1px solid ${alpha(HEAT_BUCKETS.hot.color, 0.15)}` }}>
                   <Stack spacing={1}>
-                    {hotLeads.map((l) => <LeadRow key={l.id} lead={l} onOpen={setSelected} onCopyEmail={copyEmail} onOpenWa={openWa} />)}
+                    {hotLeads.map((l) => <LeadRow key={l.id} lead={l} onOpen={setSelected} onCopyEmail={copyEmail} onOpenWa={openWa} onDelete={setDeleteConfirm} />)}
                   </Stack>
                 </Box>
               </Box>
@@ -1062,7 +1088,7 @@ const MyLeads = () => {
                   </Typography>
                 )}
                 <Stack spacing={1}>
-                  {restLeads.map((l) => <LeadRow key={l.id} lead={l} onOpen={setSelected} onCopyEmail={copyEmail} onOpenWa={openWa} />)}
+                  {restLeads.map((l) => <LeadRow key={l.id} lead={l} onOpen={setSelected} onCopyEmail={copyEmail} onOpenWa={openWa} onDelete={setDeleteConfirm} />)}
                 </Stack>
               </Box>
             )}
@@ -1094,6 +1120,26 @@ const MyLeads = () => {
           notify={(msg) => setSnackbar(msg)}
           onCreated={() => { fetchData(); fetchStats(); }}
         />
+
+        <Dialog open={!!deleteConfirm} onClose={() => setDeleteConfirm(null)} maxWidth="xs" fullWidth>
+          <DialogTitle sx={{ fontWeight: 700, color: ESPRESSO }}>
+            {deleteConfirm?.source === "manual" ? "Cancellare lead manuale?" : "Nascondere lead?"}
+          </DialogTitle>
+          <DialogContent>
+            <Typography sx={{ fontSize: "0.9rem", color: MUTED }}>
+              {deleteConfirm?.source === "manual"
+                ? <>Il lead <strong>{deleteConfirm?.name || deleteConfirm?.email}</strong> verrà cancellato definitivamente insieme a note e follow-up. Non recuperabile.</>
+                : <>Il lead <strong>{deleteConfirm?.name || deleteConfirm?.email}</strong> verrà segnato come "perso" e nascosto dalla lista. Puoi rivederlo attivando "Mostra persi".</>
+              }
+            </Typography>
+          </DialogContent>
+          <DialogActions sx={{ p: 2 }}>
+            <Button onClick={() => setDeleteConfirm(null)} sx={{ textTransform: "none", color: MUTED }}>Annulla</Button>
+            <Button variant="contained" onClick={() => doDelete(deleteConfirm)} sx={{ bgcolor: "#D32F2F", "&:hover": { bgcolor: "#B71C1C" }, textTransform: "none", fontWeight: 700 }}>
+              {deleteConfirm?.source === "manual" ? "Cancella" : "Nascondi"}
+            </Button>
+          </DialogActions>
+        </Dialog>
 
         <Snackbar open={!!snackbar} autoHideDuration={2000} onClose={() => setSnackbar(null)} message={snackbar} anchorOrigin={{ vertical: "bottom", horizontal: "center" }} />
       </Box>
