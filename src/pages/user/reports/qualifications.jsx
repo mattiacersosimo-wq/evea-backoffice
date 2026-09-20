@@ -189,10 +189,18 @@ const QualificationsReport = ({ initialViewAs = null }) => {
                         )}
                         {r.gv_required > 0 && (
                           <Grid item xs={4}>
-                            <ProgressBar label="GV" value={r.gv || 0} max={r.gv_required} pct={r.gv_pct || 0} color={ORO} />
+                            <ProgressBar label="GV" value={r.gv_qualifying ?? r.gv ?? 0} max={r.gv_required} pct={r.gv_pct || 0} color={ORO} />
                           </Grid>
                         )}
                       </Grid>
+                      {r.gv_required > 0 && r.capped_legs && r.capped_legs.length > 0 && (
+                        <Typography sx={{ fontSize: "0.68rem", color: "#F57C00", mt: 1, fontStyle: "italic" }}>
+                          GV totale: {r.gv} · Regola {r.max_team_pct}%: {r.capped_legs.length === 1 ? "1 leg" : `${r.capped_legs.length} leg`} oltre soglia (max {Math.round(r.gv_required * (r.max_team_pct / 100))}/leg)
+                        </Typography>
+                      )}
+                      {r.gv_required > 0 && (!r.capped_legs || r.capped_legs.length === 0) && r.gv > r.gv_qualifying && (
+                        <Typography sx={{ fontSize: "0.68rem", color: MUTED, mt: 1 }}>GV totale: {r.gv}</Typography>
+                      )}
                     </Box>
                   );
                 })}
