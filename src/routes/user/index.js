@@ -23,6 +23,9 @@ const TesserinoPage = Loadable(
 const MyLeads = Loadable(
   lazy(() => import("src/pages/user/my-leads/index"))
 );
+const SmartshipReport = Loadable(
+  lazy(() => import("src/pages/user/smartship-report/index"))
+);
 
 const ProductList = Loadable(
   lazy(() =>
@@ -275,6 +278,7 @@ const user = [
       { ...helpCenter },
       { ...profile },
       { path: "i-miei-lead", element: <PromoterGuard><MyLeads /></PromoterGuard> },
+      { path: "smartship-report", element: <PromoterGuard><SmartshipReport /></PromoterGuard> },
       { path: "onboarding", element: <PromoterGuard><Onboarding /></PromoterGuard> },
       { path: "lettera-incarico", element: <PromoterGuard><LetteraIncarico /></PromoterGuard> },
       { path: "tesserino", element: <PromoterGuard><TesserinoPage /></PromoterGuard> },

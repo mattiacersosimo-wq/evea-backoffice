@@ -217,6 +217,9 @@ const filterMenu = (menu, isPromoter) => {
     if (isPromoter && isUserGroup && !items.some((i) => (i.path || "").includes("/user/i-miei-lead"))) {
       items.push({ title: "I miei Lead", path: "/user/i-miei-lead", icon: "/icons/ic_member_management.svg" });
     }
+    if (isPromoter && isUserGroup && !items.some((i) => (i.path || "").includes("/user/smartship-report"))) {
+      items.push({ title: "Report SmartShip", path: "/user/smartship-report", icon: "/icons/ic_analytics.svg" });
+    }
     // Genealogia customer: solo "Albero" (Team rimosso — non rilevante per
     // il cliente). Sostituisce la voce Genealogia dal menu_list DB con un
     // link diretto a /user/genealogy/sponsor (nessuna sotto-voce).
@@ -234,7 +237,7 @@ const filterMenu = (menu, isPromoter) => {
       }
     }
     // Tesserino e lettera sono dentro onboarding/profilo
-    const order = ["dashboard", "affiliate-dashboard", "genealog", "i-miei-lead", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "income-report", "lettera-incarico", "tesserino", "profile", "community"];
+    const order = ["dashboard", "affiliate-dashboard", "genealog", "i-miei-lead", "smartship-report", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "income-report", "lettera-incarico", "tesserino", "profile", "community"];
     items = items.sort((a, b) => {
       const pa = (a.path || a.title || "").toLowerCase();
       const pb = (b.path || b.title || "").toLowerCase();
