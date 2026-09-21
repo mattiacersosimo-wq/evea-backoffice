@@ -60,6 +60,7 @@ const Payout2faToggle = () => {
     try {
       const reqData = new FormData();
       reqData.append("code", code);
+      reqData.append("key", qrData?.key || "");
       reqData.append("verify", 1);
       const { data } = await fetchUser.post("enable-twofa", reqData);
       if (data.status) {
