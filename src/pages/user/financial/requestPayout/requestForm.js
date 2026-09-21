@@ -59,7 +59,7 @@ const Payout2faToggle = () => {
   const handleSetupComplete = async (code) => {
     try {
       const reqData = new FormData();
-      reqData.append("secret", code);
+      reqData.append("code", code);
       reqData.append("verify", 1);
       const { data } = await fetchUser.post("enable-twofa", reqData);
       if (data.status) {
