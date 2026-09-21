@@ -870,16 +870,11 @@ const QuickAccessCustomer = () => {
     ? `https://community.myevea.com/scopri-opportunita?sponsor=${encodeURIComponent(user.username)}`
     : "";
 
+  // Copia diretta senza aprire il dialog di sistema (evita interruzioni al flusso).
+  // Parametri title/text conservati per retrocompat firma, non usati.
+  // eslint-disable-next-line no-unused-vars
   const shareOrCopy = async (url, title, text, snackbarMsg) => {
     if (!url) return;
-    if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
-      try {
-        await navigator.share({ title, text, url });
-        return;
-      } catch (e) {
-        // fall through al copy
-      }
-    }
     await navigator.clipboard.writeText(url);
     enqueueSnackbar(snackbarMsg);
   };

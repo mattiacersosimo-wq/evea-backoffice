@@ -890,18 +890,6 @@ const QuickAccess = () => {
       action: async () => {
         if (!isActive) { enqueueSnackbar("Firma la Lettera di Incarico per condividere la landing Opportunità", { variant: "warning" }); navigate("/user/onboarding"); return; }
         if (!opportunityLink) return;
-        if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
-          try {
-            await navigator.share({
-              title: "Scopri l'opportunità eVea",
-              text: "Ti invito a scoprire il progetto eVea e le sue opportunità.",
-              url: opportunityLink,
-            });
-            return;
-          } catch (e) {
-            // fall through al copy
-          }
-        }
         await navigator.clipboard.writeText(opportunityLink);
         enqueueSnackbar("Link Opportunità copiato!");
       }
@@ -914,18 +902,6 @@ const QuickAccess = () => {
       action: async () => {
         if (!isActive) { enqueueSnackbar("Firma la Lettera di Incarico per condividere la landing Prodotto", { variant: "warning" }); navigate("/user/onboarding"); return; }
         if (!productLandingLink) return;
-        if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
-          try {
-            await navigator.share({
-              title: "Scopri il caffè eVea",
-              text: "Ti faccio scoprire il caffè funzionale eVea — un rituale quotidiano che cambia la giornata.",
-              url: productLandingLink,
-            });
-            return;
-          } catch (e) {
-            // fall through al copy
-          }
-        }
         await navigator.clipboard.writeText(productLandingLink);
         enqueueSnackbar("Link Prodotto copiato!");
       }
