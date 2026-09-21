@@ -42,6 +42,7 @@ const COLUMNS = [
   { id: "gv", label: "GV", labelEn: "GV", width: 70, numeric: true },
   { id: "revenue", label: "Revenue", labelEn: "Revenue", width: 80, numeric: true },
   { id: "smartship", label: "SS", labelEn: "SS", width: 50 },
+  { id: "app_status", label: "App", labelEn: "App", width: 50 },
   { id: "last_order", label: "Ultimo ordine", labelEn: "Last order", width: 100 },
   { id: "action", label: "", labelEn: "", width: 40, noSort: true },
 ];
@@ -332,6 +333,12 @@ const TeamUnified = ({ initialViewAs = null, isAdmin = false }) => {
                   <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: m.revenue > 0 ? "#FF9800" : "#ccc" }}>€{m.revenue}</TableCell>
                   <TableCell>
                     {m.smartship ? <Iconify icon="mdi:check-circle" width={16} sx={{ color: "#4CAF50" }} /> : <Iconify icon="mdi:close-circle-outline" width={16} sx={{ color: "#ddd" }} />}
+                  </TableCell>
+                  <TableCell sx={{ p: 0.5 }}>
+                    {m.app_status === "ios+android" && <Iconify icon="mdi:cellphone" width={16} sx={{ color: "#6A1B9A" }} />}
+                    {m.app_status === "ios" && <Iconify icon="mdi:apple" width={16} sx={{ color: "#4527A0" }} />}
+                    {m.app_status === "android" && <Iconify icon="mdi:android" width={16} sx={{ color: "#2E7D32" }} />}
+                    {(!m.app_status || m.app_status === "none") && <Iconify icon="mdi:cellphone-off" width={16} sx={{ color: "#ddd" }} />}
                   </TableCell>
                   <TableCell sx={{ fontSize: "0.68rem", color: m.days_inactive > 30 ? "#E24B4A" : m.days_inactive > 15 ? "#EF9F27" : "#7A6A5C" }}>
                     {m.last_order ? new Date(m.last_order).toLocaleDateString("it-IT", { day: "2-digit", month: "short" }) : "—"}
