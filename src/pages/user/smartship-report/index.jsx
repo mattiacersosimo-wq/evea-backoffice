@@ -13,8 +13,8 @@ const ESPRESSO = "#2C1A0E";
 const MUTED = "#7A6A5C";
 
 const RISK_LABELS = {
-  first_month: { label: "1° mese", color: "#F57C00" },
-  card_expiring: { label: "Carta in scadenza", color: "#D32F2F" },
+  cancellation_scheduled: { label: "🔴 Cancellazione programmata", color: "#D32F2F" },
+  card_expiring: { label: "Carta scade <30g", color: "#F57C00" },
   app_inactive: { label: "Non apre app 30+g", color: "#9C27B0" },
 };
 
@@ -327,11 +327,18 @@ const SmartshipReport = () => {
                             return <Chip key={r} label={cfg.label} size="small" sx={{ height: 18, fontSize: "0.62rem", bgcolor: alpha(cfg.color, 0.12), color: cfg.color, fontWeight: 700 }} />;
                           })}
                         </>}
-                        footer={<Typography sx={{ fontSize: "0.72rem", color: MUTED, mt: 0.3 }}>
-                          {m.product} · €{m.total_value}/mese · {m.months_active} mesi attivo
-                          {m.next_charge_at && ` · Prossimo: ${formatDate(m.next_charge_at)}`}
-                          {m.card_expiry && ` · Carta scade ${m.card_expiry}`}
-                        </Typography>}
+                        footer={<>
+                          <Typography sx={{ fontSize: "0.72rem", color: MUTED, mt: 0.3 }}>
+                            {m.product} · €{m.total_value}/mese · {m.months_active} mesi attivo
+                            {m.next_charge_at && ` · Prossimo: ${formatDate(m.next_charge_at)}`}
+                            {m.card_expiry && ` · Carta scade ${m.card_expiry}`}
+                          </Typography>
+                          {m.cancellation_scheduled_for && (
+                            <Typography sx={{ fontSize: "0.72rem", color: "#D32F2F", mt: 0.3, fontWeight: 700 }}>
+                              ⚠️ Cancellerà il {formatDate(m.cancellation_scheduled_for)} — CONTATTALO SUBITO
+                            </Typography>
+                          )}
+                        </>}
                         actions={renderNeutralActions(m)}
                       />
                     ))}
