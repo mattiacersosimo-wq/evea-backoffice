@@ -47,7 +47,7 @@ function Item({ title, required, completed, status, is_expired, children }) {
             fontWeight: 700, fontSize: "0.68rem", flexShrink: 0,
           }}
         >
-          {done ? <Iconify icon="mdi:check-bold" width={16} /> : `${Math.round(pct)}%`}
+          {done ? <Iconify icon="mdi:check-bold" width={16} /> : `${Math.floor(pct)}%`}
         </Box>
 
         {/* title + bar */}
