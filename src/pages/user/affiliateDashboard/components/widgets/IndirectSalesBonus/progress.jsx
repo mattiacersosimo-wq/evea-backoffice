@@ -17,6 +17,7 @@ import { alpha } from "@mui/material/styles";
 import Item from "../rankProgressBar/item";
 import { useTranslation } from "react-i18next";
 import LevelDetails from "./level_details";
+import WeekChipsHeader from "src/components/bonus-common/WeekChipsHeader";
 
 const ORO = "#B8963B";
 const LEVEL_COLORS = ["#B8963B", "#C4A54F", "#D4B86A", "#E0C888", "#EBD9A8"];
@@ -61,20 +62,12 @@ const Progress = ({ higherRank, state }) => {
       </Box>
 
       {(Number(higherRank?.pending_current_week ?? 0) > 0 || Number(higherRank?.pending_previous_week ?? 0) > 0) && (
-        <Box sx={{ mt: 1.5, px: 1, display: "flex", flexWrap: "wrap", gap: 1 }}>
-          <Chip
-            label={`Settimana corrente: €${Number(higherRank?.pending_current_week ?? 0).toFixed(2)}`}
-            size="small"
-            sx={{ height: 24, fontWeight: 600, bgcolor: alpha("#43A047", 0.1), color: "#2E7D32", fontSize: "0.72rem" }}
+        <Box sx={{ mt: 1.5 }}>
+          <WeekChipsHeader
+            currentAmount={higherRank?.pending_current_week}
+            previousInApprovalAmount={higherRank?.pending_previous_week}
+            accentColor="#00BCD4"
           />
-          {Number(higherRank?.pending_previous_week ?? 0) > 0 && (
-            <Chip
-              label={`In approvazione: €${Number(higherRank?.pending_previous_week ?? 0).toFixed(2)}`}
-              size="small"
-              title="Commissioni di settimane precedenti in attesa di auto-approvazione (15 giorni dalla creazione)"
-              sx={{ height: 24, fontWeight: 600, bgcolor: alpha("#FF9800", 0.1), color: "#EF6C00", fontSize: "0.72rem" }}
-            />
-          )}
         </Box>
       )}
 

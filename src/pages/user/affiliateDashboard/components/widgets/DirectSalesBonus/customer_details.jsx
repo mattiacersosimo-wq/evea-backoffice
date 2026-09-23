@@ -5,6 +5,7 @@ import {
 import { alpha } from "@mui/material/styles";
 import Iconify from "src/components/Iconify";
 import ParseDate from "src/components/date";
+import StatusChip from "src/components/bonus-common/StatusChip";
 
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
@@ -55,6 +56,7 @@ const CustomerDetails = ({ customer = [] }) => {
                 <TableCell sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>Cliente</TableCell>
                 <TableCell align="right" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>BV</TableCell>
                 <TableCell align="right" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>Bonus</TableCell>
+                <TableCell align="center" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>Stato</TableCell>
                 <TableCell align="right" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>Data</TableCell>
               </TableRow>
             </TableHead>
@@ -66,6 +68,9 @@ const CustomerDetails = ({ customer = [] }) => {
                   <TableCell align="right" sx={{ fontSize: "0.75rem", py: 0.5 }}>{o.bv}</TableCell>
                   <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: Number(o.commission) > 0 ? ORO : "#ccc", py: 0.5 }}>
                     {"\u20AC"}{Number(o.commission).toFixed(2)}
+                  </TableCell>
+                  <TableCell align="center" sx={{ py: 0.5 }}>
+                    <StatusChip status="pending" daysToApprove={o.days_to_approve} context="dsb" isCurrentWeek={o.is_current_week} />
                   </TableCell>
                   <TableCell align="right" sx={{ fontSize: "0.7rem", color: "#7A6A5C", py: 0.5 }}>
                     <ParseDate date={o.order_date} />

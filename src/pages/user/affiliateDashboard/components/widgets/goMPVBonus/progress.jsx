@@ -19,6 +19,8 @@ import Item from "../rankProgressBar/item";
 import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import Ternary from "src/components/ternary";
+import CountdownGauge from "src/components/bonus-common/CountdownGauge";
+import MonthGrid from "src/components/bonus-common/MonthGrid";
 
 const ORO = "#B8963B";
 
@@ -66,48 +68,14 @@ const Progress = ({ higherRank }) => {
         then={
           <>
             {/* ── Countdown giorni ── */}
-            <Box
-              sx={{
-                p: 2, mb: 2, borderRadius: 2,
-                bgcolor: isExpired ? alpha("#E53935", 0.04) : isUrgent ? alpha("#FF9800", 0.06) : alpha(ORO, 0.04),
-                border: `1px solid ${isExpired ? alpha("#E53935", 0.15) : isUrgent ? alpha("#FF9800", 0.2) : alpha(ORO, 0.1)}`,
-              }}
-            >
-              <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <Iconify
-                    icon={isExpired ? "mdi:timer-off" : "mdi:timer-outline"}
-                    width={20}
-                    sx={{ color: isExpired ? "#E53935" : isUrgent ? "#FF9800" : ORO }}
-                  />
-                  <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: "#2C1A0E" }}>
-                    {t("affiliate_dashboard.qualification_days")}
-                  </Typography>
-                </Stack>
-                <Typography
-                  sx={{
-                    fontSize: "1.1rem", fontWeight: 800,
-                    color: isExpired ? "#E53935" : isUrgent ? "#FF9800" : ORO,
-                  }}
-                >
-                  {isExpired ? "Scaduto" : `${remainingDays}g`}
-                </Typography>
-              </Stack>
-              <LinearProgress
-                variant="determinate"
-                value={daysPct}
-                sx={{
-                  height: 6, borderRadius: 3,
-                  bgcolor: "#eee",
-                  "& .MuiLinearProgress-bar": {
-                    bgcolor: isExpired ? "#E53935" : isUrgent ? "#FF9800" : ORO,
-                    borderRadius: 3,
-                  },
-                }}
+            <Box sx={{ mb: 2 }}>
+              <CountdownGauge
+                currentDay={currentDay}
+                totalDays={totalDays}
+                isExpired={isExpired}
+                title={t("affiliate_dashboard.qualification_days")}
+                accentColor={ORO}
               />
-              <Typography sx={{ fontSize: "0.65rem", color: "#999", mt: 0.5, textAlign: "right" }}>
-                {currentDay} / {totalDays} {t("affiliate_dashboard.days", { defaultValue: "giorni" })}
-              </Typography>
             </Box>
 
             {/* ── Requisiti ── */}
@@ -172,34 +140,10 @@ const Progress = ({ higherRank }) => {
 
             {/* ── Calendario mesi ── */}
             {monthEntries.length > 0 && (
-              <Box sx={{ mt: 2 }}>
-                <Typography sx={{ fontSize: "0.75rem", fontWeight: 600, color: "#6B5E54", mb: 0.8 }}>
-                  {t("affiliate_dashboard.monthly_qualification_status")}
-                </Typography>
-                <Grid container spacing={0.5}>
-                  {monthEntries.map((ok, i) => (
-                    <Grid item xs={3} key={i}>
-                      <Box
-                        sx={{
-                          display: "flex", alignItems: "center", justifyContent: "center",
-                          gap: 0.5, py: 0.6, borderRadius: 1.5,
-                          bgcolor: ok ? alpha("#43A047", 0.08) : alpha("#E53935", 0.04),
-                          border: `1px solid ${ok ? alpha("#43A047", 0.15) : alpha("#E53935", 0.08)}`,
-                        }}
-                      >
-                        <Iconify
-                          icon={ok ? "mdi:check-circle" : "mdi:close-circle-outline"}
-                          width={13}
-                          sx={{ color: ok ? "#43A047" : "#ddd" }}
-                        />
-                        <Typography sx={{ fontSize: "0.62rem", fontWeight: 600, color: ok ? "#43A047" : "#bbb" }}>
-                          M{i + 1}
-                        </Typography>
-                      </Box>
-                    </Grid>
-                  ))}
-                </Grid>
-              </Box>
+              <MonthGrid
+                months={monthEntries}
+                title={t("affiliate_dashboard.monthly_qualification_status")}
+              />
             )}
 
             {/* ── Mesi consecutivi bonus ── */}

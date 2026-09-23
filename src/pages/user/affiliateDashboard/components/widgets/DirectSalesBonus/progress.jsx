@@ -17,6 +17,7 @@ import Item from "../rankProgressBar/item";
 import CustomerDetails from "./customer_details";
 import { useTranslation } from "react-i18next";
 import Ternary from "src/components/ternary";
+import WeekChipsHeader from "src/components/bonus-common/WeekChipsHeader";
 
 const ORO = "#B8963B";
 
@@ -75,6 +76,15 @@ const Progress = ({ higherRank, state }) => {
             {higherRank?.current_package?.name || t("affiliate_dashboard.current_package")}
           </Typography>
         </Box>
+      )}
+
+      {/* ── Header settimana corrente / in approvazione ── */}
+      {(Number(higherRank?.direct_sales_bonus?.pending_current_week ?? 0) > 0 || Number(higherRank?.direct_sales_bonus?.pending_previous_week ?? 0) > 0) && (
+        <WeekChipsHeader
+          currentAmount={higherRank?.direct_sales_bonus?.pending_current_week}
+          previousInApprovalAmount={higherRank?.direct_sales_bonus?.pending_previous_week}
+          accentColor={ORO}
+        />
       )}
 
       {/* ── Gauge circolari ── */}

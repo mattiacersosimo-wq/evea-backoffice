@@ -16,6 +16,8 @@ import { alpha } from "@mui/material/styles";
 import Item from "../rankProgressBar/item";
 import Iconify from "src/components/Iconify";
 import { useTranslation } from "react-i18next";
+import CountdownGauge from "src/components/bonus-common/CountdownGauge";
+import MonthGrid from "src/components/bonus-common/MonthGrid";
 
 const Progress = ({ higherRank }) => {
   const { t } = useTranslation();
@@ -145,38 +147,10 @@ const Progress = ({ higherRank }) => {
 
       {/* Monthly calendar grid 4x3 */}
       {monthEntries.length > 0 && (
-        <Box sx={{ mt: 2 }}>
-          <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: "#2C1A0E", mb: 1 }}>
-            {t("affiliate_dashboard.monthly_qualification_status")}
-          </Typography>
-          <Grid container spacing={0.5}>
-            {monthEntries.map((isCompleted, index) => (
-              <Grid item xs={3} key={index}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 0.5,
-                    py: 0.8,
-                    borderRadius: 1.5,
-                    bgcolor: isCompleted ? alpha("#43A047", 0.1) : alpha("#E53935", 0.06),
-                    border: `1px solid ${isCompleted ? alpha("#43A047", 0.2) : alpha("#E53935", 0.1)}`,
-                  }}
-                >
-                  <Iconify
-                    icon={isCompleted ? "mdi:check-circle" : "mdi:close-circle-outline"}
-                    width={14}
-                    sx={{ color: isCompleted ? "#43A047" : "#E53935" }}
-                  />
-                  <Typography sx={{ fontSize: "0.68rem", fontWeight: 600, color: isCompleted ? "#43A047" : "#999" }}>
-                    M{index + 1}
-                  </Typography>
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+        <MonthGrid
+          months={monthEntries}
+          title={t("affiliate_dashboard.monthly_qualification_status")}
+        />
       )}
 
       <Stack spacing={0.5} sx={{ mt: 1 }}>
@@ -186,11 +160,10 @@ const Progress = ({ higherRank }) => {
           completed={Number(higherRank?.consecutive_months_completed)}
           status={Number(higherRank?.consecutive_months_completed) >= Number(higherRank?.consecutive_months_bonus_trigger)}
         />
-        <Item
+        <CountdownGauge
+          currentDay={Number(higherRank?.current_qualification_day) || 0}
+          totalDays={Number(higherRank?.total_qualification_day) || 1}
           title={t("affiliate_dashboard.remaining_days_in_go_mvp")}
-          required={Number(higherRank?.total_qualification_day)}
-          completed={Number(higherRank?.current_qualification_day)}
-          status={Number(higherRank?.current_qualification_day) >= Number(higherRank?.total_qualification_day)}
         />
       </Stack>
     </Box>

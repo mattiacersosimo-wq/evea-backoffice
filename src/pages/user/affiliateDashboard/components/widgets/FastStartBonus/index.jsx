@@ -5,6 +5,7 @@ import Iconify from "src/components/Iconify";
 import useErrors from "src/hooks/useErrors";
 import fetchUser from "src/utils/fetchUser";
 import BonusWidget from "../../BonusWidget";
+import WeekChipsHeader from "src/components/bonus-common/WeekChipsHeader";
 
 const PINK = "#FF4081";
 
@@ -83,33 +84,12 @@ const FastStartBonus = () => {
       title="Fast Start Bonus"
     >
       <Stack spacing={2}>
-        {/* Summary */}
-        <Stack direction="row" spacing={2}>
-          <Box sx={{ flex: 1, p: 1.5, borderRadius: 2, bgcolor: alpha(PINK, 0.06), border: `1px solid ${alpha(PINK, 0.15)}` }}>
-            <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C", fontWeight: 600 }}>
-              Settimana corrente
-            </Typography>
-            <Typography sx={{ fontSize: "1.3rem", fontWeight: 800, color: PINK, lineHeight: 1.2 }}>
-              €{Number(data.pending_current_week || 0).toFixed(2)}
-            </Typography>
-          </Box>
-          <Box sx={{ flex: 1, p: 1.5, borderRadius: 2, bgcolor: "#fafaf5", border: "1px solid #f0ece6" }}>
-            <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C", fontWeight: 600 }}>
-              Settimana precedente
-            </Typography>
-            <Typography sx={{ fontSize: "1.3rem", fontWeight: 800, color: "#2C1A0E", lineHeight: 1.2 }}>
-              €{Number(data.pending_previous_week || 0).toFixed(2)}
-            </Typography>
-          </Box>
-          <Box sx={{ flex: 1, p: 1.5, borderRadius: 2, bgcolor: "#fafaf5", border: "1px solid #f0ece6" }}>
-            <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C", fontWeight: 600 }}>
-              Reclutamenti mese
-            </Typography>
-            <Typography sx={{ fontSize: "1.3rem", fontWeight: 800, color: "#2C1A0E", lineHeight: 1.2 }}>
-              {data.recruits_this_month || 0}
-            </Typography>
-          </Box>
-        </Stack>
+        <WeekChipsHeader
+          currentAmount={data.pending_current_week}
+          previousInApprovalAmount={data.pending_previous_week}
+          accentColor={PINK}
+          extraBox={{ label: "Reclutamenti mese", value: data.recruits_this_month || 0 }}
+        />
 
         {/* Pack amounts */}
         {packs.length > 0 && (
