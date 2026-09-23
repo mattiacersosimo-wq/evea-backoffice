@@ -13,8 +13,14 @@ TARGET="${1:-}"
 SKIP_BUILD="${2:-}"
 
 case "$TARGET" in
-  staging) SITE="staging.backoffice.myevea.com" ;;
-  prod)    SITE="backoffice.myevea.com" ;;
+  staging)
+    SITE="staging.backoffice.myevea.com"
+    # Staging punta a backend isolato (office_test), non a prod
+    export REACT_APP_HOST_NAME="https://staging-api.myevea.com"
+    ;;
+  prod)
+    SITE="backoffice.myevea.com"
+    ;;
   *)
     echo "Usage: $0 <staging|prod> [--skip-build]"
     exit 1

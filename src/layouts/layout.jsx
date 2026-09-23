@@ -193,17 +193,33 @@ const filterMenu = (menu, isPromoter) => {
       return item;
     });
     // Reorder: Dashboard, Dashboard Bonus, Genealogy, then rest
-    // Inject Income Report if not present (promoter only)
-    if (isPromoter && !items.some((i) => (i.path || "").includes("income-report"))) {
-      items.push({ title: "income_report", path: "/user/income-report", icon: "/icons/ic_report.svg" });
+    // Inject Report group (promoter only). Convertito da singola voce a
+    // gruppo con children: Panoramica (income-report) + SmartShip.
+    if (isPromoter && !items.some((i) => (i.path || "").includes("income-report") || (i.title === "Report" && Array.isArray(i.children)))) {
+      items.push({
+        title: "Report",
+        icon: "/icons/ic_report.svg",
+        children: [
+          { title: "Panoramica", path: "/user/income-report" },
+          { title: "SmartShip", path: "/user/smartship-report" },
+        ],
+      });
+    } else if (isPromoter) {
+      // Se income-report esiste gia' come voce top, la trasformo in gruppo
+      items = items.map((item) => {
+        if ((item.path || "").includes("income-report")) {
+          return {
+            title: "Report",
+            icon: item.icon || "/icons/ic_report.svg",
+            children: [
+              { title: "Panoramica", path: "/user/income-report" },
+              { title: "SmartShip", path: "/user/smartship-report" },
+            ],
+          };
+        }
+        return item;
+      });
     }
-    // Rename income_report to Report
-    items = items.map((item) => {
-      if ((item.path || "").includes("income-report")) {
-        return { ...item, title: "Report" };
-      }
-      return item;
-    });
     // Inject Community (link diretto che apre SSO verso community.myevea.com)
     // Solo se siamo in un gruppo menu "user" — evita che compaia lato admin
     const isUserGroup = items.some((i) => (i.path || "").startsWith("/user/"));
@@ -216,9 +232,6 @@ const filterMenu = (menu, isPromoter) => {
     // rendendolo visibile anche ai customer. Aggiunto isPromoter come gate.
     if (isPromoter && isUserGroup && !items.some((i) => (i.path || "").includes("/user/i-miei-lead"))) {
       items.push({ title: "I miei Lead", path: "/user/i-miei-lead", icon: "/icons/ic_member_management.svg" });
-    }
-    if (isPromoter && isUserGroup && !items.some((i) => (i.path || "").includes("/user/smartship-report"))) {
-      items.push({ title: "Report SmartShip", path: "/user/smartship-report", icon: "/icons/ic_analytics.svg" });
     }
     // Genealogia customer: solo "Albero" (Team rimosso — non rilevante per
     // il cliente). Sostituisce la voce Genealogia dal menu_list DB con un
@@ -237,7 +250,7 @@ const filterMenu = (menu, isPromoter) => {
       }
     }
     // Tesserino e lettera sono dentro onboarding/profilo
-    const order = ["dashboard", "affiliate-dashboard", "genealog", "i-miei-lead", "smartship-report", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "income-report", "lettera-incarico", "tesserino", "profile", "community"];
+    const order = ["dashboard", "affiliate-dashboard", "genealog", "i-miei-lead", "online-store", "coupon", "recurring", "abbonamenti", "financial", "wallet", "income-report", "report", "lettera-incarico", "tesserino", "profile", "community"];
     items = items.sort((a, b) => {
       const pa = (a.path || a.title || "").toLowerCase();
       const pb = (b.path || b.title || "").toLowerCase();
