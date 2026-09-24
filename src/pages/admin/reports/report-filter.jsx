@@ -2,6 +2,7 @@ import { LoadingButton } from "@mui/lab";
 import { Box, Button, Grid, MenuItem, TextField, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { Controller } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useOutletContext } from "react-router";
 import Iconify from "src/components/Iconify";
 import FilterBar from "src/components/filterBar";
@@ -11,25 +12,25 @@ import { defaultReportFilter } from "./hooks/use-filter";
 import Translate from "src/components/translate";
 import { Currency } from "src/components/with-prefix";
 
-const MONTHS = [
-  { value: 1, label: "Gennaio" },
-  { value: 2, label: "Febbraio" },
-  { value: 3, label: "Marzo" },
-  { value: 4, label: "Aprile" },
-  { value: 5, label: "Maggio" },
-  { value: 6, label: "Giugno" },
-  { value: 7, label: "Luglio" },
-  { value: 8, label: "Agosto" },
-  { value: 9, label: "Settembre" },
-  { value: 10, label: "Ottobre" },
-  { value: 11, label: "Novembre" },
-  { value: 12, label: "Dicembre" },
-];
-
 const CURRENT_YEAR = new Date().getFullYear();
 const YEARS = Array.from({ length: 6 }, (_, i) => CURRENT_YEAR - i); // current + 5 anni indietro
 
 const ReportFilter = ({ getReport, sum, isJoining, isPoint, hideUserFilter, extraFilters }) => {
+  const { t } = useTranslation();
+  const MONTHS = [
+    { value: 1, label: t("month_long.jan", "Gennaio") },
+    { value: 2, label: t("month_long.feb", "Febbraio") },
+    { value: 3, label: t("month_long.mar", "Marzo") },
+    { value: 4, label: t("month_long.apr", "Aprile") },
+    { value: 5, label: t("month_long.may", "Maggio") },
+    { value: 6, label: t("month_long.jun", "Giugno") },
+    { value: 7, label: t("month_long.jul", "Luglio") },
+    { value: 8, label: t("month_long.aug", "Agosto") },
+    { value: 9, label: t("month_long.sep", "Settembre") },
+    { value: 10, label: t("month_long.oct", "Ottobre") },
+    { value: 11, label: t("month_long.nov", "Novembre") },
+    { value: 12, label: t("month_long.dec", "Dicembre") },
+  ];
   const { methods } = useOutletContext();
   const {
     handleSubmit,
@@ -73,7 +74,7 @@ const ReportFilter = ({ getReport, sum, isJoining, isPoint, hideUserFilter, extr
                   {...field}
                   select
                   size="small"
-                  label="Mese"
+                  label={t("common.month", "Mese")}
                   value={field.value ?? ""}
                 >
                   {MONTHS.map((m) => (
@@ -90,7 +91,7 @@ const ReportFilter = ({ getReport, sum, isJoining, isPoint, hideUserFilter, extr
                   {...field}
                   select
                   size="small"
-                  label="Anno"
+                  label={t("common.year", "Anno")}
                   value={field.value ?? ""}
                 >
                   {YEARS.map((y) => (
@@ -115,7 +116,7 @@ const ReportFilter = ({ getReport, sum, isJoining, isPoint, hideUserFilter, extr
                     value={field.value ?? (f.allValue ?? "")}
                     SelectProps={{ displayEmpty: true }}
                   >
-                    <MenuItem value={f.allValue ?? ""}><em>{f.allLabel || "Tutti"}</em></MenuItem>
+                    <MenuItem value={f.allValue ?? ""}><em>{f.allLabel || t("admin.reports.filter_all", "Tutti")}</em></MenuItem>
                     {(f.options || []).map((opt) => (
                       <MenuItem key={opt.value} value={opt.value}>{opt.label}</MenuItem>
                     ))}

@@ -3,6 +3,7 @@ import {
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import axiosInstance from "src/utils/axios";
@@ -30,13 +31,14 @@ const PeriodCtx = createContext({ qs: "" });
 const usePeriod = () => useContext(PeriodCtx);
 
 const PeriodFilter = ({ period, setPeriod, customFrom, setCustomFrom, customTo, setCustomTo }) => {
+  const { t } = useTranslation();
   const periods = [
-    { key: "week", label: "Settimana" },
-    { key: "month", label: "Mese" },
-    { key: "quarter", label: "Trimestre" },
-    { key: "ytd", label: "YTD" },
-    { key: "year", label: "Anno" },
-    { key: "custom", label: "Custom" },
+    { key: "week", label: t("admin.kpi.period_week", "Settimana") },
+    { key: "month", label: t("admin.kpi.period_month", "Mese") },
+    { key: "quarter", label: t("admin.kpi.period_quarter", "Trimestre") },
+    { key: "ytd", label: t("admin.kpi.period_ytd", "YTD") },
+    { key: "year", label: t("admin.kpi.period_year", "Anno") },
+    { key: "custom", label: t("admin.kpi.period_custom", "Custom") },
   ];
   return (
     <Stack direction="row" alignItems="center" spacing={1.5} flexWrap="wrap">
@@ -120,17 +122,21 @@ const Donut = ({ segments, size = 120 }) => {
 // 1. RISK ALERT
 // ═══════════════════════════════════════
 const RiskAlert = () => {
+  const { t } = useTranslation();
   const { data } = useFetch("api/wp/admin/kpi/risk-alert", true);
   if (!data || !data.length) return null;
   const top = data[0];
+  const typeLabel = top.type === "customer"
+    ? ` — ${t("admin.kpi.risk_customer", "cliente")}`
+    : ` — ${t("admin.kpi.risk_promoter", "promoter")}`;
   return (
     <Box sx={{ bgcolor: "#FCEBEB", border: `1.5px solid ${DANGER}`, borderRadius: 3, p: 2.5 }}>
       <Stack direction="row" alignItems="center" spacing={1.5}>
         <Avatar sx={{ width: 36, height: 36, bgcolor: alpha(DANGER, 0.15), color: DANGER }}><Iconify icon="mdi:alert" width={22} /></Avatar>
         <Box sx={{ flex: 1 }}>
-          <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: DANGER }}>Rischio concentrazione — Leader critico rilevato</Typography>
+          <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: DANGER }}>{t("admin.kpi.risk_concentration", "Rischio concentrazione — Leader critico rilevato")}</Typography>
           <Typography sx={{ fontSize: "0.85rem", color: TEXT }}>
-            <b>{top.name || top.username}</b> (@{top.username}){top.type === "customer" ? " — cliente" : " — promoter"} genera il <b>{top.pct}%</b> del fatturato. Soglia superata (20-30%). Diversificare urgentemente.
+            <b>{top.name || top.username}</b> (@{top.username}){typeLabel} {t("admin.kpi.risk_body_prefix", "genera il")} <b>{top.pct}%</b> {t("admin.kpi.risk_body_suffix", "del fatturato. Soglia superata (20-30%). Diversificare urgentemente.")}
           </Typography>
         </Box>
       </Stack>
@@ -142,14 +148,15 @@ const RiskAlert = () => {
 // 2. BIG KPI CARDS
 // ═══════════════════════════════════════
 const OverviewCards = () => {
+  const { t } = useTranslation();
   const { data: o, loading } = useFetch("api/wp/admin/kpi/overview", true);
   if (loading) return <Grid container spacing={2}>{[0,1,2,3].map(i => <Grid item xs={6} md={3} key={i}><Skeleton variant="rounded" height={120} sx={{ borderRadius: 3 }} /></Grid>)}</Grid>;
   if (!o) return null;
   const cards = [
-    { label: "FATTURATO PERIODO", value: `€${(o.fatturato_mese || 0).toLocaleString("it")}`, sub: `${o.fatturato_delta >= 0 ? "+" : ""}${o.fatturato_delta}% vs periodo prec · ${o.totale_ordini || 0} ordini`, color: ORO },
-    { label: "MRR — SMARTSHIP", value: `€${(o.mrr_smartship || 0).toLocaleString("it")}`, sub: `${o.mrr_pct || 0}% del fatturato ricorrente`, color: "#8BC34A" },
-    { label: "PROVVIGIONI MATURATE", value: `€${(o.provvigioni || 0).toLocaleString("it")}`, sub: `Payout ratio: ${o.payout_ratio || 0}% · AOV: €${o.aov || 0}`, color: DANGER },
-    { label: "SMARTSHIP ATTIVI", value: o.smartship_attivi || 0, sub: `${o.smartship_delta >= 0 ? "+" : ""}${o.smartship_delta || 0} vs prec · Refund: ${o.refund_rate || 0}%`, color: INFO },
+    { label: t("admin.kpi.card_revenue_period", "FATTURATO PERIODO"), value: `€${(o.fatturato_mese || 0).toLocaleString("it")}`, sub: `${o.fatturato_delta >= 0 ? "+" : ""}${o.fatturato_delta}% ${t("admin.kpi.revenue_vs_prev", "vs periodo prec")} · ${o.totale_ordini || 0} ${t("admin.kpi.revenue_orders_suffix", "ordini")}`, color: ORO },
+    { label: t("admin.kpi.card_mrr_smartship", "MRR — SMARTSHIP"), value: `€${(o.mrr_smartship || 0).toLocaleString("it")}`, sub: `${o.mrr_pct || 0}% ${t("admin.kpi.revenue_mrr_pct_of_rec", "del fatturato ricorrente")}`, color: "#8BC34A" },
+    { label: t("admin.kpi.card_provvigioni_maturate", "PROVVIGIONI MATURATE"), value: `€${(o.provvigioni || 0).toLocaleString("it")}`, sub: `${t("admin.kpi.revenue_payout_ratio", "Payout ratio")}: ${o.payout_ratio || 0}% · ${t("admin.kpi.revenue_aov", "AOV")}: €${o.aov || 0}`, color: DANGER },
+    { label: t("admin.kpi.card_smartship_active", "SMARTSHIP ATTIVI"), value: o.smartship_attivi || 0, sub: `${o.smartship_delta >= 0 ? "+" : ""}${o.smartship_delta || 0} ${t("admin.kpi.revenue_vs_prev_short", "vs prec")} · ${t("admin.kpi.revenue_refund", "Refund")}: ${o.refund_rate || 0}%`, color: INFO },
   ];
   return (
     <Grid container spacing={2}>
@@ -173,6 +180,7 @@ const MESI = ["Gen","Feb","Mar","Apr","Mag","Giu","Lug","Ago","Set","Ott","Nov",
 const GIORNI_SETT = ["Lun","Mar","Mer","Gio","Ven","Sab","Dom"];
 
 const RevenueChart = () => {
+  const { t } = useTranslation();
   const { qs } = usePeriod();
   const period = new URLSearchParams(qs).get("period") || "month";
 
@@ -217,7 +225,7 @@ const RevenueChart = () => {
       });
     }
     chartData = allDays;
-    subtitle = period === "week" ? "Ultimi 7 giorni" : "Ultimi 30 giorni";
+    subtitle = period === "week" ? t("admin.kpi.last_7d", "Ultimi 7 giorni") : t("admin.kpi.last_30d", "Ultimi 30 giorni");
   } else {
     const raw = monthlyData || [];
     const dataMap = {};
@@ -236,10 +244,10 @@ const RevenueChart = () => {
       });
     }
     chartData = allMonths;
-    subtitle = `${months} mesi`;
+    subtitle = t("admin.kpi.n_months", "{{n}} mesi", { n: months });
   }
 
-  if (!chartData.length) return <Card sx={{ ...cardSx, p: 3 }}><Typography sx={{ fontSize: "0.85rem", color: MUTED }}>Nessun dato per questo periodo</Typography></Card>;
+  if (!chartData.length) return <Card sx={{ ...cardSx, p: 3 }}><Typography sx={{ fontSize: "0.85rem", color: MUTED }}>{t("admin.kpi.no_data_period", "Nessun dato per questo periodo")}</Typography></Card>;
 
   const maxVal = Math.max(...chartData.map(d => Math.max(d.revenue || 0, d.payout || 0, d.margine || 0)), 1);
   const totalRev = chartData.reduce((s, d) => s + (d.revenue || 0), 0);
@@ -250,12 +258,12 @@ const RevenueChart = () => {
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
         <Box>
           <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT }}>
-            {isDaily ? "Revenue giornaliero" : "Fatturato vs Payout"}
+            {isDaily ? t("admin.kpi.revenue_daily", "Revenue giornaliero") : t("admin.kpi.revenue_vs_payout", "Fatturato vs Payout")}
           </Typography>
-          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{subtitle} · Tot: €{totalRev.toLocaleString("it")}{totalOrd > 0 ? ` · ${totalOrd} ordini` : ""}</Typography>
+          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{subtitle} · {t("admin.kpi.total_short", "Tot")}: €{totalRev.toLocaleString("it")}{totalOrd > 0 ? ` · ${totalOrd} ${t("admin.kpi.revenue_orders_suffix", "ordini")}` : ""}</Typography>
         </Box>
         {!isDaily && (
-          <Stack direction="row" spacing={1.5}>{[{ l: "Fatturato", c: ORO }, { l: "Payout", c: DANGER }, { l: "Margine", c: SUCCESS }].map(x => (
+          <Stack direction="row" spacing={1.5}>{[{ l: t("admin.kpi.leg_fatturato", "Fatturato"), c: ORO }, { l: t("admin.kpi.leg_payout", "Payout"), c: DANGER }, { l: t("admin.kpi.leg_margine", "Margine"), c: SUCCESS }].map(x => (
             <Stack key={x.l} direction="row" alignItems="center" spacing={0.3}><Box sx={{ width: 10, height: 3, borderRadius: 1, bgcolor: x.c }} /><Typography sx={{ fontSize: "0.65rem", color: MUTED }}>{x.l}</Typography></Stack>))}</Stack>
         )}
       </Stack>
@@ -266,7 +274,7 @@ const RevenueChart = () => {
             const h = Math.max((d.revenue / maxVal) * barH, 2);
             return (
               <Box key={i} sx={{ flex: 1, textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "flex-end", height: "100%" }}>
-                <Tooltip title={`€${d.revenue}${d.orders ? ` · ${d.orders} ordini` : ""}`}>
+                <Tooltip title={`€${d.revenue}${d.orders ? ` · ${d.orders} ${t("admin.kpi.revenue_orders_suffix", "ordini")}` : ""}`}>
                   <Box sx={{ width: "70%", mx: "auto", height: d.revenue > 0 ? h : 0, bgcolor: d.revenue > 0 ? ORO : "transparent", borderRadius: "3px 3px 0 0", transition: "height 0.3s" }} />
                 </Tooltip>
                 <Typography sx={{ fontSize: chartData.length > 15 ? "0.38rem" : "0.5rem", color: d.revenue > 0 ? ORO : MUTED, mt: 0.3, whiteSpace: "nowrap", fontWeight: d.revenue > 0 ? 600 : 400 }}>{d.label}</Typography>
@@ -292,6 +300,7 @@ const RevenueChart = () => {
 };
 
 const WeeklyComparison = () => {
+  const { t } = useTranslation();
   const { data, loading } = useFetch("api/wp/admin/kpi/weekly-comparison");
   if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={250} /></Card>;
   if (!data || !data.length) return null;
@@ -302,13 +311,13 @@ const WeeklyComparison = () => {
   const totalOrd = data.reduce((s, d) => s + (d.orders_current || 0), 0);
   return (
     <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>Confronto settimana corrente vs precedente</Typography>
+      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>{t("admin.kpi.week_comparison", "Confronto settimana corrente vs precedente")}</Typography>
       <Stack direction="row" spacing={1} alignItems="flex-end" sx={{ height: 140 }}>
         {data.map((d) => (
           <Box key={d.day} sx={{ flex: 1, textAlign: "center", height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
             <Stack direction="row" spacing={0.3} justifyContent="center" alignItems="flex-end" sx={{ height: 120 }}>
-              <Tooltip title={`Questa: €${d.revenue_current}`}><Box sx={{ width: "40%", height: d.revenue_current > 0 ? `${Math.max((d.revenue_current / maxRev) * 100, 3)}%` : 0, bgcolor: ORO, borderRadius: "3px 3px 0 0" }} /></Tooltip>
-              <Tooltip title={`Prec: €${d.revenue_previous}`}><Box sx={{ width: "40%", height: d.revenue_previous > 0 ? `${Math.max((d.revenue_previous / maxRev) * 100, 3)}%` : 0, bgcolor: alpha(ORO, 0.25), borderRadius: "3px 3px 0 0" }} /></Tooltip>
+              <Tooltip title={`${t("admin.kpi.this_short", "Questa")}: €${d.revenue_current}`}><Box sx={{ width: "40%", height: d.revenue_current > 0 ? `${Math.max((d.revenue_current / maxRev) * 100, 3)}%` : 0, bgcolor: ORO, borderRadius: "3px 3px 0 0" }} /></Tooltip>
+              <Tooltip title={`${t("admin.kpi.prev_short", "Prec")}: €${d.revenue_previous}`}><Box sx={{ width: "40%", height: d.revenue_previous > 0 ? `${Math.max((d.revenue_previous / maxRev) * 100, 3)}%` : 0, bgcolor: alpha(ORO, 0.25), borderRadius: "3px 3px 0 0" }} /></Tooltip>
             </Stack>
             <Typography sx={{ fontSize: "0.65rem", color: MUTED, mt: 0.3, textTransform: "capitalize" }}>{d.day}</Typography>
           </Box>
@@ -316,12 +325,12 @@ const WeeklyComparison = () => {
       </Stack>
       <Grid container spacing={1.5} sx={{ mt: 1.5 }}>
         <Grid item xs={6}><Box sx={{ p: 1.5, bgcolor: alpha(ORO, 0.04), borderRadius: 2, border: `1px solid ${alpha(ORO, 0.1)}`, textAlign: "center" }}>
-          <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>Questa settimana</Typography>
+          <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>{t("admin.kpi.this_week", "Questa settimana")}</Typography>
           <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color: TEXT }}>€{totalCur.toLocaleString("it")}</Typography>
-          <Typography sx={{ fontSize: "0.65rem", color: delta >= 0 ? SUCCESS : DANGER }}>{delta >= 0 ? "+" : ""}{delta}% vs prec</Typography>
+          <Typography sx={{ fontSize: "0.65rem", color: delta >= 0 ? SUCCESS : DANGER }}>{delta >= 0 ? "+" : ""}{delta}% {t("admin.kpi.revenue_vs_prev_short", "vs prec")}</Typography>
         </Box></Grid>
         <Grid item xs={6}><Box sx={{ p: 1.5, bgcolor: alpha(ORO, 0.04), borderRadius: 2, border: `1px solid ${alpha(ORO, 0.1)}`, textAlign: "center" }}>
-          <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>Ordini questa settimana</Typography>
+          <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>{t("admin.kpi.orders_this_week", "Ordini questa settimana")}</Typography>
           <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color: TEXT }}>{totalOrd}</Typography>
         </Box></Grid>
       </Grid>
@@ -333,17 +342,18 @@ const WeeklyComparison = () => {
 // 4. REVENUE BREAKDOWN (Kit/Smartship/Singoli)
 // ═══════════════════════════════════════
 const RevenueBreakdown = () => {
+  const { t } = useTranslation();
   const { data: rb, loading } = useFetch("api/wp/admin/kpi/revenue-breakdown", true);
   if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={200} /></Card>;
   if (!rb) return null;
   const segments = [
-    { label: "Starter Kit", value: rb.kit || 0, color: ORO, pct: rb.kit_pct },
-    { label: "Smartship", value: rb.smartship || 0, color: SUCCESS, pct: rb.smartship_pct },
-    { label: "Ordini singoli", value: rb.single || 0, color: INFO, pct: rb.single_pct },
+    { label: t("admin.kpi.starter_kit", "Starter Kit"), value: rb.kit || 0, color: ORO, pct: rb.kit_pct },
+    { label: t("admin.kpi.smartship", "Smartship"), value: rb.smartship || 0, color: SUCCESS, pct: rb.smartship_pct },
+    { label: t("admin.kpi.single_orders", "Ordini singoli"), value: rb.single || 0, color: INFO, pct: rb.single_pct },
   ];
   return (
     <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 1.5 }}>Revenue Breakdown</Typography>
+      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 1.5 }}>{t("admin.kpi.revenue_breakdown", "Revenue Breakdown")}</Typography>
       <Box sx={{ textAlign: "center", mb: 2 }}><Donut segments={segments} size={110} /></Box>
       <Stack spacing={1}>
         {segments.map((s) => (
@@ -356,7 +366,7 @@ const RevenueBreakdown = () => {
       </Stack>
       {rb.kits_detail && rb.kits_detail.length > 0 && (
         <Box sx={{ mt: 1.5, p: 1.5, bgcolor: alpha(ORO, 0.04), borderRadius: 2 }}>
-          <Typography sx={{ fontSize: "0.7rem", fontWeight: 600, color: MUTED, mb: 0.5 }}>Kit venduti</Typography>
+          <Typography sx={{ fontSize: "0.7rem", fontWeight: 600, color: MUTED, mb: 0.5 }}>{t("admin.kpi.kits_sold", "Kit venduti")}</Typography>
           {rb.kits_detail.map((k, i) => (
             <Stack key={i} direction="row" justifyContent="space-between" sx={{ py: 0.2 }}>
               <Typography sx={{ fontSize: "0.7rem", color: TEXT }}>{k.name}</Typography>
@@ -366,7 +376,7 @@ const RevenueBreakdown = () => {
         </Box>
       )}
       {rb.kit_conversion_rate > 0 && (
-        <Insight color={SUCCESS} icon="mdi:check-circle">Conversione kit (entro 7gg): {rb.kit_conversion_rate}% ({rb.kit_conversion_7d}/{rb.new_users} nuovi utenti)</Insight>
+        <Insight color={SUCCESS} icon="mdi:check-circle">{t("admin.kpi.kit_conversion", "Conversione kit (entro 7gg): {{rate}}% ({{conv}}/{{new_users}} nuovi utenti)", { rate: rb.kit_conversion_rate, conv: rb.kit_conversion_7d, new_users: rb.new_users })}</Insight>
       )}
     </Card>
   );
@@ -376,18 +386,19 @@ const RevenueBreakdown = () => {
 // 5. ACTIVATION + SPONSOR EFFECTIVENESS
 // ═══════════════════════════════════════
 const ActivationCard = () => {
+  const { t } = useTranslation();
   const { data: act, loading } = useFetch("api/wp/admin/kpi/activation", true);
   if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={200} /></Card>;
   if (!act) return null;
   return (
     <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>Activation & Onboarding</Typography>
+      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>{t("admin.kpi.activation_title", "Activation & Onboarding")}</Typography>
       <Grid container spacing={1.5} sx={{ mb: 2 }}>
         {[
-          { label: "Nuovi iscritti", value: act.total_new_users, color: INFO },
-          { label: "Attivati", value: act.activated, color: SUCCESS },
-          { label: "Activation rate", value: `${act.activation_rate}%`, color: act.activation_rate >= 50 ? SUCCESS : WARNING },
-          { label: "Tempo 1° ordine", value: `${act.time_to_first_order}gg`, color: act.time_to_first_order <= 7 ? SUCCESS : WARNING },
+          { label: t("admin.kpi.new_signups", "Nuovi iscritti"), value: act.total_new_users, color: INFO },
+          { label: t("admin.kpi.activated", "Attivati"), value: act.activated, color: SUCCESS },
+          { label: t("admin.kpi.activation_rate", "Activation rate"), value: `${act.activation_rate}%`, color: act.activation_rate >= 50 ? SUCCESS : WARNING },
+          { label: t("admin.kpi.time_to_first_order", "Tempo 1° ordine"), value: `${act.time_to_first_order}${t("admin.kpi.days_short", "gg")}`, color: act.time_to_first_order <= 7 ? SUCCESS : WARNING },
         ].map((m) => (
           <Grid item xs={6} key={m.label}>
             <Box sx={{ p: 1.5, bgcolor: alpha(m.color, 0.04), borderRadius: 2, border: `1px solid ${alpha(m.color, 0.1)}`, textAlign: "center" }}>
@@ -399,13 +410,13 @@ const ActivationCard = () => {
       </Grid>
       {act.sponsor_effectiveness && act.sponsor_effectiveness.length > 0 && (
         <>
-          <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: TEXT, mb: 1 }}>Top Sponsor per efficacia</Typography>
+          <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: TEXT, mb: 1 }}>{t("admin.kpi.top_sponsor_effectiveness", "Top Sponsor per efficacia")}</Typography>
           <Stack spacing={0.8}>
             {act.sponsor_effectiveness.slice(0, 5).map((s) => (
               <Stack key={s.user_id} direction="row" alignItems="center" spacing={1}>
                 <Typography sx={{ fontSize: "0.78rem", color: TEXT, fontWeight: 600, flex: 1 }} noWrap>{s.username}</Typography>
-                <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{s.total_referred} ref</Typography>
-                <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{s.active_referred} attivi</Typography>
+                <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{s.total_referred} {t("admin.kpi.ref_short", "ref")}</Typography>
+                <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{s.active_referred} {t("admin.kpi.active_short", "attivi")}</Typography>
                 <Chip label={`${s.effectiveness}%`} size="small" sx={{ height: 18, fontSize: "0.62rem", fontWeight: 700, bgcolor: alpha(s.effectiveness >= 50 ? SUCCESS : WARNING, 0.1), color: s.effectiveness >= 50 ? SUCCESS : WARNING }} />
               </Stack>
             ))}
@@ -421,6 +432,7 @@ const ActivationCard = () => {
 // ═══════════════════════════════════════
 const COMM_COLORS = { direct_sales_bonus: ORO, fast_start_bonus: "#FF4081", residual_bonus: SUCCESS, go_mvp_bonus: "#4CAF50", indirect_sales_bonus: INFO, leadership_bonus: "#9C27B0", ritual_bonus: "#455A64", evolving_bonus: "#FF5722", pmb_bonus: "#795548", residual_matching_bonus: WARNING, three_ff_bonus: "#E91E63", rock_solid_mvp_bonus: "#2196F3" };
 const CommissionBreakdown = () => {
+  const { t } = useTranslation();
   const { data: cb, loading } = useFetch("api/wp/admin/kpi/commission-breakdown", true);
   if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={200} /></Card>;
   if (!cb) return null;
@@ -428,8 +440,8 @@ const CommissionBreakdown = () => {
   return (
     <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
       <Stack direction="row" justifyContent="space-between" mb={2}>
-        <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT }}>Commissioni per tipo</Typography>
-        <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ORO }}>Tot: €{(cb.total || 0).toLocaleString("it")}</Typography>
+        <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT }}>{t("admin.kpi.commissions_by_type", "Commissioni per tipo")}</Typography>
+        <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ORO }}>{t("admin.kpi.total_short", "Tot")}: €{(cb.total || 0).toLocaleString("it")}</Typography>
       </Stack>
       <Stack spacing={1}>
         {items.map((c) => {
@@ -457,13 +469,14 @@ const CommissionBreakdown = () => {
 // ═══════════════════════════════════════
 const PROD_COLORS = [ESPRESSO, ORO, "#D4B86A", SUCCESS, WARNING, INFO, DANGER, "#9C27B0"];
 const ProductMix = () => {
+  const { t } = useTranslation();
   const { data, loading } = useFetch("api/wp/admin/kpi/product-mix", true);
   if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={200} /></Card>;
   if (!data || !data.length) return null;
   const segments = data.slice(0, 6).map((p, i) => ({ value: p.revenue, color: PROD_COLORS[i % PROD_COLORS.length], label: p.product || "N/A", pct: p.pct, orders: p.orders }));
   return (
     <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 1 }}>Revenue per prodotto</Typography>
+      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 1 }}>{t("admin.kpi.product_mix_title", "Revenue per prodotto")}</Typography>
       <Box sx={{ textAlign: "center", mb: 2 }}><Donut segments={segments} size={120} /></Box>
       <Stack spacing={0.8}>
         {segments.map((s) => (
@@ -480,13 +493,14 @@ const ProductMix = () => {
 };
 
 const GeoDistribution = () => {
+  const { t } = useTranslation();
   const { data: ops } = useFetch("api/wp/admin/kpi/operations");
   const geo = ops?.geo || [];
-  if (!geo.length) return <Card sx={{ ...cardSx, p: 3, height: "100%" }}><Typography sx={{ fontSize: "0.85rem", color: MUTED }}>Nessun dato geo</Typography></Card>;
+  if (!geo.length) return <Card sx={{ ...cardSx, p: 3, height: "100%" }}><Typography sx={{ fontSize: "0.85rem", color: MUTED }}>{t("admin.kpi.no_geo_data", "Nessun dato geo")}</Typography></Card>;
   const total = geo.reduce((s, g) => s + g.cnt, 0);
   return (
     <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>Distribuzione geografica</Typography>
+      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>{t("admin.kpi.geo_distribution", "Distribuzione geografica")}</Typography>
       <Stack spacing={1.5}>
         {geo.slice(0, 5).map((g) => (
           <Stack key={g.country} direction="row" alignItems="center" spacing={1}>
@@ -502,19 +516,20 @@ const GeoDistribution = () => {
 };
 
 const ClientSegmentation = () => {
+  const { t } = useTranslation();
   const { data: cl, loading } = useFetch("api/wp/admin/kpi/clients", true);
   if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={250} /></Card>;
   if (!cl) return null;
   const seg = cl.segmentation || {};
   const total = (seg.smartship || 0) + (seg.repeat_2plus || 0) + (seg.one_time || 0);
   const segments = [
-    { label: "Smartship", value: seg.smartship || 0, color: SUCCESS },
-    { label: "Repeat 2+", value: seg.repeat_2plus || 0, color: INFO },
-    { label: "One-time", value: seg.one_time || 0, color: WARNING },
+    { label: t("admin.kpi.seg_smartship", "Smartship"), value: seg.smartship || 0, color: SUCCESS },
+    { label: t("admin.kpi.seg_repeat_2plus", "Repeat 2+"), value: seg.repeat_2plus || 0, color: INFO },
+    { label: t("admin.kpi.seg_one_time", "One-time"), value: seg.one_time || 0, color: WARNING },
   ];
   return (
     <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 1.5 }}>Segmentazione clienti</Typography>
+      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 1.5 }}>{t("admin.kpi.client_segmentation", "Segmentazione clienti")}</Typography>
       <Box sx={{ textAlign: "center", mb: 2 }}><Donut segments={segments} size={110} /></Box>
       <Stack spacing={1}>
         {segments.map((s) => (
@@ -527,23 +542,24 @@ const ClientSegmentation = () => {
         ))}
       </Stack>
       <Box sx={{ mt: 2, p: 1.5, bgcolor: alpha(ORO, 0.04), borderRadius: 2 }}>
-        <StatBar label="NRR" value={cl.nrr || 0} color={cl.nrr >= 100 ? SUCCESS : WARNING} />
-        <StatBar label="Churn Rate" value={cl.churn_rate || 0} color={cl.churn_rate < 10 ? SUCCESS : DANGER} />
-        <StatBar label="Retention Smartship" value={cl.smartship_retention || 0} color={SUCCESS} />
+        <StatBar label={t("admin.kpi.nrr", "NRR")} value={cl.nrr || 0} color={cl.nrr >= 100 ? SUCCESS : WARNING} />
+        <StatBar label={t("admin.kpi.churn_rate", "Churn Rate")} value={cl.churn_rate || 0} color={cl.churn_rate < 10 ? SUCCESS : DANGER} />
+        <StatBar label={t("admin.kpi.smartship_retention", "Retention Smartship")} value={cl.smartship_retention || 0} color={SUCCESS} />
       </Box>
     </Card>
   );
 };
 
 const NetworkKPIs = () => {
+  const { t } = useTranslation();
   const { data: n, loading } = useFetch("api/wp/admin/kpi/network", true);
   if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={200} /></Card>;
   if (!n) return null;
   return (
     <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>Network</Typography>
+      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>{t("admin.kpi.network_title", "Network")}</Typography>
       <Grid container spacing={1.5} sx={{ mb: 2 }}>
-        {[{ label: "Attivi", value: n.distributori_attivi, sub: `/ ${n.distributori_totali}`, color: SUCCESS }, { label: "Nuovi", value: n.nuovi_distributori, color: INFO }, { label: "Rank Up", value: n.rank_advancement, color: ORO }, { label: "€/Promoter", value: `€${n.revenue_per_promoter}`, color: ORO }].map((m) => (
+        {[{ label: t("admin.kpi.network_active", "Attivi"), value: n.distributori_attivi, sub: `/ ${n.distributori_totali}`, color: SUCCESS }, { label: t("admin.kpi.network_new", "Nuovi"), value: n.nuovi_distributori, color: INFO }, { label: t("admin.kpi.network_rank_up", "Rank Up"), value: n.rank_advancement, color: ORO }, { label: t("admin.kpi.network_per_promoter", "€/Promoter"), value: `€${n.revenue_per_promoter}`, color: ORO }].map((m) => (
           <Grid item xs={6} key={m.label}><Box sx={{ p: 1.5, bgcolor: alpha(m.color, 0.04), borderRadius: 2, border: `1px solid ${alpha(m.color, 0.1)}`, textAlign: "center" }}>
             <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color: m.color }}>{m.value}</Typography>
             <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>{m.label}{m.sub || ""}</Typography>
@@ -551,7 +567,7 @@ const NetworkKPIs = () => {
         ))}
       </Grid>
       {n.breakeven && <Box sx={{ p: 1.5, bgcolor: alpha(SUCCESS, 0.04), borderRadius: 2, border: `1px solid ${alpha(SUCCESS, 0.1)}` }}>
-        <Typography sx={{ fontSize: "0.8rem", color: TEXT, fontWeight: 600 }}>Breakeven: <b style={{ color: SUCCESS }}>{n.breakeven.in_profit}</b>/{n.breakeven.total} in utile</Typography>
+        <Typography sx={{ fontSize: "0.8rem", color: TEXT, fontWeight: 600 }}>{t("admin.kpi.breakeven_prefix", "Breakeven")}: <b style={{ color: SUCCESS }}>{n.breakeven.in_profit}</b>/{n.breakeven.total} {t("admin.kpi.breakeven_in_profit", "in utile")}</Typography>
         <LinearProgress variant="determinate" value={n.breakeven.total > 0 ? (n.breakeven.in_profit / n.breakeven.total) * 100 : 0} sx={{ height: 5, borderRadius: 3, mt: 0.5, bgcolor: alpha(SUCCESS, 0.1), "& .MuiLinearProgress-bar": { bgcolor: SUCCESS, borderRadius: 3 } }} />
       </Box>}
     </Card>
@@ -560,6 +576,7 @@ const NetworkKPIs = () => {
 
 const MEDAL_COLORS = [ORO, "#A0A0A0", "#CD7F32"];
 const Top10 = () => {
+  const { t: tr } = useTranslation();
   const { data: n } = useFetch("api/wp/admin/kpi/network", true);
   const top = n?.top10 || [];
   if (!top.length) return null;
@@ -568,7 +585,7 @@ const Top10 = () => {
   const restPct = rest.reduce((s, t) => s + t.pct, 0);
   return (
     <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>Top 10 promoter per fatturato</Typography>
+      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>{tr("admin.kpi.top10_title", "Top 10 promoter per fatturato")}</Typography>
       <Stack spacing={0.8}>
         {top5.map((t, i) => (
           <Stack key={t.user_id} direction="row" alignItems="center" spacing={1}>
@@ -580,7 +597,7 @@ const Top10 = () => {
           </Stack>
         ))}
         {rest.length > 0 && <Stack direction="row" alignItems="center" spacing={1} sx={{ pt: 0.5, borderTop: "1px solid #f0ece6" }}>
-          <Typography sx={{ fontSize: "0.7rem", color: MUTED, flex: 1 }}>6-10 altri {rest.length}</Typography>
+          <Typography sx={{ fontSize: "0.7rem", color: MUTED, flex: 1 }}>{tr("admin.kpi.top10_others", "6-10 altri {{n}}", { n: rest.length })}</Typography>
           <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: MUTED }}>{restPct.toFixed(0)}%</Typography>
         </Stack>}
       </Stack>
@@ -589,6 +606,7 @@ const Top10 = () => {
 };
 
 const CohortAnalysis = () => {
+  const { t } = useTranslation();
   const { data, loading } = useFetch("api/wp/admin/kpi/cohort");
   if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={200} /></Card>;
   if (!data || !data.length) return null;
@@ -596,12 +614,12 @@ const CohortAnalysis = () => {
   const gc = (v) => v >= 80 ? SUCCESS : v >= 50 ? "#8BC34A" : v >= 30 ? WARNING : v >= 10 ? "#FF9800" : DANGER;
   return (
     <Card sx={{ ...cardSx, p: 3, height: "100%", overflow: "auto" }}>
-      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>Cohort — retention per mese</Typography>
+      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>{t("admin.kpi.cohort_title", "Cohort — retention per mese")}</Typography>
       <Stack spacing={0.5}>
         <Stack direction="row" spacing={0.5}><Box sx={{ width: 65 }} />{Array.from({ length: maxCols }, (_, i) => <Box key={i} sx={{ width: 40, textAlign: "center" }}><Typography sx={{ fontSize: "0.62rem", fontWeight: 700, color: MUTED }}>M{i + 1}</Typography></Box>)}</Stack>
         {data.map((row) => (
           <Stack key={row.mese} direction="row" spacing={0.5} alignItems="center">
-            <Box sx={{ width: 65 }}><Typography sx={{ fontSize: "0.65rem", fontWeight: 600, color: TEXT }}>{row.mese}</Typography><Typography sx={{ fontSize: "0.55rem", color: row.total > 0 ? SUCCESS : MUTED }}>{row.total} utenti</Typography></Box>
+            <Box sx={{ width: 65 }}><Typography sx={{ fontSize: "0.65rem", fontWeight: 600, color: TEXT }}>{row.mese}</Typography><Typography sx={{ fontSize: "0.55rem", color: row.total > 0 ? SUCCESS : MUTED }}>{row.total} {t("admin.kpi.cohort_users_suffix", "utenti")}</Typography></Box>
             {(row.retention || []).map((v, i) => <Box key={i} sx={{ width: 40, height: 28, borderRadius: 1, bgcolor: alpha(gc(v), 0.15), display: "flex", alignItems: "center", justifyContent: "center" }}><Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: gc(v) }}>{v}%</Typography></Box>)}
             {Array.from({ length: maxCols - (row.retention?.length || 0) }, (_, i) => <Box key={`e${i}`} sx={{ width: 40, height: 28, display: "flex", alignItems: "center", justifyContent: "center" }}><Typography sx={{ fontSize: "0.65rem", color: "#ddd" }}>—</Typography></Box>)}
           </Stack>
@@ -612,8 +630,9 @@ const CohortAnalysis = () => {
 };
 
 const HOUR_SLOTS = ["8-12", "12-18", "18-22", "22-8"];
-const DAY_LABELS = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
 const OrderHeatmap = () => {
+  const { t } = useTranslation();
+  const DAY_LABELS = [t("admin.kpi.day_mon", "Lun"), t("admin.kpi.day_tue", "Mar"), t("admin.kpi.day_wed", "Mer"), t("admin.kpi.day_thu", "Gio"), t("admin.kpi.day_fri", "Ven"), t("admin.kpi.day_sat", "Sab"), t("admin.kpi.day_sun", "Dom")];
   const { data: ops } = useFetch("api/wp/admin/kpi/operations");
   const hm = ops?.heatmap || [];
   if (!hm.length) return null;
@@ -623,7 +642,7 @@ const OrderHeatmap = () => {
   let pS = 0, pD = 0, pV = 0; grid.forEach((r, si) => r.forEach((v, di) => { if (v > pV) { pV = v; pS = si; pD = di; } }));
   return (
     <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>Heatmap ordini</Typography>
+      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>{t("admin.kpi.heatmap_title", "Heatmap ordini")}</Typography>
       <Stack spacing={0.5}>
         <Stack direction="row" spacing={0.5}><Box sx={{ width: 45 }} />{DAY_LABELS.map(d => <Box key={d} sx={{ flex: 1, textAlign: "center" }}><Typography sx={{ fontSize: "0.62rem", fontWeight: 600, color: MUTED }}>{d}</Typography></Box>)}</Stack>
         {grid.map((row, si) => (
@@ -637,40 +656,42 @@ const OrderHeatmap = () => {
           </Stack>
         ))}
       </Stack>
-      <Insight color={ORO} icon="mdi:chart-timeline-variant">Picco: {DAY_LABELS[pD]} {HOUR_SLOTS[pS]} ({pV} ordini)</Insight>
+      <Insight color={ORO} icon="mdi:chart-timeline-variant">{t("admin.kpi.heatmap_peak", "Picco: {{day}} {{slot}} ({{n}} ordini)", { day: DAY_LABELS[pD], slot: HOUR_SLOTS[pS], n: pV })}</Insight>
     </Card>
   );
 };
 
 const RankVelocity = () => {
+  const { t } = useTranslation();
   const { data, loading } = useFetch("api/wp/admin/kpi/rank-velocity");
   if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={200} /></Card>;
-  if (!data || !data.length) return <Card sx={{ ...cardSx, p: 3 }}><Typography sx={{ fontSize: "0.85rem", color: MUTED }}>Nessun dato rank velocity</Typography></Card>;
+  if (!data || !data.length) return <Card sx={{ ...cardSx, p: 3 }}><Typography sx={{ fontSize: "0.85rem", color: MUTED }}>{t("admin.kpi.rank_velocity_no_data", "Nessun dato rank velocity")}</Typography></Card>;
   const mx = Math.max(...data.map(d => d.avg_days), 60);
   const slow = data.reduce((a, b) => b.avg_days > a.avg_days ? b : a, data[0]);
   return (
     <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>Rank Velocity</Typography>
+      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>{t("admin.kpi.rank_velocity_title", "Rank Velocity")}</Typography>
       <Stack spacing={1.5}>
         {data.map((r, i) => { const bc = r.avg_days > 60 ? DANGER : r.avg_days > 30 ? WARNING : SUCCESS; return (
-          <Box key={i}><Stack direction="row" justifyContent="space-between" mb={0.3}><Typography sx={{ fontSize: "0.78rem", color: TEXT, fontWeight: 600 }}>{r.from} → {r.to}</Typography><Typography sx={{ fontSize: "0.78rem", fontWeight: 700, color: bc }}>{r.avg_days}gg</Typography></Stack>
+          <Box key={i}><Stack direction="row" justifyContent="space-between" mb={0.3}><Typography sx={{ fontSize: "0.78rem", color: TEXT, fontWeight: 600 }}>{r.from} → {r.to}</Typography><Typography sx={{ fontSize: "0.78rem", fontWeight: 700, color: bc }}>{r.avg_days}{t("admin.kpi.days_short", "gg")}</Typography></Stack>
           <LinearProgress variant="determinate" value={Math.min((r.avg_days / mx) * 100, 100)} sx={{ height: 8, borderRadius: 4, bgcolor: alpha(bc, 0.1), "& .MuiLinearProgress-bar": { bgcolor: bc, borderRadius: 4 } }} />
-          <Typography sx={{ fontSize: "0.58rem", color: MUTED, mt: 0.2 }}>{r.count} transizioni</Typography></Box>);
+          <Typography sx={{ fontSize: "0.58rem", color: MUTED, mt: 0.2 }}>{r.count} {t("admin.kpi.rank_velocity_transitions", "transizioni")}</Typography></Box>);
         })}
       </Stack>
-      {slow && slow.avg_days > 60 && <Insight color={DANGER} icon="mdi:alert-circle">{slow.from} → {slow.to} richiede {slow.avg_days}gg — troppo lungo.</Insight>}
+      {slow && slow.avg_days > 60 && <Insight color={DANGER} icon="mdi:alert-circle">{t("admin.kpi.rank_velocity_too_long", "{{from}} → {{to}} richiede {{days}}gg — troppo lungo.", { from: slow.from, to: slow.to, days: slow.avg_days })}</Insight>}
     </Card>
   );
 };
 
 const InventoryForecast = () => {
+  const { t } = useTranslation();
   const { data: ops } = useFetch("api/wp/admin/kpi/operations");
   const inv = ops?.inventory || [];
   if (!inv.length) return null;
   const maxCnt = Math.max(...inv.map((p) => p.orders_30d || 0), 1);
   return (
     <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>Top prodotti ultimi 30gg</Typography>
+      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>{t("admin.kpi.top_products_30d", "Top prodotti ultimi 30gg")}</Typography>
       <Stack spacing={1.5}>
         {inv.slice(0, 6).map((p, i) => (
           <Stack key={i} direction="row" alignItems="center" spacing={1.2}>
@@ -688,19 +709,20 @@ const InventoryForecast = () => {
 };
 
 const AgingCommissions = () => {
+  const { t } = useTranslation();
   const { data: ops } = useFetch("api/wp/admin/kpi/operations");
   const aging = ops?.aging; if (!aging) return null;
-  const bands = [{ label: "< 30 giorni", value: aging.lt30 || 0, color: SUCCESS, badge: "attivi" }, { label: "30-60 giorni", value: aging.d30_60 || 0, color: WARNING, badge: "monit." }, { label: "60-90 giorni", value: aging.d60_90 || 0, color: "#FF9800", badge: "rischio" }, { label: "> 90 giorni", value: aging.gt90 || 0, color: DANGER, badge: "dormiente" }];
+  const bands = [{ label: t("admin.kpi.aging_lt30", "< 30 giorni"), value: aging.lt30 || 0, color: SUCCESS, badge: t("admin.kpi.aging_badge_active", "attivi") }, { label: t("admin.kpi.aging_30_60", "30-60 giorni"), value: aging.d30_60 || 0, color: WARNING, badge: t("admin.kpi.aging_badge_monit", "monit.") }, { label: t("admin.kpi.aging_60_90", "60-90 giorni"), value: aging.d60_90 || 0, color: "#FF9800", badge: t("admin.kpi.aging_badge_risk", "rischio") }, { label: t("admin.kpi.aging_gt90", "> 90 giorni"), value: aging.gt90 || 0, color: DANGER, badge: t("admin.kpi.aging_badge_dormant", "dormiente") }];
   const total = bands.reduce((s, b) => s + b.value, 0);
   return (
     <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
-      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>Pending commissions aging</Typography>
+      <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT, mb: 2 }}>{t("admin.kpi.pending_aging", "Pending commissions aging")}</Typography>
       <Stack spacing={1.5}>
         {bands.map((b) => (<Box key={b.label}><Stack direction="row" justifyContent="space-between" alignItems="center" mb={0.3}><Typography sx={{ fontSize: "0.8rem", color: TEXT, fontWeight: 600 }}>{b.label}</Typography><Stack direction="row" spacing={0.5}><Typography sx={{ fontSize: "0.8rem", color: b.color, fontWeight: 700 }}>€{b.value.toFixed(0)}</Typography><Chip label={b.badge} size="small" sx={{ height: 16, fontSize: "0.58rem", fontWeight: 700, bgcolor: alpha(b.color, 0.1), color: b.color }} /></Stack></Stack>
         <LinearProgress variant="determinate" value={total > 0 ? (b.value / total) * 100 : 0} sx={{ height: 5, borderRadius: 3, bgcolor: alpha(b.color, 0.1), "& .MuiLinearProgress-bar": { bgcolor: b.color, borderRadius: 3 } }} /></Box>))}
       </Stack>
       <Box sx={{ mt: 2, p: 1.5, bgcolor: alpha(ORO, 0.04), borderRadius: 2 }}>
-        <Typography sx={{ fontSize: "0.72rem", fontWeight: 600, color: TEXT, mb: 0.5 }}>Forecast payout</Typography>
+        <Typography sx={{ fontSize: "0.72rem", fontWeight: 600, color: TEXT, mb: 0.5 }}>{t("admin.kpi.forecast_payout", "Forecast payout")}</Typography>
         {[{ l: "+30g (85%)", v: Math.round(total * 0.85) }, { l: "+60g (70%)", v: Math.round(total * 0.70) }, { l: "+90g (55%)", v: Math.round(total * 0.55) }].map((f) => (
           <Stack key={f.l} direction="row" justifyContent="space-between" sx={{ py: 0.2 }}><Typography sx={{ fontSize: "0.68rem", color: MUTED }}>{f.l}</Typography><Typography sx={{ fontSize: "0.68rem", fontWeight: 700, color: TEXT }}>€{f.v.toLocaleString("it")}</Typography></Stack>
         ))}
@@ -712,13 +734,15 @@ const AgingCommissions = () => {
 // ═══════════════════════════════════════
 // LEADERBOARD (Earners, Recruiters, Achievers)
 // ═══════════════════════════════════════
-const LeaderList = ({ title, icon, items, valueKey, valueLabel, valueSuffix = "", secondaryKey, secondaryLabel }) => (
+const LeaderList = ({ title, icon, items, valueKey, valueLabel, valueSuffix = "", secondaryKey, secondaryLabel }) => {
+  const { t } = useTranslation();
+  return (
   <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
     <Stack direction="row" alignItems="center" spacing={1} mb={2}>
       <Iconify icon={icon} width={20} sx={{ color: ORO }} />
       <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT }}>{title}</Typography>
     </Stack>
-    {(!items || !items.length) ? <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>Nessun dato</Typography> : (
+    {(!items || !items.length) ? <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>{t("admin.kpi.no_data", "Nessun dato")}</Typography> : (
       <Stack spacing={0.8}>
         {items.map((t, i) => (
           <Stack key={t.user_id || i} direction="row" alignItems="center" spacing={1}>
@@ -736,22 +760,24 @@ const LeaderList = ({ title, icon, items, valueKey, valueLabel, valueSuffix = ""
       </Stack>
     )}
   </Card>
-);
+  );
+};
 
 const Leaderboard = () => {
+  const { t } = useTranslation();
   const { data, loading } = useFetch("api/wp/admin/kpi/leaderboard", true);
   if (loading) return <Grid container spacing={2}>{[0,1,2].map(i => <Grid item xs={12} md={4} key={i}><Skeleton variant="rounded" height={250} sx={{ borderRadius: 3 }} /></Grid>)}</Grid>;
   if (!data) return null;
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={4}>
-        <LeaderList title="Top Earners" icon="mdi:cash-multiple" items={data.top_earners} valueKey="total_earned" valueSuffix="€" secondaryKey="num_commissions" secondaryLabel="commissioni" />
+        <LeaderList title={t("admin.kpi.top_earners", "Top Earners")} icon="mdi:cash-multiple" items={data.top_earners} valueKey="total_earned" valueSuffix="€" secondaryKey="num_commissions" secondaryLabel={t("admin.kpi.commissions_short", "commissioni")} />
       </Grid>
       <Grid item xs={12} md={4}>
-        <LeaderList title="Top Recruiters" icon="mdi:account-multiple-plus" items={data.top_recruiters} valueKey="total_recruited" valueSuffix="" secondaryKey="active_recruited" secondaryLabel="attivi" />
+        <LeaderList title={t("admin.kpi.top_recruiters", "Top Recruiters")} icon="mdi:account-multiple-plus" items={data.top_recruiters} valueKey="total_recruited" valueSuffix="" secondaryKey="active_recruited" secondaryLabel={t("admin.kpi.active_short", "attivi")} />
       </Grid>
       <Grid item xs={12} md={4}>
-        <LeaderList title="Top Achievers" icon="mdi:trophy" items={data.top_achievers} valueKey="rank_name" valueSuffix="" />
+        <LeaderList title={t("admin.kpi.top_achievers", "Top Achievers")} icon="mdi:trophy" items={data.top_achievers} valueKey="rank_name" valueSuffix="" />
       </Grid>
     </Grid>
   );
@@ -761,24 +787,25 @@ const Leaderboard = () => {
 // PAYOUT SUMMARY
 // ═══════════════════════════════════════
 const PayoutSummary = () => {
+  const { t } = useTranslation();
   const { data: ps, loading } = useFetch("api/wp/admin/kpi/payout-summary", true);
   if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={250} /></Card>;
   if (!ps) return null;
 
   const statusCards = [
-    { label: "Totale generato", value: ps.total_generated, color: ORO, icon: "mdi:sigma" },
-    { label: "Pagato", value: ps.paid, color: SUCCESS, icon: "mdi:check-circle" },
-    { label: "Pending", value: ps.pending, color: WARNING, icon: "mdi:clock-outline" },
-    { label: "On Hold", value: ps.on_hold, color: INFO, icon: "mdi:pause-circle" },
+    { label: t("admin.kpi.ps_total_generated", "Totale generato"), value: ps.total_generated, color: ORO, icon: "mdi:sigma" },
+    { label: t("admin.kpi.ps_paid", "Pagato"), value: ps.paid, color: SUCCESS, icon: "mdi:check-circle" },
+    { label: t("admin.kpi.ps_pending", "Pending"), value: ps.pending, color: WARNING, icon: "mdi:clock-outline" },
+    { label: t("admin.kpi.ps_on_hold", "On Hold"), value: ps.on_hold, color: INFO, icon: "mdi:pause-circle" },
   ];
 
   return (
     <Card sx={{ ...cardSx, p: 3 }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
-        <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT }}>Payout Summary</Typography>
+        <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT }}>{t("admin.kpi.payout_summary", "Payout Summary")}</Typography>
         <Stack direction="row" spacing={0.5} alignItems="center">
           <Iconify icon="mdi:wallet-outline" width={16} sx={{ color: MUTED }} />
-          <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>Wallet totale: <b style={{ color: TEXT }}>€{ps.total_wallet_balance}</b></Typography>
+          <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>{t("admin.kpi.total_wallet_prefix", "Wallet totale")}: <b style={{ color: TEXT }}>€{ps.total_wallet_balance}</b></Typography>
         </Stack>
       </Stack>
 
@@ -794,7 +821,7 @@ const PayoutSummary = () => {
         ))}
       </Grid>
 
-      <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: TEXT, mb: 1 }}>Bonus per tipo</Typography>
+      <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: TEXT, mb: 1 }}>{t("admin.kpi.bonus_by_type", "Bonus per tipo")}</Typography>
       <Stack spacing={0.8}>
         {(ps.by_type || []).map((b) => {
           const clr = COMM_COLORS[b.type] || ORO;
@@ -803,8 +830,8 @@ const PayoutSummary = () => {
               <Box sx={{ width: 7, height: 7, borderRadius: "50%", bgcolor: clr, flexShrink: 0 }} />
               <Typography sx={{ fontSize: "0.75rem", color: TEXT, fontWeight: 600, flex: 1 }} noWrap>{b.label}</Typography>
               <Stack direction="row" spacing={0.5}>
-                <Chip label={`€${b.paid} paid`} size="small" sx={{ height: 16, fontSize: "0.58rem", bgcolor: alpha(SUCCESS, 0.08), color: SUCCESS }} />
-                <Chip label={`€${b.pending} pend`} size="small" sx={{ height: 16, fontSize: "0.58rem", bgcolor: alpha(WARNING, 0.08), color: WARNING }} />
+                <Chip label={`€${b.paid} ${t("admin.kpi.paid_chip", "paid")}`} size="small" sx={{ height: 16, fontSize: "0.58rem", bgcolor: alpha(SUCCESS, 0.08), color: SUCCESS }} />
+                <Chip label={`€${b.pending} ${t("admin.kpi.pend_chip", "pend")}`} size="small" sx={{ height: 16, fontSize: "0.58rem", bgcolor: alpha(WARNING, 0.08), color: WARNING }} />
               </Stack>
               <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: clr, width: 40, textAlign: "right" }}>{b.pct}%</Typography>
             </Stack>
@@ -814,11 +841,11 @@ const PayoutSummary = () => {
 
       <Box sx={{ mt: 2, p: 1.5, bgcolor: alpha(ORO, 0.04), borderRadius: 2 }}>
         <Stack direction="row" justifyContent="space-between">
-          <Typography sx={{ fontSize: "0.72rem", color: MUTED }}>Bonus medio/promoter attivo</Typography>
-          <Typography sx={{ fontSize: "0.72rem", fontWeight: 700, color: TEXT }}>€{ps.avg_bonus_per_promoter} ({ps.active_promoters} attivi)</Typography>
+          <Typography sx={{ fontSize: "0.72rem", color: MUTED }}>{t("admin.kpi.avg_bonus_promoter", "Bonus medio/promoter attivo")}</Typography>
+          <Typography sx={{ fontSize: "0.72rem", fontWeight: 700, color: TEXT }}>€{ps.avg_bonus_per_promoter} ({ps.active_promoters} {t("admin.kpi.active_promoters_short", "attivi")})</Typography>
         </Stack>
         {(ps.cancelled || 0) > 0 && (
-          <Typography sx={{ fontSize: "0.65rem", color: DANGER, mt: 0.5 }}>€{ps.cancelled} in commissioni cancellate</Typography>
+          <Typography sx={{ fontSize: "0.65rem", color: DANGER, mt: 0.5 }}>€{ps.cancelled} {t("admin.kpi.cancelled_commissions_suffix", "in commissioni cancellate")}</Typography>
         )}
       </Box>
     </Card>
@@ -830,13 +857,14 @@ const PayoutSummary = () => {
 // ═══════════════════════════════════════
 const MESI_SHORT = ["Gen","Feb","Mar","Apr","Mag","Giu","Lug","Ago","Set","Ott","Nov","Dic"];
 const RefundAnalytics = () => {
+  const { t } = useTranslation();
   const { data: rf, loading } = useFetch("api/wp/admin/kpi/refunds", true);
   if (loading) return <Card sx={{ ...cardSx, p: 3 }}><Skeleton height={250} /></Card>;
   if (!rf) return null;
 
   const deltaCount = rf.refund_count_prev > 0 ? ((rf.refund_count - rf.refund_count_prev) / rf.refund_count_prev * 100).toFixed(0) : 0;
   const deltaValue = rf.refund_value_prev > 0 ? ((rf.refund_value - rf.refund_value_prev) / rf.refund_value_prev * 100).toFixed(0) : 0;
-  const statusLabels = { refunded: "Rimborsato", cancelled: "Cancellato", partially_refunded: "Parziale" };
+  const statusLabels = { refunded: t("admin.kpi.refund_status_refunded", "Rimborsato"), cancelled: t("admin.kpi.refund_status_cancelled", "Cancellato"), partially_refunded: t("admin.kpi.refund_status_partial", "Parziale") };
   const statusColors = { refunded: DANGER, cancelled: "#333", partially_refunded: WARNING };
   const trend = rf.monthly_trend || [];
   const trendMax = Math.max(...trend.map(t => t.cnt || 0), 1);
@@ -848,20 +876,20 @@ const RefundAnalytics = () => {
         <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
           <Stack direction="row" alignItems="center" spacing={1} mb={2}>
             <Iconify icon="mdi:cash-refund" width={20} sx={{ color: DANGER }} />
-            <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT }}>Resi &amp; Rimborsi</Typography>
+            <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT }}>{t("admin.kpi.refunds_title", "Resi & Rimborsi")}</Typography>
           </Stack>
           <Grid container spacing={1.5}>
             {[
-              { label: "Rimborsi", value: rf.refund_count, delta: deltaCount, prefix: "" },
-              { label: "Valore rimborsato", value: `€${rf.refund_value.toLocaleString("it")}`, delta: deltaValue, prefix: "" },
-              { label: "Refund rate", value: `${rf.refund_rate}%`, delta: null },
-              { label: "Commissioni cancellate", value: `€${rf.cancelled_commissions.toLocaleString("it")}`, delta: null },
+              { label: t("admin.kpi.refunds_count", "Rimborsi"), value: rf.refund_count, delta: deltaCount, prefix: "" },
+              { label: t("admin.kpi.refund_value", "Valore rimborsato"), value: `€${rf.refund_value.toLocaleString("it")}`, delta: deltaValue, prefix: "" },
+              { label: t("admin.kpi.refund_rate", "Refund rate"), value: `${rf.refund_rate}%`, delta: null },
+              { label: t("admin.kpi.cancelled_commissions", "Commissioni cancellate"), value: `€${rf.cancelled_commissions.toLocaleString("it")}`, delta: null },
             ].map((c) => (
               <Grid item xs={6} key={c.label}>
                 <Box sx={{ p: 1.2, bgcolor: alpha(DANGER, 0.04), borderRadius: 2, border: `1px solid ${alpha(DANGER, 0.1)}` }}>
                   <Typography sx={{ fontSize: "0.62rem", color: MUTED }}>{c.label}</Typography>
                   <Typography sx={{ fontSize: "1rem", fontWeight: 800, color: TEXT }}>{c.value}</Typography>
-                  {c.delta !== null && <Typography sx={{ fontSize: "0.6rem", color: c.delta > 0 ? DANGER : SUCCESS }}>{c.delta > 0 ? "+" : ""}{c.delta}% vs prec</Typography>}
+                  {c.delta !== null && <Typography sx={{ fontSize: "0.6rem", color: c.delta > 0 ? DANGER : SUCCESS }}>{c.delta > 0 ? "+" : ""}{c.delta}% {t("admin.kpi.revenue_vs_prev_short", "vs prec")}</Typography>}
                 </Box>
               </Grid>
             ))}
@@ -869,7 +897,7 @@ const RefundAnalytics = () => {
           {/* By status */}
           {rf.by_status && rf.by_status.length > 0 && (
             <Box sx={{ mt: 2 }}>
-              <Typography sx={{ fontSize: "0.7rem", fontWeight: 600, color: MUTED, mb: 0.5 }}>Per tipologia</Typography>
+              <Typography sx={{ fontSize: "0.7rem", fontWeight: 600, color: MUTED, mb: 0.5 }}>{t("admin.kpi.refund_by_type", "Per tipologia")}</Typography>
               <Stack spacing={0.5}>
                 {rf.by_status.map((s) => (
                   <Stack key={s.status} direction="row" alignItems="center" justifyContent="space-between">
@@ -883,13 +911,13 @@ const RefundAnalytics = () => {
           {/* Mini trend */}
           {trend.length > 0 && (
             <Box sx={{ mt: 2 }}>
-              <Typography sx={{ fontSize: "0.7rem", fontWeight: 600, color: MUTED, mb: 0.5 }}>Trend mensile</Typography>
+              <Typography sx={{ fontSize: "0.7rem", fontWeight: 600, color: MUTED, mb: 0.5 }}>{t("admin.kpi.refund_monthly_trend", "Trend mensile")}</Typography>
               <Stack direction="row" spacing={0.5} alignItems="flex-end" sx={{ height: 50 }}>
-                {trend.map((t, i) => (
-                  <Tooltip key={i} title={`${MESI_SHORT[(t.mese || 1) - 1]} — ${t.cnt} resi · €${Number(t.total || 0).toLocaleString("it")}`}>
+                {trend.map((tr, i) => (
+                  <Tooltip key={i} title={`${MESI_SHORT[(tr.mese || 1) - 1]} — ${tr.cnt} ${t("admin.kpi.resi_suffix", "resi")} · €${Number(tr.total || 0).toLocaleString("it")}`}>
                     <Box sx={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end", alignItems: "center", height: "100%" }}>
-                      <Box sx={{ width: "70%", height: t.cnt > 0 ? Math.max((t.cnt / trendMax) * 40, 3) : 0, bgcolor: DANGER, borderRadius: "2px 2px 0 0", opacity: 0.7 }} />
-                      <Typography sx={{ fontSize: "0.5rem", color: MUTED, mt: 0.2 }}>{MESI_SHORT[(t.mese || 1) - 1]}</Typography>
+                      <Box sx={{ width: "70%", height: tr.cnt > 0 ? Math.max((tr.cnt / trendMax) * 40, 3) : 0, bgcolor: DANGER, borderRadius: "2px 2px 0 0", opacity: 0.7 }} />
+                      <Typography sx={{ fontSize: "0.5rem", color: MUTED, mt: 0.2 }}>{MESI_SHORT[(tr.mese || 1) - 1]}</Typography>
                     </Box>
                   </Tooltip>
                 ))}
@@ -903,9 +931,9 @@ const RefundAnalytics = () => {
         <Card sx={{ ...cardSx, p: 3, height: "100%" }}>
           <Stack direction="row" alignItems="center" spacing={1} mb={2}>
             <Iconify icon="mdi:history" width={20} sx={{ color: MUTED }} />
-            <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT }}>Ultimi rimborsi</Typography>
+            <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: TEXT }}>{t("admin.kpi.recent_refunds", "Ultimi rimborsi")}</Typography>
           </Stack>
-          {(!rf.recent || !rf.recent.length) ? <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>Nessun rimborso nel periodo</Typography> : (
+          {(!rf.recent || !rf.recent.length) ? <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>{t("admin.kpi.no_refunds_period", "Nessun rimborso nel periodo")}</Typography> : (
             <Stack spacing={0.8}>
               {rf.recent.map((r, i) => (
                 <Stack key={i} direction="row" alignItems="center" spacing={1} sx={{ py: 0.5, borderBottom: i < rf.recent.length - 1 ? "1px solid #f5f0ea" : "none" }}>
@@ -935,6 +963,7 @@ const RefundAnalytics = () => {
 // MAIN
 // ═══════════════════════════════════════
 const KpiDashboard = () => {
+  const { t } = useTranslation();
   const [period, setPeriod] = useState("month");
   const [customFrom, setCustomFrom] = useState("");
   const [customTo, setCustomTo] = useState("");
@@ -948,54 +977,54 @@ const KpiDashboard = () => {
 
   return (
     <PeriodCtx.Provider value={{ qs }}>
-      <Page title="KPI Dashboard">
+      <Page title={t("admin.kpi.dashboard_title", "KPI Dashboard")}>
         <Box sx={{ px: { xs: 2, md: 3 }, pb: 4, bgcolor: AVORIO, minHeight: "100vh" }}>
           <Stack spacing={2}>
             <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap="wrap" gap={1} sx={{ pt: 1 }}>
-              <Typography variant="h5" fontWeight={700} color={ESPRESSO}>KPI Dashboard</Typography>
+              <Typography variant="h5" fontWeight={700} color={ESPRESSO}>{t("admin.kpi.dashboard_title", "KPI Dashboard")}</Typography>
               <PeriodFilter period={period} setPeriod={setPeriod} customFrom={customFrom} setCustomFrom={setCustomFrom} customTo={customTo} setCustomTo={setCustomTo} />
             </Stack>
 
             <RiskAlert />
             <OverviewCards />
 
-            <Section>Revenue &amp; Performance</Section>
+            <Section>{t("admin.kpi.section_revenue_perf", "Revenue & Performance")}</Section>
             <Grid container spacing={2}>
               <Grid item xs={12} md={7}><RevenueChart /></Grid>
               <Grid item xs={12} md={5}><WeeklyComparison /></Grid>
             </Grid>
 
-            <Section>Revenue Breakdown &amp; Commissioni</Section>
+            <Section>{t("admin.kpi.section_revenue_breakdown", "Revenue Breakdown & Commissioni")}</Section>
             <Grid container spacing={2}>
               <Grid item xs={12} md={4}><RevenueBreakdown /></Grid>
               <Grid item xs={12} md={4}><CommissionBreakdown /></Grid>
               <Grid item xs={12} md={4}><ActivationCard /></Grid>
             </Grid>
 
-            <Section>Prodotti, Geografia &amp; Segmentazione</Section>
+            <Section>{t("admin.kpi.section_products_geo_seg", "Prodotti, Geografia & Segmentazione")}</Section>
             <Grid container spacing={2}>
               <Grid item xs={12} md={4}><ProductMix /></Grid>
               <Grid item xs={12} md={4}><GeoDistribution /></Grid>
               <Grid item xs={12} md={4}><ClientSegmentation /></Grid>
             </Grid>
 
-            <Section>Leaderboard — Earners, Recruiters, Achievers</Section>
+            <Section>{t("admin.kpi.section_leaderboard", "Leaderboard — Earners, Recruiters, Achievers")}</Section>
             <Leaderboard />
 
-            <Section>Resi &amp; Rimborsi</Section>
+            <Section>{t("admin.kpi.section_resi", "Resi & Rimborsi")}</Section>
             <RefundAnalytics />
 
-            <Section>Payout &amp; Network Bonus</Section>
+            <Section>{t("admin.kpi.section_payout_network", "Payout & Network Bonus")}</Section>
             <PayoutSummary />
 
-            <Section>Network &amp; Promoter</Section>
+            <Section>{t("admin.kpi.section_network_promoter", "Network & Promoter")}</Section>
             <Grid container spacing={2}>
               <Grid item xs={12} md={4}><NetworkKPIs /></Grid>
               <Grid item xs={12} md={4}><Top10 /></Grid>
               <Grid item xs={12} md={4}><CohortAnalysis /></Grid>
             </Grid>
 
-            <Section>Operazioni &amp; Analisi</Section>
+            <Section>{t("admin.kpi.section_ops_analysis", "Operazioni & Analisi")}</Section>
             <Grid container spacing={2}>
               <Grid item xs={12} md={3}><OrderHeatmap /></Grid>
               <Grid item xs={12} md={3}><RankVelocity /></Grid>

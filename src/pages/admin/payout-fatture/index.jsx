@@ -6,6 +6,7 @@ import {
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
 import Page from "src/components/Page";
 import HeaderBreadcrumbs from "src/components/HeaderBreadcrumbs";
 import Iconify from "src/components/Iconify";
@@ -17,23 +18,23 @@ const VERDE = "#2C5F2D";
 const ROSSO = "#B23A48";
 const GRIGIO = "#7A6A5C";
 
-const STATUS_LABEL = {
-  in_attesa_fattura:   { label: "In attesa fattura", color: ORO },
-  pronto_al_bonifico:  { label: "Pronto al bonifico", color: VERDE },
-  approved:            { label: "Approvato (bonificato)", color: "#1976d2" },
-  cancelled:           { label: "Annullato", color: ROSSO },
-};
-
 const fmtEuro = (n) => "€ " + Number(n || 0).toLocaleString("it-IT", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const fmtDate = (s) => s ? new Date(s).toLocaleDateString("it-IT") : "—";
-const giorniDa = (s) => {
+const giorniDa = (s, dayLabel = "gg") => {
   if (!s) return "—";
   const d = Math.floor((Date.now() - new Date(s).getTime()) / 86400000);
-  return d + "gg";
+  return d + dayLabel;
 };
 
 const PayoutFatture = () => {
+  const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
+  const STATUS_LABEL = {
+    in_attesa_fattura:   { label: t("admin.financial.payout_status_waiting_invoice", "In attesa fattura"), color: ORO },
+    pronto_al_bonifico:  { label: t("admin.financial.payout_status_ready_bank", "Pronto al bonifico"), color: VERDE },
+    approved:            { label: t("admin.financial.payout_status_approved_bank", "Approvato (bonificato)"), color: "#1976d2" },
+    cancelled:           { label: t("admin.financial.payout_status_cancelled_short", "Annullato"), color: ROSSO },
+  };
   const [status, setStatus] = useState("in_attesa_fattura");
   const [data, setData] = useState([]);
   const [meta, setMeta] = useState({});
@@ -60,11 +61,11 @@ const PayoutFatture = () => {
       setData(r.data.data || []);
       setMeta(r.data.meta || {});
     } catch (e) {
-      enqueueSnackbar(e?.response?.data?.error || "Errore caricamento", { variant: "error" });
+      enqueueSnackbar(e?.response?.data?.error || t("admin.financial.payout_load_error", "Errore caricamento"), { variant: "error" });
     } finally {
       setLoading(false);
     }
-  }, [status, page, perPage, enqueueSnackbar]);
+  }, [status, page, perPage, enqueueSnackbar, t]);
 
   useEffect(() => { load(); }, [load]);
 
@@ -75,11 +76,11 @@ const PayoutFatture = () => {
 
   const submitConferma = async () => {
     if (!confForm.numero_fattura.trim()) {
-      enqueueSnackbar("Numero fattura obbligatorio", { variant: "warning" });
+      enqueueSnackbar(t("admin.financial.payout_invoice_num_required", "Numero fattura obbligatorio"), { variant: "warning" });
       return;
     }
     if (!confForm.data_fattura) {
-      enqueueSnackbar("Data fattura obbligatoria", { variant: "warning" });
+      enqueueSnackbar(t("admin.financial.payout_invoice_date_required", "Data fattura obbligatoria"), { variant: "warning" });
       return;
     }
     setConfSaving(true);
@@ -88,11 +89,11 @@ const PayoutFatture = () => {
         `api/wp/admin/payout-requests/${confDlg.payout.id}/conferma-fattura`,
         confForm
       );
-      enqueueSnackbar(r?.data?.message || "Fattura registrata", { variant: "success" });
+      enqueueSnackbar(r?.data?.message || t("admin.financial.payout_invoice_registered", "Fattura registrata"), { variant: "success" });
       setConfDlg({ open: false, payout: null });
       await load();
     } catch (e) {
-      enqueueSnackbar(e?.response?.data?.error || "Errore", { variant: "error" });
+      enqueueSnackbar(e?.response?.data?.error || t("admin.financial.payout_generic_error", "Errore"), { variant: "error" });
     } finally {
       setConfSaving(false);
     }
@@ -116,33 +117,33 @@ const PayoutFatture = () => {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      enqueueSnackbar(`Esportato lotto bonifici (${format.toUpperCase()})`, { variant: "success" });
+      enqueueSnackbar(t("admin.financial.payout_export_success", "Esportato lotto bonifici ({{format}})", { format: format.toUpperCase() }), { variant: "success" });
     } catch (e) {
       const errMsg = e?.response?.data instanceof Blob
-        ? "Errore export"
-        : (e?.response?.data?.error || "Errore export");
+        ? t("admin.financial.payout_export_error", "Errore export")
+        : (e?.response?.data?.error || t("admin.financial.payout_export_error", "Errore export"));
       enqueueSnackbar(errMsg, { variant: "error" });
     }
   };
 
   const handleApprova = async (payout) => {
-    if (!window.confirm(`Confermi l'approvazione del payout #${payout.id} (€${Number(payout.amount).toFixed(2)} lordo)? Significa che il bonifico e' stato gia' eseguito dall'home banking.`)) {
+    if (!window.confirm(t("admin.financial.payout_approve_confirm", "Confermi l'approvazione del payout #{{id}} (€{{amount}} lordo)? Significa che il bonifico è stato già eseguito dall'home banking.", { id: payout.id, amount: Number(payout.amount).toFixed(2) }))) {
       return;
     }
     try {
       const r = await axiosInstance.patch(
         `api/wp/admin/payout-requests/${payout.id}/approva`
       );
-      enqueueSnackbar(r?.data?.message || "Approvato", { variant: "success" });
+      enqueueSnackbar(r?.data?.message || t("admin.financial.payout_approved_msg", "Approvato"), { variant: "success" });
       await load();
     } catch (e) {
-      enqueueSnackbar(e?.response?.data?.error || "Errore approvazione", { variant: "error" });
+      enqueueSnackbar(e?.response?.data?.error || t("admin.financial.payout_approve_error", "Errore approvazione"), { variant: "error" });
     }
   };
 
   const submitAnnulla = async () => {
     if (!annMotivo.trim()) {
-      enqueueSnackbar("Motivo obbligatorio", { variant: "warning" });
+      enqueueSnackbar(t("admin.financial.payout_reason_required", "Motivo obbligatorio"), { variant: "warning" });
       return;
     }
     setAnnSaving(true);
@@ -151,12 +152,12 @@ const PayoutFatture = () => {
         `api/wp/admin/payout-requests/${annDlg.payout.id}/annulla`,
         { motivo: annMotivo }
       );
-      enqueueSnackbar(r?.data?.message || "Annullato", { variant: "success" });
+      enqueueSnackbar(r?.data?.message || t("admin.financial.payout_cancelled_msg", "Annullato"), { variant: "success" });
       setAnnDlg({ open: false, payout: null });
       setAnnMotivo("");
       await load();
     } catch (e) {
-      enqueueSnackbar(e?.response?.data?.error || "Errore", { variant: "error" });
+      enqueueSnackbar(e?.response?.data?.error || t("admin.financial.payout_generic_error", "Errore"), { variant: "error" });
     } finally {
       setAnnSaving(false);
     }
@@ -165,29 +166,29 @@ const PayoutFatture = () => {
   const kpi = meta.kpi || {};
 
   return (
-    <Page title="Pagamenti IVD-Abituali">
+    <Page title={t("admin.financial.payout_page_title", "Payout Fatture")}>
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4 }}>
         <HeaderBreadcrumbs
-          heading="Pagamenti IVD-Abituali"
+          heading={t("admin.financial.payout_habitual_payments", "Pagamenti IVD-Abituali")}
           links={[
-            { name: "Dashboard", href: "/admin/dashboard" },
-            { name: "Finanziario" },
-            { name: "Pagamenti IVD-Abituali" },
+            { name: t("admin.financial.payout_breadcrumb_dashboard", "Dashboard"), href: "/admin/dashboard" },
+            { name: t("admin.financial.payout_breadcrumb_financial", "Finanziario") },
+            { name: t("admin.financial.payout_habitual_payments", "Pagamenti IVD-Abituali") },
           ]}
         />
 
         {/* KPI */}
         <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
           <Card sx={{ p: 2, flex: 1, borderRadius: 2 }}>
-            <Typography sx={{ fontSize: "0.75rem", color: GRIGIO, textTransform: "uppercase" }}>Richieste</Typography>
+            <Typography sx={{ fontSize: "0.75rem", color: GRIGIO, textTransform: "uppercase" }}>{t("admin.financial.payout_requests_kpi", "Richieste")}</Typography>
             <Typography variant="h5" fontWeight={700} color={ESPRESSO}>{kpi.n || 0}</Typography>
           </Card>
           <Card sx={{ p: 2, flex: 1, borderRadius: 2 }}>
-            <Typography sx={{ fontSize: "0.75rem", color: GRIGIO, textTransform: "uppercase" }}>Totale lordo</Typography>
+            <Typography sx={{ fontSize: "0.75rem", color: GRIGIO, textTransform: "uppercase" }}>{t("admin.financial.payout_total_gross_kpi", "Totale lordo")}</Typography>
             <Typography variant="h5" fontWeight={700} color={ESPRESSO}>{fmtEuro(kpi.totale_lordo)}</Typography>
           </Card>
           <Card sx={{ p: 2, flex: 1, borderRadius: 2 }}>
-            <Typography sx={{ fontSize: "0.75rem", color: GRIGIO, textTransform: "uppercase" }}>Totale netto</Typography>
+            <Typography sx={{ fontSize: "0.75rem", color: GRIGIO, textTransform: "uppercase" }}>{t("admin.financial.payout_total_net_kpi", "Totale netto")}</Typography>
             <Typography variant="h5" fontWeight={700} color={ESPRESSO}>{fmtEuro(kpi.totale_netto)}</Typography>
           </Card>
         </Stack>
@@ -195,22 +196,22 @@ const PayoutFatture = () => {
         {/* Tabs status */}
         <Card sx={{ mb: 2, borderRadius: 2 }}>
           <Tabs value={status} onChange={(_, v) => { setStatus(v); setPage(1); }} variant="scrollable" sx={{ "& .Mui-selected": { color: ORO + " !important" }, "& .MuiTabs-indicator": { backgroundColor: ORO } }}>
-            <Tab value="in_attesa_fattura" label="In attesa fattura" />
-            <Tab value="pronto_al_bonifico" label="Pronto al bonifico" />
-            <Tab value="approved" label="Approvati" />
-            <Tab value="cancelled" label="Annullati" />
+            <Tab value="in_attesa_fattura" label={t("admin.financial.payout_status_waiting_invoice", "In attesa fattura")} />
+            <Tab value="pronto_al_bonifico" label={t("admin.financial.payout_status_ready_bank", "Pronto al bonifico")} />
+            <Tab value="approved" label={t("admin.financial.payout_status_approved_tab", "Approvati")} />
+            <Tab value="cancelled" label={t("admin.financial.payout_status_cancelled_tab", "Annullati")} />
           </Tabs>
         </Card>
 
         {status === "in_attesa_fattura" && (
           <Alert severity="info" sx={{ mb: 2 }}>
-            Promoter IVD-abituali (P.IVA) hanno richiesto un payout. Attendere ricezione fattura via SDI/PEC, poi cliccare "Registra fattura" per sbloccare il bonifico.
+            {t("admin.financial.payout_alert_waiting", "Promoter IVD-abituali (P.IVA) hanno richiesto un payout. Attendere ricezione fattura via SDI/PEC, poi cliccare \"Registra fattura\" per sbloccare il bonifico.")}
           </Alert>
         )}
         {status === "pronto_al_bonifico" && (
           <>
             <Alert severity="success" sx={{ mb: 2 }}>
-              Fattura ricevuta e registrata. Esegui il bonifico dal home banking, poi clicca il bottone ✓ "Approva" sulla riga per marcarlo come pagato.
+              {t("admin.financial.payout_alert_ready", "Fattura ricevuta e registrata. Esegui il bonifico dal home banking, poi clicca il bottone ✓ \"Approva\" sulla riga per marcarlo come pagato.")}
             </Alert>
             {data.length > 0 && (
               <Stack direction="row" spacing={1.5} sx={{ mb: 2 }}>
@@ -220,7 +221,7 @@ const PayoutFatture = () => {
                   onClick={() => handleExportLotto("csv")}
                   sx={{ borderColor: VERDE, color: VERDE, "&:hover": { borderColor: VERDE, bgcolor: alpha(VERDE, 0.06) } }}
                 >
-                  Esporta CSV banca
+                  {t("admin.financial.payout_export_csv_bank", "Esporta CSV banca")}
                 </Button>
                 <Button
                   variant="outlined"
@@ -228,7 +229,7 @@ const PayoutFatture = () => {
                   onClick={() => handleExportLotto("xml")}
                   sx={{ borderColor: VERDE, color: VERDE, "&:hover": { borderColor: VERDE, bgcolor: alpha(VERDE, 0.06) } }}
                 >
-                  Esporta XML SEPA (pain.001)
+                  {t("admin.financial.payout_export_xml_sepa", "Esporta XML SEPA (pain.001)")}
                 </Button>
               </Stack>
             )}
@@ -239,32 +240,32 @@ const PayoutFatture = () => {
           {loading ? (
             <Box sx={{ p: 4, textAlign: "center" }}><CircularProgress sx={{ color: ORO }} /></Box>
           ) : data.length === 0 ? (
-            <Box sx={{ p: 4, textAlign: "center", color: GRIGIO }}>Nessun payout in stato "{STATUS_LABEL[status]?.label}".</Box>
+            <Box sx={{ p: 4, textAlign: "center", color: GRIGIO }}>{t("admin.financial.payout_no_payouts", "Nessun payout in stato \"{{status}}\".", { status: STATUS_LABEL[status]?.label })}</Box>
           ) : (
             <Table size="small">
               <TableHead>
                 <TableRow sx={{ bgcolor: "#fafafa" }}>
                   <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }}>#</TableCell>
-                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }}>Promoter</TableCell>
-                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }}>P.IVA</TableCell>
-                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="right">Lordo</TableCell>
-                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="right">Imp.</TableCell>
-                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="right">IVA</TableCell>
-                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="right">Rit.</TableCell>
-                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="right">Netto</TableCell>
+                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }}>{t("admin.financial.payout_col_promoter", "Promoter")}</TableCell>
+                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }}>{t("admin.financial.payout_col_piva", "P.IVA")}</TableCell>
+                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="right">{t("admin.financial.payout_col_gross_short", "Lordo")}</TableCell>
+                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="right">{t("admin.financial.payout_col_imp_short", "Imp.")}</TableCell>
+                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="right">{t("admin.financial.payout_col_iva_short", "IVA")}</TableCell>
+                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="right">{t("admin.financial.payout_col_rit_short", "Rit.")}</TableCell>
+                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="right">{t("admin.financial.payout_col_net_short", "Netto")}</TableCell>
                   {(status === "pronto_al_bonifico" || status === "approved") && (
-                    <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem", bgcolor: alpha(VERDE, 0.08) }} align="right">Da bonificare</TableCell>
+                    <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem", bgcolor: alpha(VERDE, 0.08) }} align="right">{t("admin.financial.payout_col_to_pay", "Da bonificare")}</TableCell>
                   )}
-                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }}>Richiesta</TableCell>
-                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }}>Età</TableCell>
+                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }}>{t("admin.financial.payout_col_request", "Richiesta")}</TableCell>
+                  <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }}>{t("admin.financial.payout_col_age", "Età")}</TableCell>
                   {status === "in_attesa_fattura" && (
-                    <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="center">Azioni</TableCell>
+                    <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="center">{t("admin.financial.payout_col_actions", "Azioni")}</TableCell>
                   )}
                   {(status === "pronto_al_bonifico" || status === "approved") && (
-                    <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }}>N. Fattura</TableCell>
+                    <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }}>{t("admin.financial.payout_col_invoice_num", "N. Fattura")}</TableCell>
                   )}
                   {status === "pronto_al_bonifico" && (
-                    <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="center">Azioni</TableCell>
+                    <TableCell sx={{ fontWeight: 700, fontSize: "0.78rem" }} align="center">{t("admin.financial.payout_col_actions", "Azioni")}</TableCell>
                   )}
                 </TableRow>
               </TableHead>
@@ -292,7 +293,7 @@ const PayoutFatture = () => {
                     <TableCell sx={{ fontSize: "0.78rem" }}>{fmtDate(p.created_at)}</TableCell>
                     <TableCell sx={{ fontSize: "0.78rem" }}>
                       <Chip
-                        label={giorniDa(p.created_at)}
+                        label={giorniDa(p.created_at, t("admin.kpi.days_short", "gg"))}
                         size="small"
                         sx={{ height: 20, fontSize: "0.7rem" }}
                         color={(p.created_at && (Date.now() - new Date(p.created_at).getTime()) > 15 * 86400000) ? "warning" : "default"}
@@ -301,12 +302,12 @@ const PayoutFatture = () => {
                     {status === "in_attesa_fattura" && (
                       <TableCell align="center">
                         <Stack direction="row" spacing={0.5} justifyContent="center">
-                          <Tooltip title="Registra fattura ricevuta">
+                          <Tooltip title={t("admin.financial.payout_tooltip_register_invoice", "Registra fattura ricevuta")}>
                             <IconButton size="small" onClick={() => openConferma(p)} sx={{ color: VERDE }}>
                               <Iconify icon="mdi:receipt-text-check" width={20} />
                             </IconButton>
                           </Tooltip>
-                          <Tooltip title="Annulla richiesta (ricredita wallet)">
+                          <Tooltip title={t("admin.financial.payout_tooltip_cancel", "Annulla richiesta (ricredita wallet)")}>
                             <IconButton size="small" onClick={() => setAnnDlg({ open: true, payout: p })} sx={{ color: ROSSO }}>
                               <Iconify icon="mdi:close-circle-outline" width={20} />
                             </IconButton>
@@ -325,12 +326,12 @@ const PayoutFatture = () => {
                     {status === "pronto_al_bonifico" && (
                       <TableCell align="center">
                         <Stack direction="row" spacing={0.5} justifyContent="center">
-                          <Tooltip title="Bonifico eseguito → marca come approvato">
+                          <Tooltip title={t("admin.financial.payout_tooltip_bank_done", "Bonifico eseguito → marca come approvato")}>
                             <IconButton size="small" onClick={() => handleApprova(p)} sx={{ color: VERDE }}>
                               <Iconify icon="mdi:check-circle" width={20} />
                             </IconButton>
                           </Tooltip>
-                          <Tooltip title="Annulla richiesta (ricredita wallet)">
+                          <Tooltip title={t("admin.financial.payout_tooltip_cancel", "Annulla richiesta (ricredita wallet)")}>
                             <IconButton size="small" onClick={() => setAnnDlg({ open: true, payout: p })} sx={{ color: ROSSO }}>
                               <Iconify icon="mdi:close-circle-outline" width={20} />
                             </IconButton>
@@ -356,17 +357,17 @@ const PayoutFatture = () => {
         {/* Dialog Registra fattura */}
         <Dialog open={confDlg.open} onClose={() => !confSaving && setConfDlg({ open: false, payout: null })} maxWidth="sm" fullWidth>
           <DialogTitle sx={{ color: ESPRESSO, fontWeight: 700 }}>
-            Registra fattura ricevuta
-            {confDlg.payout && <Typography sx={{ fontSize: "0.85rem", color: GRIGIO, fontWeight: 400 }}>Payout #{confDlg.payout.id} — {confDlg.payout.first_name} {confDlg.payout.last_name}</Typography>}
+            {t("admin.financial.payout_dlg_register_title", "Registra fattura ricevuta")}
+            {confDlg.payout && <Typography sx={{ fontSize: "0.85rem", color: GRIGIO, fontWeight: 400 }}>{t("admin.financial.payout_dlg_payout_prefix", "Payout #{{id}} — {{name}}", { id: confDlg.payout.id, name: `${confDlg.payout.first_name} ${confDlg.payout.last_name}` })}</Typography>}
           </DialogTitle>
           <DialogContent>
             <Stack spacing={2} sx={{ pt: 1 }}>
               <Alert severity="info" sx={{ borderRadius: 2 }}>
-                Inserisci gli estremi della fattura ricevuta dal promoter. Lo stato passerà a "pronto_al_bonifico". Esegui poi il bonifico dal home banking.
+                {t("admin.financial.payout_dlg_info", "Inserisci gli estremi della fattura ricevuta dal promoter. Lo stato passerà a \"pronto_al_bonifico\". Esegui poi il bonifico dal home banking.")}
               </Alert>
               {confDlg.payout && (
                 <Box sx={{ p: 1.5, bgcolor: "#fafafa", borderRadius: 2 }}>
-                  <Typography sx={{ fontSize: "0.75rem", color: GRIGIO }}>Importo fattura atteso</Typography>
+                  <Typography sx={{ fontSize: "0.75rem", color: GRIGIO }}>{t("admin.financial.payout_dlg_expected_amount", "Importo fattura atteso")}</Typography>
                   <Typography sx={{ fontSize: "1.1rem", fontWeight: 700 }}>
                     {fmtEuro((Number(confDlg.payout.imponibile) || 0) + (Number(confDlg.payout.iva) || 0))}
                     <Typography component="span" sx={{ fontSize: "0.75rem", color: GRIGIO, ml: 1 }}>
@@ -375,15 +376,15 @@ const PayoutFatture = () => {
                   </Typography>
                 </Box>
               )}
-              <TextField fullWidth size="small" required label="Numero fattura" value={confForm.numero_fattura} onChange={(e) => setConfForm({ ...confForm, numero_fattura: e.target.value })} />
-              <TextField fullWidth size="small" required type="date" label="Data fattura" InputLabelProps={{ shrink: true }} value={confForm.data_fattura} onChange={(e) => setConfForm({ ...confForm, data_fattura: e.target.value })} />
-              <TextField fullWidth size="small" label="Note (opzionali)" multiline rows={2} value={confForm.note} onChange={(e) => setConfForm({ ...confForm, note: e.target.value })} />
+              <TextField fullWidth size="small" required label={t("admin.financial.payout_field_invoice_number", "Numero fattura")} value={confForm.numero_fattura} onChange={(e) => setConfForm({ ...confForm, numero_fattura: e.target.value })} />
+              <TextField fullWidth size="small" required type="date" label={t("admin.financial.payout_field_invoice_date", "Data fattura")} InputLabelProps={{ shrink: true }} value={confForm.data_fattura} onChange={(e) => setConfForm({ ...confForm, data_fattura: e.target.value })} />
+              <TextField fullWidth size="small" label={t("admin.financial.payout_field_notes_optional", "Note (opzionali)")} multiline rows={2} value={confForm.note} onChange={(e) => setConfForm({ ...confForm, note: e.target.value })} />
             </Stack>
           </DialogContent>
           <DialogActions sx={{ p: 2 }}>
-            <Button onClick={() => setConfDlg({ open: false, payout: null })} disabled={confSaving} sx={{ color: GRIGIO }}>Annulla</Button>
+            <Button onClick={() => setConfDlg({ open: false, payout: null })} disabled={confSaving} sx={{ color: GRIGIO }}>{t("common.cancel", "Annulla")}</Button>
             <Button variant="contained" onClick={submitConferma} disabled={confSaving} startIcon={confSaving ? <CircularProgress size={18} sx={{ color: "#fff" }} /> : <Iconify icon="mdi:check" />} sx={{ bgcolor: VERDE, "&:hover": { bgcolor: "#1F4D1F" } }}>
-              Conferma e sblocca bonifico
+              {t("admin.financial.payout_confirm_unlock", "Conferma e sblocca bonifico")}
             </Button>
           </DialogActions>
         </Dialog>
@@ -391,21 +392,21 @@ const PayoutFatture = () => {
         {/* Dialog Annulla */}
         <Dialog open={annDlg.open} onClose={() => !annSaving && setAnnDlg({ open: false, payout: null })} maxWidth="sm" fullWidth>
           <DialogTitle sx={{ color: ROSSO, fontWeight: 700 }}>
-            Annulla richiesta payout
-            {annDlg.payout && <Typography sx={{ fontSize: "0.85rem", color: GRIGIO, fontWeight: 400 }}>Payout #{annDlg.payout.id} — {annDlg.payout.first_name} {annDlg.payout.last_name}</Typography>}
+            {t("admin.financial.payout_dlg_cancel_title", "Annulla richiesta payout")}
+            {annDlg.payout && <Typography sx={{ fontSize: "0.85rem", color: GRIGIO, fontWeight: 400 }}>{t("admin.financial.payout_dlg_payout_prefix", "Payout #{{id}} — {{name}}", { id: annDlg.payout.id, name: `${annDlg.payout.first_name} ${annDlg.payout.last_name}` })}</Typography>}
           </DialogTitle>
           <DialogContent>
             <Stack spacing={2} sx={{ pt: 1 }}>
               <Alert severity="warning" sx={{ borderRadius: 2 }}>
-                L'annullamento <b>ricrediterà {fmtEuro(annDlg.payout?.amount)}</b> nel wallet del promoter. Operazione tracciata nei log.
+                <span dangerouslySetInnerHTML={{ __html: t("admin.financial.payout_dlg_cancel_warning", "L'annullamento <b>ricrediterà {{amount}}</b> nel wallet del promoter. Operazione tracciata nei log.", { amount: fmtEuro(annDlg.payout?.amount) }) }} />
               </Alert>
-              <TextField fullWidth size="small" required label="Motivo annullamento" multiline rows={3} value={annMotivo} onChange={(e) => setAnnMotivo(e.target.value)} placeholder="Es. fattura non emessa entro i termini contrattuali" />
+              <TextField fullWidth size="small" required label={t("admin.financial.payout_field_cancel_reason", "Motivo annullamento")} multiline rows={3} value={annMotivo} onChange={(e) => setAnnMotivo(e.target.value)} placeholder={t("admin.financial.payout_cancel_placeholder", "Es. fattura non emessa entro i termini contrattuali")} />
             </Stack>
           </DialogContent>
           <DialogActions sx={{ p: 2 }}>
-            <Button onClick={() => setAnnDlg({ open: false, payout: null })} disabled={annSaving} sx={{ color: GRIGIO }}>Indietro</Button>
+            <Button onClick={() => setAnnDlg({ open: false, payout: null })} disabled={annSaving} sx={{ color: GRIGIO }}>{t("admin.financial.payout_back_btn", "Indietro")}</Button>
             <Button variant="contained" onClick={submitAnnulla} disabled={annSaving} startIcon={annSaving ? <CircularProgress size={18} sx={{ color: "#fff" }} /> : <Iconify icon="mdi:close-circle" />} sx={{ bgcolor: ROSSO, "&:hover": { bgcolor: "#8A2D38" } }}>
-              Annulla e ricredita wallet
+              {t("admin.financial.payout_cancel_credit_btn", "Annulla e ricredita wallet")}
             </Button>
           </DialogActions>
         </Dialog>

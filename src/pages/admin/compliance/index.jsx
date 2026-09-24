@@ -2,6 +2,7 @@ import { Box, Button, Card, Grid, Stack, TextField, Typography } from "@mui/mate
 import { alpha } from "@mui/material/styles";
 import { useState } from "react";
 import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
@@ -22,6 +23,7 @@ const downloadBlob = async (url, filename, type = "text/csv") => {
 };
 
 const Compliance = () => {
+  const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const now = new Date();
@@ -49,19 +51,19 @@ const Compliance = () => {
   );
 
   return (
-    <Page title="Compliance">
+    <Page title={t("admin.compliance.page_title", "Compliance")}>
       <Box sx={{ px: 3, pb: 4 }}>
-        <HeaderBreadcrumbs heading="Compliance & Fiscale" links={[{ name: "Dashboard" }, { name: "Compliance" }]} />
+        <HeaderBreadcrumbs heading={t("admin.compliance.page_heading", "Compliance & Fiscale")} links={[{ name: t("admin.compliance.breadcrumb_dashboard", "Dashboard") }, { name: t("admin.compliance.breadcrumb_compliance", "Compliance") }]} />
 
         {/* Filtri periodo */}
         <Card sx={{ ...cs, p: 2.5, mb: 3 }}>
           <Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap">
-            <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO }}>Periodo:</Typography>
-            <TextField size="small" type="date" label="Da" value={from} onChange={(e) => setFrom(e.target.value)} InputLabelProps={{ shrink: true }} />
-            <TextField size="small" type="date" label="A" value={to} onChange={(e) => setTo(e.target.value)} InputLabelProps={{ shrink: true }} />
-            <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO, ml: 2 }}>Mese payout:</Typography>
-            <TextField size="small" type="number" label="Mese" value={month} onChange={(e) => setMonth(e.target.value)} sx={{ width: 80 }} inputProps={{ min: 1, max: 12 }} />
-            <TextField size="small" type="number" label="Anno" value={year} onChange={(e) => setYear(e.target.value)} sx={{ width: 90 }} />
+            <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO }}>{t("admin.compliance.period_label", "Periodo:")}</Typography>
+            <TextField size="small" type="date" label={t("admin.compliance.period_from", "Da")} value={from} onChange={(e) => setFrom(e.target.value)} InputLabelProps={{ shrink: true }} />
+            <TextField size="small" type="date" label={t("admin.compliance.period_to", "A")} value={to} onChange={(e) => setTo(e.target.value)} InputLabelProps={{ shrink: true }} />
+            <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO, ml: 2 }}>{t("admin.compliance.payout_month_label", "Mese payout:")}</Typography>
+            <TextField size="small" type="number" label={t("admin.compliance.field_month", "Mese")} value={month} onChange={(e) => setMonth(e.target.value)} sx={{ width: 80 }} inputProps={{ min: 1, max: 12 }} />
+            <TextField size="small" type="number" label={t("admin.compliance.field_year", "Anno")} value={year} onChange={(e) => setYear(e.target.value)} sx={{ width: 90 }} />
           </Stack>
         </Card>
 
@@ -69,10 +71,10 @@ const Compliance = () => {
           {/* KYC Pending */}
           <Grid item xs={12} md={4}>
             <ExportCard
-              icon="mdi:card-account-details-outline" title="Verifica documenti KYC"
-              subtitle="Approva o rifiuta i documenti di identità caricati"
+              icon="mdi:card-account-details-outline" title={t("admin.compliance.kyc_title", "Verifica documenti KYC")}
+              subtitle={t("admin.compliance.kyc_subtitle", "Approva o rifiuta i documenti di identità caricati")}
               color="#9C27B0"
-              btnLabel="Apri verifica KYC"
+              btnLabel={t("admin.compliance.kyc_button", "Apri verifica KYC")}
               onClick={() => navigate("/admin/compliance/kyc-pending")}
             />
           </Grid>
@@ -80,10 +82,10 @@ const Compliance = () => {
           {/* Lettere di Incarico */}
           <Grid item xs={12} md={4}>
             <ExportCard
-              icon="mdi:file-sign" title="Lettere di Incarico"
-              subtitle="Visualizza promoter e scarica le lettere firmate"
+              icon="mdi:file-sign" title={t("admin.compliance.letters_title", "Lettere di Incarico")}
+              subtitle={t("admin.compliance.letters_subtitle", "Visualizza promoter e scarica le lettere firmate")}
               color="#00BCD4"
-              btnLabel="Apri elenco lettere"
+              btnLabel={t("admin.compliance.letters_button", "Apri elenco lettere")}
               onClick={() => navigate("/admin/compliance/lettere-incarico")}
             />
           </Grid>
@@ -91,12 +93,12 @@ const Compliance = () => {
           {/* Questura - Nuovi iscritti */}
           <Grid item xs={12} md={4}>
             <ExportCard
-              icon="mdi:police-badge" title="Export Questura — Nuovi" subtitle="Elenco nuovi incaricati per comunicazione Questura"
+              icon="mdi:police-badge" title={t("admin.compliance.questura_new_title", "Export Questura — Nuovi")} subtitle={t("admin.compliance.questura_new_subtitle", "Elenco nuovi incaricati per comunicazione Questura")}
               color="#2196F3"
-              btnLabel="Scarica CSV Nuovi Iscritti"
+              btnLabel={t("admin.compliance.questura_new_button", "Scarica CSV Nuovi Iscritti")}
               onClick={async () => {
                 try { await downloadBlob(`api/wp/compliance/export-questura?from=${from}&to=${to}`, `questura_nuovi_${from}_${to}.csv`); }
-                catch { enqueueSnackbar("Errore export", { variant: "error" }); }
+                catch { enqueueSnackbar(t("admin.compliance.export_error", "Errore export"), { variant: "error" }); }
               }}
             />
           </Grid>
@@ -104,12 +106,12 @@ const Compliance = () => {
           {/* Questura - Cessati */}
           <Grid item xs={12} md={4}>
             <ExportCard
-              icon="mdi:account-off" title="Export Questura — Cessati" subtitle="Elenco incaricati cessati"
+              icon="mdi:account-off" title={t("admin.compliance.questura_ended_title", "Export Questura — Cessati")} subtitle={t("admin.compliance.questura_ended_subtitle", "Elenco incaricati cessati")}
               color="#FF9800"
-              btnLabel="Scarica CSV Cessati"
+              btnLabel={t("admin.compliance.questura_ended_button", "Scarica CSV Cessati")}
               onClick={async () => {
                 try { await downloadBlob(`api/wp/compliance/export-questura-cessati?from=${from}&to=${to}`, `questura_cessati_${from}_${to}.csv`); }
-                catch { enqueueSnackbar("Errore export", { variant: "error" }); }
+                catch { enqueueSnackbar(t("admin.compliance.export_error", "Errore export"), { variant: "error" }); }
               }}
             />
           </Grid>
@@ -117,12 +119,12 @@ const Compliance = () => {
           {/* Payout mensile */}
           <Grid item xs={12} md={4}>
             <ExportCard
-              icon="mdi:file-table" title="Report Payout Mensile" subtitle="Export CSV per il commercialista"
+              icon="mdi:file-table" title={t("admin.compliance.payout_monthly_title", "Report Payout Mensile")} subtitle={t("admin.compliance.payout_monthly_subtitle", "Export CSV per il commercialista")}
               color={ORO}
-              btnLabel="Scarica CSV Payout"
+              btnLabel={t("admin.compliance.payout_monthly_button", "Scarica CSV Payout")}
               onClick={async () => {
                 try { await downloadBlob(`api/wp/compliance/export-monthly-payout?month=${month}&year=${year}`, `payout_${year}_${month}.csv`); }
-                catch { enqueueSnackbar("Errore export", { variant: "error" }); }
+                catch { enqueueSnackbar(t("admin.compliance.export_error", "Errore export"), { variant: "error" }); }
               }}
             />
           </Grid>

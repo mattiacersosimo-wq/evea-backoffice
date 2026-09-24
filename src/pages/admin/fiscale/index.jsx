@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
 import HeaderBreadcrumbs from "src/components/HeaderBreadcrumbs";
 import Page from "src/components/Page";
 import Scrollbar from "src/components/Scrollbar";
@@ -26,20 +27,6 @@ import usePagination from "src/components/pagination/usePagination";
 import { PATH_DASHBOARD } from "src/routes/paths";
 import axiosInstance from "src/utils/axios";
 
-const PAYOUT_HEADERS = [
-  "Promoter",
-  "Data Richiesta",
-  "Importo Lordo",
-  "Netto Stimato",
-  "Metodo Pagamento",
-  "Azioni",
-];
-
-const PAYMENT_METHODS = {
-  1: "Crypto",
-  2: "Bonifico",
-  3: "Stripe",
-};
 
 // ---------- Fiscal helpers ----------
 const calcFiscale = (amount) => {
@@ -95,15 +82,16 @@ const StatCard = ({ label, value }) => (
 );
 
 const FiscaleBreakdown = ({ calc }) => {
+  const { t } = useTranslation();
   if (!calc) return null;
 
   const rows = [
-    { label: "Importo lordo", value: calc.lordo },
-    { label: "Imponibile (78%)", value: calc.imponibile },
-    { label: "Ritenuta d'acconto (23%)", value: -calc.ritenuta, deduction: true },
-    { label: "INPS quota promoter", value: -calc.inps, deduction: true },
-    { label: "Bollo", value: -calc.bollo, deduction: true },
-    { label: "Netto stimato", value: calc.netto, highlight: true },
+    { label: t("admin.fiscale.dlg_gross_amount", "Importo lordo"), value: calc.lordo },
+    { label: t("admin.fiscale.dlg_taxable_78", "Imponibile (78%)"), value: calc.imponibile },
+    { label: t("admin.fiscale.dlg_withholding_23", "Ritenuta d'acconto (23%)"), value: -calc.ritenuta, deduction: true },
+    { label: t("admin.fiscale.dlg_inps_promoter", "INPS quota promoter"), value: -calc.inps, deduction: true },
+    { label: t("admin.fiscale.dlg_bollo", "Bollo"), value: -calc.bollo, deduction: true },
+    { label: t("admin.fiscale.dlg_net_estimated", "Netto stimato"), value: calc.netto, highlight: true },
   ];
 
   return (
@@ -158,6 +146,7 @@ const FiscaleBreakdown = ({ calc }) => {
 };
 
 const ApproveDialog = ({ open, onClose, request, onConfirm, loading }) => {
+  const { t } = useTranslation();
   const calc = useMemo(
     () => {
       if (!request) return null;
@@ -179,27 +168,26 @@ const ApproveDialog = ({ open, onClose, request, onConfirm, loading }) => {
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Conferma Approvazione Payout</DialogTitle>
+      <DialogTitle>{t("admin.fiscale.dlg_approve_title", "Conferma Approvazione Payout")}</DialogTitle>
       <DialogContent>
         {request && (
           <Box sx={{ mt: 1 }}>
             <Typography variant="body2" sx={{ mb: 2 }}>
-              Promoter: <strong>{request.user?.username}</strong>
+              {t("admin.fiscale.dlg_promoter_label", "Promoter")}: <strong>{request.user?.username}</strong>
             </Typography>
             <FiscaleBreakdown calc={calc} />
             <Typography
               variant="caption"
               sx={{ display: "block", mt: 2, color: "text.secondary" }}
             >
-              Confermando, il payout verrà approvato e le ritenute calcolate
-              verranno applicate.
+              {t("admin.fiscale.dlg_confirm_hint", "Confermando, il payout verrà approvato e le ritenute calcolate verranno applicate.")}
             </Typography>
           </Box>
         )}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} disabled={loading}>
-          Annulla
+          {t("admin.fiscale.dlg_cancel", "Annulla")}
         </Button>
         <LoadingButton
           variant="contained"
@@ -210,7 +198,7 @@ const ApproveDialog = ({ open, onClose, request, onConfirm, loading }) => {
             "&:hover": { backgroundColor: "#967A2F" },
           }}
         >
-          Approva
+          {t("admin.fiscale.dlg_approve", "Approva")}
         </LoadingButton>
       </DialogActions>
     </Dialog>
@@ -219,8 +207,24 @@ const ApproveDialog = ({ open, onClose, request, onConfirm, loading }) => {
 
 // ---------- Main ----------
 const GestionePrelievi = () => {
+  const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const { count, onChange, page, seed, rowStart } = usePagination();
+
+  const PAYOUT_HEADERS = useMemo(() => ([
+    t("admin.fiscale.th_promoter", "Promoter"),
+    t("admin.fiscale.th_request_date", "Data Richiesta"),
+    t("admin.fiscale.th_gross_amount", "Importo Lordo"),
+    t("admin.fiscale.th_net_estimated", "Netto Stimato"),
+    t("admin.fiscale.th_payment_method", "Metodo Pagamento"),
+    t("admin.fiscale.th_actions", "Azioni"),
+  ]), [t]);
+
+  const PAYMENT_METHODS = useMemo(() => ({
+    1: t("admin.fiscale.pm_crypto", "Crypto"),
+    2: t("admin.fiscale.pm_bonifico", "Bonifico"),
+    3: t("admin.fiscale.pm_stripe", "Stripe"),
+  }), [t]);
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -278,16 +282,16 @@ const GestionePrelievi = () => {
         `api/admin/approve-payout/${approveTarget.id}`
       );
       if (status === 200) {
-        enqueueSnackbar(res.message || "Payout approvato");
+        enqueueSnackbar(res.message || t("admin.fiscale.payout_approved", "Payout approvato"));
         setApproveTarget(null);
         fetchPending(page);
       }
     } catch (err) {
-      enqueueSnackbar("Errore nell'approvazione", { variant: "error" });
+      enqueueSnackbar(t("admin.fiscale.approval_error", "Errore nell'approvazione"), { variant: "error" });
     } finally {
       setApproving(false);
     }
-  }, [approveTarget, fetchPending, page, enqueueSnackbar]);
+  }, [approveTarget, fetchPending, page, enqueueSnackbar, t]);
 
   // Reject
   const handleReject = useCallback(
@@ -298,16 +302,16 @@ const GestionePrelievi = () => {
           `api/admin/reject-payout/${id}`
         );
         if (status === 200) {
-          enqueueSnackbar(res.message || "Payout rifiutato");
+          enqueueSnackbar(res.message || t("admin.fiscale.payout_rejected", "Payout rifiutato"));
           fetchPending(page);
         }
       } catch (err) {
-        enqueueSnackbar("Errore nel rifiuto", { variant: "error" });
+        enqueueSnackbar(t("admin.fiscale.reject_error", "Errore nel rifiuto"), { variant: "error" });
       } finally {
         setRejecting(null);
       }
     },
-    [fetchPending, page, enqueueSnackbar]
+    [fetchPending, page, enqueueSnackbar, t]
   );
 
   const dataProps = {
@@ -318,12 +322,12 @@ const GestionePrelievi = () => {
 
   return (
     <div>
-      <Page title="Gestione Prelievi">
+      <Page title={t("admin.fiscale.page_title", "Gestione Prelievi")}>
         <HeaderBreadcrumbs
-          heading="Gestione Prelievi"
+          heading={t("admin.fiscale.page_title", "Gestione Prelievi")}
           links={[
             { name: "global.dashboard", href: PATH_DASHBOARD.root },
-            { name: "Gestione Prelievi" },
+            { name: t("admin.fiscale.page_title", "Gestione Prelievi") },
           ]}
         />
 
@@ -331,13 +335,13 @@ const GestionePrelievi = () => {
         <Grid container spacing={2} sx={{ mb: 3 }}>
           <Grid item xs={12} md={6}>
             <StatCard
-              label="Richieste Pendenti"
+              label={t("admin.fiscale.stat_pending_requests", "Richieste Pendenti")}
               value={stats.count}
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <StatCard
-              label="Totale Importo Pendente"
+              label={t("admin.fiscale.stat_total_pending", "Totale Importo Pendente")}
               value={`€${stats.totalAmount.toFixed(2)}`}
             />
           </Grid>
@@ -390,7 +394,7 @@ const GestionePrelievi = () => {
                             },
                           }}
                         >
-                          Approva
+                          {t("admin.fiscale.approve_btn", "Approva")}
                         </Button>
                         <LoadingButton
                           size="small"
@@ -399,7 +403,7 @@ const GestionePrelievi = () => {
                           loading={rejecting === row.id}
                           onClick={() => handleReject(row.id)}
                         >
-                          Rifiuta
+                          {t("admin.fiscale.reject_btn", "Rifiuta")}
                         </LoadingButton>
                       </Stack>
                     </TableCell>

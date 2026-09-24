@@ -6,6 +6,7 @@ import {
 import { alpha } from "@mui/material/styles";
 import { useEffect, useState, useCallback } from "react";
 import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
 import HeaderBreadcrumbs from "src/components/HeaderBreadcrumbs";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
@@ -14,13 +15,6 @@ import axiosInstance from "src/utils/axios";
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
 const cs = { bgcolor: "#fff", borderRadius: 3, border: "1px solid #f0ece6", boxShadow: "0 1px 4px rgba(0,0,0,0.04)" };
-
-const STATUS_OPTIONS = [
-  { value: "pending", label: "In attesa", color: "#FF9800" },
-  { value: "approved", label: "Approvati", color: "#4CAF50" },
-  { value: "rejected", label: "Rifiutati", color: "#E53935" },
-  { value: "all", label: "Tutti", color: "#9E9E9E" },
-];
 
 const DocumentPreview = ({ doc, label, emptyText }) => {
   if (!doc?.url) {
@@ -46,10 +40,11 @@ const DocumentPreview = ({ doc, label, emptyText }) => {
 };
 
 const StatusChip = ({ status }) => {
+  const { t } = useTranslation();
   const cfg = {
-    pending: { label: "In attesa", color: "#FF9800" },
-    approved: { label: "Approvato", color: "#4CAF50" },
-    rejected: { label: "Rifiutato", color: "#E53935" },
+    pending: { label: t("admin.compliance.kyc_status_pending_single", "In attesa"), color: "#FF9800" },
+    approved: { label: t("admin.compliance.kyc_status_approved_single", "Approvato"), color: "#4CAF50" },
+    rejected: { label: t("admin.compliance.kyc_status_rejected_single", "Rifiutato"), color: "#E53935" },
   }[status] || { label: status || "—", color: "#9E9E9E" };
   return (
     <Chip
@@ -64,7 +59,14 @@ const StatusChip = ({ status }) => {
 };
 
 const KycPending = () => {
+  const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
+  const STATUS_OPTIONS = [
+    { value: "pending", label: t("admin.compliance.kyc_status_pending", "In attesa"), color: "#FF9800" },
+    { value: "approved", label: t("admin.compliance.kyc_status_approved", "Approvati"), color: "#4CAF50" },
+    { value: "rejected", label: t("admin.compliance.kyc_status_rejected", "Rifiutati"), color: "#E53935" },
+    { value: "all", label: t("admin.compliance.kyc_status_all", "Tutti"), color: "#9E9E9E" },
+  ];
   const [status, setStatus] = useState("pending");
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -84,11 +86,11 @@ const KycPending = () => {
       const res = await axiosInstance.get(`api/wp/compliance/kyc-pending?status=${status}`);
       setRows(res.data.data || []);
     } catch {
-      enqueueSnackbar("Errore caricamento", { variant: "error" });
+      enqueueSnackbar(t("admin.compliance.kyc_load_err", "Errore caricamento"), { variant: "error" });
     } finally {
       setLoading(false);
     }
-  }, [status, enqueueSnackbar]);
+  }, [status, enqueueSnackbar, t]);
 
   useEffect(() => { load(); }, [load]);
 
@@ -108,7 +110,7 @@ const KycPending = () => {
       try { back = await fetchDocBlob(row.id, "back"); } catch (e) { /* back optional */ }
       setDocUrls({ front, back });
     } catch {
-      enqueueSnackbar("Errore caricamento documenti", { variant: "error" });
+      enqueueSnackbar(t("admin.compliance.kyc_docs_load_err", "Errore caricamento documenti"), { variant: "error" });
     } finally {
       setDocLoading(false);
     }
@@ -129,11 +131,11 @@ const KycPending = () => {
     setActionLoading(true);
     try {
       await axiosInstance.post(`api/wp/compliance/kyc/${selected.id}/approve`);
-      enqueueSnackbar("KYC approvato", { variant: "success" });
+      enqueueSnackbar(t("admin.compliance.kyc_approved_msg", "KYC approvato"), { variant: "success" });
       closeViewer();
       load();
     } catch {
-      enqueueSnackbar("Errore approvazione", { variant: "error" });
+      enqueueSnackbar(t("admin.compliance.kyc_approval_error", "Errore approvazione"), { variant: "error" });
     } finally {
       setActionLoading(false);
     }
@@ -141,28 +143,28 @@ const KycPending = () => {
 
   const reject = async () => {
     if (!selected || !rejectReason.trim()) {
-      enqueueSnackbar("Motivo obbligatorio", { variant: "warning" });
+      enqueueSnackbar(t("admin.compliance.kyc_reason_required", "Motivo richiesto"), { variant: "warning" });
       return;
     }
     setActionLoading(true);
     try {
       await axiosInstance.post(`api/wp/compliance/kyc/${selected.id}/reject`, { reason: rejectReason });
-      enqueueSnackbar("KYC rifiutato — utente notificato", { variant: "success" });
+      enqueueSnackbar(t("admin.compliance.kyc_rejected_msg", "KYC rifiutato — utente notificato"), { variant: "success" });
       closeViewer();
       load();
     } catch {
-      enqueueSnackbar("Errore rifiuto", { variant: "error" });
+      enqueueSnackbar(t("admin.compliance.kyc_reject_error", "Errore rifiuto"), { variant: "error" });
     } finally {
       setActionLoading(false);
     }
   };
 
   return (
-    <Page title="KYC Verifica Documenti">
+    <Page title={t("admin.compliance.kyc_page_title_short", "KYC Verifica Documenti")}>
       <Box sx={{ px: 3, pb: 4 }}>
         <HeaderBreadcrumbs
-          heading="KYC — Verifica Documenti"
-          links={[{ name: "Dashboard" }, { name: "Compliance", href: "/admin/compliance" }, { name: "KYC" }]}
+          heading={t("admin.compliance.kyc_page_heading", "KYC — Verifica Documenti")}
+          links={[{ name: t("admin.compliance.kyc_bc_dashboard", "Dashboard") }, { name: t("admin.compliance.kyc_bc_compliance", "Compliance"), href: "/admin/compliance" }, { name: t("admin.compliance.kyc_bc_kyc", "KYC") }]}
         />
 
         <Card sx={{ ...cs, p: 2.5, mb: 2 }}>
@@ -179,7 +181,7 @@ const KycPending = () => {
               ))}
             </ToggleButtonGroup>
             <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>
-              {rows.length} {rows.length === 1 ? "utente" : "utenti"}
+              {rows.length} {rows.length === 1 ? t("admin.compliance.kyc_users_one", "utente") : t("admin.compliance.kyc_users_many", "utenti")}
             </Typography>
           </Stack>
         </Card>
@@ -189,20 +191,20 @@ const KycPending = () => {
           <Table size="small" sx={{ minWidth: 800 }}>
             <TableHead sx={{ bgcolor: "#f9f6f0" }}>
               <TableRow>
-                <TableCell sx={{ fontWeight: 700, fontSize: "0.72rem", color: ESPRESSO }}>Utente</TableCell>
-                <TableCell sx={{ fontWeight: 700, fontSize: "0.72rem", color: ESPRESSO }}>Email</TableCell>
-                <TableCell sx={{ fontWeight: 700, fontSize: "0.72rem", color: ESPRESSO }}>CF</TableCell>
-                <TableCell sx={{ fontWeight: 700, fontSize: "0.72rem", color: ESPRESSO }}>Tipo doc</TableCell>
-                <TableCell sx={{ fontWeight: 700, fontSize: "0.72rem", color: ESPRESSO }}>Caricato</TableCell>
-                <TableCell sx={{ fontWeight: 700, fontSize: "0.72rem", color: ESPRESSO }}>Stato</TableCell>
-                <TableCell align="right" sx={{ fontWeight: 700, fontSize: "0.72rem", color: ESPRESSO }}>Azione</TableCell>
+                <TableCell sx={{ fontWeight: 700, fontSize: "0.72rem", color: ESPRESSO }}>{t("admin.compliance.kyc_th_user", "Utente")}</TableCell>
+                <TableCell sx={{ fontWeight: 700, fontSize: "0.72rem", color: ESPRESSO }}>{t("admin.compliance.kyc_th_email", "Email")}</TableCell>
+                <TableCell sx={{ fontWeight: 700, fontSize: "0.72rem", color: ESPRESSO }}>{t("admin.compliance.kyc_th_cf", "CF")}</TableCell>
+                <TableCell sx={{ fontWeight: 700, fontSize: "0.72rem", color: ESPRESSO }}>{t("admin.compliance.kyc_th_doc_type", "Tipo doc")}</TableCell>
+                <TableCell sx={{ fontWeight: 700, fontSize: "0.72rem", color: ESPRESSO }}>{t("admin.compliance.kyc_th_uploaded", "Caricato")}</TableCell>
+                <TableCell sx={{ fontWeight: 700, fontSize: "0.72rem", color: ESPRESSO }}>{t("admin.compliance.kyc_th_status", "Stato")}</TableCell>
+                <TableCell align="right" sx={{ fontWeight: 700, fontSize: "0.72rem", color: ESPRESSO }}>{t("admin.compliance.kyc_th_action", "Azione")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {loading ? (
                 <TableRow><TableCell colSpan={7} align="center" sx={{ py: 4 }}><CircularProgress size={24} sx={{ color: ORO }} /></TableCell></TableRow>
               ) : rows.length === 0 ? (
-                <TableRow><TableCell colSpan={7} align="center" sx={{ py: 4, color: "#9E9E9E", fontSize: "0.85rem" }}>Nessun utente con questo stato</TableCell></TableRow>
+                <TableRow><TableCell colSpan={7} align="center" sx={{ py: 4, color: "#9E9E9E", fontSize: "0.85rem" }}>{t("admin.compliance.kyc_no_users_state", "Nessun utente con questo stato")}</TableCell></TableRow>
               ) : rows.map((r) => (
                 <TableRow key={r.id} hover>
                   <TableCell>
@@ -227,7 +229,7 @@ const KycPending = () => {
                       onClick={() => openViewer(r)}
                       sx={{ bgcolor: ORO, "&:hover": { bgcolor: alpha(ORO, 0.85) }, textTransform: "none", fontWeight: 700, borderRadius: 1.5 }}
                     >
-                      Verifica
+                      {t("admin.compliance.kyc_verify_btn", "Verifica")}
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -243,7 +245,7 @@ const KycPending = () => {
         <DialogTitle sx={{ borderBottom: "1px solid #eee", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <Box>
             <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: ESPRESSO }}>
-              Verifica documento — {selected?.username}
+              {t("admin.compliance.kyc_dlg_verify_title", "Verifica documento — {{username}}", { username: selected?.username })}
             </Typography>
             <Typography sx={{ fontSize: "0.75rem", color: "#7A6A5C" }}>
               {selected?.first_name} {selected?.last_name} · {selected?.email}
@@ -254,7 +256,7 @@ const KycPending = () => {
         <DialogContent sx={{ py: 3 }}>
           {selected?.kyc_status === "rejected" && selected?.kyc_reject_reason && (
             <Box sx={{ mb: 2, p: 1.5, bgcolor: alpha("#E53935", 0.08), borderRadius: 1, border: "1px solid " + alpha("#E53935", 0.3) }}>
-              <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: "#E53935" }}>Motivo rifiuto precedente:</Typography>
+              <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: "#E53935" }}>{t("admin.compliance.kyc_prev_reject_reason", "Motivo rifiuto precedente:")}</Typography>
               <Typography sx={{ fontSize: "0.8rem", color: ESPRESSO }}>{selected.kyc_reject_reason}</Typography>
             </Box>
           )}
@@ -264,22 +266,22 @@ const KycPending = () => {
           ) : (
             <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
               <Box sx={{ flex: 1 }}>
-                <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: ESPRESSO, mb: 1 }}>FRONTE</Typography>
-                <DocumentPreview doc={docUrls.front} label="Fronte" emptyText="Documento non disponibile" />
+                <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: ESPRESSO, mb: 1 }}>{t("admin.compliance.kyc_front", "FRONTE")}</Typography>
+                <DocumentPreview doc={docUrls.front} label={t("admin.compliance.kyc_front", "FRONTE")} emptyText={t("admin.compliance.kyc_doc_not_available", "Documento non disponibile")} />
               </Box>
               <Box sx={{ flex: 1 }}>
-                <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: ESPRESSO, mb: 1 }}>RETRO</Typography>
-                <DocumentPreview doc={docUrls.back} label="Retro" emptyText="Retro non caricato" />
+                <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: ESPRESSO, mb: 1 }}>{t("admin.compliance.kyc_back", "RETRO")}</Typography>
+                <DocumentPreview doc={docUrls.back} label={t("admin.compliance.kyc_back", "RETRO")} emptyText={t("admin.compliance.kyc_back_not_uploaded", "Retro non caricato")} />
               </Box>
             </Stack>
           )}
 
           {openReject && (
             <Box sx={{ mt: 3, p: 2, bgcolor: alpha("#E53935", 0.05), borderRadius: 1 }}>
-              <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO, mb: 1 }}>Motivo del rifiuto (visibile all'utente):</Typography>
+              <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO, mb: 1 }}>{t("admin.compliance.kyc_reject_reason_label", "Motivo del rifiuto (visibile all'utente):")}</Typography>
               <TextField
                 fullWidth multiline rows={3} size="small"
-                placeholder="Es. Documento sfocato, data scaduta, immagine ritagliata..."
+                placeholder={t("admin.compliance.kyc_reject_placeholder", "Es. Documento sfocato, data scaduta, immagine ritagliata...")}
                 value={rejectReason}
                 onChange={(e) => setRejectReason(e.target.value)}
               />
@@ -287,7 +289,7 @@ const KycPending = () => {
           )}
         </DialogContent>
         <DialogActions sx={{ borderTop: "1px solid #eee", px: 3, py: 2 }}>
-          <Button onClick={closeViewer}>Chiudi</Button>
+          <Button onClick={closeViewer}>{t("admin.compliance.kyc_close_btn", "Chiudi")}</Button>
           {!openReject ? (
             <>
               <Button
@@ -296,7 +298,7 @@ const KycPending = () => {
                 onClick={() => setOpenReject(true)}
                 disabled={selected?.kyc_status === "rejected" || actionLoading}
               >
-                Rifiuta
+                {t("admin.compliance.kyc_reject_btn", "Rifiuta")}
               </Button>
               <Button
                 variant="contained"
@@ -305,19 +307,19 @@ const KycPending = () => {
                 disabled={selected?.kyc_status === "approved" || actionLoading}
                 sx={{ bgcolor: "#4CAF50", "&:hover": { bgcolor: "#388E3C" }, fontWeight: 700, textTransform: "none" }}
               >
-                Approva
+                {t("admin.compliance.kyc_approve_btn", "Approva")}
               </Button>
             </>
           ) : (
             <>
-              <Button onClick={() => { setOpenReject(false); setRejectReason(""); }}>Annulla</Button>
+              <Button onClick={() => { setOpenReject(false); setRejectReason(""); }}>{t("admin.compliance.kyc_cancel_btn", "Annulla")}</Button>
               <Button
                 variant="contained" color="error"
                 onClick={reject}
                 disabled={!rejectReason.trim() || actionLoading}
                 sx={{ fontWeight: 700, textTransform: "none" }}
               >
-                Conferma rifiuto
+                {t("admin.compliance.kyc_confirm_reject_btn", "Conferma rifiuto")}
               </Button>
             </>
           )}

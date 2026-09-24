@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Autocomplete, Box, Button, Card, Chip, CircularProgress, Stack, Table, TableBody,
   TableCell, TableHead, TableRow, TextField, Typography, Pagination, Tooltip, IconButton,
@@ -16,6 +17,7 @@ const PRODUCT_LABELS = { black: "Black", mocha: "Mocha", latte: "Latte", greente
 const PROFILE_LABELS = { cold: "Cold Curioso", warm: "Warm Decisore", coffeelover: "Coffee Lover", wellness: "Wellness Seeker" };
 
 const AssignCell = ({ lead, onAssigned }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState([]);
   const [input, setInput] = useState("");
@@ -61,20 +63,21 @@ const AssignCell = ({ lead, onAssigned }) => {
         onChange={(_, v) => setSelected(v)}
         onInputChange={(_, v) => setInput(v)}
         renderInput={(params) => (
-          <TextField {...params} placeholder="Cerca promoter…" size="small"
+          <TextField {...params} placeholder={t("admin.lead_orfani.search_promoter", "Cerca promoter…")} size="small"
             InputProps={{ ...params.InputProps, endAdornment: loading ? <CircularProgress size={16} /> : params.InputProps.endAdornment }} />
         )}
       />
       <Button variant="contained" size="small" disabled={!selected || assigning}
         onClick={handleAssign}
         sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none" }}>
-        {assigning ? "Assegno…" : "Assegna"}
+        {assigning ? t("admin.lead_orfani.btn_assigning", "Assegno…") : t("admin.lead_orfani.btn_assign", "Assegna")}
       </Button>
     </Stack>
   );
 };
 
 const LeadOrphans = () => {
+  const { t } = useTranslation();
   const [data, setData] = useState([]);
   const [meta, setMeta] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -97,12 +100,12 @@ const LeadOrphans = () => {
   const totalPages = Math.max(1, Math.ceil((meta?.total || 0) / (meta?.per_page || 50)));
 
   return (
-    <Page title="Lead Orfani · Admin">
+    <Page title={t("admin.lead_orfani.page_title", "Lead Orfani · Admin")}>
       <Box sx={{ px: { xs: 2, md: 3 }, py: 3 }}>
-        <Typography variant="h5" sx={{ fontWeight: 700, color: ESPRESSO, mb: 0.5 }}>Lead Orfani</Typography>
+        <Typography variant="h5" sx={{ fontWeight: 700, color: ESPRESSO, mb: 0.5 }}>{t("admin.lead_orfani.heading", "Lead Orfani")}</Typography>
         <Typography sx={{ fontSize: "0.85rem", color: MUTED, mb: 2 }}>
-          Lead dal quiz senza sponsor assegnato — assegna manualmente a un promoter.
-          {meta && <strong style={{ marginLeft: 8 }}>{meta.total} totali</strong>}
+          {t("admin.lead_orfani.subtitle", "Lead dal quiz senza sponsor assegnato — assegna manualmente a un promoter.")}
+          {meta && <strong style={{ marginLeft: 8 }}>{meta.total} {t("admin.lead_orfani.total_suffix", "totali")}</strong>}
         </Typography>
 
         <Card sx={{ borderRadius: 3, border: "1px solid #f0ece6" }}>
@@ -110,20 +113,20 @@ const LeadOrphans = () => {
             <Box sx={{ textAlign: "center", py: 5 }}><CircularProgress sx={{ color: ORO }} /></Box>
           ) : data.length === 0 ? (
             <Box sx={{ textAlign: "center", py: 5, color: MUTED, fontSize: "0.9rem" }}>
-              Nessun lead orfano da assegnare 🎉
+              {t("admin.lead_orfani.no_orphan_leads", "Nessun lead orfano da assegnare 🎉")}
             </Box>
           ) : (
             <Box sx={{ width: "100%", overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
             <Table size="small" sx={{ minWidth: 900 }}>
               <TableHead>
                 <TableRow sx={{ bgcolor: "#FAF6EF" }}>
-                  <TableCell sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED }}>Data</TableCell>
-                  <TableCell sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED }}>Nome</TableCell>
-                  <TableCell sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED }}>Email</TableCell>
-                  <TableCell sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED }}>Prodotto</TableCell>
-                  <TableCell sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED }}>Profilo</TableCell>
-                  <TableCell sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED }}>UTM</TableCell>
-                  <TableCell sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED }} align="right">Assegna a…</TableCell>
+                  <TableCell sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED }}>{t("admin.lead_orfani.th_date", "Data")}</TableCell>
+                  <TableCell sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED }}>{t("admin.lead_orfani.th_name", "Nome")}</TableCell>
+                  <TableCell sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED }}>{t("admin.lead_orfani.th_email", "Email")}</TableCell>
+                  <TableCell sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED }}>{t("admin.lead_orfani.th_product", "Prodotto")}</TableCell>
+                  <TableCell sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED }}>{t("admin.lead_orfani.th_profile", "Profilo")}</TableCell>
+                  <TableCell sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED }}>{t("admin.lead_orfani.th_utm", "UTM")}</TableCell>
+                  <TableCell sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED }} align="right">{t("admin.lead_orfani.th_assign_to", "Assegna a…")}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

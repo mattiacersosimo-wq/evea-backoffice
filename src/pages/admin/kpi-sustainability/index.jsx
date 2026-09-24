@@ -1,11 +1,10 @@
 import { Alert, Box, Card, Chip, FormControl, Grid, LinearProgress, MenuItem, Select, Skeleton, Stack, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import axiosInstance from "src/utils/axios";
-
-const MONTH_NAMES = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
 
 const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
@@ -29,12 +28,6 @@ const STATUS_COLORS = {
   red: DANGER,
 };
 
-const STATUS_LABELS = {
-  green: "OK",
-  yellow: "ATTENZIONE",
-  red: "CRITICO",
-};
-
 const STATUS_ICONS = {
   green: "mdi:check-circle",
   yellow: "mdi:alert-circle-outline",
@@ -42,6 +35,12 @@ const STATUS_ICONS = {
 };
 
 const KpiCard = ({ kpi }) => {
+  const { t } = useTranslation();
+  const STATUS_LABELS = {
+    green: t("admin.kpi_sustainability.status_ok", "OK"),
+    yellow: t("admin.kpi_sustainability.status_warning", "ATTENZIONE"),
+    red: t("admin.kpi_sustainability.status_critical", "CRITICO"),
+  };
   const color = STATUS_COLORS[kpi.status] || MUTED;
   return (
     <Card sx={{ ...cardSx, borderLeft: `4px solid ${color}`, height: "100%" }}>
@@ -64,13 +63,13 @@ const KpiCard = ({ kpi }) => {
       </Stack>
       <Stack direction="row" spacing={2} mt={1.5}>
         <Box>
-          <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>Target</Typography>
+          <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>{t("admin.kpi_sustainability.target", "Target")}</Typography>
           <Typography sx={{ fontSize: "0.82rem", color: SUCCESS, fontWeight: 700 }}>
             {kpi.higher_is_worse ? "≤" : "≥"} {kpi.target}{kpi.unit}
           </Typography>
         </Box>
         <Box>
-          <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>Soglia critica</Typography>
+          <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>{t("admin.kpi_sustainability.critical_threshold", "Soglia critica")}</Typography>
           <Typography sx={{ fontSize: "0.82rem", color: DANGER, fontWeight: 700 }}>
             {kpi.higher_is_worse ? ">" : "<"} {kpi.critical}{kpi.unit}
           </Typography>
@@ -81,6 +80,7 @@ const KpiCard = ({ kpi }) => {
 };
 
 const FinancialCard = ({ financial }) => {
+  const { t } = useTranslation();
   const grossMargin = financial.gross_margin || 0;
   const netMargin = financial.net_margin ?? grossMargin;
   const netMarginPct = financial.net_margin_pct ?? 0;
@@ -93,11 +93,11 @@ const FinancialCard = ({ financial }) => {
   return (
     <Card sx={cardSx}>
       <Typography sx={{ fontSize: "0.85rem", color: MUTED, fontWeight: 700, mb: 2, textTransform: "uppercase" }}>
-        Bilancio del mese in corso
+        {t("admin.kpi_sustainability.balance_current_month", "Bilancio del mese in corso")}
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={6} md={3}>
-          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Fatturato commerciale</Typography>
+          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{t("admin.kpi_sustainability.commercial_revenue", "Fatturato commerciale")}</Typography>
           <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: ESPRESSO }}>
             €{fmt(financial.revenue_mtd)}
           </Typography>
@@ -105,7 +105,7 @@ const FinancialCard = ({ financial }) => {
             <Chip
               size="small"
               icon={<Iconify icon={revDelta >= 0 ? "mdi:arrow-up" : "mdi:arrow-down"} width={12} />}
-              label={`${revDelta >= 0 ? "+" : ""}${revDelta}% vs mese scorso`}
+              label={`${revDelta >= 0 ? "+" : ""}${revDelta}% ${t("admin.kpi_sustainability.vs_prev_month", "vs mese scorso")}`}
               sx={{
                 mt: 0.5, height: 20, fontSize: "0.65rem",
                 bgcolor: alpha(revDelta >= 0 ? SUCCESS : DANGER, 0.1),
@@ -115,16 +115,16 @@ const FinancialCard = ({ financial }) => {
           )}
         </Grid>
         <Grid item xs={6} md={3}>
-          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Bonus MLM</Typography>
+          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{t("admin.kpi_sustainability.mlm_bonus", "Bonus MLM")}</Typography>
           <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: DANGER }}>
             -€{fmt(financial.total_bonus_cost)}
           </Typography>
           <Typography sx={{ fontSize: "0.65rem", color: MUTED, mt: 0.3 }}>
-            Margine lordo: €{fmt(grossMargin)}
+            {t("admin.kpi_sustainability.gross_margin", "Margine lordo")}: €{fmt(grossMargin)}
           </Typography>
         </Grid>
         <Grid item xs={6} md={3}>
-          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Costi operativi</Typography>
+          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{t("admin.kpi_sustainability.operational_costs", "Costi operativi")}</Typography>
           <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: DANGER }}>
             -€{fmt(opCosts.total)}
           </Typography>
@@ -133,18 +133,18 @@ const FinancialCard = ({ financial }) => {
           </Typography>
         </Grid>
         <Grid item xs={6} md={3}>
-          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Margine netto</Typography>
+          <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{t("admin.kpi_sustainability.net_margin", "Margine netto")}</Typography>
           <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: netMargin >= 0 ? SUCCESS : DANGER }}>
             €{fmt(netMargin)}
           </Typography>
           <Typography sx={{ fontSize: "0.7rem", color: MUTED, mt: 0.3 }}>
-            {netMarginPct}% del fatturato
+            {netMarginPct}% {t("admin.kpi_sustainability.revenue_pct", "del fatturato")}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography sx={{ fontSize: "0.7rem", color: MUTED, mt: 1 }}>
-            Clienti / Promoter attivi: <b>{financial.active_customers} / {financial.active_promoters}</b>
-            {" · "}Churn mese: <b>{financial.churned_customers}</b>
+            {t("admin.kpi_sustainability.customers_promoters_active", "Clienti / Promoter attivi")}: <b>{financial.active_customers} / {financial.active_promoters}</b>
+            {" · "}{t("admin.kpi_sustainability.churn_month", "Churn mese")}: <b>{financial.churned_customers}</b>
           </Typography>
         </Grid>
       </Grid>
@@ -153,6 +153,7 @@ const FinancialCard = ({ financial }) => {
 };
 
 const CostBreakdown = ({ costs }) => {
+  const { t } = useTranslation();
   const total = (costs || []).reduce((sum, c) => sum + (Number(c.total) || 0), 0);
   const typeLabels = {
     fast_start_bonus: "Fast Start Bonus",
@@ -174,11 +175,11 @@ const CostBreakdown = ({ costs }) => {
   return (
     <Card sx={cardSx}>
       <Typography sx={{ fontSize: "0.85rem", color: MUTED, fontWeight: 700, mb: 2, textTransform: "uppercase" }}>
-        Costi per tipo di bonus (mese in corso)
+        {t("admin.kpi_sustainability.costs_by_bonus_type", "Costi per tipo di bonus (mese in corso)")}
       </Typography>
       {(costs || []).length === 0 ? (
         <Typography sx={{ color: MUTED, fontSize: "0.85rem", py: 2 }}>
-          Nessun bonus pagato questo mese.
+          {t("admin.kpi_sustainability.no_bonus_this_month", "Nessun bonus pagato questo mese.")}
         </Typography>
       ) : (
         <Stack spacing={1.5}>
@@ -192,7 +193,7 @@ const CostBreakdown = ({ costs }) => {
                   </Typography>
                   <Stack direction="row" spacing={2} alignItems="center">
                     <Typography sx={{ fontSize: "0.72rem", color: MUTED }}>
-                      {c.count} pagamenti
+                      {c.count} {t("admin.kpi_sustainability.payments_count", "pagamenti")}
                     </Typography>
                     <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, minWidth: 90, textAlign: "right" }}>
                       €{Number(c.total).toLocaleString("it-IT", { minimumFractionDigits: 2 })}
@@ -216,16 +217,26 @@ const CostBreakdown = ({ costs }) => {
   );
 };
 
-const TrendTable = ({ trend }) => (
+const TrendTable = ({ trend }) => {
+  const { t } = useTranslation();
+  const headers = [
+    t("admin.kpi_sustainability.th_month", "Mese"),
+    t("admin.kpi_sustainability.th_active_customers", "Clienti attivi"),
+    t("admin.kpi_sustainability.th_churn_pct", "Churn %"),
+    t("admin.kpi_sustainability.th_revenue", "Fatturato"),
+    t("admin.kpi_sustainability.th_bonus_cost", "Costo bonus"),
+    t("admin.kpi_sustainability.th_net", "Netto"),
+  ];
+  return (
   <Card sx={cardSx}>
     <Typography sx={{ fontSize: "0.85rem", color: MUTED, fontWeight: 700, mb: 2, textTransform: "uppercase" }}>
-      Storico ultimi 12 mesi
+      {t("admin.kpi_sustainability.trend_12m", "Storico ultimi 12 mesi")}
     </Typography>
     <Box sx={{ overflowX: "auto" }}>
       <Box component="table" sx={{ width: "100%", minWidth: 600, borderCollapse: "collapse" }}>
         <Box component="thead">
           <Box component="tr">
-            {["Mese", "Clienti attivi", "Churn %", "Fatturato", "Costo bonus", "Netto"].map((h) => (
+            {headers.map((h) => (
               <Box key={h} component="th" sx={{ p: 1.2, textAlign: "left", fontSize: "0.72rem", fontWeight: 700, color: MUTED, textTransform: "uppercase", borderBottom: "1px solid #f0ece6" }}>
                 {h}
               </Box>
@@ -262,9 +273,25 @@ const TrendTable = ({ trend }) => (
       </Box>
     </Box>
   </Card>
-);
+  );
+};
 
 const KpiSustainability = () => {
+  const { t } = useTranslation();
+  const MONTH_NAMES = [
+    t("month_long.jan", "Gennaio"),
+    t("month_long.feb", "Febbraio"),
+    t("month_long.mar", "Marzo"),
+    t("month_long.apr", "Aprile"),
+    t("month_long.may", "Maggio"),
+    t("month_long.jun", "Giugno"),
+    t("month_long.jul", "Luglio"),
+    t("month_long.aug", "Agosto"),
+    t("month_long.sep", "Settembre"),
+    t("month_long.oct", "Ottobre"),
+    t("month_long.nov", "Novembre"),
+    t("month_long.dec", "Dicembre"),
+  ];
   const now = new Date();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -287,7 +314,7 @@ const KpiSustainability = () => {
         });
         setData(r?.data);
       } catch (e) {
-        setError(e?.response?.data?.message || e.message || "Errore caricamento KPI");
+        setError(e?.response?.data?.message || e.message || t("admin.kpi_sustainability.loading_error", "Errore caricamento KPI"));
       } finally {
         setLoading(false);
       }
@@ -295,7 +322,7 @@ const KpiSustainability = () => {
   }, [year, month]);
 
   return (
-    <Page title="Sostenibilità Piano Compensi">
+    <Page title={t("admin.kpi_sustainability.page_title", "Sostenibilità Piano Compensi")}>
       <Box sx={{ p: { xs: 2, md: 3 }, bgcolor: "#f5f5f5", minHeight: "100vh" }}>
         <Stack direction={{ xs: "column", sm: "row" }} alignItems={{ xs: "flex-start", sm: "center" }} justifyContent="space-between" spacing={2} mb={3}>
           <Stack direction="row" alignItems="center" spacing={2}>
@@ -304,10 +331,10 @@ const KpiSustainability = () => {
             </Box>
             <Box>
               <Typography variant="h5" sx={{ fontWeight: 700, color: ESPRESSO }}>
-                Sostenibilità Piano Compensi
+                {t("admin.kpi_sustainability.page_title", "Sostenibilità Piano Compensi")}
               </Typography>
               <Typography sx={{ fontSize: "0.82rem", color: MUTED }}>
-                3 KPI critici + breakdown costi mensili
+                {t("admin.kpi_sustainability.subtitle", "3 KPI critici + breakdown costi mensili")}
                 {data?.period ? ` — ${MONTH_NAMES[data.period.month - 1]} ${data.period.year}` : ""}
               </Typography>
             </Box>
@@ -390,7 +417,7 @@ const KpiSustainability = () => {
             <TrendTable trend={data.trend_12m} />
 
             <Typography sx={{ fontSize: "0.72rem", color: MUTED, textAlign: "right" }}>
-              Dati aggiornati al {data.as_of}
+              {t("admin.kpi_sustainability.data_as_of", "Dati aggiornati al {{date}}", { date: data.as_of })}
             </Typography>
           </Stack>
         )}
