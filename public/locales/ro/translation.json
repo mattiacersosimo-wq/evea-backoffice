@@ -4440,6 +4440,11 @@
         },
         "ritual": {
             "evolving_chip": "Evolving"
+        },
+        "rock_solid": {
+            "locked_title": "Rock Solid MVP începe după sfârșitul ciclului Go MVP",
+            "locked_days_remaining": "Zile rămase: {{days}}",
+            "locked_first_payout": "Prima plată prevăzută de la {{date}}"
         }
     },
     "my_leads": {

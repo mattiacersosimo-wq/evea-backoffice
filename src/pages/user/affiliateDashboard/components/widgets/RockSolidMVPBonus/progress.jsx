@@ -19,8 +19,16 @@ import { useTranslation } from "react-i18next";
 import CountdownGauge from "src/components/bonus-common/CountdownGauge";
 import MonthGrid from "src/components/bonus-common/MonthGrid";
 
+const formatLocaleDate = (isoDateStr, locale) => {
+  if (!isoDateStr) return "";
+  try {
+    const loc = locale === "ro" ? "ro-RO" : locale === "en" ? "en-US" : "it-IT";
+    return new Date(isoDateStr).toLocaleDateString(loc, { day: "numeric", month: "long", year: "numeric" });
+  } catch (e) { return isoDateStr; }
+};
+
 const Progress = ({ higherRank }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   if (!higherRank) return null;
 
   if (higherRank?.go_mvp_approved === 0) {
@@ -33,6 +41,33 @@ const Progress = ({ higherRank }) => {
         <Typography sx={{ fontSize: "0.75rem", color: "#7A6A5C", mt: 0.5 }}>
           {t("evea.not_eligible_rsp", "Per accedere al Rock Solid MVP devi prima completare e ottenere l'approvazione del Go MVP Bonus.")}
         </Typography>
+      </Box>
+    );
+  }
+
+  // Piano compensi v4 sezione 4.1: il RSB puo' firare solo dal mese
+  // successivo alla fine del ciclo Go MVP. Se il ciclo e' ancora in
+  // corso, mostriamo la card lockata con countdown al primo pagamento.
+  if (higherRank?.in_go_mvp_cycle) {
+    const daysRemaining = Math.max(
+      0,
+      Number(higherRank?.total_qualification_day || 0) - Number(higherRank?.current_qualification_day || 0)
+    );
+    const firstPayoutDate = formatLocaleDate(higherRank?.first_rsb_month_start, i18n.resolvedLanguage);
+    return (
+      <Box sx={{ py: 3, textAlign: "center" }}>
+        <Iconify icon="mdi:lock-outline" width={36} sx={{ color: "#B8963B", mb: 1 }} />
+        <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: "#5C4A3A", mb: 0.5 }}>
+          {t("bonus_widgets.rock_solid.locked_title", "Rock Solid MVP inizia dopo la fine del ciclo Go MVP")}
+        </Typography>
+        <Typography sx={{ fontSize: "0.8rem", color: "#7A6A5C", mt: 0.5 }}>
+          {t("bonus_widgets.rock_solid.locked_days_remaining", "Giorni rimanenti: {{days}}", { days: daysRemaining })}
+        </Typography>
+        {firstPayoutDate && (
+          <Typography sx={{ fontSize: "0.8rem", color: "#7A6A5C", mt: 0.5 }}>
+            {t("bonus_widgets.rock_solid.locked_first_payout", "Primo pagamento previsto dal {{date}}", { date: firstPayoutDate })}
+          </Typography>
+        )}
       </Box>
     );
   }

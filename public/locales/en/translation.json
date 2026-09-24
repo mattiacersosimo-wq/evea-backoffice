@@ -4514,6 +4514,11 @@
         },
         "ritual": {
             "evolving_chip": "Evolving"
+        },
+        "rock_solid": {
+            "locked_title": "Rock Solid MVP starts after the end of the Go MVP cycle",
+            "locked_days_remaining": "Days remaining: {{days}}",
+            "locked_first_payout": "First payout expected from {{date}}"
         }
     },
     "my_leads": {
