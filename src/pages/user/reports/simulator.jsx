@@ -109,8 +109,7 @@ const BonusRow = ({ icon, label, amount, color, subtitle }) => (
 );
 
 const SimulatorReport = () => {
-  const { i18n } = useTranslation();
-  const isIt = i18n.resolvedLanguage === "it";
+  const { t } = useTranslation();
 
   const [clients, setClients] = useState(5);
   const [avgOrder, setAvgOrder] = useState(27);
@@ -353,7 +352,7 @@ const SimulatorReport = () => {
                 <Iconify icon="mdi:trophy" width={16} sx={{ mr: 0.5, verticalAlign: "middle", color: ORO }} />
                 {currentRank.name}
               </Typography>
-              <Chip label={isIt ? "Applica preset" : "Apply preset"} size="small" onClick={() => applyPreset(rankId)}
+              <Chip label={t("reports.simulator.apply_preset", "Applica preset")} size="small" onClick={() => applyPreset(rankId)}
                 sx={{ cursor: "pointer", fontWeight: 700, fontSize: "0.6rem", bgcolor: alpha(ORO, 0.1), color: ORO }} />
             </Stack>
             <Slider value={rankId} onChange={(_, v) => setRankId(v)} min={1} max={10}
@@ -370,42 +369,42 @@ const SimulatorReport = () => {
 
             <Divider sx={{ my: 1 }} />
             <Typography sx={{ fontSize: "0.6rem", fontWeight: 600, color: MUTED, textTransform: "uppercase", mb: 0.5 }}>
-              {isIt ? "I tuoi clienti" : "Your clients"}
+              {t("reports.simulator.your_clients", "I tuoi clienti")}
             </Typography>
-            <SliderInput icon="mdi:account-group" label={isIt ? "Clienti" : "Clients"} value={clients} onChange={setClients} min={0} max={50} color="#2196F3" />
-            <SliderInput icon="mdi:cart" label={isIt ? "Ordine medio" : "Avg order"} value={avgOrder} onChange={setAvgOrder} min={20} max={100} unit="€" color="#FF9800" />
+            <SliderInput icon="mdi:account-group" label={t("reports.simulator.clients", "Clienti")} value={clients} onChange={setClients} min={0} max={50} color="#2196F3" />
+            <SliderInput icon="mdi:cart" label={t("reports.simulator.avg_order", "Ordine medio")} value={avgOrder} onChange={setAvgOrder} min={20} max={100} unit="€" color="#FF9800" />
             <SliderInput icon="mdi:refresh" label="Smartship" value={smartshipPct} onChange={setSmartshipPct} min={0} max={100} step={5} unit="%" color="#8BC34A" />
 
             <Divider sx={{ my: 1 }} />
             <Typography sx={{ fontSize: "0.6rem", fontWeight: 600, color: MUTED, textTransform: "uppercase", mb: 0.5 }}>
-              {isIt ? "Duplicazione team" : "Team duplication"}
+              {t("reports.simulator.team_duplication", "Duplicazione team")}
             </Typography>
-            <SliderInput icon="mdi:account-tie" label={isIt ? "Promoter diretti" : "Direct promoters"} value={promoters} onChange={setPromoters} min={0} max={30} color={ORO} />
-            <SliderInput icon="mdi:account-multiple-plus" label={isIt ? "Clienti per promoter" : "Clients/promoter"} value={clientsPerPromoter} onChange={setClientsPerPromoter} min={1} max={15} color="#00BCD4" />
-            <SliderInput icon="mdi:account-switch" label={isIt ? "Promoter per promoter" : "Promoters/promoter"} value={promotersPerPromoter} onChange={setPromotersPerPromoter} min={0} max={8} color="#9C27B0" />
-            <SliderInput icon="mdi:layers" label={isIt ? "Livelli profondità" : "Depth levels"} value={dupLevels} onChange={setDupLevels} min={0} max={9} color="#607D8B" />
+            <SliderInput icon="mdi:account-tie" label={t("reports.simulator.direct_promoters", "Promoter diretti")} value={promoters} onChange={setPromoters} min={0} max={30} color={ORO} />
+            <SliderInput icon="mdi:account-multiple-plus" label={t("reports.simulator.clients_per_promoter", "Clienti per promoter")} value={clientsPerPromoter} onChange={setClientsPerPromoter} min={1} max={15} color="#00BCD4" />
+            <SliderInput icon="mdi:account-switch" label={t("reports.simulator.promoters_per_promoter", "Promoter per promoter")} value={promotersPerPromoter} onChange={setPromotersPerPromoter} min={0} max={8} color="#9C27B0" />
+            <SliderInput icon="mdi:layers" label={t("reports.simulator.depth_levels", "Livelli profondità")} value={dupLevels} onChange={setDupLevels} min={0} max={9} color="#607D8B" />
 
             <Divider sx={{ my: 1 }} />
             <Typography sx={{ fontSize: "0.6rem", fontWeight: 600, color: MUTED, textTransform: "uppercase", mb: 0.5 }}>
-              {isIt ? "Realismo (scarto reale)" : "Realism factors"}
+              {t("reports.simulator.realism_factors", "Realismo (scarto reale)")}
             </Typography>
             <Stack direction="row" spacing={0.5} mb={1}>
-              {Object.entries(SCENARIOS).map(([key, s]) => (
-                <Chip key={key} label={isIt ? s.label : key} size="small" onClick={() => applyScenario(key)}
+              {Object.entries(SCENARIOS).map(([key]) => (
+                <Chip key={key} label={t(`reports.simulator.scenario_${key}`, key === "pessimistic" ? "Pessimistico" : key === "realistic" ? "Realistico" : "Ottimistico")} size="small" onClick={() => applyScenario(key)}
                   sx={{ flex: 1, cursor: "pointer", fontWeight: 700, fontSize: "0.6rem",
                     bgcolor: scenario === key ? alpha(ORO, 0.15) : "#f5f5f5",
                     color: scenario === key ? ORO : MUTED,
                     border: `1px solid ${scenario === key ? ORO : "#eee"}` }} />
               ))}
             </Stack>
-            <SliderInput icon="mdi:trending-down" label={isIt ? "Scarto per livello (più alto = più calo)" : "Per-level dropoff (higher = bigger drop)"} value={dropoff} onChange={setDropoff} min={0} max={80} step={5} unit="%" color="#FF7043" />
-            <SliderInput icon="mdi:account-check" label={isIt ? "Promoter attivi" : "Active promoters"} value={activePct} onChange={setActivePct} min={20} max={100} step={5} unit="%" color="#26A69A" />
-            <SliderInput icon="mdi:chart-line" label={isIt ? "Crescita mensile (solo proiezione 12m)" : "Monthly growth (12m chart only)"} value={growthPct} onChange={setGrowthPct} min={0} max={15} unit="%" color="#7E57C2" />
+            <SliderInput icon="mdi:trending-down" label={t("reports.simulator.per_level_dropoff", "Scarto per livello (più alto = più calo)")} value={dropoff} onChange={setDropoff} min={0} max={80} step={5} unit="%" color="#FF7043" />
+            <SliderInput icon="mdi:account-check" label={t("reports.simulator.active_promoters", "Promoter attivi")} value={activePct} onChange={setActivePct} min={20} max={100} step={5} unit="%" color="#26A69A" />
+            <SliderInput icon="mdi:chart-line" label={t("reports.simulator.monthly_growth", "Crescita mensile (solo proiezione 12m)")} value={growthPct} onChange={setGrowthPct} min={0} max={15} unit="%" color="#7E57C2" />
 
             {/* Team summary */}
             <Box sx={{ mt: 1.5, p: 1.5, borderRadius: 2, bgcolor: alpha(ORO, 0.04), border: `1px solid ${alpha(ORO, 0.1)}` }}>
               <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: ESPRESSO, mb: 0.5 }}>
-                {isIt ? "Struttura Team" : "Team Structure"}
+                {t("reports.simulator.team_structure", "Struttura Team")}
               </Typography>
               {calc.levels.map((l, i) => {
                 const active = Math.round(l.promoters * calc.effActive);
@@ -420,23 +419,23 @@ const SimulatorReport = () => {
                     <Stack direction="row" spacing={0.3} alignItems="center">
                       <Typography sx={{ fontSize: "0.6rem", color: MUTED }}>L{i + 1}</Typography>
                       {!anyBonus && (
-                        <Iconify icon="mdi:lock" width={10} sx={{ color: "#bbb" }} title={isIt ? "Livello non sbloccato al tuo rank" : "Level not unlocked at your rank"} />
+                        <Iconify icon="mdi:lock" width={10} sx={{ color: "#bbb" }} title={t("reports.simulator.level_locked", "Livello non sbloccato al tuo rank")} />
                       )}
                       {isResidualUnlocked && i >= 3 && (
-                        <Iconify icon="mdi:check-circle" width={10} sx={{ color: SUCCESS }} title={isIt ? "Residual sbloccato" : "Residual unlocked"} />
+                        <Iconify icon="mdi:check-circle" width={10} sx={{ color: SUCCESS }} title={t("reports.simulator.residual_unlocked", "Residual sbloccato")} />
                       )}
                     </Stack>
                     <Typography sx={{ fontSize: "0.6rem", color: anyBonus ? ESPRESSO : "#bbb", fontWeight: 600 }}>
-                      {l.promoters} promo ({active} {isIt ? "att." : "act."}) × {l.clientsEach} cli
+                      {l.promoters} promo ({active} {t("reports.simulator.act_short", "att.")}) × {l.clientsEach} cli
                     </Typography>
                   </Stack>
                 );
               })}
               <Divider sx={{ my: 0.5 }} />
               <Stack direction="row" justifyContent="space-between">
-                <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: ESPRESSO }}>{isIt ? "Totale" : "Total"}</Typography>
+                <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: ESPRESSO }}>{t("evea.total", "Totale")}</Typography>
                 <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: ORO }}>
-                  {calc.totalTeamPromoters} promo ({calc.activeTeamPromoters} {isIt ? "attivi" : "active"})
+                  {calc.totalTeamPromoters} promo ({calc.activeTeamPromoters} {t("reports.simulator.active_short", "attivi")})
                 </Typography>
               </Stack>
             </Box>
@@ -449,10 +448,7 @@ const SimulatorReport = () => {
           <Box sx={{ mb: 1.5, p: 1.2, borderRadius: 2, bgcolor: "#fff8e1", border: "1px solid #ffe082", display: "flex", alignItems: "center", gap: 1 }}>
             <Iconify icon="mdi:information-outline" width={16} sx={{ color: "#f57c00", flexShrink: 0 }} />
             <Typography sx={{ fontSize: "0.68rem", color: "#5d4037", lineHeight: 1.35 }}>
-              {isIt
-                ? <>Stima <strong>indicativa</strong> non garantita. I risultati dipendono da impegno individuale, mercato e capacità di reclutamento. Fa fede il <a href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/EVEA_Piano_Compensi_v1.8.pdf?v=1789583847" target="_blank" rel="noreferrer" style={{ color: "#B8963B", fontWeight: 700 }}>Piano Compensi ufficiale</a>.</>
-                : <>Estimate for <strong>illustrative purposes only</strong>. Results depend on individual effort. See <a href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/EVEA_Piano_Compensi_v1.8.pdf?v=1789583847" target="_blank" rel="noreferrer" style={{ color: "#B8963B", fontWeight: 700 }}>official Compensation Plan</a>.</>
-              }
+              {t("reports.simulator.compliance_banner_prefix", "Stima")} <strong>{t("reports.simulator.compliance_banner_indicative", "indicativa")}</strong> {t("reports.simulator.compliance_banner_middle", "non garantita. I risultati dipendono da impegno individuale, mercato e capacità di reclutamento. Fa fede il")} <a href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/EVEA_Piano_Compensi_v1.8.pdf?v=1789583847" target="_blank" rel="noreferrer" style={{ color: "#B8963B", fontWeight: 700 }}>{t("reports.simulator.compliance_banner_link", "Piano Compensi ufficiale")}</a>.
             </Typography>
           </Box>
 
@@ -462,7 +458,7 @@ const SimulatorReport = () => {
             <Grid container spacing={2} alignItems="center">
               <Grid item xs={12} md={5}>
                 <Typography sx={{ fontSize: "0.6rem", fontWeight: 600, color: alpha("#fff", 0.5), textTransform: "uppercase", letterSpacing: 1 }}>
-                  {isIt ? "Guadagno mensile ricorrente" : "Monthly recurring income"}
+                  {t("reports.simulator.monthly_recurring_income", "Guadagno mensile ricorrente")}
                 </Typography>
                 <Typography sx={{ fontSize: "2.5rem", fontWeight: 900, color: ORO, lineHeight: 1.1, mt: 0.3 }}>
                   €{calc.monthlyRecurring.toLocaleString("it-IT", { maximumFractionDigits: 0 })}
@@ -476,10 +472,10 @@ const SimulatorReport = () => {
               <Grid item xs={12} md={7}>
                 <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
                   {[
-                    { l: isIt ? "Annuale" : "Yearly", v: `€${(calc.monthlyRecurring * 12).toLocaleString("it-IT", { maximumFractionDigits: 0 })}` },
+                    { l: t("reports.simulator.yearly", "Annuale"), v: `€${(calc.monthlyRecurring * 12).toLocaleString("it-IT", { maximumFractionDigits: 0 })}` },
                     { l: "Rank", v: currentRank.name },
                     { l: "Team", v: `${calc.totalTeamPromoters} promo` },
-                    { l: isIt ? "Clienti totali" : "Total clients", v: `${calc.totalTeamClients + clients}` },
+                    { l: t("reports.simulator.total_clients", "Clienti totali"), v: `${calc.totalTeamClients + clients}` },
                     { l: "Residual Lvl", v: `${calc.unlockedLevels}/9` },
                   ].map(b => (
                     <Box key={b.l} sx={{ bgcolor: alpha("#fff", 0.06), borderRadius: 1.5, px: 1.5, py: 0.5, minWidth: 75 }}>
@@ -496,7 +492,7 @@ const SimulatorReport = () => {
           <Card sx={{ ...cs, p: 2, mb: 2 }}>
             <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: ESPRESSO, mb: 1 }}>
               <Iconify icon="mdi:chart-donut-variant" width={14} sx={{ mr: 0.5, verticalAlign: "middle", color: ORO }} />
-              {isIt ? "Da dove viene il tuo guadagno" : "Where your income comes from"}
+              {t("reports.simulator.income_source", "Da dove viene il tuo guadagno")}
             </Typography>
             <Grid container spacing={1.5}>
               <Grid item xs={6}>
@@ -504,7 +500,7 @@ const SimulatorReport = () => {
                   <Stack direction="row" alignItems="center" spacing={0.5} mb={0.3}>
                     <Iconify icon="mdi:account-star" width={14} sx={{ color: "#FF9800" }} />
                     <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: "#E65100" }}>
-                      {isIt ? "Il tuo lavoro diretto" : "Your direct work"}
+                      {t("reports.simulator.direct_work", "Il tuo lavoro diretto")}
                     </Typography>
                   </Stack>
                   <Typography sx={{ fontSize: "1.4rem", fontWeight: 900, color: "#FF9800", lineHeight: 1 }}>
@@ -514,7 +510,7 @@ const SimulatorReport = () => {
                     DSB + 3FF + MVP + Mentor
                   </Typography>
                   <Typography sx={{ fontSize: "0.6rem", fontWeight: 700, color: "#FF9800", mt: 0.3 }}>
-                    {calc.monthlyRecurring > 0 ? Math.round(calc.personalMonthly / calc.monthlyRecurring * 100) : 0}% {isIt ? "del totale" : "of total"}
+                    {calc.monthlyRecurring > 0 ? Math.round(calc.personalMonthly / calc.monthlyRecurring * 100) : 0}% {t("reports.simulator.of_total", "del totale")}
                   </Typography>
                 </Box>
               </Grid>
@@ -523,7 +519,7 @@ const SimulatorReport = () => {
                   <Stack direction="row" alignItems="center" spacing={0.5} mb={0.3}>
                     <Iconify icon="mdi:account-group" width={14} sx={{ color: ORO }} />
                     <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: ESPRESSO }}>
-                      {isIt ? "Il tuo team" : "Your team"}
+                      {t("reports.simulator.your_team", "Il tuo team")}
                     </Typography>
                   </Stack>
                   <Typography sx={{ fontSize: "1.4rem", fontWeight: 900, color: ORO, lineHeight: 1 }}>
@@ -533,15 +529,13 @@ const SimulatorReport = () => {
                     ISB + Residual + Leadership + Ritual
                   </Typography>
                   <Typography sx={{ fontSize: "0.6rem", fontWeight: 700, color: ORO, mt: 0.3 }}>
-                    {calc.monthlyRecurring > 0 ? Math.round(calc.teamMonthly / calc.monthlyRecurring * 100) : 0}% {isIt ? "del totale" : "of total"}
+                    {calc.monthlyRecurring > 0 ? Math.round(calc.teamMonthly / calc.monthlyRecurring * 100) : 0}% {t("reports.simulator.of_total", "del totale")}
                   </Typography>
                 </Box>
               </Grid>
             </Grid>
             <Typography sx={{ fontSize: "0.62rem", color: MUTED, mt: 1, fontStyle: "italic", textAlign: "center" }}>
-              {isIt
-                ? `💡 Ai rank alti la quota "Team" cresce: e' il valore della duplicazione`
-                : `💡 At higher ranks the "Team" share grows: it's the value of duplication`}
+              {t("reports.simulator.team_growth_hint", "💡 Ai rank alti la quota \"Team\" cresce: è il valore della duplicazione")}
             </Typography>
           </Card>
 
@@ -551,26 +545,26 @@ const SimulatorReport = () => {
               <Card sx={{ ...cs, p: 1.5, height: "100%" }}>
                 <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: ESPRESSO, mb: 0.7 }}>
                   <Iconify icon="mdi:trending-up" width={13} sx={{ mr: 0.4, verticalAlign: "middle", color: SUCCESS }} />
-                  {isIt ? "Cosa cambia se..." : "What if..."}
+                  {t("reports.simulator.what_if", "Cosa cambia se...")}
                 </Typography>
                 <Stack spacing={0.5}>
                   <Stack direction="row" justifyContent="space-between" alignItems="center">
-                    <Typography sx={{ fontSize: "0.63rem", color: MUTED }}>{isIt ? "+1 cliente" : "+1 client"}</Typography>
-                    <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: SUCCESS }}>+€{calc.deltaClient1.toFixed(0)}/{isIt ? "mese" : "mo"}</Typography>
+                    <Typography sx={{ fontSize: "0.63rem", color: MUTED }}>{t("reports.simulator.plus_1_client", "+1 cliente")}</Typography>
+                    <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: SUCCESS }}>+€{calc.deltaClient1.toFixed(0)}/{t("reports.simulator.mo_short", "mese")}</Typography>
                   </Stack>
                   <Stack direction="row" justifyContent="space-between" alignItems="center">
-                    <Typography sx={{ fontSize: "0.63rem", color: MUTED }}>{isIt ? "+1 promoter attivo" : "+1 active promoter"}</Typography>
-                    <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: SUCCESS }}>+€{calc.deltaPromoter1.toFixed(0)}/{isIt ? "mese" : "mo"}</Typography>
+                    <Typography sx={{ fontSize: "0.63rem", color: MUTED }}>{t("reports.simulator.plus_1_active_promoter", "+1 promoter attivo")}</Typography>
+                    <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: SUCCESS }}>+€{calc.deltaPromoter1.toFixed(0)}/{t("reports.simulator.mo_short", "mese")}</Typography>
                   </Stack>
                   <Stack direction="row" justifyContent="space-between" alignItems="center">
-                    <Typography sx={{ fontSize: "0.63rem", color: MUTED }}>{isIt ? "+10% smartship" : "+10% smartship"}</Typography>
-                    <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: SUCCESS }}>+€{Math.max(0, calc.deltaSmartship10pt).toFixed(0)}/{isIt ? "mese" : "mo"}</Typography>
+                    <Typography sx={{ fontSize: "0.63rem", color: MUTED }}>{t("reports.simulator.plus_10_smartship", "+10% smartship")}</Typography>
+                    <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: SUCCESS }}>+€{Math.max(0, calc.deltaSmartship10pt).toFixed(0)}/{t("reports.simulator.mo_short", "mese")}</Typography>
                   </Stack>
                   {rankId < 10 && (
                     <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ pt: 0.4, borderTop: "1px dashed #eee" }}>
-                      <Typography sx={{ fontSize: "0.63rem", color: ORO, fontWeight: 700 }}>{isIt ? `Sali a ${calc.nextRank.name}` : `Reach ${calc.nextRank.name}`}</Typography>
+                      <Typography sx={{ fontSize: "0.63rem", color: ORO, fontWeight: 700 }}>{t("reports.simulator.reach_rank", "Sali a {{rank}}", { rank: calc.nextRank.name })}</Typography>
                       <Typography sx={{ fontSize: "0.75rem", fontWeight: 800, color: ORO }}>
-                        +€{Math.round(calc.nextRankExtraMonthly).toLocaleString("it-IT")}/{isIt ? "mese" : "mo"}
+                        +€{Math.round(calc.nextRankExtraMonthly).toLocaleString("it-IT")}/{t("reports.simulator.mo_short", "mese")}
                       </Typography>
                     </Stack>
                   )}
@@ -581,24 +575,24 @@ const SimulatorReport = () => {
               <Card sx={{ ...cs, p: 1.5, height: "100%" }}>
                 <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: ESPRESSO, mb: 0.7 }}>
                   <Iconify icon="mdi:cash-refund" width={13} sx={{ mr: 0.4, verticalAlign: "middle", color: "#2196F3" }} />
-                  {isIt ? "Break-even investimento" : "Investment break-even"}
+                  {t("reports.simulator.investment_breakeven", "Break-even investimento")}
                 </Typography>
                 <Stack spacing={0.5}>
                   <Stack direction="row" justifyContent="space-between" alignItems="center">
                     <Typography sx={{ fontSize: "0.63rem", color: MUTED }}>Kit Promoter €79</Typography>
                     <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: "#2196F3" }}>
-                      {calc.breakEvenKit ? `~${calc.breakEvenKit} ${isIt ? (calc.breakEvenKit === 1 ? "mese" : "mesi") : (calc.breakEvenKit === 1 ? "mo" : "mos")}` : "—"}
+                      {calc.breakEvenKit ? `~${calc.breakEvenKit} ${calc.breakEvenKit === 1 ? t("reports.simulator.mo_short", "mese") : t("reports.simulator.mos_short", "mesi")}` : "—"}
                     </Typography>
                   </Stack>
                   <Stack direction="row" justifyContent="space-between" alignItems="center">
                     <Typography sx={{ fontSize: "0.63rem", color: MUTED }}>Founder Pack €1.000</Typography>
                     <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: "#2196F3" }}>
-                      {calc.breakEvenFounder ? `~${calc.breakEvenFounder} ${isIt ? (calc.breakEvenFounder === 1 ? "mese" : "mesi") : (calc.breakEvenFounder === 1 ? "mo" : "mos")}` : "—"}
+                      {calc.breakEvenFounder ? `~${calc.breakEvenFounder} ${calc.breakEvenFounder === 1 ? t("reports.simulator.mo_short", "mese") : t("reports.simulator.mos_short", "mesi")}` : "—"}
                     </Typography>
                   </Stack>
                   {calc.nextRankOneTime > 0 && rankId < 10 && (
                     <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ pt: 0.4, borderTop: "1px dashed #eee" }}>
-                      <Typography sx={{ fontSize: "0.62rem", color: ORO }}>{isIt ? `Bonus Evolving ${calc.nextRank.name}` : `Evolving Bonus ${calc.nextRank.name}`}</Typography>
+                      <Typography sx={{ fontSize: "0.62rem", color: ORO }}>{t("reports.simulator.evolving_bonus_rank", "Bonus Evolving {{rank}}", { rank: calc.nextRank.name })}</Typography>
                       <Typography sx={{ fontSize: "0.7rem", fontWeight: 800, color: ORO }}>
                         €{calc.nextRankOneTime.toLocaleString("it-IT")}
                       </Typography>
@@ -606,7 +600,7 @@ const SimulatorReport = () => {
                   )}
                 </Stack>
                 <Typography sx={{ fontSize: "0.55rem", color: MUTED, mt: 0.7, fontStyle: "italic" }}>
-                  {isIt ? "Al ricorrente mensile attuale, senza crescita" : "At current monthly recurring, no growth"}
+                  {t("reports.simulator.at_current_recurring", "Al ricorrente mensile attuale, senza crescita")}
                 </Typography>
               </Card>
             </Grid>
@@ -615,27 +609,27 @@ const SimulatorReport = () => {
           {/* Breakdown */}
           <Card sx={{ ...cs, p: 2, mb: 2 }}>
             <Typography sx={{ fontSize: "0.6rem", fontWeight: 600, color: "#4CAF50", textTransform: "uppercase", mb: 0.5 }}>
-              {isIt ? "Bonus Settimanali" : "Weekly Bonuses"}
+              {t("reports.simulator.weekly_bonuses", "Bonus Settimanali")}
             </Typography>
             <BonusRow icon="mdi:account-cash" label="Direct Sales" amount={calc.dsb} color="#FF9800" subtitle={`${hasKit ? "30%" : "15%"} × €${calc.totalClientBV.toFixed(0)} BV`} />
-            <BonusRow icon="mdi:rocket" label="Fast Start" amount={calc.fastStart} color="#FF4081" subtitle={`${promoters} nuovi promoter × avg €${FAST_START_AVG.toFixed(0)}`} />
-            <BonusRow icon="mdi:sitemap" label="Indirect Sales" amount={calc.isb} color="#00BCD4" subtitle={`4%/3%/3% L1-L3 (€${calc.totalTeamBV.toFixed(0)} team BV)`} />
+            <BonusRow icon="mdi:rocket" label="Fast Start" amount={calc.fastStart} color="#FF4081" subtitle={t("reports.simulator.fast_start_subtitle", "{{n}} nuovi promoter × avg €{{avg}}", { n: promoters, avg: FAST_START_AVG.toFixed(0) })} />
+            <BonusRow icon="mdi:sitemap" label="Indirect Sales" amount={calc.isb} color="#00BCD4" subtitle={t("reports.simulator.isb_subtitle", "4%/3%/3% L1-L3 (€{{bv}} team BV)", { bv: calc.totalTeamBV.toFixed(0) })} />
             <BonusRow icon="mdi:account-group" label="MVP Mentor" amount={calc.mvpMentor} color="#9C27B0" subtitle={`€25 × ${Math.min(promoters, 10)} MVP`} />
 
             <Typography sx={{ fontSize: "0.6rem", fontWeight: 600, color: ORO, textTransform: "uppercase", mt: 1.5, mb: 0.5 }}>
-              {isIt ? "Bonus Mensili" : "Monthly Bonuses"}
+              {t("reports.simulator.monthly_bonuses", "Bonus Mensili")}
             </Typography>
-            <BonusRow icon="mdi:chart-timeline-variant" label="Residual" amount={calc.residual} color="#607D8B" subtitle={`${calc.unlockedLevels} levels, ${calc.smartshipClients}+ smartship`} />
-            <BonusRow icon="mdi:crown" label="Leadership" amount={calc.leadership} color={ORO} subtitle={rankId >= 5 ? `2% Gen1 (€${(calc.levels[0]?.promoters * calc.levels[0]?.clientsEach * avgOrder * AVG_BV_RATIO || 0).toFixed(0)} BV) + 1% Gen2` : "Rank 5+"} />
+            <BonusRow icon="mdi:chart-timeline-variant" label="Residual" amount={calc.residual} color="#607D8B" subtitle={t("reports.simulator.residual_subtitle", "{{n}} levels, {{s}}+ smartship", { n: calc.unlockedLevels, s: calc.smartshipClients })} />
+            <BonusRow icon="mdi:crown" label="Leadership" amount={calc.leadership} color={ORO} subtitle={rankId >= 5 ? t("reports.simulator.leadership_subtitle", "2% Gen1 (€{{bv}} BV) + 1% Gen2", { bv: (calc.levels[0]?.promoters * calc.levels[0]?.clientsEach * avgOrder * AVG_BV_RATIO || 0).toFixed(0) }) : "Rank 5+"} />
             <BonusRow icon="mdi:swap-horizontal" label="Residual Matching" amount={calc.resMatching} color="#795548" subtitle="20% L1 + 10% L2 team residual" />
-            <BonusRow icon="mdi:gift" label="3 For Free" amount={calc.threeff} color="#E91E63" subtitle={clients >= 3 ? `${clients} cli ≥ 3 ✓` : "Need 3+"} />
-            <BonusRow icon="mdi:shield-star" label="Rock Solid MVP" amount={calc.rspMvp} color="#2196F3" subtitle={hasMvp ? "€100 + €150 power-up" : "Need MVP"} />
-            <BonusRow icon="mdi:diamond-stone" label="Ritual Bonus" amount={calc.rockSolid} color="#455A64" subtitle={calc.rockSolid > 0 ? `€${calc.rockSolid.toLocaleString()}/mo (${currentRank.name})` : "Rank 4+"} />
+            <BonusRow icon="mdi:gift" label="3 For Free" amount={calc.threeff} color="#E91E63" subtitle={clients >= 3 ? t("reports.simulator.three_ff_ok", "{{n}} cli ≥ 3 ✓", { n: clients }) : t("reports.simulator.need_3_plus", "Need 3+")} />
+            <BonusRow icon="mdi:shield-star" label="Rock Solid MVP" amount={calc.rspMvp} color="#2196F3" subtitle={hasMvp ? "€100 + €150 power-up" : t("reports.simulator.need_mvp", "Need MVP")} />
+            <BonusRow icon="mdi:diamond-stone" label="Ritual Bonus" amount={calc.rockSolid} color="#455A64" subtitle={calc.rockSolid > 0 ? `€${calc.rockSolid.toLocaleString()}/${t("reports.simulator.mo_abbr", "mo")} (${currentRank.name})` : "Rank 4+"} />
 
             <Typography sx={{ fontSize: "0.6rem", fontWeight: 600, color: "#FF5722", textTransform: "uppercase", mt: 1.5, mb: 0.5 }}>
               One-Time
             </Typography>
-            <BonusRow icon="mdi:rocket-launch" label="Go MVP" amount={calc.goMvp} color="#4CAF50" subtitle={calc.goMvp > 0 ? "€250 ✓" : "Need kit + DQV + 3 cli"} />
+            <BonusRow icon="mdi:rocket-launch" label="Go MVP" amount={calc.goMvp} color="#4CAF50" subtitle={calc.goMvp > 0 ? "€250 ✓" : t("reports.simulator.need_kit_dqv_3cli", "Need kit + DQV + 3 cli")} />
             <BonusRow icon="mdi:trending-up" label="Evolving Bonus" amount={calc.evolvingOneTime} color="#FF5722" subtitle={calc.evolvingOneTime > 0 ? `€${calc.evolvingOneTime.toLocaleString()} (${currentRank.name})` : "Rank 4+"} />
 
             <Box sx={{ mt: 1, pt: 1, borderTop: "2px solid #f0ece6" }}>
@@ -646,20 +640,16 @@ const SimulatorReport = () => {
           {/* Chart */}
           <Card sx={{ ...cs, p: 2, mb: 2 }}>
             <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO, mb: 0.3 }}>
-              {isIt ? `Proiezione 12 mesi — SE mantieni +${growthPct}%/mese` : `12-month projection — IF you maintain +${growthPct}%/mo`}
+              {t("reports.simulator.projection_title", "Proiezione 12 mesi — SE mantieni +{{pct}}%/mese", { pct: growthPct })}
             </Typography>
             <Typography sx={{ fontSize: "0.6rem", color: MUTED, mb: 1.5, fontStyle: "italic" }}>
-              {isIt
-                ? `Il grafico applica la crescita che hai impostato al ricorrente attuale. E' teorico: dipende da nuovi clienti e promoter reali.`
-                : `Chart applies the growth you set to your current recurring. It's theoretical: depends on real new clients and promoters.`}
+              {t("reports.simulator.projection_note", "Il grafico applica la crescita che hai impostato al ricorrente attuale. È teorico: dipende da nuovi clienti e promoter reali.")}
             </Typography>
             {promoters === 0 && growthPct > 2 && (
               <Box sx={{ mb: 1.5, p: 1, borderRadius: 1.5, bgcolor: alpha("#FF5722", 0.08), border: `1px solid ${alpha("#FF5722", 0.25)}`, display: "flex", alignItems: "center", gap: 0.8 }}>
                 <Iconify icon="mdi:alert-circle" width={14} sx={{ color: "#FF5722", flexShrink: 0 }} />
                 <Typography sx={{ fontSize: "0.65rem", color: "#5D4037", lineHeight: 1.35 }}>
-                  {isIt
-                    ? `Con 0 promoter diretti la crescita organica reale e' vicino allo zero. Il grafico e' puramente ipotetico.`
-                    : `With 0 direct promoters real organic growth is near zero. The chart is purely hypothetical.`}
+                  {t("reports.simulator.zero_promoters_warning", "Con 0 promoter diretti la crescita organica reale è vicino allo zero. Il grafico è puramente ipotetico.")}
                 </Typography>
               </Box>
             )}
@@ -681,7 +671,7 @@ const SimulatorReport = () => {
             </Box>
             <Box sx={{ mt: 1.5, p: 1.5, borderRadius: 2, bgcolor: alpha(SUCCESS, 0.05), border: `1px solid ${alpha(SUCCESS, 0.15)}`, textAlign: "center" }}>
               <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: SUCCESS }}>
-                12 {isIt ? "mesi" : "months"}: €{calc.projection[11].cumulative.toLocaleString()} {isIt ? "ricorrente" : "recurring"}
+                {t("reports.simulator.months_recurring_line", "12 mesi: €{{total}} ricorrente", { total: calc.projection[11].cumulative.toLocaleString() })}
                 {calc.oneTime > 0 && ` + €${calc.oneTime.toLocaleString()} one-time`}
               </Typography>
             </Box>
@@ -690,9 +680,7 @@ const SimulatorReport = () => {
           {/* Disclaimer compliance (la card "Come crescere" è stata rimossa) */}
           <Box sx={{ p: 1.5, borderRadius: 2, bgcolor: alpha(ORO, 0.03), border: `1px dashed ${alpha(ORO, 0.2)}` }}>
             <Typography sx={{ fontSize: "0.65rem", color: MUTED, fontStyle: "italic", lineHeight: 1.4 }}>
-              {isIt
-                ? `⚠ Stima indicativa. Tiene conto di scarto per livello (${Math.round(dropoff * calc.scenario.dropoffMul)}%), promoter attivi (${Math.round(activePct * calc.scenario.activeMul)}%) e smartship calante in profondità. Nella realtà MLM i risultati variano in base a churn, capacità di reclutamento e tasso di chiusura clienti. Non garantisce alcun guadagno.`
-                : `⚠ Indicative estimate. Includes per-level dropoff (${Math.round(dropoff * calc.scenario.dropoffMul)}%), active promoters (${Math.round(activePct * calc.scenario.activeMul)}%) and decreasing smartship at depth. Real MLM results vary based on churn, recruiting and close rate. No earnings guaranteed.`}
+              {t("reports.simulator.disclaimer", "⚠ Stima indicativa. Tiene conto di scarto per livello ({{dropoff}}%), promoter attivi ({{active}}%) e smartship calante in profondità. Nella realtà MLM i risultati variano in base a churn, capacità di reclutamento e tasso di chiusura clienti. Non garantisce alcun guadagno.", { dropoff: Math.round(dropoff * calc.scenario.dropoffMul), active: Math.round(activePct * calc.scenario.activeMul) })}
             </Typography>
           </Box>
         </Grid>

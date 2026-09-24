@@ -72,13 +72,11 @@ const LeaderboardCard = ({ title, icon, items, emptyText }) => (
   </Card>
 );
 
-const MONTHS_IT = ["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"];
-const MONTHS_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const MONTH_KEYS = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
 
 const Leaderboard = ({ globalOnly = false }) => {
-  const { i18n } = useTranslation();
-  const isIt = i18n.language?.startsWith("it");
-  const MONTHS = isIt ? MONTHS_IT : MONTHS_EN;
+  const { t } = useTranslation();
+  const MONTHS = MONTH_KEYS.map((k) => t(`month_long.${k}`));
   const now = new Date();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -105,22 +103,22 @@ const Leaderboard = ({ globalOnly = false }) => {
       {/* Period filter */}
       <Stack direction="row" spacing={1.5} alignItems="center">
         <FormControl size="small" sx={{ minWidth: 140 }}>
-          <InputLabel>{isIt ? "Mese" : "Month"}</InputLabel>
-          <Select value={month} label={isIt ? "Mese" : "Month"} onChange={(e) => setMonth(e.target.value)}>
+          <InputLabel>{t("reports.leaderboard.month", "Mese")}</InputLabel>
+          <Select value={month} label={t("reports.leaderboard.month", "Mese")} onChange={(e) => setMonth(e.target.value)}>
             {MONTHS.map((m, i) => <MenuItem key={i+1} value={i+1}>{m}</MenuItem>)}
           </Select>
         </FormControl>
         <FormControl size="small" sx={{ minWidth: 100 }}>
-          <InputLabel>{isIt ? "Anno" : "Year"}</InputLabel>
-          <Select value={year} label={isIt ? "Anno" : "Year"} onChange={(e) => setYear(e.target.value)}>
+          <InputLabel>{t("reports.leaderboard.year", "Anno")}</InputLabel>
+          <Select value={year} label={t("reports.leaderboard.year", "Anno")} onChange={(e) => setYear(e.target.value)}>
             {years.map((y) => <MenuItem key={y} value={y}>{y}</MenuItem>)}
           </Select>
         </FormControl>
       </Stack>
 
       {loading && <Box sx={{ textAlign: "center", py: 6 }}><CircularProgress sx={{ color: ORO }} /></Box>}
-      {!loading && !data && <Typography sx={{ color: "#aaa", textAlign: "center", py: 4 }}>{isIt ? "Nessun dato" : "No data"}</Typography>}
-      {!loading && data && <LeaderboardContent data={data} tab={tab} setTab={setTab} isIt={isIt} globalOnly={globalOnly} />}
+      {!loading && !data && <Typography sx={{ color: "#aaa", textAlign: "center", py: 4 }}>{t("evea.no_data", "Nessun dato")}</Typography>}
+      {!loading && data && <LeaderboardContent data={data} tab={tab} setTab={setTab} t={t} globalOnly={globalOnly} />}
     </Stack>
   );
 };
@@ -137,32 +135,47 @@ const TAB_CONFIG = [
   { scope: "team", kind: "achievers", dataKey: "team_achievers" },
 ];
 
-const LeaderboardContent = ({ data, tab, setTab, isIt, globalOnly = false }) => {
-  const tabsConfig = globalOnly ? TAB_CONFIG.filter((t) => t.scope === "global") : TAB_CONFIG;
+const LeaderboardContent = ({ data, tab, setTab, t, globalOnly = false }) => {
+  const tabsConfig = globalOnly ? TAB_CONFIG.filter((tc) => tc.scope === "global") : TAB_CONFIG;
   const safeTab = Math.min(tab, tabsConfig.length - 1);
   const current = tabsConfig[safeTab];
   const items = stripHiddenUsers(data?.[current.dataKey] || []);
 
-  const allTabLabels = isIt
-    ? ["GV Globale", "Reclutatori Promoter", "Reclutatori Clienti", "Rank Up Globale",
-       "GV Team", "Team - Reclut. Promoter", "Team - Reclut. Clienti", "Rank Up Team"]
-    : ["GV Global", "Promoter Recruiters", "Customer Recruiters", "Rank Up Global",
-       "GV Team", "Team - Promoter Recr.", "Team - Customer Recr.", "Rank Up Team"];
+  const allTabLabels = [
+    t("reports.leaderboard.tab_gv_global", "GV Globale"),
+    t("reports.leaderboard.tab_promoter_recruiters", "Reclutatori Promoter"),
+    t("reports.leaderboard.tab_customer_recruiters", "Reclutatori Clienti"),
+    t("reports.leaderboard.tab_rankup_global", "Rank Up Globale"),
+    t("reports.leaderboard.tab_gv_team", "GV Team"),
+    t("reports.leaderboard.tab_team_promoter_recruiters", "Team - Reclut. Promoter"),
+    t("reports.leaderboard.tab_team_customer_recruiters", "Team - Reclut. Clienti"),
+    t("reports.leaderboard.tab_rankup_team", "Rank Up Team"),
+  ];
 
-  const allCardTitles = isIt
-    ? ["Classifica GV — Globale", "Reclutatori di Promoter — Globale", "Reclutatori di Clienti — Globale", "Classifica Rank Up — Globale",
-       "Classifica GV — Team", "Reclutatori di Promoter — Team", "Reclutatori di Clienti — Team", "Classifica Rank Up — Team"]
-    : ["GV Ranking — Global", "Promoter Recruiters — Global", "Customer Recruiters — Global", "Rank Up Ranking — Global",
-       "GV Ranking — Team", "Promoter Recruiters — Team", "Customer Recruiters — Team", "Rank Up Ranking — Team"];
+  const allCardTitles = [
+    t("reports.leaderboard.card_gv_global", "Classifica GV — Globale"),
+    t("reports.leaderboard.card_promoter_recruiters_global", "Reclutatori di Promoter — Globale"),
+    t("reports.leaderboard.card_customer_recruiters_global", "Reclutatori di Clienti — Globale"),
+    t("reports.leaderboard.card_rankup_global", "Classifica Rank Up — Globale"),
+    t("reports.leaderboard.card_gv_team", "Classifica GV — Team"),
+    t("reports.leaderboard.card_promoter_recruiters_team", "Reclutatori di Promoter — Team"),
+    t("reports.leaderboard.card_customer_recruiters_team", "Reclutatori di Clienti — Team"),
+    t("reports.leaderboard.card_rankup_team", "Classifica Rank Up — Team"),
+  ];
 
   const allCardIcons = ["mdi:chart-box", "mdi:account-multiple-plus", "mdi:account-group", "mdi:medal",
                         "mdi:chart-box", "mdi:account-multiple-plus", "mdi:account-group", "mdi:medal"];
 
-  const allEmptyTexts = isIt
-    ? ["Nessun GV questo mese", "Nessun promoter reclutato questo mese", "Nessun cliente acquisito questo mese", "Nessun rank up questo mese",
-       "Nessun GV dal tuo team", "Nessun promoter reclutato dal team", "Nessun cliente acquisito dal team", "Nessun rank up nel team"]
-    : ["No GV this month", "No promoters recruited this month", "No customers acquired this month", "No rank ups this month",
-       "No team GV", "No team promoters recruited", "No team customers", "No team rank ups"];
+  const allEmptyTexts = [
+    t("reports.leaderboard.empty_gv_month", "Nessun GV questo mese"),
+    t("reports.leaderboard.empty_promoters_month", "Nessun promoter reclutato questo mese"),
+    t("reports.leaderboard.empty_customers_month", "Nessun cliente acquisito questo mese"),
+    t("reports.leaderboard.empty_rankup_month", "Nessun rank up questo mese"),
+    t("reports.leaderboard.empty_team_gv", "Nessun GV dal tuo team"),
+    t("reports.leaderboard.empty_team_promoters", "Nessun promoter reclutato dal team"),
+    t("reports.leaderboard.empty_team_customers", "Nessun cliente acquisito dal team"),
+    t("reports.leaderboard.empty_team_rankup", "Nessun rank up nel team"),
+  ];
 
   const tabLabels = globalOnly ? allTabLabels.slice(0, 4) : allTabLabels;
   const cardTitles = globalOnly ? allCardTitles.slice(0, 4) : allCardTitles;
@@ -183,9 +196,12 @@ const LeaderboardContent = ({ data, tab, setTab, isIt, globalOnly = false }) => 
     return <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ESPRESSO }}>{myPos.value}</Typography>;
   };
 
-  const valueLabels = isIt
-    ? { gv: "GV nel periodo", recruiters: "promoter reclutati", customers: "clienti acquisiti", achievers: "rank top" }
-    : { gv: "GV in period", recruiters: "promoters recruited", customers: "customers acquired", achievers: "top rank" };
+  const valueLabels = {
+    gv: t("reports.leaderboard.value_gv_period", "GV nel periodo"),
+    recruiters: t("reports.leaderboard.value_recruiters", "promoter reclutati"),
+    customers: t("reports.leaderboard.value_customers", "clienti acquisiti"),
+    achievers: t("reports.leaderboard.value_achievers", "rank top"),
+  };
 
   return (
     <Stack spacing={2}>
@@ -199,7 +215,7 @@ const LeaderboardContent = ({ data, tab, setTab, isIt, globalOnly = false }) => 
               </Box>
               <Box>
                 <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>
-                  {isIt ? "La tua posizione" : "Your position"} — {tabLabels[tab]}
+                  {t("reports.leaderboard.your_position", "La tua posizione")} — {tabLabels[tab]}
                 </Typography>
                 <Typography sx={{ fontSize: "0.72rem", color: "#7A6A5C" }}>{data.month}</Typography>
               </Box>
@@ -209,7 +225,7 @@ const LeaderboardContent = ({ data, tab, setTab, isIt, globalOnly = false }) => 
                 <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ORO }}>
                   {myPos?.position ? `#${myPos.position}` : "—"}
                 </Typography>
-                <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C" }}>{isIt ? "classifica" : "ranking"}</Typography>
+                <Typography sx={{ fontSize: "0.65rem", color: "#7A6A5C" }}>{t("reports.leaderboard.ranking", "classifica")}</Typography>
               </Box>
               <Box sx={{ textAlign: "center" }}>
                 {renderMyValue()}

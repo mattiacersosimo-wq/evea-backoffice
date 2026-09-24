@@ -23,37 +23,33 @@ const getLevelBg = (level) => {
   return alpha(ORO, opacity);
 };
 
-const FILTERS = [
-  { value: "all", label: "Tutti", labelEn: "All" },
-  { value: "promoter", label: "Solo Promoter", labelEn: "Promoters only" },
-  { value: "customer", label: "Solo Clienti", labelEn: "Customers only" },
-  { value: "smartship", label: "Con Smartship", labelEn: "With Smartship" },
-  { value: "inactive", label: "Inattivi (30gg+)", labelEn: "Inactive (30d+)" },
-];
-
-const COLUMNS = [
-  { id: "level", label: "Lv", labelEn: "Lv", width: 40 },
-  { id: "name", label: "Nome", labelEn: "Name", width: 140 },
-  { id: "username", label: "Username", labelEn: "Username", width: 120 },
-  { id: "type", label: "Tipo", labelEn: "Type", width: 70 },
-  { id: "rank", label: "Rank", labelEn: "Rank", width: 100 },
-  { id: "pqv", label: "PQV", labelEn: "PQV", width: 70, numeric: true },
-  { id: "tv", label: "TV", labelEn: "TV", width: 70, numeric: true },
-  { id: "gv", label: "GV", labelEn: "GV", width: 70, numeric: true },
-  { id: "revenue", label: "Revenue", labelEn: "Revenue", width: 80, numeric: true },
-  { id: "smartship", label: "SS", labelEn: "SS", width: 50 },
-  { id: "app_status", label: "App", labelEn: "App", width: 50 },
-  { id: "last_order", label: "Ultimo ordine", labelEn: "Last order", width: 100 },
-  { id: "action", label: "", labelEn: "", width: 40, noSort: true },
-];
-
-const MONTHS_IT = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"];
-const MONTHS_EN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MONTH_KEYS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 
 const TeamUnified = ({ initialViewAs = null, isAdmin = false }) => {
-  const { t, i18n } = useTranslation();
-  const isIt = i18n.language?.startsWith("it");
-  const monthNames = isIt ? MONTHS_IT : MONTHS_EN;
+  const { t } = useTranslation();
+  const FILTERS = [
+    { value: "all", label: t("reports.team.filter_all", "Tutti") },
+    { value: "promoter", label: t("reports.team.filter_promoters_only", "Solo Promoter") },
+    { value: "customer", label: t("reports.team.filter_customers_only", "Solo Clienti") },
+    { value: "smartship", label: t("reports.team.filter_with_smartship", "Con Smartship") },
+    { value: "inactive", label: t("reports.team.filter_inactive", "Inattivi ({{days}}gg+)", { days: 30 }) },
+  ];
+  const COLUMNS = [
+    { id: "level", label: t("reports.team.col_level", "Lv"), width: 40 },
+    { id: "name", label: t("reports.team.col_name", "Nome"), width: 140 },
+    { id: "username", label: t("reports.team.col_username", "Username"), width: 120 },
+    { id: "type", label: t("reports.team.col_type", "Tipo"), width: 70 },
+    { id: "rank", label: t("reports.team.col_rank", "Rank"), width: 100 },
+    { id: "pqv", label: "PQV", width: 70, numeric: true },
+    { id: "tv", label: "TV", width: 70, numeric: true },
+    { id: "gv", label: "GV", width: 70, numeric: true },
+    { id: "revenue", label: t("reports.team.col_revenue", "Revenue"), width: 80, numeric: true },
+    { id: "smartship", label: "SS", width: 50 },
+    { id: "app_status", label: t("reports.team.col_app", "App"), width: 50 },
+    { id: "last_order", label: t("reports.team.col_last_order", "Ultimo ordine"), width: 100 },
+    { id: "action", label: "", width: 40, noSort: true },
+  ];
+  const monthNames = MONTH_KEYS.map((k) => t(`month_short.${k}`));
   const today = new Date();
   const [data, setData] = useState([]);
   const [rootTotals, setRootTotals] = useState(null);
@@ -189,8 +185,8 @@ const TeamUnified = ({ initialViewAs = null, isAdmin = false }) => {
               {breadcrumb.map((b, i) => {
                 const isLast = i === breadcrumb.length - 1;
                 const rootLabel = isAdmin
-                  ? (isIt ? "Lista admin" : "Admin list")
-                  : (isIt ? "Il mio team" : "My team");
+                  ? t("reports.team.breadcrumb_admin_root", "Lista admin")
+                  : t("reports.team.breadcrumb_myteam_root", "Il mio team");
                 return isLast ? (
                   <Typography key={b.user_id} sx={{ fontSize: "0.82rem", fontWeight: 700, color: ORO }}>{b.username}</Typography>
                 ) : (
@@ -205,7 +201,7 @@ const TeamUnified = ({ initialViewAs = null, isAdmin = false }) => {
             <Button size="small" startIcon={<Iconify icon="mdi:arrow-left" width={16} />}
               onClick={() => handleBreadcrumb(null)}
               sx={{ textTransform: "none", fontSize: "0.75rem", color: ESPRESSO }}>
-              {isAdmin ? (isIt ? "Torna alla lista" : "Back to list") : (isIt ? "Torna al mio team" : "Back to my team")}
+              {isAdmin ? t("reports.team.back_to_list", "Torna alla lista") : t("reports.team.back_to_myteam", "Torna al mio team")}
             </Button>
           </Stack>
         </Card>
@@ -214,10 +210,10 @@ const TeamUnified = ({ initialViewAs = null, isAdmin = false }) => {
       {/* Mini-card riepilogo */}
       <Grid container spacing={1.5}>
         {[
-          { icon: "mdi:account-group", label: isIt ? "Totale Membri" : "Total Members", value: stats.total, color: ESPRESSO },
-          { icon: "mdi:account-tie", label: isIt ? "Promoter Attivi" : "Active Promoters", value: `${stats.promoters}`, sub: `${stats.active7d} ${isIt ? "attivi 7gg" : "active 7d"}`, color: ORO },
-          { icon: "mdi:account-heart", label: isIt ? "Clienti" : "Customers", value: stats.customers, sub: `${stats.smartship} smartship`, color: "#4CAF50" },
-          { icon: "mdi:shield-check", label: isIt ? "Tasso Ritenzione" : "Retention Rate", value: `${stats.retention}%`, color: stats.retention >= 70 ? "#4CAF50" : stats.retention >= 50 ? "#EF9F27" : "#E24B4A" },
+          { icon: "mdi:account-group", label: t("reports.team.total_members", "Totale Membri"), value: stats.total, color: ESPRESSO },
+          { icon: "mdi:account-tie", label: t("evea.active_promoters", "Promoter Attivi"), value: `${stats.promoters}`, sub: `${stats.active7d} ${t("reports.team.active_7d", "attivi 7gg")}`, color: ORO },
+          { icon: "mdi:account-heart", label: t("reports.team.customers", "Clienti"), value: stats.customers, sub: `${stats.smartship} smartship`, color: "#4CAF50" },
+          { icon: "mdi:shield-check", label: t("reports.team.retention_rate", "Tasso Ritenzione"), value: `${stats.retention}%`, color: stats.retention >= 70 ? "#4CAF50" : stats.retention >= 50 ? "#EF9F27" : "#E24B4A" },
         ].map((s, i) => (
           <Grid item xs={6} md={3} key={i}>
             <Card sx={{ p: 2, borderRadius: 3, border: "1px solid #f0ece6" }}>
@@ -241,20 +237,20 @@ const TeamUnified = ({ initialViewAs = null, isAdmin = false }) => {
       <Box sx={{ p: 2, borderBottom: "1px solid #f0ece6" }}>
         <Stack direction={{ xs: "column", md: "row" }} spacing={1.5} alignItems={{ md: "center" }}>
           <Typography sx={{ fontWeight: 700, color: ESPRESSO, fontSize: "1rem", mr: 2 }}>
-            Team & Clienti
+            {t("reports.team.title_team_clients", "Team & Clienti")}
             <Chip label={filtered.length} size="small" sx={{ ml: 1, height: 20, fontSize: "0.65rem", bgcolor: alpha(ORO, 0.1), color: ORO, fontWeight: 700 }} />
           </Typography>
-          <TextField size="small" placeholder="Cerca..." value={search} onChange={(e) => setSearch(e.target.value)}
+          <TextField size="small" placeholder={t("reports.team.search_placeholder", "Cerca...")} value={search} onChange={(e) => setSearch(e.target.value)}
             InputProps={{ startAdornment: <Iconify icon="mdi:magnify" width={18} sx={{ color: "#aaa", mr: 0.5 }} /> }}
             sx={{ width: 200, "& .MuiOutlinedInput-root": { borderRadius: 2, fontSize: "0.8rem" } }} />
           <TextField select size="small" value={filter} onChange={(e) => setFilter(e.target.value)}
             sx={{ width: 180, "& .MuiOutlinedInput-root": { borderRadius: 2, fontSize: "0.8rem" } }}>
-            {FILTERS.map((f) => <MenuItem key={f.value} value={f.value} sx={{ fontSize: "0.8rem" }}>{isIt ? f.label : f.labelEn}</MenuItem>)}
+            {FILTERS.map((f) => <MenuItem key={f.value} value={f.value} sx={{ fontSize: "0.8rem" }}>{f.label}</MenuItem>)}
           </TextField>
           <TextField select size="small" value={levelFilter} onChange={(e) => setLevelFilter(e.target.value)}
             sx={{ width: 130, "& .MuiOutlinedInput-root": { borderRadius: 2, fontSize: "0.8rem" } }}>
-            <MenuItem value="all" sx={{ fontSize: "0.8rem" }}>{isIt ? "Tutti i livelli" : "All levels"}</MenuItem>
-            {[1,2,3,4,5,6,7,8,9,10].map((lv) => <MenuItem key={lv} value={String(lv)} sx={{ fontSize: "0.8rem" }}>{isIt ? `Livello ${lv}` : `Level ${lv}`}</MenuItem>)}
+            <MenuItem value="all" sx={{ fontSize: "0.8rem" }}>{t("evea.all_levels", "Tutti i livelli")}</MenuItem>
+            {[1,2,3,4,5,6,7,8,9,10].map((lv) => <MenuItem key={lv} value={String(lv)} sx={{ fontSize: "0.8rem" }}>{t("reports.team.level_n", "Livello {{n}}", { n: lv })}</MenuItem>)}
           </TextField>
           <TextField select size="small" value={monthFilter} onChange={(e) => setMonthFilter(Number(e.target.value))}
             sx={{ width: 110, "& .MuiOutlinedInput-root": { borderRadius: 2, fontSize: "0.8rem" } }}>
@@ -270,11 +266,11 @@ const TeamUnified = ({ initialViewAs = null, isAdmin = false }) => {
               { label: "PQV", value: totals.pqv, color: ORO },
               { label: "TV", value: totals.tv, color: "#4CAF50" },
               { label: "GV", value: totals.gv, color: "#2196F3" },
-              { label: "Rev", value: totals.revenue, color: "#FF9800", prefix: "€" },
-            ].map((t) => (
-              <Box key={t.label} sx={{ textAlign: "center" }}>
-                <Typography sx={{ fontSize: "0.6rem", color: "#aaa", textTransform: "uppercase" }}>{t.label}</Typography>
-                <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: t.color }}>{t.prefix || ""}{t.value.toFixed(0)}</Typography>
+              { label: t("reports.team.rev_short", "Rev"), value: totals.revenue, color: "#FF9800", prefix: "€" },
+            ].map((tot) => (
+              <Box key={tot.label} sx={{ textAlign: "center" }}>
+                <Typography sx={{ fontSize: "0.6rem", color: "#aaa", textTransform: "uppercase" }}>{tot.label}</Typography>
+                <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: tot.color }}>{tot.prefix || ""}{tot.value.toFixed(0)}</Typography>
               </Box>
             ))}
           </Stack>
@@ -289,9 +285,9 @@ const TeamUnified = ({ initialViewAs = null, isAdmin = false }) => {
               {COLUMNS.map((col) => (
                 <TableCell key={col.id} sx={{ fontWeight: 700, fontSize: "0.7rem", color: "#7A6A5C", bgcolor: "#fafafa", width: col.width, whiteSpace: "nowrap" }}
                   align={col.numeric ? "right" : "left"}>
-                  {col.noSort ? (isIt ? col.label : col.labelEn) : (
+                  {col.noSort ? col.label : (
                     <TableSortLabel active={orderBy === col.id} direction={orderBy === col.id ? order : "asc"} onClick={() => handleSort(col.id)}>
-                      {isIt ? col.label : col.labelEn}
+                      {col.label}
                     </TableSortLabel>
                   )}
                 </TableCell>
@@ -324,7 +320,7 @@ const TeamUnified = ({ initialViewAs = null, isAdmin = false }) => {
                      Se level > 3 mostro "—" con tooltip esplicativo. */}
                   <TableCell align="right" sx={{ fontSize: "0.75rem", fontWeight: 600, color: m.level <= 3 && m.pqv > 0 ? "#4CAF50" : "#ccc" }}>
                     {m.level <= 3 ? m.pqv : (
-                      <Tooltip title={isIt ? "Fuori profondità (oltre 3° livello) — non concorre al tuo TV" : "Out of depth (beyond 3rd level) — does not contribute to your TV"} arrow>
+                      <Tooltip title={t("reports.team.tv_out_of_depth", "Fuori profondità (oltre 3° livello) — non concorre al tuo TV")} arrow>
                         <span style={{ cursor: "help" }}>—</span>
                       </Tooltip>
                     )}
@@ -346,7 +342,7 @@ const TeamUnified = ({ initialViewAs = null, isAdmin = false }) => {
                   </TableCell>
                   <TableCell sx={{ width: 40, p: 0.5 }}>
                     {m.type === "promoter" && (
-                      <Tooltip title={isIt ? "Vedi il suo team" : "View their team"}>
+                      <Tooltip title={t("reports.team.view_their_team", "Vedi il suo team")}>
                         <IconButton size="small" onClick={(e) => { e.stopPropagation(); handleViewTeam(m.user_id); }}
                           sx={{ color: ORO, "&:hover": { bgcolor: alpha(ORO, 0.1) } }}>
                           <Iconify icon="mdi:account-arrow-right" width={18} />
@@ -363,20 +359,20 @@ const TeamUnified = ({ initialViewAs = null, isAdmin = false }) => {
                         <Grid container spacing={2}>
                           <Grid item xs={12} md={4}>
                             <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: "#7A6A5C", mb: 0.5, textTransform: "uppercase" }}>
-                              {isIt ? "Dettagli" : "Details"}
+                              {t("reports.team.details", "Dettagli")}
                             </Typography>
                             <Typography sx={{ fontSize: "0.75rem", color: ESPRESSO }}>ID: {m.user_id}</Typography>
-                            <Typography sx={{ fontSize: "0.75rem", color: ESPRESSO }}>{isIt ? "Iscritto il" : "Joined"}: {m.joined_at ? new Date(m.joined_at).toLocaleDateString("it-IT") : "—"}</Typography>
-                            <Typography sx={{ fontSize: "0.75rem", color: ESPRESSO }}>{isIt ? "Livello" : "Level"}: {m.level}° {isIt ? "linea" : "line"}</Typography>
+                            <Typography sx={{ fontSize: "0.75rem", color: ESPRESSO }}>{t("reports.team.joined_on", "Iscritto il")}: {m.joined_at ? new Date(m.joined_at).toLocaleDateString("it-IT") : "—"}</Typography>
+                            <Typography sx={{ fontSize: "0.75rem", color: ESPRESSO }}>{t("reports.team.level_label", "Livello")}: {t("reports.team.level_line", "{{n}}° linea", { n: m.level })}</Typography>
                           </Grid>
                           <Grid item xs={12} md={4}>
                             <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: "#7A6A5C", mb: 0.5, textTransform: "uppercase" }}>
-                              {isIt ? "Volumi Mese" : "Monthly Volumes"}
+                              {t("reports.team.monthly_volumes", "Volumi Mese")}
                             </Typography>
                             <Stack spacing={0.8}>
                               {[
                                 { label: "PQV", value: m.pqv, color: ORO },
-                                { label: isIt ? "TV (concorre)" : "TV (contributes)", value: m.level <= 3 ? m.pqv : 0, color: "#4CAF50" },
+                                { label: t("reports.team.tv_contributes", "TV (concorre)"), value: m.level <= 3 ? m.pqv : 0, color: "#4CAF50" },
                                 { label: "GV", value: m.gv, color: "#2196F3" },
                               ].map((v) => (
                                 <Box key={v.label}>
@@ -391,16 +387,16 @@ const TeamUnified = ({ initialViewAs = null, isAdmin = false }) => {
                           </Grid>
                           <Grid item xs={12} md={4}>
                             <Typography sx={{ fontSize: "0.65rem", fontWeight: 700, color: "#7A6A5C", mb: 0.5, textTransform: "uppercase" }}>
-                              {isIt ? "Stato" : "Status"}
+                              {t("reports.team.status_label", "Stato")}
                             </Typography>
                             <Stack direction="row" spacing={0.8} flexWrap="wrap" gap={0.5}>
                               <Chip size="small" label={m.type === "promoter" ? "Promoter" : "Customer"} sx={{ height: 22, fontSize: "0.65rem", bgcolor: m.type === "promoter" ? alpha(ORO, 0.1) : alpha("#4CAF50", 0.1), color: m.type === "promoter" ? ORO : "#4CAF50" }} />
                               <Chip size="small" label={m.rank} sx={{ height: 22, fontSize: "0.65rem", bgcolor: alpha("#2196F3", 0.1), color: "#2196F3" }} />
                               {m.smartship && <Chip size="small" icon={<Iconify icon="mdi:refresh-circle" width={14} />} label="Smartship" sx={{ height: 22, fontSize: "0.65rem", bgcolor: alpha("#8BC34A", 0.1), color: "#8BC34A" }} />}
-                              {m.days_inactive > 30 && <Chip size="small" label={`${isIt ? "Inattivo" : "Inactive"} ${m.days_inactive}d`} sx={{ height: 22, fontSize: "0.65rem", bgcolor: alpha("#E24B4A", 0.1), color: "#E24B4A" }} />}
+                              {m.days_inactive > 30 && <Chip size="small" label={`${t("reports.team.inactive_word", "Inattivo")} ${m.days_inactive}d`} sx={{ height: 22, fontSize: "0.65rem", bgcolor: alpha("#E24B4A", 0.1), color: "#E24B4A" }} />}
                             </Stack>
                             <Typography sx={{ fontSize: "0.72rem", color: ESPRESSO, mt: 1 }}>
-                              Revenue: <b style={{ color: "#FF9800" }}>€{m.revenue}</b>
+                              {t("reports.team.col_revenue", "Revenue")}: <b style={{ color: "#FF9800" }}>€{m.revenue}</b>
                             </Typography>
                           </Grid>
                         </Grid>
@@ -411,7 +407,7 @@ const TeamUnified = ({ initialViewAs = null, isAdmin = false }) => {
               </React.Fragment>
             ))}
             {filtered.length === 0 && (
-              <TableRow><TableCell colSpan={12} sx={{ textAlign: "center", py: 4, color: "#aaa" }}>{isIt ? "Nessun risultato" : "No results"}</TableCell></TableRow>
+              <TableRow><TableCell colSpan={12} sx={{ textAlign: "center", py: 4, color: "#aaa" }}>{t("reports.team.no_results", "Nessun risultato")}</TableCell></TableRow>
             )}
           </TableBody>
         </Table>
