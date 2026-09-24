@@ -4,6 +4,7 @@ import {
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSnackbar } from "notistack";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
@@ -15,9 +16,14 @@ const ESPRESSO = "#2C1A0E";
 const MUTED = "#7A6A5C";
 const cs = { bgcolor: "#fff", borderRadius: 3, border: "1px solid #f0ece6", boxShadow: "0 1px 4px rgba(0,0,0,0.04)" };
 
-const STEPS = ["Dati Personali", "Dati Fiscali", "Lettera di Incarico"];
+const STEP_KEYS = [
+  { key: "lettera.step_personal_data", fallback: "Dati Personali" },
+  { key: "lettera.step_tax_data", fallback: "Dati Fiscali" },
+  { key: "lettera.step_letter", fallback: "Lettera di Incarico" },
+];
 
 const LetteraIncarico = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
   const profile = user?.user_profile || {};
@@ -71,26 +77,26 @@ const LetteraIncarico = () => {
       const fd = new FormData();
       Object.entries(form).forEach(([k, v]) => fd.append(k, v));
       await axiosInstance.put("api/user/profile", fd);
-      enqueueSnackbar("Dati salvati!", { variant: "success" });
+      enqueueSnackbar(t("lettera.data_saved", "Dati salvati!"), { variant: "success" });
       setStep(step + 1);
     } catch (err) {
-      enqueueSnackbar("Errore nel salvataggio", { variant: "error" });
+      enqueueSnackbar(t("lettera.save_error", "Errore nel salvataggio"), { variant: "error" });
     }
     setLoading(false);
   };
 
   const handleAccetta = async () => {
     if (!accepted) {
-      enqueueSnackbar("Devi accettare i termini", { variant: "warning" });
+      enqueueSnackbar(t("lettera.must_accept_terms", "Devi accettare i termini"), { variant: "warning" });
       return;
     }
     setLoading(true);
     try {
       await axiosInstance.post("api/wp/lettera-incarico/accetta");
-      enqueueSnackbar("Lettera accettata!", { variant: "success" });
+      enqueueSnackbar(t("lettera.letter_accepted_snackbar", "Lettera accettata!"), { variant: "success" });
       setStatus({ accettata: true, data: new Date().toISOString() });
     } catch (err) {
-      enqueueSnackbar(err?.error || "Errore", { variant: "error" });
+      enqueueSnackbar(err?.error || t("lettera.generic_error", "Errore"), { variant: "error" });
     }
     setLoading(false);
   };
@@ -105,7 +111,7 @@ const LetteraIncarico = () => {
       a.click();
       URL.revokeObjectURL(url);
     } catch {
-      enqueueSnackbar("Errore download", { variant: "error" });
+      enqueueSnackbar(t("lettera.download_error", "Errore download"), { variant: "error" });
     }
   };
 
@@ -114,17 +120,17 @@ const LetteraIncarico = () => {
   // Already accepted
   if (status?.accettata) {
     return (
-      <Page title="Lettera di Incarico">
+      <Page title={t("lettera.page_title", "Lettera di Incarico")}>
         <Box sx={{ px: 3, pb: 4 }}>
           <Card sx={{ ...cs, p: 4, textAlign: "center", maxWidth: 600, mx: "auto", mt: 4 }}>
             <Iconify icon="mdi:check-decagram" width={60} sx={{ color: "#4CAF50", mb: 2 }} />
-            <Typography variant="h5" fontWeight={700} color={ESPRESSO} mb={1}>Lettera di Incarico Accettata</Typography>
+            <Typography variant="h5" fontWeight={700} color={ESPRESSO} mb={1}>{t("lettera.letter_accepted_title", "Lettera di Incarico Accettata")}</Typography>
             <Typography sx={{ color: MUTED, mb: 3 }}>
-              Accettata il {new Date(status.data).toLocaleDateString("it-IT", { day: "2-digit", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" })}
+              {t("lettera.accepted_on", "Accettata il {{date}}", { date: new Date(status.data).toLocaleDateString("it-IT", { day: "2-digit", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" }) })}
             </Typography>
             <Button variant="contained" startIcon={<Iconify icon="mdi:file-pdf-box" />} onClick={handleDownloadPdf}
               sx={{ bgcolor: "#E24B4A", "&:hover": { bgcolor: "#C0392B" }, fontWeight: 700, textTransform: "none", borderRadius: 2 }}>
-              Scarica PDF
+              {t("lettera.download_pdf", "Scarica PDF")}
             </Button>
           </Card>
         </Box>
@@ -133,7 +139,7 @@ const LetteraIncarico = () => {
   }
 
   return (
-    <Page title="Lettera di Incarico">
+    <Page title={t("lettera.page_title", "Lettera di Incarico")}>
       <Box sx={{ px: 3, pb: 4, maxWidth: 700, mx: "auto" }}>
         {/* Hero */}
         <Card sx={{ bgcolor: "#FAF6EF", borderRadius: 4, p: 3, mb: 3, border: `1px solid ${alpha(ORO, 0.2)}` }}>
@@ -142,18 +148,18 @@ const LetteraIncarico = () => {
               <Iconify icon="mdi:file-sign" width={28} sx={{ color: ORO }} />
             </Box>
             <Box>
-              <Typography variant="h5" fontWeight={700} color={ESPRESSO}>Lettera di Incarico</Typography>
-              <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>Completa i tuoi dati e accetta la lettera per operare come incaricato EVEA</Typography>
+              <Typography variant="h5" fontWeight={700} color={ESPRESSO}>{t("lettera.page_title", "Lettera di Incarico")}</Typography>
+              <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>{t("lettera.hero_sub", "Completa i tuoi dati e accetta la lettera per operare come incaricato EVEA")}</Typography>
             </Box>
           </Stack>
         </Card>
 
         {/* Stepper */}
         <Stepper activeStep={step} sx={{ mb: 3 }}>
-          {STEPS.map((label) => (
-            <Step key={label}>
+          {STEP_KEYS.map((s) => (
+            <Step key={s.key}>
               <StepLabel StepIconProps={{ sx: { color: ORO, "&.Mui-active": { color: ORO }, "&.Mui-completed": { color: "#4CAF50" } } }}>
-                {label}
+                {t(s.key, s.fallback)}
               </StepLabel>
             </Step>
           ))}
@@ -164,26 +170,26 @@ const LetteraIncarico = () => {
           <Card sx={{ ...cs, p: 3 }}>
             <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>
               <Iconify icon="mdi:account" width={20} sx={{ mr: 1, verticalAlign: "middle", color: ORO }} />
-              Dati Personali
+              {t("lettera.step_personal_data", "Dati Personali")}
             </Typography>
             <Grid container spacing={2}>
               <Grid item xs={6}>
-                <TextField fullWidth size="small" label="Nome" value={form.first_name} onChange={set("first_name")} required />
+                <TextField fullWidth size="small" label={t("lettera.first_name", "Nome")} value={form.first_name} onChange={set("first_name")} required />
               </Grid>
               <Grid item xs={6}>
-                <TextField fullWidth size="small" label="Cognome" value={form.last_name} onChange={set("last_name")} required />
+                <TextField fullWidth size="small" label={t("lettera.last_name", "Cognome")} value={form.last_name} onChange={set("last_name")} required />
               </Grid>
               <Grid item xs={6}>
-                <TextField fullWidth size="small" label="Data di nascita" type="date" value={form.date_of_birth} onChange={set("date_of_birth")} InputLabelProps={{ shrink: true }} required />
+                <TextField fullWidth size="small" label={t("lettera.date_of_birth", "Data di nascita")} type="date" value={form.date_of_birth} onChange={set("date_of_birth")} InputLabelProps={{ shrink: true }} required />
               </Grid>
               <Grid item xs={6}>
-                <TextField fullWidth size="small" label="Luogo di nascita (Città)" value={form.city} onChange={set("city")} required />
+                <TextField fullWidth size="small" label={t("lettera.birth_place", "Luogo di nascita (Città)")} value={form.city} onChange={set("city")} required />
               </Grid>
             </Grid>
             <Box sx={{ mt: 3, textAlign: "right" }}>
               <Button variant="contained" onClick={() => setStep(1)} disabled={!form.first_name || !form.last_name}
                 sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none", borderRadius: 2 }}>
-                Avanti
+                {t("lettera.next", "Avanti")}
               </Button>
             </Box>
           </Card>
@@ -194,31 +200,31 @@ const LetteraIncarico = () => {
           <Card sx={{ ...cs, p: 3 }}>
             <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>
               <Iconify icon="mdi:file-document" width={20} sx={{ mr: 1, verticalAlign: "middle", color: ORO }} />
-              Dati Fiscali e Indirizzo
+              {t("lettera.step_tax_and_address", "Dati Fiscali e Indirizzo")}
             </Typography>
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <TextField fullWidth size="small" label="Codice Fiscale" value={form.codice_fiscale} onChange={set("codice_fiscale")} inputProps={{ maxLength: 16, style: { textTransform: "uppercase" } }} required />
+                <TextField fullWidth size="small" label={t("lettera.codice_fiscale", "Codice Fiscale")} value={form.codice_fiscale} onChange={set("codice_fiscale")} inputProps={{ maxLength: 16, style: { textTransform: "uppercase" } }} required />
               </Grid>
               <Grid item xs={12}>
-                <TextField fullWidth size="small" label="Indirizzo" value={form.address} onChange={set("address")} required />
+                <TextField fullWidth size="small" label={t("lettera.address", "Indirizzo")} value={form.address} onChange={set("address")} required />
               </Grid>
               <Grid item xs={4}>
-                <TextField fullWidth size="small" label="CAP" value={form.zipcode} onChange={set("zipcode")} inputProps={{ maxLength: 5 }} required />
+                <TextField fullWidth size="small" label={t("lettera.zipcode", "CAP")} value={form.zipcode} onChange={set("zipcode")} inputProps={{ maxLength: 5 }} required />
               </Grid>
               <Grid item xs={4}>
-                <TextField fullWidth size="small" label="Città" value={form.city} onChange={set("city")} required />
+                <TextField fullWidth size="small" label={t("lettera.city", "Città")} value={form.city} onChange={set("city")} required />
               </Grid>
               <Grid item xs={4}>
-                <TextField fullWidth size="small" label="Provincia" value={form.state} onChange={set("state")} inputProps={{ maxLength: 2, style: { textTransform: "uppercase" } }} />
+                <TextField fullWidth size="small" label={t("lettera.province", "Provincia")} value={form.state} onChange={set("state")} inputProps={{ maxLength: 2, style: { textTransform: "uppercase" } }} />
               </Grid>
             </Grid>
             <Stack direction="row" justifyContent="space-between" mt={3}>
-              <Button onClick={() => setStep(0)} sx={{ color: MUTED, textTransform: "none" }}>Indietro</Button>
+              <Button onClick={() => setStep(0)} sx={{ color: MUTED, textTransform: "none" }}>{t("lettera.back", "Indietro")}</Button>
               <Button variant="contained" onClick={handleSaveProfile} disabled={loading || !form.codice_fiscale || !form.address}
                 startIcon={loading ? <CircularProgress size={16} color="inherit" /> : <Iconify icon="mdi:content-save" />}
                 sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none", borderRadius: 2 }}>
-                Salva e Continua
+                {t("lettera.save_and_continue", "Salva e Continua")}
               </Button>
             </Stack>
           </Card>
@@ -229,30 +235,30 @@ const LetteraIncarico = () => {
           <Card sx={{ ...cs, p: 3 }}>
             <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>
               <Iconify icon="mdi:file-sign" width={20} sx={{ mr: 1, verticalAlign: "middle", color: ORO }} />
-              Lettera di Incarico
+              {t("lettera.step_letter", "Lettera di Incarico")}
             </Typography>
 
             <Box sx={{ maxHeight: 400, overflow: "auto", p: 2, bgcolor: "#fafafa", borderRadius: 2, border: "1px solid #eee", mb: 2, whiteSpace: "pre-wrap", fontFamily: "monospace", fontSize: "0.8rem", lineHeight: 1.6, color: "#333" }}>
-              {testo || "Caricamento..."}
+              {testo || t("lettera.loading", "Caricamento...")}
             </Box>
 
             <Alert severity="info" sx={{ mb: 2, borderRadius: 2 }}>
-              Leggendo e accettando questa lettera, confermi di voler operare come incaricato alla vendita a domicilio per EVEA Global S.r.l. ai sensi della L. 173/2005.
+              {t("lettera.info_alert", "Leggendo e accettando questa lettera, confermi di voler operare come incaricato alla vendita a domicilio per EVEA Global S.r.l. ai sensi della L. 173/2005.")}
             </Alert>
 
             <FormControlLabel
               control={<Checkbox checked={accepted} onChange={(e) => setAccepted(e.target.checked)} sx={{ color: ORO, "&.Mui-checked": { color: ORO } }} />}
-              label={<Typography sx={{ fontSize: "0.85rem", fontWeight: 600, color: ESPRESSO }}>Dichiaro di aver letto e accetto integralmente la Lettera di Incarico</Typography>}
+              label={<Typography sx={{ fontSize: "0.85rem", fontWeight: 600, color: ESPRESSO }}>{t("lettera.declare_read_accept", "Dichiaro di aver letto e accetto integralmente la Lettera di Incarico")}</Typography>}
             />
 
             <Divider sx={{ my: 2 }} />
 
             <Stack direction="row" justifyContent="space-between">
-              <Button onClick={() => setStep(1)} sx={{ color: MUTED, textTransform: "none" }}>Indietro</Button>
+              <Button onClick={() => setStep(1)} sx={{ color: MUTED, textTransform: "none" }}>{t("lettera.back", "Indietro")}</Button>
               <Button variant="contained" onClick={handleAccetta} disabled={loading || !accepted}
                 startIcon={loading ? <CircularProgress size={16} color="inherit" /> : <Iconify icon="mdi:check-bold" />}
                 sx={{ bgcolor: "#4CAF50", "&:hover": { bgcolor: "#388E3C" }, fontWeight: 700, textTransform: "none", borderRadius: 2, px: 4 }}>
-                Accetto e Firmo
+                {t("lettera.accept_and_sign", "Accetto e Firmo")}
               </Button>
             </Stack>
           </Card>

@@ -1,6 +1,7 @@
 import { Avatar, Box, Button, Card, CircularProgress, Stack, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSnackbar } from "notistack";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
@@ -14,6 +15,7 @@ const CREMA = "#F0E8D8";
 const AVORIO = "#FAF6EF";
 
 const Tesserino = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
   const canvasRef = useRef(null);
@@ -107,7 +109,7 @@ const Tesserino = () => {
     // silenziosamente il rendering del resto del canvas).
     ctx.fillStyle = ORO;
     ctx.font = "bold 10px Arial";
-    ctx.fillText("TESSERINO INCARICATO ALLA VENDITA A DOMICILIO", W / 2, 58);
+    ctx.fillText(t("tesserino.card_subtitle", "TESSERINO INCARICATO ALLA VENDITA A DOMICILIO"), W / 2, 58);
 
     // Photo area
     const photoX = 30;
@@ -128,7 +130,7 @@ const Tesserino = () => {
       ctx.fillStyle = "#ccc";
       ctx.font = "11px Arial";
       ctx.textAlign = "center";
-      ctx.fillText("Carica foto", photoX + photoW / 2, photoY + photoH / 2);
+      ctx.fillText(t("tesserino.canvas_upload_photo", "Carica foto"), photoX + photoW / 2, photoY + photoH / 2);
       drawFields(ctx, W, H);
       setGenerated(true);
     };
@@ -180,10 +182,10 @@ const Tesserino = () => {
         y += lineH;
       };
 
-      drawField("Nome e Cognome", nome);
-      drawField("Luogo e Data di Nascita", `${citta}, ${dob}`);
-      drawField("Codice Fiscale", cf);
-      drawField("Data di Rilascio", dataRilascio);
+      drawField(t("tesserino.field_name", "Nome e Cognome"), nome);
+      drawField(t("tesserino.field_place_and_dob", "Luogo e Data di Nascita"), `${citta}, ${dob}`);
+      drawField(t("tesserino.field_codice_fiscale", "Codice Fiscale"), cf);
+      drawField(t("tesserino.field_issue_date", "Data di Rilascio"), dataRilascio);
 
       // Numero badge
       ctx.fillStyle = alpha(ORO, 0.1).replace("rgba", "rgb").replace(/,\s*[\d.]+\)/, ")");
@@ -195,21 +197,21 @@ const Tesserino = () => {
       ctx.fillStyle = ORO;
       ctx.font = "bold 13px Arial";
       ctx.textAlign = "center";
-      ctx.fillText(`N° ${numero}`, 80, 244);
+      ctx.fillText(t("tesserino.badge_number", "N° {{number}}", { number: numero }), 80, 244);
 
       // Legal text
       ctx.fillStyle = MUTED;
       ctx.font = "italic 8px Arial";
       ctx.textAlign = "center";
-      ctx.fillText("Ai sensi della Legge 17 agosto 2005, n. 173", W / 2, H - 45);
-      ctx.fillText("Art. 3 — Incaricato alla vendita a domicilio", W / 2, H - 33);
+      ctx.fillText(t("tesserino.legal_line_1", "Ai sensi della Legge 17 agosto 2005, n. 173"), W / 2, H - 45);
+      ctx.fillText(t("tesserino.legal_line_2", "Art. 3 — Incaricato alla vendita a domicilio"), W / 2, H - 33);
 
       // Footer
       ctx.fillStyle = "#bbb";
       ctx.font = "7px Arial";
-      ctx.fillText("EVEA Global S.r.l. — P.IVA 00000000000", W / 2, H - 12);
+      ctx.fillText(t("tesserino.footer_company", "EVEA Global S.r.l. — P.IVA 00000000000"), W / 2, H - 12);
     }
-  }, [photoUrl, nome, cf, citta, dob, dataRilascio, numero]);
+  }, [photoUrl, nome, cf, citta, dob, dataRilascio, numero, t]);
 
   useEffect(() => {
     // Genera SEMPRE, anche prima del fetch profilo (mostra i dati parziali
@@ -227,11 +229,11 @@ const Tesserino = () => {
     link.download = `tesserino_${user?.username || "evea"}.png`;
     link.href = canvas.toDataURL("image/png");
     link.click();
-    enqueueSnackbar("Tesserino scaricato!", { variant: "success" });
+    enqueueSnackbar(t("tesserino.downloaded_snackbar", "Tesserino scaricato!"), { variant: "success" });
   };
 
   return (
-    <Page title="Tesserino">
+    <Page title={t("tesserino.page_title", "Tesserino")}>
       <Box sx={{ px: 3, pb: 4, maxWidth: 750, mx: "auto" }}>
         {/* Hero */}
         <Card sx={{ bgcolor: AVORIO, borderRadius: 4, p: 3, mb: 3, border: `1px solid ${alpha(ORO, 0.2)}` }}>
@@ -240,8 +242,8 @@ const Tesserino = () => {
               <Iconify icon="mdi:card-account-details" width={28} sx={{ color: ORO }} />
             </Box>
             <Box>
-              <Typography variant="h5" fontWeight={700} color={ESPRESSO}>Tesserino Incaricato</Typography>
-              <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>Carica una foto formato fototessera e scarica il tuo tesserino</Typography>
+              <Typography variant="h5" fontWeight={700} color={ESPRESSO}>{t("tesserino.hero_title", "Tesserino Incaricato")}</Typography>
+              <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>{t("tesserino.hero_sub", "Carica una foto formato fototessera e scarica il tuo tesserino")}</Typography>
             </Box>
           </Stack>
         </Card>
@@ -250,7 +252,7 @@ const Tesserino = () => {
         <Card sx={{ p: 3, mb: 3, borderRadius: 3, border: "1px solid #f0ece6" }}>
           <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>
             <Iconify icon="mdi:camera" width={20} sx={{ mr: 1, verticalAlign: "middle", color: ORO }} />
-            Foto Fototessera
+            {t("tesserino.section_photo", "Foto Fototessera")}
           </Typography>
           <Stack direction="row" alignItems="center" spacing={3}>
             <Avatar
@@ -264,11 +266,11 @@ const Tesserino = () => {
               <Button variant="contained" component="label"
                 startIcon={<Iconify icon="mdi:upload" />}
                 sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none", borderRadius: 2, mb: 1 }}>
-                {photoUrl ? "Cambia Foto" : "Carica Foto"}
+                {photoUrl ? t("tesserino.change_photo", "Cambia Foto") : t("tesserino.upload_photo", "Carica Foto")}
                 <input type="file" hidden accept="image/*" onChange={handlePhotoChange} />
               </Button>
               <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>
-                Formato: JPG o PNG, sfondo bianco, viso frontale
+                {t("tesserino.photo_format_hint", "Formato: JPG o PNG, sfondo bianco, viso frontale")}
               </Typography>
             </Box>
           </Stack>
@@ -278,7 +280,7 @@ const Tesserino = () => {
         <Card sx={{ p: 3, mb: 3, borderRadius: 3, border: "1px solid #f0ece6" }}>
           <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>
             <Iconify icon="mdi:eye" width={20} sx={{ mr: 1, verticalAlign: "middle", color: ORO }} />
-            Anteprima Tesserino
+            {t("tesserino.section_preview", "Anteprima Tesserino")}
           </Typography>
           <Box sx={{ textAlign: "center", mb: 2 }}>
             <canvas
@@ -295,12 +297,12 @@ const Tesserino = () => {
             <Button variant="contained" onClick={handleDownload}
               startIcon={<Iconify icon="mdi:download" />}
               sx={{ bgcolor: "#4CAF50", "&:hover": { bgcolor: "#388E3C" }, fontWeight: 700, textTransform: "none", borderRadius: 2, px: 4 }}>
-              Scarica PNG
+              {t("tesserino.download_png", "Scarica PNG")}
             </Button>
             <Button variant="outlined" onClick={generateCard}
               startIcon={<Iconify icon="mdi:refresh" />}
               sx={{ borderColor: ORO, color: ORO, fontWeight: 700, textTransform: "none", borderRadius: 2 }}>
-              Rigenera
+              {t("tesserino.regenerate", "Rigenera")}
             </Button>
           </Stack>
         </Card>
@@ -309,12 +311,10 @@ const Tesserino = () => {
         <Card sx={{ p: 2.5, borderRadius: 3, bgcolor: alpha(ORO, 0.04), border: `1px solid ${alpha(ORO, 0.15)}` }}>
           <Stack direction="row" alignItems="center" spacing={1} mb={1}>
             <Iconify icon="mdi:information" width={18} sx={{ color: ORO }} />
-            <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO }}>Informazioni</Typography>
+            <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO }}>{t("tesserino.info_title", "Informazioni")}</Typography>
           </Stack>
           <Typography sx={{ fontSize: "0.75rem", color: MUTED, lineHeight: 1.6 }}>
-            Il tesserino è obbligatorio per legge (L. 173/2005) per tutti gli incaricati alla vendita a domicilio.
-            Deve essere esibito su richiesta durante l'attività di vendita.
-            I dati vengono presi dal tuo profilo — assicurati che siano aggiornati.
+            {t("tesserino.info_body", "Il tesserino è obbligatorio per legge (L. 173/2005) per tutti gli incaricati alla vendita a domicilio. Deve essere esibito su richiesta durante l'attività di vendita. I dati vengono presi dal tuo profilo — assicurati che siano aggiornati.")}
           </Typography>
         </Card>
       </Box>

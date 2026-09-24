@@ -1,6 +1,7 @@
 import { Alert, Box, Button, Card, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, LinearProgress, Stack, Tab, Tabs, TextField, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation, Trans } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import axiosInstance from "src/utils/axios";
@@ -19,6 +20,7 @@ const SUCCESS = "#4A5C3A";
 const MUTED = "#7A6A5C";
 
 const KycGate = ({ children }) => {
+  const { t } = useTranslation();
   const [kyc, setKyc] = useState(null);
   useEffect(() => {
     (async () => {
@@ -29,24 +31,24 @@ const KycGate = ({ children }) => {
     })();
   }, []);
 
-  if (!kyc) return <Box sx={{ p: 3, textAlign: "center" }}><Typography color="#aaa">Verifica KYC...</Typography></Box>;
+  if (!kyc) return <Box sx={{ p: 3, textAlign: "center" }}><Typography color="#aaa">{t("wallet.kyc_verifying", "Verifica KYC...")}</Typography></Box>;
   if (kyc.can_withdraw) return children;
 
   const labels = {
-    has_name: "Nome e Cognome",
-    has_codice_fiscale: "Codice Fiscale",
-    has_address: "Indirizzo completo",
-    has_bank: "Dati bancari (IBAN)",
-    has_document: "Documento di identità",
+    has_name: t("wallet.kyc_has_name", "Nome e Cognome"),
+    has_codice_fiscale: t("wallet.kyc_has_codice_fiscale", "Codice Fiscale"),
+    has_address: t("wallet.kyc_has_address", "Indirizzo completo"),
+    has_bank: t("wallet.kyc_has_bank", "Dati bancari (IBAN)"),
+    has_document: t("wallet.kyc_has_document", "Documento di identità"),
   };
 
   return (
     <Box sx={{ p: 3 }}>
       <Alert severity="warning" sx={{ mb: 2, borderRadius: 2 }}>
-        Per prelevare devi completare la verifica del profilo. Compila i dati mancanti nel tuo profilo.
+        {t("wallet.kyc_incomplete_warning", "Per prelevare devi completare la verifica del profilo. Compila i dati mancanti nel tuo profilo.")}
       </Alert>
       <Card sx={{ p: 2.5, borderRadius: 2, border: "1px solid #f0ece6" }}>
-        <Typography sx={{ fontWeight: 700, color: ESPRESSO, mb: 1.5 }}>Stato verifica ({kyc.complete_pct}%)</Typography>
+        <Typography sx={{ fontWeight: 700, color: ESPRESSO, mb: 1.5 }}>{t("wallet.kyc_status_pct", "Stato verifica ({{pct}}%)", { pct: kyc.complete_pct })}</Typography>
         <LinearProgress variant="determinate" value={kyc.complete_pct} sx={{ height: 6, borderRadius: 3, mb: 2, bgcolor: "#eee", "& .MuiLinearProgress-bar": { bgcolor: kyc.complete_pct >= 60 ? ORO : "#E24B4A" } }} />
         {Object.entries(kyc.checks).map(([k, v]) => (
           <Stack key={k} direction="row" alignItems="center" spacing={1} sx={{ py: 0.5 }}>
@@ -60,6 +62,7 @@ const KycGate = ({ children }) => {
 };
 
 const GiftCardTab = () => {
+  const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
@@ -90,14 +93,14 @@ const GiftCardTab = () => {
       const { data } = await fetchUser.post("gift-card", { amount: parseFloat(amount) });
       if (data.status) {
         setResult(data.data);
-        enqueueSnackbar("Gift card creata!", { variant: "success" });
+        enqueueSnackbar(t("wallet.gift_card_created_snackbar", "Gift card creata!"), { variant: "success" });
         setAmount("");
         fetchData();
       } else {
-        enqueueSnackbar(data.message || "Errore", { variant: "error" });
+        enqueueSnackbar(data.message || t("wallet.generic_error", "Errore"), { variant: "error" });
       }
     } catch (err) {
-      enqueueSnackbar(err?.response?.data?.message || "Errore nella creazione", { variant: "error" });
+      enqueueSnackbar(err?.response?.data?.message || t("wallet.creation_error", "Errore nella creazione"), { variant: "error" });
     }
     setLoading(false);
   };
@@ -112,26 +115,26 @@ const GiftCardTab = () => {
             <Iconify icon="mdi:gift-outline" width={24} sx={{ color: ORO }} />
           </Box>
           <Box>
-            <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: ESPRESSO }}>Converti in Gift Card</Typography>
-            <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>Usa il tuo saldo per acquistare prodotti su myevea.com</Typography>
+            <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: ESPRESSO }}>{t("wallet.convert_to_gift_card", "Converti in Gift Card")}</Typography>
+            <Typography sx={{ fontSize: "0.75rem", color: MUTED }}>{t("wallet.use_balance_hint", "Usa il tuo saldo per acquistare prodotti su myevea.com")}</Typography>
           </Box>
         </Stack>
 
         {balance !== null && (
           <Box sx={{ p: 1.5, bgcolor: alpha(ORO, 0.05), borderRadius: 2, mb: 2, border: `1px solid ${alpha(ORO, 0.12)}` }}>
-            <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Saldo disponibile</Typography>
+            <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{t("wallet.available_balance", "Saldo disponibile")}</Typography>
             <Typography sx={{ fontSize: "1.3rem", fontWeight: 800, color: ESPRESSO }}>€{Number(balance).toLocaleString("it", { minimumFractionDigits: 2 })}</Typography>
           </Box>
         )}
 
-        <Typography sx={{ fontSize: "0.75rem", color: MUTED, mb: 1 }}>Importo da convertire</Typography>
+        <Typography sx={{ fontSize: "0.75rem", color: MUTED, mb: 1 }}>{t("wallet.amount_to_convert", "Importo da convertire")}</Typography>
         <Stack direction="row" spacing={1} mb={1.5} flexWrap="wrap">
           {presets.map((p) => (
             <Chip key={p} label={`€${p}`} onClick={() => setAmount(String(p))}
               sx={{ fontWeight: 700, fontSize: "0.8rem", bgcolor: String(p) === amount ? ORO : alpha(ORO, 0.08), color: String(p) === amount ? "#fff" : ESPRESSO, cursor: "pointer", "&:hover": { bgcolor: alpha(ORO, 0.2) } }} />
           ))}
         </Stack>
-        <TextField fullWidth size="small" type="number" placeholder="Oppure inserisci importo..."
+        <TextField fullWidth size="small" type="number" placeholder={t("wallet.or_enter_amount", "Oppure inserisci importo...")}
           value={amount} onChange={(e) => setAmount(e.target.value)}
           InputProps={{ startAdornment: <Typography sx={{ mr: 0.5, color: MUTED, fontWeight: 600 }}>€</Typography> }}
           sx={{ mb: 2, "& input": { fontSize: "1rem", fontWeight: 700 } }} />
@@ -139,11 +142,11 @@ const GiftCardTab = () => {
         <Button fullWidth variant="contained" size="large" disabled={loading || !amount || parseFloat(amount) < 10}
           onClick={() => setConfirmOpen(true)}
           sx={{ bgcolor: ORO, color: "#fff", fontWeight: 700, fontSize: "0.9rem", borderRadius: 2, py: 1.2, textTransform: "none", "&:hover": { bgcolor: "#9A7B2F" }, "&.Mui-disabled": { bgcolor: "#ddd" } }}>
-          {loading ? <CircularProgress size={20} sx={{ color: "#fff" }} /> : `Genera Gift Card · €${amount || "0"}`}
+          {loading ? <CircularProgress size={20} sx={{ color: "#fff" }} /> : t("wallet.generate_gift_card_btn", "Genera Gift Card · €{{amount}}", { amount: amount || "0" })}
         </Button>
 
         {parseFloat(amount) > 0 && parseFloat(amount) < 10 && (
-          <Typography sx={{ fontSize: "0.7rem", color: "#E24B4A", mt: 0.5 }}>Importo minimo: €10</Typography>
+          <Typography sx={{ fontSize: "0.7rem", color: "#E24B4A", mt: 0.5 }}>{t("wallet.min_amount", "Importo minimo: €10")}</Typography>
         )}
       </Card>
 
@@ -152,15 +155,15 @@ const GiftCardTab = () => {
         <Card sx={{ p: 3, borderRadius: 3, border: `2px solid ${SUCCESS}`, bgcolor: alpha(SUCCESS, 0.03), mb: 2 }}>
           <Stack direction="row" alignItems="center" spacing={1} mb={1.5}>
             <Iconify icon="mdi:check-circle" width={24} sx={{ color: SUCCESS }} />
-            <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: SUCCESS }}>Gift Card creata!</Typography>
+            <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: SUCCESS }}>{t("wallet.gift_card_created", "Gift Card creata!")}</Typography>
           </Stack>
           <Box sx={{ p: 2, bgcolor: "#fff", borderRadius: 2, border: "1px solid #eee", textAlign: "center", mb: 1.5 }}>
-            <Typography sx={{ fontSize: "0.7rem", color: MUTED, mb: 0.5 }}>Il tuo codice gift card</Typography>
+            <Typography sx={{ fontSize: "0.7rem", color: MUTED, mb: 0.5 }}>{t("wallet.your_gift_card_code", "Il tuo codice gift card")}</Typography>
             <Typography sx={{ fontSize: "1.5rem", fontWeight: 800, color: ESPRESSO, letterSpacing: 2, fontFamily: "monospace" }}>{result.code}</Typography>
-            <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ORO, mt: 0.5 }}>Valore: €{Number(result.initial_value).toLocaleString("it", { minimumFractionDigits: 2 })}</Typography>
+            <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ORO, mt: 0.5 }}>{t("wallet.gift_card_value", "Valore: €{{value}}", { value: Number(result.initial_value).toLocaleString("it", { minimumFractionDigits: 2 }) })}</Typography>
           </Box>
           <Typography sx={{ fontSize: "0.72rem", color: MUTED, textAlign: "center" }}>
-            Usa questo codice al checkout su myevea.com nella sezione "Gift Card / Codice sconto"
+            {t("wallet.gift_card_usage_hint", "Usa questo codice al checkout su myevea.com nella sezione \"Gift Card / Codice sconto\"")}
           </Typography>
         </Card>
       )}
@@ -168,7 +171,7 @@ const GiftCardTab = () => {
       {/* History */}
       {history.length > 0 && (
         <Card sx={{ p: 3, borderRadius: 3, border: "1px solid #f0ece6" }}>
-          <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 1.5 }}>Storico Gift Card</Typography>
+          <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 1.5 }}>{t("wallet.gift_card_history", "Storico Gift Card")}</Typography>
           <Stack spacing={0.8}>
             {history.map((h) => {
               const isCancelled = h.payment_status === "cancelled" || (h.note || "").includes("CANCELLATA");
@@ -178,19 +181,21 @@ const GiftCardTab = () => {
               const partial = currentBalance !== null && currentBalance < initial;
               const handleCancel = async () => {
                 const refundText = currentBalance !== null
-                  ? `Verranno rimborsati €${currentBalance.toFixed(2)}${partial ? ` (di €${initial.toFixed(2)} iniziali; il resto era gia stato usato)` : ""}.`
-                  : `Il saldo verra' ripristinato nel wallet.`;
-                if (!window.confirm(`Cancellare questa gift card? ${refundText}`)) return;
+                  ? (partial
+                      ? t("wallet.refund_partial_text", "Verranno rimborsati €{{current}} (di €{{initial}} iniziali; il resto era gia stato usato).", { current: currentBalance.toFixed(2), initial: initial.toFixed(2) })
+                      : t("wallet.refund_full_text", "Verranno rimborsati €{{current}}.", { current: currentBalance.toFixed(2) }))
+                  : t("wallet.refund_restore_text", "Il saldo verra' ripristinato nel wallet.");
+                if (!window.confirm(t("wallet.cancel_gift_card_confirm", "Cancellare questa gift card? {{details}}", { details: refundText }))) return;
                 try {
                   const { data } = await fetchUser.post(`gift-card/cancel/${h.id}`);
                   if (data.status) {
-                    enqueueSnackbar(data.message || "Gift card cancellata", { variant: "success" });
+                    enqueueSnackbar(data.message || t("wallet.gift_card_cancelled", "Gift card cancellata"), { variant: "success" });
                     fetchData();
                   } else {
-                    enqueueSnackbar(data.message || "Errore", { variant: "error" });
+                    enqueueSnackbar(data.message || t("wallet.generic_error", "Errore"), { variant: "error" });
                   }
                 } catch (err) {
-                  enqueueSnackbar(err?.response?.data?.message || "Errore nella cancellazione", { variant: "error" });
+                  enqueueSnackbar(err?.response?.data?.message || t("wallet.cancellation_error", "Errore nella cancellazione"), { variant: "error" });
                 }
               };
               return (
@@ -209,7 +214,7 @@ const GiftCardTab = () => {
                             €{currentBalance.toFixed(2)}
                           </Typography>
                           <Typography sx={{ fontSize: "0.62rem", color: MUTED, lineHeight: 1.1 }}>
-                            su €{initial.toLocaleString("it", { minimumFractionDigits: 2 })}
+                            {t("wallet.of_amount", "su €{{amount}}", { amount: initial.toLocaleString("it", { minimumFractionDigits: 2 }) })}
                           </Typography>
                         </>
                       ) : (
@@ -219,7 +224,7 @@ const GiftCardTab = () => {
                       )}
                     </Box>
                     {!isCancelled && canCancel && (
-                      <IconButton size="small" onClick={handleCancel} title={partial ? `Cancella e rimborsa €${currentBalance.toFixed(2)} rimanenti` : "Cancella gift card e ripristina saldo"}
+                      <IconButton size="small" onClick={handleCancel} title={partial ? t("wallet.cancel_and_refund_remaining", "Cancella e rimborsa €{{amount}} rimanenti", { amount: currentBalance.toFixed(2) }) : t("wallet.cancel_gift_card_restore", "Cancella gift card e ripristina saldo")}
                         sx={{ color: "#E24B4A", "&:hover": { bgcolor: alpha("#E24B4A", 0.1) } }}>
                         <Iconify icon="mdi:close" width={16} />
                       </IconButton>
@@ -234,37 +239,43 @@ const GiftCardTab = () => {
 
       {/* Confirm dialog */}
       <Dialog open={confirmOpen} onClose={() => setConfirmOpen(false)} maxWidth="xs" fullWidth>
-        <DialogTitle sx={{ fontWeight: 700, color: ESPRESSO }}>Conferma conversione</DialogTitle>
+        <DialogTitle sx={{ fontWeight: 700, color: ESPRESSO }}>{t("wallet.confirm_conversion", "Conferma conversione")}</DialogTitle>
         <DialogContent>
           <Typography sx={{ fontSize: "0.85rem", color: ESPRESSO }}>
-            Stai per convertire <b>€{parseFloat(amount || 0).toLocaleString("it", { minimumFractionDigits: 2 })}</b> dal tuo wallet in una Gift Card Shopify.
+            <Trans
+              i18nKey="wallet.about_to_convert"
+              defaults="Stai per convertire <b>€{{amount}}</b> dal tuo wallet in una Gift Card Shopify."
+              values={{ amount: parseFloat(amount || 0).toLocaleString("it", { minimumFractionDigits: 2 }) }}
+              components={{ b: <b /> }}
+            />
           </Typography>
           <Typography sx={{ fontSize: "0.75rem", color: MUTED, mt: 1 }}>
-            Il codice gift card potra' essere utilizzato per acquistare prodotti su myevea.com. Questa operazione non e' reversibile.
+            {t("wallet.conversion_hint", "Il codice gift card potra' essere utilizzato per acquistare prodotti su myevea.com. Questa operazione non e' reversibile.")}
           </Typography>
         </DialogContent>
         <DialogActions sx={{ px: 3, pb: 2 }}>
-          <Button onClick={() => setConfirmOpen(false)} sx={{ color: MUTED, textTransform: "none" }}>Annulla</Button>
-          <Button onClick={handleConvert} variant="contained" sx={{ bgcolor: ORO, textTransform: "none", fontWeight: 700, "&:hover": { bgcolor: "#9A7B2F" } }}>Conferma</Button>
+          <Button onClick={() => setConfirmOpen(false)} sx={{ color: MUTED, textTransform: "none" }}>{t("wallet.dialog_cancel", "Annulla")}</Button>
+          <Button onClick={handleConvert} variant="contained" sx={{ bgcolor: ORO, textTransform: "none", fontWeight: 700, "&:hover": { bgcolor: "#9A7B2F" } }}>{t("wallet.dialog_confirm", "Conferma")}</Button>
         </DialogActions>
       </Dialog>
     </Box>
   );
 };
 
-const TABS = [
-  { label: "Movimenti", icon: "mdi:swap-horizontal", value: 0 },
-  { label: "In Arrivo", icon: "mdi:clock-outline", value: 1 },
-  { label: "Preleva", icon: "mdi:cash-fast", value: 2 },
-  { label: "Note di Compenso", icon: "mdi:file-document-outline", value: 3 },
-  { label: "Gift Card", icon: "mdi:gift-outline", value: 4 },
+const TAB_DEFS = [
+  { labelKey: "wallet.tab_movements", labelFallback: "Movimenti", icon: "mdi:swap-horizontal", value: 0 },
+  { labelKey: "wallet.tab_incoming", labelFallback: "In Arrivo", icon: "mdi:clock-outline", value: 1 },
+  { labelKey: "wallet.tab_withdraw", labelFallback: "Preleva", icon: "mdi:cash-fast", value: 2 },
+  { labelKey: "wallet.tab_compensation_notes", labelFallback: "Note di Compenso", icon: "mdi:file-document-outline", value: 3 },
+  { labelKey: "wallet.tab_gift_card", labelFallback: "Gift Card", icon: "mdi:gift-outline", value: 4 },
 ];
 
 const WalletPage = () => {
+  const { t } = useTranslation();
   const [tab, setTab] = useState(0);
 
   return (
-    <Page title="Il mio Wallet">
+    <Page title={t("wallet.page_title", "Il mio Wallet")}>
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4 }}>
         {/* Hero */}
         <Card sx={{ bgcolor: "#FAF6EF", color: ESPRESSO, borderRadius: 4, p: 3, mb: 3, border: `1px solid ${alpha(ORO, 0.2)}` }}>
@@ -273,8 +284,8 @@ const WalletPage = () => {
               <Iconify icon="mdi:wallet-outline" width={28} sx={{ color: ORO }} />
             </Box>
             <Box>
-              <Typography variant="h5" fontWeight={700} color={ESPRESSO}>Il mio Wallet</Typography>
-              <Typography sx={{ fontSize: "0.8rem", color: "#7A6A5C" }}>Gestisci i tuoi guadagni, commissioni e prelievi</Typography>
+              <Typography variant="h5" fontWeight={700} color={ESPRESSO}>{t("wallet.page_title", "Il mio Wallet")}</Typography>
+              <Typography sx={{ fontSize: "0.8rem", color: "#7A6A5C" }}>{t("wallet.hero_sub", "Gestisci i tuoi guadagni, commissioni e prelievi")}</Typography>
             </Box>
           </Stack>
         </Card>
@@ -297,13 +308,13 @@ const WalletPage = () => {
             "& .MuiTabs-scrollButtons.Mui-disabled": { opacity: 0.3 },
           }}
         >
-          {TABS.map((t) => (
+          {TAB_DEFS.map((tabDef) => (
             <Tab
-              key={t.value}
+              key={tabDef.value}
               label={
                 <Stack direction="row" alignItems="center" spacing={0.8}>
-                  <Iconify icon={t.icon} width={18} />
-                  <span>{t.label}</span>
+                  <Iconify icon={tabDef.icon} width={18} />
+                  <span>{t(tabDef.labelKey, tabDef.labelFallback)}</span>
                 </Stack>
               }
             />

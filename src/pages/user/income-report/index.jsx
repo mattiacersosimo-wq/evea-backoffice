@@ -35,13 +35,13 @@ const ALL_BONUSES = [
   { type: "eveolving_bonus", label: "Evolving Bonus", freq: "monthly" },
 ];
 
-const STATUS_BADGE = {
-  yes: { label: "Approvato", color: "#4A5C3A", bg: "#EAF3DE" },
-  pending: { label: "Pending", color: "#EF9F27", bg: "#FFF3E0" },
-  on_hold: { label: "In attesa", color: "#607D8B", bg: "#ECEFF1" },
+const STATUS_BADGE_META = {
+  yes: { labelKey: "income_report.status_approved", labelFallback: "Approvato", color: "#4A5C3A", bg: "#EAF3DE" },
+  pending: { labelKey: "income_report.status_pending", labelFallback: "Pending", color: "#EF9F27", bg: "#FFF3E0" },
+  on_hold: { labelKey: "income_report.status_on_hold", labelFallback: "In attesa", color: "#607D8B", bg: "#ECEFF1" },
 };
 
-const MONTHS_IT = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"];
+const MONTH_SHORT_KEYS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 
 const IncomeReport = ({ initialViewAs = null }) => {
   const { t } = useTranslation();
@@ -87,7 +87,7 @@ const IncomeReport = ({ initialViewAs = null }) => {
   const now = new Date();
   for (let i = 0; i < 12; i++) {
     const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-    monthOptions.push({ value: `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`, label: `${MONTHS_IT[d.getMonth()]} ${d.getFullYear()}` });
+    monthOptions.push({ value: `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`, label: `${t(`month_short.${MONTH_SHORT_KEYS[d.getMonth()]}`)} ${d.getFullYear()}` });
   }
 
   // Generate week options from API
@@ -97,7 +97,7 @@ const IncomeReport = ({ initialViewAs = null }) => {
   }));
 
   return (
-    <Page title="Income Report">
+    <Page title={t("income_report.page_title", "Income Report")}>
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4, mx: { xs: -2, md: -3 }, mt: -2, pt: 2, bgcolor: "#f5f5f5", minHeight: "100vh" }}>
 
         {/* Hero */}
@@ -108,7 +108,7 @@ const IncomeReport = ({ initialViewAs = null }) => {
                 <Iconify icon="mdi:chart-timeline-variant-shimmer" width={28} sx={{ color: ORO }} />
               </Box>
               <Box>
-                <Typography variant="h5" fontWeight={700} color={ESPRESSO}>Income Report</Typography>
+                <Typography variant="h5" fontWeight={700} color={ESPRESSO}>{t("income_report.page_title", "Income Report")}</Typography>
                 <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>{t("evea.earnings")} — {data?.period?.start?.substring(0, 10)} → {data?.period?.end?.substring(0, 10)}</Typography>
               </Box>
             </Stack>
@@ -129,14 +129,14 @@ const IncomeReport = ({ initialViewAs = null }) => {
               {period === "week" && (
                 <Select size="small" value={weekVal} onChange={(e) => setWeekVal(e.target.value)} displayEmpty
                   sx={{ minWidth: 180, bgcolor: "#fff", borderRadius: 2, "& .MuiSelect-select": { py: 0.8, fontSize: "0.82rem" } }}>
-                  <MenuItem value="" disabled>Select week...</MenuItem>
+                  <MenuItem value="" disabled>{t("income_report.select_week_placeholder", "Select week...")}</MenuItem>
                   {weekOptions.map((w) => <MenuItem key={w.value} value={w.value}>{w.label}</MenuItem>)}
                 </Select>
               )}
               {period === "month" && (
                 <Select size="small" value={monthVal} onChange={(e) => setMonthVal(e.target.value)} displayEmpty
                   sx={{ minWidth: 140, bgcolor: "#fff", borderRadius: 2, "& .MuiSelect-select": { py: 0.8, fontSize: "0.82rem" } }}>
-                  <MenuItem value="" disabled>Select month...</MenuItem>
+                  <MenuItem value="" disabled>{t("income_report.select_month_placeholder", "Select month...")}</MenuItem>
                   {monthOptions.map((m) => <MenuItem key={m.value} value={m.value}>{m.label}</MenuItem>)}
                 </Select>
               )}
@@ -158,8 +158,8 @@ const IncomeReport = ({ initialViewAs = null }) => {
             <Grid container spacing={2} sx={{ mb: 3 }}>
               {[
                 { label: t("evea.total"), value: summary.total, color: ORO, icon: "mdi:cash-multiple" },
-                { label: "Approved", value: summary.paid, color: "#4A5C3A", icon: "mdi:check-circle-outline" },
-                { label: "Pending", value: summary.pending, color: "#EF9F27", icon: "mdi:clock-outline" },
+                { label: t("income_report.approved", "Approved"), value: summary.paid, color: "#4A5C3A", icon: "mdi:check-circle-outline" },
+                { label: t("income_report.pending", "Pending"), value: summary.pending, color: "#EF9F27", icon: "mdi:clock-outline" },
               ].map((c) => (
                 <Grid item xs={12} md={4} key={c.label}>
                   <Card sx={{ ...cardSx, p: 2.5 }}>
@@ -193,9 +193,9 @@ const IncomeReport = ({ initialViewAs = null }) => {
                         <Stack direction="row" alignItems="center" spacing={1}>
                           <Box sx={{ width: 10, height: 10, borderRadius: "50%", bgcolor: color, flexShrink: 0 }} />
                           <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: ESPRESSO }}>{b.label}</Typography>
-                          <Chip label={b.freq === "weekly" ? "W" : "M"} size="small"
+                          <Chip label={b.freq === "weekly" ? t("income_report.freq_weekly", "W") : t("income_report.freq_monthly", "M")} size="small"
                             sx={{ height: 18, fontSize: "0.55rem", fontWeight: 700, bgcolor: b.freq === "weekly" ? alpha("#4CAF50", 0.1) : alpha(ORO, 0.1), color: b.freq === "weekly" ? "#4CAF50" : ORO }} />
-                          <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>{b.count} comm.</Typography>
+                          <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>{t("income_report.count_comm", "{{n}} comm.", { n: b.count })}</Typography>
                         </Stack>
                         <Stack direction="row" alignItems="center" spacing={1}>
                           <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{pct.toFixed(1)}%</Typography>
@@ -207,7 +207,7 @@ const IncomeReport = ({ initialViewAs = null }) => {
                     </Box>
                   );
                 })}
-                {byType.length === 0 && <Typography sx={{ fontSize: "0.82rem", color: MUTED, textAlign: "center", py: 2 }}>No commissions in this period</Typography>}
+                {byType.length === 0 && <Typography sx={{ fontSize: "0.82rem", color: MUTED, textAlign: "center", py: 2 }}>{t("income_report.no_commissions_period", "No commissions in this period")}</Typography>}
               </Stack>
             </Card>
 
@@ -243,16 +243,16 @@ const IncomeReport = ({ initialViewAs = null }) => {
                 <Table size="small">
                   <TableHead>
                     <TableRow>
-                      <TableCell sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED }}>Date</TableCell>
-                      <TableCell sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED }}>Bonus</TableCell>
-                      <TableCell sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED }}>From</TableCell>
-                      <TableCell align="right" sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED }}>Amount</TableCell>
-                      <TableCell sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED }}>Status</TableCell>
+                      <TableCell sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED }}>{t("income_report.col_date", "Date")}</TableCell>
+                      <TableCell sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED }}>{t("income_report.col_bonus", "Bonus")}</TableCell>
+                      <TableCell sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED }}>{t("income_report.col_from", "From")}</TableCell>
+                      <TableCell align="right" sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED }}>{t("income_report.col_amount", "Amount")}</TableCell>
+                      <TableCell sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED }}>{t("income_report.col_status", "Status")}</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {transactions.map((tx) => {
-                      const st = STATUS_BADGE[tx.status] || STATUS_BADGE.pending;
+                      const st = STATUS_BADGE_META[tx.status] || STATUS_BADGE_META.pending;
                       const color = BONUS_COLORS[tx.type] || "#999";
                       return (
                         <TableRow key={tx.id}>
@@ -265,14 +265,14 @@ const IncomeReport = ({ initialViewAs = null }) => {
                           </TableCell>
                           <TableCell sx={{ fontSize: "0.75rem", color: MUTED }}>{tx.from || "—"}</TableCell>
                           <TableCell align="right" sx={{ fontSize: "0.8rem", fontWeight: 700, color }}>{"\u20AC"}{tx.amount.toFixed(2)}</TableCell>
-                          <TableCell><Chip label={st.label} size="small" sx={{ height: 22, fontSize: "0.65rem", fontWeight: 600, bgcolor: st.bg, color: st.color }} /></TableCell>
+                          <TableCell><Chip label={t(st.labelKey, st.labelFallback)} size="small" sx={{ height: 22, fontSize: "0.65rem", fontWeight: 600, bgcolor: st.bg, color: st.color }} /></TableCell>
                         </TableRow>
                       );
                     })}
                   </TableBody>
                 </Table>
               ) : (
-                <Typography sx={{ fontSize: "0.82rem", color: MUTED, textAlign: "center", py: 3 }}>No transactions in this period</Typography>
+                <Typography sx={{ fontSize: "0.82rem", color: MUTED, textAlign: "center", py: 3 }}>{t("income_report.no_transactions_period", "No transactions in this period")}</Typography>
               )}
             </Card>
           </>

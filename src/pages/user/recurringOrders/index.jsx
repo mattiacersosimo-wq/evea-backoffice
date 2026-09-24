@@ -6,6 +6,7 @@ import {
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation, Trans } from "react-i18next";
 import { useSnackbar } from "notistack";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
@@ -28,13 +29,18 @@ const DANGER = "#E24B4A";
 const AVORIO = "#FAF6EF";
 
 const STATUS_MAP = {
-  active: { label: "Attivo", color: MUSCHIO, bg: alpha(MUSCHIO, 0.1) },
-  paused: { label: "In pausa", color: WARNING, bg: alpha(WARNING, 0.1) },
-  cancelled: { label: "Cancellato", color: DANGER, bg: alpha(DANGER, 0.1) },
-  expired: { label: "Scaduto", color: "#999", bg: "#f5f5f5" },
+  active: { labelKey: "subscriptions.status_active", labelFallback: "Attivo", color: MUSCHIO, bg: alpha(MUSCHIO, 0.1) },
+  paused: { labelKey: "subscriptions.status_paused", labelFallback: "In pausa", color: WARNING, bg: alpha(WARNING, 0.1) },
+  cancelled: { labelKey: "subscriptions.status_cancelled", labelFallback: "Cancellato", color: DANGER, bg: alpha(DANGER, 0.1) },
+  expired: { labelKey: "subscriptions.status_expired", labelFallback: "Scaduto", color: "#999", bg: "#f5f5f5" },
 };
 
-const INTERVAL_MAP = { day: "giorno", week: "settimana", month: "mese", year: "anno" };
+const INTERVAL_KEYS = {
+  day: { singular: "subscriptions.interval_day", singularFallback: "giorno", plural: "subscriptions.interval_day_plural", pluralFallback: "giorni" },
+  week: { singular: "subscriptions.interval_week", singularFallback: "settimana", plural: "subscriptions.interval_week_plural", pluralFallback: "settimane" },
+  month: { singular: "subscriptions.interval_month", singularFallback: "mese", plural: "subscriptions.interval_month_plural", pluralFallback: "mesi" },
+  year: { singular: "subscriptions.interval_year", singularFallback: "anno", plural: "subscriptions.interval_year_plural", pluralFallback: "anni" },
+};
 
 const formatDate = (dateStr) => {
   if (!dateStr) return "\u2014";
@@ -48,16 +54,17 @@ const formatDate = (dateStr) => {
 // Seal API does not support item modification via API — user must use Seal's customer portal.
 // ═══════════════════════════════════════
 const ItemsManager = ({ open, onClose, sub }) => {
+  const { t } = useTranslation();
   const items = sub?.items || [];
   const portalUrl = sub?.edit_url;
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle sx={{ fontWeight: 700, color: ESPRESSO }}>Gestisci abbonamento</DialogTitle>
+      <DialogTitle sx={{ fontWeight: 700, color: ESPRESSO }}>{t("subscriptions.manage_subscription", "Gestisci abbonamento")}</DialogTitle>
       <DialogContent dividers>
-        <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: "#7A6A5C", mb: 1 }}>Prodotti attuali</Typography>
+        <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: "#7A6A5C", mb: 1 }}>{t("subscriptions.current_products", "Prodotti attuali")}</Typography>
         {items.length === 0 ? (
-          <Typography sx={{ fontSize: "0.8rem", color: "#aaa", py: 1 }}>Nessun prodotto</Typography>
+          <Typography sx={{ fontSize: "0.8rem", color: "#aaa", py: 1 }}>{t("subscriptions.no_products", "Nessun prodotto")}</Typography>
         ) : (
           <Stack spacing={1} sx={{ mb: 2 }}>
             {items.map((it, i) => (
@@ -78,20 +85,20 @@ const ItemsManager = ({ open, onClose, sub }) => {
             <Iconify icon="mdi:information" width={22} sx={{ color: ORO, mt: 0.2 }} />
             <Box sx={{ flex: 1 }}>
               <Typography sx={{ fontSize: "0.82rem", fontWeight: 700, color: ESPRESSO, mb: 0.5 }}>
-                Come modificare i prodotti
+                {t("subscriptions.how_to_modify_products", "Come modificare i prodotti")}
               </Typography>
               <Typography sx={{ fontSize: "0.78rem", color: "#5A4A3C", mb: 1 }}>
-                Dal portale cliente puoi aggiungere, rimuovere o modificare le quantita dei prodotti, l'indirizzo di spedizione e il metodo di pagamento.
+                {t("subscriptions.portal_products_hint", "Dal portale cliente puoi aggiungere, rimuovere o modificare le quantita dei prodotti, l'indirizzo di spedizione e il metodo di pagamento.")}
               </Typography>
               <Typography sx={{ fontSize: "0.72rem", color: "#7A6A5C", mb: 1.5, fontStyle: "italic" }}>
-                Al primo accesso Shopify potrebbe chiederti di confermare la tua email: riceverai un link via email per entrare. Dopo il primo login resterai sempre connesso automaticamente.
+                {t("subscriptions.portal_first_access_hint", "Al primo accesso Shopify potrebbe chiederti di confermare la tua email: riceverai un link via email per entrare. Dopo il primo login resterai sempre connesso automaticamente.")}
               </Typography>
               {portalUrl && (
                 <Button variant="contained" size="small"
                   startIcon={<Iconify icon="mdi:open-in-new" />}
                   href={portalUrl} target="_blank" rel="noopener noreferrer"
                   sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, textTransform: "none", fontWeight: 700, borderRadius: 2 }}>
-                  Apri portale clienti
+                  {t("subscriptions.open_customer_portal", "Apri portale clienti")}
                 </Button>
               )}
             </Box>
@@ -99,7 +106,7 @@ const ItemsManager = ({ open, onClose, sub }) => {
         </Box>
       </DialogContent>
       <DialogActions sx={{ p: 2 }}>
-        <Button onClick={onClose} sx={{ textTransform: "none", color: "#7A6A5C" }}>Chiudi</Button>
+        <Button onClick={onClose} sx={{ textTransform: "none", color: "#7A6A5C" }}>{t("subscriptions.close", "Chiudi")}</Button>
       </DialogActions>
     </Dialog>
   );
@@ -109,6 +116,7 @@ const ItemsManager = ({ open, onClose, sub }) => {
 // SEAL SUBSCRIPTION CARD
 // ═══════════════════════════════════════
 const SealCard = ({ sub, onAction }) => {
+  const { t } = useTranslation();
   const [showHistory, setShowHistory] = useState(false);
   const [history, setHistory] = useState(null);
   const [historyLoading, setHistoryLoading] = useState(false);
@@ -118,8 +126,15 @@ const SealCard = ({ sub, onAction }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const status = STATUS_MAP[sub.status] || STATUS_MAP.expired;
-  const interval = INTERVAL_MAP[sub.interval] || sub.interval;
-  const intervalText = sub.interval_count > 1 ? `ogni ${sub.interval_count} ${interval}i` : `ogni ${interval}`;
+  const statusLabel = t(status.labelKey, status.labelFallback);
+  const intervalDef = INTERVAL_KEYS[sub.interval];
+  const intervalText = sub.interval_count > 1
+    ? (intervalDef
+        ? t("subscriptions.every_n_units", "ogni {{count}} {{unit}}", { count: sub.interval_count, unit: t(intervalDef.plural, intervalDef.pluralFallback) })
+        : `ogni ${sub.interval_count} ${sub.interval}`)
+    : (intervalDef
+        ? t("subscriptions.every_unit", "ogni {{unit}}", { unit: t(intervalDef.singular, intervalDef.singularFallback) })
+        : `ogni ${sub.interval}`);
 
   const loadHistory = async () => {
     if (history) { setShowHistory(!showHistory); return; }
@@ -129,7 +144,7 @@ const SealCard = ({ sub, onAction }) => {
       setHistory(data?.data || []);
       setShowHistory(true);
     } catch (e) {
-      enqueueSnackbar("Errore nel caricamento storico", { variant: "error" });
+      enqueueSnackbar(t("subscriptions.history_load_error", "Errore nel caricamento storico"), { variant: "error" });
     }
     setHistoryLoading(false);
   };
@@ -138,11 +153,15 @@ const SealCard = ({ sub, onAction }) => {
     setActionLoading(true);
     try {
       await axiosInstance.put(`api/wp/seal/subscription/${sub.id}/${action}`, body);
-      const labels = { pause: "messo in pausa", resume: "ripreso", cancel: "cancellato" };
-      enqueueSnackbar(`Abbonamento ${labels[action] || action}`, { variant: "success" });
+      const actionLabels = {
+        pause: t("subscriptions.action_paused", "messo in pausa"),
+        resume: t("subscriptions.action_resumed", "ripreso"),
+        cancel: t("subscriptions.action_cancelled", "cancellato"),
+      };
+      enqueueSnackbar(t("subscriptions.subscription_action_success", "Abbonamento {{action}}", { action: actionLabels[action] || action }), { variant: "success" });
       onAction();
     } catch (e) {
-      enqueueSnackbar(e?.error || "Errore nell'operazione", { variant: "error" });
+      enqueueSnackbar(e?.error || t("subscriptions.operation_error", "Errore nell'operazione"), { variant: "error" });
     }
     setActionLoading(false);
     setCancelOpen(false);
@@ -156,7 +175,7 @@ const SealCard = ({ sub, onAction }) => {
           <Box sx={{ flex: 1 }}>
             <Stack direction="row" alignItems="center" spacing={1.5} mb={0.5}>
               <Typography sx={{ fontSize: "1.05rem", fontWeight: 700, color: ESPRESSO }}>{sub.product_title}</Typography>
-              <Chip label={status.label} size="small" sx={{ bgcolor: status.bg, color: status.color, fontWeight: 700, fontSize: "0.7rem", height: 24 }} />
+              <Chip label={statusLabel} size="small" sx={{ bgcolor: status.bg, color: status.color, fontWeight: 700, fontSize: "0.7rem", height: 24 }} />
             </Stack>
             <Stack direction="row" spacing={2} sx={{ mt: 0.5 }}>
               <Typography sx={{ fontSize: "0.78rem", color: "#7A6A5C" }}>
@@ -164,12 +183,12 @@ const SealCard = ({ sub, onAction }) => {
               </Typography>
               {sub.next_billing_date && sub.status === "active" && (
                 <Typography sx={{ fontSize: "0.78rem", color: "#7A6A5C" }}>
-                  Prossimo rinnovo: <b style={{ color: ESPRESSO }}>{formatDate(sub.next_billing_date)}</b>
+                  {t("subscriptions.next_renewal_colon", "Prossimo rinnovo:")} <b style={{ color: ESPRESSO }}>{formatDate(sub.next_billing_date)}</b>
                 </Typography>
               )}
             </Stack>
             <Typography sx={{ fontSize: "0.65rem", color: "#aaa", mt: 0.3 }}>
-              Attivo dal {formatDate(sub.created_at)}
+              {t("subscriptions.active_from", "Attivo dal {{date}}", { date: formatDate(sub.created_at) })}
             </Typography>
           </Box>
 
@@ -178,14 +197,14 @@ const SealCard = ({ sub, onAction }) => {
               <Button size="small" variant="contained" disabled={actionLoading}
                 onClick={() => handleAction("pause")}
                 sx={{ bgcolor: WARNING, "&:hover": { bgcolor: "#D98E1F" }, textTransform: "none", fontWeight: 700, borderRadius: 2 }}>
-                Metti in pausa
+                {t("subscriptions.pause", "Metti in pausa")}
               </Button>
             )}
             {sub.status === "paused" && (
               <Button size="small" variant="contained" disabled={actionLoading}
                 onClick={() => handleAction("resume")}
                 sx={{ bgcolor: MUSCHIO, "&:hover": { bgcolor: "#3A4C2A" }, textTransform: "none", fontWeight: 700, borderRadius: 2 }}>
-                Riprendi
+                {t("subscriptions.resume", "Riprendi")}
               </Button>
             )}
             {(sub.status === "active" || sub.status === "paused") && (
@@ -193,12 +212,12 @@ const SealCard = ({ sub, onAction }) => {
                 <Button size="small" variant="outlined" disabled={actionLoading}
                   onClick={() => setItemsOpen(true)}
                   sx={{ borderColor: SABBIA, color: ESPRESSO, textTransform: "none", fontWeight: 600, borderRadius: 2 }}>
-                  Cambio prodotti / data
+                  {t("subscriptions.change_products_or_date", "Cambio prodotti / data")}
                 </Button>
                 <Button size="small" variant="outlined" disabled={actionLoading}
                   onClick={() => setCancelOpen(true)}
                   sx={{ borderColor: alpha(DANGER, 0.3), color: DANGER, textTransform: "none", fontWeight: 600, borderRadius: 2 }}>
-                  Cancella
+                  {t("subscriptions.cancel", "Cancella")}
                 </Button>
               </>
             )}
@@ -213,22 +232,22 @@ const SealCard = ({ sub, onAction }) => {
       <Collapse in={showHistory}>
         <Divider />
         <Box sx={{ p: 2, bgcolor: AVORIO }}>
-          <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: ESPRESSO, mb: 1 }}>Storico pagamenti</Typography>
+          <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: ESPRESSO, mb: 1 }}>{t("subscriptions.payment_history", "Storico pagamenti")}</Typography>
           {history && history.length > 0 ? (
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C" }}>Data</TableCell>
-                  <TableCell sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C" }}>Importo</TableCell>
-                  <TableCell sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C" }}>Stato</TableCell>
+                  <TableCell sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C" }}>{t("subscriptions.col_date", "Data")}</TableCell>
+                  <TableCell sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C" }}>{t("subscriptions.col_amount", "Importo")}</TableCell>
+                  <TableCell sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C" }}>{t("subscriptions.col_status", "Stato")}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {history.slice(0, 10).map((h, i) => {
-                  const hs = h.status === "completed" ? { color: MUSCHIO, bg: alpha(MUSCHIO, 0.1), label: "Completato" }
-                    : h.status === "failed" ? { color: DANGER, bg: alpha(DANGER, 0.1), label: "Fallito" }
-                    : h.status === "info" ? { color: "#607D8B", bg: alpha("#607D8B", 0.1), label: "Info" }
-                    : { color: WARNING, bg: alpha(WARNING, 0.1), label: "Programmato" };
+                  const hs = h.status === "completed" ? { color: MUSCHIO, bg: alpha(MUSCHIO, 0.1), label: t("subscriptions.payment_completed", "Completato") }
+                    : h.status === "failed" ? { color: DANGER, bg: alpha(DANGER, 0.1), label: t("subscriptions.payment_failed", "Fallito") }
+                    : h.status === "info" ? { color: "#607D8B", bg: alpha("#607D8B", 0.1), label: t("subscriptions.payment_info", "Info") }
+                    : { color: WARNING, bg: alpha(WARNING, 0.1), label: t("subscriptions.payment_scheduled", "Programmato") };
                   return (
                     <TableRow key={h.id || i}>
                       <TableCell sx={{ fontSize: "0.75rem" }}>{formatDate(h.date)}</TableCell>
@@ -242,7 +261,7 @@ const SealCard = ({ sub, onAction }) => {
               </TableBody>
             </Table>
           ) : (
-            <Typography sx={{ fontSize: "0.75rem", color: "#aaa" }}>Nessun pagamento registrato</Typography>
+            <Typography sx={{ fontSize: "0.75rem", color: "#aaa" }}>{t("subscriptions.no_payments_registered", "Nessun pagamento registrato")}</Typography>
           )}
         </Box>
       </Collapse>
@@ -250,18 +269,23 @@ const SealCard = ({ sub, onAction }) => {
       <ItemsManager open={itemsOpen} onClose={() => setItemsOpen(false)} sub={sub} />
 
       <Dialog open={cancelOpen} onClose={() => setCancelOpen(false)} maxWidth="xs" fullWidth>
-        <DialogTitle sx={{ fontWeight: 700, color: ESPRESSO }}>Conferma cancellazione</DialogTitle>
+        <DialogTitle sx={{ fontWeight: 700, color: ESPRESSO }}>{t("subscriptions.confirm_cancellation", "Conferma cancellazione")}</DialogTitle>
         <DialogContent>
           <Typography sx={{ color: "#7A6A5C" }}>
-            Sei sicuro di voler cancellare l'abbonamento per <b>{sub.product_title}</b>? Perderai gli sconti del Percorso Fedeltà.
+            <Trans
+              i18nKey="subscriptions.confirm_cancellation_message"
+              defaults="Sei sicuro di voler cancellare l'abbonamento per <b>{{product}}</b>? Perderai gli sconti del Percorso Fedeltà."
+              values={{ product: sub.product_title }}
+              components={{ b: <b /> }}
+            />
           </Typography>
         </DialogContent>
         <DialogActions sx={{ p: 2 }}>
-          <Button onClick={() => setCancelOpen(false)} sx={{ textTransform: "none", color: "#7A6A5C" }}>Annulla</Button>
+          <Button onClick={() => setCancelOpen(false)} sx={{ textTransform: "none", color: "#7A6A5C" }}>{t("subscriptions.dialog_cancel", "Annulla")}</Button>
           <Button variant="contained" disabled={actionLoading}
             onClick={() => handleAction("cancel")}
             sx={{ bgcolor: DANGER, "&:hover": { bgcolor: "#C13B3A" }, textTransform: "none", fontWeight: 700 }}>
-            {actionLoading ? <CircularProgress size={18} color="inherit" /> : "Cancella abbonamento"}
+            {actionLoading ? <CircularProgress size={18} color="inherit" /> : t("subscriptions.cancel_subscription", "Cancella abbonamento")}
           </Button>
         </DialogActions>
       </Dialog>
@@ -273,6 +297,7 @@ const SealCard = ({ sub, onAction }) => {
 // SEAL SECTION
 // ═══════════════════════════════════════
 const SealSection = () => {
+  const { t } = useTranslation();
   const [subs, setSubs] = useState([]);
   const [loading, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
@@ -299,17 +324,21 @@ const SealSection = () => {
             <Iconify icon="mdi:refresh-circle" width={20} sx={{ color: ORO }} />
           </Box>
           <Box>
-            <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ESPRESSO }}>Smartship</Typography>
-            <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>Gestisci i tuoi abbonamenti</Typography>
+            <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ESPRESSO }}>{t("subscriptions.smartship_label", "Smartship")}</Typography>
+            <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>{t("subscriptions.manage_your_subscriptions", "Gestisci i tuoi abbonamenti")}</Typography>
           </Box>
         </Stack>
         <Card sx={{ p: { xs: 4, md: 6 }, textAlign: "center", borderRadius: 3, border: `1px solid ${alpha(ORO, 0.25)}`, background: `linear-gradient(135deg, ${alpha(ORO, 0.04)} 0%, #fff 100%)` }}>
           <Box sx={{ width: 72, height: 72, borderRadius: "50%", bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center", mx: "auto", mb: 2 }}>
             <Iconify icon="mdi:refresh-circle" width={40} sx={{ color: ORO }} />
           </Box>
-          <Typography variant="h6" sx={{ color: ESPRESSO, fontWeight: 700 }}>Non hai abbonamenti attivi</Typography>
+          <Typography variant="h6" sx={{ color: ESPRESSO, fontWeight: 700 }}>{t("subscriptions.no_active_subscriptions", "Non hai abbonamenti attivi")}</Typography>
           <Typography variant="body2" sx={{ color: "#7A6A5C", mt: 1, maxWidth: 520, mx: "auto" }}>
-            Attiva uno <strong>smartship</strong> e ottieni il <strong>10% di sconto a vita</strong> su tutti i prodotti, <strong>un regalo che cresce con il tuo ordine ogni 3 mesi</strong> e una sola spedizione mensile.
+            <Trans
+              i18nKey="subscriptions.activate_smartship_pitch"
+              defaults="Attiva uno <s>smartship</s> e ottieni il <s>10% di sconto a vita</s> su tutti i prodotti, <s>un regalo che cresce con il tuo ordine ogni 3 mesi</s> e una sola spedizione mensile."
+              components={{ s: <strong /> }}
+            />
           </Typography>
           <Box sx={{ mt: 3 }}>
             <SmartshipActivateCard variant="inline" />
@@ -326,8 +355,8 @@ const SealSection = () => {
           <Iconify icon="mdi:refresh-circle" width={20} sx={{ color: ORO }} />
         </Box>
         <Box>
-          <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ESPRESSO }}>Smartship</Typography>
-          <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>Gestisci i tuoi abbonamenti Seal</Typography>
+          <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ESPRESSO }}>{t("subscriptions.smartship_label", "Smartship")}</Typography>
+          <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>{t("subscriptions.manage_seal_subscriptions", "Gestisci i tuoi abbonamenti Seal")}</Typography>
         </Box>
       </Stack>
       {subs.map((sub) => <SealCard key={sub.id} sub={sub} onAction={fetchSubs} />)}
@@ -336,7 +365,7 @@ const SealSection = () => {
         <Stack direction="row" alignItems="center" spacing={1.5}>
           <Iconify icon="mdi:leaf" width={20} sx={{ color: MUSCHIO }} />
           <Typography sx={{ fontSize: "0.72rem", color: "#7A6A5C" }}>
-            Mantieni il tuo abbonamento attivo per sbloccare -10% su ogni consegna e un regalo che cresce con il tuo ordine, ogni 3 mesi
+            {t("subscriptions.keep_active_tip", "Mantieni il tuo abbonamento attivo per sbloccare -10% su ogni consegna e un regalo che cresce con il tuo ordine, ogni 3 mesi")}
           </Typography>
         </Stack>
       </Card>
@@ -348,13 +377,14 @@ const SealSection = () => {
 // MAIN PAGE — Seal + Internal subscriptions
 // ═══════════════════════════════════════
 const RecurringOrder = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const isPromoter = user?.is_promoter === 1;
   const { state: mySubState, fetchData: mySubFetch, ...mySubRest } = useMySubFetch();
   const { data: mySubData, ...mySubDataProps } = mySubState;
 
   return (
-    <Page title="I miei abbonamenti">
+    <Page title={t("subscriptions.page_title", "I miei abbonamenti")}>
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4 }}>
         {/* Hero */}
         <Card sx={{ bgcolor: "#FAF6EF", color: ESPRESSO, borderRadius: 4, p: 3, mb: 3, border: `1px solid ${alpha(ORO, 0.2)}` }}>
@@ -363,8 +393,8 @@ const RecurringOrder = () => {
               <Iconify icon="mdi:refresh-circle" width={28} sx={{ color: ORO }} />
             </Box>
             <Box>
-              <Typography variant="h5" fontWeight={700} color={ESPRESSO}>I miei abbonamenti</Typography>
-              <Typography sx={{ fontSize: "0.8rem", color: "#7A6A5C" }}>Percorso Fedeltà — gestisci i tuoi abbonamenti</Typography>
+              <Typography variant="h5" fontWeight={700} color={ESPRESSO}>{t("subscriptions.page_title", "I miei abbonamenti")}</Typography>
+              <Typography sx={{ fontSize: "0.8rem", color: "#7A6A5C" }}>{t("subscriptions.hero_sub", "Percorso Fedeltà — gestisci i tuoi abbonamenti")}</Typography>
             </Box>
           </Stack>
         </Card>
@@ -380,8 +410,8 @@ const RecurringOrder = () => {
             <Iconify icon="mdi:badge-account-outline" width={20} sx={{ color: ORO }} />
           </Box>
           <Box>
-            <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ESPRESSO }}>Kit Distributore</Typography>
-            <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>Il tuo abbonamento promoter</Typography>
+            <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ESPRESSO }}>{t("subscriptions.distributor_kit", "Kit Distributore")}</Typography>
+            <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>{t("subscriptions.promoter_subscription", "Il tuo abbonamento promoter")}</Typography>
           </Box>
         </Stack>
         <DataHandlerList dataProps={mySubDataProps}>
@@ -390,8 +420,8 @@ const RecurringOrder = () => {
             render={(product) => {
               const name = product?.purchase_product?.name || "N/A";
               const status = (product?.active_status || "").toLowerCase();
-              const st = status === "active" ? { label: "Attivo", color: MUSCHIO, bg: alpha(MUSCHIO, 0.1) }
-                : status === "expired" ? { label: "Scaduto", color: DANGER, bg: alpha(DANGER, 0.1) }
+              const st = status === "active" ? { label: t("subscriptions.status_active", "Attivo"), color: MUSCHIO, bg: alpha(MUSCHIO, 0.1) }
+                : status === "expired" ? { label: t("subscriptions.status_expired", "Scaduto"), color: DANGER, bg: alpha(DANGER, 0.1) }
                 : { label: product?.active_status || status, color: WARNING, bg: alpha(WARNING, 0.1) };
               const purchaseDate = product?.created_at ? formatDate(product.created_at) : null;
               const expiryDate = product?.effective_until ? formatDate(product.effective_until) : null;
@@ -405,12 +435,22 @@ const RecurringOrder = () => {
                     <Stack direction="row" spacing={2} sx={{ mt: 0.5 }}>
                       {purchaseDate && (
                         <Typography sx={{ fontSize: "0.78rem", color: "#7A6A5C" }}>
-                          Attivo dal <b style={{ color: ESPRESSO }}>{purchaseDate}</b>
+                          <Trans
+                            i18nKey="subscriptions.active_from_bold"
+                            defaults="Attivo dal <b>{{date}}</b>"
+                            values={{ date: purchaseDate }}
+                            components={{ b: <b style={{ color: ESPRESSO }} /> }}
+                          />
                         </Typography>
                       )}
                       {expiryDate && (
                         <Typography sx={{ fontSize: "0.78rem", color: "#7A6A5C" }}>
-                          Scade il <b style={{ color: ESPRESSO }}>{expiryDate}</b>
+                          <Trans
+                            i18nKey="subscriptions.expires_on_bold"
+                            defaults="Scade il <b>{{date}}</b>"
+                            values={{ date: expiryDate }}
+                            components={{ b: <b style={{ color: ESPRESSO }} /> }}
+                          />
                         </Typography>
                       )}
                     </Stack>

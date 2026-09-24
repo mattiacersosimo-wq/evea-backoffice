@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Avatar, Box, Button, Card, Chip, CircularProgress, Divider,
   Grid, IconButton, Snackbar, Stack, Tooltip, Typography,
@@ -12,10 +13,10 @@ const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
 const MUTED = "#7A6A5C";
 
-const RISK_LABELS = {
-  cancellation_scheduled: { label: "🔴 Cancellazione programmata", color: "#D32F2F" },
-  card_expiring: { label: "Carta scade <30g", color: "#F57C00" },
-  app_inactive: { label: "Non apre app 30+g", color: "#9C27B0" },
+const RISK_LABEL_META = {
+  cancellation_scheduled: { key: "smartship_report.risk_cancellation_scheduled", fallback: "🔴 Cancellazione programmata", color: "#D32F2F" },
+  card_expiring: { key: "smartship_report.risk_card_expiring", fallback: "Carta scade <30g", color: "#F57C00" },
+  app_inactive: { key: "smartship_report.risk_app_inactive", fallback: "Non apre app 30+g", color: "#9C27B0" },
 };
 
 const normalizePhone = (p) => (p || "").replace(/[^\d+]/g, "");
@@ -32,17 +33,17 @@ const initials = (name, email) => {
   return src.substring(0, 2).toUpperCase();
 };
 
-const fuzzyDate = (iso) => {
+const fuzzyDate = (iso, t) => {
   if (!iso) return "—";
   const d = new Date(iso).getTime();
   if (isNaN(d)) return "—";
   const diff = Date.now() - d;
   const days = Math.round(diff / 86400000);
-  if (days === 0) return "oggi";
-  if (days === 1) return "ieri";
-  if (days < 30) return `${days}g fa`;
+  if (days === 0) return t ? t("smartship_report.today", "oggi") : "oggi";
+  if (days === 1) return t ? t("smartship_report.yesterday", "ieri") : "ieri";
+  if (days < 30) return t ? t("smartship_report.days_ago", "{{n}}g fa", { n: days }) : `${days}g fa`;
   const m = Math.round(days / 30);
-  if (m < 12) return `${m} mesi fa`;
+  if (m < 12) return t ? t("smartship_report.months_ago", "{{n}} mesi fa", { n: m }) : `${m} mesi fa`;
   return new Date(iso).toLocaleDateString("it-IT");
 };
 
@@ -54,22 +55,22 @@ const daysUntil = (iso) => {
   return Math.ceil((d - Date.now()) / 86400000);
 };
 
-// WA templates
-const cancelledTemplate = (reason, name, product) => {
+// WA templates (i18n)
+const cancelledTemplate = (reason, name, product, t) => {
   const r = (reason || "").toLowerCase();
   if (r.includes("articoli") || r.includes("prodott") || r.includes("gusto")) {
-    return `Ciao ${name}! Ho visto che hai fermato lo SmartShip. Il prodotto (${product || ""}) non ti convinceva? Posso aiutarti a scegliere il rituale più adatto — abbiamo Black, Latte, Mocha e Green Tea, uno diverso può fare la differenza. Ti va se ci sentiamo 5 min?`;
+    return t("smartship_report.wa_cancelled_product", "Ciao {{name}}! Ho visto che hai fermato lo SmartShip. Il prodotto ({{product}}) non ti convinceva? Posso aiutarti a scegliere il rituale più adatto — abbiamo Black, Latte, Mocha e Green Tea, uno diverso può fare la differenza. Ti va se ci sentiamo 5 min?", { name, product: product || "" });
   }
   if (r.includes("caro") || r.includes("prezzo") || r.includes("costa")) {
-    return `Ciao ${name}! Capisco che il prezzo può pesare in questo periodo. Se vuoi possiamo pensare a un piano diverso (magari 1 busta invece di più) così mantieni comunque lo sconto SmartShip senza impegnarti troppo. Che ne dici?`;
+    return t("smartship_report.wa_cancelled_price", "Ciao {{name}}! Capisco che il prezzo può pesare in questo periodo. Se vuoi possiamo pensare a un piano diverso (magari 1 busta invece di più) così mantieni comunque lo sconto SmartShip senza impegnarti troppo. Che ne dici?", { name });
   }
   if (r.includes("tempo") || r.includes("uso") || r.includes("consumo")) {
-    return `Ciao ${name}! Se non riesci a consumarlo, possiamo dilazionare la spedizione (ogni 2 mesi invece che 1). Così hai sempre lo sconto SmartShip senza accumulo. Ti va se lo sistemiamo insieme?`;
+    return t("smartship_report.wa_cancelled_time", "Ciao {{name}}! Se non riesci a consumarlo, possiamo dilazionare la spedizione (ogni 2 mesi invece che 1). Così hai sempre lo sconto SmartShip senza accumulo. Ti va se lo sistemiamo insieme?", { name });
   }
-  return `Ciao ${name}! Ho visto che hai fermato lo SmartShip. Posso capire se c'è qualcosa che non ha funzionato? Se il prodotto non era quello giusto per te lo cambiamo, e ti mantengo lo sconto fedeltà. Ci sentiamo?`;
+  return t("smartship_report.wa_cancelled_generic", "Ciao {{name}}! Ho visto che hai fermato lo SmartShip. Posso capire se c'è qualcosa che non ha funzionato? Se il prodotto non era quello giusto per te lo cambiamo, e ti mantengo lo sconto fedeltà. Ci sentiamo?", { name });
 };
-const pausedTemplate = (name) => `Ciao ${name}! Ho visto che hai messo in pausa lo SmartShip. Se serve possiamo trovare insieme un ritmo diverso — anche 1 busta ogni 2 mesi. Fammi sapere!`;
-const activateTemplate = (name, promoterName) => `Ciao ${name}! Sono ${promoterName || ""} di eVea. Se ti va possiamo attivare lo SmartShip: risparmi il 10% ogni mese e riceviamo il caffè a casa senza pensarci. Ti spiego in 2 min?`;
+const pausedTemplate = (name, t) => t("smartship_report.wa_paused", "Ciao {{name}}! Ho visto che hai messo in pausa lo SmartShip. Se serve possiamo trovare insieme un ritmo diverso — anche 1 busta ogni 2 mesi. Fammi sapere!", { name });
+const activateTemplate = (name, promoterName, t) => t("smartship_report.wa_activate", "Ciao {{name}}! Sono {{promoter}} di eVea. Se ti va possiamo attivare lo SmartShip: risparmi il 10% ogni mese e riceviamo il caffè a casa senza pensarci. Ti spiego in 2 min?", { name, promoter: promoterName || "" });
 
 // Card lead
 const UserRow = ({ member, badges, footer, actions, accentColor = "#f0ece6" }) => (
@@ -123,6 +124,7 @@ const SectionHeader = ({ icon, title, count, color, subtitle }) => (
 );
 
 const SmartshipReport = () => {
+  const { t } = useTranslation();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [promoterName, setPromoterName] = useState("");
@@ -133,9 +135,9 @@ const SmartshipReport = () => {
     try {
       const { data: r } = await axiosInstance.get("api/wp/promoter/me/smartship-report");
       setData(r?.data || null);
-    } catch (e) { setSnackbar("Errore caricamento report"); }
+    } catch (e) { setSnackbar(t("smartship_report.load_error", "Errore caricamento report")); }
     setLoading(false);
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     (async () => {
@@ -160,21 +162,21 @@ const SmartshipReport = () => {
 
   const renderCancelledActions = (m) => (
     <>
-      <Tooltip title="WhatsApp con messaggio pre-compilato">
+      <Tooltip title={t("smartship_report.tooltip_wa_precompiled", "WhatsApp con messaggio pre-compilato")}>
         <IconButton size="small" onClick={() => logContact(m.user_id, "whatsapp")}
-          href={waLink(m.phone, cancelledTemplate(m.reason, m.display_name, m.product))} target="_blank" rel="noreferrer">
+          href={waLink(m.phone, cancelledTemplate(m.reason, m.display_name, m.product, t))} target="_blank" rel="noreferrer">
           <Iconify icon="mdi:whatsapp" width={22} sx={{ color: "#25D366" }} />
         </IconButton>
       </Tooltip>
       {m.phone && (
-        <Tooltip title="Chiama">
+        <Tooltip title={t("smartship_report.tooltip_call", "Chiama")}>
           <IconButton size="small" href={`tel:${normalizePhone(m.phone)}`} onClick={() => logContact(m.user_id, "call")}>
             <Iconify icon="mdi:phone" width={22} sx={{ color: "#4CAF50" }} />
           </IconButton>
         </Tooltip>
       )}
       {m.email && (
-        <Tooltip title="Email">
+        <Tooltip title={t("smartship_report.tooltip_email", "Email")}>
           <IconButton size="small" href={`mailto:${m.email}`} onClick={() => logContact(m.user_id, "email")}>
             <Iconify icon="mdi:email-outline" width={22} sx={{ color: ORO }} />
           </IconButton>
@@ -185,14 +187,14 @@ const SmartshipReport = () => {
 
   const renderActivateActions = (m) => (
     <>
-      <Tooltip title="Proponi SmartShip via WhatsApp">
+      <Tooltip title={t("smartship_report.tooltip_wa_propose", "Proponi SmartShip via WhatsApp")}>
         <IconButton size="small" onClick={() => logContact(m.user_id, "whatsapp")}
-          href={waLink(m.phone, activateTemplate(m.display_name, promoterName))} target="_blank" rel="noreferrer">
+          href={waLink(m.phone, activateTemplate(m.display_name, promoterName, t))} target="_blank" rel="noreferrer">
           <Iconify icon="mdi:whatsapp" width={22} sx={{ color: "#25D366" }} />
         </IconButton>
       </Tooltip>
       {m.phone && (
-        <Tooltip title="Chiama">
+        <Tooltip title={t("smartship_report.tooltip_call", "Chiama")}>
           <IconButton size="small" href={`tel:${normalizePhone(m.phone)}`}>
             <Iconify icon="mdi:phone" width={22} sx={{ color: "#4CAF50" }} />
           </IconButton>
@@ -204,15 +206,15 @@ const SmartshipReport = () => {
   const renderNeutralActions = (m) => (
     <>
       {m.phone && (
-        <Tooltip title="Chiama">
+        <Tooltip title={t("smartship_report.tooltip_call", "Chiama")}>
           <IconButton size="small" href={`tel:${normalizePhone(m.phone)}`}>
             <Iconify icon="mdi:phone" width={22} sx={{ color: "#4CAF50" }} />
           </IconButton>
         </Tooltip>
       )}
       {m.email && (
-        <Tooltip title="Copia email">
-          <IconButton size="small" onClick={() => { navigator.clipboard.writeText(m.email); setSnackbar("Email copiata"); }}>
+        <Tooltip title={t("smartship_report.tooltip_copy_email", "Copia email")}>
+          <IconButton size="small" onClick={() => { navigator.clipboard.writeText(m.email); setSnackbar(t("smartship_report.email_copied", "Email copiata")); }}>
             <Iconify icon="mdi:content-copy" width={20} sx={{ color: MUTED }} />
           </IconButton>
         </Tooltip>
@@ -221,52 +223,52 @@ const SmartshipReport = () => {
   );
 
   return (
-    <Page title="Report SmartShip">
+    <Page title={t("smartship_report.page_title", "Report SmartShip")}>
       <Box sx={{ px: { xs: 2, md: 3 }, py: 3, bgcolor: "#FAF6EF", minHeight: "100vh" }}>
         <Stack direction="row" justifyContent="space-between" alignItems="center" mb={0.5} sx={{ flexWrap: "wrap", gap: 1 }}>
           <Box>
-            <Typography variant="h5" sx={{ fontWeight: 800, color: ESPRESSO }}>Report SmartShip Team</Typography>
-            <Typography sx={{ fontSize: "0.85rem", color: MUTED }}>Chi ha attivato, cancellato, pausato — con azioni pronte per contattarli</Typography>
+            <Typography variant="h5" sx={{ fontWeight: 800, color: ESPRESSO }}>{t("smartship_report.header_title", "Report SmartShip Team")}</Typography>
+            <Typography sx={{ fontSize: "0.85rem", color: MUTED }}>{t("smartship_report.header_subtitle", "Chi ha attivato, cancellato, pausato — con azioni pronte per contattarli")}</Typography>
           </Box>
           <Button size="small" startIcon={<Iconify icon="mdi:refresh" />} onClick={fetchData} sx={{ textTransform: "none", color: MUTED }}>
-            Aggiorna
+            {t("smartship_report.refresh", "Aggiorna")}
           </Button>
         </Stack>
         {data?.synced_at && (
-          <Typography sx={{ fontSize: "0.7rem", color: MUTED, mb: 2 }}>Ultimo sync Seal: {fuzzyDate(data.synced_at)}</Typography>
+          <Typography sx={{ fontSize: "0.7rem", color: MUTED, mb: 2 }}>{t("smartship_report.last_seal_sync", "Ultimo sync Seal:")} {fuzzyDate(data.synced_at, t)}</Typography>
         )}
 
         {loading ? (
           <Box sx={{ textAlign: "center", py: 6 }}><CircularProgress sx={{ color: ORO }} /></Box>
         ) : !data ? (
-          <Typography sx={{ color: MUTED }}>Nessun dato disponibile</Typography>
+          <Typography sx={{ color: MUTED }}>{t("smartship_report.no_data_available", "Nessun dato disponibile")}</Typography>
         ) : (
           <>
             {/* KPI */}
             <Grid container spacing={1.5} mb={2}>
-              <Grid item xs={6} md={2.4}><KpiTile icon="mdi:check-circle" label="Attivi" value={stats.active} color="#4CAF50" /></Grid>
-              <Grid item xs={6} md={2.4}><KpiTile icon="mdi:close-circle" label="Cancellati 30gg" value={stats.cancelled_30d} color="#D32F2F" /></Grid>
-              <Grid item xs={6} md={2.4}><KpiTile icon="mdi:pause-circle" label="In pausa" value={stats.paused} color="#607D8B" /></Grid>
-              <Grid item xs={6} md={2.4}><KpiTile icon="mdi:alert" label="A rischio" value={stats.at_risk} color="#F57C00" /></Grid>
-              <Grid item xs={12} md={2.4}><KpiTile icon="mdi:cash-multiple" label="MRR team" value={`€${stats.mrr_monthly}`} color={ORO} sub="valore mensile ricorrente" /></Grid>
+              <Grid item xs={6} md={2.4}><KpiTile icon="mdi:check-circle" label={t("smartship_report.kpi_active", "Attivi")} value={stats.active} color="#4CAF50" /></Grid>
+              <Grid item xs={6} md={2.4}><KpiTile icon="mdi:close-circle" label={t("smartship_report.kpi_cancelled_30d", "Cancellati 30gg")} value={stats.cancelled_30d} color="#D32F2F" /></Grid>
+              <Grid item xs={6} md={2.4}><KpiTile icon="mdi:pause-circle" label={t("smartship_report.kpi_paused", "In pausa")} value={stats.paused} color="#607D8B" /></Grid>
+              <Grid item xs={6} md={2.4}><KpiTile icon="mdi:alert" label={t("smartship_report.kpi_at_risk", "A rischio")} value={stats.at_risk} color="#F57C00" /></Grid>
+              <Grid item xs={12} md={2.4}><KpiTile icon="mdi:cash-multiple" label={t("smartship_report.kpi_mrr_team", "MRR team")} value={`€${stats.mrr_monthly}`} color={ORO} sub={t("smartship_report.kpi_mrr_sub", "valore mensile ricorrente")} /></Grid>
             </Grid>
 
             <Stack spacing={2.5}>
               {/* Cancellati */}
               {s.cancelled.length > 0 && (
                 <Box>
-                  <SectionHeader icon="mdi:close-circle" title="Cancellati recenti" count={s.cancelled.length} color="#D32F2F" subtitle="Priorità #1 — contattali per riattivare" />
+                  <SectionHeader icon="mdi:close-circle" title={t("smartship_report.section_cancelled_recent", "Cancellati recenti")} count={s.cancelled.length} color="#D32F2F" subtitle={t("smartship_report.section_cancelled_sub", "Priorità #1 — contattali per riattivare")} />
                   <Stack spacing={1}>
                     {s.cancelled.map((m) => (
                       <UserRow key={m.user_id} member={m}
                         accentColor={alpha("#D32F2F", 0.25)}
                         badges={<>
-                          {m.days_since_cancel !== null && <Chip label={`${m.days_since_cancel}g fa`} size="small" sx={{ height: 18, fontSize: "0.62rem", bgcolor: alpha("#D32F2F", 0.12), color: "#D32F2F", fontWeight: 700 }} />}
-                          {m.months_before_cancel && <Chip label={`${m.months_before_cancel} mesi prima`} size="small" sx={{ height: 18, fontSize: "0.62rem", bgcolor: "#f5f5f5", color: MUTED }} />}
+                          {m.days_since_cancel !== null && <Chip label={t("smartship_report.chip_days_ago", "{{n}}g fa", { n: m.days_since_cancel })} size="small" sx={{ height: 18, fontSize: "0.62rem", bgcolor: alpha("#D32F2F", 0.12), color: "#D32F2F", fontWeight: 700 }} />}
+                          {m.months_before_cancel && <Chip label={t("smartship_report.chip_months_before", "{{n}} mesi prima", { n: m.months_before_cancel })} size="small" sx={{ height: 18, fontSize: "0.62rem", bgcolor: "#f5f5f5", color: MUTED }} />}
                         </>}
                         footer={<>
                           <Typography sx={{ fontSize: "0.72rem", color: MUTED, mt: 0.3 }}>
-                            📅 Cancellato {formatDate(m.cancelled_on)} · {m.product}
+                            {t("smartship_report.cancelled_on_line", "📅 Cancellato {{date}} · {{product}}", { date: formatDate(m.cancelled_on), product: m.product })}
                           </Typography>
                           {m.reason && (
                             <Typography sx={{ fontSize: "0.72rem", color: "#D32F2F", fontStyle: "italic", mt: 0.2 }}>
@@ -275,7 +277,7 @@ const SmartshipReport = () => {
                           )}
                           {m.last_contact_at && (
                             <Typography sx={{ fontSize: "0.65rem", color: "#4CAF50", mt: 0.2, fontWeight: 700 }}>
-                              ✓ Già contattato {fuzzyDate(m.last_contact_at)}
+                              {t("smartship_report.already_contacted", "✓ Già contattato {{when}}", { when: fuzzyDate(m.last_contact_at, t) })}
                             </Typography>
                           )}
                         </>}
@@ -289,18 +291,18 @@ const SmartshipReport = () => {
               {/* Paused */}
               {s.paused.length > 0 && (
                 <Box>
-                  <SectionHeader icon="mdi:pause-circle" title="In pausa" count={s.paused.length} color="#607D8B" subtitle="Riprendili prima che si dimentichino" />
+                  <SectionHeader icon="mdi:pause-circle" title={t("smartship_report.section_paused", "In pausa")} count={s.paused.length} color="#607D8B" subtitle={t("smartship_report.section_paused_sub", "Riprendili prima che si dimentichino")} />
                   <Stack spacing={1}>
                     {s.paused.map((m) => (
                       <UserRow key={m.user_id} member={m}
                         accentColor={alpha("#607D8B", 0.2)}
-                        badges={<Chip label={m.days_paused ? `Pausa da ${m.days_paused}g` : "In pausa"} size="small" sx={{ height: 18, fontSize: "0.62rem", bgcolor: alpha("#607D8B", 0.12), color: "#607D8B", fontWeight: 700 }} />}
-                        footer={<Typography sx={{ fontSize: "0.72rem", color: MUTED, mt: 0.3 }}>{m.product} · pausato {formatDate(m.paused_on)}</Typography>}
+                        badges={<Chip label={m.days_paused ? t("smartship_report.chip_paused_for", "Pausa da {{n}}g", { n: m.days_paused }) : t("smartship_report.chip_paused", "In pausa")} size="small" sx={{ height: 18, fontSize: "0.62rem", bgcolor: alpha("#607D8B", 0.12), color: "#607D8B", fontWeight: 700 }} />}
+                        footer={<Typography sx={{ fontSize: "0.72rem", color: MUTED, mt: 0.3 }}>{t("smartship_report.paused_line", "{{product}} · pausato {{date}}", { product: m.product, date: formatDate(m.paused_on) })}</Typography>}
                         actions={
                           <>
-                            <Tooltip title="Riattiva insieme via WhatsApp">
+                            <Tooltip title={t("smartship_report.tooltip_wa_reactivate", "Riattiva insieme via WhatsApp")}>
                               <IconButton size="small" onClick={() => logContact(m.user_id, "whatsapp")}
-                                href={waLink(m.phone, pausedTemplate(m.display_name))} target="_blank" rel="noreferrer">
+                                href={waLink(m.phone, pausedTemplate(m.display_name, t))} target="_blank" rel="noreferrer">
                                 <Iconify icon="mdi:whatsapp" width={22} sx={{ color: "#25D366" }} />
                               </IconButton>
                             </Tooltip>
@@ -316,26 +318,28 @@ const SmartshipReport = () => {
               {/* At risk */}
               {s.at_risk.length > 0 && (
                 <Box>
-                  <SectionHeader icon="mdi:alert" title="A rischio churn" count={s.at_risk.length} color="#F57C00" subtitle="Contattali per fidelizzarli prima che cancellino" />
+                  <SectionHeader icon="mdi:alert" title={t("smartship_report.section_at_risk", "A rischio churn")} count={s.at_risk.length} color="#F57C00" subtitle={t("smartship_report.section_at_risk_sub", "Contattali per fidelizzarli prima che cancellino")} />
                   <Stack spacing={1}>
                     {s.at_risk.map((m) => (
                       <UserRow key={m.user_id} member={m}
                         accentColor={alpha("#F57C00", 0.25)}
                         badges={<>
                           {(m.risks || []).map((r) => {
-                            const cfg = RISK_LABELS[r] || { label: r, color: MUTED };
-                            return <Chip key={r} label={cfg.label} size="small" sx={{ height: 18, fontSize: "0.62rem", bgcolor: alpha(cfg.color, 0.12), color: cfg.color, fontWeight: 700 }} />;
+                            const cfg = RISK_LABEL_META[r];
+                            const label = cfg ? t(cfg.key, cfg.fallback) : r;
+                            const color = cfg ? cfg.color : MUTED;
+                            return <Chip key={r} label={label} size="small" sx={{ height: 18, fontSize: "0.62rem", bgcolor: alpha(color, 0.12), color, fontWeight: 700 }} />;
                           })}
                         </>}
                         footer={<>
                           <Typography sx={{ fontSize: "0.72rem", color: MUTED, mt: 0.3 }}>
-                            {m.product} · €{m.total_value}/mese · {m.months_active} mesi attivo
-                            {m.next_charge_at && ` · Prossimo: ${formatDate(m.next_charge_at)}`}
-                            {m.card_expiry && ` · Carta scade ${m.card_expiry}`}
+                            {t("smartship_report.at_risk_line", "{{product}} · €{{value}}/mese · {{months}} mesi attivo", { product: m.product, value: m.total_value, months: m.months_active })}
+                            {m.next_charge_at && ` · ${t("smartship_report.next_colon", "Prossimo:")} ${formatDate(m.next_charge_at)}`}
+                            {m.card_expiry && ` · ${t("smartship_report.card_expires_on", "Carta scade {{when}}", { when: m.card_expiry })}`}
                           </Typography>
                           {m.cancellation_scheduled_for && (
                             <Typography sx={{ fontSize: "0.72rem", color: "#D32F2F", mt: 0.3, fontWeight: 700 }}>
-                              ⚠️ Cancellerà il {formatDate(m.cancellation_scheduled_for)} — CONTATTALO SUBITO
+                              {t("smartship_report.will_cancel_on", "⚠️ Cancellerà il {{date}} — CONTATTALO SUBITO", { date: formatDate(m.cancellation_scheduled_for) })}
                             </Typography>
                           )}
                         </>}
@@ -349,22 +353,25 @@ const SmartshipReport = () => {
               {/* Solid */}
               {s.solid.length > 0 && (
                 <Box>
-                  <SectionHeader icon="mdi:trophy" title="Attivi solidi" count={s.solid.length} color="#4CAF50" subtitle="I tuoi campioni — coccolali" />
+                  <SectionHeader icon="mdi:trophy" title={t("smartship_report.section_solid", "Attivi solidi")} count={s.solid.length} color="#4CAF50" subtitle={t("smartship_report.section_solid_sub", "I tuoi campioni — coccolali")} />
                   <Stack spacing={1}>
                     {s.solid.slice(0, 15).map((m) => {
                       const nextDays = daysUntil(m.next_charge_at);
+                      const monthsLabel = m.months_active === 1
+                        ? t("smartship_report.month_singular_chip", "{{n}} mese", { n: m.months_active })
+                        : t("smartship_report.month_plural_chip", "{{n}} mesi", { n: m.months_active });
                       return (
                         <UserRow key={m.user_id} member={m}
                           accentColor={alpha("#4CAF50", 0.15)}
                           badges={<>
-                            <Chip label={`${m.months_active} ${m.months_active === 1 ? "mese" : "mesi"}`} size="small" sx={{ height: 18, fontSize: "0.62rem", bgcolor: alpha("#4CAF50", 0.12), color: "#2E7D32", fontWeight: 700 }} />
+                            <Chip label={monthsLabel} size="small" sx={{ height: 18, fontSize: "0.62rem", bgcolor: alpha("#4CAF50", 0.12), color: "#2E7D32", fontWeight: 700 }} />
                             {nextDays !== null && nextDays >= 0 && nextDays <= 7 && (
-                              <Chip label={`📦 fra ${nextDays}g`} size="small" sx={{ height: 18, fontSize: "0.62rem", bgcolor: alpha(ORO, 0.12), color: ORO, fontWeight: 700 }} />
+                              <Chip label={t("smartship_report.chip_in_days", "📦 fra {{n}}g", { n: nextDays })} size="small" sx={{ height: 18, fontSize: "0.62rem", bgcolor: alpha(ORO, 0.12), color: ORO, fontWeight: 700 }} />
                             )}
                           </>}
                           footer={<Typography sx={{ fontSize: "0.72rem", color: MUTED, mt: 0.3 }}>
-                            {m.product} · €{m.total_value}/mese
-                            {m.next_charge_at && ` · Prossima consegna ${formatDate(m.next_charge_at)}`}
+                            {t("smartship_report.solid_line", "{{product}} · €{{value}}/mese", { product: m.product, value: m.total_value })}
+                            {m.next_charge_at && ` · ${t("smartship_report.next_delivery", "Prossima consegna {{date}}", { date: formatDate(m.next_charge_at) })}`}
                           </Typography>}
                           actions={renderNeutralActions(m)}
                         />
@@ -372,7 +379,7 @@ const SmartshipReport = () => {
                     })}
                     {s.solid.length > 15 && (
                       <Typography sx={{ fontSize: "0.72rem", color: MUTED, textAlign: "center", py: 1 }}>
-                        + altri {s.solid.length - 15} attivi
+                        {t("smartship_report.more_active", "+ altri {{n}} attivi", { n: s.solid.length - 15 })}
                       </Typography>
                     )}
                   </Stack>
@@ -382,20 +389,20 @@ const SmartshipReport = () => {
               {/* To activate */}
               {s.to_activate.length > 0 && (
                 <Box>
-                  <SectionHeader icon="mdi:account-plus" title="Da attivare" count={s.to_activate.length} color={ORO} subtitle="Team senza SmartShip — propongli l'attivazione" />
+                  <SectionHeader icon="mdi:account-plus" title={t("smartship_report.section_to_activate", "Da attivare")} count={s.to_activate.length} color={ORO} subtitle={t("smartship_report.section_to_activate_sub", "Team senza SmartShip — propongli l'attivazione")} />
                   <Stack spacing={1}>
                     {s.to_activate.slice(0, 20).map((m) => (
                       <UserRow key={m.user_id} member={m}
                         accentColor={alpha(ORO, 0.15)}
                         footer={<Typography sx={{ fontSize: "0.72rem", color: MUTED, mt: 0.3 }}>
-                          Iscritto {fuzzyDate(m.last_seen_at)}
+                          {t("smartship_report.registered_when", "Iscritto {{when}}", { when: fuzzyDate(m.last_seen_at, t) })}
                         </Typography>}
                         actions={renderActivateActions(m)}
                       />
                     ))}
                     {s.to_activate.length > 20 && (
                       <Typography sx={{ fontSize: "0.72rem", color: MUTED, textAlign: "center", py: 1 }}>
-                        + altri {s.to_activate.length - 20} da attivare
+                        {t("smartship_report.more_to_activate", "+ altri {{n}} da attivare", { n: s.to_activate.length - 20 })}
                       </Typography>
                     )}
                   </Stack>
@@ -405,7 +412,7 @@ const SmartshipReport = () => {
               {/* Timeline */}
               {timeline.length > 0 && (
                 <Box>
-                  <SectionHeader icon="mdi:timeline-clock" title="Attività ultimi 30 giorni" count={timeline.length} color="#9C27B0" />
+                  <SectionHeader icon="mdi:timeline-clock" title={t("smartship_report.section_timeline", "Attività ultimi 30 giorni")} count={timeline.length} color="#9C27B0" />
                   <Card sx={{ p: 2, borderRadius: 2, border: "1px solid #f0ece6" }}>
                     <Stack spacing={0.75}>
                       {timeline.map((e, i) => {
@@ -415,7 +422,7 @@ const SmartshipReport = () => {
                           <Stack key={i} direction="row" spacing={1} alignItems="center">
                             <Iconify icon={icon} width={16} sx={{ color, flexShrink: 0 }} />
                             <Typography sx={{ fontSize: "0.78rem", color: ESPRESSO, flex: 1 }}>{e.text}</Typography>
-                            <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{fuzzyDate(e.date)}</Typography>
+                            <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{fuzzyDate(e.date, t)}</Typography>
                           </Stack>
                         );
                       })}
