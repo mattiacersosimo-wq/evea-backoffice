@@ -3,6 +3,7 @@ import {
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import axiosInstance from "src/utils/axios";
 
@@ -19,6 +20,7 @@ const MUTED = "#7A6A5C";
  * con override admin (richiede is_super_admin=1).
  */
 export default function AdminTeamReport({ userId, username }) {
+  const { t } = useTranslation();
   const [period, setPeriod] = useState("month");
   const [team, setTeam] = useState(null);
   const [stats, setStats] = useState(null);
@@ -67,12 +69,17 @@ export default function AdminTeamReport({ userId, username }) {
             <Iconify icon="mdi:account-group-outline" width={19} sx={{ color: ORO }} />
           </Box>
           <Box>
-            <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT, lineHeight: 1.1 }}>Report Team</Typography>
+            <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT, lineHeight: 1.1 }}>{t("components.admin_team_report.title", "Report Team")}</Typography>
             {username && <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{username}</Typography>}
           </Box>
         </Stack>
         <Stack direction="row" spacing={0.5}>
-          {[{ k: "week", l: "Sett" }, { k: "month", l: "Mese" }, { k: "quarter", l: "Trim" }, { k: "year", l: "Anno" }].map((p) => (
+          {[
+            { k: "week", l: t("components.admin_team_report.period_week", "Sett") },
+            { k: "month", l: t("components.admin_team_report.period_month", "Mese") },
+            { k: "quarter", l: t("components.admin_team_report.period_quarter", "Trim") },
+            { k: "year", l: t("components.admin_team_report.period_year", "Anno") },
+          ].map((p) => (
             <Chip key={p.k} label={p.l} size="small" onClick={() => setPeriod(p.k)}
               sx={{ height: 24, fontSize: "0.62rem", fontWeight: 700, cursor: "pointer", transition: "all .2s ease",
                 bgcolor: period === p.k ? ORO : alpha(ORO, 0.08), color: period === p.k ? "#fff" : TEXT,
@@ -87,10 +94,10 @@ export default function AdminTeamReport({ userId, username }) {
         <Stack spacing={2}>
           <Grid container spacing={1}>
             {[
-              { label: "QV Team", value: team.qv_team, prev: team.qv_team_prev, color: ORO, icon: "mdi:chart-bar" },
-              { label: "Revenue Team", value: `€${team.revenue_team}`, prev: team.revenue_team_prev, color: "#4CAF50", icon: "mdi:cash", rawVal: team.revenue_team },
-              { label: "Nuovi Clienti", value: team.new_clients_period, prev: team.new_clients_prev, color: "#2196F3", icon: "mdi:account-plus" },
-              { label: "Nuovi Promoter", value: team.new_promoters_period, prev: team.new_promoters_prev, color: "#9C27B0", icon: "mdi:account-star" },
+              { label: t("components.admin_team_report.qv_team", "QV Team"), value: team.qv_team, prev: team.qv_team_prev, color: ORO, icon: "mdi:chart-bar" },
+              { label: t("components.admin_team_report.revenue_team", "Revenue Team"), value: `€${team.revenue_team}`, prev: team.revenue_team_prev, color: "#4CAF50", icon: "mdi:cash", rawVal: team.revenue_team },
+              { label: t("components.admin_team_report.new_customers", "Nuovi Clienti"), value: team.new_clients_period, prev: team.new_clients_prev, color: "#2196F3", icon: "mdi:account-plus" },
+              { label: t("components.admin_team_report.new_promoters", "Nuovi Promoter"), value: team.new_promoters_period, prev: team.new_promoters_prev, color: "#9C27B0", icon: "mdi:account-star" },
             ].map((m) => (
               <Grid item xs={6} sm={3} key={m.label}>
                 <Box sx={{
@@ -114,19 +121,19 @@ export default function AdminTeamReport({ userId, username }) {
             <Stack direction="row" justifyContent="space-around">
               <Box sx={{ textAlign: "center" }}>
                 <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: TEXT }}>{team.total_team ?? team.total_direct}</Typography>
-                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Team</Typography>
+                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>{t("components.admin_team_report.team", "Team")}</Typography>
               </Box>
               <Box sx={{ textAlign: "center" }}>
                 <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: TEXT }}>{team.total_direct}</Typography>
-                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Diretti</Typography>
+                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>{t("components.admin_team_report.direct", "Diretti")}</Typography>
               </Box>
               <Box sx={{ textAlign: "center" }}>
                 <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: "#4CAF50" }}>{team.active_count}</Typography>
-                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Attivi</Typography>
+                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>{t("components.admin_team_report.active", "Attivi")}</Typography>
               </Box>
               <Box sx={{ textAlign: "center" }}>
                 <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: team.inactive_count > 0 ? "#E24B4A" : MUTED }}>{team.inactive_count}</Typography>
-                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Inattivi</Typography>
+                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>{t("components.admin_team_report.inactive", "Inattivi")}</Typography>
               </Box>
             </Stack>
           </Box>
@@ -135,7 +142,7 @@ export default function AdminTeamReport({ userId, username }) {
             <Box sx={{ p: 1.5, bgcolor: alpha("#E24B4A", 0.04), borderRadius: 2, border: `1px solid ${alpha("#E24B4A", 0.12)}` }}>
               <Stack direction="row" alignItems="center" spacing={0.8} mb={1}>
                 <Iconify icon="mdi:alert-circle" width={16} sx={{ color: "#E24B4A" }} />
-                <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: "#E24B4A" }}>Membri inattivi ({team.inactive_count})</Typography>
+                <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: "#E24B4A" }}>{t("components.admin_team_report.inactive_members", "Membri inattivi")} ({team.inactive_count})</Typography>
               </Stack>
               <Stack spacing={0.6}>
                 {(team.inactive || []).slice(0, 5).map((m) => (
@@ -144,9 +151,9 @@ export default function AdminTeamReport({ userId, username }) {
                       {(m.name || m.username || "?").charAt(0)}
                     </Avatar>
                     <Typography sx={{ fontSize: "0.7rem", color: TEXT, flex: 1 }} noWrap>{m.name || m.username}</Typography>
-                    <Chip label={m.is_promoter ? "Promoter" : "Cliente"} size="small" sx={{ height: 16, fontSize: "0.5rem", bgcolor: m.is_promoter ? alpha(ORO, 0.1) : alpha("#2196F3", 0.1), color: m.is_promoter ? ORO : "#2196F3" }} />
+                    <Chip label={m.is_promoter ? t("components.admin_team_report.role_promoter", "Promoter") : t("components.admin_team_report.role_customer", "Cliente")} size="small" sx={{ height: 16, fontSize: "0.5rem", bgcolor: m.is_promoter ? alpha(ORO, 0.1) : alpha("#2196F3", 0.1), color: m.is_promoter ? ORO : "#2196F3" }} />
                     <Typography sx={{ fontSize: "0.6rem", color: "#E24B4A", fontWeight: 600 }}>
-                      {m.days_inactive != null ? `${m.days_inactive}gg` : "Mai ordinato"}
+                      {m.days_inactive != null ? t("components.admin_team_report.days_short", "{{n}}gg", { n: m.days_inactive }) : t("components.admin_team_report.never_ordered", "Mai ordinato")}
                     </Typography>
                   </Stack>
                 ))}
@@ -156,7 +163,7 @@ export default function AdminTeamReport({ userId, username }) {
 
           {(team.top_referrals || []).length > 0 && (
             <Box>
-              <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: TEXT, mb: 0.8 }}>Top referral del periodo</Typography>
+              <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: TEXT, mb: 0.8 }}>{t("components.admin_team_report.top_referrals", "Top referral del periodo")}</Typography>
               <Stack spacing={0.6}>
                 {team.top_referrals.map((r, i) => (
                   <Stack key={r.user_id} direction="row" alignItems="center" spacing={0.8}>
@@ -173,9 +180,9 @@ export default function AdminTeamReport({ userId, username }) {
           {!statsLoading && stats && (
             <Stack spacing={1}>
               {[
-                { label: "Tasso di riordine", value: stats.tasso_riordine || 0, color: "#4CAF50", icon: "mdi:refresh" },
-                { label: "Clienti smartship", value: stats.clienti_smartship || 0, color: "#2196F3", icon: "mdi:calendar-check" },
-                { label: "Promoter attivi", value: stats.promoter_attivi || 0, color: ORO, icon: "mdi:account-check" },
+                { label: t("components.admin_team_report.reorder_rate", "Tasso di riordine"), value: stats.tasso_riordine || 0, color: "#4CAF50", icon: "mdi:refresh" },
+                { label: t("components.admin_team_report.smartship_customers", "Clienti smartship"), value: stats.clienti_smartship || 0, color: "#2196F3", icon: "mdi:calendar-check" },
+                { label: t("components.admin_team_report.active_promoters", "Promoter attivi"), value: stats.promoter_attivi || 0, color: ORO, icon: "mdi:account-check" },
               ].map((s) => (
                 <Box key={s.label}>
                   <Stack direction="row" alignItems="center" spacing={0.5} mb={0.3}>
@@ -191,7 +198,7 @@ export default function AdminTeamReport({ userId, username }) {
         </Stack>
       ) : (
         <Typography sx={{ fontSize: "0.85rem", color: MUTED, textAlign: "center", py: 3 }}>
-          Nessun dato disponibile per questo utente
+          {t("components.admin_team_report.no_data", "Nessun dato disponibile per questo utente")}
         </Typography>
       )}
     </Card>

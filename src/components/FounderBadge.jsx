@@ -1,5 +1,6 @@
 import { Tooltip, Box } from "@mui/material";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 /**
  * Badge "Founder" a forma di scudo — variante scura con gradiente espresso.
@@ -11,6 +12,7 @@ import PropTypes from "prop-types";
  * - showTooltip: mostra tooltip al hover. Default true.
  */
 const FounderBadge = ({ number = null, size = 80, showTooltip = true }) => {
+  const { t } = useTranslation();
   const height = Math.round((size * 104) / 80);
   const logoSrc = "/logo/evea_logo.png";
   const numberStr = number != null ? String(number).padStart(3, "0") : null;
@@ -132,9 +134,9 @@ const FounderBadge = ({ number = null, size = 80, showTooltip = true }) => {
     <Tooltip
       title={
         <Box sx={{ textAlign: "center", lineHeight: 1.5 }}>
-          <Box sx={{ fontWeight: 700, color: "#B8963B", fontSize: "0.85rem" }}>Founder EVEA</Box>
-          <Box sx={{ fontSize: "0.75rem", opacity: 0.9 }}>Membro fondatore</Box>
-          <Box sx={{ fontSize: "0.7rem", opacity: 0.7, mt: 0.4 }}>Pre-lancio 2026</Box>
+          <Box sx={{ fontWeight: 700, color: "#B8963B", fontSize: "0.85rem" }}>{t("components.founder_badge.title", "Founder EVEA")}</Box>
+          <Box sx={{ fontSize: "0.75rem", opacity: 0.9 }}>{t("components.founder_badge.member", "Membro fondatore")}</Box>
+          <Box sx={{ fontSize: "0.7rem", opacity: 0.7, mt: 0.4 }}>{t("components.founder_badge.pre_launch", "Pre-lancio 2026")}</Box>
         </Box>
       }
       arrow

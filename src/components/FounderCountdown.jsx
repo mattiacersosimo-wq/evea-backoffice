@@ -9,8 +9,7 @@ const ESPRESSO = "#2C1A0E";
 const MUTED = "#7A6A5C";
 
 const FounderCountdown = () => {
-  const { i18n } = useTranslation();
-  const isIt = i18n.language?.startsWith("it");
+  const { t } = useTranslation();
   const {
     pre_launch_active: preActive,
     slots_total: total,
@@ -39,13 +38,15 @@ const FounderCountdown = () => {
           <Stack direction="row" alignItems="center" spacing={1} mb={0.5}>
             <Iconify icon="mdi:trophy-variant" width={22} sx={{ color: ORO }} />
             <Typography sx={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", fontWeight: 400, fontStyle: "italic", color: ORO, letterSpacing: 0.5 }}>
-              {isFounder ? (isIt ? "Sei un Founder EVEA" : "You are an EVEA Founder") : (isIt ? "Programma Founder EVEA" : "EVEA Founder Program")}
+              {isFounder
+                ? t("components.founder_countdown.you_are_founder", "Sei un Founder EVEA")
+                : t("components.founder_countdown.program_title", "Programma Founder EVEA")}
             </Typography>
           </Stack>
           <Typography sx={{ fontSize: "0.82rem", color: alpha("#FAF6EF", 0.7), lineHeight: 1.4 }}>
             {preActive
-              ? isIt ? `Lancio ufficiale EVEA tra ${days} giorni — 1° settembre 2026` : `Official launch in ${days} days — September 1, 2026`
-              : isIt ? `Pre-launch inizia il 1° giugno · mancano ${days} giorni al lancio` : `Pre-launch starts June 1 · ${days} days to launch`}
+              ? t("components.founder_countdown.official_launch", "Lancio ufficiale EVEA tra {{days}} giorni — 1° settembre 2026", { days })
+              : t("components.founder_countdown.pre_launch", "Pre-launch inizia il 1° giugno · mancano {{days}} giorni al lancio", { days })}
           </Typography>
         </Box>
         <Box sx={{ minWidth: 110, textAlign: "right" }}>
@@ -53,7 +54,7 @@ const FounderCountdown = () => {
             {taken}/{total}
           </Typography>
           <Typography sx={{ fontSize: "0.68rem", color: alpha("#FAF6EF", 0.55), letterSpacing: 1.2 }}>
-            {isIt ? "SLOT FOUNDERS" : "FOUNDER SLOTS"}
+            {t("components.founder_countdown.slots_label", "SLOT FOUNDERS")}
           </Typography>
         </Box>
       </Stack>
@@ -67,8 +68,8 @@ const FounderCountdown = () => {
         />
         <Typography sx={{ fontSize: "0.7rem", color: alpha("#FAF6EF", 0.6), mt: 0.6 }}>
           {avail > 0
-            ? (isIt ? `${avail} slot rimasti su ${total}` : `${avail} slots left of ${total}`)
-            : (isIt ? "Programma esaurito — tutti i 100 slot assegnati" : "Sold out — all 100 slots taken")}
+            ? t("components.founder_countdown.slots_left", "{{avail}} slot rimasti su {{total}}", { avail, total })
+            : t("components.founder_countdown.sold_out", "Programma esaurito — tutti i 100 slot assegnati")}
         </Typography>
       </Box>
     </Card>

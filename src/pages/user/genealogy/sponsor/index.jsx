@@ -1,11 +1,13 @@
 import { Alert, Box, Button } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+import { Trans, useTranslation } from "react-i18next";
 import { PATH_DASHBOARD } from "src/routes/paths";
 
 import { TreeWithoutLegend } from "src/components/tree";
 import Iconify from "src/components/Iconify";
 
 const UserSponsorTree = () => {
+  const { t } = useTranslation();
   return (
     <>
       <Box sx={{ px: 3, pt: 2 }}>
@@ -20,13 +22,15 @@ const UserSponsorTree = () => {
               variant="contained"
               endIcon={<Iconify icon="eva:arrow-forward-fill" />}
             >
-              Vedi Team Effettivo
+              {t("genealogy.sponsor.see_effective_team", "Vedi Team Effettivo")}
             </Button>
           }
         >
-          Vuoi vedere <strong>chi contribuisce davvero ai tuoi bonus</strong>?
-          Il tuo team effettivo include clienti in profondità e incaricati
-          compressi non visibili qui nell'albero fisico.
+          <Trans i18nKey="genealogy.sponsor.effective_team_hint" defaults="Vuoi vedere <1>chi contribuisce davvero ai tuoi bonus</1>? Il tuo team effettivo include clienti in profondità e incaricati compressi non visibili qui nell'albero fisico.">
+            Vuoi vedere <strong>chi contribuisce davvero ai tuoi bonus</strong>?
+            Il tuo team effettivo include clienti in profondità e incaricati
+            compressi non visibili qui nell'albero fisico.
+          </Trans>
         </Alert>
       </Box>
       <TreeWithoutLegend

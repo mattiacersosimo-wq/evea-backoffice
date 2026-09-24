@@ -1,6 +1,7 @@
 import { Box, Card, Chip, CircularProgress, Fab, IconButton, Stack, TextField, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import useAuth from "src/hooks/useAuth";
 import axiosInstance from "src/utils/axios";
@@ -9,6 +10,7 @@ const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
 
 const AiChat = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -43,7 +45,7 @@ const AiChat = () => {
       setMessages((prev) => [...prev, { role: "assistant", content: r?.data?.message || "...", created_at: new Date().toISOString() }]);
       setRemaining(r?.data?.remaining ?? remaining - 1);
     } catch (err) {
-      const errMsg = err?.response?.data?.error || err?.error || "Errore. Riprova.";
+      const errMsg = err?.response?.data?.error || err?.error || t("components.ai_chat.error_retry", "Errore. Riprova.");
       setMessages((prev) => [...prev, { role: "assistant", content: errMsg, created_at: new Date().toISOString() }]);
     }
     setLoading(false);
@@ -92,7 +94,7 @@ const AiChat = () => {
             </Box>
             <Box sx={{ flex: 1 }}>
               <Typography sx={{ color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}>EVEA Assistant</Typography>
-              <Typography sx={{ color: alpha("#fff", 0.5), fontSize: "0.6rem" }}>AI powered • {remaining} messaggi rimasti oggi</Typography>
+              <Typography sx={{ color: alpha("#fff", 0.5), fontSize: "0.6rem" }}>{t("components.ai_chat.header_status", "AI powered • {{n}} messaggi rimasti oggi", { n: remaining })}</Typography>
             </Box>
             <IconButton size="small" onClick={() => setOpen(false)} sx={{ color: alpha("#fff", 0.6) }}>
               <Iconify icon="mdi:close" width={20} />
@@ -104,9 +106,13 @@ const AiChat = () => {
             {messages.length === 0 && !loading && (
               <Box sx={{ textAlign: "center", mt: 4 }}>
                 <Iconify icon="mdi:robot-happy-outline" width={48} sx={{ color: alpha(ORO, 0.3), mb: 1 }} />
-                <Typography sx={{ color: "#aaa", fontSize: "0.8rem", mb: 2 }}>Ciao! Sono il tuo assistente EVEA.</Typography>
+                <Typography sx={{ color: "#aaa", fontSize: "0.8rem", mb: 2 }}>{t("components.ai_chat.welcome", "Ciao! Sono il tuo assistente EVEA.")}</Typography>
                 <Stack spacing={1}>
-                  {["Come raggiungo il prossimo rank?", "Quanto ho guadagnato?", "Come funziona il Go MVP?"].map((q) => (
+                  {[
+                    t("components.ai_chat.suggestion_rank", "Come raggiungo il prossimo rank?"),
+                    t("components.ai_chat.suggestion_earnings", "Quanto ho guadagnato?"),
+                    t("components.ai_chat.suggestion_go_mvp", "Come funziona il Go MVP?"),
+                  ].map((q) => (
                     <Chip key={q} label={q} size="small" onClick={() => { setInput(q); }}
                       sx={{ fontSize: "0.7rem", bgcolor: alpha(ORO, 0.08), color: ESPRESSO, cursor: "pointer", "&:hover": { bgcolor: alpha(ORO, 0.15) } }} />
                   ))}
@@ -129,7 +135,7 @@ const AiChat = () => {
             {loading && (
               <Box sx={{ display: "flex", gap: 1, alignItems: "center", mb: 1 }}>
                 <CircularProgress size={16} sx={{ color: ORO }} />
-                <Typography sx={{ fontSize: "0.7rem", color: "#aaa" }}>Sto pensando...</Typography>
+                <Typography sx={{ fontSize: "0.7rem", color: "#aaa" }}>{t("components.ai_chat.thinking", "Sto pensando...")}</Typography>
               </Box>
             )}
           </Box>
@@ -138,7 +144,7 @@ const AiChat = () => {
           <Box sx={{ p: 1.5, borderTop: "1px solid #eee", bgcolor: "#fff" }}>
             <Stack direction="row" spacing={1}>
               <TextField
-                fullWidth size="small" placeholder="Scrivi un messaggio..."
+                fullWidth size="small" placeholder={t("components.ai_chat.input_placeholder", "Scrivi un messaggio...")}
                 value={input} onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
                 disabled={loading || remaining <= 0}

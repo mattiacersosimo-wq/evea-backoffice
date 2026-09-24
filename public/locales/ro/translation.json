@@ -994,7 +994,36 @@
             "title": "Binar: Genealogie"
         },
         "sponsor": {
-            "title": "Sponsor: Genealogie"
+            "title": "Sponsor: Genealogie",
+            "see_effective_team": "Vezi Echipa Efectivă",
+            "effective_team_hint": "Vrei să vezi <1>cine contribuie cu adevărat la bonusurile tale</1>? Echipa ta efectivă include clienți în adâncime și promoteri comprimați care nu sunt vizibili aici în arborele fizic."
+        },
+        "effective_team": {
+            "page_title": "Echipa ta efectivă",
+            "heading": "Echipa ta efectivă",
+            "crumb_dashboard": "Dashboard",
+            "crumb_genealogy": "Genealogie",
+            "crumb_current": "Echipă efectivă",
+            "description": "Această vizualizare arată cine contribuie cu adevărat la bonusurile tale (DSB și ISB), incluzând <1>clienți în adâncime</1> și <3>promoteri care apar mai jos în arborele fizic</3> dar care pentru calculul comisioanelor sunt considerați directi (dynamic compression).",
+            "tab_zone_customers": "Clienți în zonă ({{n}})",
+            "tab_first_line": "Prima linie ({{n}})",
+            "tab_line_2": "A doua linie ({{n}})",
+            "tab_line_3": "A treia linie ({{n}})",
+            "card_zone_customers": "Clienți în zona ta",
+            "card_first_line": "Prime linii (compressed)",
+            "card_line_2": "A doua linie",
+            "card_line_3": "A treia linie",
+            "hint_dsb": "Generează DSB pentru tine (15% sau 30% cu Starter Pack)",
+            "hint_compressed": "{{n}} dintre aceștia sunt compressed (nu sunt vizibili în arborele fizic)",
+            "hint_isb_l2": "Contribuie la ISB nivel 2 (3%)",
+            "hint_isb_l3": "Contribuie la ISB nivel 3 (3%)",
+            "no_zone_customers": "Niciun client în zona ta în acest moment.",
+            "no_promoters": "Niciun promoter la acest nivel.",
+            "chip_direct": "Direct",
+            "chip_in_depth": "În adâncime",
+            "tooltip_in_depth": "Client în adâncime: în zona ta dar nu copil direct în arborele fizic",
+            "chip_compressed": "compressed L{{n}}",
+            "tooltip_compressed": "Compressed de la nivelul fizic {{n}} → prima linie datorită dynamic compression"
         },
         "tree": {
             "title": "Arbore: Genealogie"
@@ -4940,6 +4969,80 @@
         "sign_lettera_hint": "Semnează scrisoarea de mandat pentru a activa linkul de promoter",
         "locked_unavailable": "🔒 Indisponibil",
         "share_referral_link": "Distribuie linkul de referral"
+    },
+    "tree": {
+        "legend": {
+            "customer": "Client"
+        },
+        "node": {
+            "rank_achieved": "Rang atins",
+            "active": "Activ",
+            "no_name": "fără nume"
+        }
+    },
+    "components": {
+        "ai_chat": {
+            "error_retry": "Eroare. Reîncearcă.",
+            "header_status": "AI powered • {{n}} mesaje rămase astăzi",
+            "welcome": "Bună! Sunt asistentul tău EVEA.",
+            "suggestion_rank": "Cum ajung la următorul rang?",
+            "suggestion_earnings": "Cât am câștigat?",
+            "suggestion_go_mvp": "Cum funcționează Go MVP?",
+            "thinking": "Mă gândesc...",
+            "input_placeholder": "Scrie un mesaj..."
+        },
+        "community_banner": {
+            "title": "Community EVEA",
+            "subtitle": "Post-uri Feed · Cursuri de formare · Gamificare · Apeluri live",
+            "cta_enter": "INTRĂ →"
+        },
+        "founder_badge": {
+            "title": "Founder EVEA",
+            "member": "Membru fondator",
+            "pre_launch": "Pre-lansare 2026"
+        },
+        "founder_countdown": {
+            "you_are_founder": "Ești un Founder EVEA",
+            "program_title": "Programul Founder EVEA",
+            "official_launch": "Lansare oficială EVEA în {{days}} zile — 1 septembrie 2026",
+            "pre_launch": "Pre-launch începe la 1 iunie · mai sunt {{days}} zile până la lansare",
+            "slots_label": "SLOTURI FOUNDERS",
+            "slots_left": "{{avail}} sloturi rămase din {{total}}",
+            "sold_out": "Program epuizat — toate cele 100 de sloturi alocate"
+        },
+        "error_boundary": {
+            "chunk_title": "Versiune nouă disponibilă",
+            "generic_title": "Ceva a mers greșit",
+            "chunk_body": "O versiune mai nouă a aplicației a fost publicată. Reîncarcă pentru a continua.",
+            "generic_body": "Ceva a mers greșit la încărcare. Reîncarcă pentru a reîncerca.",
+            "reload": "REÎNCARCĂ",
+            "tech_details": "Detalii tehnice"
+        },
+        "admin_team_report": {
+            "title": "Raport Echipă",
+            "period_week": "Săpt",
+            "period_month": "Lună",
+            "period_quarter": "Trim",
+            "period_year": "An",
+            "qv_team": "QV Echipă",
+            "revenue_team": "Venit Echipă",
+            "new_customers": "Clienți Noi",
+            "new_promoters": "Promoteri Noi",
+            "team": "Echipă",
+            "direct": "Direcți",
+            "active": "Activi",
+            "inactive": "Inactivi",
+            "inactive_members": "Membri inactivi",
+            "role_promoter": "Promoter",
+            "role_customer": "Client",
+            "days_short": "{{n}}z",
+            "never_ordered": "Nu a comandat niciodată",
+            "top_referrals": "Top referrali din perioadă",
+            "reorder_rate": "Rata de recomandă",
+            "smartship_customers": "Clienți SmartShip",
+            "active_promoters": "Promoteri activi",
+            "no_data": "Nu există date disponibile pentru acest utilizator"
+        }
     },
     "common": {
         "cancel": "Anulează",

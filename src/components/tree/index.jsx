@@ -1,5 +1,6 @@
 import { Box, Chip, Grid, Stack } from "@mui/material";
 import { alpha } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 import useAuth from "src/hooks/useAuth";
 import useGetTree from "src/hooks/useGetTree";
 import Legend from "./components/legend";
@@ -8,18 +9,21 @@ import TreeWrapper from "./components/treeWrapper";
 import View from "./components/view";
 import Styles from "./style.module.css";
 
-const SPONSOR_LEGEND = [
-  { label: "Cliente", color: "#64B5F6" },
-  { label: "Associate", color: "#BCAAA4" },
-  { label: "Starter", color: "#FFB74D" },
-  { label: "Builder", color: "#FF7043" },
-  { label: "Senior Builder", color: "#00897B" },
-  { label: "Platinum", color: "#B8963B" },
-  { label: "Sapphire", color: "#00ACC1" },
-  { label: "Ruby", color: "#E91E63" },
-  { label: "Emerald", color: "#4CAF50" },
-  { label: "Diamond+", color: "#673AB7" },
-];
+const useSponsorLegend = () => {
+  const { t } = useTranslation();
+  return [
+    { label: t("tree.legend.customer", "Cliente"), color: "#64B5F6" },
+    { label: "Associate", color: "#BCAAA4" },
+    { label: "Starter", color: "#FFB74D" },
+    { label: "Builder", color: "#FF7043" },
+    { label: "Senior Builder", color: "#00897B" },
+    { label: "Platinum", color: "#B8963B" },
+    { label: "Sapphire", color: "#00ACC1" },
+    { label: "Ruby", color: "#E91E63" },
+    { label: "Emerald", color: "#4CAF50" },
+    { label: "Diamond+", color: "#673AB7" },
+  ];
+};
 
 const Tree = ({ legends = [], username, ...rest }) => {
     return (
@@ -33,6 +37,7 @@ const Tree = ({ legends = [], username, ...rest }) => {
 export const TreeWithoutLegend = ({ links, title, url, ...props }) => {
     const getTree = useGetTree(url);
     const { user } = useAuth();
+    const sponsorLegend = useSponsorLegend();
     // Nasconde la legenda rank ai customer: non hanno carriera rank,
     // vedere Associate/Starter/Builder/... e' confusionario per loro.
     // I promoter continuano a vedere la legenda come prima.
@@ -44,7 +49,7 @@ export const TreeWithoutLegend = ({ links, title, url, ...props }) => {
                 <SearchByUser search={getTree.onSearch} />
                 {isPromoter && (
                     <Stack direction="row" spacing={0.5} flexWrap="wrap" sx={{ gap: 0.5 }}>
-                        {SPONSOR_LEGEND.map((l) => (
+                        {sponsorLegend.map((l) => (
                             <Chip
                                 key={l.label}
                                 label={l.label}

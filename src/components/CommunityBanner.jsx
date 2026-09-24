@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { COMMUNITY_URL } from "src/config";
 import axiosInstance from "src/utils/axios";
 
 export default function CommunityBanner() {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
 
   const handleJoin = async () => {
@@ -70,7 +72,7 @@ export default function CommunityBanner() {
             fontStyle: "italic",
           }}
         >
-          Community EVEA
+          {t("components.community_banner.title", "Community EVEA")}
         </div>
         <div
           style={{
@@ -79,7 +81,7 @@ export default function CommunityBanner() {
             lineHeight: 1.5,
           }}
         >
-          Feed post · Corsi di formazione · Gamification · Live call
+          {t("components.community_banner.subtitle", "Feed post · Corsi di formazione · Gamification · Live call")}
         </div>
       </div>
 
@@ -102,7 +104,7 @@ export default function CommunityBanner() {
           fontFamily: "'DM Sans', sans-serif",
         }}
       >
-        {loading ? "..." : "ENTRA →"}
+        {loading ? "..." : t("components.community_banner.cta_enter", "ENTRA →")}
       </button>
     </div>
   );

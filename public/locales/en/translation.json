@@ -1025,7 +1025,36 @@
             "title": "Binary: Genealogy"
         },
         "sponsor": {
-            "title": "Sponsor: Genealogy"
+            "title": "Sponsor: Genealogy",
+            "see_effective_team": "See Effective Team",
+            "effective_team_hint": "Want to see <1>who really contributes to your bonuses</1>? Your effective team includes customers in depth and compressed promoters not visible here in the physical tree."
+        },
+        "effective_team": {
+            "page_title": "Your effective team",
+            "heading": "Your effective team",
+            "crumb_dashboard": "Dashboard",
+            "crumb_genealogy": "Genealogy",
+            "crumb_current": "Effective team",
+            "description": "This view shows who really contributes to your bonuses (DSB and ISB), including <1>customers in depth</1> and <3>promoters that appear deeper in the physical tree</3> but are treated as direct for commission purposes (dynamic compression).",
+            "tab_zone_customers": "Zone customers ({{n}})",
+            "tab_first_line": "1st line ({{n}})",
+            "tab_line_2": "2nd line ({{n}})",
+            "tab_line_3": "3rd line ({{n}})",
+            "card_zone_customers": "Customers in your zone",
+            "card_first_line": "First lines (compressed)",
+            "card_line_2": "Second lines",
+            "card_line_3": "Third lines",
+            "hint_dsb": "They generate DSB for you (15% or 30% with Starter Pack)",
+            "hint_compressed": "{{n}} of these are compressed (not visible in the physical tree)",
+            "hint_isb_l2": "They contribute to your ISB level 2 (3%)",
+            "hint_isb_l3": "They contribute to your ISB level 3 (3%)",
+            "no_zone_customers": "No customers in your zone at the moment.",
+            "no_promoters": "No promoter at this level.",
+            "chip_direct": "Direct",
+            "chip_in_depth": "In depth",
+            "tooltip_in_depth": "In-depth customer: in your zone but not a direct child in the physical tree",
+            "chip_compressed": "compressed L{{n}}",
+            "tooltip_compressed": "Compressed from physical level {{n}} → 1st line thanks to dynamic compression"
         },
         "tree": {
             "title": "Tree: Genealogy"
@@ -5014,6 +5043,80 @@
         "sign_lettera_hint": "Sign the Assignment Letter to activate your promoter link",
         "locked_unavailable": "🔒 Not available",
         "share_referral_link": "Share Referral Link"
+    },
+    "tree": {
+        "legend": {
+            "customer": "Customer"
+        },
+        "node": {
+            "rank_achieved": "Rank Achieved",
+            "active": "Active",
+            "no_name": "no name"
+        }
+    },
+    "components": {
+        "ai_chat": {
+            "error_retry": "Error. Retry.",
+            "header_status": "AI powered • {{n}} messages left today",
+            "welcome": "Hi! I'm your EVEA assistant.",
+            "suggestion_rank": "How do I reach the next rank?",
+            "suggestion_earnings": "How much have I earned?",
+            "suggestion_go_mvp": "How does Go MVP work?",
+            "thinking": "Thinking...",
+            "input_placeholder": "Write a message..."
+        },
+        "community_banner": {
+            "title": "EVEA Community",
+            "subtitle": "Feed posts · Training courses · Gamification · Live calls",
+            "cta_enter": "ENTER →"
+        },
+        "founder_badge": {
+            "title": "EVEA Founder",
+            "member": "Founding member",
+            "pre_launch": "Pre-launch 2026"
+        },
+        "founder_countdown": {
+            "you_are_founder": "You are an EVEA Founder",
+            "program_title": "EVEA Founder Program",
+            "official_launch": "Official launch in {{days}} days — September 1, 2026",
+            "pre_launch": "Pre-launch starts June 1 · {{days}} days to launch",
+            "slots_label": "FOUNDER SLOTS",
+            "slots_left": "{{avail}} slots left of {{total}}",
+            "sold_out": "Sold out — all 100 slots taken"
+        },
+        "error_boundary": {
+            "chunk_title": "New version available",
+            "generic_title": "Something went wrong",
+            "chunk_body": "A newer version of the app has been published. Reload to continue.",
+            "generic_body": "Something went wrong while loading. Reload to try again.",
+            "reload": "RELOAD",
+            "tech_details": "Technical details"
+        },
+        "admin_team_report": {
+            "title": "Team Report",
+            "period_week": "Week",
+            "period_month": "Month",
+            "period_quarter": "Qtr",
+            "period_year": "Year",
+            "qv_team": "QV Team",
+            "revenue_team": "Team Revenue",
+            "new_customers": "New Customers",
+            "new_promoters": "New Promoters",
+            "team": "Team",
+            "direct": "Direct",
+            "active": "Active",
+            "inactive": "Inactive",
+            "inactive_members": "Inactive members",
+            "role_promoter": "Promoter",
+            "role_customer": "Customer",
+            "days_short": "{{n}}d",
+            "never_ordered": "Never ordered",
+            "top_referrals": "Top referrals for the period",
+            "reorder_rate": "Reorder rate",
+            "smartship_customers": "SmartShip customers",
+            "active_promoters": "Active promoters",
+            "no_data": "No data available for this user"
+        }
     },
     "common": {
         "cancel": "Cancel",

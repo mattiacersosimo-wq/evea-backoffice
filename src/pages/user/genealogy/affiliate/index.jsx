@@ -35,7 +35,7 @@ const Affiliate = () => {
     <Page title={"affiliate_dashboard.affiliate"}>
       <HeaderBreadcrumbs
         heading={"global.dashboard"}
-        links={[{ name: "Affiliate" }]}
+        links={[{ name: "affiliate_dashboard.affiliate" }]}
       />
       <Grid container spacing={2}>
         <Grid item xs={6} md={2}>

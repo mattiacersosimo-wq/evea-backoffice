@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useDrag } from "react-dnd";
+import { useTranslation } from "react-i18next";
 import ParseDate from "src/components/date";
 import Translate from "src/components/translate";
 import useStyles from "src/components/tree/components/node/hooks/useStyles.js";
@@ -74,6 +75,7 @@ const Account = ({
   profile,
   onClick,
 }) => {
+  const { t } = useTranslation();
   // Pallino: ACHIEVEMENT (rank_name = max storico permanente, mai decrementato).
   // Scelta product: il pallino dell'albero rappresenta il traguardo del promoter.
   const achievementColor = getNodeColor(user_type, rank_name);
@@ -131,7 +133,7 @@ const Account = ({
                       letterSpacing: 1,
                     }}
                   >
-                    Rank Raggiunto : &nbsp;
+                    {t("tree.node.rank_achieved", "Rank Raggiunto")} : &nbsp;
                   </span>
                   {rank_name}
                 </Typography>
@@ -250,7 +252,7 @@ const Account = ({
                   sx={{ color: "#000", padding: "2px" }}
                 >
                   <span style={{ color: "#000", fontSize: "11px", fontWeight: 600, letterSpacing: 1 }}>
-                    Attivo &nbsp; : &nbsp;
+                    {t("tree.node.active", "Attivo")} &nbsp; : &nbsp;
                   </span>
                   <span style={{ fontWeight: 200, fontSize: "12px", color: "#000" }}>
                     {is_active ? "YES" : "NO"}
@@ -363,7 +365,7 @@ const Account = ({
               borderRadius: "10px",
             }}
           >
-            <Typography variant="body">{name ? name : "no name"}</Typography>
+            <Typography variant="body">{name ? name : t("tree.node.no_name", "no name")}</Typography>
           </Card>
           {have_children && (
             <Box sx={{ display: "flex", justifyContent: "center", mt: 0.3 }}>

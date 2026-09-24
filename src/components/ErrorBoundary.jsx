@@ -1,4 +1,5 @@
 import { Component } from "react";
+import i18n from "src/locales/i18n";
 
 /**
  * ErrorBoundary globale — cattura tutti gli errori di render React.
@@ -53,6 +54,8 @@ export default class ErrorBoundary extends Component {
       this.state.error?.name === "ChunkLoadError" ||
       /loading chunk .* failed/i.test(this.state.error?.message || "");
 
+    const t = (key, fallback) => (i18n?.t ? i18n.t(key, fallback) : fallback);
+
     return (
       <div
         style={{
@@ -70,12 +73,14 @@ export default class ErrorBoundary extends Component {
       >
         <div style={{ maxWidth: 480 }}>
           <h1 style={{ fontSize: 22, marginBottom: 16, color: "#B8963B" }}>
-            {isChunkError ? "Nuova versione disponibile" : "Si è verificato un errore"}
+            {isChunkError
+              ? t("components.error_boundary.chunk_title", "Nuova versione disponibile")
+              : t("components.error_boundary.generic_title", "Si è verificato un errore")}
           </h1>
           <p style={{ fontSize: 14, lineHeight: 1.6, marginBottom: 24, color: "#7A6A5C" }}>
             {isChunkError
-              ? "Una versione più recente dell'app è stata pubblicata. Ricarica per continuare."
-              : "Qualcosa è andato storto durante il caricamento. Ricarica per riprovare."}
+              ? t("components.error_boundary.chunk_body", "Una versione più recente dell'app è stata pubblicata. Ricarica per continuare.")
+              : t("components.error_boundary.generic_body", "Qualcosa è andato storto durante il caricamento. Ricarica per riprovare.")}
           </p>
           <button
             type="button"
@@ -92,11 +97,11 @@ export default class ErrorBoundary extends Component {
               letterSpacing: 0.5,
             }}
           >
-            RICARICA
+            {t("components.error_boundary.reload", "RICARICA")}
           </button>
           {!isChunkError && this.state.error?.message && (
             <details style={{ marginTop: 32, fontSize: 11, color: "#999" }}>
-              <summary style={{ cursor: "pointer" }}>Dettagli tecnici</summary>
+              <summary style={{ cursor: "pointer" }}>{t("components.error_boundary.tech_details", "Dettagli tecnici")}</summary>
               <pre style={{ textAlign: "left", overflow: "auto", marginTop: 8 }}>
                 {this.state.error.message}
               </pre>

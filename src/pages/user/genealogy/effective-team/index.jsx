@@ -12,6 +12,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { useTranslation, Trans } from "react-i18next";
 import Page from "src/components/Page";
 import HeaderBreadcrumbs from "src/components/HeaderBreadcrumbs";
 import Iconify from "src/components/Iconify";
@@ -27,6 +28,7 @@ import axiosInstance from "src/utils/axios";
  * Dati da: GET /api/dashboard/compression-overview
  */
 export default function EffectiveTeam() {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const [tab, setTab] = useState(0);
@@ -40,23 +42,25 @@ export default function EffectiveTeam() {
   }, []);
 
   return (
-    <Page title="Il tuo team effettivo">
+    <Page title={t("genealogy.effective_team.page_title", "Il tuo team effettivo")}>
       <Container maxWidth="lg">
         <HeaderBreadcrumbs
-          heading="Il tuo team effettivo"
+          heading={t("genealogy.effective_team.heading", "Il tuo team effettivo")}
           links={[
-            { name: "Dashboard", href: "/user/dashboard" },
-            { name: "Genealogia", href: "/user/genealogy/sponsor" },
-            { name: "Team effettivo" },
+            { name: t("genealogy.effective_team.crumb_dashboard", "Dashboard"), href: "/user/dashboard" },
+            { name: t("genealogy.effective_team.crumb_genealogy", "Genealogia"), href: "/user/genealogy/sponsor" },
+            { name: t("genealogy.effective_team.crumb_current", "Team effettivo") },
           ]}
         />
 
         <Box sx={{ mb: 3 }}>
           <Typography variant="body2" color="text.secondary">
-            Questa vista mostra chi contribuisce realmente ai tuoi bonus (DSB e ISB),
-            includendo <strong>clienti in profondità</strong> e{" "}
-            <strong>incaricati che nel tree fisico appaiono più giù</strong> ma
-            che per calcolo commissioni sono considerati tuoi diretti (dynamic compression).
+            <Trans i18nKey="genealogy.effective_team.description" defaults="Questa vista mostra chi contribuisce realmente ai tuoi bonus (DSB e ISB), includendo <1>clienti in profondità</1> e <3>incaricati che nel tree fisico appaiono più giù</3> ma che per calcolo commissioni sono considerati tuoi diretti (dynamic compression).">
+              Questa vista mostra chi contribuisce realmente ai tuoi bonus (DSB e ISB),
+              includendo <strong>clienti in profondità</strong> e{" "}
+              <strong>incaricati che nel tree fisico appaiono più giù</strong> ma
+              che per calcolo commissioni sono considerati tuoi diretti (dynamic compression).
+            </Trans>
           </Typography>
         </Box>
 
@@ -76,10 +80,10 @@ export default function EffectiveTeam() {
                 onChange={(_, v) => setTab(v)}
                 sx={{ borderBottom: 1, borderColor: "divider", px: 2 }}
               >
-                <Tab label={`Clienti nella zona (${data.summary.total_zone_customers})`} />
-                <Tab label={`1ª linea (${data.summary.total_first_line})`} />
-                <Tab label={`2ª linea (${data.summary.total_line_2})`} />
-                <Tab label={`3ª linea (${data.summary.total_line_3})`} />
+                <Tab label={t("genealogy.effective_team.tab_zone_customers", "Clienti nella zona ({{n}})", { n: data.summary.total_zone_customers })} />
+                <Tab label={t("genealogy.effective_team.tab_first_line", "1ª linea ({{n}})", { n: data.summary.total_first_line })} />
+                <Tab label={t("genealogy.effective_team.tab_line_2", "2ª linea ({{n}})", { n: data.summary.total_line_2 })} />
+                <Tab label={t("genealogy.effective_team.tab_line_3", "3ª linea ({{n}})", { n: data.summary.total_line_3 })} />
               </Tabs>
 
               <Box sx={{ p: 3 }}>
@@ -97,34 +101,35 @@ export default function EffectiveTeam() {
 }
 
 function SummaryCards({ summary }) {
+  const { t } = useTranslation();
   const items = [
     {
-      label: "Clienti nella tua zona",
+      label: t("genealogy.effective_team.card_zone_customers", "Clienti nella tua zona"),
       value: summary.total_zone_customers,
       icon: "eva:people-fill",
       color: "#B8963B",
-      hint: "Generano DSB per te (15% o 30% con Starter Pack)",
+      hint: t("genealogy.effective_team.hint_dsb", "Generano DSB per te (15% o 30% con Starter Pack)"),
     },
     {
-      label: "Prime linee (compressed)",
+      label: t("genealogy.effective_team.card_first_line", "Prime linee (compressed)"),
       value: summary.total_first_line,
       icon: "eva:star-fill",
       color: "#2C1A0E",
-      hint: `${summary.compressed_first_line_count} di questi sono compressed (non visibili nel tree fisico)`,
+      hint: t("genealogy.effective_team.hint_compressed", "{{n}} di questi sono compressed (non visibili nel tree fisico)", { n: summary.compressed_first_line_count }),
     },
     {
-      label: "Seconde linee",
+      label: t("genealogy.effective_team.card_line_2", "Seconde linee"),
       value: summary.total_line_2,
       icon: "eva:layers-fill",
       color: "#7A6A5C",
-      hint: "Contribuiscono al tuo ISB livello 2 (3%)",
+      hint: t("genealogy.effective_team.hint_isb_l2", "Contribuiscono al tuo ISB livello 2 (3%)"),
     },
     {
-      label: "Terze linee",
+      label: t("genealogy.effective_team.card_line_3", "Terze linee"),
       value: summary.total_line_3,
       icon: "eva:layers-outline",
       color: "#7A6A5C",
-      hint: "Contribuiscono al tuo ISB livello 3 (3%)",
+      hint: t("genealogy.effective_team.hint_isb_l3", "Contribuiscono al tuo ISB livello 3 (3%)"),
     },
   ];
   return (
@@ -167,10 +172,11 @@ function SummaryCards({ summary }) {
 }
 
 function ZoneCustomersList({ customers }) {
+  const { t } = useTranslation();
   if (customers.length === 0) {
     return (
       <Typography color="text.secondary" align="center" py={4}>
-        Nessun cliente nella tua zona al momento.
+        {t("genealogy.effective_team.no_zone_customers", "Nessun cliente nella tua zona al momento.")}
       </Typography>
     );
   }
@@ -193,10 +199,10 @@ function ZoneCustomersList({ customers }) {
             </Typography>
           </Box>
           {c.is_direct_physical ? (
-            <Chip label="Diretto" size="small" color="primary" variant="outlined" />
+            <Chip label={t("genealogy.effective_team.chip_direct", "Diretto")} size="small" color="primary" variant="outlined" />
           ) : (
-            <Tooltip title="Cliente in profondità: nella tua zona ma non figlio diretto nell'albero fisico">
-              <Chip label="In profondità" size="small" sx={{ bgcolor: "#FFF8F8", color: "#E24B4A" }} />
+            <Tooltip title={t("genealogy.effective_team.tooltip_in_depth", "Cliente in profondità: nella tua zona ma non figlio diretto nell'albero fisico")}>
+              <Chip label={t("genealogy.effective_team.chip_in_depth", "In profondità")} size="small" sx={{ bgcolor: "#FFF8F8", color: "#E24B4A" }} />
             </Tooltip>
           )}
         </Stack>
@@ -206,10 +212,11 @@ function ZoneCustomersList({ customers }) {
 }
 
 function PromotersList({ promoters, showCompressed = false }) {
+  const { t } = useTranslation();
   if (promoters.length === 0) {
     return (
       <Typography color="text.secondary" align="center" py={4}>
-        Nessun promoter a questo livello.
+        {t("genealogy.effective_team.no_promoters", "Nessun promoter a questo livello.")}
       </Typography>
     );
   }
@@ -232,9 +239,9 @@ function PromotersList({ promoters, showCompressed = false }) {
             </Typography>
           </Box>
           {showCompressed && p.is_compressed && (
-            <Tooltip title={`Compressed da livello fisico ${p.physical_depth} → 1ª linea grazie a dynamic compression`}>
+            <Tooltip title={t("genealogy.effective_team.tooltip_compressed", "Compressed da livello fisico {{n}} → 1ª linea grazie a dynamic compression", { n: p.physical_depth })}>
               <Chip
-                label={`compressed L${p.physical_depth}`}
+                label={t("genealogy.effective_team.chip_compressed", "compressed L{{n}}", { n: p.physical_depth })}
                 size="small"
                 sx={{ bgcolor: "#fff8ec", color: "#B8963B" }}
               />

@@ -994,7 +994,36 @@
             "title": "Binario: Genealogia"
         },
         "sponsor": {
-            "title": "Sponsor: Genealogia"
+            "title": "Sponsor: Genealogia",
+            "see_effective_team": "Vedi Team Effettivo",
+            "effective_team_hint": "Vuoi vedere <1>chi contribuisce davvero ai tuoi bonus</1>? Il tuo team effettivo include clienti in profondità e incaricati compressi non visibili qui nell'albero fisico."
+        },
+        "effective_team": {
+            "page_title": "Il tuo team effettivo",
+            "heading": "Il tuo team effettivo",
+            "crumb_dashboard": "Dashboard",
+            "crumb_genealogy": "Genealogia",
+            "crumb_current": "Team effettivo",
+            "description": "Questa vista mostra chi contribuisce realmente ai tuoi bonus (DSB e ISB), includendo <1>clienti in profondità</1> e <3>incaricati che nel tree fisico appaiono più giù</3> ma che per calcolo commissioni sono considerati tuoi diretti (dynamic compression).",
+            "tab_zone_customers": "Clienti nella zona ({{n}})",
+            "tab_first_line": "1ª linea ({{n}})",
+            "tab_line_2": "2ª linea ({{n}})",
+            "tab_line_3": "3ª linea ({{n}})",
+            "card_zone_customers": "Clienti nella tua zona",
+            "card_first_line": "Prime linee (compressed)",
+            "card_line_2": "Seconde linee",
+            "card_line_3": "Terze linee",
+            "hint_dsb": "Generano DSB per te (15% o 30% con Starter Pack)",
+            "hint_compressed": "{{n}} di questi sono compressed (non visibili nel tree fisico)",
+            "hint_isb_l2": "Contribuiscono al tuo ISB livello 2 (3%)",
+            "hint_isb_l3": "Contribuiscono al tuo ISB livello 3 (3%)",
+            "no_zone_customers": "Nessun cliente nella tua zona al momento.",
+            "no_promoters": "Nessun promoter a questo livello.",
+            "chip_direct": "Diretto",
+            "chip_in_depth": "In profondità",
+            "tooltip_in_depth": "Cliente in profondità: nella tua zona ma non figlio diretto nell'albero fisico",
+            "chip_compressed": "compressed L{{n}}",
+            "tooltip_compressed": "Compressed da livello fisico {{n}} → 1ª linea grazie a dynamic compression"
         },
         "tree": {
             "title": "Albero: Genealogia"
@@ -4940,6 +4969,80 @@
         "sign_lettera_hint": "Firma la Lettera di Incarico per attivare il tuo link promotore",
         "locked_unavailable": "🔒 Non disponibile",
         "share_referral_link": "Condividi link referral"
+    },
+    "tree": {
+        "legend": {
+            "customer": "Cliente"
+        },
+        "node": {
+            "rank_achieved": "Rank Raggiunto",
+            "active": "Attivo",
+            "no_name": "senza nome"
+        }
+    },
+    "components": {
+        "ai_chat": {
+            "error_retry": "Errore. Riprova.",
+            "header_status": "AI powered • {{n}} messaggi rimasti oggi",
+            "welcome": "Ciao! Sono il tuo assistente EVEA.",
+            "suggestion_rank": "Come raggiungo il prossimo rank?",
+            "suggestion_earnings": "Quanto ho guadagnato?",
+            "suggestion_go_mvp": "Come funziona il Go MVP?",
+            "thinking": "Sto pensando...",
+            "input_placeholder": "Scrivi un messaggio..."
+        },
+        "community_banner": {
+            "title": "Community EVEA",
+            "subtitle": "Feed post · Corsi di formazione · Gamification · Live call",
+            "cta_enter": "ENTRA →"
+        },
+        "founder_badge": {
+            "title": "Founder EVEA",
+            "member": "Membro fondatore",
+            "pre_launch": "Pre-lancio 2026"
+        },
+        "founder_countdown": {
+            "you_are_founder": "Sei un Founder EVEA",
+            "program_title": "Programma Founder EVEA",
+            "official_launch": "Lancio ufficiale EVEA tra {{days}} giorni — 1° settembre 2026",
+            "pre_launch": "Pre-launch inizia il 1° giugno · mancano {{days}} giorni al lancio",
+            "slots_label": "SLOT FOUNDERS",
+            "slots_left": "{{avail}} slot rimasti su {{total}}",
+            "sold_out": "Programma esaurito — tutti i 100 slot assegnati"
+        },
+        "error_boundary": {
+            "chunk_title": "Nuova versione disponibile",
+            "generic_title": "Si è verificato un errore",
+            "chunk_body": "Una versione più recente dell'app è stata pubblicata. Ricarica per continuare.",
+            "generic_body": "Qualcosa è andato storto durante il caricamento. Ricarica per riprovare.",
+            "reload": "RICARICA",
+            "tech_details": "Dettagli tecnici"
+        },
+        "admin_team_report": {
+            "title": "Report Team",
+            "period_week": "Sett",
+            "period_month": "Mese",
+            "period_quarter": "Trim",
+            "period_year": "Anno",
+            "qv_team": "QV Team",
+            "revenue_team": "Revenue Team",
+            "new_customers": "Nuovi Clienti",
+            "new_promoters": "Nuovi Promoter",
+            "team": "Team",
+            "direct": "Diretti",
+            "active": "Attivi",
+            "inactive": "Inattivi",
+            "inactive_members": "Membri inattivi",
+            "role_promoter": "Promoter",
+            "role_customer": "Cliente",
+            "days_short": "{{n}}gg",
+            "never_ordered": "Mai ordinato",
+            "top_referrals": "Top referral del periodo",
+            "reorder_rate": "Tasso di riordine",
+            "smartship_customers": "Clienti smartship",
+            "active_promoters": "Promoter attivi",
+            "no_data": "Nessun dato disponibile per questo utente"
+        }
     },
     "common": {
         "cancel": "Annulla",
