@@ -1,4 +1,4 @@
-import { Box, Button, Card, Chip, CircularProgress, Grid, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Button, Card, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, Stack, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useEffect, useState, useCallback } from "react";
 import { useSnackbar } from "notistack";
@@ -28,7 +28,25 @@ const CentroControllo = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [running, setRunning] = useState(false);
+  const [auditRunning, setAuditRunning] = useState(false);
+  const [auditResult, setAuditResult] = useState(null);
   const { enqueueSnackbar } = useSnackbar();
+
+  const runCommissionAudit = async () => {
+    setAuditRunning(true);
+    try {
+      const { data: r } = await axiosInstance.get("api/wp/health/commission-audit");
+      setAuditResult(r);
+      if (r.has_critical) {
+        enqueueSnackbar("Audit completato: trovati problemi critici", { variant: "warning" });
+      } else {
+        enqueueSnackbar("Audit completato", { variant: "success" });
+      }
+    } catch (e) {
+      enqueueSnackbar(e?.response?.data?.message || "Errore durante l'audit", { variant: "error" });
+    }
+    setAuditRunning(false);
+  };
 
   const fetchDashboard = useCallback(async () => {
     try {
@@ -69,11 +87,20 @@ const CentroControllo = () => {
     <Page title="Centro Controllo">
       <Box sx={{ px: 3, pb: 4 }}>
         <HeaderBreadcrumbs heading="Centro Controllo" links={[{ name: "Dashboard" }, { name: "Centro Controllo" }]}
-          action={<Button variant="contained" startIcon={running ? <CircularProgress size={16} color="inherit" /> : <Iconify icon="mdi:play" />}
-            onClick={runChecks} disabled={running}
-            sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none" }}>
-            {running ? "Checking..." : "Esegui Check"}
-          </Button>} />
+          action={
+            <Stack direction="row" spacing={1}>
+              <Button variant="outlined" startIcon={auditRunning ? <CircularProgress size={16} /> : <Iconify icon="mdi:cash-multiple" />}
+                onClick={runCommissionAudit} disabled={auditRunning}
+                sx={{ borderColor: ORO, color: ORO, "&:hover": { borderColor: "#A07E2F", bgcolor: alpha(ORO, 0.05) }, fontWeight: 700, textTransform: "none" }}>
+                {auditRunning ? "Auditing..." : "Audit Commissioni"}
+              </Button>
+              <Button variant="contained" startIcon={running ? <CircularProgress size={16} color="inherit" /> : <Iconify icon="mdi:play" />}
+                onClick={runChecks} disabled={running}
+                sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none" }}>
+                {running ? "Checking..." : "Esegui Check"}
+              </Button>
+            </Stack>
+          } />
 
         {/* Summary Cards */}
         <Grid container spacing={2} sx={{ mb: 3 }}>
@@ -170,6 +197,34 @@ const CentroControllo = () => {
           </Stack>
         )}
       </Box>
+
+      <Dialog open={!!auditResult} onClose={() => setAuditResult(null)} maxWidth="md" fullWidth>
+        <DialogTitle sx={{ fontWeight: 700, color: ESPRESSO }}>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Iconify icon="mdi:cash-multiple" width={22} sx={{ color: ORO }} />
+            <span>Audit Commissioni</span>
+            {auditResult?.has_critical && (
+              <Chip size="small" label="CRITICI TROVATI" sx={{ bgcolor: alpha("#E24B4A", 0.1), color: "#E24B4A", fontWeight: 700 }} />
+            )}
+          </Stack>
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography sx={{ fontSize: "0.72rem", color: "#7A6A5C", mb: 1 }}>
+            Mese: {auditResult?.month} · Eseguito: {auditResult?.ran_at ? new Date(auditResult.ran_at).toLocaleString("it-IT") : "-"}
+          </Typography>
+          <Box component="pre" sx={{
+            fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+            fontSize: "0.72rem", bgcolor: "#f8f5ef", p: 2, borderRadius: 2,
+            border: "1px solid #f0ece6", maxHeight: 500, overflow: "auto",
+            whiteSpace: "pre-wrap", wordBreak: "break-word", m: 0,
+          }}>
+            {auditResult?.output || "(nessun output)"}
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setAuditResult(null)} sx={{ color: "#7A6A5C", textTransform: "none" }}>Chiudi</Button>
+        </DialogActions>
+      </Dialog>
     </Page>
   );
 };
