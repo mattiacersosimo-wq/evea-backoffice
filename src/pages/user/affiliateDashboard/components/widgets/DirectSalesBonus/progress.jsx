@@ -90,7 +90,7 @@ const Progress = ({ higherRank, state }) => {
       {/* ── Gauge circolari ── */}
       <Stack direction="row" justifyContent="center" spacing={3} mb={2}>
         <CircularGauge value={pqvCur} max={pqvReq} label="PQV" />
-        <CircularGauge value={custOrd} max={custReq} label={t("affiliate_dashboard.customers_who_placed_orders", { defaultValue: "Clienti attivi" })} />
+        <CircularGauge value={custOrd} max={custReq} label={t("bonus_widgets.direct_sales.active_customers", "Clienti attivi")} />
       </Stack>
 
       {/* ── PQV dettaglio ── */}

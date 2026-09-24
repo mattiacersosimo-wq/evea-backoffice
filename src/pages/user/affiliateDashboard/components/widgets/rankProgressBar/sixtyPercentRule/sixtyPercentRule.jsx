@@ -54,7 +54,9 @@ const SixtyPercentRule = ({ team_wise_users = [], state, max_team_percentage = 1
             {t("affiliate_dashboard.sixty_percent_rule")}
           </Typography>
           <Chip
-            label={isViolating ? `Max ${maxPct.toFixed(0)}% — Sbilanciato` : `Max ${maxPct.toFixed(0)}% — OK`}
+            label={isViolating
+              ? t("bonus_widgets.sixty_rule.unbalanced", { n: maxPct.toFixed(0), defaultValue: `Max ${maxPct.toFixed(0)}% — Sbilanciato` })
+              : t("bonus_widgets.sixty_rule.ok", { n: maxPct.toFixed(0), defaultValue: `Max ${maxPct.toFixed(0)}% — OK` })}
             size="small"
             sx={{
               height: 20, fontSize: "0.6rem", fontWeight: 700,

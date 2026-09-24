@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import Current from "./current";
 import Previous from "./previous";
@@ -18,6 +19,7 @@ const ESPRESSO = "#2C1A0E";
 const WARM = "#6B5E54";
 
 const Progress = ({ higherRank, state }) => {
+  const { t } = useTranslation();
   const [tab, setTab] = useState(0);
 
   if (!higherRank) return null;
@@ -54,7 +56,7 @@ const Progress = ({ higherRank, state }) => {
               sx={{ color: c ? ESPRESSO : "#aaa", maxWidth: 70, fontWeight: c ? 600 : 400 }}
               noWrap
             >
-              {c?.customer_name || `Amico ${i + 1}`}
+              {c?.customer_name || t("bonus_widgets.three_for_free.friend_slot", { n: i + 1, defaultValue: `Amico ${i + 1}` })}
             </Typography>
           </Stack>
         ))}
@@ -63,9 +65,9 @@ const Progress = ({ higherRank, state }) => {
       {/* ── Stats ── */}
       <Box sx={{ textAlign: "center", bgcolor: "#fafafa", borderRadius: 2, py: 1.5, mb: 2 }}>
         <Typography variant="body2" sx={{ color: WARM }}>
-          <b style={{ color: ESPRESSO }}>{current}/{required}</b> amici invitati
+          <b style={{ color: ESPRESSO }}>{current}/{required}</b> {t("bonus_widgets.three_for_free.friends_invited", "amici invitati")}
           <Divider component="span" orientation="vertical" sx={{ mx: 1.5, height: 14, display: "inline-block", borderColor: "#ddd" }} />
-          Premio: <b style={{ color: ORO, fontSize: "1.1em" }}>€{bonus}</b>
+          {t("bonus_widgets.three_for_free.prize", "Premio")}: <b style={{ color: ORO, fontSize: "1.1em" }}>€{bonus}</b>
         </Typography>
       </Box>
 
@@ -80,8 +82,8 @@ const Progress = ({ higherRank, state }) => {
           "& .MuiTabs-indicator": { bgcolor: ORO },
         }}
       >
-        <Tab label="Mese corrente" />
-        <Tab label="Mese precedente" />
+        <Tab label={t("bonus_widgets.three_for_free.tab_current_month", "Mese corrente")} />
+        <Tab label={t("bonus_widgets.three_for_free.tab_previous_month", "Mese precedente")} />
       </Tabs>
 
       {tab === 0 && <Current state={state} higherRank={higherRank} />}

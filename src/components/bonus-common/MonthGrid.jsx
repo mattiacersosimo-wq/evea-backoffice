@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 
 // MonthGrid: griglia mesi consecutivi con status pass/fail.
@@ -19,21 +20,23 @@ const FAIL_COLOR_DEFAULT = "#E53935";
 
 const MonthGrid = ({
   months = [],
-  title = "Stato qualifica mensile",
+  title,
   okColor = OK_COLOR_DEFAULT,
   failColor = FAIL_COLOR_DEFAULT,
   cols = 4,
 }) => {
+  const { t } = useTranslation();
   const entries = Array.isArray(months) ? months : (months ? Object.values(months) : []);
   if (!entries.length) return null;
 
+  const resolvedTitle = title || t("affiliate_dashboard.monthly_qualification_status", "Stato qualifica mensile");
   const xsSize = Math.max(1, Math.floor(12 / cols));
 
   return (
     <Box sx={{ mt: 2 }}>
-      {title && (
+      {resolvedTitle && (
         <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: "#2C1A0E", mb: 1 }}>
-          {title}
+          {resolvedTitle}
         </Typography>
       )}
       <Grid container spacing={0.5}>

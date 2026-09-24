@@ -45,12 +45,14 @@ const cardSx = {
 };
 
 // ── Badge config ──
+// name/tooltip vengono risolti a runtime via t() usando `nameKey` / `tooltipKey`
+// per rispettare la lingua attiva.
 const BADGES = [
-  { key: "bronze", name: "Bronze Ambassador", icon: "mdi:shield-outline", color: "#B87333", requirement: (d) => d.hasFirstOrder, tooltip: "Completa il tuo primo ordine" },
-  { key: "silver", name: "Silver Ambassador", icon: "mdi:shield-half-full", color: "#B8B8B8", requirement: (d) => d.consecutiveMonths >= 3, tooltip: "Mantieni lo smartship attivo per 3 mesi consecutivi" },
-  { key: "platinum", name: "Platinum Ambassador", icon: "mdi:lightning-bolt", color: "#7B8A9C", requirement: (d) => d.consecutiveMonths >= 6 && d.friendsInvited >= 1, tooltip: "6 mesi consecutivi di smartship + invita 1 amico" },
-  { key: "gold", name: "Gold Ambassador", icon: "mdi:trophy", color: "#D4AF37", requirement: (d) => d.consecutiveMonths >= 12 && d.friendsInvited >= 3, tooltip: "12 mesi consecutivi + invita 3 amici (3 For Free)" },
-  { key: "legend", name: "Legend Ambassador", icon: "mdi:diamond-stone", color: "#4A7C92", requirement: (d) => d.consecutiveMonths >= 24 && d.friendsInvited >= 5, tooltip: "24 mesi consecutivi + invita 5 amici" },
+  { key: "bronze", nameKey: "customer_dashboard.badge_bronze_name", nameFallback: "Bronze Ambassador", icon: "mdi:shield-outline", color: "#B87333", requirement: (d) => d.hasFirstOrder, tooltipKey: "customer_dashboard.badge_bronze_tooltip", tooltipFallback: "Completa il tuo primo ordine" },
+  { key: "silver", nameKey: "customer_dashboard.badge_silver_name", nameFallback: "Silver Ambassador", icon: "mdi:shield-half-full", color: "#B8B8B8", requirement: (d) => d.consecutiveMonths >= 3, tooltipKey: "customer_dashboard.badge_silver_tooltip", tooltipFallback: "Mantieni lo smartship attivo per 3 mesi consecutivi" },
+  { key: "platinum", nameKey: "customer_dashboard.badge_platinum_name", nameFallback: "Platinum Ambassador", icon: "mdi:lightning-bolt", color: "#7B8A9C", requirement: (d) => d.consecutiveMonths >= 6 && d.friendsInvited >= 1, tooltipKey: "customer_dashboard.badge_platinum_tooltip", tooltipFallback: "6 mesi consecutivi di smartship + invita 1 amico" },
+  { key: "gold", nameKey: "customer_dashboard.badge_gold_name", nameFallback: "Gold Ambassador", icon: "mdi:trophy", color: "#D4AF37", requirement: (d) => d.consecutiveMonths >= 12 && d.friendsInvited >= 3, tooltipKey: "customer_dashboard.badge_gold_tooltip", tooltipFallback: "12 mesi consecutivi + invita 3 amici (3 For Free)" },
+  { key: "legend", nameKey: "customer_dashboard.badge_legend_name", nameFallback: "Legend Ambassador", icon: "mdi:diamond-stone", color: "#4A7C92", requirement: (d) => d.consecutiveMonths >= 24 && d.friendsInvited >= 5, tooltipKey: "customer_dashboard.badge_legend_tooltip", tooltipFallback: "24 mesi consecutivi + invita 5 amici" },
 ];
 
 // ── Animated counter hook (from 0 to target, eased, ~800ms) ──
@@ -144,6 +146,7 @@ const useCoupons = () =>
 // ═══════════════════════════════════════════════
 const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   const profile = user?.user_profile || {};
   const fullName =
@@ -203,15 +206,16 @@ const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
               {(() => {
                 const h = new Date().getHours();
                 const firstName = profile?.first_name || fullName.split(" ")[0] || "";
-                if (h >= 6 && h < 12) return `🌅 Buongiorno${firstName ? ", " + firstName : ""}`;
-                if (h >= 12 && h < 18) return `☀️ Buon pomeriggio${firstName ? ", " + firstName : ""}`;
-                if (h >= 18 && h < 24) return `🌙 Buonasera${firstName ? ", " + firstName : ""}`;
-                return `🌙 Buonanotte${firstName ? ", " + firstName : ""}`;
+                const suffix = firstName ? ", " + firstName : "";
+                if (h >= 6 && h < 12) return `🌅 ${t("promoter_dashboard.greeting_morning", "Buongiorno")}${suffix}`;
+                if (h >= 12 && h < 18) return `☀️ ${t("promoter_dashboard.greeting_afternoon", "Buon pomeriggio")}${suffix}`;
+                if (h >= 18 && h < 24) return `🌙 ${t("promoter_dashboard.greeting_evening", "Buonasera")}${suffix}`;
+                return `🌙 ${t("promoter_dashboard.greeting_night", "Buonanotte")}${suffix}`;
               })()}
             </Typography>
             {currentBadge && (
               <Chip
-                label={currentBadge.name}
+                label={t(currentBadge.nameKey, currentBadge.nameFallback)}
                 size="small"
                 icon={<Iconify icon={currentBadge.icon} width={16} sx={{ color: `${currentBadge.color} !important` }} />}
                 sx={{
@@ -226,7 +230,7 @@ const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
             )}
           </Stack>
           <Typography sx={{ fontSize: "0.82rem", color: WARM_GRAY }}>
-            <b style={{ color: ESPRESSO }}>{fullName}</b> · Benvenuto nella tua area personale
+            <b style={{ color: ESPRESSO }}>{fullName}</b> · {t("customer_dashboard.welcome_personal_area", "Benvenuto nella tua area personale")}
           </Typography>
 
           {/* Badge row */}
@@ -240,9 +244,9 @@ const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
                   arrow
                   title={
                     <Box sx={{ p: 0.5 }}>
-                      <Typography sx={{ fontWeight: 700, fontSize: "0.8rem" }}>{badge.name}</Typography>
+                      <Typography sx={{ fontWeight: 700, fontSize: "0.8rem" }}>{t(badge.nameKey, badge.nameFallback)}</Typography>
                       <Typography sx={{ fontSize: "0.72rem", mt: 0.3 }}>
-                        {unlocked ? "✓ Sbloccato!" : badge.tooltip}
+                        {unlocked ? t("customer_dashboard.badge_unlocked", "✓ Sbloccato!") : t(badge.tooltipKey, badge.tooltipFallback)}
                       </Typography>
                     </Box>
                   }
@@ -278,43 +282,49 @@ const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
               <Box sx={{ mt: 1.5, display: "flex", alignItems: "center", gap: 0.8 }}>
                 <Iconify icon="mdi:trophy-variant" width={14} sx={{ color: "#4CAF50" }} />
                 <Typography sx={{ fontSize: "0.72rem", color: "#4CAF50", fontWeight: 700 }}>
-                  Tutti i badge sbloccati! 🎉
+                  {t("customer_dashboard.all_badges_unlocked", "Tutti i badge sbloccati! 🎉")}
                 </Typography>
               </Box>
             );
+            const monthsLabel = (m) => m === 1
+              ? t("customer_dashboard.month_singular", "mese")
+              : t("customer_dashboard.month_plural", "mesi");
+            const friendsLabel = (f) => f === 1
+              ? t("customer_dashboard.friend_singular", "amico")
+              : t("customer_dashboard.friend_plural", "amici");
             let missing = "";
-            if (nextBadge.key === "bronze") missing = "1 primo ordine";
+            if (nextBadge.key === "bronze") missing = t("customer_dashboard.missing_first_order", "1 primo ordine");
             else if (nextBadge.key === "silver") {
               const m = Math.max(0, 3 - badgeData.consecutiveMonths);
-              missing = `${m} ${m === 1 ? "mese" : "mesi"} di smartship`;
+              missing = t("customer_dashboard.missing_months_smartship", "{{count}} {{label}} di smartship", { count: m, label: monthsLabel(m) });
             } else if (nextBadge.key === "platinum") {
               const m = Math.max(0, 6 - badgeData.consecutiveMonths);
               const f = Math.max(0, 1 - badgeData.friendsInvited);
               const parts = [];
-              if (m > 0) parts.push(`${m} ${m === 1 ? "mese" : "mesi"}`);
-              if (f > 0) parts.push(`${f} amico`);
+              if (m > 0) parts.push(t("customer_dashboard.missing_months", "{{count}} {{label}}", { count: m, label: monthsLabel(m) }));
+              if (f > 0) parts.push(t("customer_dashboard.missing_friends", "{{count}} {{label}}", { count: f, label: friendsLabel(f) }));
               missing = parts.join(" + ");
             } else if (nextBadge.key === "gold") {
               const m = Math.max(0, 12 - badgeData.consecutiveMonths);
               const f = Math.max(0, 3 - badgeData.friendsInvited);
               const parts = [];
-              if (m > 0) parts.push(`${m} ${m === 1 ? "mese" : "mesi"}`);
-              if (f > 0) parts.push(`${f} ${f === 1 ? "amico" : "amici"}`);
+              if (m > 0) parts.push(t("customer_dashboard.missing_months", "{{count}} {{label}}", { count: m, label: monthsLabel(m) }));
+              if (f > 0) parts.push(t("customer_dashboard.missing_friends", "{{count}} {{label}}", { count: f, label: friendsLabel(f) }));
               missing = parts.join(" + ");
             } else if (nextBadge.key === "legend") {
               const m = Math.max(0, 24 - badgeData.consecutiveMonths);
               const f = Math.max(0, 5 - badgeData.friendsInvited);
               const parts = [];
-              if (m > 0) parts.push(`${m} ${m === 1 ? "mese" : "mesi"}`);
-              if (f > 0) parts.push(`${f} ${f === 1 ? "amico" : "amici"}`);
+              if (m > 0) parts.push(t("customer_dashboard.missing_months", "{{count}} {{label}}", { count: m, label: monthsLabel(m) }));
+              if (f > 0) parts.push(t("customer_dashboard.missing_friends", "{{count}} {{label}}", { count: f, label: friendsLabel(f) }));
               missing = parts.join(" + ");
             }
             return (
               <Box sx={{ mt: 1.5, display: "flex", alignItems: "center", gap: 0.8 }}>
                 <Iconify icon="mdi:target" width={14} sx={{ color: nextBadge.color }} />
                 <Typography sx={{ fontSize: "0.72rem", color: WARM_GRAY }}>
-                  Prossimo: <b style={{ color: nextBadge.color }}>{nextBadge.name}</b>
-                  {missing && <> · ti serve <b style={{ color: ESPRESSO }}>{missing}</b></>}
+                  {t("customer_dashboard.next_label", "Prossimo:")} <b style={{ color: nextBadge.color }}>{t(nextBadge.nameKey, nextBadge.nameFallback)}</b>
+                  {missing && <> · {t("customer_dashboard.you_need", "ti serve")} <b style={{ color: ESPRESSO }}>{missing}</b></>}
                 </Typography>
               </Box>
             );
@@ -329,14 +339,15 @@ const HeroCard = ({ hero, ff, rob, totalOrders = 0 }) => {
 // TICKER SCORREVOLE
 // ═══════════════════════════════════════════════
 const TICKER_MESSAGES = [
-  { icon: "mdi:truck-fast-outline", text: "Spedizione gratuita a partire da €97 di acquisti" },
-  { icon: "mdi:sale-outline", text: "-10% su ogni ordine con lo Smartship attivo" },
-  { icon: "mdi:gift-outline", text: "Invita 3 amici e guadagna fino a €80 di bonus" },
-  { icon: "mdi:gift-outline", text: "Un regalo che cresce con il tuo ordine, ogni 3 mesi" },
-  { icon: "mdi:coffee-outline", text: "Scopri i nostri prodotti wellness su myevea.com" },
+  { icon: "mdi:truck-fast-outline", key: "customer_dashboard.ticker_free_shipping", fallback: "Spedizione gratuita a partire da €97 di acquisti" },
+  { icon: "mdi:sale-outline", key: "customer_dashboard.ticker_smartship_discount", fallback: "-10% su ogni ordine con lo Smartship attivo" },
+  { icon: "mdi:gift-outline", key: "customer_dashboard.ticker_invite_friends", fallback: "Invita 3 amici e guadagna fino a €80 di bonus" },
+  { icon: "mdi:gift-outline", key: "customer_dashboard.ticker_growing_gift", fallback: "Un regalo che cresce con il tuo ordine, ogni 3 mesi" },
+  { icon: "mdi:coffee-outline", key: "customer_dashboard.ticker_discover_products", fallback: "Scopri i nostri prodotti wellness su myevea.com" },
 ];
 
 const Ticker = () => {
+  const { t } = useTranslation();
   const doubled = [...TICKER_MESSAGES, ...TICKER_MESSAGES];
   return (
     <Box sx={{
@@ -355,7 +366,7 @@ const Ticker = () => {
           <Stack key={i} direction="row" alignItems="center" spacing={1} sx={{ mx: 4, flexShrink: 0 }}>
             <Iconify icon={msg.icon} width={18} sx={{ color: ORO }} />
             <Typography component="span" sx={{ fontSize: "0.92rem", fontWeight: 600, color: ESPRESSO }}>
-              {msg.text}
+              {t(msg.key, msg.fallback)}
             </Typography>
           </Stack>
         ))}
@@ -377,7 +388,7 @@ const ThreeFFCard = ({ ff, loading = false }) => {
   const copy = async () => {
     if (!referralLink) return;
     await navigator.clipboard.writeText(referralLink);
-    enqueueSnackbar("Link copiato!");
+    enqueueSnackbar(t("evea.link_copied", "Link copiato!"));
   };
 
   const required = ff?.required_customers || 3;
@@ -396,16 +407,16 @@ const ThreeFFCard = ({ ff, loading = false }) => {
         </Box>
         <Box>
           <Tooltip
-            title="Porta 3 amici che ordinano almeno €30 ciascuno e ricevi un bonus fino a €80. Condividi il tuo link!"
+            title={t("customer_dashboard.threeff_tooltip", "Porta 3 amici che ordinano almeno €30 ciascuno e ricevi un bonus fino a €80. Condividi il tuo link!")}
             arrow
             placement="top"
           >
             <Typography variant="subtitle2" fontWeight={700} color={ESPRESSO} sx={{ cursor: "help", borderBottom: `1px dashed ${alpha(WARM_GRAY, 0.3)}` }}>
-              Invita 3 Amici
+              {t("customer_dashboard.invite_three_friends", "Invita 3 Amici")}
             </Typography>
           </Tooltip>
           <Typography variant="caption" sx={{ color: WARM_GRAY, lineHeight: 1 }}>
-            {t("evea.bonus_3ff") || "Ottieni un bonus per ogni amico"}
+            {t("evea.bonus_3ff", "Bonus 3 For Free")}
           </Typography>
         </Box>
       </Stack>
@@ -449,7 +460,7 @@ const ThreeFFCard = ({ ff, loading = false }) => {
                     )}
                   </Avatar>
                   <Typography variant="caption" sx={{ color: c ? ESPRESSO : "#aaa", maxWidth: 70, fontWeight: c ? 700 : 400, fontSize: "0.72rem" }} noWrap>
-                    {c?.customer_name || `Amico ${i + 1}`}
+                    {c?.customer_name || `${t("evea.friend", "Amico")} ${i + 1}`}
                   </Typography>
                 </Stack>
               );
@@ -458,11 +469,11 @@ const ThreeFFCard = ({ ff, loading = false }) => {
 
           <Box sx={{ textAlign: "center", background: `linear-gradient(135deg, ${alpha(ORO, 0.06)} 0%, ${alpha(ORO, 0.02)} 100%)`, border: `1px solid ${alpha(ORO, 0.12)}`, borderRadius: 2, py: 1.5, mb: 2 }}>
             <Typography variant="body2" sx={{ color: WARM_GRAY }}>
-              <b style={{ color: ESPRESSO }}>{current}/{required}</b> amici invitati
+              <b style={{ color: ESPRESSO }}>{current}/{required}</b> {t("evea.friends_invited", "amici invitati")}
               {bonus > 0 && (
                 <>
                   <Divider component="span" orientation="vertical" sx={{ mx: 1.5, height: 14, display: "inline-block", borderColor: "#ddd" }} />
-                  Bonus: <b style={{ color: ORO, fontSize: "1.1em" }}>€{bonus}</b>
+                  {t("customer_dashboard.bonus_label", "Bonus:")} <b style={{ color: ORO, fontSize: "1.1em" }}>€{bonus}</b>
                 </>
               )}
             </Typography>
@@ -488,7 +499,7 @@ const ThreeFFCard = ({ ff, loading = false }) => {
             boxShadow: `0 4px 12px ${alpha(ORO, 0.3)}`,
           }}
         >
-          Copia il tuo link
+          {t("customer_dashboard.copy_your_link", "Copia il tuo link")}
         </Button>
       </Box>
     </Card>
@@ -515,9 +526,9 @@ const ROBCard = ({ rob, loading = false }) => {
     const isCoupon = COUPON_MONTHS.includes(i);
     const isFirstEver = cycleNum === 1 && i === 0;
     let label;
-    if (isFirstEver) label = t("evea.first_delivery") || "1ª consegna";
-    else if (isCoupon) label = "-10% + 🎁";
-    else label = "-10%";
+    if (isFirstEver) label = t("evea.first_delivery", "1ª consegna");
+    else if (isCoupon) label = t("customer_dashboard.milestone_coupon_short", "-10% + 🎁");
+    else label = t("customer_dashboard.milestone_discount_short", "-10%");
     return { month: i + 1, completed: i < posInCycle, isCurrent: i === posInCycle, label, isCoupon };
   });
 
@@ -544,15 +555,15 @@ const ROBCard = ({ rob, loading = false }) => {
           </Box>
           <Box>
             <Typography variant="subtitle2" fontWeight={700} color={ESPRESSO}>
-              {t("evea.loyalty_path") || "Percorso Fedeltà"}
+              {t("evea.loyalty_path", "Percorso Fedeltà")}
             </Typography>
             <Typography variant="caption" sx={{ color: WARM_GRAY, lineHeight: 1 }}>
-              {t("evea.loyalty_sub_v2") || "-10% per sempre + un regalo che cresce con il tuo ordine, ogni 3 mesi"}
+              {t("evea.loyalty_sub_v2", "-10% per sempre + un regalo che cresce con il tuo ordine, ogni 3 mesi")}
             </Typography>
           </Box>
         </Stack>
         {!loading && totalConsec > 0 && (
-          <Chip label={`Ciclo ${cycleNum} · ${posInCycle}/${CYCLE_LEN}`} size="small"
+          <Chip label={t("customer_dashboard.cycle_progress", "{{cycleLabel}} {{cycleNum}} · {{pos}}/{{total}}", { cycleLabel: t("evea.cycle", "Ciclo"), cycleNum, pos: posInCycle, total: CYCLE_LEN })} size="small"
             sx={{ bgcolor: alpha(ORO, 0.1), color: ORO, fontWeight: 700, fontSize: "0.7rem", height: 24 }} />
         )}
       </Stack>
@@ -616,14 +627,14 @@ const ROBCard = ({ rob, loading = false }) => {
           </Stack>
 
           <Typography sx={{ fontSize: "0.7rem", color: WARM_GRAY, textAlign: "center", mb: 2, px: 1, fontStyle: "italic", lineHeight: 1.4 }}>
-            {t("evea.loyalty_gift_hint_v2") || "🎁 Più ordini, più grande il regalo. Un coupon ogni 3 mesi, da usare quando vuoi."}
+            {t("evea.loyalty_gift_hint_v2", "🎁 Più ordini, più grande il regalo. Un coupon ogni 3 mesi, da usare quando vuoi.")}
           </Typography>
 
           <Box sx={{ bgcolor: alpha(ORO, 0.06), borderRadius: 2, p: 2, mb: 2, textAlign: "center" }}>
             <Stack direction="row" alignItems="center" justifyContent="center" spacing={0.5} mb={0.5}>
               <Iconify icon="mdi:piggy-bank-outline" width={18} sx={{ color: ORO }} />
               <Typography sx={{ fontSize: "0.75rem", color: WARM_GRAY, fontWeight: 600 }}>
-                {t("evea.your_savings") || "Il tuo risparmio finora"}
+                {t("evea.your_savings", "Il tuo risparmio finora")}
               </Typography>
             </Stack>
             {(() => {
@@ -633,7 +644,7 @@ const ROBCard = ({ rob, loading = false }) => {
               const hasAnyting = realTotal > 0 || totalConsec > 0 || couponValue > 0;
               if (!hasAnyting) return (
                 <Typography sx={{ fontSize: "0.8rem", color: WARM_GRAY }}>
-                  {t("evea.start_subscription") || "Attiva il tuo abbonamento per iniziare a risparmiare!"}
+                  {t("evea.start_subscription", "Attiva il tuo abbonamento per iniziare a risparmiare!")}
                 </Typography>
               );
               return (() => {
@@ -645,12 +656,12 @@ const ROBCard = ({ rob, loading = false }) => {
                     <Typography sx={{ fontSize: "0.7rem", color: WARM_GRAY, mt: 0.2 }}>
                       {(useReal ? realDiscount : discountMonths) > 0 && (
                         useReal
-                          ? <>€{realDiscount.toFixed(0)} di sconti (-10%)</>
-                          : <>{discountMonths} {discountMonths === 1 ? "consegna" : "consegne"} -10%</>
+                          ? <>{t("customer_dashboard.discounts_amount", "€{{amount}} di sconti (-10%)", { amount: realDiscount.toFixed(0) })}</>
+                          : <>{t("customer_dashboard.discount_deliveries", "{{count}} {{label}} -10%", { count: discountMonths, label: discountMonths === 1 ? t("customer_dashboard.delivery_singular", "consegna") : t("customer_dashboard.delivery_plural", "consegne") })}</>
                       )}
                       {((useReal ? realDiscount : discountMonths) > 0) && ((useReal ? realCoupons : couponValue) > 0) && " · "}
                       {(useReal ? realCoupons : couponValue) > 0 && (
-                        <>€{useReal ? realCoupons.toFixed(0) : couponValue} in coupon</>
+                        <>{t("customer_dashboard.in_coupons", "€{{amount}} in coupon", { amount: useReal ? realCoupons.toFixed(0) : couponValue })}</>
                       )}
                     </Typography>
                   </Stack>
@@ -664,7 +675,7 @@ const ROBCard = ({ rob, loading = false }) => {
       <Box sx={{ mt: "auto" }}>
         <Button fullWidth variant="outlined" startIcon={<Iconify icon="mdi:cog-outline" />} href="/user/recurring-orders"
           sx={{ borderColor: "#e0e0e0", color: ESPRESSO, "&:hover": { borderColor: ORO, bgcolor: alpha(ORO, 0.04) }, fontWeight: 600, borderRadius: 2, py: 1.2, textTransform: "none" }}>
-          {t("evea.manage_subscription") || "Gestisci il mio abbonamento"}
+          {t("evea.manage_subscription", "Gestisci il mio abbonamento")}
         </Button>
       </Box>
     </Card>
@@ -675,6 +686,8 @@ const ROBCard = ({ rob, loading = false }) => {
 // ORDINI RECENTI
 // ═══════════════════════════════════════════════
 const RecentOrders = ({ orders = [], loading = false }) => {
+  const { t, i18n } = useTranslation();
+  const localeCode = i18n.language?.startsWith("ro") ? "ro-RO" : i18n.language?.startsWith("en") ? "en-US" : "it-IT";
 
   if (loading) return <Skeleton height={200} variant="rounded" sx={{ borderRadius: 3 }} />;
   if (!orders.length) return null;
@@ -688,12 +701,12 @@ const RecentOrders = ({ orders = [], loading = false }) => {
           <Box sx={{ width: 36, height: 36, borderRadius: 2, background: `linear-gradient(135deg, ${alpha(ORO, 0.18)} 0%, ${alpha(ORO, 0.06)} 100%)`, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <Iconify icon="mdi:package-variant-closed" width={19} sx={{ color: ORO }} />
           </Box>
-          <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>Ordini Recenti</Typography>
+          <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>{t("customer_dashboard.recent_orders", "Ordini Recenti")}</Typography>
         </Stack>
         <Button size="small" href="/user/online-store/my-orders"
           endIcon={<Iconify icon="mdi:arrow-right" width={14} />}
           sx={{ textTransform: "none", color: ORO, fontWeight: 600, fontSize: "0.75rem", "&:hover": { bgcolor: alpha(ORO, 0.06) } }}>
-          Vedi tutti
+          {t("customer_dashboard.see_all", "Vedi tutti")}
         </Button>
       </Stack>
       <Stack spacing={0}>
@@ -703,8 +716,14 @@ const RecentOrders = ({ orders = [], loading = false }) => {
           const isProcessing = rawStatus === "processing" || rawStatus === "pending";
           const isRefunded = rawStatus === "refunded" || rawStatus === "cancelled";
           const statusColor = isPaid ? "#4CAF50" : isProcessing ? "#FF9800" : isRefunded ? "#E24B4A" : "#4CAF50";
-          const statusLabel = isPaid ? "Completato" : isProcessing ? "In lavorazione" : isRefunded ? "Rimborsato" : "Completato";
-          const date = (o.date || o.created_at) ? new Date(o.date || o.created_at).toLocaleDateString("it-IT", { day: "2-digit", month: "long", year: "numeric" }) : "";
+          const statusLabel = isPaid
+            ? t("customer_dashboard.status_completed", "Completato")
+            : isProcessing
+              ? t("customer_dashboard.status_processing", "In lavorazione")
+              : isRefunded
+                ? t("customer_dashboard.status_refunded", "Rimborsato")
+                : t("customer_dashboard.status_completed", "Completato");
+          const date = (o.date || o.created_at) ? new Date(o.date || o.created_at).toLocaleDateString(localeCode, { day: "2-digit", month: "long", year: "numeric" }) : "";
           const productName = o.user_purchase_products?.[0]?.product?.name || o.product_name || o.purchase_product?.name || "";
           const productCount = parseInt(o.product_count || "1");
           const invoiceId = o.invoice_id || "";
@@ -720,7 +739,7 @@ const RecentOrders = ({ orders = [], loading = false }) => {
               <Box sx={{ flex: 1, minWidth: 0 }}>
                 <Stack direction="row" alignItems="center" spacing={0.5}>
                   <Typography sx={{ fontSize: "0.82rem", fontWeight: 600, color: ESPRESSO }} noWrap>
-                    {productName || `Ordine #${o.id}`}
+                    {productName || t("customer_dashboard.order_number", "Ordine #{{id}}", { id: o.id })}
                   </Typography>
                   {productCount > 1 && (
                     <Chip label={`+${productCount - 1}`} size="small" sx={{ height: 18, fontSize: "0.6rem", bgcolor: alpha(ORO, 0.1), color: ORO }} />
@@ -759,7 +778,8 @@ const RecentOrders = ({ orders = [], loading = false }) => {
 // COUPON
 // ═══════════════════════════════════════════════
 const CouponsSection = ({ coupons, loading }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const localeCode = i18n.language?.startsWith("ro") ? "ro-RO" : i18n.language?.startsWith("en") ? "en-US" : "it-IT";
 
   if (loading) return (
     <Grid container spacing={2}>
@@ -775,7 +795,7 @@ const CouponsSection = ({ coupons, loading }) => {
     <Box sx={{ textAlign: "center", py: 5, bgcolor: "#fafafa", borderRadius: 3 }}>
       <Iconify icon="mdi:ticket-outline" width={36} sx={{ color: "#ddd", mb: 1 }} />
       <Typography variant="body2" color="text.secondary">
-        {t("evea.no_coupons") || "Nessun coupon disponibile"}
+        {t("evea.no_coupons", "Nessun coupon attivo al momento")}
       </Typography>
     </Box>
   );
@@ -786,9 +806,9 @@ const CouponsSection = ({ coupons, loading }) => {
         const amount = parseFloat(coupon.discount || coupon.amount || coupon.total_amount || 0);
         const code = coupon.code || "";
         const rawDate = coupon.end_date || coupon.expiry_date || coupon.expire_date;
-        const expiryLabel = rawDate ? new Date(rawDate).toLocaleDateString("it-IT", { day: "2-digit", month: "long", year: "numeric" }) : "Nessuna scadenza";
+        const expiryLabel = rawDate ? new Date(rawDate).toLocaleDateString(localeCode, { day: "2-digit", month: "long", year: "numeric" }) : t("customer_dashboard.no_expiry", "Nessuna scadenza");
         const isUsed = coupon.uses_count > 0 || coupon.used === 1;
-        const typeName = (coupon.type || coupon.coupon_type || "").replace(/_/g, " ").replace("programe", "").trim().toUpperCase() || "COUPON";
+        const typeName = (coupon.type || coupon.coupon_type || "").replace(/_/g, " ").replace("programe", "").trim().toUpperCase() || t("customer_dashboard.coupon_type_default", "COUPON");
 
         return (
           <Grid item xs={12} sm={6} md={4} key={coupon.id || i}>
@@ -832,7 +852,7 @@ const CouponsSection = ({ coupons, loading }) => {
                       </>
                     )}
                     <Typography sx={{ fontSize: "0.65rem", color: "#aaa", ml: 0.5 }}>
-                      {isUsed ? "Utilizzato" : `Scade il ${expiryLabel}`}
+                      {isUsed ? t("customer_dashboard.coupon_used", "Utilizzato") : t("customer_dashboard.coupon_expires_on", "Scade il {{date}}", { date: expiryLabel })}
                     </Typography>
                   </Stack>
                 </Box>
@@ -854,6 +874,7 @@ const CouponsSection = ({ coupons, loading }) => {
 // promoter — la logica backend gia' gestisce entrambi i casi).
 // ═══════════════════════════════════════════════
 const QuickAccessCustomer = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
   const refSlug = user?.username ? user.username.toLowerCase().replace(/\s+/g, "") : "";
@@ -882,36 +903,36 @@ const QuickAccessCustomer = () => {
   const shortcuts = [
     {
       icon: "mdi:storefront-outline",
-      label: "Negozio",
+      label: t("evea.shop", "Negozio"),
       action: () => window.open(shopLink, "_blank"),
     },
     {
       icon: "mdi:help-circle-outline",
-      label: "Link Quiz",
+      label: t("promoter_dashboard.quiz_link", "Link Quiz"),
       action: async () => {
         if (!quizLink) return;
         await navigator.clipboard.writeText(quizLink);
-        enqueueSnackbar("Link Quiz copiato!");
+        enqueueSnackbar(t("promoter_dashboard.quiz_link_copied", "Link Quiz copiato!"));
       },
     },
     {
       icon: "mdi:coffee-outline",
-      label: "Landing Prodotto",
+      label: t("customer_dashboard.product_landing_short", "Landing Prodotto"),
       action: () => shareOrCopy(
         productLandingLink,
-        "Scopri il caffè eVea",
-        "Ti faccio scoprire il caffè funzionale eVea — un rituale quotidiano che cambia la giornata.",
-        "Link Prodotto copiato!"
+        t("customer_dashboard.discover_product_title", "Scopri il caffè eVea"),
+        t("customer_dashboard.discover_product_text", "Ti faccio scoprire il caffè funzionale eVea — un rituale quotidiano che cambia la giornata."),
+        t("promoter_dashboard.product_link_copied", "Link Prodotto copiato!")
       ),
     },
     {
       icon: "mdi:rocket-launch-outline",
-      label: "Landing Opportunità",
+      label: t("customer_dashboard.opportunity_landing_short", "Landing Opportunità"),
       action: () => shareOrCopy(
         opportunityLink,
-        "Scopri l'opportunità eVea",
-        "Ti invito a scoprire il progetto eVea e le sue opportunità.",
-        "Link Opportunità copiato!"
+        t("customer_dashboard.discover_opportunity_title", "Scopri l'opportunità eVea"),
+        t("customer_dashboard.discover_opportunity_text", "Ti invito a scoprire il progetto eVea e le sue opportunità."),
+        t("promoter_dashboard.opportunity_link_copied", "Link Opportunità copiato!")
       ),
     },
   ];
@@ -921,7 +942,7 @@ const QuickAccessCustomer = () => {
       <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1.5, mt: 3 }}>
         <Iconify icon="mdi:flash" width={20} sx={{ color: ORO }} />
         <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ESPRESSO }}>
-          Accesso Rapido
+          {t("evea.quick_access", "Accesso Rapido")}
         </Typography>
       </Stack>
       <Grid container spacing={1.5}>
@@ -975,7 +996,7 @@ const UserDashboard = () => {
   const orders = orderData?.orders || [];
   const totalOrders = orderData?.totalOrders || 0;
   return (
-    <Page title="Dashboard">
+    <Page title={t("customer_dashboard.page_title", "Dashboard")}>
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4 }}>
         <HeroCard hero={hero} ff={ff} rob={rob} totalOrders={totalOrders} badgesLoading={ffLoading || robLoading} />
         <Box sx={{ mt: 2 }}><CustomerCommunityBanner /></Box>
@@ -1000,10 +1021,10 @@ const UserDashboard = () => {
                 <Iconify icon="mdi:rocket-launch" width={22} sx={{ color: ORO, flexShrink: 0 }} />
                 <Box sx={{ minWidth: 0 }}>
                   <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO, lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                    Diventa Distributore eVea
+                    {t("customer_dashboard.become_distributor_title", "Diventa Distributore eVea")}
                   </Typography>
                   <Typography sx={{ fontSize: "0.7rem", color: WARM_GRAY, lineHeight: 1.2 }}>
-                    Kit Promotore &euro;79
+                    {t("customer_dashboard.promoter_kit_price", "Kit Promotore €79")}
                   </Typography>
                 </Box>
               </Stack>
@@ -1013,7 +1034,7 @@ const UserDashboard = () => {
                 target="_blank" rel="noopener"
                 sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, textTransform: "none", fontWeight: 700, borderRadius: 2, whiteSpace: "nowrap", flexShrink: 0 }}
               >
-                Attiva
+                {t("customer_dashboard.activate_short", "Attiva")}
               </Button>
             </Box>
           ) : null;
@@ -1026,16 +1047,16 @@ const UserDashboard = () => {
                     <Iconify icon="mdi:pause-circle-outline" width={22} sx={{ color: "#F57F17", flexShrink: 0 }} />
                     <Box sx={{ minWidth: 0 }}>
                       <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: "#E65100", lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                        Smartship in pausa
+                        {t("customer_dashboard.smartship_paused", "Smartship in pausa")}
                       </Typography>
                       <Typography sx={{ fontSize: "0.7rem", color: "#BF360C", lineHeight: 1.2 }}>
-                        Sconto 10% sospeso
+                        {t("customer_dashboard.discount_suspended", "Sconto 10% sospeso")}
                       </Typography>
                     </Box>
                   </Stack>
                   <Button size="small" variant="contained" href="/user/recurring-orders"
                     sx={{ bgcolor: "#F57F17", "&:hover": { bgcolor: "#E65100" }, textTransform: "none", fontWeight: 700, borderRadius: 2, flexShrink: 0 }}>
-                    Riprendi
+                    {t("customer_dashboard.resume", "Riprendi")}
                   </Button>
                 </Box>
               );
@@ -1045,10 +1066,10 @@ const UserDashboard = () => {
                 <Iconify icon="mdi:check-circle" width={22} sx={{ color: "#4A5C3A", flexShrink: 0 }} />
                 <Box sx={{ minWidth: 0 }}>
                   <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: "#27500A", lineHeight: 1.2 }}>
-                    {t("evea.loyalty_active") || "Sconto Fedeltà attivo — 10%"}
+                    {t("evea.loyalty_active", "Sconto fedeltà attivo — 10% su tutti i tuoi acquisti")}
                   </Typography>
                   <Typography sx={{ fontSize: "0.7rem", color: "#4A5C3A", lineHeight: 1.2 }}>
-                    Su tutti i tuoi acquisti smartship
+                    {t("customer_dashboard.on_all_smartship_purchases", "Su tutti i tuoi acquisti smartship")}
                   </Typography>
                 </Box>
               </Box>
@@ -1058,17 +1079,17 @@ const UserDashboard = () => {
                   <Iconify icon="mdi:tag-heart-outline" width={22} sx={{ color: ORO, flexShrink: 0 }} />
                   <Box sx={{ minWidth: 0 }}>
                     <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO, lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                      Attiva lo Smartship
+                      {t("customer_dashboard.activate_smartship", "Attiva lo Smartship")}
                     </Typography>
                     <Typography sx={{ fontSize: "0.7rem", color: WARM_GRAY, lineHeight: 1.2 }}>
-                      Ottieni il 10% su ogni ordine
+                      {t("customer_dashboard.get_10pct_every_order", "Ottieni il 10% su ogni ordine")}
                     </Typography>
                   </Box>
                 </Stack>
                 <SmartshipActivateCard renderTrigger={({ onClick }) => (
                   <Button size="small" variant="contained" onClick={onClick}
                     sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, textTransform: "none", fontWeight: 700, borderRadius: 2, flexShrink: 0 }}>
-                    {t("evea.activate_now") || "Attiva ora"}
+                    {t("evea.activate_now", "Attiva ora")}
                   </Button>
                 )} />
               </Box>
@@ -1105,7 +1126,7 @@ const UserDashboard = () => {
           <Stack direction="row" alignItems="center" spacing={1} mb={2}>
             <Iconify icon="mdi:ticket-percent-outline" width={22} sx={{ color: ORO }} />
             <Typography variant="h6" fontWeight={700} color={ESPRESSO}>
-              I Tuoi Coupon Premio
+              {t("promoter_dashboard.section_your_coupons", "I Tuoi Coupon Premio")}
             </Typography>
           </Stack>
           <CouponsSection coupons={coupons} loading={couponsLoading} />

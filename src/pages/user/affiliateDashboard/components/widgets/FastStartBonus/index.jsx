@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Chip, Stack, Typography, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { alpha } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import useErrors from "src/hooks/useErrors";
 import fetchUser from "src/utils/fetchUser";
@@ -25,17 +26,17 @@ const useFastStart = () => {
   return data;
 };
 
-const STATUS_BADGE = {
-  pending: { label: "In attesa", color: "#EF9F27", bg: "#FFF3E0" },
-  on_hold: { label: "On hold", color: "#607D8B", bg: "#ECEFF1" },
-  yes: { label: "Approvato", color: "#4A5C3A", bg: "#EAF3DE" },
-  cancelled: { label: "Annullato", color: "#C0392B", bg: "#FDEDEC" },
-};
+const buildStatusBadge = (t) => ({
+  pending: { label: t("bonus_widgets.common.status_pending", "In attesa"), color: "#EF9F27", bg: "#FFF3E0" },
+  on_hold: { label: t("bonus_widgets.common.status_on_hold", "On hold"), color: "#607D8B", bg: "#ECEFF1" },
+  yes: { label: t("bonus_widgets.common.status_approved", "Approvato"), color: "#4A5C3A", bg: "#EAF3DE" },
+  cancelled: { label: t("bonus_widgets.common.status_cancelled", "Annullato"), color: "#C0392B", bg: "#FDEDEC" },
+});
 
 // Raggruppa recruits per settimana ISO (lun-dom). Ritorna [{label, rows}, ...]
 // ordinato dalla piu' recente. Etichette contestuali: corrente, precedente,
 // altrimenti "N settimane fa" o data range.
-const groupByWeek = (recruits) => {
+const groupByWeek = (recruits, t) => {
   if (!recruits || recruits.length === 0) return [];
   const now = new Date();
   const startOfWeek = (d) => {
@@ -58,19 +59,21 @@ const groupByWeek = (recruits) => {
     .map((g) => {
       const diff = Math.round((currentStart - g.weekStart) / (7 * 24 * 60 * 60 * 1000));
       let label;
-      if (diff === 0) label = "Settimana corrente";
-      else if (diff === 1) label = "Settimana precedente";
-      else if (diff > 1 && diff < 5) label = `${diff} settimane fa`;
+      if (diff === 0) label = t("bonus_widgets.week_chips.current_week", "Settimana corrente");
+      else if (diff === 1) label = t("evea.previous_week", "Sett. precedente");
+      else if (diff > 1 && diff < 5) label = t("bonus_widgets.common.weeks_ago", { n: diff, defaultValue: `${diff} settimane fa` });
       else {
         const d = new Date(g.weekStart);
-        label = `Dal ${d.getDate()}/${d.getMonth() + 1}`;
+        label = t("bonus_widgets.common.week_from_date", { d: d.getDate(), m: d.getMonth() + 1, defaultValue: `Dal ${d.getDate()}/${d.getMonth() + 1}` });
       }
       return { label, rows: g.rows };
     });
 };
 
 const FastStartBonus = () => {
+  const { t } = useTranslation();
   const data = useFastStart();
+  const STATUS_BADGE = buildStatusBadge(t);
 
   if (!data) return null;
 
@@ -88,14 +91,14 @@ const FastStartBonus = () => {
           currentAmount={data.pending_current_week}
           previousInApprovalAmount={data.pending_previous_week}
           accentColor={PINK}
-          extraBox={{ label: "Reclutamenti mese", value: data.recruits_this_month || 0 }}
+          extraBox={{ label: t("bonus_widgets.fast_start.recruits_month", "Reclutamenti mese"), value: data.recruits_this_month || 0 }}
         />
 
         {/* Pack amounts */}
         {packs.length > 0 && (
           <Box sx={{ p: 1.5, borderRadius: 2, bgcolor: "#fafaf5", border: "1px solid #f0ece6" }}>
             <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: "#2C1A0E", mb: 0.8 }}>
-              Bonus per kit
+              {t("bonus_widgets.fast_start.bonus_per_kit", "Bonus per kit")}
             </Typography>
             <Stack direction="row" spacing={1} flexWrap="wrap">
               {packs.map((p) => (
@@ -114,28 +117,28 @@ const FastStartBonus = () => {
         {recruits.length > 0 ? (
           <Box>
             <Typography sx={{ fontSize: "0.78rem", fontWeight: 700, color: "#2C1A0E", mb: 1 }}>
-              Nuovi promoter reclutati
+              {t("bonus_widgets.fast_start.new_promoters_recruited", "Nuovi promoter reclutati")}
             </Typography>
             <Box sx={{ borderRadius: 2, border: "1px solid #f0ece6", overflow: "hidden" }}>
               <Table size="small">
                 <TableHead>
                   <TableRow sx={{ bgcolor: "#fafaf5" }}>
                     <TableCell sx={{ fontSize: "0.7rem", fontWeight: 700, color: "#7A6A5C" }}>
-                      Promoter
+                      {t("bonus_widgets.common.promoter", "Promoter")}
                     </TableCell>
                     <TableCell sx={{ fontSize: "0.7rem", fontWeight: 700, color: "#7A6A5C" }}>
-                      Kit
+                      {t("bonus_widgets.common.kit", "Kit")}
                     </TableCell>
                     <TableCell align="right" sx={{ fontSize: "0.7rem", fontWeight: 700, color: "#7A6A5C" }}>
-                      Bonus
+                      {t("bonus_widgets.common.bonus", "Bonus")}
                     </TableCell>
                     <TableCell align="center" sx={{ fontSize: "0.7rem", fontWeight: 700, color: "#7A6A5C" }}>
-                      Stato
+                      {t("bonus_widgets.common.status", "Stato")}
                     </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {groupByWeek(recruits).map((group) => (
+                  {groupByWeek(recruits, t).map((group) => (
                     <>
                       <TableRow key={`hdr-${group.label}`} sx={{ bgcolor: alpha(PINK, 0.04) }}>
                         <TableCell colSpan={4} sx={{ fontSize: "0.72rem", fontWeight: 700, color: PINK, py: 0.75, borderTop: `1px solid ${alpha(PINK, 0.15)}` }}>
@@ -177,7 +180,7 @@ const FastStartBonus = () => {
           <Box sx={{ p: 2, textAlign: "center", borderRadius: 2, bgcolor: "#fafaf5", border: "1px dashed #E0DDD6" }}>
             <Iconify icon="mdi:rocket-launch-outline" width={24} sx={{ color: "#bbb" }} />
             <Typography sx={{ fontSize: "0.78rem", color: "#7A6A5C", mt: 0.5 }}>
-              Invita un nuovo promoter che acquisti uno starter kit per guadagnare il tuo primo Fast Start Bonus
+              {t("bonus_widgets.fast_start.empty_hint", "Invita un nuovo promoter che acquisti uno starter kit per guadagnare il tuo primo Fast Start Bonus")}
             </Typography>
           </Box>
         )}

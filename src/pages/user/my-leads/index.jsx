@@ -5,6 +5,7 @@ import {
   Avatar, Divider,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import axiosInstance from "src/utils/axios";
@@ -13,12 +14,12 @@ const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
 const MUTED = "#7A6A5C";
 
-const STATUS_LABELS = {
-  new: { it: "Nuovo", color: ORO },
-  contacted: { it: "Contattato", color: "#2196F3" },
-  in_progress: { it: "In trattativa", color: "#9C27B0" },
-  converted: { it: "Convertito", color: "#4CAF50" },
-  lost: { it: "Perso", color: "#9E9E9E" },
+const STATUS_META = {
+  new: { color: ORO },
+  contacted: { color: "#2196F3" },
+  in_progress: { color: "#9C27B0" },
+  converted: { color: "#4CAF50" },
+  lost: { color: "#9E9E9E" },
 };
 
 const PRODUCT_LABELS = {
@@ -30,64 +31,50 @@ const PROFILE_LABELS = {
   coffeelover: "Coffee Lover", wellness: "Wellness Seeker",
 };
 
-const SOURCE_CONFIG = {
-  quiz: { label: "Quiz", icon: "mdi:brain", color: "#1976D2", bg: "#E3F2FD" },
-  "landing-prodotto": { label: "Prodotto", icon: "mdi:package-variant", color: "#2E7D32", bg: "#E8F5E9" },
-  "landing-opportunita": { label: "Opportunita", icon: "mdi:rocket-launch", color: ORO, bg: alpha(ORO, 0.12) },
-  manual: { label: "Manuale", icon: "mdi:account-plus", color: "#6A1B9A", bg: "#F3E5F5" },
+// Status label helper (respects current i18n language via t function)
+const statusLabel = (t, key) => t(`my_leads.status.${key}`, {
+  new: "Nuovo", contacted: "Contattato", in_progress: "In trattativa",
+  converted: "Convertito", lost: "Perso",
+}[key] || key);
+
+// Source config: static styling; label resolved via t()
+const SOURCE_META = {
+  quiz: { icon: "mdi:brain", color: "#1976D2", bg: "#E3F2FD" },
+  "landing-prodotto": { icon: "mdi:package-variant", color: "#2E7D32", bg: "#E8F5E9" },
+  "landing-opportunita": { icon: "mdi:rocket-launch", color: ORO, bg: alpha(ORO, 0.12) },
+  manual: { icon: "mdi:account-plus", color: "#6A1B9A", bg: "#F3E5F5" },
 };
 
-const ACTIVITY_LABELS = {
-  created: { icon: "mdi:account-plus", color: ORO, label: (d) => `Lead creato${d?.where_met ? ` (${d.where_met})` : ""}` },
-  status_changed: { icon: "mdi:swap-horizontal", color: "#2196F3", label: (d) => `Stato: ${STATUS_LABELS[d?.from]?.it || d?.from} → ${STATUS_LABELS[d?.to]?.it || d?.to}` },
-  note_updated: { icon: "mdi:note-edit", color: "#9C27B0", label: () => "Note aggiornate" },
-  followup_set: { icon: "mdi:calendar-plus", color: "#F57C00", label: (d) => `Follow-up impostato per ${d?.date ? new Date(d.date).toLocaleDateString("it-IT") : "—"}` },
-  followup_cleared: { icon: "mdi:calendar-remove", color: "#757575", label: () => "Follow-up rimosso" },
-  contacted: { icon: "mdi:phone-check", color: "#4CAF50", label: () => "Contattato" },
-};
+const sourceLabel = (t, key) => t(`my_leads.source.${key}`, {
+  quiz: "Quiz", "landing-prodotto": "Prodotto",
+  "landing-opportunita": "Opportunita", manual: "Manuale",
+}[key] || key);
 
 const HEAT_BUCKETS = {
-  hot: { min: 70, label: "caldi", icon: "🔥", color: "#D32F2F", bg: "#FFEBEE" },
-  warm: { min: 40, max: 69, label: "tiepidi", icon: "☀️", color: "#F57C00", bg: "#FFF3E0" },
-  cold: { max: 39, label: "freddi", icon: "❄️", color: "#0277BD", bg: "#E1F5FE" },
+  hot: { min: 70, icon: "🔥", color: "#D32F2F", bg: "#FFEBEE" },
+  warm: { min: 40, max: 69, icon: "☀️", color: "#F57C00", bg: "#FFF3E0" },
+  cold: { max: 39, icon: "❄️", color: "#0277BD", bg: "#E1F5FE" },
 };
 
-const WA_TEMPLATES = {
-  // QUIZ: {profilo}_{prodotto}
-  warm_mocha: "Ciao {name}! Sono {promoter}, Specialista EVEA. Ho visto che hai completato il quiz e che il tuo rituale è Mocha — ottima scelta per chi cerca un caffè avvolgente. Posso raccontarti due dettagli sul prodotto e su come iniziare?",
-  warm_black: "Ciao {name}! Sono {promoter}, Specialista EVEA. Hai fatto il quiz e ti è uscito Black — il nostro caffè più intenso. Posso raccontarti due cose sul prodotto e su come iniziare?",
-  warm_latte: "Ciao {name}! Sono {promoter}, Specialista EVEA. Hai fatto il quiz e ti è uscito Latte — perfetto per chi ama un caffè cremoso. Posso raccontarti due dettagli?",
-  warm_greentea: "Ciao {name}! Sono {promoter}, Specialista EVEA. Hai fatto il quiz e ti è uscito Green Tea — ottimo per chi cerca un'alternativa più dolce alla caffeina. Posso raccontarti come iniziare?",
-  cold_mocha: "Ciao {name}, sono {promoter} di EVEA. Hai fatto il quiz e il tuo rituale è uscito Mocha — un caffè ai funghi funzionali, morbido e avvolgente. Posso mandarti un breve video introduttivo?",
-  cold_black: "Ciao {name}, sono {promoter} di EVEA. Hai fatto il quiz e il tuo rituale è uscito Black — il nostro caffè ai funghi funzionali più intenso. Posso mandarti un breve video introduttivo?",
-  cold_latte: "Ciao {name}, sono {promoter} di EVEA. Hai fatto il quiz e il tuo rituale è uscito Latte — cremoso, leggero, ai funghi funzionali. Posso mandarti un breve video introduttivo?",
-  cold_greentea: "Ciao {name}, sono {promoter} di EVEA. Hai fatto il quiz e il tuo rituale è uscito Green Tea — un'ottima porta d'ingresso al mondo dei funghi funzionali, senza la caffeina forte. Posso mandarti un breve video introduttivo?",
-};
+const heatLabel = (t, key) => t(`my_leads.heat.${key}`, { hot: "caldi", warm: "tiepidi", cold: "freddi" }[key] || key);
 
-const WA_LANDING = {
-  // {source}_{videoStatus}
-  "landing-prodotto_ended": "Ciao {name}, sono {promoter} di EVEA. Ho visto che hai guardato il video sul nostro caffè funzionale — grazie del tempo! Posso rispondere a qualche tua domanda e farti provare il rituale?",
-  "landing-prodotto_started": "Ciao {name}, sono {promoter} di EVEA. Ho visto che hai iniziato a guardare il video sul caffè — se vuoi finirlo con calma nessun problema. Quando hai un attimo mi dici cosa ne pensi?",
-  "landing-prodotto_not_started": "Ciao {name}, sono {promoter} di EVEA. Ti ringrazio per aver lasciato il tuo contatto sulla pagina del prodotto. Vuoi che ti mandi il breve video introduttivo del rituale eVea?",
-  "landing-opportunita_ended": "Ciao {name}, sono {promoter} di EVEA. Ho visto che hai guardato il video sull'opportunità eVea — bello! Se ti va possiamo sentirci 10 minuti per capire se può interessarti come progetto.",
-  "landing-opportunita_started": "Ciao {name}, sono {promoter} di EVEA. Vedo che hai iniziato il video sull'opportunità eVea. Quando finisci mi dici cosa ne pensi? Se vuoi ci sentiamo per approfondire.",
-  "landing-opportunita_not_started": "Ciao {name}, sono {promoter} di EVEA. Grazie per aver lasciato il tuo contatto sulla pagina Opportunità — se vuoi ti spiego in 2 minuti come funziona e valutiamo insieme se può fare per te.",
-};
-
-const macroFromProfile = (p) => (p === "warm" || p === "coffeelover" ? "warm" : "cold");
-const buildWaMessage = (lead, promoterName) => {
+// WhatsApp templates: keys point to i18n; each locale has full text with {{name}} and {{promoter}} placeholders.
+const buildWaMessage = (t, lead, promoterName) => {
+  const macro = (p) => (p === "warm" || p === "coffeelover" ? "warm" : "cold");
   if (lead.source === "quiz") {
-    const key = `${macroFromProfile(lead.result_profile)}_${lead.result_product}`;
-    const tpl = WA_TEMPLATES[key] || WA_TEMPLATES.cold_mocha;
-    return tpl.replace("{name}", lead.name || "").replace("{promoter}", promoterName || "");
+    const key = `${macro(lead.result_profile)}_${lead.result_product || "mocha"}`;
+    return t(`my_leads.template.${key}`, "", { name: lead.name || "", promoter: promoterName || "" });
   }
   if (lead.source === "manual") {
-    return `Ciao ${lead.name || ""}! Sono ${promoterName || ""} di eVea. Volevo salutarti dopo il nostro incontro${lead.where_met ? ` a ${lead.where_met}` : ""} e se ti fa piacere raccontarti qualcosa in più sui nostri prodotti / opportunità.`;
+    return t("my_leads.template.manual", "Ciao {{name}}! Sono {{promoter}} di eVea. Volevo salutarti dopo il nostro incontro{{whereMetSuffix}} e se ti fa piacere raccontarti qualcosa in più sui nostri prodotti / opportunità.", {
+      name: lead.name || "",
+      promoter: promoterName || "",
+      whereMetSuffix: lead.where_met ? ` a ${lead.where_met}` : "",
+    });
   }
   const vs = lead.video?.status || "not_started";
   const key = `${lead.source}_${vs}`;
-  const tpl = WA_LANDING[key] || WA_LANDING["landing-prodotto_not_started"];
-  return tpl.replace("{name}", lead.name || "").replace("{promoter}", promoterName || "");
+  return t(`my_leads.template.${key}`, "", { name: lead.name || "", promoter: promoterName || "" });
 };
 
 const normalizePhone = (p) => (p || "").replace(/[^\d+]/g, "");
@@ -104,21 +91,21 @@ const initials = (name, email) => {
   return src.substring(0, 2).toUpperCase();
 };
 
-const fuzzyDate = (iso) => {
+const fuzzyDate = (t, iso) => {
   if (!iso) return "—";
   const then = new Date(iso).getTime();
   if (isNaN(then)) return "—";
   const diff = Date.now() - then;
   const min = Math.round(diff / 60000);
-  if (min < 1) return "adesso";
-  if (min < 60) return `${min} min fa`;
+  if (min < 1) return t("my_leads.fuzzy.now", "adesso");
+  if (min < 60) return t("my_leads.fuzzy.min_ago", "{{n}} min fa", { n: min });
   const hrs = Math.round(min / 60);
-  if (hrs < 24) return `${hrs}h fa`;
+  if (hrs < 24) return t("my_leads.fuzzy.hours_ago", "{{n}}h fa", { n: hrs });
   const days = Math.round(hrs / 24);
-  if (days < 30) return `${days}g fa`;
+  if (days < 30) return t("my_leads.fuzzy.days_ago_short", "{{n}}g fa", { n: days });
   const months = Math.round(days / 30);
-  if (months < 12) return `${months} mesi fa`;
-  return new Date(iso).toLocaleDateString("it-IT");
+  if (months < 12) return t("my_leads.fuzzy.months_ago", "{{n}} mesi fa", { n: months });
+  return new Date(iso).toLocaleDateString();
 };
 
 const isToday = (dateStr) => {
@@ -143,22 +130,22 @@ const heatBucket = (heat) => {
 };
 
 // Spiega perché il heat è quello (dai fattori del backend computeHeatForGuest)
-const heatExplain = (lead) => {
+const heatExplain = (t, lead) => {
   const factors = [];
   const vs = lead.video?.status;
-  if (vs === "ended") factors.push({ pts: 40, txt: "Ha finito il video (+40)" });
-  else if (vs === "started") factors.push({ pts: 15, txt: "Ha iniziato il video (+15)" });
+  if (vs === "ended") factors.push({ pts: 40, txt: t("my_leads.heat_factor.video_ended", "Ha finito il video (+40)") });
+  else if (vs === "started") factors.push({ pts: 15, txt: t("my_leads.heat_factor.video_started", "Ha iniziato il video (+15)") });
   const app = lead.app || {};
-  if (app.has_ios || app.has_android) factors.push({ pts: 30, txt: "Ha l'app installata (+30)" });
-  if (["ios", "android"].includes(app.scarica_app_choice)) factors.push({ pts: 15, txt: "Ha scelto di scaricare l'app (+15)" });
-  else if (app.scarica_app_choice === "browser") factors.push({ pts: 5, txt: "Ha scelto browser (+5)" });
+  if (app.has_ios || app.has_android) factors.push({ pts: 30, txt: t("my_leads.heat_factor.app_installed", "Ha l'app installata (+30)") });
+  if (["ios", "android"].includes(app.scarica_app_choice)) factors.push({ pts: 15, txt: t("my_leads.heat_factor.chose_app", "Ha scelto di scaricare l'app (+15)") });
+  else if (app.scarica_app_choice === "browser") factors.push({ pts: 5, txt: t("my_leads.heat_factor.chose_browser", "Ha scelto browser (+5)") });
   if (lead.last_seen_at) {
     const days = (Date.now() - new Date(lead.last_seen_at).getTime()) / 86400000;
-    if (days <= 7) factors.push({ pts: 20, txt: "Attivo negli ultimi 7 giorni (+20)" });
+    if (days <= 7) factors.push({ pts: 20, txt: t("my_leads.heat_factor.active_7d", "Attivo negli ultimi 7 giorni (+20)") });
   }
   if (lead.created_at) {
     const days = (Date.now() - new Date(lead.created_at).getTime()) / 86400000;
-    if (days <= 3) factors.push({ pts: 10, txt: "Iscritto negli ultimi 3 giorni (+10)" });
+    if (days <= 3) factors.push({ pts: 10, txt: t("my_leads.heat_factor.new_3d", "Iscritto negli ultimi 3 giorni (+10)") });
   }
   return factors;
 };
@@ -166,12 +153,14 @@ const heatExplain = (lead) => {
 // --- Sub-components ---
 
 const HeatPill = ({ heat, lead }) => {
+  const { t } = useTranslation();
   const bucket = heatBucket(heat);
   const cfg = HEAT_BUCKETS[bucket];
   const flames = bucket === "hot" ? "🔥🔥🔥" : bucket === "warm" ? "🔥🔥" : "🔥";
-  const factors = lead ? heatExplain(lead) : [];
+  const factors = lead ? heatExplain(t, lead) : [];
+  const bucketAdj = t(`my_leads.heat_adj.${bucket}`, { hot: "caldo", warm: "tiepido", cold: "freddo" }[bucket] || bucket);
   const tooltip = factors.length > 0
-    ? (<Box><Typography sx={{ fontSize: "0.72rem", fontWeight: 700, mb: 0.5 }}>Perché è {bucket === "hot" ? "caldo" : bucket === "warm" ? "tiepido" : "freddo"} ({Math.round(heat)}):</Typography>{factors.map((f, i) => <Typography key={i} sx={{ fontSize: "0.7rem" }}>{f.txt}</Typography>)}</Box>)
+    ? (<Box><Typography sx={{ fontSize: "0.72rem", fontWeight: 700, mb: 0.5 }}>{t("my_leads.heat_why", "Perché è {{adj}} ({{score}}):", { adj: bucketAdj, score: Math.round(heat) })}</Typography>{factors.map((f, i) => <Typography key={i} sx={{ fontSize: "0.7rem" }}>{f.txt}</Typography>)}</Box>)
     : "";
   return (
     <Tooltip title={tooltip} arrow>
@@ -190,11 +179,12 @@ const HeatPill = ({ heat, lead }) => {
 };
 
 const SourceBadge = ({ source }) => {
-  const cfg = SOURCE_CONFIG[source] || SOURCE_CONFIG.quiz;
+  const { t } = useTranslation();
+  const cfg = SOURCE_META[source] || SOURCE_META.quiz;
   return (
     <Chip
       icon={<Iconify icon={cfg.icon} width={14} sx={{ color: `${cfg.color} !important` }} />}
-      label={cfg.label}
+      label={sourceLabel(t, source)}
       size="small"
       sx={{ height: 22, fontSize: "0.7rem", fontWeight: 700, bgcolor: cfg.bg, color: cfg.color, border: `1px solid ${alpha(cfg.color, 0.25)}` }}
     />
@@ -202,28 +192,33 @@ const SourceBadge = ({ source }) => {
 };
 
 const StatusChip = ({ status }) => {
-  const cfg = STATUS_LABELS[status] || STATUS_LABELS.new;
-  return <Chip label={cfg.it} size="small" sx={{ height: 20, fontSize: "0.65rem", fontWeight: 700, bgcolor: alpha(cfg.color, 0.14), color: cfg.color }} />;
+  const { t } = useTranslation();
+  const key = status && STATUS_META[status] ? status : "new";
+  const cfg = STATUS_META[key];
+  return <Chip label={statusLabel(t, key)} size="small" sx={{ height: 20, fontSize: "0.65rem", fontWeight: 700, bgcolor: alpha(cfg.color, 0.14), color: cfg.color }} />;
 };
 
 const VideoBadge = ({ video, source }) => {
+  const { t } = useTranslation();
   if (source === "quiz" || !video || video.status === "not_available") return null;
-  if (video.status === "ended") return <Tooltip title="Video finito"><Chip icon={<Iconify icon="mdi:check-circle" width={14} sx={{ color: "#2E7D32 !important" }} />} label="Video ✓" size="small" sx={{ height: 22, fontSize: "0.68rem", fontWeight: 700, bgcolor: "#E8F5E9", color: "#2E7D32" }} /></Tooltip>;
-  if (video.status === "started") return <Tooltip title={`Video iniziato ${fuzzyDate(video.started_at)}`}><Chip icon={<Iconify icon="mdi:play-circle" width={14} sx={{ color: "#F57C00 !important" }} />} label="Video in corso" size="small" sx={{ height: 22, fontSize: "0.68rem", fontWeight: 700, bgcolor: "#FFF3E0", color: "#F57C00" }} /></Tooltip>;
-  return <Tooltip title="Non ha ancora visto il video"><Chip icon={<Iconify icon="mdi:pause-circle-outline" width={14} sx={{ color: "#757575 !important" }} />} label="No video" size="small" sx={{ height: 22, fontSize: "0.68rem", fontWeight: 700, bgcolor: "#F5F5F5", color: "#757575" }} /></Tooltip>;
+  if (video.status === "ended") return <Tooltip title={t("my_leads.video.finished_tooltip", "Video finito")}><Chip icon={<Iconify icon="mdi:check-circle" width={14} sx={{ color: "#2E7D32 !important" }} />} label={t("my_leads.video.finished_label", "Video ✓")} size="small" sx={{ height: 22, fontSize: "0.68rem", fontWeight: 700, bgcolor: "#E8F5E9", color: "#2E7D32" }} /></Tooltip>;
+  if (video.status === "started") return <Tooltip title={t("my_leads.video.started_tooltip", "Video iniziato {{when}}", { when: fuzzyDate(t, video.started_at) })}><Chip icon={<Iconify icon="mdi:play-circle" width={14} sx={{ color: "#F57C00 !important" }} />} label={t("my_leads.video.in_progress", "Video in corso")} size="small" sx={{ height: 22, fontSize: "0.68rem", fontWeight: 700, bgcolor: "#FFF3E0", color: "#F57C00" }} /></Tooltip>;
+  return <Tooltip title={t("my_leads.video.no_video_tooltip", "Non ha ancora visto il video")}><Chip icon={<Iconify icon="mdi:pause-circle-outline" width={14} sx={{ color: "#757575 !important" }} />} label={t("my_leads.video.no_video_label", "No video")} size="small" sx={{ height: 22, fontSize: "0.68rem", fontWeight: 700, bgcolor: "#F5F5F5", color: "#757575" }} /></Tooltip>;
 };
 
 const AppBadge = ({ app }) => {
+  const { t } = useTranslation();
   if (!app) return null;
   if (app.has_ios && app.has_android) return <Chip icon={<Iconify icon="mdi:cellphone" width={14} sx={{ color: "#6A1B9A !important" }} />} label="iOS + Android" size="small" sx={{ height: 22, fontSize: "0.68rem", fontWeight: 700, bgcolor: "#F3E5F5", color: "#6A1B9A" }} />;
   if (app.has_ios) return <Chip icon={<Iconify icon="mdi:apple" width={14} sx={{ color: "#4527A0 !important" }} />} label="iOS" size="small" sx={{ height: 22, fontSize: "0.68rem", fontWeight: 700, bgcolor: "#EDE7F6", color: "#4527A0" }} />;
   if (app.has_android) return <Chip icon={<Iconify icon="mdi:android" width={14} sx={{ color: "#2E7D32 !important" }} />} label="Android" size="small" sx={{ height: 22, fontSize: "0.68rem", fontWeight: 700, bgcolor: "#E8F5E9", color: "#2E7D32" }} />;
-  if (app.platform === "web" || app.scarica_app_choice === "browser") return <Chip icon={<Iconify icon="mdi:web" width={14} sx={{ color: "#616161 !important" }} />} label="Browser" size="small" sx={{ height: 22, fontSize: "0.68rem", fontWeight: 700, bgcolor: "#F5F5F5", color: "#616161" }} />;
+  if (app.platform === "web" || app.scarica_app_choice === "browser") return <Chip icon={<Iconify icon="mdi:web" width={14} sx={{ color: "#616161 !important" }} />} label={t("my_leads.badge.browser", "Browser")} size="small" sx={{ height: 22, fontSize: "0.68rem", fontWeight: 700, bgcolor: "#F5F5F5", color: "#616161" }} />;
   return null;
 };
 
 const LeadRow = ({ lead, onOpen, onCopyEmail, onOpenWa, onDelete }) => {
-  const src = SOURCE_CONFIG[lead.source] || SOURCE_CONFIG.quiz;
+  const { t } = useTranslation();
+  const src = SOURCE_META[lead.source] || SOURCE_META.quiz;
   const hasFollowUpToday = isToday(lead.follow_up_at);
   const hasFollowUpPast = isPast(lead.follow_up_at) && lead.status !== "converted" && lead.status !== "lost";
 
@@ -250,13 +245,13 @@ const LeadRow = ({ lead, onOpen, onCopyEmail, onOpenWa, onDelete }) => {
               <VideoBadge video={lead.video} source={lead.source} />
               <AppBadge app={lead.app} />
               {hasFollowUpToday && (
-                <Chip label="📅 Oggi" size="small" sx={{ height: 20, fontSize: "0.65rem", fontWeight: 700, bgcolor: "#FFF3E0", color: "#F57C00" }} />
+                <Chip label={t("my_leads.chip.today", "📅 Oggi")} size="small" sx={{ height: 20, fontSize: "0.65rem", fontWeight: 700, bgcolor: "#FFF3E0", color: "#F57C00" }} />
               )}
               {hasFollowUpPast && (
-                <Chip label="⚠️ Ritardo" size="small" sx={{ height: 20, fontSize: "0.65rem", fontWeight: 700, bgcolor: "#FFEBEE", color: "#D32F2F" }} />
+                <Chip label={t("my_leads.chip.overdue", "⚠️ Ritardo")} size="small" sx={{ height: 20, fontSize: "0.65rem", fontWeight: 700, bgcolor: "#FFEBEE", color: "#D32F2F" }} />
               )}
               {lead.duplicates && lead.duplicates.length > 0 && (
-                <Tooltip title={`Stesso contatto anche in altre ${lead.duplicates.length} fonti`}>
+                <Tooltip title={t("my_leads.duplicates_tooltip", "Stesso contatto anche in altre {{n}} fonti", { n: lead.duplicates.length })}>
                   <Chip icon={<Iconify icon="mdi:link-variant" width={11} sx={{ color: "#F57C00 !important" }} />} label={`+${lead.duplicates.length}`} size="small" sx={{ height: 20, fontSize: "0.65rem", fontWeight: 700, bgcolor: "#FFF3E0", color: "#F57C00" }} />
                 </Tooltip>
               )}
@@ -265,10 +260,10 @@ const LeadRow = ({ lead, onOpen, onCopyEmail, onOpenWa, onDelete }) => {
               {lead.email}{lead.phone ? ` · ${lead.phone}` : ""}
             </Typography>
             <Typography sx={{ fontSize: "0.68rem", color: alpha(MUTED, 0.85), mt: 0.15 }}>
-              Iscritto {fuzzyDate(lead.created_at)}
-              {lead.contacted_at ? ` · Contattato ${fuzzyDate(lead.contacted_at)}` : ""}
-              {lead.follow_up_at && !hasFollowUpPast && !hasFollowUpToday ? ` · Ricontatta ${new Date(lead.follow_up_at).toLocaleDateString("it-IT")}` : ""}
-              {lead.notes ? " · 📝 Note" : ""}
+              {t("my_leads.registered_prefix", "Iscritto")} {fuzzyDate(t, lead.created_at)}
+              {lead.contacted_at ? ` · ${t("my_leads.contacted_prefix", "Contattato")} ${fuzzyDate(t, lead.contacted_at)}` : ""}
+              {lead.follow_up_at && !hasFollowUpPast && !hasFollowUpToday ? ` · ${t("my_leads.recontact_prefix", "Ricontatta")} ${new Date(lead.follow_up_at).toLocaleDateString()}` : ""}
+              {lead.notes ? ` · ${t("my_leads.notes_marker", "📝 Note")}` : ""}
             </Typography>
           </Box>
         </Stack>
@@ -277,28 +272,28 @@ const LeadRow = ({ lead, onOpen, onCopyEmail, onOpenWa, onDelete }) => {
           <HeatPill heat={lead.heat} lead={lead} />
           <Stack direction="row" spacing={0.25}>
             {lead.phone && (
-              <Tooltip title="Chiama">
+              <Tooltip title={t("my_leads.tooltip.call", "Chiama")}>
                 <IconButton size="small" href={`tel:${normalizePhone(lead.phone)}`}>
                   <Iconify icon="mdi:phone" width={20} sx={{ color: "#4CAF50" }} />
                 </IconButton>
               </Tooltip>
             )}
-            <Tooltip title={lead.phone ? "WhatsApp diretto" : "WhatsApp"}>
+            <Tooltip title={lead.phone ? t("my_leads.tooltip.whatsapp_direct", "WhatsApp diretto") : t("my_leads.tooltip.whatsapp", "WhatsApp")}>
               <IconButton size="small" onClick={() => onOpenWa?.(lead)}>
                 <Iconify icon="mdi:whatsapp" width={20} sx={{ color: "#25D366" }} />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Copia email">
+            <Tooltip title={t("my_leads.tooltip.copy_email", "Copia email")}>
               <IconButton size="small" onClick={() => onCopyEmail?.(lead.email)}>
                 <Iconify icon="mdi:email-outline" width={20} sx={{ color: ORO }} />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Dettaglio / Note">
+            <Tooltip title={t("my_leads.tooltip.detail_notes", "Dettaglio / Note")}>
               <IconButton size="small" onClick={() => onOpen?.(lead)}>
                 <Iconify icon="mdi:note-edit-outline" width={20} sx={{ color: ESPRESSO }} />
               </IconButton>
             </Tooltip>
-            <Tooltip title={lead.source === "manual" ? "Cancella lead" : "Nascondi lead (segna come perso)"}>
+            <Tooltip title={lead.source === "manual" ? t("my_leads.tooltip.delete_lead", "Cancella lead") : t("my_leads.tooltip.hide_lead", "Nascondi lead (segna come perso)")}>
               <IconButton size="small" onClick={(e) => { e.stopPropagation(); onDelete?.(lead); }}>
                 <Iconify icon="mdi:close" width={18} sx={{ color: alpha("#D32F2F", 0.7) }} />
               </IconButton>
@@ -325,13 +320,14 @@ const SummaryChip = ({ icon, label, count, color, bg, active, onClick }) => (
 );
 
 const StatsBar = ({ stats }) => {
+  const { t } = useTranslation();
   if (!stats) return null;
   const items = [
-    { label: "Lead mese", value: stats.month?.total_leads ?? 0, color: ORO, icon: "mdi:account-multiple" },
-    { label: "Contattati", value: stats.contacted ?? 0, color: "#2196F3", icon: "mdi:phone" },
-    { label: "Convertiti", value: stats.converted ?? 0, color: "#4CAF50", icon: "mdi:trophy" },
-    { label: "Conversion", value: `${stats.conversion_rate ?? 0}%`, color: "#9C27B0", icon: "mdi:chart-line" },
-    { label: "Follow-up oggi", value: stats.today_follow_ups ?? 0, color: "#F57C00", icon: "mdi:bell-ring" },
+    { label: t("my_leads.stats.month", "Lead mese"), value: stats.month?.total_leads ?? 0, color: ORO, icon: "mdi:account-multiple" },
+    { label: t("my_leads.stats.contacted", "Contattati"), value: stats.contacted ?? 0, color: "#2196F3", icon: "mdi:phone" },
+    { label: t("my_leads.stats.converted", "Convertiti"), value: stats.converted ?? 0, color: "#4CAF50", icon: "mdi:trophy" },
+    { label: t("my_leads.stats.conversion", "CONVERSION"), value: `${stats.conversion_rate ?? 0}%`, color: "#9C27B0", icon: "mdi:chart-line" },
+    { label: t("my_leads.stats.follow_up_today", "FOLLOW-UP OGGI"), value: stats.today_follow_ups ?? 0, color: "#F57C00", icon: "mdi:bell-ring" },
   ];
   return (
     <Card sx={{ p: 1.5, mb: 1.5, borderRadius: 3, border: "1px solid #f0ece6" }}>
@@ -352,7 +348,7 @@ const StatsBar = ({ stats }) => {
       </Grid>
       {stats.best_source && (
         <Typography sx={{ fontSize: "0.72rem", color: MUTED, mt: 1, textAlign: "center" }}>
-          🏆 Fonte con più conversioni: <strong style={{ color: ESPRESSO }}>{stats.best_source}</strong>
+          {t("my_leads.best_source_prefix", "🏆 Fonte con più conversioni:")} <strong style={{ color: ESPRESSO }}>{sourceLabel(t, stats.best_source) || stats.best_source}</strong>
         </Typography>
       )}
     </Card>
@@ -362,6 +358,15 @@ const StatsBar = ({ stats }) => {
 // --- Detail modal (con note+status+follow-up per TUTTI i lead) ---
 
 const LeadDetailModal = ({ open, onClose, lead, promoterUsername, onUpdate, notify }) => {
+  const { t } = useTranslation();
+  const ACTIVITY_LABELS = {
+    created: { icon: "mdi:account-plus", color: ORO, label: (d) => t("my_leads.activity.created", "Lead creato{{suffix}}", { suffix: d?.where_met ? ` (${d.where_met})` : "" }) },
+    status_changed: { icon: "mdi:swap-horizontal", color: "#2196F3", label: (d) => t("my_leads.activity.status_changed", "Stato: {{from}} → {{to}}", { from: statusLabel(t, d?.from), to: statusLabel(t, d?.to) }) },
+    note_updated: { icon: "mdi:note-edit", color: "#9C27B0", label: () => t("my_leads.activity.note_updated", "Note aggiornate") },
+    followup_set: { icon: "mdi:calendar-plus", color: "#F57C00", label: (d) => t("my_leads.activity.followup_set", "Follow-up impostato per {{date}}", { date: d?.date ? new Date(d.date).toLocaleDateString() : "—" }) },
+    followup_cleared: { icon: "mdi:calendar-remove", color: "#757575", label: () => t("my_leads.activity.followup_cleared", "Follow-up rimosso") },
+    contacted: { icon: "mdi:phone-check", color: "#4CAF50", label: () => t("my_leads.activity.contacted", "Contattato") },
+  };
   const [status, setStatus] = useState(lead?.status || "new");
   const [notes, setNotes] = useState(lead?.notes || "");
   const [followUpAt, setFollowUpAt] = useState(lead?.follow_up_at || "");
@@ -383,10 +388,10 @@ const LeadDetailModal = ({ open, onClose, lead, promoterUsername, onUpdate, noti
     try {
       await axiosInstance.patch(`api/wp/promoter/me/leads/${lead.id}`, payload);
       onUpdate?.({ ...lead, ...payload });
-      if (opts.silent !== true) notify?.("Salvato ✓", "success");
+      if (opts.silent !== true) notify?.(t("my_leads.toast.saved", "Salvato ✓"), "success");
       return true;
     } catch (e) {
-      const msg = e?.response?.data?.message || "Errore salvataggio";
+      const msg = e?.response?.data?.message || t("my_leads.toast.save_error", "Errore salvataggio");
       notify?.(msg, "error");
       return false;
     }
@@ -448,8 +453,8 @@ const LeadDetailModal = ({ open, onClose, lead, promoterUsername, onUpdate, noti
 
   if (!lead) return null;
   const isQuiz = lead.source === "quiz";
-  const mailtoSubject = encodeURIComponent(`EVEA · ${isQuiz && lead.result_product ? `Il tuo rituale ${PRODUCT_LABELS[lead.result_product]}` : "Ciao da eVea"}`);
-  const mailtoBody = encodeURIComponent(buildWaMessage(lead, promoterUsername));
+  const mailtoSubject = encodeURIComponent(`EVEA · ${isQuiz && lead.result_product ? t("my_leads.mail.subject_ritual", "Il tuo rituale {{product}}", { product: PRODUCT_LABELS[lead.result_product] }) : t("my_leads.mail.subject_hello", "Ciao da eVea")}`);
+  const mailtoBody = encodeURIComponent(buildWaMessage(t, lead, promoterUsername));
 
   return (
     <Dialog open={open} onClose={closeAndFlush} maxWidth="md" fullWidth>
@@ -467,8 +472,8 @@ const LeadDetailModal = ({ open, onClose, lead, promoterUsername, onUpdate, noti
           <Stack direction="row" spacing={1} alignItems="center">
             <HeatPill heat={lead.heat} lead={lead} />
             <TextField select size="small" value={status} onChange={(e) => changeStatus(e.target.value)} sx={{ minWidth: 140, "& .MuiOutlinedInput-root": { borderRadius: 2, fontSize: "0.8rem", fontWeight: 700 } }}>
-              {Object.entries(STATUS_LABELS).map(([k, v]) => (
-                <MenuItem key={k} value={k} sx={{ fontSize: "0.8rem" }}>{v.it}</MenuItem>
+              {Object.keys(STATUS_META).map((k) => (
+                <MenuItem key={k} value={k} sx={{ fontSize: "0.8rem" }}>{statusLabel(t, k)}</MenuItem>
               ))}
             </TextField>
           </Stack>
@@ -479,35 +484,35 @@ const LeadDetailModal = ({ open, onClose, lead, promoterUsername, onUpdate, noti
           {isQuiz && (
             <>
               <Grid item xs={6} md={3}>
-                <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase" }}>Prodotto</Typography>
+                <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase" }}>{t("my_leads.detail.product", "Prodotto")}</Typography>
                 <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ORO }}>{PRODUCT_LABELS[lead.result_product] || "—"}</Typography>
               </Grid>
               <Grid item xs={6} md={3}>
-                <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase" }}>Profilo</Typography>
+                <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase" }}>{t("my_leads.detail.profile", "Profilo")}</Typography>
                 <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>{PROFILE_LABELS[lead.result_profile] || "—"}</Typography>
               </Grid>
             </>
           )}
           <Grid item xs={6} md={3}>
-            <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase" }}>Iscritto</Typography>
-            <Typography sx={{ fontSize: "0.85rem", color: ESPRESSO }}>{lead.created_at ? new Date(lead.created_at).toLocaleString("it-IT") : "—"}</Typography>
+            <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase" }}>{t("my_leads.detail.registered", "Iscritto")}</Typography>
+            <Typography sx={{ fontSize: "0.85rem", color: ESPRESSO }}>{lead.created_at ? new Date(lead.created_at).toLocaleString() : "—"}</Typography>
           </Grid>
           <Grid item xs={6} md={3}>
-            <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase" }}>Ultima attività</Typography>
-            <Typography sx={{ fontSize: "0.85rem", color: ESPRESSO }}>{lead.last_seen_at ? fuzzyDate(lead.last_seen_at) : "—"}</Typography>
+            <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase" }}>{t("my_leads.detail.last_activity", "Ultima attività")}</Typography>
+            <Typography sx={{ fontSize: "0.85rem", color: ESPRESSO }}>{lead.last_seen_at ? fuzzyDate(t, lead.last_seen_at) : "—"}</Typography>
           </Grid>
           {lead.phone && (
             <Grid item xs={12} md={6}>
-              <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase" }}>Telefono</Typography>
+              <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase" }}>{t("my_leads.detail.phone", "Telefono")}</Typography>
               <Stack direction="row" spacing={0.5} alignItems="center">
                 <Typography sx={{ fontSize: "0.85rem", color: ESPRESSO, fontWeight: 600 }}>{lead.phone}</Typography>
-                <Tooltip title="Chiama">
+                <Tooltip title={t("my_leads.tooltip.call", "Chiama")}>
                   <IconButton size="small" href={`tel:${normalizePhone(lead.phone)}`} sx={{ color: "#4CAF50" }}>
                     <Iconify icon="mdi:phone" width={18} />
                   </IconButton>
                 </Tooltip>
-                <Tooltip title="Copia numero">
-                  <IconButton size="small" onClick={() => { navigator.clipboard.writeText(lead.phone); notify?.("Numero copiato"); }} sx={{ color: MUTED }}>
+                <Tooltip title={t("my_leads.tooltip.copy_number", "Copia numero")}>
+                  <IconButton size="small" onClick={() => { navigator.clipboard.writeText(lead.phone); notify?.(t("my_leads.toast.number_copied", "Numero copiato")); }} sx={{ color: MUTED }}>
                     <Iconify icon="mdi:content-copy" width={16} />
                   </IconButton>
                 </Tooltip>
@@ -516,11 +521,11 @@ const LeadDetailModal = ({ open, onClose, lead, promoterUsername, onUpdate, noti
           )}
           {lead.email && (
             <Grid item xs={12} md={6}>
-              <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase" }}>Email — click per copiare</Typography>
+              <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase" }}>{t("my_leads.detail.email_click_copy", "Email — click per copiare")}</Typography>
               <Stack direction="row" spacing={0.5} alignItems="center">
                 <Typography sx={{ fontSize: "0.85rem", color: ESPRESSO, fontWeight: 600, wordBreak: "break-all" }}>{lead.email}</Typography>
-                <Tooltip title="Copia email">
-                  <IconButton size="small" onClick={() => { navigator.clipboard.writeText(lead.email); notify?.("Email copiata"); }} sx={{ color: MUTED }}>
+                <Tooltip title={t("my_leads.tooltip.copy_email", "Copia email")}>
+                  <IconButton size="small" onClick={() => { navigator.clipboard.writeText(lead.email); notify?.(t("my_leads.toast.email_copied", "Email copiata")); }} sx={{ color: MUTED }}>
                     <Iconify icon="mdi:content-copy" width={16} />
                   </IconButton>
                 </Tooltip>
@@ -529,19 +534,19 @@ const LeadDetailModal = ({ open, onClose, lead, promoterUsername, onUpdate, noti
           )}
           {lead.where_met && (
             <Grid item xs={12} md={6}>
-              <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase" }}>Dove ci siamo incontrati</Typography>
+              <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase" }}>{t("my_leads.detail.where_met", "Dove ci siamo incontrati")}</Typography>
               <Typography sx={{ fontSize: "0.85rem", color: ESPRESSO }}>{lead.where_met}</Typography>
             </Grid>
           )}
           {lead.duplicates && lead.duplicates.length > 0 && (
             <Grid item xs={12}>
-              <Chip icon={<Iconify icon="mdi:link-variant" width={14} />} label={`Stesso contatto in ${lead.duplicates.length} altra fonte${lead.duplicates.length > 1 ? "i" : ""}`} size="small" sx={{ bgcolor: "#FFF3E0", color: "#F57C00", fontWeight: 700, fontSize: "0.7rem" }} />
+              <Chip icon={<Iconify icon="mdi:link-variant" width={14} />} label={t("my_leads.detail.same_contact_sources", "Stesso contatto in {{n}} altra fonte", { n: lead.duplicates.length, count: lead.duplicates.length })} size="small" sx={{ bgcolor: "#FFF3E0", color: "#F57C00", fontWeight: 700, fontSize: "0.7rem" }} />
             </Grid>
           )}
           {lead.contacted_at && (
             <Grid item xs={6} md={3}>
-              <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase" }}>Contattato</Typography>
-              <Typography sx={{ fontSize: "0.85rem", color: ESPRESSO }}>{fuzzyDate(lead.contacted_at)}</Typography>
+              <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase" }}>{t("my_leads.detail.contacted", "Contattato")}</Typography>
+              <Typography sx={{ fontSize: "0.85rem", color: ESPRESSO }}>{fuzzyDate(t, lead.contacted_at)}</Typography>
             </Grid>
           )}
         </Grid>
@@ -550,16 +555,16 @@ const LeadDetailModal = ({ open, onClose, lead, promoterUsername, onUpdate, noti
         <Card sx={{ p: 1.5, mb: 2, borderRadius: 2, bgcolor: "#FFF8E1", border: "1px solid #F9A825" }}>
           <Stack direction="row" alignItems="center" spacing={1} mb={1}>
             <Iconify icon="mdi:calendar-clock" width={18} sx={{ color: "#F57C00" }} />
-            <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO }}>Prossimo follow-up</Typography>
+            <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO }}>{t("my_leads.detail.next_followup", "Prossimo follow-up")}</Typography>
           </Stack>
           <Stack direction="row" spacing={1} alignItems="center">
             <TextField type="date" size="small" value={followUpAt} onChange={(e) => setFollowUpAt(e.target.value)} sx={{ flex: 1 }} InputLabelProps={{ shrink: true }} />
             <Button variant="contained" size="small" onClick={saveFollowUp} sx={{ bgcolor: "#F57C00", "&:hover": { bgcolor: "#E65100" }, textTransform: "none", fontWeight: 700 }}>
-              Salva
+              {t("my_leads.button.save", "Salva")}
             </Button>
             {lead.follow_up_at && (
               <Button variant="outlined" size="small" onClick={() => { setFollowUpAt(""); patch({ clear_follow_up: true }); }} sx={{ textTransform: "none" }}>
-                Rimuovi
+                {t("my_leads.button.remove", "Rimuovi")}
               </Button>
             )}
           </Stack>
@@ -567,7 +572,7 @@ const LeadDetailModal = ({ open, onClose, lead, promoterUsername, onUpdate, noti
 
         {(lead.video || lead.app) && (
           <Box sx={{ mb: 2, p: 1.5, borderRadius: 2, bgcolor: "#FAF6EF", border: "1px solid #f0ece6" }}>
-            <Typography sx={{ fontSize: "0.72rem", color: MUTED, textTransform: "uppercase", mb: 0.75, fontWeight: 700 }}>Attività</Typography>
+            <Typography sx={{ fontSize: "0.72rem", color: MUTED, textTransform: "uppercase", mb: 0.75, fontWeight: 700 }}>{t("my_leads.detail.activity", "Attività")}</Typography>
             <Stack direction="row" spacing={1} flexWrap="wrap" sx={{ rowGap: 0.75 }}>
               <VideoBadge video={lead.video} source={lead.source} />
               <AppBadge app={lead.app} />
@@ -577,44 +582,44 @@ const LeadDetailModal = ({ open, onClose, lead, promoterUsername, onUpdate, noti
 
         <Box sx={{ mb: 2 }}>
           <Stack direction="row" justifyContent="space-between" mb={1}>
-            <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>Note personali</Typography>
-            {savingNotes && <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Salvataggio…</Typography>}
-            {savedTick && !savingNotes && <Typography sx={{ fontSize: "0.7rem", color: "#4CAF50", fontWeight: 700 }}>✓ Salvato</Typography>}
+            <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>{t("my_leads.detail.personal_notes", "Note personali")}</Typography>
+            {savingNotes && <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{t("my_leads.detail.saving", "Salvataggio…")}</Typography>}
+            {savedTick && !savingNotes && <Typography sx={{ fontSize: "0.7rem", color: "#4CAF50", fontWeight: 700 }}>{t("my_leads.detail.saved_check", "✓ Salvato")}</Typography>}
           </Stack>
-          <TextField multiline rows={4} fullWidth size="small" value={notes} onChange={(e) => setNotes(e.target.value)} onBlur={flushNotes} placeholder="Aggiungi note sul lead, esito chiamata, prossimi step…" sx={{ "& .MuiOutlinedInput-root": { fontSize: "0.85rem", bgcolor: "#FFF" } }} />
+          <TextField multiline rows={4} fullWidth size="small" value={notes} onChange={(e) => setNotes(e.target.value)} onBlur={flushNotes} placeholder={t("my_leads.detail.notes_placeholder", "Aggiungi note sul lead, esito chiamata, prossimi step…")} sx={{ "& .MuiOutlinedInput-root": { fontSize: "0.85rem", bgcolor: "#FFF" } }} />
         </Box>
 
         <Stack direction="row" spacing={1.5} flexWrap="wrap" sx={{ rowGap: 1 }}>
           <Button variant="contained" startIcon={<Iconify icon="mdi:whatsapp" />}
-            href={waLink(lead.phone, buildWaMessage(lead, promoterUsername))} target="_blank" rel="noreferrer"
+            href={waLink(lead.phone, buildWaMessage(t, lead, promoterUsername))} target="_blank" rel="noreferrer"
             onClick={async () => { if ((lead.status || "new") === "new") await patch({ status: "contacted" }, { silent: true }); }}
             sx={{ bgcolor: "#25D366", "&:hover": { bgcolor: "#1ebe5d" }, textTransform: "none", fontWeight: 700 }}>
-            WhatsApp
+            {t("my_leads.button.whatsapp", "WhatsApp")}
           </Button>
           {lead.phone && (
             <Button variant="contained" startIcon={<Iconify icon="mdi:phone" />}
               href={`tel:${normalizePhone(lead.phone)}`}
               onClick={async () => { if ((lead.status || "new") === "new") await patch({ status: "contacted" }, { silent: true }); }}
               sx={{ bgcolor: "#4CAF50", "&:hover": { bgcolor: "#388E3C" }, textTransform: "none", fontWeight: 700 }}>
-              Chiama
+              {t("my_leads.button.call", "Chiama")}
             </Button>
           )}
           <Button variant="outlined" startIcon={<Iconify icon="mdi:email-outline" />}
             href={`mailto:${lead.email}?subject=${mailtoSubject}&body=${mailtoBody}`}
             sx={{ borderColor: ORO, color: ORO, textTransform: "none" }}>
-            Email
+            {t("my_leads.button.email", "Email")}
           </Button>
         </Stack>
 
         {/* Timeline attivita' */}
         <Box sx={{ mt: 3, pt: 2, borderTop: "1px solid #f0ece6" }}>
           <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: MUTED, textTransform: "uppercase", letterSpacing: 0.6, mb: 1.5 }}>
-            📜 Timeline
+            {t("my_leads.detail.timeline", "📜 Timeline")}
           </Typography>
           {loadingActivity ? (
-            <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>Caricamento…</Typography>
+            <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>{t("my_leads.detail.loading", "Caricamento…")}</Typography>
           ) : activity.length === 0 ? (
-            <Typography sx={{ fontSize: "0.8rem", color: MUTED, fontStyle: "italic" }}>Nessuna attività registrata (le azioni future compariranno qui).</Typography>
+            <Typography sx={{ fontSize: "0.8rem", color: MUTED, fontStyle: "italic" }}>{t("my_leads.detail.no_activity", "Nessuna attività registrata (le azioni future compariranno qui).")}</Typography>
           ) : (
             <Stack spacing={0.75}>
               {activity.map((a) => {
@@ -626,7 +631,7 @@ const LeadDetailModal = ({ open, onClose, lead, promoterUsername, onUpdate, noti
                     </Box>
                     <Box sx={{ flex: 1, minWidth: 0 }}>
                       <Typography sx={{ fontSize: "0.78rem", color: ESPRESSO, fontWeight: 600 }}>{cfg.label(a.event_data)}</Typography>
-                      <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>{fuzzyDate(a.created_at)}</Typography>
+                      <Typography sx={{ fontSize: "0.68rem", color: MUTED }}>{fuzzyDate(t, a.created_at)}</Typography>
                     </Box>
                   </Stack>
                 );
@@ -642,6 +647,7 @@ const LeadDetailModal = ({ open, onClose, lead, promoterUsername, onUpdate, noti
 // --- Add Manual Lead Modal ---
 
 const AddLeadModal = ({ open, onClose, onCreated, notify }) => {
+  const { t } = useTranslation();
   const [form, setForm] = useState({ name: "", email: "", phone: "", where_met: "", notes: "", follow_up_at: "" });
   const [saving, setSaving] = useState(false);
 
@@ -650,17 +656,17 @@ const AddLeadModal = ({ open, onClose, onCreated, notify }) => {
   }, [open]);
 
   const submit = async () => {
-    if (!form.name.trim()) { notify?.("Il nome è obbligatorio"); return; }
+    if (!form.name.trim()) { notify?.(t("my_leads.add.name_required", "Il nome è obbligatorio")); return; }
     setSaving(true);
     try {
       const payload = {};
       Object.entries(form).forEach(([k, v]) => { if (v !== "") payload[k] = v; });
       const { data: r } = await axiosInstance.post("api/wp/promoter/me/leads/manual", payload);
-      notify?.("Lead aggiunto ✓");
+      notify?.(t("my_leads.add.added_ok", "Lead aggiunto ✓"));
       onCreated?.(r?.data);
       onClose?.();
     } catch (e) {
-      const msg = e?.response?.data?.message || "Errore creazione lead";
+      const msg = e?.response?.data?.message || t("my_leads.add.create_error", "Errore creazione lead");
       notify?.(msg);
     }
     setSaving(false);
@@ -671,36 +677,36 @@ const AddLeadModal = ({ open, onClose, onCreated, notify }) => {
       <DialogTitle sx={{ borderBottom: "1px solid #f0ece6" }}>
         <Stack direction="row" spacing={1} alignItems="center">
           <Iconify icon="mdi:account-plus" width={22} sx={{ color: "#6A1B9A" }} />
-          <Typography sx={{ fontSize: "1.15rem", fontWeight: 700, color: ESPRESSO }}>Aggiungi lead manuale</Typography>
+          <Typography sx={{ fontSize: "1.15rem", fontWeight: 700, color: ESPRESSO }}>{t("my_leads.add.title", "Aggiungi lead manuale")}</Typography>
         </Stack>
-        <Typography sx={{ fontSize: "0.8rem", color: MUTED, mt: 0.5 }}>Persona incontrata a un evento, chiacchierata, contatto informale.</Typography>
+        <Typography sx={{ fontSize: "0.8rem", color: MUTED, mt: 0.5 }}>{t("my_leads.add.subtitle", "Persona incontrata a un evento, chiacchierata, contatto informale.")}</Typography>
       </DialogTitle>
       <DialogContent sx={{ pt: 3 }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField autoFocus label="Nome e cognome *" fullWidth size="small" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+            <TextField autoFocus label={t("my_leads.add.name_label", "Nome e cognome *")} fullWidth size="small" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField label="Telefono" fullWidth size="small" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="+39..." />
+            <TextField label={t("my_leads.add.phone_label", "Telefono")} fullWidth size="small" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="+39..." />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField label="Email" fullWidth size="small" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} type="email" />
+            <TextField label={t("my_leads.add.email_label", "Email")} fullWidth size="small" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} type="email" />
           </Grid>
           <Grid item xs={12}>
-            <TextField label="Dove vi siete incontrati" fullWidth size="small" value={form.where_met} onChange={(e) => setForm({ ...form, where_met: e.target.value })} placeholder="Evento X, palestra, bar…" />
+            <TextField label={t("my_leads.add.where_met_label", "Dove vi siete incontrati")} fullWidth size="small" value={form.where_met} onChange={(e) => setForm({ ...form, where_met: e.target.value })} placeholder={t("my_leads.add.where_met_placeholder", "Evento X, palestra, bar…")} />
           </Grid>
           <Grid item xs={12}>
-            <TextField label="Note (facoltative)" fullWidth multiline rows={3} size="small" value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} placeholder="Interessato a…, ha figli, va in palestra, ha detto che…" />
+            <TextField label={t("my_leads.add.notes_label", "Note (facoltative)")} fullWidth multiline rows={3} size="small" value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} placeholder={t("my_leads.add.notes_placeholder", "Interessato a…, ha figli, va in palestra, ha detto che…")} />
           </Grid>
           <Grid item xs={12}>
-            <TextField label="Prossimo follow-up" type="date" fullWidth size="small" value={form.follow_up_at} onChange={(e) => setForm({ ...form, follow_up_at: e.target.value })} InputLabelProps={{ shrink: true }} />
+            <TextField label={t("my_leads.add.followup_label", "Prossimo follow-up")} type="date" fullWidth size="small" value={form.follow_up_at} onChange={(e) => setForm({ ...form, follow_up_at: e.target.value })} InputLabelProps={{ shrink: true }} />
           </Grid>
         </Grid>
       </DialogContent>
       <DialogActions sx={{ p: 2 }}>
-        <Button onClick={onClose} sx={{ textTransform: "none", color: MUTED }}>Annulla</Button>
+        <Button onClick={onClose} sx={{ textTransform: "none", color: MUTED }}>{t("my_leads.button.cancel", "Annulla")}</Button>
         <Button variant="contained" onClick={submit} disabled={saving || !form.name.trim()} sx={{ bgcolor: "#6A1B9A", "&:hover": { bgcolor: "#4A148C" }, textTransform: "none", fontWeight: 700 }}>
-          {saving ? "Salvo…" : "Aggiungi lead"}
+          {saving ? t("my_leads.button.saving", "Salvo…") : t("my_leads.button.add_lead", "Aggiungi lead")}
         </Button>
       </DialogActions>
     </Dialog>
@@ -710,14 +716,15 @@ const AddLeadModal = ({ open, onClose, onCreated, notify }) => {
 // --- Kanban view ---
 
 const KANBAN_COLS = [
-  { key: "new", label: "Nuovi", color: ORO, bg: alpha(ORO, 0.08) },
-  { key: "contacted", label: "Contattati", color: "#2196F3", bg: alpha("#2196F3", 0.08) },
-  { key: "in_progress", label: "In trattativa", color: "#9C27B0", bg: alpha("#9C27B0", 0.08) },
-  { key: "converted", label: "Convertiti", color: "#4CAF50", bg: alpha("#4CAF50", 0.08) },
+  { key: "new", labelKey: "my_leads.kanban.new", labelFallback: "Nuovi", color: ORO, bg: alpha(ORO, 0.08) },
+  { key: "contacted", labelKey: "my_leads.kanban.contacted", labelFallback: "Contattati", color: "#2196F3", bg: alpha("#2196F3", 0.08) },
+  { key: "in_progress", labelKey: "my_leads.kanban.in_progress", labelFallback: "In trattativa", color: "#9C27B0", bg: alpha("#9C27B0", 0.08) },
+  { key: "converted", labelKey: "my_leads.kanban.converted", labelFallback: "Convertiti", color: "#4CAF50", bg: alpha("#4CAF50", 0.08) },
 ];
 
 const KanbanCard = ({ lead, onOpen }) => {
-  const src = SOURCE_CONFIG[lead.source] || SOURCE_CONFIG.quiz;
+  const { t } = useTranslation();
+  const src = SOURCE_META[lead.source] || SOURCE_META.quiz;
   const hasFollowUpToday = isToday(lead.follow_up_at);
   const hasFollowUpPast = isPast(lead.follow_up_at) && lead.status !== "converted" && lead.status !== "lost";
   return (
@@ -736,16 +743,16 @@ const KanbanCard = ({ lead, onOpen }) => {
             <Typography sx={{ fontSize: "0.82rem", fontWeight: 700, color: ESPRESSO, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
               {lead.name || lead.email?.split("@")[0] || "—"}
             </Typography>
-            <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>{SOURCE_CONFIG[lead.source]?.label}</Typography>
+            <Typography sx={{ fontSize: "0.65rem", color: MUTED }}>{sourceLabel(t, lead.source)}</Typography>
           </Box>
           <Box sx={{ px: 0.75, py: 0.15, borderRadius: 1, bgcolor: alpha(HEAT_BUCKETS[heatBucket(lead.heat)].color, 0.15), color: HEAT_BUCKETS[heatBucket(lead.heat)].color, fontSize: "0.7rem", fontWeight: 800 }}>
             {Math.round(Number(lead.heat) || 0)}
           </Box>
         </Stack>
         <Stack direction="row" spacing={0.5} flexWrap="wrap" sx={{ rowGap: 0.4 }}>
-          {hasFollowUpToday && <Chip label="📅 Oggi" size="small" sx={{ height: 18, fontSize: "0.6rem", fontWeight: 700, bgcolor: "#FFF3E0", color: "#F57C00" }} />}
+          {hasFollowUpToday && <Chip label={t("my_leads.chip.today", "📅 Oggi")} size="small" sx={{ height: 18, fontSize: "0.6rem", fontWeight: 700, bgcolor: "#FFF3E0", color: "#F57C00" }} />}
           {hasFollowUpPast && <Chip label="⚠️" size="small" sx={{ height: 18, fontSize: "0.6rem", fontWeight: 700, bgcolor: "#FFEBEE", color: "#D32F2F" }} />}
-          {lead.phone && <Chip icon={<Iconify icon="mdi:phone" width={10} sx={{ color: "#4CAF50 !important" }} />} label="tel" size="small" sx={{ height: 18, fontSize: "0.6rem", bgcolor: alpha("#4CAF50", 0.1), color: "#4CAF50" }} />}
+          {lead.phone && <Chip icon={<Iconify icon="mdi:phone" width={10} sx={{ color: "#4CAF50 !important" }} />} label={t("my_leads.kanban.tel", "tel")} size="small" sx={{ height: 18, fontSize: "0.6rem", bgcolor: alpha("#4CAF50", 0.1), color: "#4CAF50" }} />}
           {lead.video?.status === "ended" && <Chip label="🎥✓" size="small" sx={{ height: 18, fontSize: "0.6rem", bgcolor: "#E8F5E9", color: "#2E7D32" }} />}
         </Stack>
       </Stack>
@@ -754,6 +761,7 @@ const KanbanCard = ({ lead, onOpen }) => {
 };
 
 const KanbanView = ({ leads, onOpen }) => {
+  const { t } = useTranslation();
   const byStatus = useMemo(() => {
     const g = { new: [], contacted: [], in_progress: [], converted: [] };
     leads.forEach((l) => {
@@ -770,13 +778,13 @@ const KanbanView = ({ leads, onOpen }) => {
           <Box sx={{ borderRadius: 3, bgcolor: col.bg, border: `1px solid ${alpha(col.color, 0.2)}`, p: 1, minHeight: 200 }}>
             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1, px: 0.5 }}>
               <Typography sx={{ fontSize: "0.75rem", fontWeight: 800, color: col.color, textTransform: "uppercase", letterSpacing: 0.5 }}>
-                {col.label}
+                {t(col.labelKey, col.labelFallback)}
               </Typography>
               <Chip label={byStatus[col.key].length} size="small" sx={{ height: 20, fontSize: "0.7rem", fontWeight: 700, bgcolor: alpha(col.color, 0.2), color: col.color }} />
             </Stack>
             <Stack spacing={0.75}>
               {byStatus[col.key].length === 0 ? (
-                <Typography sx={{ fontSize: "0.72rem", color: MUTED, textAlign: "center", py: 2, fontStyle: "italic" }}>Nessun lead</Typography>
+                <Typography sx={{ fontSize: "0.72rem", color: MUTED, textAlign: "center", py: 2, fontStyle: "italic" }}>{t("my_leads.kanban.empty", "Nessun lead")}</Typography>
               ) : (
                 byStatus[col.key].map((l) => <KanbanCard key={l.id} lead={l} onOpen={onOpen} />)
               )}
@@ -791,6 +799,7 @@ const KanbanView = ({ leads, onOpen }) => {
 // --- Main ---
 
 const MyLeads = () => {
+  const { t } = useTranslation();
   const [source, setSource] = useState("all");
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
@@ -871,12 +880,12 @@ const MyLeads = () => {
   const bySource = meta?.by_source || { quiz: 0, "landing-prodotto": 0, "landing-opportunita": 0 };
 
   const copyEmail = async (email) => {
-    try { await navigator.clipboard.writeText(email); setSnackbar("Email copiata"); }
-    catch { setSnackbar("Copia non riuscita"); }
+    try { await navigator.clipboard.writeText(email); setSnackbar(t("my_leads.toast.email_copied", "Email copiata")); }
+    catch { setSnackbar(t("my_leads.toast.copy_failed", "Copia non riuscita")); }
   };
 
   const openWa = async (lead) => {
-    const url = waLink(lead.phone, buildWaMessage(lead, promoterUsername));
+    const url = waLink(lead.phone, buildWaMessage(t, lead, promoterUsername));
     window.open(url, "_blank", "noopener,noreferrer");
     // Auto-status: se non ancora contattato, marca come "contacted"
     if (!lead.status || lead.status === "new") {
@@ -894,36 +903,50 @@ const MyLeads = () => {
     try {
       if (lead.source === "manual") {
         await axiosInstance.delete(`api/wp/promoter/me/leads/${lead.id}`);
-        setSnackbar("Lead cancellato");
+        setSnackbar(t("my_leads.toast.lead_deleted", "Lead cancellato"));
       } else {
         await axiosInstance.patch(`api/wp/promoter/me/leads/${lead.id}`, { status: "lost" });
-        setSnackbar("Lead nascosto (segnato come perso)");
+        setSnackbar(t("my_leads.toast.lead_hidden", "Lead nascosto (segnato come perso)"));
       }
       setData((d) => d.filter((x) => x.id !== lead.id));
       fetchStats();
     } catch (e) {
-      const msg = e?.response?.data?.message || "Errore cancellazione";
+      const msg = e?.response?.data?.message || t("my_leads.toast.delete_error", "Errore cancellazione");
       setSnackbar(msg);
     }
     setDeleteConfirm(null);
   };
 
   const exportCsv = () => {
-    if (filteredData.length === 0) { setSnackbar("Nessun lead da esportare"); return; }
-    const headers = ["Nome", "Email", "Telefono", "Fonte", "Heat", "Stato", "Video", "App", "Iscritto", "Ultima attività", "Contattato", "Follow-up", "Note"];
+    if (filteredData.length === 0) { setSnackbar(t("my_leads.toast.nothing_to_export", "Nessun lead da esportare")); return; }
+    const headers = [
+      t("my_leads.csv.name", "Nome"),
+      t("my_leads.csv.email", "Email"),
+      t("my_leads.csv.phone", "Telefono"),
+      t("my_leads.csv.source", "Fonte"),
+      t("my_leads.csv.heat", "Heat"),
+      t("my_leads.csv.status", "Stato"),
+      t("my_leads.csv.video", "Video"),
+      t("my_leads.csv.app", "App"),
+      t("my_leads.csv.registered", "Iscritto"),
+      t("my_leads.csv.last_activity", "Ultima attività"),
+      t("my_leads.csv.contacted", "Contattato"),
+      t("my_leads.csv.followup", "Follow-up"),
+      t("my_leads.csv.notes", "Note"),
+    ];
     const rows = filteredData.map((l) => [
       l.name || "",
       l.email || "",
       l.phone || "",
-      SOURCE_CONFIG[l.source]?.label || l.source,
+      sourceLabel(t, l.source) || l.source,
       l.heat ?? "",
-      STATUS_LABELS[l.status || "new"]?.it || "",
+      statusLabel(t, l.status || "new"),
       l.video?.status || "",
       l.app?.platform || "",
-      l.created_at ? new Date(l.created_at).toLocaleString("it-IT") : "",
-      l.last_seen_at ? new Date(l.last_seen_at).toLocaleString("it-IT") : "",
-      l.contacted_at ? new Date(l.contacted_at).toLocaleString("it-IT") : "",
-      l.follow_up_at ? new Date(l.follow_up_at).toLocaleDateString("it-IT") : "",
+      l.created_at ? new Date(l.created_at).toLocaleString() : "",
+      l.last_seen_at ? new Date(l.last_seen_at).toLocaleString() : "",
+      l.contacted_at ? new Date(l.contacted_at).toLocaleString() : "",
+      l.follow_up_at ? new Date(l.follow_up_at).toLocaleDateString() : "",
       (l.notes || "").replace(/"/g, '""'),
     ]);
     const csv = [headers, ...rows].map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(",")).join("\n");
@@ -934,80 +957,80 @@ const MyLeads = () => {
     a.download = `evea-leads-${new Date().toISOString().split("T")[0]}.csv`;
     a.click();
     URL.revokeObjectURL(url);
-    setSnackbar("Esportati " + filteredData.length + " lead");
+    setSnackbar(t("my_leads.toast.exported", "Esportati {{n}} lead", { n: filteredData.length }));
   };
 
   return (
-    <Page title="I miei Lead">
+    <Page title={t("my_leads.title", "I miei Lead")}>
       <Box sx={{ px: { xs: 2, md: 3 }, py: 3 }}>
         <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1} sx={{ flexWrap: "wrap", gap: 1 }}>
-          <Typography variant="h5" sx={{ fontWeight: 700, color: ESPRESSO }}>I miei Lead</Typography>
+          <Typography variant="h5" sx={{ fontWeight: 700, color: ESPRESSO }}>{t("my_leads.title", "I miei Lead")}</Typography>
           <Stack direction="row" spacing={1} alignItems="center">
             <Stack direction="row" sx={{ borderRadius: 2, overflow: "hidden", border: "1px solid #E0DDD6" }}>
               <Button size="small" onClick={() => setView("list")} sx={{ textTransform: "none", minWidth: 0, px: 1.25, py: 0.5, borderRadius: 0, bgcolor: view === "list" ? alpha(ORO, 0.15) : "transparent", color: view === "list" ? ORO : MUTED, fontWeight: 700 }}>
-                <Iconify icon="mdi:format-list-bulleted" width={16} sx={{ mr: 0.5 }} /> Lista
+                <Iconify icon="mdi:format-list-bulleted" width={16} sx={{ mr: 0.5 }} /> {t("my_leads.view.list", "Lista")}
               </Button>
               <Button size="small" onClick={() => setView("kanban")} sx={{ textTransform: "none", minWidth: 0, px: 1.25, py: 0.5, borderRadius: 0, bgcolor: view === "kanban" ? alpha(ORO, 0.15) : "transparent", color: view === "kanban" ? ORO : MUTED, fontWeight: 700 }}>
-                <Iconify icon="mdi:view-column" width={16} sx={{ mr: 0.5 }} /> Kanban
+                <Iconify icon="mdi:view-column" width={16} sx={{ mr: 0.5 }} /> {t("my_leads.view.kanban", "Kanban")}
               </Button>
             </Stack>
             <Button size="small" variant="contained" startIcon={<Iconify icon="mdi:account-plus" />} onClick={() => setAddOpen(true)} sx={{ bgcolor: "#6A1B9A", "&:hover": { bgcolor: "#4A148C" }, textTransform: "none", fontWeight: 700 }}>
-              Aggiungi lead
+              {t("my_leads.button.add_lead", "Aggiungi lead")}
             </Button>
             <Button size="small" startIcon={<Iconify icon="mdi:download" />} onClick={exportCsv} sx={{ textTransform: "none", color: MUTED }}>
-              CSV
+              {t("my_leads.button.csv", "CSV")}
             </Button>
           </Stack>
         </Stack>
         <Typography sx={{ fontSize: "0.85rem", color: MUTED, mb: 2.5 }}>
-          Lead da quiz, pagina prodotto e pagina opportunità — ordinati per priorità di chiamata
+          {t("my_leads.subtitle", "Lead da quiz, pagina prodotto e pagina opportunità — ordinati per priorità di chiamata")}
         </Typography>
 
         <StatsBar stats={stats} />
 
         <Card sx={{ p: 1.5, mb: 1.5, borderRadius: 3, border: "1px solid #f0ece6" }}>
           <Stack direction="row" spacing={1} flexWrap="wrap" sx={{ rowGap: 1, alignItems: "center" }}>
-            <SummaryChip icon={HEAT_BUCKETS.hot.icon} label={HEAT_BUCKETS.hot.label} count={byHeat.hot || 0} color={HEAT_BUCKETS.hot.color} bg={HEAT_BUCKETS.hot.bg} active={sort === "-heat"} onClick={() => setSort("-heat")} />
-            <SummaryChip icon={HEAT_BUCKETS.warm.icon} label={HEAT_BUCKETS.warm.label} count={byHeat.warm || 0} color={HEAT_BUCKETS.warm.color} bg={HEAT_BUCKETS.warm.bg} active={sort === "-heat"} onClick={() => setSort("-heat")} />
-            <SummaryChip icon={HEAT_BUCKETS.cold.icon} label={HEAT_BUCKETS.cold.label} count={byHeat.cold || 0} color={HEAT_BUCKETS.cold.color} bg={HEAT_BUCKETS.cold.bg} active={sort === "-heat"} onClick={() => setSort("-heat")} />
+            <SummaryChip icon={HEAT_BUCKETS.hot.icon} label={heatLabel(t, "hot")} count={byHeat.hot || 0} color={HEAT_BUCKETS.hot.color} bg={HEAT_BUCKETS.hot.bg} active={sort === "-heat"} onClick={() => setSort("-heat")} />
+            <SummaryChip icon={HEAT_BUCKETS.warm.icon} label={heatLabel(t, "warm")} count={byHeat.warm || 0} color={HEAT_BUCKETS.warm.color} bg={HEAT_BUCKETS.warm.bg} active={sort === "-heat"} onClick={() => setSort("-heat")} />
+            <SummaryChip icon={HEAT_BUCKETS.cold.icon} label={heatLabel(t, "cold")} count={byHeat.cold || 0} color={HEAT_BUCKETS.cold.color} bg={HEAT_BUCKETS.cold.bg} active={sort === "-heat"} onClick={() => setSort("-heat")} />
             <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
-            <SummaryChip icon="🧠" label="Quiz" count={bySource.quiz || 0} color={SOURCE_CONFIG.quiz.color} bg={SOURCE_CONFIG.quiz.bg} active={source === "quiz"} onClick={() => setSource(source === "quiz" ? "all" : "quiz")} />
-            <SummaryChip icon="📦" label="Prodotto" count={bySource["landing-prodotto"] || 0} color={SOURCE_CONFIG["landing-prodotto"].color} bg={SOURCE_CONFIG["landing-prodotto"].bg} active={source === "landing-prodotto"} onClick={() => setSource(source === "landing-prodotto" ? "all" : "landing-prodotto")} />
-            <SummaryChip icon="🚀" label="Opportunità" count={bySource["landing-opportunita"] || 0} color={SOURCE_CONFIG["landing-opportunita"].color} bg={SOURCE_CONFIG["landing-opportunita"].bg} active={source === "landing-opportunita"} onClick={() => setSource(source === "landing-opportunita" ? "all" : "landing-opportunita")} />
+            <SummaryChip icon="🧠" label={sourceLabel(t, "quiz")} count={bySource.quiz || 0} color={SOURCE_META.quiz.color} bg={SOURCE_META.quiz.bg} active={source === "quiz"} onClick={() => setSource(source === "quiz" ? "all" : "quiz")} />
+            <SummaryChip icon="📦" label={sourceLabel(t, "landing-prodotto")} count={bySource["landing-prodotto"] || 0} color={SOURCE_META["landing-prodotto"].color} bg={SOURCE_META["landing-prodotto"].bg} active={source === "landing-prodotto"} onClick={() => setSource(source === "landing-prodotto" ? "all" : "landing-prodotto")} />
+            <SummaryChip icon="🚀" label={t("my_leads.source_full.landing_opportunita", "Opportunità")} count={bySource["landing-opportunita"] || 0} color={SOURCE_META["landing-opportunita"].color} bg={SOURCE_META["landing-opportunita"].bg} active={source === "landing-opportunita"} onClick={() => setSource(source === "landing-opportunita" ? "all" : "landing-opportunita")} />
             {(bySource.manual || 0) > 0 && (
-              <SummaryChip icon="✍️" label="Manuali" count={bySource.manual} color={SOURCE_CONFIG.manual.color} bg={SOURCE_CONFIG.manual.bg} active={source === "manual"} onClick={() => setSource(source === "manual" ? "all" : "manual")} />
+              <SummaryChip icon="✍️" label={t("my_leads.source_plural.manual", "Manuali")} count={bySource.manual} color={SOURCE_META.manual.color} bg={SOURCE_META.manual.bg} active={source === "manual"} onClick={() => setSource(source === "manual" ? "all" : "manual")} />
             )}
           </Stack>
         </Card>
 
         <Card sx={{ p: 1.5, mb: 1.5, borderRadius: 3, border: "1px solid #f0ece6" }}>
           <Stack direction={{ xs: "column", md: "row" }} spacing={1.25}>
-            <TextField size="small" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Cerca nome / email / telefono / note…" InputProps={{ startAdornment: <Iconify icon="mdi:magnify" width={18} sx={{ color: MUTED, mr: 1 }} /> }} sx={{ flex: 1 }} />
-            <TextField select size="small" value={sort} onChange={(e) => setSort(e.target.value)} label="Ordina per" sx={{ width: { md: 220 } }}>
-              <MenuItem value="-heat">🔥 Più caldi</MenuItem>
-              <MenuItem value="follow_up_at">📞 Prossimi follow-up</MenuItem>
-              <MenuItem value="-created_at">🕒 Più recenti</MenuItem>
-              <MenuItem value="created_at">Più vecchi</MenuItem>
+            <TextField size="small" value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t("my_leads.search_placeholder", "Cerca nome / email / telefono / note…")} InputProps={{ startAdornment: <Iconify icon="mdi:magnify" width={18} sx={{ color: MUTED, mr: 1 }} /> }} sx={{ flex: 1 }} />
+            <TextField select size="small" value={sort} onChange={(e) => setSort(e.target.value)} label={t("my_leads.sort.label", "Ordina per")} sx={{ width: { md: 220 } }}>
+              <MenuItem value="-heat">{t("my_leads.sort.hottest", "🔥 Più caldi")}</MenuItem>
+              <MenuItem value="follow_up_at">{t("my_leads.sort.next_followup", "📞 Prossimi follow-up")}</MenuItem>
+              <MenuItem value="-created_at">{t("my_leads.sort.newest", "🕒 Più recenti")}</MenuItem>
+              <MenuItem value="created_at">{t("my_leads.sort.oldest", "Più vecchi")}</MenuItem>
             </TextField>
             {source !== "all" && (
               <Button size="small" variant="text" onClick={() => setSource("all")} startIcon={<Iconify icon="mdi:close-circle" width={16} />} sx={{ textTransform: "none", color: MUTED }}>
-                Mostra tutte le fonti
+                {t("my_leads.show_all_sources", "Mostra tutte le fonti")}
               </Button>
             )}
           </Stack>
           {/* Quick filters */}
           <Stack direction="row" spacing={1} sx={{ mt: 1.5, flexWrap: "wrap", rowGap: 0.75 }}>
-            <Typography sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED, alignSelf: "center", mr: 0.5 }}>Filtri veloci:</Typography>
+            <Typography sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED, alignSelf: "center", mr: 0.5 }}>{t("my_leads.quick_filters", "Filtri veloci:")}</Typography>
             {[
-              { k: "all", l: "Tutti" },
-              { k: "with_phone", l: "📞 Con telefono" },
-              { k: "not_contacted", l: "⏳ Da contattare" },
-              { k: "video_ended", l: "🎥 Video finito" },
+              { k: "all", l: t("my_leads.filter.all", "Tutti") },
+              { k: "with_phone", l: t("my_leads.filter.with_phone", "📞 Con telefono") },
+              { k: "not_contacted", l: t("my_leads.filter.not_contacted", "⏳ Da contattare") },
+              { k: "video_ended", l: t("my_leads.filter.video_ended", "🎥 Video finito") },
             ].map((f) => (
               <Chip key={f.k} label={f.l} size="small" onClick={() => setQuickFilter(f.k)}
                 sx={{ cursor: "pointer", fontWeight: 600, fontSize: "0.7rem", bgcolor: quickFilter === f.k ? alpha(ORO, 0.15) : "#f5f5f5", color: quickFilter === f.k ? ORO : MUTED, border: quickFilter === f.k ? `1px solid ${alpha(ORO, 0.4)}` : "1px solid transparent" }} />
             ))}
-            <Chip label={showLost ? "👁 Persi visibili" : "🚫 Mostra persi"} size="small" onClick={() => setShowLost(!showLost)}
+            <Chip label={showLost ? t("my_leads.filter.lost_visible", "👁 Persi visibili") : t("my_leads.filter.show_lost", "🚫 Mostra persi")} size="small" onClick={() => setShowLost(!showLost)}
               sx={{ cursor: "pointer", fontWeight: 600, fontSize: "0.7rem", bgcolor: showLost ? alpha("#D32F2F", 0.15) : "#f5f5f5", color: showLost ? "#D32F2F" : MUTED, border: showLost ? `1px solid ${alpha("#D32F2F", 0.4)}` : "1px solid transparent" }} />
           </Stack>
         </Card>
@@ -1019,13 +1042,13 @@ const MyLeads = () => {
         ) : data.length === 0 ? (
           <Card sx={{ p: 4, textAlign: "center", borderRadius: 3, border: "1px dashed #E0DDD6" }}>
             <Iconify icon="mdi:account-search-outline" width={48} sx={{ color: alpha(ORO, 0.5), mb: 1 }} />
-            <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: ESPRESSO, mb: 0.5 }}>Nessun lead per ora</Typography>
-            <Typography sx={{ fontSize: "0.85rem", color: MUTED, mb: 2 }}>Condividi il tuo link personale per iniziare a raccogliere lead.</Typography>
+            <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: ESPRESSO, mb: 0.5 }}>{t("my_leads.empty.title", "Nessun lead per ora")}</Typography>
+            <Typography sx={{ fontSize: "0.85rem", color: MUTED, mb: 2 }}>{t("my_leads.empty.subtitle", "Condividi il tuo link personale per iniziare a raccogliere lead.")}</Typography>
             {promoterUsername && (
               <Button variant="contained" startIcon={<Iconify icon="mdi:share-variant" />}
-                onClick={() => { const link = `https://myevea.com/scopri/${promoterUsername}`; navigator.clipboard.writeText(link).then(() => setSnackbar("Link copiato")); }}
+                onClick={() => { const link = `https://myevea.com/scopri/${promoterUsername}`; navigator.clipboard.writeText(link).then(() => setSnackbar(t("my_leads.toast.link_copied", "Link copiato"))); }}
                 sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, textTransform: "none", fontWeight: 700 }}>
-                Copia il tuo link /scopri/{promoterUsername}
+                {t("my_leads.empty.copy_link", "Copia il tuo link /scopri/{{username}}", { username: promoterUsername })}
               </Button>
             )}
           </Card>
@@ -1036,7 +1059,7 @@ const MyLeads = () => {
               <Box>
                 <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1, pl: 0.5 }}>
                   <Typography sx={{ fontSize: "0.72rem", fontWeight: 800, color: "#D32F2F", textTransform: "uppercase", letterSpacing: 1 }}>
-                    ⚠️ Follow-up in ritardo ({followUpOverdue.length})
+                    {t("my_leads.section.overdue", "⚠️ Follow-up in ritardo ({{n}})", { n: followUpOverdue.length })}
                   </Typography>
                 </Stack>
                 <Box sx={{ p: 1, borderRadius: 3, bgcolor: alpha("#D32F2F", 0.04), border: `1px solid ${alpha("#D32F2F", 0.15)}` }}>
@@ -1052,7 +1075,7 @@ const MyLeads = () => {
               <Box>
                 <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1, pl: 0.5 }}>
                   <Typography sx={{ fontSize: "0.72rem", fontWeight: 800, color: "#F57C00", textTransform: "uppercase", letterSpacing: 1 }}>
-                    📅 Follow-up di oggi ({followUpToday.length})
+                    {t("my_leads.section.today", "📅 Follow-up di oggi ({{n}})", { n: followUpToday.length })}
                   </Typography>
                 </Stack>
                 <Box sx={{ p: 1, borderRadius: 3, bgcolor: alpha("#F57C00", 0.04), border: `1px solid ${alpha("#F57C00", 0.15)}` }}>
@@ -1068,7 +1091,7 @@ const MyLeads = () => {
               <Box>
                 <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1, pl: 0.5 }}>
                   <Typography sx={{ fontSize: "0.72rem", fontWeight: 800, color: HEAT_BUCKETS.hot.color, textTransform: "uppercase", letterSpacing: 1 }}>
-                    🔥 Da chiamare oggi ({hotLeads.length})
+                    {t("my_leads.section.hot", "🔥 Da chiamare oggi ({{n}})", { n: hotLeads.length })}
                   </Typography>
                 </Stack>
                 <Box sx={{ p: 1, borderRadius: 3, bgcolor: alpha(HEAT_BUCKETS.hot.color, 0.04), border: `1px solid ${alpha(HEAT_BUCKETS.hot.color, 0.15)}` }}>
@@ -1084,7 +1107,7 @@ const MyLeads = () => {
               <Box>
                 {(followUpOverdue.length > 0 || followUpToday.length > 0 || showHotSection) && (
                   <Typography sx={{ fontSize: "0.72rem", fontWeight: 800, color: MUTED, textTransform: "uppercase", letterSpacing: 1, mb: 1, pl: 0.5 }}>
-                    Altri lead ({restLeads.length})
+                    {t("my_leads.section.other", "Altri lead ({{n}})", { n: restLeads.length })}
                   </Typography>
                 )}
                 <Stack spacing={1}>
@@ -1123,20 +1146,21 @@ const MyLeads = () => {
 
         <Dialog open={!!deleteConfirm} onClose={() => setDeleteConfirm(null)} maxWidth="xs" fullWidth>
           <DialogTitle sx={{ fontWeight: 700, color: ESPRESSO }}>
-            {deleteConfirm?.source === "manual" ? "Cancellare lead manuale?" : "Nascondere lead?"}
+            {deleteConfirm?.source === "manual" ? t("my_leads.delete_dialog.title_manual", "Cancellare lead manuale?") : t("my_leads.delete_dialog.title_hide", "Nascondere lead?")}
           </DialogTitle>
           <DialogContent>
             <Typography sx={{ fontSize: "0.9rem", color: MUTED }}>
-              {deleteConfirm?.source === "manual"
-                ? <>Il lead <strong>{deleteConfirm?.name || deleteConfirm?.email}</strong> verrà cancellato definitivamente insieme a note e follow-up. Non recuperabile.</>
-                : <>Il lead <strong>{deleteConfirm?.name || deleteConfirm?.email}</strong> verrà segnato come "perso" e nascosto dalla lista. Puoi rivederlo attivando "Mostra persi".</>
-              }
+              {deleteConfirm?.source === "manual" ? (
+                <>{t("my_leads.delete_dialog.body_manual_prefix", "Il lead")} <strong>{deleteConfirm?.name || deleteConfirm?.email}</strong> {t("my_leads.delete_dialog.body_manual_suffix", "verrà cancellato definitivamente insieme a note e follow-up. Non recuperabile.")}</>
+              ) : (
+                <>{t("my_leads.delete_dialog.body_hide_prefix", "Il lead")} <strong>{deleteConfirm?.name || deleteConfirm?.email}</strong> {t("my_leads.delete_dialog.body_hide_suffix", "verrà segnato come \"perso\" e nascosto dalla lista. Puoi rivederlo attivando \"Mostra persi\".")}</>
+              )}
             </Typography>
           </DialogContent>
           <DialogActions sx={{ p: 2 }}>
-            <Button onClick={() => setDeleteConfirm(null)} sx={{ textTransform: "none", color: MUTED }}>Annulla</Button>
+            <Button onClick={() => setDeleteConfirm(null)} sx={{ textTransform: "none", color: MUTED }}>{t("my_leads.button.cancel", "Annulla")}</Button>
             <Button variant="contained" onClick={() => doDelete(deleteConfirm)} sx={{ bgcolor: "#D32F2F", "&:hover": { bgcolor: "#B71C1C" }, textTransform: "none", fontWeight: 700 }}>
-              {deleteConfirm?.source === "manual" ? "Cancella" : "Nascondi"}
+              {deleteConfirm?.source === "manual" ? t("my_leads.button.delete", "Cancella") : t("my_leads.button.hide", "Nascondi")}
             </Button>
           </DialogActions>
         </Dialog>

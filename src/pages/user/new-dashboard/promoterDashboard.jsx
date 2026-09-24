@@ -43,6 +43,16 @@ const cardSx = {
 };
 
 // ═══════════════════════════════════════
+// I18N HELPERS
+// ═══════════════════════════════════════
+const MONTH_LONG_KEYS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+const MONTH_LONG_FALLBACK_IT = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
+const MONTH_SHORT_FALLBACK_IT = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"];
+// idx is 0-based (0=January). Returns the full month name in the current language.
+const getMonthLong = (idx, t) => t(`month_long.${MONTH_LONG_KEYS[idx]}`, MONTH_LONG_FALLBACK_IT[idx]);
+const getMonthShort = (idx, t) => t(`month_short.${MONTH_LONG_KEYS[idx]}`, MONTH_SHORT_FALLBACK_IT[idx]);
+
+// ═══════════════════════════════════════
 // DATA HOOKS
 // ═══════════════════════════════════════
 const useFetch = (fetcher, deps = []) => {
@@ -200,6 +210,7 @@ const usePoolPreview = () => useFetch(async () => {
 });
 
 const OnboardingBanner = () => {
+  const { t } = useTranslation();
   const [status, setStatus] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
@@ -221,9 +232,9 @@ const OnboardingBanner = () => {
             <Iconify icon="mdi:file-sign" width={24} sx={{ color: "#E24B4A" }} />
           </Box>
           <Box sx={{ flex: 1 }}>
-            <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: "#E24B4A" }}>Firma la Lettera di Incarico per attivare il tuo account</Typography>
+            <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: "#E24B4A" }}>{t("promoter_dashboard.sign_letter_activate_account", "Firma la Lettera di Incarico per attivare il tuo account")}</Typography>
             <Typography sx={{ fontSize: "0.75rem", color: "#7A6A5C", mt: 0.3 }}>
-              Accetta la Lettera di Incarico per abilitare commissioni, link referral e genealogia.
+              {t("promoter_dashboard.sign_letter_activate_account_sub", "Accetta la Lettera di Incarico per abilitare commissioni, link referral e genealogia.")}
             </Typography>
           </Box>
           <Iconify icon="mdi:chevron-right" width={24} sx={{ color: "#E24B4A" }} />
@@ -241,8 +252,8 @@ const OnboardingBanner = () => {
             <Iconify icon="mdi:clipboard-check-outline" width={22} sx={{ color: ORO }} />
           </Box>
           <Box sx={{ flex: 1 }}>
-            <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>Completa il tuo profilo Promotore</Typography>
-            <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>{status.completed}/{status.total} step completati — clicca per continuare</Typography>
+            <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>{t("promoter_dashboard.complete_promoter_profile", "Completa il tuo profilo Promotore")}</Typography>
+            <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>{t("promoter_dashboard.steps_completed", "{{completed}}/{{total}} step completati — clicca per continuare", { completed: status.completed, total: status.total })}</Typography>
             <LinearProgress variant="determinate" value={status.pct} sx={{ mt: 0.5, height: 5, borderRadius: 3, bgcolor: "#eee", "& .MuiLinearProgress-bar": { bgcolor: ORO, borderRadius: 3 } }} />
           </Box>
           <Iconify icon="mdi:chevron-right" width={24} sx={{ color: ORO }} />
@@ -291,10 +302,11 @@ const HeroCard = () => {
                 {(() => {
                   const h = new Date().getHours();
                   const firstName = hero?.first_name || fullName.split(" ")[0] || "";
-                  if (h >= 6 && h < 12) return `🌅 Buongiorno${firstName ? ", " + firstName : ""}`;
-                  if (h >= 12 && h < 18) return `☀️ Buon pomeriggio${firstName ? ", " + firstName : ""}`;
-                  if (h >= 18 && h < 24) return `🌙 Buonasera${firstName ? ", " + firstName : ""}`;
-                  return `🌙 Buonanotte${firstName ? ", " + firstName : ""}`;
+                  const suffix = firstName ? ", " + firstName : "";
+                  if (h >= 6 && h < 12) return `🌅 ${t("promoter_dashboard.greeting_morning", "Buongiorno")}${suffix}`;
+                  if (h >= 12 && h < 18) return `☀️ ${t("promoter_dashboard.greeting_afternoon", "Buon pomeriggio")}${suffix}`;
+                  if (h >= 18 && h < 24) return `🌙 ${t("promoter_dashboard.greeting_evening", "Buonasera")}${suffix}`;
+                  return `🌙 ${t("promoter_dashboard.greeting_night", "Buonanotte")}${suffix}`;
                 })()}
               </Typography>
               {rank?.current_rank && <Chip label={rank.current_rank} size="small" sx={{ bgcolor: alpha(ORO, 0.15), color: ORO, fontWeight: 700, fontSize: "0.8rem", height: 24, border: `1px solid ${alpha(ORO, 0.3)}` }} />}
@@ -340,13 +352,13 @@ const HeroCard = () => {
                 icon: "mdi:account-group-outline",
                 label: t("evea.clients"),
                 value: clientiDiretti,
-                sub: clientiDelta > 0 ? `+${clientiDelta} nella rete` : null,
+                sub: clientiDelta > 0 ? t("promoter_dashboard.delta_in_network", "+{{n}} nella rete", { n: clientiDelta }) : null,
               },
               {
                 icon: "mdi:account-tie-outline",
                 label: t("evea.team"),
                 value: teamDiretti,
-                sub: teamDelta > 0 ? `+${teamDelta} nella rete` : null,
+                sub: teamDelta > 0 ? t("promoter_dashboard.delta_in_network", "+{{n}} nella rete", { n: teamDelta }) : null,
               },
             ];
           })().map((m) => (
@@ -444,6 +456,7 @@ const TickerBar = () => {
 // 3. ALERT URGENZA
 // ═══════════════════════════════════════
 const UrgencyAlert = () => {
+  const { t } = useTranslation();
   const { data: rank } = useRankSummary();
   if (!rank?.month_end) return null;
   const daysLeft = Math.max(0, Math.ceil((new Date(rank.month_end) - new Date()) / 86400000));
@@ -466,8 +479,8 @@ const UrgencyAlert = () => {
         <Iconify icon="mdi:alert-circle-outline" width={22} sx={{ color: "#FF9800" }} />
       </Box>
       <Typography sx={{ fontSize: "0.9rem", color: TEXT, fontWeight: 600 }}>
-        Mancano <b style={{ color: "#FF9800" }}>{daysLeft} giorni</b> alla fine del periodo
-        {qvMissing > 0 && <> — ti servono ancora <b style={{ color: "#FF9800" }}>{qvMissing} QV</b></>}
+        {t("promoter_dashboard.urgency_days_left_prefix", "Mancano")} <b style={{ color: "#FF9800" }}>{t("promoter_dashboard.days_count", "{{n}} giorni", { n: daysLeft })}</b> {t("promoter_dashboard.urgency_days_left_suffix", "alla fine del periodo")}
+        {qvMissing > 0 && <> — {t("promoter_dashboard.urgency_qv_needed_prefix", "ti servono ancora")} <b style={{ color: "#FF9800" }}>{t("promoter_dashboard.qv_count", "{{n}} QV", { n: qvMissing })}</b></>}
       </Typography>
     </Box>
   );
@@ -477,6 +490,7 @@ const UrgencyAlert = () => {
 // 4. BANNER 3FF CELEBRAZIONE
 // ═══════════════════════════════════════
 const CelebrationBanner = () => {
+  const { t } = useTranslation();
   const { data: ff } = useThreeFF();
   if (!ff) return null;
   if (Number(ff?.current_qualified_customer_count) < Number(ff?.required_customers || 3)) return null;
@@ -498,7 +512,7 @@ const CelebrationBanner = () => {
         <Iconify icon="mdi:party-popper" width={22} sx={{ color: "#4CAF50" }} />
       </Box>
       <Typography sx={{ fontSize: "0.9rem", color: TEXT, fontWeight: 600 }}>
-        3 For Free completato! Hai guadagnato <b style={{ color: ORO }}>€{ff?.current_bonus_amount || 0}</b>
+        {t("promoter_dashboard.threeff_completed", "3 For Free completato! Hai guadagnato")} <b style={{ color: ORO }}>€{ff?.current_bonus_amount || 0}</b>
       </Typography>
     </Box>
   );
@@ -508,11 +522,12 @@ const CelebrationBanner = () => {
 // 5. GUADAGNI
 // ═══════════════════════════════════════
 const PoolFounderCard = () => {
+  const { t } = useTranslation();
   const { data: pool, loading } = usePoolPreview();
   if (loading || !pool?.eligible) return null;
 
-  const MESI_IT = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
-  const monthLabel = MESI_IT[(pool.period_month || 1) - 1] + " " + pool.period_year;
+  const monthName = getMonthLong((pool.period_month || 1) - 1, t);
+  const monthLabel = `${monthName} ${pool.period_year}`;
 
   return (
     <Card sx={{
@@ -526,49 +541,48 @@ const PoolFounderCard = () => {
           <Iconify icon="mdi:crown-outline" width={26} sx={{ color: ORO }} />
         </Box>
         <Box sx={{ flex: 1 }}>
-          <Typography sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED, textTransform: "uppercase", letterSpacing: 0.6 }}>Pool Founder — {monthLabel}</Typography>
+          <Typography sx={{ fontSize: "0.72rem", fontWeight: 700, color: MUTED, textTransform: "uppercase", letterSpacing: 0.6 }}>{t("promoter_dashboard.pool_founder_title", "Pool Founder — {{month}} {{year}}", { month: monthName, year: pool.period_year })}</Typography>
           <Typography sx={{ fontSize: "1.6rem", fontWeight: 800, color: ORO, lineHeight: 1.1, letterSpacing: "-0.3px" }}>
             €{(pool.user_estimate || 0).toFixed(2)}
           </Typography>
           <Typography sx={{ fontSize: "0.78rem", color: ESPRESSO, fontWeight: 600, mt: 0.4 }}>
-            Stima maturata questo mese ({pool.user_quotas} quot{pool.user_quotas === 1 ? "a" : "e"} su {pool.total_quotas})
+            {t("promoter_dashboard.pool_founder_estimate", "Stima maturata questo mese ({{quotas}} quota su {{total}})", { quotas: pool.user_quotas, total: pool.total_quotas })}
           </Typography>
         </Box>
       </Stack>
       <Box sx={{ pt: 1.5, borderTop: "1px solid #f5f0e8" }}>
         <Grid container spacing={1.5}>
           <Grid item xs={6} md={3}>
-            <Typography sx={{ fontSize: "0.7rem", color: MUTED, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.4 }}>Fatturato mese</Typography>
+            <Typography sx={{ fontSize: "0.7rem", color: MUTED, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.4 }}>{t("promoter_dashboard.pool_revenue_month", "FATTURATO MESE")}</Typography>
             <Typography sx={{ fontSize: "0.95rem", color: ESPRESSO, fontWeight: 700 }}>€{(pool.revenue_month || 0).toFixed(2)}</Typography>
           </Grid>
           <Grid item xs={6} md={3}>
-            <Typography sx={{ fontSize: "0.7rem", color: MUTED, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.4 }}>Pool ({pool.pool_percent}%)</Typography>
+            <Typography sx={{ fontSize: "0.7rem", color: MUTED, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.4 }}>{t("promoter_dashboard.pool_percent_label", "POOL ({{pct}}%)", { pct: pool.pool_percent })}</Typography>
             <Typography sx={{ fontSize: "0.95rem", color: ESPRESSO, fontWeight: 700 }}>€{(pool.pool_amount || 0).toFixed(2)}</Typography>
           </Grid>
           <Grid item xs={6} md={3}>
-            <Typography sx={{ fontSize: "0.7rem", color: MUTED, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.4 }}>Per quota</Typography>
+            <Typography sx={{ fontSize: "0.7rem", color: MUTED, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.4 }}>{t("promoter_dashboard.pool_per_quota", "PER QUOTA")}</Typography>
             <Typography sx={{ fontSize: "0.95rem", color: ESPRESSO, fontWeight: 700 }}>€{(pool.per_quota || 0).toFixed(2)}</Typography>
           </Grid>
           <Grid item xs={6} md={3}>
-            <Typography sx={{ fontSize: "0.7rem", color: MUTED, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.4 }}>Tue quote</Typography>
+            <Typography sx={{ fontSize: "0.7rem", color: MUTED, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.4 }}>{t("promoter_dashboard.pool_your_quotas", "TUE QUOTE")}</Typography>
             <Typography sx={{ fontSize: "0.95rem", color: ESPRESSO, fontWeight: 700 }}>{pool.user_quotas}</Typography>
           </Grid>
         </Grid>
       </Box>
       <Typography sx={{ mt: 1.5, fontSize: "0.72rem", color: "#7A6A5C", fontStyle: "italic" }}>
-        Stima progressiva del mese in corso. Il pool viene liquidato a fine mese in base al fatturato consolidato.
+        {t("promoter_dashboard.pool_disclaimer", "Stima progressiva del mese in corso. Il pool viene liquidato a fine mese in base al fatturato consolidato.")}
       </Typography>
     </Card>
   );
 };
 
 const EarningsSection = () => {
-  const { t, i18n } = useTranslation();
-  const isIt = i18n.language?.startsWith("it");
+  const { t } = useTranslation();
   const L = {
-    currentRank: isIt ? "Rank Attuale" : "Current Rank",
-    recognitionRank: isIt ? "Rank Riconosciuto" : "Recognition Rank",
-    achievedRank: isIt ? "Rank Raggiunto" : "Achieved Rank",
+    currentRank: t("promoter_dashboard.rank_current", "Rank Attuale"),
+    recognitionRank: t("promoter_dashboard.rank_recognition", "Rank Riconosciuto"),
+    achievedRank: t("promoter_dashboard.rank_achieved", "Rank Raggiunto"),
   };
   const { data: bonus, loading: bLoad } = useBonusPending();
   const { data: rank, loading: rLoad } = useRankSummary();
@@ -661,18 +675,18 @@ const EarningsSection = () => {
 const PACKAGE_ID_TO_LEVEL = { 9: 1, 8: 2, 7: 3 };
 
 const BASE_KITS = [
-  { name: "Bronze", price: 229, bv: 160, qv: 240, products: 8, color: "#CD7F32", url: `${WP_URL.replace(/\/$/, "")}/products/bronze-pack` },
-  { name: "Silver", price: 446, bv: 320, qv: 480, products: 16, color: "#A0A0A0", url: `${WP_URL.replace(/\/$/, "")}/products/silver-pack` },
-  { name: "Gold", price: 893, bv: 640, qv: 960, products: 33, color: ORO, recommended: true, url: `${WP_URL.replace(/\/$/, "")}/products/gold-pack` },
+  { name: "Bronze", nameKey: null, price: 229, bv: 160, qv: 240, products: 8, color: "#CD7F32", url: `${WP_URL.replace(/\/$/, "")}/products/bronze-pack` },
+  { name: "Silver", nameKey: null, price: 446, bv: 320, qv: 480, products: 16, color: "#A0A0A0", url: `${WP_URL.replace(/\/$/, "")}/products/silver-pack` },
+  { name: "Gold", nameKey: null, price: 893, bv: 640, qv: 960, products: 33, color: ORO, recommended: true, url: `${WP_URL.replace(/\/$/, "")}/products/gold-pack` },
 ];
 
 const UPGRADES_BY_LEVEL = {
   1: [
-    { name: "Upgrade a Silver", price: 230, bv: 160, qv: 240, products: 8, color: "#A0A0A0", url: `${WP_URL.replace(/\/$/, "")}/products/upgrade-bronzo-silver` },
-    { name: "Upgrade a Gold", price: 708, bv: 480, qv: 720, products: 25, color: ORO, recommended: true, url: `${WP_URL.replace(/\/$/, "")}/products/upgrade-bronzo-gold` },
+    { name: "Upgrade a Silver", nameKey: "upgrade_to_silver", nameFallback: "Upgrade a Silver", price: 230, bv: 160, qv: 240, products: 8, color: "#A0A0A0", url: `${WP_URL.replace(/\/$/, "")}/products/upgrade-bronzo-silver` },
+    { name: "Upgrade a Gold", nameKey: "upgrade_to_gold", nameFallback: "Upgrade a Gold", price: 708, bv: 480, qv: 720, products: 25, color: ORO, recommended: true, url: `${WP_URL.replace(/\/$/, "")}/products/upgrade-bronzo-gold` },
   ],
   2: [
-    { name: "Upgrade a Gold", price: 485, bv: 320, qv: 480, products: 17, color: ORO, recommended: true, url: `${WP_URL.replace(/\/$/, "")}/products/upgrade-silver-gold` },
+    { name: "Upgrade a Gold", nameKey: "upgrade_to_gold", nameFallback: "Upgrade a Gold", price: 485, bv: 320, qv: 480, products: 17, color: ORO, recommended: true, url: `${WP_URL.replace(/\/$/, "")}/products/upgrade-silver-gold` },
   ],
   3: [], // Gold = max
 };
@@ -713,7 +727,7 @@ const KitUpgrade = ({ packageId = 0, upgradeDaysRemaining = null, packagePurchas
             <Iconify icon="mdi:clock-outline" width={20} sx={{ color: ORO }} />
           </Box>
           <Typography sx={{ fontSize: "0.82rem", fontWeight: 600, color: TEXT }}>
-            Hai <b style={{ color: ORO }}>{upgradeDaysRemaining} giorni</b> per fare l'upgrade al kit superiore
+            {t("promoter_dashboard.upgrade_window_prefix", "Hai")} <b style={{ color: ORO }}>{t("promoter_dashboard.days_count", "{{n}} giorni", { n: upgradeDaysRemaining })}</b> {t("promoter_dashboard.upgrade_window_suffix", "per fare l'upgrade al kit superiore")}
           </Typography>
         </Box>
       )}
@@ -741,18 +755,18 @@ const KitUpgrade = ({ packageId = 0, upgradeDaysRemaining = null, packagePurchas
                   <Iconify icon={isUpgrade ? "mdi:arrow-up-bold-circle-outline" : "mdi:package-variant-closed"} width={22} sx={{ color: k.color }} />
                 </Box>
                 <Box>
-                  <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT }}>{k.name}</Typography>
+                  <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT }}>{k.nameKey ? t(`promoter_dashboard.${k.nameKey}`, k.nameFallback) : k.name}</Typography>
                   <Typography sx={{ fontSize: "1.2rem", fontWeight: 800, color: k.color, letterSpacing: "-0.3px" }}>€{k.price}</Typography>
                 </Box>
               </Stack>
               <Stack direction="row" spacing={1.5} mb={2}>
                 <Typography sx={{ fontSize: "0.72rem", color: MUTED, fontWeight: 500 }}>BV <b style={{ color: TEXT, fontWeight: 700 }}>{k.bv}</b></Typography>
                 <Typography sx={{ fontSize: "0.72rem", color: MUTED, fontWeight: 500 }}>QV <b style={{ color: TEXT, fontWeight: 700 }}>{k.qv}</b></Typography>
-                <Typography sx={{ fontSize: "0.72rem", color: MUTED, fontWeight: 500 }}>{k.products} buste</Typography>
+                <Typography sx={{ fontSize: "0.72rem", color: MUTED, fontWeight: 500 }}>{t("promoter_dashboard.kit_buste_count", "{{n}} buste", { n: k.products })}</Typography>
               </Stack>
               <Button fullWidth size="small" variant={k.recommended ? "contained" : "outlined"} href={k.url} target="_blank"
                 sx={{ ...(k.recommended ? { bgcolor: ORO, boxShadow: `0 2px 8px ${alpha(ORO, 0.25)}`, "&:hover": { bgcolor: "#A07E2F" } } : { borderColor: alpha(ORO, 0.4), color: ORO, "&:hover": { borderColor: ORO, bgcolor: alpha(ORO, 0.05) } }), fontWeight: 700, textTransform: "none", borderRadius: 2, py: 1 }}>
-                {isUpgrade ? "Upgrade ora" : t("evea.buy")}
+                {isUpgrade ? t("promoter_dashboard.upgrade_now", "Upgrade ora") : t("evea.buy")}
               </Button>
             </Card>
           </Grid>
@@ -766,11 +780,10 @@ const KitUpgrade = ({ packageId = 0, upgradeDaysRemaining = null, packagePurchas
 // SMART ALERTS (Network agent for promoter)
 // ═══════════════════════════════════════
 const SmartAlerts = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(false);
-  const isIt = i18n.language?.startsWith("it");
   useEffect(() => {
     (async () => {
       try {
@@ -791,7 +804,7 @@ const SmartAlerts = () => {
           <Iconify icon="mdi:bell-ring-outline" width={19} sx={{ color: "#EF9F27" }} />
         </Box>
         <Typography sx={{ fontSize: "0.92rem", fontWeight: 700, color: ESPRESSO }}>
-          {isIt ? "Notifiche Smart" : "Smart Alerts"}
+          {t("promoter_dashboard.smart_alerts_title", "Notifiche Smart")}
         </Typography>
         <Chip label={alerts.length} size="small" sx={{ height: 20, fontSize: "0.65rem", fontWeight: 700, bgcolor: alpha("#EF9F27", 0.12), color: "#EF9F27", border: `1px solid ${alpha("#EF9F27", 0.25)}` }} />
       </Stack>
@@ -823,7 +836,7 @@ const SmartAlerts = () => {
           <Button size="small" onClick={() => setExpanded(!expanded)}
             startIcon={<Iconify icon={expanded ? "mdi:chevron-up" : "mdi:chevron-down"} />}
             sx={{ color: "#7A6A5C", textTransform: "none", fontWeight: 600, fontSize: "0.78rem", alignSelf: "flex-start" }}>
-            {expanded ? (isIt ? "Mostra meno" : "Show less") : (isIt ? `Vedi altre ${hiddenCount} notifiche` : `Show ${hiddenCount} more`)}
+            {expanded ? t("promoter_dashboard.show_less", "Mostra meno") : t("promoter_dashboard.show_more_notifications", "Vedi altre {{n}} notifiche", { n: hiddenCount })}
           </Button>
         )}
       </Stack>
@@ -860,50 +873,56 @@ const QuickAccess = () => {
   const productLandingLink = user?.username
     ? `https://community.myevea.com/scopri/${encodeURIComponent(user.username)}`
     : "";
+  const tipPromoterLink = t("promoter_dashboard.sign_letter_activate_promoter_link", "Firma la Lettera di Incarico per attivare il tuo link promotore");
+  const tipQuizLink = t("promoter_dashboard.sign_letter_activate_quiz_link", "Firma la Lettera di Incarico per attivare il tuo link quiz");
+  const tipOpportunityShare = t("promoter_dashboard.sign_letter_share_opportunity", "Firma la Lettera di Incarico per condividere la Landing Page Opportunità");
+  const tipOpportunityShareShort = t("promoter_dashboard.sign_letter_share_opportunity_short", "Firma la Lettera di Incarico per condividere la landing Opportunità");
+  const tipProductShare = t("promoter_dashboard.sign_letter_share_product", "Firma la Lettera di Incarico per condividere la Landing Page Prodotto");
+  const tipProductShareShort = t("promoter_dashboard.sign_letter_share_product_short", "Firma la Lettera di Incarico per condividere la landing Prodotto");
   const shortcuts = [
     { icon: "mdi:storefront-outline", label: t("evea.shop"), action: () => window.open(refSlug ? `${WP_URL.replace(/\/$/, "")}/collections/all?ref=${refSlug}` : `${WP_URL.replace(/\/$/, "")}/collections/all`, "_blank") },
     {
       icon: "mdi:link-variant",
       label: t("evea.referral_link"),
       disabled: !isActive,
-      disabledTooltip: "Firma la Lettera di Incarico per attivare il tuo link promotore",
+      disabledTooltip: tipPromoterLink,
       action: async () => {
-        if (!isActive) { enqueueSnackbar("Firma la Lettera di Incarico per attivare il tuo link promotore", { variant: "warning" }); navigate("/user/onboarding"); return; }
+        if (!isActive) { enqueueSnackbar(tipPromoterLink, { variant: "warning" }); navigate("/user/onboarding"); return; }
         if (referralLink) { await navigator.clipboard.writeText(referralLink); enqueueSnackbar(t("evea.link_copied")); }
       }
     },
     {
       icon: "mdi:help-circle-outline",
-      label: "Link Quiz",
+      label: t("promoter_dashboard.quiz_link", "Link Quiz"),
       disabled: !isActive,
-      disabledTooltip: "Firma la Lettera di Incarico per attivare il tuo link quiz",
+      disabledTooltip: tipQuizLink,
       action: async () => {
-        if (!isActive) { enqueueSnackbar("Firma la Lettera di Incarico per attivare il tuo link quiz", { variant: "warning" }); navigate("/user/onboarding"); return; }
-        if (quizReferralLink) { await navigator.clipboard.writeText(quizReferralLink); enqueueSnackbar("Link Quiz copiato!"); }
+        if (!isActive) { enqueueSnackbar(tipQuizLink, { variant: "warning" }); navigate("/user/onboarding"); return; }
+        if (quizReferralLink) { await navigator.clipboard.writeText(quizReferralLink); enqueueSnackbar(t("promoter_dashboard.quiz_link_copied", "Link Quiz copiato!")); }
       }
     },
     {
       icon: "mdi:rocket-launch-outline",
-      label: "Landing Page Opportunità",
+      label: t("promoter_dashboard.opportunity_landing", "Landing Page Opportunità"),
       disabled: !isActive,
-      disabledTooltip: "Firma la Lettera di Incarico per condividere la Landing Page Opportunità",
+      disabledTooltip: tipOpportunityShare,
       action: async () => {
-        if (!isActive) { enqueueSnackbar("Firma la Lettera di Incarico per condividere la landing Opportunità", { variant: "warning" }); navigate("/user/onboarding"); return; }
+        if (!isActive) { enqueueSnackbar(tipOpportunityShareShort, { variant: "warning" }); navigate("/user/onboarding"); return; }
         if (!opportunityLink) return;
         await navigator.clipboard.writeText(opportunityLink);
-        enqueueSnackbar("Link Opportunità copiato!");
+        enqueueSnackbar(t("promoter_dashboard.opportunity_link_copied", "Link Opportunità copiato!"));
       }
     },
     {
       icon: "mdi:coffee-outline",
-      label: "Landing Page Prodotto",
+      label: t("promoter_dashboard.product_landing", "Landing Page Prodotto"),
       disabled: !isActive,
-      disabledTooltip: "Firma la Lettera di Incarico per condividere la Landing Page Prodotto",
+      disabledTooltip: tipProductShare,
       action: async () => {
-        if (!isActive) { enqueueSnackbar("Firma la Lettera di Incarico per condividere la landing Prodotto", { variant: "warning" }); navigate("/user/onboarding"); return; }
+        if (!isActive) { enqueueSnackbar(tipProductShareShort, { variant: "warning" }); navigate("/user/onboarding"); return; }
         if (!productLandingLink) return;
         await navigator.clipboard.writeText(productLandingLink);
-        enqueueSnackbar("Link Prodotto copiato!");
+        enqueueSnackbar(t("promoter_dashboard.product_link_copied", "Link Prodotto copiato!"));
       }
     },
     { icon: "mdi:wallet-outline", label: t("evea.wallet"), action: () => navigate("/user/financial/wallet") },
@@ -942,7 +961,7 @@ const QuickAccess = () => {
                 <Iconify icon={s.icon} width={20} sx={{ color: ORO }} />
               </Box>
               <Typography sx={{ fontSize: "0.78rem", fontWeight: 600, color: TEXT }}>{s.label}</Typography>
-              {s.disabled && <Typography sx={{ fontSize: "0.6rem", color: "#E24B4A", mt: 0.2 }}>🔒 Non attivo</Typography>}
+              {s.disabled && <Typography sx={{ fontSize: "0.6rem", color: "#E24B4A", mt: 0.2 }}>🔒 {t("promoter_dashboard.not_active", "Non attivo")}</Typography>}
             </Card>
           </Tooltip>
         </Grid>
@@ -956,6 +975,7 @@ const QuickAccess = () => {
 // ═══════════════════════════════════════
 const MEDAL_COLORS = [ORO, "#A0A0A0", "#CD7F32"];
 const TopPerformers = () => {
+  const { t } = useTranslation();
   const [sortBy, setSortBy] = useState("gv");
   const [scope, setScope] = useState("team");
   const { data: top, loading } = useTopPerformers(sortBy, scope);
@@ -970,11 +990,11 @@ const TopPerformers = () => {
             <Box sx={{ width: 32, height: 32, borderRadius: 1.5, background: `linear-gradient(135deg, ${alpha(ORO, 0.18)} 0%, ${alpha(ORO, 0.06)} 100%)`, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <Iconify icon="mdi:podium-gold" width={19} sx={{ color: ORO }} />
             </Box>
-            <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT }}>Top Performer del Mese</Typography>
+            <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT }}>{t("promoter_dashboard.top_performer_month", "Top Performer del Mese")}</Typography>
           </Stack>
           <Stack direction="row" spacing={0.5}>
             {["team", "global"].map((s) => (
-              <Chip key={s} label={s === "team" ? "Il mio Team" : "Globale"} size="small"
+              <Chip key={s} label={s === "team" ? t("promoter_dashboard.scope_my_team", "Il mio Team") : t("promoter_dashboard.scope_global", "Globale")} size="small"
                 onClick={() => setScope(s)}
                 sx={{ height: 22, fontSize: "0.62rem", fontWeight: 700, cursor: "pointer", transition: "all .2s ease",
                   bgcolor: scope === s ? alpha(ORO, 0.15) : "transparent",
@@ -1025,7 +1045,7 @@ const TopPerformers = () => {
                 </Avatar>
                 <Box sx={{ flex: 1, minWidth: 0 }}>
                   <Typography sx={{ fontSize: "0.85rem", fontWeight: 600, color: TEXT }} noWrap>{[p.first_name, p.last_name].filter(Boolean).join(" ") || p.username}</Typography>
-                  <Typography sx={{ fontSize: "0.62rem", color: MUTED }}>{p.rank || "Associate"}</Typography>
+                  <Typography sx={{ fontSize: "0.62rem", color: MUTED }}>{p.rank || t("promoter_dashboard.rank_associate", "Associate")}</Typography>
                 </Box>
                 <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: isTop3 ? medalColor : ORO, letterSpacing: "-0.2px" }}>
                   {Number(p.sort_value || p.total_qv || 0).toFixed(0)} <span style={{ fontSize: "0.65rem", color: MUTED, fontWeight: 600 }}>{labels[sortBy]}</span>
@@ -1033,7 +1053,7 @@ const TopPerformers = () => {
               </Stack>
             );
           })}
-          {(!top || !top.length) && <Typography sx={{ fontSize: "0.85rem", color: MUTED, textAlign: "center", py: 2 }}>Nessun dato</Typography>}
+          {(!top || !top.length) && <Typography sx={{ fontSize: "0.85rem", color: MUTED, textAlign: "center", py: 2 }}>{t("promoter_dashboard.no_data", "Nessun dato")}</Typography>}
         </Stack>
       )}
     </Card>
@@ -1043,7 +1063,6 @@ const TopPerformers = () => {
 // ═══════════════════════════════════════
 // 9. ANDAMENTO QV + STATISTICHE
 // ═══════════════════════════════════════
-const MESI = ["Gen","Feb","Mar","Apr","Mag","Giu","Lug","Ago","Set","Ott","Nov","Dic"];
 const TeamSection = () => {
   const { t } = useTranslation();
   const [period, setPeriod] = useState("month");
@@ -1080,7 +1099,12 @@ const TeamSection = () => {
           <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: TEXT }}>{t("evea.your_team")}</Typography>
         </Stack>
         <Stack direction="row" spacing={0.5}>
-          {[{ k: "week", l: "Sett" }, { k: "month", l: "Mese" }, { k: "quarter", l: "Trim" }, { k: "year", l: "Anno" }].map((p) => (
+          {[
+            { k: "week", l: t("promoter_dashboard.period_week", "Sett") },
+            { k: "month", l: t("promoter_dashboard.period_month", "Mese") },
+            { k: "quarter", l: t("promoter_dashboard.period_quarter", "Trim") },
+            { k: "year", l: t("promoter_dashboard.period_year", "Anno") },
+          ].map((p) => (
             <Chip key={p.k} label={p.l} size="small" onClick={() => setPeriod(p.k)}
               sx={{ height: 24, fontSize: "0.62rem", fontWeight: 700, cursor: "pointer", transition: "all .2s ease",
                 bgcolor: period === p.k ? ORO : alpha(ORO, 0.08), color: period === p.k ? "#fff" : TEXT,
@@ -1098,8 +1122,8 @@ const TeamSection = () => {
             {[
               { label: "GV", value: team.qv_team, prev: team.qv_team_prev, color: ORO, icon: "mdi:chart-bar" },
               { label: t("evea.revenue_team"), value: `€${team.revenue_team}`, prev: team.revenue_team_prev, color: "#4CAF50", icon: "mdi:cash", rawVal: team.revenue_team },
-              { label: "Nuovi Clienti", value: team.new_clients_period, prev: team.new_clients_prev, color: "#2196F3", icon: "mdi:account-plus" },
-              { label: "Nuovi Promoter", value: team.new_promoters_period, prev: team.new_promoters_prev, color: "#9C27B0", icon: "mdi:account-star" },
+              { label: t("promoter_dashboard.new_customers", "Nuovi Clienti"), value: team.new_clients_period, prev: team.new_clients_prev, color: "#2196F3", icon: "mdi:account-plus" },
+              { label: t("promoter_dashboard.new_promoters", "Nuovi Promoter"), value: team.new_promoters_period, prev: team.new_promoters_prev, color: "#9C27B0", icon: "mdi:account-star" },
             ].map((m) => (
               <Grid item xs={6} key={m.label}>
                 <Box sx={{
@@ -1126,19 +1150,19 @@ const TeamSection = () => {
             <Stack direction="row" justifyContent="space-around">
               <Box sx={{ textAlign: "center" }}>
                 <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: TEXT }}>{team.total_team ?? team.total_direct}</Typography>
-                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Team</Typography>
+                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>{t("promoter_dashboard.team_total", "Team")}</Typography>
               </Box>
               <Box sx={{ textAlign: "center" }}>
                 <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: TEXT }}>{team.total_direct}</Typography>
-                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Diretti</Typography>
+                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>{t("promoter_dashboard.team_direct", "Diretti")}</Typography>
               </Box>
               <Box sx={{ textAlign: "center" }}>
                 <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: "#4CAF50" }}>{team.active_count}</Typography>
-                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Attivi</Typography>
+                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>{t("promoter_dashboard.team_active", "Attivi")}</Typography>
               </Box>
               <Box sx={{ textAlign: "center" }}>
                 <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: team.inactive_count > 0 ? "#E24B4A" : MUTED }}>{team.inactive_count}</Typography>
-                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>Inattivi</Typography>
+                <Typography sx={{ fontSize: "0.58rem", color: MUTED }}>{t("promoter_dashboard.team_inactive", "Inattivi")}</Typography>
               </Box>
             </Stack>
           </Box>
@@ -1148,7 +1172,7 @@ const TeamSection = () => {
             <Box sx={{ p: 1.5, bgcolor: alpha("#E24B4A", 0.04), borderRadius: 2, border: `1px solid ${alpha("#E24B4A", 0.12)}` }}>
               <Stack direction="row" alignItems="center" spacing={0.8} mb={1}>
                 <Iconify icon="mdi:alert-circle" width={16} sx={{ color: "#E24B4A" }} />
-                <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: "#E24B4A" }}>Membri inattivi ({team.inactive_count})</Typography>
+                <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: "#E24B4A" }}>{t("promoter_dashboard.inactive_members_count", "Membri inattivi ({{n}})", { n: team.inactive_count })}</Typography>
               </Stack>
               <Stack spacing={0.6}>
                 {(team.inactive || []).slice(0, 5).map((m) => (
@@ -1157,9 +1181,9 @@ const TeamSection = () => {
                       {(m.name || m.username || "?").charAt(0)}
                     </Avatar>
                     <Typography sx={{ fontSize: "0.7rem", color: TEXT, flex: 1 }} noWrap>{m.name || m.username}</Typography>
-                    <Chip label={m.is_promoter ? "Promoter" : "Cliente"} size="small" sx={{ height: 16, fontSize: "0.5rem", bgcolor: m.is_promoter ? alpha(ORO, 0.1) : alpha("#2196F3", 0.1), color: m.is_promoter ? ORO : "#2196F3" }} />
+                    <Chip label={m.is_promoter ? t("promoter_dashboard.role_promoter", "Promoter") : t("promoter_dashboard.role_customer", "Cliente")} size="small" sx={{ height: 16, fontSize: "0.5rem", bgcolor: m.is_promoter ? alpha(ORO, 0.1) : alpha("#2196F3", 0.1), color: m.is_promoter ? ORO : "#2196F3" }} />
                     <Typography sx={{ fontSize: "0.6rem", color: "#E24B4A", fontWeight: 600 }}>
-                      {m.days_inactive != null ? `${m.days_inactive}gg` : "Mai ordinato"}
+                      {m.days_inactive != null ? t("promoter_dashboard.days_inactive_short", "{{n}}gg", { n: m.days_inactive }) : t("promoter_dashboard.never_ordered", "Mai ordinato")}
                     </Typography>
                   </Stack>
                 ))}
@@ -1170,7 +1194,7 @@ const TeamSection = () => {
           {/* Top referral */}
           {(team.top_referrals || []).length > 0 && (
             <>
-              <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: TEXT }}>Top referral del periodo</Typography>
+              <Typography sx={{ fontSize: "0.75rem", fontWeight: 700, color: TEXT }}>{t("promoter_dashboard.top_referrals_period", "Top referral del periodo")}</Typography>
               <Stack spacing={0.6}>
                 {team.top_referrals.map((r, i) => (
                   <Stack key={r.user_id} direction="row" alignItems="center" spacing={0.8}>
@@ -1223,7 +1247,7 @@ const ThreeFFCard = () => {
   const referralLink = refSlug ? `${WP_URL}?ref=${refSlug}` : "";
   const copy = async () => {
     if (!isActive) {
-      enqueueSnackbar("Firma la Lettera di Incarico per attivare il tuo link promotore", { variant: "warning" });
+      enqueueSnackbar(t("promoter_dashboard.sign_letter_activate_promoter_link", "Firma la Lettera di Incarico per attivare il tuo link promotore"), { variant: "warning" });
       navigate("/user/onboarding");
       return;
     }
@@ -1243,8 +1267,8 @@ const ThreeFFCard = () => {
           <Iconify icon="mdi:gift-outline" width={20} sx={{ color: ORO }} />
         </Box>
         <Box>
-          <Typography variant="subtitle2" fontWeight={700} color={ESPRESSO}>Invita 3 amici</Typography>
-          <Typography variant="caption" sx={{ color: MUTED, lineHeight: 1 }}>Bonus 3 For Free</Typography>
+          <Typography variant="subtitle2" fontWeight={700} color={ESPRESSO}>{t("promoter_dashboard.invite_three_friends", "Invita 3 amici")}</Typography>
+          <Typography variant="caption" sx={{ color: MUTED, lineHeight: 1 }}>{t("promoter_dashboard.three_for_free_bonus", "Bonus 3 For Free")}</Typography>
         </Box>
       </Stack>
       {loading ? <Skeleton height={56} variant="rounded" /> : (
@@ -1292,11 +1316,11 @@ const ThreeFFCard = () => {
           </Box>
         </>
       )}
-      <Tooltip title={!isActive ? "Firma la Lettera di Incarico per attivare il tuo link promotore" : ""} arrow>
+      <Tooltip title={!isActive ? t("promoter_dashboard.sign_letter_activate_promoter_link", "Firma la Lettera di Incarico per attivare il tuo link promotore") : ""} arrow>
         <span>
           <Button fullWidth variant="contained" startIcon={<Iconify icon={isActive ? "mdi:content-copy" : "mdi:lock-outline"} />} onClick={copy}
             sx={{ bgcolor: isActive ? ORO : "#999", color: "#fff", "&:hover": { bgcolor: isActive ? "#A07E2F" : "#888" }, fontWeight: 700, borderRadius: 2, py: 1.2, textTransform: "none", fontSize: "0.875rem", boxShadow: `0 4px 12px ${alpha(isActive ? ORO : "#999", 0.3)}` }}>
-            {isActive ? t("evea.copy_invite") : "Attiva link — Firma la Lettera"}
+            {isActive ? t("evea.copy_invite") : t("promoter_dashboard.activate_link_sign_letter", "Attiva link — Firma la Lettera")}
           </Button>
         </span>
       </Tooltip>
@@ -1319,7 +1343,7 @@ const ROBCard = () => {
   const allMilestones = Array.from({ length: CYCLE_LEN }, (_, i) => {
     const isCoupon = COUPON_MONTHS.includes(i);
     const isFirstEver = cycleNum === 1 && i === 0;
-    return { month: i + 1, completed: i < posInCycle, isCurrent: i === posInCycle, label: isFirstEver ? "1ª consegna" : isCoupon ? "-10% + 🎁" : "-10%", isCoupon };
+    return { month: i + 1, completed: i < posInCycle, isCurrent: i === posInCycle, label: isFirstEver ? t("promoter_dashboard.rob_first_delivery", "1ª consegna") : isCoupon ? "-10% + 🎁" : "-10%", isCoupon };
   });
   const totalPages = Math.ceil(CYCLE_LEN / pageSize);
   const visible = allMilestones.slice(page * pageSize, page * pageSize + pageSize);
@@ -1406,7 +1430,7 @@ const ROBCard = () => {
             const hasAnything = realTotal > 0 || totalConsec > 0 || couponValue > 0;
             if (!hasAnything) return (
               <Box sx={{ bgcolor: alpha(ORO, 0.06), borderRadius: 2, p: 1.5, textAlign: "center" }}>
-                <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>Inizia il tuo abbonamento per risparmiare ogni mese!</Typography>
+                <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>{t("promoter_dashboard.rob_start_subscription", "Inizia il tuo abbonamento per risparmiare ogni mese!")}</Typography>
               </Box>
             );
             const useReal = realTotal > 0;
@@ -1424,12 +1448,12 @@ const ROBCard = () => {
                   <Typography sx={{ fontSize: "0.7rem", color: MUTED, mt: 0.2 }}>
                     {(useReal ? realDiscount : discountMonths) > 0 && (
                       useReal
-                        ? <>€{realDiscount.toFixed(0)} di sconti (-10%)</>
-                        : <>{discountMonths} {discountMonths === 1 ? "consegna" : "consegne"} -10%</>
+                        ? <>{t("promoter_dashboard.rob_discounts_amount", "€{{amount}} di sconti (-10%)", { amount: realDiscount.toFixed(0) })}</>
+                        : <>{t("promoter_dashboard.rob_discount_deliveries", "{{n}} {{label}} -10%", { n: discountMonths, label: discountMonths === 1 ? t("promoter_dashboard.rob_delivery_singular", "consegna") : t("promoter_dashboard.rob_delivery_plural", "consegne") })}</>
                     )}
                     {((useReal ? realDiscount : discountMonths) > 0) && ((useReal ? realCoupons : couponValue) > 0) && " · "}
                     {(useReal ? realCoupons : couponValue) > 0 && (
-                      <>€{useReal ? realCoupons.toFixed(0) : couponValue} in coupon</>
+                      <>{t("promoter_dashboard.rob_in_coupons", "€{{amount}} in coupon", { amount: useReal ? realCoupons.toFixed(0) : couponValue })}</>
                     )}
                   </Typography>
                 </Stack>
@@ -1511,6 +1535,7 @@ const useGoals = () => useFetch(async () => {
 });
 
 const GoalSetter = () => {
+  const { t } = useTranslation();
   const { data, loading } = useGoals();
   const { enqueueSnackbar } = useSnackbar();
   const [editing, setEditing] = useState(false);
@@ -1534,10 +1559,10 @@ const GoalSetter = () => {
       const reqData = new FormData();
       Object.entries(form).forEach(([k, v]) => { if (v) reqData.append(k, v); });
       await fetchUser.post("goals", reqData);
-      enqueueSnackbar("Obiettivo salvato!", { variant: "success" });
+      enqueueSnackbar(t("promoter_dashboard.goal_saved", "Obiettivo salvato!"), { variant: "success" });
       setEditing(false);
       window.location.reload();
-    } catch { enqueueSnackbar("Errore nel salvataggio", { variant: "error" }); }
+    } catch { enqueueSnackbar(t("promoter_dashboard.goal_save_error", "Errore nel salvataggio"), { variant: "error" }); }
     setSaving(false);
   };
 
@@ -1551,8 +1576,9 @@ const GoalSetter = () => {
   const targetRank = data?.target_rank;
   const allRanks = data?.all_ranks || [];
 
-  const months = ["", "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
-  const monthLabel = months[data?.month || 0] + " " + (data?.year || "");
+  const monthIdx = (data?.month || 0) - 1;
+  const monthName = monthIdx >= 0 && monthIdx < 12 ? getMonthLong(monthIdx, t) : "";
+  const monthLabel = monthName + " " + (data?.year || "");
 
   const pct = (current, target) => {
     if (!target || target <= 0) return 0;
@@ -1592,27 +1618,27 @@ const GoalSetter = () => {
               <Iconify icon="mdi:target" width={20} sx={{ color: ORO }} />
             </Box>
             <Box>
-              <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>Obiettivo {monthLabel}</Typography>
+              <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>{t("promoter_dashboard.goal_month_title", "Obiettivo {{month}} {{year}}", { month: monthName, year: data?.year || "" })}</Typography>
               {daysLeft <= 5 && daysLeft > 0 && (
                 <Typography sx={{ fontSize: "0.68rem", color: "#E24B4A", fontWeight: 600 }}>
-                  ⏳ {daysLeft === 1 ? "Ultimo giorno!" : `Mancano ${daysLeft} giorni`}
+                  ⏳ {daysLeft === 1 ? t("promoter_dashboard.goal_last_day", "Ultimo giorno!") : t("promoter_dashboard.goal_days_left", "Mancano {{n}} giorni", { n: daysLeft })}
                 </Typography>
               )}
             </Box>
           </Stack>
           <Button size="small" onClick={() => setEditing(true)}
             sx={{ textTransform: "none", color: ORO, fontWeight: 600, fontSize: "0.75rem" }}>
-            {hasGoal ? "Modifica" : "Imposta obiettivo"}
+            {hasGoal ? t("promoter_dashboard.goal_edit", "Modifica") : t("promoter_dashboard.goal_set_short", "Imposta obiettivo")}
           </Button>
         </Stack>
 
         {hasGoal ? (
           <>
             {goal.target_sales > 0 && (
-              <ProgressRow icon="mdi:cash-register" label="Vendite Team" current={progress.sales} target={parseFloat(goal.target_sales)} unit="€" />
+              <ProgressRow icon="mdi:cash-register" label={t("promoter_dashboard.goal_team_sales", "Vendite Team")} current={progress.sales} target={parseFloat(goal.target_sales)} unit="€" />
             )}
             {goal.target_clients > 0 && (
-              <ProgressRow icon="mdi:account-plus" label="Nuovi Clienti" current={progress.clients} target={parseInt(goal.target_clients)} color="#4CAF50" />
+              <ProgressRow icon="mdi:account-plus" label={t("promoter_dashboard.new_customers", "Nuovi Clienti")} current={progress.clients} target={parseInt(goal.target_clients)} color="#4CAF50" />
             )}
             {goal.target_pqv > 0 && (
               <ProgressRow icon="mdi:chart-areaspline" label="PQV" current={progress.pqv} target={parseFloat(goal.target_pqv)} color="#2196F3" />
@@ -1624,7 +1650,7 @@ const GoalSetter = () => {
                   <strong>{currentRank?.name || "—"}</strong> → <strong style={{ color: ORO }}>{targetRank.name}</strong>
                   {goal.target_pqv > 0 && progress.pqv < parseFloat(goal.target_pqv) && (
                     <Typography component="span" sx={{ fontSize: "0.72rem", color: MUTED, ml: 1 }}>
-                      (mancano {Math.max(0, parseFloat(goal.target_pqv) - progress.pqv).toFixed(0)} PQV)
+                      {t("promoter_dashboard.goal_pqv_missing", "(mancano {{n}} PQV)", { n: Math.max(0, parseFloat(goal.target_pqv) - progress.pqv).toFixed(0) })}
                     </Typography>
                   )}
                 </Typography>
@@ -1635,30 +1661,30 @@ const GoalSetter = () => {
           <Box sx={{ textAlign: "center", py: 2 }}>
             <Iconify icon="mdi:flag-checkered" width={40} sx={{ color: "#ddd", mb: 1 }} />
             <Typography sx={{ fontSize: "0.82rem", color: MUTED }}>
-              Imposta i tuoi obiettivi per questo mese
+              {t("promoter_dashboard.goal_set_prompt", "Imposta i tuoi obiettivi per questo mese")}
             </Typography>
           </Box>
         )}
       </Card>
 
       <Dialog open={editing} onClose={() => setEditing(false)} maxWidth="xs" fullWidth>
-        <DialogTitle sx={{ fontWeight: 700 }}>Obiettivo {monthLabel}</DialogTitle>
+        <DialogTitle sx={{ fontWeight: 700 }}>{t("promoter_dashboard.goal_month_title", "Obiettivo {{month}} {{year}}", { month: monthName, year: data?.year || "" })}</DialogTitle>
         <DialogContent>
           <Stack spacing={2} sx={{ mt: 1 }}>
-            <TextField label="Vendite Team (€)" type="number" size="small" value={form.target_sales}
+            <TextField label={t("promoter_dashboard.goal_team_sales_input", "Vendite Team (€)")} type="number" size="small" value={form.target_sales}
               onChange={(e) => setForm({ ...form, target_sales: e.target.value })} />
-            <TextField label="Nuovi Clienti" type="number" size="small" value={form.target_clients}
+            <TextField label={t("promoter_dashboard.new_customers", "Nuovi Clienti")} type="number" size="small" value={form.target_clients}
               onChange={(e) => setForm({ ...form, target_clients: e.target.value })} />
-            <TextField label="PQV Obiettivo" type="number" size="small" value={form.target_pqv}
+            <TextField label={t("promoter_dashboard.goal_pqv_target", "PQV Obiettivo")} type="number" size="small" value={form.target_pqv}
               onChange={(e) => setForm({ ...form, target_pqv: e.target.value })} />
-            <TextField label="Rank Obiettivo" select size="small" value={form.target_rank_id}
+            <TextField label={t("promoter_dashboard.goal_rank_target", "Rank Obiettivo")} select size="small" value={form.target_rank_id}
               onChange={(e) => setForm({ ...form, target_rank_id: e.target.value })}>
-              <MenuItem value="">Nessuno</MenuItem>
+              <MenuItem value="">{t("promoter_dashboard.goal_none", "Nessuno")}</MenuItem>
               {allRanks.map((r) => <MenuItem key={r.id} value={r.id}>{r.name}</MenuItem>)}
             </TextField>
             <Button variant="contained" onClick={handleSave} disabled={saving}
               sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none" }}>
-              {saving ? "Salvataggio..." : "Salva obiettivo"}
+              {saving ? t("promoter_dashboard.goal_saving", "Salvataggio...") : t("promoter_dashboard.goal_save_button", "Salva obiettivo")}
             </Button>
           </Stack>
         </DialogContent>
@@ -1671,6 +1697,7 @@ const GoalSetter = () => {
 // COUPONS
 // ═══════════════════════════════════════
 const CouponsSection = ({ coupons, loading }) => {
+  const { t, i18n } = useTranslation();
   if (loading) return (
     <Grid container spacing={2}>
       {[0, 1].map((i) => (
@@ -1686,9 +1713,9 @@ const CouponsSection = ({ coupons, loading }) => {
       <Box sx={{ width: 64, height: 64, borderRadius: "50%", bgcolor: alpha(ORO, 0.1), display: "flex", alignItems: "center", justifyContent: "center", mx: "auto", mb: 1.5 }}>
         <Iconify icon="mdi:ticket-percent-outline" width={36} sx={{ color: ORO }} />
       </Box>
-      <Typography variant="subtitle1" sx={{ color: ESPRESSO, fontWeight: 700 }}>Non hai ancora coupon disponibili</Typography>
+      <Typography variant="subtitle1" sx={{ color: ESPRESSO, fontWeight: 700 }}>{t("promoter_dashboard.coupons_empty_title", "Non hai ancora coupon disponibili")}</Typography>
       <Typography variant="body2" sx={{ color: MUTED, mt: 0.5, maxWidth: 460, mx: "auto" }}>
-        Effettua un ordine smartship per iniziare a guadagnare coupon dal programma <strong>3 For Free</strong> e dal <strong>Percorso Fedeltà</strong>.
+        {t("promoter_dashboard.coupons_empty_body_prefix", "Effettua un ordine smartship per iniziare a guadagnare coupon dal programma")} <strong>3 For Free</strong> {t("promoter_dashboard.coupons_empty_body_middle", "e dal")} <strong>{t("evea.loyalty_path", "Percorso Fedeltà")}</strong>.
       </Typography>
       <Button
         variant="contained"
@@ -1699,7 +1726,7 @@ const CouponsSection = ({ coupons, loading }) => {
         startIcon={<Iconify icon="mdi:storefront-outline" />}
         sx={{ mt: 2, bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none", borderRadius: 2, px: 2.5 }}
       >
-        Vai allo shop
+        {t("promoter_dashboard.go_to_shop", "Vai allo shop")}
       </Button>
     </Card>
   );
@@ -1710,7 +1737,8 @@ const CouponsSection = ({ coupons, loading }) => {
         const amount = parseFloat(coupon.discount || coupon.amount || coupon.total_amount || 0);
         const code = coupon.code || "";
         const rawDate = coupon.end_date || coupon.expiry_date || coupon.expire_date;
-        const expiryLabel = rawDate ? new Date(rawDate).toLocaleDateString("it-IT", { day: "2-digit", month: "long", year: "numeric" }) : "Nessuna scadenza";
+        const localeCode = i18n.language?.startsWith("ro") ? "ro-RO" : i18n.language?.startsWith("en") ? "en-US" : "it-IT";
+        const expiryLabel = rawDate ? new Date(rawDate).toLocaleDateString(localeCode, { day: "2-digit", month: "long", year: "numeric" }) : t("promoter_dashboard.coupon_no_expiry", "Nessuna scadenza");
         const isUsed = coupon.uses_count > 0 || coupon.used === 1;
         const typeName = (coupon.type || coupon.coupon_type || "").replace(/_/g, " ").replace("programe", "").trim().toUpperCase() || "COUPON";
 
@@ -1748,7 +1776,7 @@ const CouponsSection = ({ coupons, loading }) => {
                         {!isUsed && <CopyCouponButton code={code} size="tiny" />}
                       </>
                     )}
-                    <Typography sx={{ fontSize: "0.65rem", color: "#aaa", ml: 0.5 }}>{isUsed ? "Utilizzato" : `Scade il ${expiryLabel}`}</Typography>
+                    <Typography sx={{ fontSize: "0.65rem", color: "#aaa", ml: 0.5 }}>{isUsed ? t("promoter_dashboard.coupon_used", "Utilizzato") : t("promoter_dashboard.coupon_expires_on", "Scade il {{date}}", { date: expiryLabel })}</Typography>
                   </Stack>
                 </Box>
               </Box>
@@ -1775,6 +1803,7 @@ const Section = ({ icon, children }) => (
 // CARD IVD-ABITUALE PAYOUT (visibile solo se has_piva_ivd=1 e ci sono richieste in attesa fattura / pronto al bonifico)
 // ═══════════════════════════════════════
 const IvdAbitualePayoutCard = () => {
+  const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -1800,7 +1829,8 @@ const IvdAbitualePayoutCard = () => {
 
   if (loading || !user || (user.has_piva_ivd ?? 0) !== 1 || requests.length === 0) return null;
 
-  const fmt = (n) => "€ " + Number(n || 0).toLocaleString("it-IT", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const numLocale = i18n.language?.startsWith("ro") ? "ro-RO" : i18n.language?.startsWith("en") ? "en-US" : "it-IT";
+  const fmt = (n) => "€ " + Number(n || 0).toLocaleString(numLocale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const giorniDa = (s) => {
     if (!s) return null;
     const d = Math.floor((Date.now() - new Date(s).getTime()) / 86400000);
@@ -1813,7 +1843,7 @@ const IvdAbitualePayoutCard = () => {
     piva: "18499281006",
     cod_destinatario: "KRRH6B9",
     pec: "eveaglobal@pec.it",
-    causale: "Provvigioni incaricato vendita a domicilio L. 173/2005",
+    causale: t("promoter_dashboard.payout_causale_text", "Provvigioni incaricato vendita a domicilio L. 173/2005"),
   };
 
   return (
@@ -1844,11 +1874,11 @@ const IvdAbitualePayoutCard = () => {
                 sx={{ color: isAttesa ? ORO : "#2C5F2D", mt: 0.3 }} />
               <Box sx={{ flex: 1 }}>
                 <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ESPRESSO }}>
-                  {isAttesa ? "Richiesta payout in attesa di fattura" : "Fattura ricevuta — bonifico in elaborazione"}
+                  {isAttesa ? t("promoter_dashboard.payout_awaiting_invoice", "Richiesta payout in attesa di fattura") : t("promoter_dashboard.payout_invoice_received", "Fattura ricevuta — bonifico in elaborazione")}
                 </Typography>
                 <Typography sx={{ fontSize: "0.75rem", color: MUTED, mt: 0.3 }}>
-                  Richiesta #{p.id} del {new Date(p.created_at).toLocaleDateString("it-IT")}
-                  {gg !== null && gg > 0 && ` — ${gg}gg fa`}
+                  {t("promoter_dashboard.payout_request_of", "Richiesta #{{id}} del {{date}}", { id: p.id, date: new Date(p.created_at).toLocaleDateString(numLocale) })}
+                  {gg !== null && gg > 0 && ` — ${t("promoter_dashboard.days_ago_short", "{{n}}gg fa", { n: gg })}`}
                 </Typography>
               </Box>
             </Stack>
@@ -1858,13 +1888,13 @@ const IvdAbitualePayoutCard = () => {
                 {/* Importo da fatturare in evidenza */}
                 <Box sx={{ p: 2, bgcolor: "#fff", borderRadius: 2, mb: 2, border: `1px solid ${alpha(ORO, 0.2)}` }}>
                   <Typography sx={{ fontSize: "0.7rem", color: MUTED, textTransform: "uppercase", letterSpacing: 0.5 }}>
-                    Importo da fatturare a EVEA
+                    {t("promoter_dashboard.payout_amount_to_invoice", "Importo da fatturare a EVEA")}
                   </Typography>
                   <Typography sx={{ fontSize: "1.8rem", fontWeight: 800, color: ORO, lineHeight: 1.1 }}>
                     {fmt(esborsoEvea)}
                   </Typography>
                   <Typography sx={{ fontSize: "0.72rem", color: MUTED, mt: 0.3 }}>
-                    Imponibile {fmt(imponibile)} + IVA 22% {fmt(iva)}
+                    {t("promoter_dashboard.payout_taxable_plus_vat", "Imponibile {{taxable}} + IVA 22% {{vat}}", { taxable: fmt(imponibile), vat: fmt(iva) })}
                   </Typography>
                 </Box>
 
@@ -1875,20 +1905,20 @@ const IvdAbitualePayoutCard = () => {
                   endIcon={<Iconify icon={isExpanded ? "mdi:chevron-up" : "mdi:chevron-down"} />}
                   sx={{ textTransform: "none", color: ESPRESSO, mb: isExpanded ? 1 : 1.5, p: 0.5 }}
                 >
-                  {isExpanded ? "Nascondi" : "Mostra"} dettaglio calcolo
+                  {isExpanded ? t("promoter_dashboard.payout_hide_detail", "Nascondi dettaglio calcolo") : t("promoter_dashboard.payout_show_detail", "Mostra dettaglio calcolo")}
                 </Button>
                 {isExpanded && (
                   <Box sx={{ p: 1.5, bgcolor: "#fafafa", borderRadius: 2, mb: 2 }}>
                     <Stack spacing={0.6}>
-                      <Row label="Lordo provvigione" value={fmt(p.amount)} />
-                      <Row label="Imponibile (78%)" value={fmt(imponibile)} />
-                      <Row label="IVA 22%" value={`+${fmt(iva)}`} positive />
-                      <Row label="Ritenuta 23% (trattenuta EVEA)" value={`-${fmt(ritenuta)}`} negative />
+                      <Row label={t("promoter_dashboard.payout_gross_commission", "Lordo provvigione")} value={fmt(p.amount)} />
+                      <Row label={t("promoter_dashboard.payout_taxable_78", "Imponibile (78%)")} value={fmt(imponibile)} />
+                      <Row label={t("promoter_dashboard.payout_vat_22", "IVA 22%")} value={`+${fmt(iva)}`} positive />
+                      <Row label={t("promoter_dashboard.payout_withholding", "Ritenuta 23% (trattenuta EVEA)")} value={`-${fmt(ritenuta)}`} negative />
                       {inpsQuotaProm > 0 && (
-                        <Row label="INPS quota tua" value={`-${fmt(inpsQuotaProm)}`} negative />
+                        <Row label={t("promoter_dashboard.payout_inps_your_share", "INPS quota tua")} value={`-${fmt(inpsQuotaProm)}`} negative />
                       )}
                       <Divider sx={{ my: 0.5 }} />
-                      <Row label="Netto bonifico" value={fmt(netto)} bold />
+                      <Row label={t("promoter_dashboard.payout_net_transfer", "Netto bonifico")} value={fmt(netto)} bold />
                     </Stack>
                   </Box>
                 )}
@@ -1896,18 +1926,18 @@ const IvdAbitualePayoutCard = () => {
                 {/* Istruzioni operative */}
                 <Box sx={{ p: 2, bgcolor: "#fff", borderRadius: 2, border: `1px solid #eee` }}>
                   <Typography sx={{ fontSize: "0.8rem", fontWeight: 700, color: ESPRESSO, mb: 1 }}>
-                    📋 Istruzioni per emettere la fattura
+                    📋 {t("promoter_dashboard.payout_invoice_instructions", "Istruzioni per emettere la fattura")}
                   </Typography>
                   <Stack spacing={0.5}>
-                    <DataRow label="Ragione sociale" value={EVEA.ragione_sociale} />
-                    <DataRow label="P.IVA destinatario" value={EVEA.piva} mono />
-                    <DataRow label="Codice destinatario SDI" value={EVEA.cod_destinatario} mono highlight />
-                    <DataRow label="PEC (fallback)" value={EVEA.pec} />
-                    <DataRow label="Causale" value={EVEA.causale} />
-                    <DataRow label="Importo fattura" value={fmt(esborsoEvea)} bold />
+                    <DataRow label={t("promoter_dashboard.payout_ragione_sociale", "Ragione sociale")} value={EVEA.ragione_sociale} />
+                    <DataRow label={t("promoter_dashboard.payout_piva_destinatario", "P.IVA destinatario")} value={EVEA.piva} mono />
+                    <DataRow label={t("promoter_dashboard.payout_sdi_code", "Codice destinatario SDI")} value={EVEA.cod_destinatario} mono highlight />
+                    <DataRow label={t("promoter_dashboard.payout_pec_fallback", "PEC (fallback)")} value={EVEA.pec} />
+                    <DataRow label={t("promoter_dashboard.payout_causale", "Causale")} value={EVEA.causale} />
+                    <DataRow label={t("promoter_dashboard.payout_invoice_amount", "Importo fattura")} value={fmt(esborsoEvea)} bold />
                   </Stack>
                   <Typography sx={{ fontSize: "0.72rem", color: MUTED, mt: 1.5, fontStyle: "italic" }}>
-                    Una volta ricevuta la fattura, EVEA effettuera il bonifico di <strong>{fmt(netto)}</strong> (netto dopo ritenuta).
+                    {t("promoter_dashboard.payout_once_received_prefix", "Una volta ricevuta la fattura, EVEA effettuerà il bonifico di")} <strong>{fmt(netto)}</strong> {t("promoter_dashboard.payout_once_received_suffix", "(netto dopo ritenuta).")}
                   </Typography>
                 </Box>
               </>
@@ -1916,12 +1946,12 @@ const IvdAbitualePayoutCard = () => {
               <Box sx={{ p: 2, bgcolor: "#fff", borderRadius: 2, border: `1px solid #eee` }}>
                 <Stack spacing={1}>
                   <Typography sx={{ fontSize: "0.85rem", color: ESPRESSO }}>
-                    La tua fattura <strong>n. {p.numero_fattura_promoter || "—"}</strong> del{" "}
-                    <strong>{p.data_fattura_promoter ? new Date(p.data_fattura_promoter).toLocaleDateString("it-IT") : "—"}</strong>{" "}
-                    è stata registrata.
+                    {t("promoter_dashboard.payout_your_invoice_prefix", "La tua fattura")} <strong>{t("promoter_dashboard.payout_invoice_number_short", "n. {{n}}", { n: p.numero_fattura_promoter || "—" })}</strong> {t("promoter_dashboard.payout_of_date", "del")}{" "}
+                    <strong>{p.data_fattura_promoter ? new Date(p.data_fattura_promoter).toLocaleDateString(numLocale) : "—"}</strong>{" "}
+                    {t("promoter_dashboard.payout_registered", "è stata registrata.")}
                   </Typography>
                   <Box sx={{ p: 1.5, bgcolor: alpha("#2C5F2D", 0.06), borderRadius: 1.5 }}>
-                    <Typography sx={{ fontSize: "0.72rem", color: MUTED, textTransform: "uppercase" }}>Bonifico in lavorazione</Typography>
+                    <Typography sx={{ fontSize: "0.72rem", color: MUTED, textTransform: "uppercase" }}>{t("promoter_dashboard.payout_transfer_processing", "Bonifico in lavorazione")}</Typography>
                     <Typography sx={{ fontSize: "1.4rem", fontWeight: 800, color: "#2C5F2D" }}>{fmt(netto)}</Typography>
                   </Box>
                 </Stack>
@@ -1966,7 +1996,7 @@ const PromoterDashboard = () => {
   const { data: couponsData, loading: couponsLoading } = useCoupons();
   const { pre_launch_active: preLaunchActive, is_founder: isFounder } = useFounderStatus();
   return (
-    <Page title="Dashboard">
+    <Page title={t("promoter_dashboard.page_title", "Dashboard")}>
       <Box sx={{ px: { xs: 2, md: 3 }, pb: 4, mx: { xs: -2, md: -3 }, mt: -2, pt: 2, bgcolor: "#f5f5f5", minHeight: "100vh" }}>
         <Stack spacing={2}>
           <HeroCard />
@@ -2040,7 +2070,7 @@ const PromoterDashboard = () => {
             return (
               <>
                 <Section icon="mdi:package-variant-closed">
-                  {needsKit ? "Kit Starter" : "Upgrade disponibili"}
+                  {needsKit ? t("promoter_dashboard.kit_starter_title", "Kit Starter") : t("promoter_dashboard.upgrades_available", "Upgrade disponibili")}
                 </Section>
                 <KitUpgrade
                   packageId={heroData.package_id}
@@ -2056,7 +2086,7 @@ const PromoterDashboard = () => {
               <Section icon="mdi:crown">Founder Pack</Section>
               <Card sx={{ ...cardSx, p: 2.5, border: `2px solid ${ORO}`, position: "relative", overflow: "hidden" }}>
                 <Chip
-                  label="Edizione limitata · 100 posti"
+                  label={t("promoter_dashboard.founder_limited_edition", "Edizione limitata · 100 posti")}
                   size="small"
                   sx={{ position: "absolute", top: 12, right: 12, height: 22, fontSize: "0.65rem", fontWeight: 700, bgcolor: alpha(ORO, 0.12), color: ORO }}
                 />
@@ -2066,10 +2096,10 @@ const PromoterDashboard = () => {
                   </Box>
                   <Box sx={{ flex: 1 }}>
                     <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color: ESPRESSO, mb: 0.3 }}>
-                      Diventa Founder EVEA
+                      {t("promoter_dashboard.become_founder_evea", "Diventa Founder EVEA")}
                     </Typography>
                     <Typography sx={{ fontSize: "0.85rem", color: MUTED, lineHeight: 1.5 }}>
-                      Pacchetto Founder esclusivo: bonus FSB, pool ricavi e coupon mensili per 12 mesi. Posti limitati a 100.
+                      {t("promoter_dashboard.founder_pack_desc", "Pacchetto Founder esclusivo: bonus FSB, pool ricavi e coupon mensili per 12 mesi. Posti limitati a 100.")}
                     </Typography>
                     <Typography sx={{ fontSize: "0.85rem", color: ESPRESSO, fontWeight: 700, mt: 1 }}>
                       €1.100
@@ -2083,7 +2113,7 @@ const PromoterDashboard = () => {
                     rel="noreferrer"
                     sx={{ bgcolor: ORO, color: "#fff", fontWeight: 700, px: 3, py: 1.2, fontSize: "0.85rem", letterSpacing: 1, "&:hover": { bgcolor: "#A07E2F" }, flexShrink: 0 }}
                   >
-                    Acquista Founder Pack
+                    {t("promoter_dashboard.buy_founder_pack", "Acquista Founder Pack")}
                   </Button>
                 </Stack>
               </Card>
@@ -2097,7 +2127,7 @@ const PromoterDashboard = () => {
 
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
-              <Section icon="mdi:podium-gold">Top Performer</Section>
+              <Section icon="mdi:podium-gold">{t("promoter_dashboard.section_top_performer", "Top Performer")}</Section>
               <Box sx={{ mt: 1 }}><TopPerformers /></Box>
               <Box sx={{ mt: 2 }}><TopProducts /></Box>
             </Grid>
@@ -2112,7 +2142,7 @@ const PromoterDashboard = () => {
             <Grid item xs={12} md={6}><ROBCard /></Grid>
           </Grid>
 
-          <Section icon="mdi:ticket-percent">I Tuoi Coupon Premio</Section>
+          <Section icon="mdi:ticket-percent">{t("promoter_dashboard.section_your_coupons", "I Tuoi Coupon Premio")}</Section>
           <Box sx={{ mt: 1 }}><CouponsSection coupons={couponsData} loading={couponsLoading} /></Box>
         </Stack>
       </Box>

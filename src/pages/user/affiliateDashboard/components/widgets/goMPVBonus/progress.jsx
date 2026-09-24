@@ -51,7 +51,7 @@ const Progress = ({ higherRank }) => {
         <Typography sx={{ fontSize: "0.85rem", fontWeight: 600, color: "#2C1A0E" }}>
           {t("affiliate_dashboard.package_purchased")}:
           <Chip
-            label={eligible ? "Yes" : "No"}
+            label={eligible ? t("bonus_widgets.common.yes", "Sì") : t("bonus_widgets.common.no", "No")}
             size="small"
             sx={{
               ml: 1, height: 22,

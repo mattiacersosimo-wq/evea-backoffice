@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import LevelCollapsible from "src/components/bonus-common/LevelCollapsible";
 
 const LEVEL_COLORS = [
@@ -12,18 +13,21 @@ const LEVEL_PERCENTAGES = {
   6: "1%", 7: "0.5%", 8: "0.5%", 9: "0.5%",
 };
 
-const LevelDetails = ({ levels = [] }) => (
-  <LevelCollapsible
-    levels={levels}
-    title="Bonus per Livello"
-    headerIcon="mdi:layers-outline"
-    accentColor="#B8963B"
-    colors={LEVEL_COLORS}
-    pctMap={LEVEL_PERCENTAGES}
-    prefix="L"
-    itemLabel="Livello"
-    showTopUser
-  />
-);
+const LevelDetails = ({ levels = [] }) => {
+  const { t } = useTranslation();
+  return (
+    <LevelCollapsible
+      levels={levels}
+      title={t("evea.bonus_by_level", "Bonus per Livello")}
+      headerIcon="mdi:layers-outline"
+      accentColor="#B8963B"
+      colors={LEVEL_COLORS}
+      pctMap={LEVEL_PERCENTAGES}
+      prefix="L"
+      itemLabel={t("bonus_widgets.residual.level_item", "Livello")}
+      showTopUser
+    />
+  );
+};
 
 export default LevelDetails;

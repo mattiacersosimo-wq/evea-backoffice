@@ -112,10 +112,10 @@ const NewRankCard = ({ higherRank, state }) => {
                 {rank.rank_name}
               </Typography>
               {rank.current_rank === 1 && (
-                <Chip label="Current" size="small" sx={{ height: 20, bgcolor: alpha(ORO, 0.1), color: ORO, fontWeight: 700, fontSize: "0.65rem" }} />
+                <Chip label={t("bonus_widgets.rank_progress.current_chip", "Current")} size="small" sx={{ height: 20, bgcolor: alpha(ORO, 0.1), color: ORO, fontWeight: 700, fontSize: "0.65rem" }} />
               )}
               {rank.achieved === 1 && rank.current_rank !== 1 && (
-                <Chip label="Achieved" size="small" sx={{ height: 20, bgcolor: alpha("#43A047", 0.1), color: "#43A047", fontWeight: 700, fontSize: "0.65rem" }} />
+                <Chip label={t("bonus_widgets.rank_progress.achieved_chip", "Achieved")} size="small" sx={{ height: 20, bgcolor: alpha("#43A047", 0.1), color: "#43A047", fontWeight: 700, fontSize: "0.65rem" }} />
               )}
             </Stack>
             <NextRankDetails current_rank_details={rank.current_rank_details} />

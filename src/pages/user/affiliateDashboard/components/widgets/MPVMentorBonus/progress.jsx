@@ -17,7 +17,7 @@ import Item from "../rankProgressBar/item";
 import Iconify from "src/components/Iconify";
 import { useTranslation } from "react-i18next";
 
-const BinaryCheck = ({ label, value }) => {
+const BinaryCheck = ({ label, value, t }) => {
   const ok = Number(value) >= 1;
   return (
     <Box
@@ -44,7 +44,7 @@ const BinaryCheck = ({ label, value }) => {
         {label}
       </Typography>
       <Chip
-        label={ok ? "Yes" : "No"}
+        label={ok ? t("bonus_widgets.common.yes", "Sì") : t("bonus_widgets.common.no", "No")}
         size="small"
         sx={{
           ml: "auto", height: 22,
@@ -88,8 +88,8 @@ const Progress = ({ higherRank }) => {
           </Table>
         </TableContainer>
       </Item>
-      <BinaryCheck label={t("affiliate_dashboard.direct_promoter_assigned")} value={higherRank?.has_direct_promoter} />
-      <BinaryCheck label={t("affiliate_dashboard.mvp_status_attained_through_direct_promoter")} value={higherRank?.has_mvp_downline} />
+      <BinaryCheck t={t} label={t("affiliate_dashboard.direct_promoter_assigned")} value={higherRank?.has_direct_promoter} />
+      <BinaryCheck t={t} label={t("affiliate_dashboard.mvp_status_attained_through_direct_promoter")} value={higherRank?.has_mvp_downline} />
     </Box>
   );
 };

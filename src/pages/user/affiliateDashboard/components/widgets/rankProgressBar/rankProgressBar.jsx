@@ -7,8 +7,7 @@ import BonusWidget from "../../BonusWidget";
 import NewRankCard from "./rank";
 import useDataHandler from "src/components/data-handler/hooks/use-data-handler";
 
-const MONTHS_IT = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"];
-const MONTHS_EN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MONTH_KEYS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 
 const useHigherRank = (month, year) => {
   const [state, actions] = useDataHandler();
@@ -37,9 +36,8 @@ const useHigherRank = (month, year) => {
 };
 
 const RankProgressBar = () => {
-  const { t, i18n } = useTranslation();
-  const isIt = i18n.language?.startsWith("it");
-  const monthNames = isIt ? MONTHS_IT : MONTHS_EN;
+  const { t } = useTranslation();
+  const monthNames = MONTH_KEYS.map((k) => t(`month_short.${k}`));
   const today = new Date();
   const [monthFilter, setMonthFilter] = useState(today.getMonth() + 1);
   const [yearFilter, setYearFilter] = useState(today.getFullYear());

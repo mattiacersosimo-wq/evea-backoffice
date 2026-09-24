@@ -3,15 +3,17 @@ import {
   Box, Collapse, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 
 const COLOR = "#B8963B";
 
 const Level_One = ({ level_one = [] }) => {
+  const { t } = useTranslation();
   const [expanded, setExpanded] = useState(null);
 
   const customers = level_one?.customers || [];
-  if (!customers.length) return <Typography sx={{ fontSize: "0.75rem", color: "#aaa", py: 1 }}>Nessun leader in Gen 1</Typography>;
+  if (!customers.length) return <Typography sx={{ fontSize: "0.75rem", color: "#aaa", py: 1 }}>{t("bonus_widgets.leadership.no_leader_gen", { n: 1, defaultValue: "Nessun leader in Gen 1" })}</Typography>;
 
   return (
     <Stack spacing={0.8}>
@@ -43,7 +45,7 @@ const Level_One = ({ level_one = [] }) => {
                   <Table size="small">
                     <TableHead>
                       <TableRow>
-                        <TableCell sx={{ fontSize: "0.65rem", fontWeight: 600, color: "#7A6A5C", py: 0.3 }}>Username</TableCell>
+                        <TableCell sx={{ fontSize: "0.65rem", fontWeight: 600, color: "#7A6A5C", py: 0.3 }}>{t("bonus_widgets.common.username", "Username")}</TableCell>
                         <TableCell align="right" sx={{ fontSize: "0.65rem", fontWeight: 600, color: "#7A6A5C", py: 0.3 }}>BV</TableCell>
                       </TableRow>
                     </TableHead>
@@ -57,7 +59,7 @@ const Level_One = ({ level_one = [] }) => {
                     </TableBody>
                   </Table>
                 ) : (
-                  <Typography sx={{ fontSize: "0.7rem", color: "#aaa" }}>Nessun dettaglio BV</Typography>
+                  <Typography sx={{ fontSize: "0.7rem", color: "#aaa" }}>{t("bonus_widgets.leadership.no_bv_detail", "Nessun dettaglio BV")}</Typography>
                 )}
               </Box>
             </Collapse>

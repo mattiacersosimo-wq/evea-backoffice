@@ -28,9 +28,9 @@ const Progress = ({ higherRank }) => {
     const isCoupon = COUPON_MONTHS.includes(i);
     const isFirstEver = cycleNum === 1 && i === 0;
     let label;
-    if (isFirstEver) label = "1ª consegna";
-    else if (isCoupon) label = "-10% + 🎁";
-    else label = "-10%";
+    if (isFirstEver) label = t("bonus_widgets.recurring_order.first_delivery", "1ª consegna");
+    else if (isCoupon) label = t("bonus_widgets.recurring_order.label_discount_gift", "-10% + 🎁");
+    else label = t("bonus_widgets.recurring_order.label_discount", "-10%");
     return {
       month: i + 1,
       completed: i < posInCycle,
@@ -63,7 +63,7 @@ const Progress = ({ higherRank }) => {
       {totalConsec > 0 && (
         <Stack direction="row" justifyContent="flex-end" mb={1}>
           <Chip
-            label={`Ciclo ${cycleNum} · ${posInCycle}/${CYCLE_LEN}`}
+            label={t("bonus_widgets.recurring_order.cycle_badge", { cycle: cycleNum, pos: posInCycle, total: CYCLE_LEN, defaultValue: `Ciclo ${cycleNum} · ${posInCycle}/${CYCLE_LEN}` })}
             size="small"
             sx={{ bgcolor: alpha(ORO, 0.1), color: ORO, fontWeight: 700, fontSize: "0.7rem", height: 24 }}
           />
@@ -156,12 +156,12 @@ const Progress = ({ higherRank }) => {
         <Stack direction="row" alignItems="center" justifyContent="center" spacing={0.5} mb={0.5}>
           <Iconify icon="mdi:piggy-bank-outline" width={18} sx={{ color: ORO }} />
           <Typography sx={{ fontSize: "0.75rem", color: WARM, fontWeight: 600 }}>
-            Il tuo risparmio finora
+            {t("evea.your_savings", "Il tuo risparmio finora")}
           </Typography>
         </Stack>
         {totalConsec === 0 ? (
           <Typography sx={{ fontSize: "0.8rem", color: WARM }}>
-            Inizia il tuo abbonamento per risparmiare ogni mese!
+            {t("evea.start_subscription", "Inizia il tuo abbonamento per risparmiare ogni mese!")}
           </Typography>
         ) : (
           <Stack direction="row" justifyContent="center" divider={<Typography sx={{ mx: 1, color: "#ddd" }}>+</Typography>}>
@@ -170,7 +170,7 @@ const Progress = ({ higherRank }) => {
                 <Typography sx={{ fontWeight: 700, color: ESPRESSO, fontSize: "1.1rem" }}>
                   {discountMonths}x -10%
                 </Typography>
-                <Typography sx={{ fontSize: "0.65rem", color: WARM }}>consegne con sconto</Typography>
+                <Typography sx={{ fontSize: "0.65rem", color: WARM }}>{t("evea.discounted_deliveries", "consegne con sconto")}</Typography>
               </Box>
             )}
             {couponValue > 0 && (
@@ -178,7 +178,7 @@ const Progress = ({ higherRank }) => {
                 <Typography sx={{ fontWeight: 700, color: ORO, fontSize: "1.1rem" }}>
                   €{couponValue}
                 </Typography>
-                <Typography sx={{ fontSize: "0.65rem", color: WARM }}>in coupon regalo</Typography>
+                <Typography sx={{ fontSize: "0.65rem", color: WARM }}>{t("evea.in_gift_coupons", "in coupon regalo")}</Typography>
               </Box>
             )}
           </Stack>

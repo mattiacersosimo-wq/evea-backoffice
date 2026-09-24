@@ -3,6 +3,7 @@ import {
   Box, Chip, Collapse, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import ParseDate from "src/components/date";
 import StatusChip from "src/components/bonus-common/StatusChip";
@@ -11,6 +12,7 @@ const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
 
 const CustomerDetails = ({ customer = [] }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   if (!customer || !customer.length) return null;
@@ -34,9 +36,9 @@ const CustomerDetails = ({ customer = [] }) => {
           <Stack direction="row" alignItems="center" spacing={1}>
             <Iconify icon="mdi:account-group-outline" width={20} sx={{ color: ORO }} />
             <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>
-              Dettaglio Clienti
+              {t("bonus_widgets.direct_sales.customer_details_title", "Dettaglio Clienti")}
             </Typography>
-            <Chip label={`${allOrders.length} ordini`} size="small"
+            <Chip label={t("bonus_widgets.direct_sales.orders_count", { n: allOrders.length, defaultValue: `${allOrders.length} ordini` })} size="small"
               sx={{ height: 20, fontSize: "0.65rem", fontWeight: 600, bgcolor: alpha(ORO, 0.1), color: ORO }} />
           </Stack>
           <Stack direction="row" alignItems="center" spacing={1}>
@@ -53,11 +55,11 @@ const CustomerDetails = ({ customer = [] }) => {
             <TableHead>
               <TableRow>
                 <TableCell sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>#</TableCell>
-                <TableCell sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>Cliente</TableCell>
+                <TableCell sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>{t("bonus_widgets.direct_sales.customer", "Cliente")}</TableCell>
                 <TableCell align="right" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>BV</TableCell>
-                <TableCell align="right" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>Bonus</TableCell>
-                <TableCell align="center" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>Stato</TableCell>
-                <TableCell align="right" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>Data</TableCell>
+                <TableCell align="right" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>{t("bonus_widgets.common.bonus", "Bonus")}</TableCell>
+                <TableCell align="center" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>{t("bonus_widgets.common.status", "Stato")}</TableCell>
+                <TableCell align="right" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>{t("bonus_widgets.direct_sales.date", "Data")}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

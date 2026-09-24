@@ -4,6 +4,7 @@ import {
   Table, TableBody, TableCell, TableHead, TableRow, Typography,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 
 // LevelCollapsible: card espandibili per livelli/generazioni bonus.
@@ -28,18 +29,22 @@ const ORO = "#B8963B";
 
 const LevelCollapsible = ({
   levels = [],
-  title = "Bonus per Livello",
+  title,
   headerIcon = "mdi:layers-outline",
   accentColor = ORO,
   colors = ["#B8963B", "#A0782E", "#8B6A26"],
   pctMap = {},
   prefix = "L",
-  itemLabel = "Livello",
+  itemLabel,
   showTopUser = false,
   extraHeaders = [],
   extraCells = null,
-  emptyText = "Nessun utente in questo livello",
+  emptyText,
 }) => {
+  const { t } = useTranslation();
+  const resolvedTitle = title || t("evea.bonus_by_level", "Bonus per Livello");
+  const resolvedItemLabel = itemLabel || t("bonus_widgets.residual.level_item", "Livello");
+  const resolvedEmptyText = emptyText || t("bonus_widgets.residual.no_users_level", "Nessun utente in questo livello");
   const [expanded, setExpanded] = useState(null);
 
   if (!levels || !levels.length) return null;
@@ -55,11 +60,11 @@ const LevelCollapsible = ({
         <Stack direction="row" alignItems="center" spacing={1}>
           <Iconify icon={headerIcon} width={20} sx={{ color: accentColor }} />
           <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>
-            {title}
+            {resolvedTitle}
           </Typography>
         </Stack>
         <Chip
-          label={`Totale: €${totalBonus.toFixed(2)}`}
+          label={t("bonus_widgets.level_collapsible.total", { amount: totalBonus.toFixed(2), defaultValue: `Totale: €${totalBonus.toFixed(2)}` })}
           size="small"
           sx={{ height: 26, fontWeight: 700, bgcolor: alpha(accentColor, 0.1), color: accentColor, fontSize: "0.78rem" }}
         />
@@ -105,10 +110,12 @@ const LevelCollapsible = ({
                     <Stack direction="row" alignItems="center" justifyContent="space-between" mb={0.3}>
                       <Stack direction="row" alignItems="center" spacing={1}>
                         <Typography sx={{ fontSize: "0.78rem", fontWeight: 700, color: ESPRESSO }}>
-                          {itemLabel} {level.level}
+                          {resolvedItemLabel} {level.level}
                         </Typography>
                         <Typography sx={{ fontSize: "0.68rem", color: "#7A6A5C" }}>
-                          {userCount} utent{userCount === 1 ? "e" : "i"}
+                          {userCount} {userCount === 1
+                            ? t("bonus_widgets.level_collapsible.user_singular", "utente")
+                            : t("bonus_widgets.level_collapsible.user_plural", "utenti")}
                         </Typography>
                         {pctLabel && (
                           <Chip label={pctLabel} size="small"
@@ -130,7 +137,11 @@ const LevelCollapsible = ({
                     />
                     {showTopUser && topUser && levelTotal > 0 && (
                       <Typography sx={{ fontSize: "0.65rem", color: "#aaa", mt: 0.3 }}>
-                        Top: {topUser.username} ({"€"}{Number(topUser.total_bonus).toFixed(2)})
+                        {t("bonus_widgets.level_collapsible.top_summary", {
+                          name: topUser.username,
+                          amount: Number(topUser.total_bonus).toFixed(2),
+                          defaultValue: `Top: ${topUser.username} (€${Number(topUser.total_bonus).toFixed(2)})`,
+                        })}
                       </Typography>
                     )}
                   </Box>
@@ -148,8 +159,8 @@ const LevelCollapsible = ({
                       <TableHead>
                         <TableRow>
                           <TableCell sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>#</TableCell>
-                          <TableCell sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>Username</TableCell>
-                          <TableCell align="right" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>Bonus</TableCell>
+                          <TableCell sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>{t("bonus_widgets.common.username", "Username")}</TableCell>
+                          <TableCell align="right" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>{t("bonus_widgets.common.bonus", "Bonus")}</TableCell>
                           {extraHeaders.map((h, i) => (
                             <TableCell key={i} align="center" sx={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6A5C", py: 0.5 }}>{h}</TableCell>
                           ))}

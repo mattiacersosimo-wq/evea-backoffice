@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, LinearProgress, Stack, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 
 // CountdownGauge: box countdown per periodi di qualifica MVP/RockSolid.
@@ -24,11 +25,14 @@ const CountdownGauge = ({
   currentDay = 0,
   totalDays = 30,
   isExpired = false,
-  title = "Giorni rimanenti",
+  title,
   accentColor = ORO,
   urgentThreshold = 7,
-  expiredLabel = "Scaduto",
+  expiredLabel,
 }) => {
+  const { t } = useTranslation();
+  const resolvedTitle = title || t("bonus_widgets.countdown.days_remaining", "Giorni rimanenti");
+  const resolvedExpiredLabel = expiredLabel || t("bonus_widgets.countdown.expired", "Scaduto");
   const remainingDays = Math.max(totalDays - currentDay, 0);
   const daysPct = totalDays > 0 ? Math.min((currentDay / totalDays) * 100, 100) : 0;
   const isUrgent = !isExpired && remainingDays <= urgentThreshold && remainingDays > 0;
@@ -45,11 +49,11 @@ const CountdownGauge = ({
         <Stack direction="row" alignItems="center" spacing={1}>
           <Iconify icon={icon} width={20} sx={{ color }} />
           <Typography sx={{ fontSize: "0.8rem", fontWeight: 600, color: "#2C1A0E" }}>
-            {title}
+            {resolvedTitle}
           </Typography>
         </Stack>
         <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color }}>
-          {isExpired ? expiredLabel : `${remainingDays}g`}
+          {isExpired ? resolvedExpiredLabel : `${remainingDays}g`}
         </Typography>
       </Stack>
       <LinearProgress
@@ -62,7 +66,7 @@ const CountdownGauge = ({
         }}
       />
       <Typography sx={{ fontSize: "0.65rem", color: "#999", mt: 0.5, textAlign: "right" }}>
-        {currentDay} / {totalDays} giorni
+        {t("bonus_widgets.countdown.days_over_total", { current: currentDay, total: totalDays, defaultValue: `${currentDay} / ${totalDays} giorni` })}
       </Typography>
     </Box>
   );

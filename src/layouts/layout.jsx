@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import Ternary from "src/components/ternary";
 import useSettings from "src/hooks/useSettings";
 import useAuth from "src/hooks/useAuth";
@@ -84,11 +85,11 @@ const applyIcons = (menu) => {
   }));
 };
 
-const EXTRA_MENU_ITEMS = [
+const buildExtraMenuItems = (t) => [
   {
     match: "/user/financial",
     item: {
-      title: "Le Mie Note di Compenso",
+      title: t("sidebar.my_compensation_notes", "Le Mie Note di Compenso"),
       path: PATH_USER.financial.autofatture,
       placement: 5,
     },
@@ -96,7 +97,7 @@ const EXTRA_MENU_ITEMS = [
   {
     match: "/admin/financial",
     item: {
-      title: "Note di Compenso",
+      title: t("sidebar.compensation_notes", "Note di Compenso"),
       path: PATH_DASHBOARD.financial.autofatture,
       placement: 9,
     },
@@ -120,7 +121,7 @@ const EXTRA_MENU_ITEMS = [
   {
     match: "/admin/settings",
     item: {
-      title: "Lead Orfani",
+      title: t("sidebar.orphan_leads", "Lead Orfani"),
       path: "/admin/lead-orfani",
       placement: 22,
     },
@@ -128,14 +129,14 @@ const EXTRA_MENU_ITEMS = [
   {
     match: "/admin/financial",
     item: {
-      title: "Pagamenti IVD-Abituali",
+      title: t("sidebar.ivd_payments", "Pagamenti IVD-Abituali"),
       path: "/admin/payout-fatture",
       placement: 9.5,
     },
   },
 ];
 
-const injectMenuItems = (menu) => {
+const injectMenuItems = (menu, extraMenuItems) => {
   if (!Array.isArray(menu)) return menu;
   return menu.map((group) => {
     if (!group.items) return group;
@@ -144,7 +145,7 @@ const injectMenuItems = (menu) => {
       items: group.items.map((item) => {
         if (!item.path || !item.children) return item;
         let children = item.children;
-        EXTRA_MENU_ITEMS.forEach(({ match, item: extra }) => {
+        extraMenuItems.forEach(({ match, item: extra }) => {
           if (!item.path.includes(match)) return;
           if (children.some((c) => c.path === extra.path)) return;
           children = [...children, extra];
@@ -157,7 +158,7 @@ const injectMenuItems = (menu) => {
   });
 };
 
-const filterMenu = (menu, isPromoter) => {
+const filterMenu = (menu, isPromoter, t) => {
   if (!Array.isArray(menu)) return menu;
   return menu.map((group) => {
     if (!group.items) return group;
@@ -169,39 +170,39 @@ const filterMenu = (menu, isPromoter) => {
     // Hide blog, referrals, telegram for all users
     items = items.filter((item) => {
       const p = (item.path || "").toLowerCase();
-      const t = (item.title || "").toLowerCase();
-      return !HIDDEN_USER_KEYWORDS.some((kw) => p.includes(kw) || t.includes(kw));
+      const ti = (item.title || "").toLowerCase();
+      return !HIDDEN_USER_KEYWORDS.some((kw) => p.includes(kw) || ti.includes(kw));
     });
     // Rename "Recurring Orders" to "Abbonamenti"
     // Replace Financial dropdown with single "Il mio Wallet" link
     items = items.map((item) => {
       const p = (item.path || "").toLowerCase();
       if (p.includes("recurring-order") || p.includes("recurring_order")) {
-        return { ...item, title: "Abbonamenti" };
+        return { ...item, title: t("sidebar.subscriptions", "Abbonamenti") };
       }
       if (p.includes("/user/financial") || (p.includes("/financial") && !p.includes("/admin"))) {
-        return { ...item, title: "Il mio Wallet", path: "/user/financial/wallet", children: undefined };
+        return { ...item, title: t("sidebar.my_wallet", "Il mio Wallet"), path: "/user/financial/wallet", children: undefined };
       }
       if (p.includes("affiliate-dashboard") || p.includes("affiliate_dashboard")) {
-        return { ...item, title: "Dashboard Bonus" };
+        return { ...item, title: t("sidebar.dashboard_bonus", "Dashboard Bonus") };
       }
       if ((p.includes("online-store") || p.includes("online_store")) && p.includes("/user")) {
-        const orderChildren = [{ title: "I miei Ordini", path: "/user/online-store/my-orders" }];
-        if (isPromoter) orderChildren.push({ title: "Ordini Team", path: "/user/online-store/team-orders" });
-        return { ...item, title: "Ordini", path: "/user/online-store/my-orders", children: orderChildren.length > 1 ? orderChildren : undefined };
+        const orderChildren = [{ title: t("sidebar.my_orders", "I miei Ordini"), path: "/user/online-store/my-orders" }];
+        if (isPromoter) orderChildren.push({ title: t("sidebar.team_orders", "Ordini Team"), path: "/user/online-store/team-orders" });
+        return { ...item, title: t("sidebar.orders", "Ordini"), path: "/user/online-store/my-orders", children: orderChildren.length > 1 ? orderChildren : undefined };
       }
       return item;
     });
     // Reorder: Dashboard, Dashboard Bonus, Genealogy, then rest
     // Inject Report group (promoter only). Convertito da singola voce a
     // gruppo con children: Panoramica (income-report) + SmartShip.
-    if (isPromoter && !items.some((i) => (i.path || "").includes("income-report") || (i.title === "Report" && Array.isArray(i.children)))) {
+    if (isPromoter && !items.some((i) => (i.path || "").includes("income-report") || (i.title === t("sidebar.report", "Report") && Array.isArray(i.children)))) {
       items.push({
-        title: "Report",
+        title: t("sidebar.report", "Report"),
         icon: "/icons/ic_report.svg",
         children: [
-          { title: "Panoramica", path: "/user/income-report" },
-          { title: "SmartShip", path: "/user/smartship-report" },
+          { title: t("sidebar.report_overview", "Panoramica"), path: "/user/income-report" },
+          { title: t("sidebar.report_smartship", "SmartShip"), path: "/user/smartship-report" },
         ],
       });
     } else if (isPromoter) {
@@ -209,11 +210,11 @@ const filterMenu = (menu, isPromoter) => {
       items = items.map((item) => {
         if ((item.path || "").includes("income-report")) {
           return {
-            title: "Report",
+            title: t("sidebar.report", "Report"),
             icon: item.icon || "/icons/ic_report.svg",
             children: [
-              { title: "Panoramica", path: "/user/income-report" },
-              { title: "SmartShip", path: "/user/smartship-report" },
+              { title: t("sidebar.report_overview", "Panoramica"), path: "/user/income-report" },
+              { title: t("sidebar.report_smartship", "SmartShip"), path: "/user/smartship-report" },
             ],
           };
         }
@@ -224,21 +225,21 @@ const filterMenu = (menu, isPromoter) => {
     // Solo se siamo in un gruppo menu "user" — evita che compaia lato admin
     const isUserGroup = items.some((i) => (i.path || "").startsWith("/user/"));
     if (isUserGroup && !items.some((i) => (i.path || "").includes("/user/community"))) {
-      items.push({ title: "Community", path: "/user/community", icon: "/icons/ic_member_management.svg" });
+      items.push({ title: t("sidebar.community", "Community"), path: "/user/community", icon: "/icons/ic_member_management.svg" });
     }
     // Inject "I miei Lead" — SOLO promoter (i customer non hanno lead da
     // gestire). Modifica del 02/07/2026: prima il menu veniva iniettato per
     // qualsiasi utente user-group indipendentemente da is_promoter,
     // rendendolo visibile anche ai customer. Aggiunto isPromoter come gate.
     if (isPromoter && isUserGroup && !items.some((i) => (i.path || "").includes("/user/i-miei-lead"))) {
-      items.push({ title: "I miei Lead", path: "/user/i-miei-lead", icon: "/icons/ic_member_management.svg" });
+      items.push({ title: t("sidebar.my_leads", "I miei Lead"), path: "/user/i-miei-lead", icon: "/icons/ic_member_management.svg" });
     }
     // Genealogia customer: solo "Albero" (Team rimosso — non rilevante per
     // il cliente). Sostituisce la voce Genealogia dal menu_list DB con un
     // link diretto a /user/genealogy/sponsor (nessuna sotto-voce).
     if (isUserGroup && !isPromoter) {
       const customerGenealogy = {
-        title: "Genealogia",
+        title: t("sidebar.genealogy", "Genealogia"),
         path: "/user/genealogy/sponsor",
         icon: "/icons/ic_tree.svg",
       };
@@ -288,11 +289,13 @@ const filterMenu = (menu, isPromoter) => {
 
 const Layout = () => {
   const { user } = useAuth();
+  const { t, i18n } = useTranslation();
   const isPromoter = user?.is_promoter === 1;
   const raw = JSON.parse(localStorage.getItem("menu") || "[]");
   const isAdmin = user?.is_super_admin === 1 || user?.is_sub_admin === 1;
   const config = useMemo(() => {
-    let menu = filterMenu(injectMenuItems(raw), isPromoter);
+    const extraMenuItems = buildExtraMenuItems(t);
+    let menu = filterMenu(injectMenuItems(raw, extraMenuItems), isPromoter, t);
     // Inject Centro Controllo + Sostenibilita' for admin (subito dopo Dashboard)
     if (isAdmin && Array.isArray(menu)) {
       menu = menu.map((group) => {
@@ -303,19 +306,21 @@ const Layout = () => {
         // Centro Controllo (se non gia' presente)
         if (!items.some((i) => (i.path || "").includes("centro-controllo"))) {
           const dashIdx = items.findIndex((i) => (i.path || "").includes("/admin/dashboard"));
-          items.splice(dashIdx + 1, 0, { title: "Centro Controllo", path: "/admin/centro-controllo", icon: "/icons/ic_analytics.svg" });
+          items.splice(dashIdx + 1, 0, { title: t("sidebar.control_center", "Centro Controllo"), path: "/admin/centro-controllo", icon: "/icons/ic_analytics.svg" });
         }
         // Sostenibilita' Piano Compensi (04/07/2026) — subito dopo Centro Controllo
         if (!items.some((i) => (i.path || "").includes("kpi-sustainability"))) {
           const ccIdx = items.findIndex((i) => (i.path || "").includes("centro-controllo"));
           const insertAt = ccIdx >= 0 ? ccIdx + 1 : items.length;
-          items.splice(insertAt, 0, { title: "Sostenibilità", path: "/admin/kpi-sustainability", icon: "/icons/ic_analytics.svg" });
+          items.splice(insertAt, 0, { title: t("sidebar.sustainability", "Sostenibilità"), path: "/admin/kpi-sustainability", icon: "/icons/ic_analytics.svg" });
         }
         return { ...group, items };
       });
     }
     return applyIcons(menu);
-  }, [raw, isPromoter, isAdmin]);
+    // i18n.resolvedLanguage force re-compute on locale change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [raw, isPromoter, isAdmin, i18n.resolvedLanguage]);
 
   const { themeLayout } = useSettings();
   const verticalLayout = themeLayout === "vertical";

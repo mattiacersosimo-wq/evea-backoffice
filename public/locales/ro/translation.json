@@ -1,0 +1,4236 @@
+{
+    "global": {
+        "subscription": "Subscription",
+        "business_volume": "Business Volume",
+        "update_card": "Actualizează cardul",
+        "recurring_enabled_on": "Recurență activată pe",
+        "recurring_enabled": "Recurență activată",
+        "disable_recurring": "Dezactivează recurența",
+        "order_history": "Order History",
+        "payout_method": "Metodă de plată",
+        "payout_info": "Informații despre plată",
+        "current_rank": "Current Rank",
+        "users": "Utilizatori",
+        "total_tickets": "Tichete totale",
+        "completed": "Finalizat",
+        "pending_payment": "Plată în așteptare",
+        "processing": "În procesare",
+        "on_hold": "În așteptare",
+        "cancelled": "Anulat",
+        "refunded": "Rambursat",
+        "failed": "Eșuat",
+        "affiliate_dashboard": "Dashboard Bonus",
+        "bonus_value": "Valoare bonus",
+        "qualification_value": "Valoare de calificare",
+        "euro_value": "Euro Value",
+        "team_orders": "Comenzile echipei",
+        "pendingcommissions": "Pending Commissions",
+        "reject": "Respinge",
+        "confirm": "Confirmă",
+        "changedate": "Modifică data",
+        "country": "Țară",
+        "rank_achievers": "Rank Achievers",
+        "top_recruiters": " Cei mai buni recrutori",
+        "top_earners": " Cei mai mari câștigători",
+        "pqv_required": " PQV obligatoriu",
+        "tv_required": " TV necesar",
+        "gv_required": " GV obligatoriu",
+        "name_package": "Nume/pachet/produs",
+        "sold_out": "Stoc epuizat",
+        "amount_paid": "Sumă plătită",
+        "order_id": "ID comandă",
+        "transactionsCan": "Tranzacțiile pot dura între 02 și 12 ore pentru a fi confirmate",
+        "transaction_password": "Parolă de tranzacție",
+        "old_password": "Parolă veche",
+        "OrderApproval": "Order Approval",
+        "transaction": "Dacă ai uitat parola de tranzacție,",
+        "sendMail": "click aici pentru a trimite un email.",
+        "kyc_details": "Detalii KYC",
+        "email": "E-mail",
+        "users_join": "Utilizatori înscriși",
+        "Identity_proof": "Dovada identității",
+        "proof_of_address": "Dovada adresei",
+        "pending": "În așteptare",
+        "upload": "Încărcare",
+        "top_performers": "Cele mai bune performanțe",
+        "scanThisCode": "Scanează acest cod pentru a plăti",
+        "Order": "Comandă",
+        "products": "Produse",
+        "pending_payments": "Plăți în așteptare",
+        "payment_status": "Payment Status",
+        "total_members": "Total membri",
+        "approve": "Aprobă",
+        "reason": "Motiv *",
+        "kyc_pending": "Verificarea KYC este în așteptare!",
+        "kyc_reject": "Verificarea KYC este respinsă!",
+        "kyc_approved": "Verificarea KYC este aprobată!",
+        "your_password": "Noua ta parolă",
+        "your_new_password": "Introdu noua ta parolă !!!",
+        "back_to": "Înapoi la autentificare",
+        "coin": "Coin Address",
+        "update_coin": "Actualizează adresa ta de monedă",
+        "account_login": "Block Account Access",
+        "payout": "Blochează plata",
+        "fund_transfer": "Fund Transfer",
+        "referral": "Block Referral",
+        "edit_Video": "Editează video",
+        "sponsor_information": "Sponsor Information",
+        "View": "Vizualizare",
+        "Video_title": "Video Title",
+        "coin_address": "Actualizează informațiile de plată",
+        "bv_percentage": "Procent BV",
+        "days": "zile",
+        "overdue": "Tichete expirate",
+        "delete_blog": "Șterge blog",
+        "resolved": "Tichete rezolvate",
+        "inProgress": "Tichete în curs",
+        "responded": "Tichete cu răspuns",
+        "Dates": "Date",
+        "package_add": "Adaugă pachet",
+        "messageImage": "* Te rugăm să încarci o imagine mai mică de 200 KB pentru o experiență de utilizator mai bună * Sau poți folosi opțiunea de decupare.",
+        "imageValid": "* Când încarci imagini, poți încărca imagini cu dimensiuni de 700 lățime și 410 înălțime (sau păstrează acest raport 700 * 410)",
+        "max_size": "Dimensiune maximă",
+        "select_a_package": "Selectează un pachet",
+        "enable_recurring": "Activează plăți recurente",
+        "dropSelected": "Trage fișierele aici sau click",
+        "deleteFaq": "Șterge întrebările frecvente",
+        "rank_bonus": "Bonus de rang",
+        "weekly": "săptămânal",
+        "addNewRank": "Adaugă rang nou",
+        "impersonateText": "Administratorul nu poate activa 2FA pentru un alt utilizator",
+        "blocked": "Blocat",
+        "rankName": "Rank Name",
+        "add_Rank": "Add Rank",
+        "Options": "Opțiuni",
+        "Rank_Criteria": "Rank Criteria",
+        "Referral_Package_Count": "Număr pachete de referral",
+        "Bonus_amount": "Bonus Amount",
+        "Personal_Volume": "Volum personal",
+        "Referral_Package": "Pachet de referral",
+        "Referral_Count": "Număr referral",
+        "Team_Volume": "Team Volume",
+        "package": "Pachete",
+        "binary_matching_bonus_settings": "Setări Binary Matching Bonus",
+        "matchingBonus": "Binary Matching Bonus",
+        "binary_bonus": "Binary Bonus",
+        "daily": "Zilnic",
+        "monthly": "Lunar",
+        "instant": "Imediat",
+        "first_order_percentage": "First Order Percentage",
+        "remove": "Elimină",
+        "Binary_Criteria": "Criterii binare",
+        "fund_credit": "Credit de fonduri",
+        "fund_debit": "Fund Debit",
+        "home": "Acasă",
+        "export": "Exportă",
+        "product": "Produs",
+        "dashboard": "Dashboard",
+        "balance": "Sold",
+        "product_name": "Nume produs",
+        "product_one": "Produs",
+        "product_other": "Produse",
+        "category_one": "Categorie",
+        "category_other": "Categorii",
+        "search": "Caută",
+        "no_data": "Niciun dato disponibil",
+        "something_wrong": "Ceva a mers greșit. Te rugăm să încerci din nou mai târziu",
+        "oops": "Hopa !!!",
+        "month": "Lună",
+        "review_one": "Recenzie",
+        "review_other": "{{count}} Recenzii",
+        "document": "Document",
+        "sample_document": "Document exemplu",
+        "description": "Descriere",
+        "question_one": "Întrebare",
+        "question_other": "Întrebări",
+        "no": "Nu",
+        "invoice_id": "ID Factură",
+        "payment_method": "Metodă de plată",
+        "order_date": "Data comenzii",
+        "total_price": "Preț total",
+        "action": "Acțiune",
+        "notes": "Note",
+        "note": "Notă",
+        "continue": "Continuă",
+        "cancel": "Anulează",
+        "title": "Titlu",
+        "comment": "Comentariu",
+        "all": "Toate",
+        "view": "Vizualizare",
+        "upcoming": "Următor",
+        "past": "Trecut",
+        "reset": "Resetează",
+        "amount": "Sumă",
+        "e_wallet": "Portofel electronic",
+        "d_wallet": "Portofel de depozit",
+        "send": "Trimite",
+        "request": "Solicită",
+        "month_count": "{{count}} Lună",
+        "view_document": "Vezi documentul",
+        "comments": "Comentarii",
+        "compose": "Compune",
+        "description_place_holder": "Scrie ceva...",
+        "user": "Utilizator",
+        "delete": "Șterge",
+        "edit": "Editează",
+        "username": "Nume utilizator",
+        "upload_profile": "Încarcă foto",
+        "allowed": "Permis",
+        "max": "Dimensiune maximă",
+        "images": "Imagini",
+        "name": "Nume",
+        "total_commission": "Comision total",
+        "total_payout": "Plată totală",
+        "last_seen": "Ultima vizualizare",
+        "your_activity_history": "Istoricul tău de activitate",
+        "referrals": "Referrali",
+        "logged_in": "Autentificat",
+        "total_amount": "Sumă totală",
+        "payment_type": "Tip de plată",
+        "wallet_type": "Tip de portofel",
+        "credit": "Credit",
+        "debit": "Debit",
+        "deposit_wallet": "Portofel de depozit",
+        "ewallet": "Ewallet",
+        "expense": "Cheltuială",
+        "total_credits": "Total credite",
+        "user_type": "Tip de utilizator",
+        "min_pqv": "PQV minim"
+    },
+    "pendingranks": {
+        "table": {
+            "title": "Ranguri în așteptare",
+            "no": "Nr",
+            "user_name": "Nume utilizator",
+            "rankname": "Rank Name",
+            "gv": "GV",
+            "tv": "TV",
+            "pqv": "PQV"
+        }
+    },
+    "email_template": {
+        "title": "Setări șablon email",
+        "form": {
+            "subject": "Subiect",
+            "email_template_id": "ID șablon email SendGrid",
+            "content": "Conținut",
+            "button": "actualizare"
+        }
+    },
+    "email_settings": {
+        "title": "Setări șablon email",
+        "table": {
+            "no": "Nr",
+            "name": "Nume",
+            "template_id": "ID șablon email SendGrid",
+            "language": "Limbă",
+            "subject": "Subiect",
+            "edit_template": "Editează șablon"
+        }
+    },
+    "register": {
+        "welcome": "Bună, bine ai revenit!",
+        "reset": "Resetează parola",
+        "please": "Te rugăm să verifici emailul tău.",
+        "request": "Cerere trimisă cu succes",
+        "we_have": "Am trimis un email de confirmare la",
+        "back": "Înapoi",
+        "pls_enter": "Introdu adresa de email asociată contului tău și îți vom trimite un link pentru resetarea parolei.",
+        "forgot_yur": "Ai uitat parola?",
+        "choose_plan": "Alege planul",
+        "forgot": "Ai uitat parola?",
+        "remember": "Ține-mă minte",
+        "register_new": "Înregistrează membru nou",
+        "partner": "Începe ca partener de marketing",
+        "login": "Autentificare",
+        "already": "Ai deja un cont",
+        "register": "Înregistrează-te",
+        "terms": "Termeni și condiții",
+        "policy": "Politică de confidențialitate",
+        "referral": "ID referral (opțional)",
+        "re_enter_password": "Reintrodu parola",
+        "password": "Parolă",
+        "username": "Nume utilizator",
+        "email": "Adresă email",
+        "sign_to": "Autentifică-te în",
+        "don't_have": "Nu ai un cont",
+        "get_started": "Începe",
+        "welcome_back": "Bună, bine ai revenit"
+    },
+    "user_nav": {
+        "recurring_orders": "Abonamente",
+        "pendingcommissions": "Pending Commissions",
+        "affiliate_dashboard": "Dashboard Bonus",
+        "coupons": {
+            "title": "Cupon",
+            "list": "Cupoanele mele"
+        },
+        "referals": "Referral",
+        "my_subscriptions": "Înscrierile mele",
+        "dashboard": "Dashboard",
+        "join_telegram": "Alătură-te Telegram",
+        "online_store": {
+            "online_store": "Magazin online",
+            "product": "Produse",
+            "my_orders": "Comenzile mele",
+            "packages": "Pachete",
+            "subscriptions": "Înscrieri"
+        },
+        "genealogy": {
+            "list": "Listă",
+            "genealogy": "Genealogie",
+            "binary": "Binar",
+            "sponsor": "Sponsor",
+            "tree": "Arbore",
+            "matrix": "Matrice",
+            "affiliate_dashboard": "Dashboard Bonus",
+            "binary_leg_settings": "Binary Leg Settings"
+        },
+        "financial": {
+            "financial": "Financial",
+            "my_eWallet": "Portofelul meu",
+            "deposit_wallet": "Portofel de depozit",
+            "fund_transfer": "Fund Transfer",
+            "request_payout": "Solicită plată"
+        },
+        "business_builder": {
+            "business_builder": "Business Builder",
+            "subscriptions": "Înscrieri",
+            "materials": "Materiale"
+        },
+        "my_profile": "Profilul meu",
+        "blogs": "Blog",
+        "help_center": {
+            "help_center": "Centru de asistență",
+            "faqs": "Întrebări frecvente",
+            "knowledge_base": "Bază de cunoștințe",
+            "emails": "Email",
+            "support_tickets": "Tichete de suport",
+            "documents": "Documente",
+            "videos": "Video"
+        },
+        "income_report": "Raport venituri",
+        "leads": "Leads"
+    },
+    "affiliate_dashboard": {
+        "previous_month_pending_commission": "Previous Month Pending Commission",
+        "package_purchased": "Pachet achiziționat",
+        "first_generation": "Prima generație",
+        "second_generation": "A doua generație",
+        "third_generation": "A treia generație",
+        "total_bonus": "Total Bonus",
+        "levels": "Niveluri",
+        "username": "Nume utilizator",
+        "dsp_ends_in": "BOOST-UL DIRECT SALES BONUS SE TERMINĂ ÎN",
+        "current_period_ends_in": "PERIOADA LUNARĂ SE TERMINĂ ÎN",
+        "recognition_rank": "RECOGNITION RANK",
+        "achieved_rank": "ACHIEVED RANK",
+        "currentRank": "RANG CURENT",
+        "qv": "QV",
+        "rank": "Rank",
+        "bonus_amount": "Bonus Amount",
+        "eveolving_bonus": "Evolving Bonus",
+        "achieved_count": "Număr atins",
+        "current_percentage": "Procent curent",
+        "level_1": "Nivel 1",
+        "level_2": "Nivel 2",
+        "leader_name": "Leader Name",
+        "rank_name": "Rank Name",
+        "team_bv": "Team BV",
+        "bonus_percentage": "Bonus Percentage",
+        "pending_bonus": "Pending Bonus",
+        "generation_1": "Generația 1",
+        "generation_2": "Generația 2",
+        "eligible": "Eligible",
+        "amount_payable": "Sumă de plătit",
+        "from_user": "De la utilizator",
+        "current_month_commissions": "Current Month Commissions",
+        "unlocked_levels": "Niveluri deblocate",
+        "first_generation_promoters": "Promoteri de prima generație",
+        "second_generation_promoters": "Promoteri de a doua generație",
+        "third_generation_promoters": "Promoteri de a treia generație",
+        "min_personal_qualifying_volume": "Volum minim de calificare personală",
+        "direct_promoter_assigned": "Promoter direct asignat",
+        "mvp_status_attained_through_direct_promoter": "Status MVP obținut printr-un promoter direct",
+        "previous_month": "Luna precedentă",
+        "largest_order_details": "Detalii ale celei mai mari comenzi",
+        "euro_value": "Valoare în euro",
+        "personal_order_qv": "QV al comenzii personale",
+        "current_month": "Luna curentă",
+        "pending_amount": "Sumă în așteptare",
+        "personal_order_qv_in_current_month": "QV al comenzii personale în luna curentă",
+        "months_required_to_earn_bonus": "Months required to earn the bonus",
+        "order_date": "Data comenzii",
+        "commission": "Comision",
+        "bv": "BV",
+        "customer_name": "Customer Name",
+        "customer_details": "Customer Details",
+        "corresponding_percentage": "Procent corespunzător",
+        "customers_who_placed_orders": "Clienți care au plasat comenzi",
+        "current_package": "Pachetul curent",
+        "remaining_days_in_go_mvp": "Zile rămase în Go MVP",
+        "eligibility_period_for_additional_bonus": "Eligibility period for an additional bonus (in months)",
+        "month": "Lună",
+        "monthly_qualification_status": "Stare de calificare lunară",
+        "personally_enrolled_customers": "Personally Enrolled Customers",
+        "eveolution_rewards": "Recompense de evoluție",
+        "direct_qualifying_volume": "Volum de calificare direct",
+        "required_customers": "Clienți necesari",
+        "qualification_days": "Zile de calificare",
+        "no_of_customers_with_30_qv": "No. of Customers with 30 QV",
+        "personally_enrolled_customers_with_30_qv": "Clienți înscriși personal cu 30 QV",
+        "personal_qualifying_volume": "Personal Qualifying Volume",
+        "team_volume": "Team Volume",
+        "group_volume": "Group Volume",
+        "s_no": "Nr.",
+        "team": "Team",
+        "percentage": "Procent",
+        "gv_taken": "GV contorizat",
+        "current_rank": "Current Rank",
+        "next_rank": "Next Rank",
+        "sixty_percent_rule": "60% Rule",
+        "pending_commission": "Pending Commissions",
+        "qualifiers": "Calificatori",
+        "requirements": "Cerințe",
+        "progress": "Progress",
+        "nextRank": "Next Rank",
+        "paidAsRankLastWeek": "Plătit ca rang săptămâna trecută",
+        "highestRankAchieved": "Highest Rank Achieved",
+        "current_paid": "Current Paid Rank",
+        "activeBusiness": "Business Builder Activ",
+        "bronze": "Bronze",
+        "sliverExecutive": "Silver Executive",
+        "startup": "Pornire",
+        "activeCustomer": "Client activ",
+        "customer": "Client",
+        "weekly": "Istoric BV săptămânal (Piciorul mai mic)",
+        "total": "Total",
+        "aquired": "BV Dobândit",
+        "required": "BV Necesar",
+        "upcoming_week": "Săptămâna următoare",
+        "binary_bonus": "Binary Bonus",
+        "no": "Nr",
+        "active_products": "Produs activ",
+        "user_name": "Nume utilizator",
+        "email": "Email",
+        "active": "Activ",
+        "total_numberL": "Număr total vânzări (Stânga)",
+        "total_numberR": "Număr total vânzări (Dreapta)",
+        "total_teamL": "Total Team Sales (Left)",
+        "total_teamR": "Total Team Sales (Right)",
+        "weeklyL": "BV Săptămânal (Stânga)",
+        "weeklyR": "BV Săptămânal (Dreapta)",
+        "left_team": "Echipa stângă",
+        "left": "Stânga",
+        "right": "Dreapta",
+        "right_team": "Echipa dreaptă",
+        "affiliate": "Afiliat",
+        "personal_sales": "Vânzări personale BV",
+        "team_sales": "Team Sales BV",
+        "network_bonus": "Bonus de rețea",
+        "referral_bonus": "Bonus de referral",
+        "referrals": "Referrali",
+        "weekly_payout": "Ciclul de plată săptămânal se termină în"
+    },
+    "user_dashboard": {
+        "residual_bonus": "Residual Bonus Progress",
+        "leadership_rewards": "Recompense de leadership",
+        "indirect_sales_bonus": "Indirect Sales Bonus Progress",
+        "residual_rewards": "Recompense reziduale",
+        "leadership_bonus": "Leadership Bonus Progress",
+        "residual_matching_bonus": "Residual Matching Bonus Progress",
+        "ritual_bonus": "Ritual Bonus Progress",
+        "gameplay_rewards": "Recompense de joc",
+        "eveolving_bonus": "Eveolving Bonus Progress",
+        "rock_solid_mvp_bonus": "Rock Solid MVP Bonus",
+        "mvp_mentor_bonus": "MVP Mentor Bonus Progress",
+        "direct_sales_bonus": "Direct Sales Bonus Progress",
+        "rob_bonus": "Recurring Order Bonus Progress",
+        "3_FF_Progress": "3 For Free Progress",
+        "achieved_rank": "Achieved Rank",
+        "current_rank": "Current Rank",
+        "go_MVP_bonus": "Go MVP Bonus Progress",
+        "rank_progress_bar": "Rank Progress Bar",
+        "income": "Venituri",
+        "incomeTitle": "Săptămâna aceasta",
+        "payout": "Venituri totale",
+        "payoutTitle": "Săptămâna aceasta",
+        "balance": "Sold total",
+        "balanceTitle": "Săptămâna aceasta",
+        "referrals": "Total referrali",
+        "referralsTitle": "Săptămâna aceasta",
+        "downline": "Număr echipă downline",
+        "downlineTitle": "Săptămâna aceasta",
+        "incomeInfo": "Venituri",
+        "payoutInfo": "Plată",
+        "payout_graph": "Income Payout Overview",
+        "network": {
+            "title": "Rețea",
+            "overview": "User Engagement Overview"
+        },
+        "events": {
+            "title": "Evenimente"
+        },
+        "team_performance": {
+            "table": {
+                "user": "Utilizator",
+                "referrals": "Referral",
+                "earnings": "Câștiguri"
+            },
+            "title": "Team Performance"
+        },
+        "referrals_table": {
+            "table": {
+                "user": "Utilizator",
+                "date": "Data",
+                "action": "Acțiune"
+            },
+            "title": "Referral"
+        },
+        "referral_menu": {
+            "binary": "Binar",
+            "matrix": "Matrice",
+            "sponsor": "Sponsor",
+            "mono_line": "Linie Mono"
+        },
+        "nextlevelTitle": "Următorul nivel este al tău!",
+        "nextlevelSubTitle": "Atinge un nou rang și deblochează posibilități infinite.",
+        "currentrank": "Current Rank",
+        "nextrank": "Next Rank"
+    },
+    "nav": {
+        "dashboard": {
+            "title": "Dashboard",
+            "business": "Activitate",
+            "network": "Rețea"
+        },
+        "genealogy": {
+            "title": "Genealogie",
+            "matrix": "Matrice",
+            "binary": "Binar",
+            "sponsor": "Sponsor",
+            "tree": "Arbore",
+            "list": "Listă",
+            "mono_line": "Linie mono"
+        },
+        "financial": {
+            "title": "Financiar",
+            "e_wallet": "Portofel electronic",
+            "d_wallet": "Portofel de depozit",
+            "fund_credit": "Credit de fonduri",
+            "payout": "Plată",
+            "pendingcommission": "Comision în așteptare"
+        },
+        "pendingranks": {
+            "title": "Ranguri în așteptare",
+            "pending_ranks": "Ranguri în așteptare"
+        },
+        "communication": {
+            "title": "Comunicare",
+            "blog": "Blog",
+            "faqs": "Întrebări frecvente",
+            "mails": "Email",
+            "help_center": "Centru de asistență",
+            "article": "Articol"
+        },
+        "tools": {
+            "title": "Instrumente",
+            "documents": "Documente",
+            "videos": "Video",
+            "move_user": "Mută utilizator",
+            "lettera_incarico": "Contract de mandat",
+            "compliance": "Conformitate și fiscal",
+            "tesserino": "Legitimație"
+        },
+        "members": {
+            "title": "Gestionare membri",
+            "network": "Membri rețea",
+            "holding": "Holding Tank",
+            "kyc_details": "Detalii KYC"
+        },
+        "sub_admin": {
+            "title": "Sub-administratori",
+            "sub_admins": "Sub-administratori"
+        },
+        "store": {
+            "packages": "Pachete",
+            "choose_payments": "Alege metodele de activat",
+            "title": "Magazin",
+            "products": "Produse",
+            "materials": "Materiale",
+            "events": "Evenimente",
+            "coupons": "Cupoane",
+            "user_review": "Recenzii utilizatori",
+            "assign": "Atribuie abonamente",
+            "bb_sales": "Vânzări abonamente Business Builder",
+            "payment_methods": "Metode de plată",
+            "subscriptions": "Abonamente"
+        },
+        "settings": {
+            "title": "Setări",
+            "brand": "Brand",
+            "bb": "Business Builder",
+            "network": "Network",
+            "withdrawal": "Retragere",
+            "currency": "Monedă",
+            "mail": "Șablon poștă",
+            "advanced": "Setări avansate"
+        },
+        "reports": {
+            "title": "Rapoarte",
+            "builder": "Abonament Business Builder",
+            "fund_credit": "Credit de fonduri",
+            "joining": "Raport de aderare",
+            "members": "Câștig membru",
+            "payout": "Plată",
+            "point": "Istoric puncte",
+            "sales": "Vânzări",
+            "top": "Cei mai mari câștigători"
+        },
+        "my_orders": {
+            "titile": "Comenzile mele",
+            "orders": "Comenzi",
+            "completed_orders": "Comenzi finalizate",
+            "view_order": "Vizualizează comanda"
+        }
+    },
+    "header_menus": {
+        "home": "Acasă",
+        "profile": "Profil",
+        "logout": "Deconectare"
+    },
+    "image_upload": {
+        "drop_file": "Trage sau selectează fișierul",
+        "through": "prin computerul tău",
+        "browse": "răsfoiește"
+    },
+    "genders": {
+        "male": "Bărbat",
+        "female": "Femeie",
+        "other": "Altul"
+    },
+    "status": {
+        "enabled": "Activat",
+        "disabled": "Dezactivat"
+    },
+    "report": {
+        "get": "Obține",
+        "get_report": "Obține raport"
+    },
+    "impersonate": {
+        "heads": "Atenție! Acum ești autentificat ca ",
+        "click": "Click aici",
+        "toGo": "pentru a reveni la contul de admin"
+    },
+    "amount_types": {
+        "all": "Toate",
+        "r_bonus": "Bonus de referral",
+        "deducted_by_admin": "Deducted by Admin",
+        "credited_by_admin": "Credited by Admin",
+        "fund_transfer": "Fund Transfer",
+        "roi_commission": "ROI Commission",
+        "a_bonus": "Bonus de realizare",
+        "first_order_bonus": "Bonus prima comandă",
+        "level_commission": "Comision nivel",
+        "b_bonus": "Binary Bonus",
+        "deposit_wallet": "Portofel de depozit",
+        "product_purchased": "Produs achiziționat",
+        "rank_bonus": "Rank Bonus",
+        "m_bonus": "Binary Matching Bonus",
+        "go_mvp_bonus": "Go MVP Bonus",
+        "eveolving_bonus": "Evolving Bonus",
+        "ritual_bonus": "Ritual Bonus",
+        "rock_solid_mvp_bonus": "Rock Solid MVP Bonus",
+        "rock_solid_mvp_additional_bonus": "Rock Solid MVP Additional Bonus",
+        "direct_sales_bonus": "Direct Sales Bonus",
+        "pmb_bonus": "MVP Mentor Bonus",
+        "indirect_sales_bonus": "Indirect Sales Bonus",
+        "leadership_bonus": "Leadership Bonus",
+        "residual_bonus": "Residual Bonus",
+        "residual_matching": "Residual Matching"
+    },
+    "tools": {
+        "videos": {
+            "areYouSure": "Sigur doriți să continuați, această acțiune nu poate fi anulată",
+            "deleteVideos": "Șterge video",
+            "videos_tool": "Video | Instrument",
+            "video": "Video",
+            "addVideo": "Adaugă video",
+            "title": "Titlu *",
+            "videoURLs": "URL video *",
+            "close": "Închide",
+            "submit": "Trimite",
+            "edit": "Editează",
+            "delete": "Șterge",
+            "update": "Actualizează",
+            "cancel": "Anulează",
+            "edit_video": "Editează video"
+        },
+        "documents": {
+            "areYousure": "Sigur doriți să continuați, această acțiune nu poate fi anulată",
+            "deleteDocument": "Șterge document",
+            "submit": "Trimite",
+            "close": "Închide",
+            "docTitle": "Titlu document",
+            "sortOrders": "Ordonează comenzile",
+            "uploadDocument": "Încarcă document",
+            "updateDocument": "Actualizează document",
+            "addDocument": "Adaugă document",
+            "documents_title": "Documente | Instrumente",
+            "documents": "Documente",
+            "no": "Nr",
+            "fileTitle": "Titlu fișier",
+            "sortOrder": "Ordine de sortare",
+            "download": "Descarcă",
+            "created": "Data creării",
+            "action": "Acțiune",
+            "fileUpload": "Încarcă fișier",
+            "edit": "Editează",
+            "delete": "Șterge",
+            "cancel": "Anulează"
+        }
+    },
+    "businessBuilder": {
+        "no": "Nr",
+        "amount": "Sumă",
+        "date": "Data",
+        "effectiveUntil": "Valid până la",
+        "pickStartDate": "Selectează data de început",
+        "pickEndDate": "Selectează data de sfârșit",
+        "userName": "Nume utilizator",
+        "email": "Email",
+        "totalAmount": "Sumă totală",
+        "thisWeekEnd": "Sfârșitul săptămânii curente",
+        "recurringCancelled": "Recurent anulat",
+        "recurringEnabled": "Recurent activat",
+        "businessBuilderTitle": "Business Builder | Magazin",
+        "business_builder_subscriptions_sales": "Vânzări abonamente Business Builder"
+    },
+    "assign_subscriptions": {
+        "areYouSure": "Sigur doriți să continuați, această acțiune nu poate fi anulată",
+        "delete_category": "Șterge categoria",
+        "edit_category": "Editează categoria",
+        "delete": "Șterge",
+        "permissions": "Permisiuni",
+        "edit": "Editează",
+        "impersonate": "Impersonare",
+        "profile": "Profil",
+        "submit": "Trimite",
+        "close": "Închide",
+        "category_description": "Descriere categorie",
+        "category_name": "Nume categorie",
+        "add_category": "Adaugă categorie",
+        "createdDate": "Data creării",
+        "editSubscription": "Editează abonamentul",
+        "products": "Produse",
+        "trashed": "Șters",
+        "category": "Categorie",
+        "totalAmount": "Sumă totală",
+        "cancel": "Anulează",
+        "add": "Adaugă",
+        "giveProductMaterials": "Atribuie produs cu materiale",
+        "giveProduct": "Atribuie produs cu comisioane",
+        "categories": "Categorii",
+        "certified_date": "Data certificării (opțional)",
+        "addProduct": "Atribuie produs",
+        "pickStartDate": "Selectează data de început",
+        "pickEndDate": "Selectează data de sfârșit",
+        "user": "Utilizator",
+        "email": "Email",
+        "productss": "Produse",
+        "no": "Nr",
+        "action": "Acțiune",
+        "assigned_on": "Atribuit la",
+        "userName": "Nume utilizator",
+        "product": "Produs",
+        "categoryy": "Categorie",
+        "note": "Notă",
+        "certifiedDate": "Data certificării",
+        "effectiveUntil": "Valid până la",
+        "subscriptionsList": "Listă abonamente",
+        "assignSubscriptionsTitle": "Atribuie abonamente | Magazin",
+        "assign_subscriptions": "Atribuie abonamente"
+    },
+    "sub_admin": {
+        "delete_at": "Șters la",
+        "reasons": "Motive",
+        "block": "Blochează",
+        "un_block": "Deblochează",
+        "block_sub_admin": "Blochează sub-administrator",
+        "edit_sub_admin": "Editează sub-administrator",
+        "reason": "Motiv",
+        "are_you_sure": "Sigur doriți să continuați, această acțiune nu poate fi anulată",
+        "delete_sub_admin": "Șterge sub-administrator",
+        "un_block_user": "Deblochează utilizator",
+        "block_user": "Blochează utilizator",
+        "profile": "Profil",
+        "edit": "Editează",
+        "password": "Parolă",
+        "re_enter_password": "Reintrodu parola",
+        "enable": "Activează",
+        "disable": "Dezactivează",
+        "enable_impersonation": "Activează impersonarea",
+        "departments": "Departamente",
+        "excluded_products": "Produse excluse",
+        "products": "Produse",
+        "mobile": "Telefon mobil *",
+        "names": "Nume *",
+        "add_sub_admin": "Adaugă sub-administrator",
+        "sub_admins_title": "Sub-administratori: Adaugă sub-administrator",
+        "delete": "Șterge",
+        "reversed": "Sigur doriți să continuați, această acțiune nu poate fi anulată?",
+        "sub_admin_delete": "Șterge grup sub-administrator ",
+        "submit": "Trimite",
+        "description": "Descriere",
+        "cancel": "Anulează",
+        "group": "Grup",
+        "add_user_group": "Adaugă grup utilizator",
+        "impersonate": "Impersonare",
+        "sub_admins": "Sub-administratori",
+        "user_group": "Grup utilizator",
+        "sub_admin": "Sub-administrator",
+        "active": "Activ",
+        "inactive": "Inactiv",
+        "trashed": "Șters",
+        "no": "Nr",
+        "name": "Nume",
+        "userName": "Nume utilizator",
+        "email": "Email",
+        "created": "Data creării",
+        "action": "Acțiune",
+        "createdAt": "Creat la"
+    },
+    "holding_tank": {
+        "cancel": "Anulează",
+        "are_you_sure": "Sigur doriți să continuați, această acțiune nu poate fi anulată",
+        "delete_holding_tank": "Șterge Holding Tank",
+        "impersonation": "Impersonare",
+        "delete": "Șterge",
+        "profile": "Profil",
+        "permissions": "Permisiuni",
+        "holding_tank": "Holding Tank",
+        "no": "Nr",
+        "userName": "Nume utilizator",
+        "email": "Email",
+        "paidActive": "Activ plătit",
+        "joinedAt": "Alăturat la",
+        "add_to_binary": "Adaugă la binar",
+        "action": "Acțiune",
+        "add_to_network": "Adaugă la rețea",
+        "network": "Rețea",
+        "account_status": "Account Status",
+        "active": "Activ",
+        "blocked": "Blocat",
+        "add": "Adaugă",
+        "close": "Închide",
+        "turn_off_email": "Dezactivează email",
+        "turn_on_email": "Activează email"
+    },
+    "network_members": {
+        "user_type": "Tip utilizator",
+        "promoter": "Promoter",
+        "unique_id": "ID unic",
+        "engagedstatus": "Stare implicare",
+        "choose_payments": "Alege metodele de activat",
+        "update_permissions": "Actualizează permisiunile",
+        "turn_off_mail": "Dezactivează email",
+        "are_you_sure": "Sigur doriți să continuați, această acțiune nu poate fi anulată",
+        "cancel": "Anulează",
+        "verify_mail": "Verifică email",
+        "update": "Actualizează",
+        "current_user_name": "Nume utilizator curent",
+        "new_user_name": "Nume utilizator nou",
+        "change_user_name": "Schimbă numele de utilizator",
+        "close": "Închide",
+        "confirm_password": "Confirmă parola",
+        "change_password": "Schimbă parola",
+        "permissions": "Permisiuni",
+        "turn_off_email": "Dezactivează email",
+        "turn_on_email": "Activează email",
+        "password": "Parolă",
+        "profile": "Profil",
+        "verify": "Verifică",
+        "username": "Nume utilizator",
+        "impersonate": "Impersonare",
+        "account_status": "Account Status",
+        "active": "Activ",
+        "blocked": "Blocat",
+        "network_members": "Network Members",
+        "no": "Nr",
+        "email": "Email",
+        "rank": "Rank",
+        "paidActive": "Activ plătit",
+        "createdAt": "Creat la",
+        "action": "Acțiune",
+        "customer": "Client",
+        "activeCustomer": "Client activ",
+        "businessBuilder": "Business Builder",
+        "bronzeExecutive": "Bronze Executive",
+        "silverExecutive": "Silver Executive",
+        "goldExecutive": "Gold Executive",
+        "emeraldExecutive": "Emerald Executive",
+        "usertype": "Tip de utilizator",
+        "smart_ship_status": "Stare Smart Ship",
+        "is_smartship_customer": "Este client Smart Ship",
+        "yes": "Da",
+        "engaged_status": "Stare implicare",
+        "true": "ADEVĂRAT",
+        "false": "FALS"
+    },
+    "network": {
+        "right_team": "Echipa dreaptă",
+        "left_team": "Echipa stângă",
+        "top_recruiters": "Cei mai buni recrutori",
+        "latest_registrations": "Ultimele înregistrări",
+        "yearly_sales_report": "Yearly Sales Report",
+        "network_joining": "Aderări la rețea",
+        "membersMap": "Harta membrilor",
+        "registeredMembersThisMonth": "Membri înregistrați luna aceasta",
+        "holdingTank": "Holding Tank",
+        "networkMembers": "Network Members",
+        "businessBuilder": "Business Builder",
+        "registeredMembers": "Membri înregistrați",
+        "tickets": "Tichete",
+        "openTickets": "Tichete deschise",
+        "closedTickets": "Tichete închise",
+        "total_network_bonus": "Bonus total rețea",
+        "total_payout": "Plată totală",
+        "upcoming_week": "Săptămâna următoare",
+        "binary_bonus": "Binary Bonus",
+        "history": "Istoric rețea",
+        "network_bonus": "Bonus rețea",
+        "support_tickets": "Tichete"
+    },
+    "business": {
+        "month": "Lună",
+        "bitcoinConference": "Conferință Bitcoin",
+        "on_bitcoin": "Despre tranzacționare și predicții Bitcoin",
+        "productsActive": "Produse și abonamente active",
+        "topSellingProduct": "Cel mai vândut produs",
+        "userName": "Nume utilizator",
+        "product": "Produs",
+        "price": "Preț",
+        "date": "Data",
+        "latestSales": "Ultimele vânzări",
+        "invoice": "Factură",
+        "active": "Activ",
+        "customers": "Clienți",
+        "total_customers": "Total clienți",
+        "active_customers": "Clienți activi",
+        "payout": "Plată",
+        "sales": "Vânzări",
+        "overallStatus": "Stare generală",
+        "allIncomeAndExpense": "Toate veniturile",
+        "salesOverTheTime": "Vânzări în timp",
+        "thenLastMonth": "față de luna trecută",
+        "select_option": "Selectează o opțiune",
+        "latest_registrations": "Sales Performance",
+        "total_sales": "Vânzări totale",
+        "total_expense": "Cheltuială totală",
+        "total_profit": "Profit total",
+        "network_bonus": "Bonus de rețea",
+        "balance": "Sold",
+        "income": "Venit",
+        "expense": "Cheltuială",
+        "salesOverView": "Sales Overview",
+        "salesgraph": "Sales Graph",
+        "topSellingProducts": "Cele mai vândute produse",
+        "today": "Astăzi",
+        "thisWeek": "Săptămâna aceasta",
+        "pastWeek": "Săptămâna trecută",
+        "thisMonth": "Luna aceasta",
+        "pastMonth": "Luna trecută",
+        "thisYear": "Anul acesta"
+    },
+    "date": {
+        "start": "Selectează data de început",
+        "end": "Selectează data de sfârșit",
+        "valid_start": "Data de început nu ar trebui să fie mai mare decât data de sfârșit",
+        "valid_end": "Data de sfârșit nu ar trebui să fie mai mare decât data de început"
+    },
+    "scope": {
+        "all": "Toate",
+        "public": "Public",
+        "private": "Privat"
+    },
+    "search": {
+        "user": "Caută utilizator",
+        "amount_type": "Tip de sumă",
+        "search": "Caută",
+        "product": "Selectează produs",
+        "category": "Selectează categorie",
+        "department": "Selectează departament",
+        "priority": "Selectează prioritate",
+        "status": "Stare",
+        "ticket": "ID tichet",
+        "title": "Titlu",
+        "scope": "Scop"
+    },
+    "payout_status": {
+        "approved": "Aprobat",
+        "rejected": "Respins"
+    },
+    "fin_pay": {
+        "address": "Adresă",
+        "country": "Țară",
+        "state": "Stat",
+        "zip_code": "Cod poștal",
+        "city": "Oraș",
+        "card_details": "Detalii card",
+        "holder_name": "Card Holder Name",
+        "number": "Număr card",
+        "expiry": "Expirare card",
+        "cvv": "CVC/CVV card",
+        "product_recurring_enabled": "Acest produs are opțiunea de recurență activată. Deselectează pentru a o dezactiva."
+    },
+    "genealogy": {
+        "matrix": {
+            "name": "Nume",
+            "user_name": "Nume utilizator",
+            "current_rank": "Current Rank",
+            "date": "Data"
+        },
+        "binary": {
+            "title": "Binar: Genealogie"
+        },
+        "sponsor": {
+            "title": "Sponsor: Genealogie"
+        },
+        "tree": {
+            "title": "Arbore: Genealogie"
+        },
+        "leg_settings": {
+            "title": "Binary Leg Settings",
+            "bp": "Pe baza punctelor (BV) - Referralii vor fi plasați în echipa ta cu piciorul mai slab",
+            "br": "Pe baza referralilor - Referralii vor fi în echipa ta cu un număr mai mic de referrali",
+            "lr": "Stânga - Referralii vor fi plasați în echipa ta stângă",
+            "rr": "Dreapta - Referralii vor fi plasați în echipa ta dreaptă",
+            "current_leg": "PICIORUL CURENT",
+            "base_on": "BAZAT PE"
+        },
+        "legends": {
+            "name": "Nume",
+            "uname": "Nume utilizator",
+            "current_rank": "Current Rank",
+            "doj": "Data aderării",
+            "w_bv_l": "BV Săptămânal (stânga)",
+            "w_bv_r": "BV Săptămânal (dreapta)",
+            "t_bv_l": "BV Total (stânga)",
+            "t_bv_r": "BV Total (dreapta)",
+            "t_l_users": "Total utilizatori stânga",
+            "t_r_users": "Total utilizatori dreapta",
+            "bv": "BV",
+            "ev": "EV",
+            "qv": "QV",
+            "dqv": "DQV",
+            "pqv": "PQV",
+            "tv": "TV",
+            "gv": "GV",
+            "smartship_status": "Stare Smartship",
+            "user_type": "Tip de utilizator"
+        },
+        "mono_line": {
+            "title": "Linie mono: Genealogie"
+        },
+        "list": {
+            "title": "Listă: Genealogie",
+            "table": {
+                "no": "Nr",
+                "u_name": "Nume utilizator",
+                "level": "Nivel",
+                "doj": "Data aderării"
+            }
+        }
+    },
+    "financial": {
+        "pendingcommission": {
+            "title": "Comision în așteptare"
+        },
+        "e_wallet": {
+            "amount_type": "Tip de sumă",
+            "title": "Portofel electronic",
+            "history": "Istoric",
+            "cards": {
+                "balance": "Sold",
+                "transfer": "Transfer Out",
+                "payout": "Plată totală",
+                "bonus": "Bonus"
+            },
+            "table": {
+                "no": "Nr",
+                "from": "De la utilizator",
+                "user_name": "Nume utilizator",
+                "amount_type": "Tip de sumă",
+                "payment_type": "Tip de plată",
+                "amount": "Sumă",
+                "date": "Data"
+            }
+        },
+        "deposit_wallet": {
+            "title": "Portofel de depozit",
+            "history": "Istoric",
+            "cards": {
+                "balance": "Sold",
+                "transfer": "Transfer Out",
+                "credited_by_admin": "Creditat de administrator"
+            },
+            "table": {
+                "no": "Nr",
+                "user": "Nume utilizator",
+                "from": "De la utilizator",
+                "amount_type": "Tip de sumă",
+                "payment_type": "Tip de plată",
+                "amount": "Sumă plată",
+                "date": "Data"
+            },
+            "pay_now": {
+                "amount": "Sumă ({{symbol}})",
+                "add": "Adaugă credit"
+            }
+        },
+        "fund_credit": {
+            "title": "Fund Credits",
+            "form": {
+                "amount": "Sumă ({{symbol}})",
+                "to": "Către",
+                "note": "Notă",
+                "deduct": "Deducere fond",
+                "add": "Adaugă sumă"
+            },
+            "table": {
+                "no": "Nr",
+                "user": "Nume utilizator",
+                "wallet_type": "Tip de portofel",
+                "payment_type": "Tip de plată",
+                "notes": "Note",
+                "amount": "Sumă",
+                "date": "Data"
+            }
+        },
+        "fund_transfer": {
+            "title": "Fund Transfer",
+            "cards": {
+                "e_balance": "Sold E-Wallet",
+                "d_balance": "Sold portofel de depozit"
+            },
+            "send": {
+                "title": "Modul trimitere",
+                "from": "Trimite de la"
+            },
+            "table": {
+                "no": "Nr",
+                "user": "Nume utilizator",
+                "amount_type": "Tip de sumă",
+                "payment_type": "Tip de plată",
+                "amount": "Sumă plată",
+                "date": "Data",
+                "wallet_type": "Tip de portofel",
+                "to_user": "Către utilizatori",
+                "payment_status": "Stare plată"
+            }
+        },
+        "payout": {
+            "admin": {
+                "title": "Plată",
+                "tabs": {
+                    "request": "Cerere plată",
+                    "history": "Istoric plăți"
+                },
+                "request": {
+                    "table": {
+                        "no": "Nr",
+                        "user_name": "Nume utilizator",
+                        "user_balance": "Sold utilizator",
+                        "payout_info": "Informații despre plată",
+                        "payout_method": "Metodă de plată",
+                        "wallet_address": "Adresă portofel",
+                        "date": "Data",
+                        "requested": "Sumă solicitată",
+                        "admin_fee": "Comision administrativ reținut",
+                        "released": "Sumă eliberată",
+                        "action": "Acțiune"
+                    },
+                    "approve": "Aprobă",
+                    "reject": "Respinge"
+                },
+                "history": {
+                    "table": {
+                        "no": "Nr",
+                        "user_name": "Nume utilizator",
+                        "user_balance": "Sold utilizator",
+                        "wallet_address": "Adresă portofel",
+                        "coin": "Criptomonedă",
+                        "email": "Email",
+                        "date": "Data",
+                        "requested": "Sumă solicitată",
+                        "admin_fee": "Comision administrativ reținut",
+                        "released": "Sumă eliberată",
+                        "action": "Acțiune",
+                        "status": "Stare"
+                    }
+                }
+            },
+            "title": "Cerere plată",
+            "cards": {
+                "balance": "Sold disponibil",
+                "min": "Retragere minimă"
+            },
+            "request": {
+                "title": "Cerere plată",
+                "amount": "Sumă solicitată",
+                "coin": "Tip de criptomonedă",
+                "methods": "Metode de plată"
+            },
+            "table": {
+                "no": "Nr",
+                "amount": "Sumă",
+                "date": "Data",
+                "wallet_address": "Adresă portofel",
+                "coin": "Criptomonedă",
+                "status": "Stare"
+            }
+        }
+    },
+    "business_builder": {
+        "subscriptions": {
+            "title": "Business Builder",
+            "filter": {
+                "amount": "Sumă ({{symbol}})",
+                "builder": "Business Builder",
+                "period": "Alege perioada"
+            },
+            "table": {
+                "no": "Nr",
+                "amount": "Sumă",
+                "date": "Data achiziției",
+                "effective": "Până la",
+                "method": "Metodă de plată",
+                "view": "Vizualizare"
+            }
+        },
+        "materials": {
+            "title": "Materiale",
+            "menu": {
+                "video": "Video",
+                "document": "Documente"
+            }
+        }
+    },
+    "actions": {
+        "edit": "Editează",
+        "delete": "Șterge",
+        "publish": "Publică"
+    },
+    "blogs": {
+        "title": "Blog",
+        "tabs": {
+            "published": "Publicate",
+            "drafts": "Ciorne"
+        },
+        "categories": {
+            "title": "Categorii de blog",
+            "table": {
+                "no": "Nr",
+                "name": "Nume categorie",
+                "desc": "Descriere",
+                "action": "Acțiuni"
+            },
+            "create": {
+                "edit": {
+                    "title": "Actualizează categoria",
+                    "submit": "Actualizează"
+                },
+                "title": "Adaugă categorie",
+                "name": "Nume categorie",
+                "desc": "Descriere",
+                "submit": "Adaugă",
+                "close": "Anulează"
+            },
+            "delete": {
+                "title": "Șterge categoria",
+                "message": "Sigur doriți să continuați? Această acțiune nu poate fi anulată.",
+                "submit": "Șterge",
+                "close": "Anulează"
+            }
+        },
+        "create": {
+            "new_post": "Creează postare",
+            "categories": "Categorii",
+            "category": "Categorie",
+            "table": {
+                "no": "Nr",
+                "img": "Imagine",
+                "title": "Titlu blog",
+                "desc": "Descriere blog",
+                "scope": "Scop",
+                "date": "Data blog",
+                "action": "Acțiuni"
+            },
+            "form": {
+                "add_title": "Adaugă blog",
+                "edit_title": "Editează blog",
+                "type": "Tip",
+                "blog_title": "Titlu blog",
+                "category": "Categorie blog",
+                "product": "Produs",
+                "meta_key": "Meta Keywords",
+                "meta_desc": "Meta Description",
+                "content": "Conținut",
+                "short_desc": "Descriere scurtă",
+                "add_doc": "Adaugă document",
+                "save_as_draft": "Salvează ca ciornă",
+                "submit": "Trimite"
+            }
+        },
+        "view": {
+            "title": "Postări blog",
+            "add_comment": {
+                "title": "Adaugă comentariu",
+                "rating": "Evaluare",
+                "comment_title": "Titlu",
+                "post": "Trimite comentariu"
+            },
+            "recent": "Ultimele postări",
+            "latest_category": "Latest Blog Category"
+        }
+    },
+    "faq": {
+        "title": "Întrebări frecvente (FAQ)",
+        "tabs": {
+            "faq": "Întrebări frecvente",
+            "categories": "Categorii"
+        },
+        "categories": {
+            "add": "Categorie FAQ",
+            "table": {
+                "no": "Nr",
+                "name": "Nume categorie",
+                "desc": "Descriere",
+                "action": "Acțiuni"
+            },
+            "dialog": {
+                "add": "Adaugă categorie FAQ",
+                "edit": "Editează categorie FAQ"
+            },
+            "form": {
+                "name": "Nume categorie",
+                "desc": "Descriere",
+                "status": "Stare",
+                "cancel": "Anulează",
+                "add": "Adaugă",
+                "edit": "Actualizează"
+            },
+            "delete": {
+                "title": "Șterge categorie FAQ",
+                "message": "Sigur doriți să continuați? Această acțiune nu poate fi anulată.",
+                "cancel": "Anulează",
+                "submit": "Șterge"
+            }
+        },
+        "faqs": {
+            "add": "Întrebări frecvente",
+            "table": {
+                "no": "Nr",
+                "question": "Întrebare",
+                "answer": "Răspuns",
+                "action": "Acțiuni"
+            },
+            "form": {
+                "add_title": "Adaugă FAQ",
+                "edit_title": "Editează FAQ",
+                "category": "Categorie FAQ",
+                "questions": "Întrebări",
+                "answer": "Răspuns",
+                "cancel": "Anulează",
+                "add": "Adaugă",
+                "update": "Actualizează"
+            }
+        },
+        "browse_categories": "Răsfoiește pe categorii",
+        "looking_for": "Nu găsești răspunsul pe care îl cauți?",
+        "looking_for_message": "Creează un tichet prin centrul nostru de suport și unul dintre membrii echipei noastre îți va răspunde în 24 de ore.",
+        "create": "Creează un tichet"
+    },
+    "knowledge_base": {
+        "title": "Bază de cunoștințe"
+    },
+    "emails": {
+        "title": "Email"
+    },
+    "admin_email": {
+        "compose": {
+            "title": "Mesaj nou",
+            "subject": "Subiect",
+            "users": "Utilizatori",
+            "send": "Trimite"
+        }
+    },
+    "help_center": {
+        "view": {
+            "view_attachments": "Vizualizează atașamentele",
+            "created": "Data creării",
+            "last_response": "Ultimul răspuns",
+            "actions": {
+                "impersonate": "Impersonare",
+                "edit": "Editează profil"
+            },
+            "reply_form": {
+                "title": "Modul de răspuns",
+                "response": "Răspuns predefinit",
+                "questions": "Întrebări FAQ",
+                "name": "Titlu",
+                "description": "Descriere",
+                "submit": "Trimite răspuns"
+            },
+            "info_card": {
+                "status": "Stare",
+                "priority": "Prioritate",
+                "department": "Departament",
+                "email": "Email",
+                "category": "Categorie",
+                "username": "Nume utilizator",
+                "last_message": "Ultimul mesaj"
+            },
+            "tkt_id": "ID tichet",
+            "dialog": {
+                "update_status": {
+                    "title": "Schimbă starea?",
+                    "cancel": "Anulează",
+                    "submit": "Da, schimbă starea la {{status}}"
+                }
+            }
+        },
+        "status": {
+            "open": "Deschis",
+            "overdue": "Întârziat",
+            "resolved": "Rezolvat",
+            "closed": "Închis",
+            "archived": "Arhivat",
+            "deleted": "Șters",
+            "unverified": "Neverificat",
+            "request_approval": "Solicită aprobare",
+            "in_progress": "În curs",
+            "responded": "Răspuns"
+        },
+        "department": {
+            "add_button": "Departament",
+            "table": {
+                "no": "Nr",
+                "name": "Nume",
+                "status": "Stare",
+                "desc": "Descriere",
+                "actions": "Acțiuni"
+            },
+            "actions": {
+                "edit": "Editează",
+                "delete": "Șterge"
+            },
+            "dialog": {
+                "delete": {
+                    "title": "Șterge departament",
+                    "msg": "Sigur doriți să continuați? Această acțiune nu poate fi anulată.",
+                    "submit": "Șterge",
+                    "cancel": "Anulează"
+                },
+                "edit": {
+                    "title": "Editează departament",
+                    "name": "Nume departament",
+                    "desc": "Descriere",
+                    "status": "Stare",
+                    "sort_order": "Ordonare",
+                    "submit": "Actualizează",
+                    "cancel": "Anulează"
+                },
+                "add": {
+                    "submit": "Creează",
+                    "title": "Adaugă departament"
+                }
+            }
+        },
+        "categories": {
+            "add_button": "Categorie",
+            "table": {
+                "no": "Nr",
+                "name": "Categorie",
+                "status": "Stare",
+                "desc": "Descriere",
+                "actions": "Acțiuni"
+            },
+            "actions": {
+                "edit": "Editează",
+                "delete": "Șterge"
+            },
+            "dialog": {
+                "delete": {
+                    "title": "Șterge categorie",
+                    "msg": "Sigur doriți să continuați? Această acțiune nu poate fi anulată.",
+                    "submit": "Șterge",
+                    "cancel": "Anulează"
+                },
+                "edit": {
+                    "title": "Editează categorie",
+                    "name": "Nume categorie",
+                    "desc": "Descriere",
+                    "status": "Stare",
+                    "sort_order": "Ordonare",
+                    "submit": "Actualizează",
+                    "cancel": "Anulează"
+                },
+                "add": {
+                    "submit": "Creează",
+                    "title": "Adaugă categorie"
+                }
+            }
+        },
+        "canned_response": {
+            "add_button": "Răspuns predefinit",
+            "table": {
+                "no": "Nr",
+                "name": "Titlu",
+                "subject": "Subiect",
+                "actions": "Acțiuni"
+            },
+            "actions": {
+                "edit": "Editează",
+                "delete": "Șterge"
+            },
+            "dialog": {
+                "delete": {
+                    "title": "Șterge răspuns predefinit",
+                    "msg": "Sigur doriți să continuați? Această acțiune nu poate fi anulată.",
+                    "submit": "Șterge",
+                    "cancel": "Anulează"
+                },
+                "edit": {
+                    "title": "Editează răspuns predefinit",
+                    "name": "Titlu răspuns predefinit",
+                    "sub": "Subiect",
+                    "placeholder": "Mesaj răspuns predefinit",
+                    "submit": "Actualizează",
+                    "cancel": "Anulează"
+                },
+                "add": {
+                    "submit": "Creează",
+                    "title": "Adaugă răspuns predefinit"
+                }
+            }
+        },
+        "priorities": {
+            "add_button": "Prioritate",
+            "table": {
+                "no": "Nr",
+                "name": "Prioritate",
+                "desc": "Descriere prioritate",
+                "color": "Culoare prioritate",
+                "status": "Stare",
+                "actions": "Acțiuni"
+            },
+            "actions": {
+                "edit": "Editează",
+                "delete": "Șterge"
+            },
+            "dialog": {
+                "delete": {
+                    "title": "Șterge prioritate",
+                    "msg": "Sigur doriți să continuați? Această acțiune nu poate fi anulată.",
+                    "submit": "Șterge",
+                    "cancel": "Anulează"
+                },
+                "edit": {
+                    "title": "Editează prioritate",
+                    "name": "Prioritate",
+                    "color": "Culoare",
+                    "desc": "Descriere",
+                    "submit": "Actualizează",
+                    "cancel": "Anulează"
+                },
+                "add": {
+                    "submit": "Creează",
+                    "title": "Adaugă prioritate"
+                }
+            }
+        },
+        "form": {
+            "ticket_id": "ID tichet",
+            "subject": "Subiect",
+            "description": "Descriere",
+            "priority": "Prioritate",
+            "department": "Departament",
+            "category": "Categorie",
+            "status": "Stare",
+            "document": "Document",
+            "add": "Adaugă",
+            "update": "Actualizează"
+        },
+        "actions": {
+            "view": "Vizualizare",
+            "impersonate": "Impersonare",
+            "edit": "Editează",
+            "delete": "Șterge"
+        },
+        "title": "Centru de asistență",
+        "create": "Creează tichet",
+        "side_bar": {
+            "dashboard": "Dashboard tichete",
+            "all": "Toate tichetele",
+            "overdue": "Întârziate",
+            "open": "Deschise",
+            "resolved": "Rezolvate",
+            "closed": "Închise",
+            "in_progress": "În curs",
+            "responded": "Cu răspuns",
+            "departments": "Departamente",
+            "categories": "Categorii",
+            "canned_response": "Răspuns predefinit",
+            "priorities": "Priorități"
+        },
+        "filter": {
+            "department": "Departamente",
+            "priority": "Prioritate",
+            "status": "Stare",
+            "category": "Categorie",
+            "tkt_id": "ID tichet",
+            "user": "Caută utilizator",
+            "overdue": "Afișează doar elementele întârziate"
+        },
+        "table": {
+            "no": "Nr",
+            "tkt_no": "Număr tichet",
+            "tkt_from": "Tichet de la",
+            "date": "Data",
+            "subject": "Subiect",
+            "status": "Stare",
+            "priority": "Prioritate",
+            "department": "Departament",
+            "category": "Categorie",
+            "action": "Acțiuni"
+        },
+        "document": {
+            "title": "Document",
+            "created_at": "Creat la",
+            "view": "Vezi"
+        },
+        "video": {
+            "title": "Video"
+        }
+    },
+    "articles": {
+        "title": "Articole",
+        "options": {
+            "title": "Bază de cunoștințe",
+            "articles": "Articole",
+            "categories": "Categorii articol"
+        },
+        "articles": {
+            "title": "Toate articolele",
+            "add_button": "Articol",
+            "form": {
+                "add_title": "Adaugă articol",
+                "edit_title": "Editează articol",
+                "name": "Nume",
+                "category": "Categorie",
+                "description": "Descrieri",
+                "cancel": "Anulează",
+                "submit_add": "Adaugă",
+                "submit_edit": "Adaugă"
+            },
+            "delete": {
+                "title": "Șterge articol",
+                "msg": "Sigur doriți să continuați? Această acțiune nu poate fi anulată.",
+                "cancel": "Anulează",
+                "submit": "Șterge"
+            },
+            "actions": {
+                "edit": "Editează",
+                "delete": "Șterge"
+            },
+            "table": {
+                "no": "Nr",
+                "title": "Titlu articole",
+                "time": "Ora publicării",
+                "actions": "Acțiuni"
+            }
+        },
+        "categories": {
+            "title": "Toate categoriile",
+            "add_button": "Categorie",
+            "form": {
+                "add_title": "Adaugă categorie",
+                "edit_title": "Editează categorie",
+                "name": "Nume",
+                "category": "Categorie",
+                "description": "Descrieri",
+                "cancel": "Anulează",
+                "submit_add": "Adaugă",
+                "submit_edit": "Actualizează"
+            },
+            "delete": {
+                "title": "Șterge categorie",
+                "msg": "Sigur doriți să continuați? Această acțiune nu poate fi anulată.",
+                "cancel": "Anulează",
+                "submit": "Șterge"
+            },
+            "actions": {
+                "edit": "Editează",
+                "delete": "Șterge"
+            },
+            "table": {
+                "no": "Nr",
+                "title": "Nume categorie",
+                "time": "Creat la",
+                "actions": "Acțiuni"
+            }
+        }
+    },
+    "settings": {
+        "title": "Setări",
+        "mode": "Mod",
+        "direction": "Direcție",
+        "layout": "Layout",
+        "presets": "Presetări",
+        "stretch": "Extinde",
+        "full_screen": {
+            "enter": "Ecran complet",
+            "exit": "Ieși din ecranul complet"
+        },
+        "advanced_settings": {
+            "title": "Setări avansate",
+            "kyc": {
+                "show": "Afișează KYC",
+                "update": "Actualizează",
+                "message": "Prin activarea KYC, utilizatorii vor trebui să își încarce documentele"
+            },
+            "leads": {
+                "show": "Afișează clienți potențiali",
+                "update": "Actualizează"
+            },
+            "2fa": {
+                "show": "Activează autentificarea în doi factori",
+                "update": "Actualizează",
+                "message": "Prin activarea autentificării în doi factori, utilizatorii vor avea opțiunea de a o activa din setările profilului lor. Dacă este activată, utilizatorului i se va cere să introducă un OTP înainte de a se autentifica."
+            },
+            "package": {
+                "show": "Achiziție pachet necesară",
+                "update": "Actualizează"
+            },
+            "mail": {
+                "show": "Verificare email necesară",
+                "update": "Actualizează"
+            },
+            "membership_packages": {
+                "show": "Data nașterii necesară",
+                "minimum": "Vârsta minimă necesară",
+                "update": "Actualizează"
+            },
+            "tabs": {
+                "currency": "Monedă",
+                "kyc": "KYC",
+                "leads": "Clienți potențiali",
+                "payments": "Plăți",
+                "dob": "Data nașterii",
+                "membership_packages": "Pachete de înscriere",
+                "membership_settings": "Setări de înscriere",
+                "2fa": "Autentificare în doi factori",
+                "email_verify": "Verificare email",
+                "package_purchase": "Achiziție pachet"
+            }
+        },
+        "brand": {
+            "deleteSection": "Șterge secțiune",
+            "editSection": "Editează secțiune",
+            "edit": "Editează",
+            "cancel": "Anulează",
+            "delete": "Șterge",
+            "areYouSure": "Sigur doriți să continuați? Această acțiune nu poate fi anulată.",
+            "deleteArticles": "Șterge articol",
+            "editArticles": "Editează articol",
+            "submit": "Trimite",
+            "update": "Actualizează",
+            "close": "Închide",
+            "blogTitle": "Titlu blog",
+            "description": "Descriere",
+            "addArticles": "Adaugă articole",
+            "no": "Nr",
+            "article_name": "Nume articol",
+            "menu_name": "Nume meniu",
+            "action": "Acțiune",
+            "sectionName": "Nume secțiune",
+            "sortOrder": "Ordonare",
+            "addSection": "Adaugă secțiune",
+            "section": "Secțiune",
+            "articles": "Articole",
+            "save": "Salvează",
+            "email": "Email",
+            "company_address": "Adresă companie",
+            "company_name": "Nume companie",
+            "change_your_logo_icon": "Schimbă iconița logo",
+            "sidebar_corner_logo": "Logo în colțul barei laterale",
+            "change_your_logo": "Schimbă logo-ul tău",
+            "change_logo": "Schimbă logo",
+            "title": "Brand: Setări",
+            "brand": "Setări brand",
+            "company_details": "Detalii companie",
+            "get_started": "Începe",
+            "user_guidance": "Ghid utilizator",
+            "allowed": "Permis",
+            "size": "dimensiune maximă de"
+        },
+        "business_builder": {
+            "edit": "Editează",
+            "delete": "Șterge",
+            "areYouSure": "Sigur doriți să continuați? Această acțiune nu poate fi anulată.",
+            "cancel": "Anulează",
+            "close": "Închide",
+            "submit": "Trimite",
+            "addBusinessBuilder": "Adaugă Business Builder",
+            "editBusinessBuilder": "Editează Business Builder",
+            "no": "Nr",
+            "name": "Nume",
+            "amount": "Sumă",
+            "bv": "BV",
+            "add": "Adaugă",
+            "action": "Acțiune",
+            "title": "Business Builder: Setări",
+            "business_builder": "Business Builder",
+            "deleteBusinessBuilder": "Șterge Business Builder"
+        },
+        "withdrawal": {
+            "title": "Retragere",
+            "available_payouts": "Plată disponibilă"
+        },
+        "network": {
+            "min_required_rank": "Rang minim necesar",
+            "required_rank": "Rang necesar",
+            "level_1_rank": "Rang de nivel 1",
+            "level_2_rank": "Rang de nivel 2",
+            "level_3_rank": "Rang de nivel 3",
+            "levels_unlocked": "Niveluri deblocate",
+            "placement_lounge_settings": "Setări lounge de plasare",
+            "eveolving_bonus_settings": "Setări bonus în evoluție",
+            "rocksolid_bonus_settings": "Setări bonus solid ca stânca",
+            "is_bonus_settings": "Setări bonus vânzări indirecte",
+            "leadership_bonus": "Setări bonus de leadership",
+            "rob_bonus_settings": "Setări Recurring Order Bonus",
+            "residual_matching": "Setări Residual Matching Bonus",
+            "three_ff_bonus_settings": "Setări program 3 For Free",
+            "residual_bonus": "Setări Residual Bonus",
+            "rock_solid_mvp_bonus": "Setări Rock Solid MVP Bonus",
+            "withdrawal_text": "Text retragere afișat pe pagina membrilor",
+            "withdrawal_admin": "Procent comision administrativ retragere: %",
+            "open_withdrawals_on": "Deschide retragerile în aceste zile",
+            "monday": "Luni",
+            "tuesday": "Marți",
+            "wednesday": "Miercuri",
+            "thursday": "Joi",
+            "friday": "Vineri",
+            "sunday": "Duminică",
+            "saturday": "Sâmbătă",
+            "available_coins": "Monede disponibile",
+            "min_amount": "Sumă minimă pentru retragere:",
+            "withdrawal_title": "Retragere: Setări",
+            "withdrawal": "Retragere",
+            "level": "Nivel",
+            "percentage": "Procent",
+            "products": "Produse",
+            "month": "Lună",
+            "referral_bonus": "Bonus Referral",
+            "update": "Actualizează",
+            "rank_name": "Nume rang",
+            "personally_enrolled_rank": "Rang personal înscris",
+            "count": "Număr",
+            "team_volume": "Volum echipă",
+            "title": "Setări rețea: Setări",
+            "network": "Setări rețea",
+            "binary_bonus_settings": "Setări Binary Bonus",
+            "rank_settings": "Setări rang",
+            "referral_commission_settings": "Setări comision referral",
+            "first_order_bonus": "Bonus prima comandă",
+            "level_bonus": "Bonus nivel",
+            "roi_settings": "Setări ROI",
+            "rank": "Rang",
+            "bv_capping": "BV Capping",
+            "binary_bonus_capping": "Limită Binary Bonus",
+            "binary_matching": "Binary Matching (%)",
+            "go_mvp_bonus_settings": "Setări Go MVP Bonus",
+            "min_dqv": "DQV-ul meu",
+            "min_qv_per_customer": "QV minim per client",
+            "qualification_days": "Zile de calificare",
+            "min_pqv": "PQV minim",
+            "minimum_pqv": "PQV minim",
+            "active": "Activ",
+            "circle_of_evelution": "Circle of Evolution",
+            "required_dqv": "DQV necesar",
+            "min_customer_qv": "QV minim al clientului",
+            "monthly_bonus_amount": "Sumă bonus lunar",
+            "consecutive_months_bonus_trigger": "Declanșator bonus pentru luni consecutive",
+            "consecutive_bonus_amount": "Sumă bonus consecutiv",
+            "rsp_bonus_settings": "Setări bonus RSP",
+            "direct_sales_bonus_settings": "Setări Direct Sales Bonus",
+            "min_pqv_previous_month": "PQV minim luna precedentă",
+            "bonus_percentage": "Procent bonus",
+            "discount_percentage": "Procent reducere",
+            "required_consecutive_months": "Luni consecutive necesare",
+            "bonus_coupon_value": "Valoare cupon bonus",
+            "personal_order_qv": "QV comandă personală",
+            "required_customers": "Clienți necesari",
+            "customer_min_qv": "Client cu QV minim",
+            "max_bonus_value": "Valoare maximă bonus",
+            "min_rank_required": "Rang minim necesar",
+            "max_generations": "Generații maxime",
+            "generation_1_percentage": "Procent prima generație",
+            "generation_1_required_rank": "Rang necesar prima generație",
+            "generation_2_percentage": "Procent a doua generație",
+            "generation_2_required_rank": "Rang necesar a doua generație",
+            "pmb_bonus_settings": "Setări MVP Mentor Bonus",
+            "max_level": "Niveluri maxime",
+            "level_1_percentage": "Procent nivel 1",
+            "level_2_percentage": "Procent nivel 2",
+            "level_3_percentage": "Procent nivel 3",
+            "bonus_amount": "Sumă bonus",
+            "packages_name": "Nume pachete",
+            "required_personal_volume": "PQV necesar",
+            "minimumpqv": "PQV minim",
+            "months": "Luni",
+            "placement_launch_settings": "Setări lansare plasare",
+            "min_qv": "QV minim"
+        },
+        "currency": {
+            "are_you": "Sigur doriți să continuați? Această acțiune nu poate fi anulată?",
+            "delete_dialog": "Șterge dialog",
+            "cancel": "Anulează",
+            "currency": "Monedă",
+            "add": "Adaugă",
+            "edit": "Editează",
+            "delete": "Șterge",
+            "no": "Nr",
+            "name": "Nume",
+            "code": "Cod",
+            "symbol": "Simbol",
+            "status": "Stare",
+            "exchange_rate": "Curs de schimb",
+            "action": "Acțiune",
+            "add_dialog": "Adaugă dialog",
+            "enabled": "Activat",
+            "disabled": "Dezactivat"
+        },
+        "reports": {
+            "pv": "PV",
+            "leg": "Picior",
+            "type": "Tip",
+            "coin": "Monedă",
+            "fullName": "Nume complet",
+            "status": "Stare",
+            "adminFeeDeducted": "Comision administrativ reținut",
+            "amountReleased": "Sumă eliberată",
+            "requestedAmount": "Sumă solicitată",
+            "walletAddress": "Adresă portofel",
+            "bonusType": "Tip de bonus",
+            "credit": "Credit",
+            "note": "Notă",
+            "date": "Data",
+            "payment_method": "Metodă de plată",
+            "no": "Nr",
+            "username": "Nume utilizator",
+            "email": "Email",
+            "amount": "Sumă",
+            "dateJoined": "Data înregistrării",
+            "sales": "Raport vânzări",
+            "top_earners": "Raport Top Earners",
+            "point_history": "Raport istoric puncte",
+            "payout_report": "Raport plăți",
+            "member_income": "Raport venituri membru",
+            "joining_report": "Raport înscrieri",
+            "fund_transfer": "Raport transferuri fonduri",
+            "business_builder": "Raport Business Builder"
+        }
+    },
+    "support_tickets": {
+        "title": "Tichete de suport",
+        "create": "Creează tichet",
+        "side_bar": {
+            "all": "Toate",
+            "open": "Deschise",
+            "resolved": "Rezolvate",
+            "closed": "Închise",
+            "in_progress": "În curs",
+            "responded": "Cu răspuns"
+        },
+        "table": {
+            "no": "Număr tichet",
+            "date": "Data",
+            "subject": "Subiect",
+            "status": "Stare",
+            "priority": "Prioritate",
+            "department": "Departament",
+            "category": "Categorie",
+            "actions": "Acțiuni"
+        },
+        "contact_support": {
+            "title": "Creează tichet",
+            "create_card": {
+                "title": "Creează tichet",
+                "category": "Selectează categorie",
+                "department": "Selectează departament",
+                "priority": "Selectează prioritate",
+                "subject": "Subiect",
+                "file": "Atașează fișier",
+                "submit": "Trimite cererea"
+            }
+        },
+        "view": {
+            "title": "Vizualizează tichet",
+            "pill": "ID tichet",
+            "created": "Data creării",
+            "last": "Ultimul răspuns",
+            "about": {
+                "status": "Stare",
+                "priority": "Prioritate",
+                "department": "Departament",
+                "email": "Email",
+                "category": "Categorie",
+                "username": "Nume utilizator"
+            },
+            "reply_form": {
+                "title": "Modul de răspuns",
+                "submit": "Trimite răspuns",
+                "faq_title": "Titlu"
+            }
+        }
+    },
+    "profile": {
+        "tax_code": "Cod fiscal (CNP)",
+        "vat_number": "Cod TVA (CUI)",
+        "your_notes": "Notele tale",
+        "no": "Nr",
+        "userName": "Nume utilizator",
+        "email": "Email",
+        "active": "Activ",
+        "dateJoined": "Data înregistrării",
+        "businessBuilder": "Business Builder",
+        "socialMediaScope": "Scop social media",
+        "save_changes": "Salvează modificările",
+        "medium": "Mediu",
+        "email_address": "Adresă email",
+        "phone_numbers": "Numere de telefon",
+        "address": "Adresă",
+        "state_region": "Stat/Regiune",
+        "city": "Oraș",
+        "zip_codes": "Cod poștal",
+        "male": "Bărbat",
+        "female": "Femeie",
+        "other": "Altul",
+        "balance": "Sold",
+        "your_activity_history": "Istoricul tău de activitate",
+        "last_seen": "Ultima conectare",
+        "allowed": "Permise",
+        "max_size": "Dimensiune maximă",
+        "first_name": "Nume",
+        "last_name": "Prenume",
+        "gender": "Gen",
+        "public_private": "Public/Privat",
+        "choose_country": "Alege țara",
+        "account_settings": "Setări cont",
+        "new_passwords": "Parolă nouă",
+        "confirm_new_passwords": "Confirmă parola nouă",
+        "twoStepAuthentication": "Autentificare în doi pași",
+        "twoStep": "Autentificare în doi pași (2FA)",
+        "emailNotificationSettings": "Setări notificări email",
+        "materialAdd": "Adaugă material",
+        "productBusiness": "Notificări expirare taxă produs și Business Builder",
+        "blog": "Blog",
+        "rankachieved": "Rang atins",
+        "paymentCompleted": "Plată finalizată",
+        "newUserAdded": "Utilizator nou adăugat în rețeaua binară",
+        "accountUpdate": "Actualizare cont",
+        "friendRegisterMail": "Email înregistrare prieten",
+        "telegramInstructionMails": "Emailuri instrucțiuni Telegram",
+        "mailsFromAdmin": "Emailuri de la administrator",
+        "title": "Profil",
+        "referrals": "Referral",
+        "total_payout": "Plată totală",
+        "total_commission": "Comision total",
+        "tabs": {
+            "profile": "Profil",
+            "edit": "Editează info",
+            "settings": "Setări",
+            "referral": "Referral",
+            "note": "Notă",
+            "payout": "Plată"
+        },
+        "profile": {
+            "commission": "Comision total",
+            "payout": "Plată totală",
+            "referrals": "Referral",
+            "balance": "Sold",
+            "last_seen": "Ultima conectare",
+            "activity_history": "Istoricul tău de activitate"
+        },
+        "referral": {
+            "title": "Referral",
+            "table": {
+                "no": "Nr",
+                "user": "Nume utilizator",
+                "email": "Email",
+                "active": "Activ",
+                "business_builder": "Business Builder",
+                "date": "Data înregistrării"
+            }
+        },
+        "settings": {
+            "bank_account": {
+                "title": "Actualizează informațiile de plată directă"
+            },
+            "bitaps": {
+                "title": "Actualizează adresa Bitcoin"
+            },
+            "bank": {
+                "title": "Actualizează detaliile bancare",
+                "save": "Salvează modificările"
+            },
+            "stripe": {
+                "title": "Actualizează informațiile de plată online",
+                "form": {
+                    "first_name": "Prenume",
+                    "last_name": "Nume",
+                    "currency": "Monedă",
+                    "account_holder_name": "Numele titularului de cont",
+                    "account_holder_type": "Tip titular de cont",
+                    "routing_number": "Număr de rutare",
+                    "account_number": "Număr de cont",
+                    "country": "Țară",
+                    "id_number": "Număr de identificare",
+                    "phone": "Telefon",
+                    "gender": "Gen",
+                    "dob": "Data nașterii",
+                    "line1": "Adresă linia 1",
+                    "line2": "Adresă linia 2",
+                    "city": "Oraș",
+                    "state": "Stat",
+                    "postal_code": "Cod poștal"
+                }
+            },
+            "password": {
+                "title": "Setări cont",
+                "new_password": "Parolă nouă",
+                "confirm": "Confirmă parola nouă",
+                "save": "Salvează modificările"
+            },
+            "address": {
+                "title": "Schimbă adresa Coin",
+                "save": "Salvează"
+            },
+            "2fa": {
+                "title": "Autentificare în doi pași (2FA)",
+                "enable_message": "Primul pas este să descarci aplicația Google Authenticator pe dispozitivul tău Android sau iOS. Dacă ai nevoie de ajutor pentru a începe, consultă pagina de suport Google. Dacă nu ai acces la Android Market sau App Store, există alte opțiuni pentru a obține Google Authenticator: Descărcare pentru Android, plugin Google Chrome sau iTunes App Store.",
+                "post_script": "Tokenul nu va mai fi afișat după activarea 2FA. Dacă ai mai multe dispozitive, adaugă tokenul contului tău pe toate înainte de a face click pe activare. (Notă: Tokenul contului tău se va schimba de fiecare dată când reîncarci browserul.)",
+                "button": "Verifică",
+                "otp": "Introdu OTP"
+            },
+            "cache": {
+                "title": "Confidențialitate și securitate",
+                "body": "Șterge datele de navigare",
+                "sub": "Șterge istoricul, cookie-urile, memoria cache și altele",
+                "dialog": {
+                    "title": "Șterge datele de navigare",
+                    "body": "După ștergerea istoricului de navigare, vei fi deconectat de la această pagină.",
+                    "cancel": "Anulează",
+                    "save": "Șterge"
+                }
+            }
+        },
+        "notes": {
+            "button": "Note",
+            "dialog": {
+                "add": {
+                    "title": "Adaugă note",
+                    "submit": "Trimite",
+                    "cancel": "Închide"
+                },
+                "delete": {
+                    "title": "Șterge notă",
+                    "message": "Sigur doriți să continuați? Această acțiune nu poate fi anulată.",
+                    "submit": "Șterge",
+                    "cancel": "Anulează"
+                },
+                "edit": {
+                    "title": "Editează notă",
+                    "submit": "Actualizează",
+                    "cancel": "Anulează"
+                }
+            }
+        },
+        "edit": {
+            "tax_code": "Cod fiscal (CNP)",
+            "vat_number": "Cod TVA (CUI)",
+            "first_name": "Nume",
+            "last_name": "Prenume",
+            "gender": "Gen",
+            "country": "Țară",
+            "state": "Stat/Regiune",
+            "city": "Oraș",
+            "pin": "Cod poștal",
+            "address": "Adresă",
+            "mobile": "Număr de telefon",
+            "mail": "Adresă email",
+            "social": {
+                "phone": "Telefon",
+                "mail": "Email",
+                "fb": "Facebook",
+                "x": "X",
+                "whatsapp": "Whatsapp",
+                "insta": "Instagram",
+                "tele": "Telegram",
+                "medium": "Medium"
+            },
+            "status": "Public / Privat",
+            "social_scope": "Scop social media",
+            "update": "Salvează modificările"
+        }
+    },
+    "user": {
+        "recurring_order": {
+            "title": "Comandă recurentă",
+            "disable_recurring": "Dezactivează recurentă",
+            "recurring_enabled": "Recurentă activată",
+            "enable_on": "Recurentă activată pe",
+            "update_card": "Actualizează cardul"
+        },
+        "online_store": {
+            "team_orders": {
+                "title": "Comenzile echipei"
+            },
+            "select_month": "Selectează luna",
+            "buy_now": "Cumpără acum",
+            "cart": "Adaugă în coș",
+            "subscription": "Abonament",
+            "write_review": "Scrie recenzia ta",
+            "product_details": {
+                "title": "Detalii produs",
+                "review_other": "Recenzii ({{count}})",
+                "average_rating": "Evaluare medie"
+            },
+            "product": {
+                "title": "Abonament la produs",
+                "quantity": "Cantitate",
+                "amount": "Sumă",
+                "complete_order": "Finalizează comanda",
+                "balance": "Sold disponibil",
+                "back": "Înapoi",
+                "payment_options": "Opțiuni de plată",
+                "subscription": "Abonament",
+                "price": "Preț",
+                "product": "Produs",
+                "coupon": "Cod cupon",
+                "apply": "Aplică",
+                "order_summary": "Rezumat comandă",
+                "sub_total": "Subtotal",
+                "discount": "Reducere",
+                "total": "Total",
+                "continue": "Continuă cumpărăturile",
+                "look_like": "Se pare că nu există articole în coșul tău.",
+                "cart_is_empty": "Coșul este gol",
+                "cart": "coș",
+                "checkout": "Checkout"
+            },
+            "my_orders": {
+                "title": "Comenzile mele",
+                "details": {
+                    "title": "Detalii factură",
+                    "invoiced_date": "Data facturii",
+                    "question": "Ai o întrebare?",
+                    "foot_note": "Suntem bucuroși să primim feedbackul tău. Îți mulțumim pentru afacerea ta și pentru sprijin. Te rugăm să efectuezi o plată imediată. Dacă ai întrebări despre această factură, nu ezita să ne contactezi."
+                },
+                "invoice_details": {
+                    "iva_price": "Preț TVA",
+                    "my_orders_titile": "Comenzile mele: Magazin online",
+                    "my_orders": "Comenzile mele",
+                    "subscription": "Abonament",
+                    "no": "Nr",
+                    "invoice_id": "Număr factură",
+                    "payment_method": "Metodă de plată",
+                    "order_date": "Data comenzii",
+                    "total_price": "Preț total",
+                    "action": "Acțiune",
+                    "combo": "Combo",
+                    "view": "Vizualizare",
+                    "invoice_titile": "Factură: Vizualizare",
+                    "invoice_details": "Detalii factură",
+                    "invoices": "Facturi",
+                    "date_invoice": "Data facturii:",
+                    "product": "Produs",
+                    "type": "Tip",
+                    "bv": "BV",
+                    "price": "Preț",
+                    "notes": "NOTE",
+                    "have_question": "Ai o întrebare?",
+                    "item": "Articol",
+                    "sub_total": "Subtotal",
+                    "discount": "Reducere",
+                    "taxes": "Taxe",
+                    "total": "Total",
+                    "support_mail": "support@cloudmlm.com",
+                    "shipping": "Expediere",
+                    "quantity": "Cantitate",
+                    "qv": "QV",
+                    "ev": "EV",
+                    "coupon_discount": "Reducere cupon",
+                    "consequtive": "Reducere pentru lună consecutivă"
+                }
+            }
+        },
+        "subscriptions": {
+            "title": "Înscrierile mele",
+            "active_only": "Afișează doar abonamentele active?",
+            "purchase_date": "Data achiziției",
+            "expiry_date": "Expiră la",
+            "enable_recurring": "Activează recurența",
+            "recurring_not_enabled": "Recurență nu este activată",
+            "recurring_cancelled_on": "Recurență anulată la",
+            "stripe_recurring_enable_message": "Continuând, activezi reînnoirea automată a acestui abonament folosind cardul tău Stripe.",
+            "recurring_payment": "Activează plata recurentă",
+            "paypal_recurring_enable_message": "Continuând, activezi plata recurentă pentru acest produs prin PAYPAL.",
+            "your_review": "Recenzia ta despre acest produs",
+            "submit_review": "Trimite comentariul",
+            "list_public_events": "Listă evenimente publice",
+            "labels": {
+                "review": "Adaugă recenzie",
+                "blog": "Blog",
+                "events": "Evenimente",
+                "documents": "Documente",
+                "videos": "Video",
+                "view": "Vizualizează"
+            }
+        },
+        "income_report": {
+            "title": "Raport venituri",
+            "table": {
+                "no": "Nr.",
+                "from": "De la numele",
+                "amount_type": "Tip de sumă",
+                "credit": "Credit",
+                "created": "Creat"
+            }
+        }
+    },
+    "admin": {},
+    "products": {
+        "title": {
+            "subscriptions": "Abonamente",
+            "product_and_pack": "Produse și pachete",
+            "add": "Adaugă",
+            "category_name": "Nume categorie",
+            "product": "Produs",
+            "package": "Pachet",
+            "video_edit": "Vizualizează / Editează video",
+            "document_view_edit": "Vizualizează / Editează document",
+            "questions_view_edit": "Vizualizează / Editează întrebări",
+            "sample_document_view_edit": "Vizualizează / Editează document exemplu",
+            "product_view_edit": "Vizualizează / Editează produs",
+            "delete": "Șterge",
+            "package_add": "Adaugă pachet",
+            "product_add": "Adaugă produs",
+            "package_edit": "Editează pachet",
+            "product_edit": "Editează produs",
+            "subscription_edit": "Editează abonament",
+            "subscription_view_edit": "Vizualizează/editează abonament"
+        },
+        "add": {
+            "package_name": "Nume pachet",
+            "product_name": "Nume produs",
+            "meta_keywords": "Meta Keywords",
+            "meta_description": "Meta descriere",
+            "short_description": "Descriere scurtă",
+            "title": "Titlu",
+            "description": "Descriere",
+            "product_page_url": "URL pagină produs",
+            "images": "Imagini",
+            "status": "Stare",
+            "accessFrom": "Acces de la",
+            "accessTo": "Acces până la",
+            "product_available": "Produs disponibil",
+            "package_available": "Pachet disponibil",
+            "submit": "Trimite",
+            "reset": "Resetează",
+            "add_price": "Adaugă preț",
+            "subscription": "Abonament",
+            "one_off_payment": "Plată unică",
+            "addVimeoVideo": "Adaugă URL video Vimeo (opțional)",
+            "subscription_or": "Abonament sau plată unică",
+            "add_doc": "Adaugă document",
+            "add_sample_doc": "Adaugă document exemplu",
+            "remove_all": "Elimină tot"
+        },
+        "video": {
+            "update": "Actualizează",
+            "edit_video": "Editează video",
+            "cancel": "Anulează",
+            "areYouSure": "Sigur doriți să continuați? Această acțiune nu poate fi anulată",
+            "deleteVideo": "Șterge video",
+            "title": "Video",
+            "product": "Produse și pachete",
+            "add": "Adaugă",
+            "addVideo": "Adaugă video",
+            "videoURL": "URL video",
+            "close": "Închide",
+            "delete": "Șterge",
+            "edit": "Editează"
+        },
+        "category": {
+            "add": "Adaugă categorie",
+            "edit_cat": "Editează categorie",
+            "product_categories_store": "Categorii produse: Magazin",
+            "product_categories": "Categorii produse",
+            "category_name": "Nume categorie produs",
+            "add_category": "Adaugă categorie",
+            "status": "Stare",
+            "enabled": "Activat",
+            "disabled": "Dezactivat",
+            "close": "Închide",
+            "submit": "Trimite",
+            "edit": "Editează",
+            "delete": "Șterge",
+            "total_products": "Total produse",
+            "delete_product_category": "Șterge categoria de produs",
+            "delete_msg": "Sigur doriți să continuați? Această acțiune nu poate fi anulată"
+        },
+        "document": {
+            "delete_document": "Șterge document",
+            "areYouSure": "Sigur doriți să continuați? Această acțiune nu poate fi anulată",
+            "close": "Închide",
+            "update": "Actualizează",
+            "edit_document": "Editează document",
+            "uploadDocument": "Încarcă document",
+            "upload": "Încarcă",
+            "cancel": "Anulează",
+            "add_sample_document": "Adaugă document exemplu",
+            "products": "Produse",
+            "title": "Document | Magazin",
+            "document": "Document",
+            "add": "Adaugă",
+            "edit": "Editează",
+            "delete": "Șterge",
+            "view": "Vizualizează",
+            "createdAt": "Creat la"
+        },
+        "question": {
+            "cancel": "Anulează",
+            "delete": "Șterge",
+            "areYouSure": "Sigur doriți să continuați? Această acțiune nu poate fi anulată",
+            "delete_product_questions": "Șterge întrebările produsului",
+            "add_product_question": "Adaugă întrebare produs",
+            "edit_product_questions": "Editează întrebările produsului",
+            "no": "Nr.",
+            "add_question": "Adaugă întrebare",
+            "action": "Acțiune",
+            "description": "Descriere",
+            "titles": "Titlu",
+            "title": "Întrebare | Magazin",
+            "question": "Întrebare",
+            "products": "Produse și pachete",
+            "answer": "Răspuns",
+            "close": "Închide",
+            "submit": "Trimite"
+        },
+        "sample_doc": {
+            "title": "Document exemplu | Magazin",
+            "sample_doc": "Document exemplu",
+            "products": "Produse și pachete",
+            "add": "Adaugă"
+        },
+        "edit": {
+            "title": "Editează produs | Magazin",
+            "edit": "Editează produs",
+            "products": "Produse și pachete"
+        },
+        "delete": {
+            "areYouSure": "Sigur doriți să continuați? Această acțiune nu poate fi anulată",
+            "delete_product": "Șterge produs",
+            "cancel": "Anulează",
+            "delete": "Șterge"
+        }
+    },
+    "material": {
+        "action": "Acțiune",
+        "category": "Categorie",
+        "sort_order": "Ordine de sortare",
+        "title": "Produse | Magazin",
+        "materials": "Materiale",
+        "material": "Material",
+        "material_categories": "Categorii de materiale",
+        "no": "Nr.",
+        "product_name": "Nume produs",
+        "doc_count": "Număr documente",
+        "video_count": "Număr videoclipuri",
+        "view": "Vizualizează",
+        "add": "Adaugă",
+        "add_material": {
+            "submit": "Trimite",
+            "choose_product": "Alege produsul",
+            "material_category": "Categorie material",
+            "description": "Descriere",
+            "add_video": "Adaugă video",
+            "URL": "URL",
+            "title": "Titlu",
+            "expiry_date": "Data expirării",
+            "add_document": "Adaugă document"
+        }
+    },
+    "events": {
+        "events_title": "Evenimente | Magazin",
+        "events": "Evenimente",
+        "no": "Nr.",
+        "image": "Imagine",
+        "product": "Produs",
+        "events_type": "Tip de eveniment",
+        "scope": "Scop",
+        "URL": "URL",
+        "zoom_password": "Parolă Zoom",
+        "from": "De la",
+        "time": "Oră",
+        "duration": "Durată",
+        "host": "Gazdă",
+        "topic": "Subiect",
+        "action": "Acțiune",
+        "add": "Adaugă",
+        "edit": "Editează eveniment",
+        "delete": "Șterge eveniment",
+        "are_you_sure": "Sigur doriți să continuați? Această acțiune nu poate fi anulată",
+        "add_event": {
+            "private": "Privat",
+            "public": "Public",
+            "access_scope": "Scop de acces",
+            "zoomPassword": "Parolă Zoom",
+            "location_Zoom": "Locație / URL Zoom",
+            "event_type": "Tip de eveniment",
+            "description": "Descriere",
+            "when": "Când",
+            "date": "Data",
+            "time": "Oră",
+            "duration": "Durată",
+            "time_zone": "Fus orar",
+            "host_details": "Detalii gazdă",
+            "host": "Gazdă",
+            "topic": "Subiect",
+            "submit": "Trimite",
+            "edit": "Vizualizează / Editează",
+            "delete": "Șterge",
+            "cancel": "Anulează",
+            "status": "Stare",
+            "hours": "Ore",
+            "minutes": "Minute"
+        }
+    },
+    "user_review": {
+        "edit_review": "Editează recenzia",
+        "cancel": "Anulează",
+        "delete": "Șterge",
+        "are_you_sure": "Sigur doriți să continuați? Această acțiune nu poate fi anulată",
+        "delete_review": "Șterge recenzia",
+        "review_view": "Vizualizare recenzie",
+        "user_name": "Nume utilizator",
+        "comment": "Comentariu",
+        "action": "Acțiune",
+        "review_view_title": "Vizualizare recenzie | Magazin",
+        "back": "Înapoi",
+        "products": "Produse",
+        "post_review": "Publică recenzia",
+        "title": "Titlu",
+        "review": "Recenzie",
+        "your_review_about": "Recenzia ta despre acest produs:",
+        "user_review_title": "Recenzii utilizator | Magazin",
+        "user_review": "Recenzii utilizator",
+        "add_review": "Recenzie",
+        "no": "Nr.",
+        "product": "Produs",
+        "total_review": "Recenzii totale",
+        "rating": "Evaluare",
+        "view": "Vizualizează",
+        "review_add_title": "Adaugă recenzie",
+        "leave_a_comment": "Lasă un comentariu"
+    },
+    "coupons": {
+        "edit_coupon": "Editează cupon",
+        "edit_coupon_title": "Editează cupon | Magazin",
+        "deleteCoupon": "Șterge cupon",
+        "areYouSure": "Sigur doriți să continuați? Această acțiune nu poate fi anulată",
+        "cancel": "Anulează",
+        "edit": "Editează",
+        "delete": "Șterge",
+        "coupon_title": "Cupon | Magazin",
+        "coupon": "Cupon",
+        "add_coupon": "Adaugă cupon",
+        "no": "Nr.",
+        "couponName": "Nume cupon",
+        "code": "Cod",
+        "type": "Tip",
+        "used_available": "Folosite / Disponibile",
+        "discountFix": "Reducere (Fix/%)",
+        "startDate": "Data de început",
+        "endDate": "Data de sfârșit",
+        "active": "Activ",
+        "created_at": "Creat la",
+        "action": "Acțiune",
+        "add_coupon_title": "Adaugă cupon : Magazin",
+        "add": "Adaugă",
+        "add_form": {
+            "coupon_name": "Nume cupon",
+            "code": "Cod",
+            "type": "Tip",
+            "fixed_amount": "Sumă fixă",
+            "percentage": "Procent",
+            "total_amount": "Sumă totală",
+            "discount": "Reducere",
+            "status": "Stare",
+            "enabled": "Activat",
+            "disabled": "Dezactivat",
+            "usesPerCoupon": "Utilizări per cupon",
+            "usesPerCustomer": "Utilizări per client",
+            "from": "De la",
+            "to": "Către",
+            "submit": "Trimite"
+        }
+    },
+    "lead_capture": {
+        "enter_details": "Introdu detaliile",
+        "lead": "Lead",
+        "no": "Nr.",
+        "name": "Nume",
+        "email": "Email",
+        "mobile": "Număr de telefon",
+        "created_at": "Creat la",
+        "edit": "Editează",
+        "cancel": "Anulează",
+        "submit": "Trimite",
+        "edit_lead": "Editează lead"
+    },
+    "errors": {
+        "lead_capture": {
+            "email": {
+                "required": "Emailul trebuie să fie o adresă validă"
+            },
+            "username": {
+                "required": "Numele de utilizator este obligatoriu"
+            },
+            "mobile": {
+                "required": "Numărul de telefon este obligatoriu"
+            }
+        },
+        "financial": {
+            "pay_now": {
+                "valid": "Introdu o sumă validă",
+                "min": "Suma trebuie să fie cel puțin 1",
+                "limit": "Nu ai destul sold",
+                "required": "Suma este obligatorie"
+            },
+            "fund_transfer": {
+                "wallet": {
+                    "required": "Alege un portofel sursă"
+                },
+                "amount": {
+                    "min": "Suma minimă trebuie să fie 1",
+                    "type": "Suma este obligatorie",
+                    "required": "Alege o sumă"
+                },
+                "user_id": {
+                    "type": "Selectează un utilizator",
+                    "required": "Selectează un utilizator"
+                }
+            },
+            "payout": {
+                "amount": {
+                    "type": "Suma este obligatorie",
+                    "min": "Asigură-te că ai introdus suma minimă de retragere",
+                    "required": "Suma este obligatorie"
+                },
+                "coin_id": "Tipul de criptomonedă este necesar"
+            },
+            "fund_credit": {
+                "user_id": {
+                    "required": "Numele este obligatoriu"
+                },
+                "amount": {
+                    "required": "Suma este obligatorie",
+                    "type": "Suma este obligatorie"
+                },
+                "wallet_type": {
+                    "required": "Portofelul este obligatoriu"
+                }
+            }
+        },
+        "help_center": {
+            "department": {
+                "name": {
+                    "required": "Numele departamentului este obligatoriu"
+                },
+                "description": {
+                    "required": "Descrierea departamentului este obligatorie"
+                },
+                "active": {
+                    "required": "Starea este obligatorie"
+                },
+                "sort_order": {
+                    "required": "Ordinea de sortare este obligatorie"
+                }
+            },
+            "categories": {
+                "name": {
+                    "required": "Numele este obligatoriu"
+                },
+                "description": {
+                    "required": "Descrierea este obligatorie"
+                },
+                "active": {
+                    "required": "Starea este obligatorie"
+                }
+            },
+            "canned_response": {
+                "name": {
+                    "required": "Numele titlului este obligatoriu"
+                },
+                "subject": {
+                    "required": "Subiectul este obligatoriu"
+                },
+                "message": {
+                    "required": "Descrierea este obligatorie"
+                }
+            },
+            "priorities": {
+                "name": {
+                    "required": "Numele este obligatoriu"
+                },
+                "description": {
+                    "required": "Descrierea este obligatorie"
+                },
+                "color": {
+                    "required": "Culoarea este obligatorie"
+                }
+            },
+            "add_ticket": {
+                "description": {
+                    "required": "Numele descrierii este obligatoriu"
+                },
+                "priority_id": {
+                    "required": "Prioritatea este obligatorie"
+                },
+                "department_id": {
+                    "required": "Departamentul este obligatoriu"
+                },
+                "category_id": {
+                    "required": "Categoria este obligatorie"
+                },
+                "subject": {
+                    "required": "Subiectul este obligatoriu"
+                },
+                "user_id": {
+                    "required": "Utilizatorul este obligatoriu",
+                    "type": "Utilizatorul este obligatoriu"
+                },
+                "status": {
+                    "required": "Starea este obligatorie"
+                }
+            },
+            "reply_form": {
+                "title": {
+                    "required": "Titlul este obligatoriu"
+                },
+                "body": {
+                    "required": "Descrierea este obligatorie"
+                }
+            }
+        },
+        "products": {
+            "add": {
+                "product_name": {
+                    "required": "Numele produsului este obligatoriu"
+                },
+                "active": {
+                    "required": "Starea este obligatorie"
+                },
+                "price": {
+                    "required": "Prețul este obligatoriu",
+                    "typeError": "Prețul este obligatoriu",
+                    "min": "Prețul nu poate fi 0"
+                },
+                "product_description": {
+                    "required": "Descrierea produsului este obligatorie"
+                },
+                "meta_description": {
+                    "required": "Meta descrierea este obligatorie"
+                },
+                "meta_keywords": {
+                    "required": "Meta cuvintele cheie sunt obligatorii"
+                },
+                "title": {
+                    "required": "Titlul este obligatoriu"
+                },
+                "product_category_id": {
+                    "required": "Categoria produsului este obligatorie",
+                    "type": "Categoria produsului este obligatorie"
+                },
+                "bv_percentage": {
+                    "required": "Procentul BV este obligatoriu",
+                    "type": "Procentul BV este obligatoriu",
+                    "test": "Introdu o valoare procentuală validă"
+                },
+                "euro_value": {
+                    "required": "Valoarea în euro este obligatorie",
+                    "type": "Valoarea în euro este obligatorie"
+                },
+                "qualification_value": {
+                    "required": "Valoarea de calificare este obligatorie",
+                    "type": "Valoarea de calificare este obligatorie"
+                },
+                "business_volume": {
+                    "required": "Volumul de afaceri este obligatoriu",
+                    "type": "Volumul de afaceri este obligatoriu"
+                },
+                "product_url": {
+                    "required": "URL-ul produsului este obligatoriu"
+                },
+                "video": {
+                    "required": "Introdu un URL valid"
+                },
+                "image": {
+                    "test": "Selectează o imagine"
+                },
+                "doc": {
+                    "test": "Selectează un document"
+                },
+                "sample_doc": {
+                    "test": "Selectează un document exemplu"
+                }
+            },
+            "category": {
+                "name": {
+                    "required": "Numele categoriei produsului este obligatoriu"
+                },
+                "status": {
+                    "required": "Starea este obligatorie"
+                }
+            }
+        },
+        "faqs": {
+            "category_id": {
+                "required": "Numele categoriei este obligatoriu"
+            },
+            "question": {
+                "required": "Întrebarea este obligatorie"
+            },
+            "answer": {
+                "required": "Răspunsul este obligatoriu"
+            }
+        },
+        "faq_categories": {
+            "name": {
+                "required": "Numele categoriei este obligatoriu"
+            },
+            "description": {
+                "required": "Descrierea este obligatorie"
+            }
+        },
+        "articles": {
+            "add": {
+                "title": {
+                    "required": "Titlul este obligatoriu"
+                },
+                "description": {
+                    "required": "Descrierea este obligatorie"
+                },
+                "category_id": {
+                    "required": "Categoria este obligatorie"
+                },
+                "name": {
+                    "required": "Numele categoriei articolului este obligatoriu"
+                }
+            }
+        },
+        "blogs": {
+            "add": {
+                "title": {
+                    "required": "Titlul este obligatoriu"
+                },
+                "content": {
+                    "required": "Conținutul este obligatoriu"
+                },
+                "category_id": {
+                    "min": "Categoria este obligatorie"
+                },
+                "meta_keywords": {
+                    "required": "Meta cuvintele cheie sunt obligatorii"
+                },
+                "meta_description": {
+                    "required": "Meta cuvintele cheie sunt obligatorii"
+                },
+                "short_description": {
+                    "required": "Descrierea scurtă este obligatorie"
+                },
+                "image": {
+                    "required": "Imaginea este obligatorie"
+                },
+                "product_id": {
+                    "required": "Produsul este obligatoriu",
+                    "min": "Produsul este obligatoriu"
+                }
+            },
+            "categories": {
+                "name": {
+                    "required": "Numele este obligatoriu"
+                },
+                "desc": {
+                    "required": "Descrierea este obligatorie"
+                }
+            },
+            "add_comment": {
+                "comment": {
+                    "required": "Comentariul este obligatoriu"
+                },
+                "title": {
+                    "required": "Titlul este obligatoriu"
+                },
+                "rating": {
+                    "max": "Evaluarea maximă posibilă este 5",
+                    "required": "Emailul este obligatoriu"
+                }
+            }
+        },
+        "tickets": {
+            "reply_form": {
+                "body": {
+                    "required": "Mesajul este obligatoriu"
+                },
+                "title": {
+                    "required": "Titlul este obligatoriu"
+                }
+            },
+            "create_form": {
+                "department_id": {
+                    "type": "Selectează un departament",
+                    "required": "Selectează un departament"
+                },
+                "priority_id": {
+                    "type": "Selectează o prioritate",
+                    "required": "Selectează o prioritate"
+                },
+                "category_id": {
+                    "type": "Selectează o categorie",
+                    "required": "Selectează o categorie"
+                },
+                "subject": {
+                    "required": "Selectează un subiect"
+                },
+                "description": {
+                    "required": "Selectează o descriere"
+                }
+            }
+        },
+        "profile": {
+            "edit": {
+                "first_name": {
+                    "required": "Numele este obligatoriu",
+                    "matches": "Trebuie să conțină doar litere ale alfabetului"
+                },
+                "last_name": {
+                    "required": "Prenumele este obligatoriu",
+                    "matches": "Trebuie să conțină doar litere ale alfabetului"
+                },
+                "mobile": {
+                    "required": "Numărul de telefon este obligatoriu",
+                    "type": "Introdu un număr de telefon valid"
+                },
+                "gender": {
+                    "required": "Genul este obligatoriu"
+                },
+                "zipcode": {
+                    "required": "Codul poștal este obligatoriu"
+                },
+                "address": {
+                    "required": "Adresa este obligatorie"
+                },
+                "country": {
+                    "required": "Țara este obligatorie"
+                },
+                "state": {
+                    "required": "Statul este obligatoriu",
+                    "matches": "Trebuie să conțină doar litere ale alfabetului"
+                },
+                "city": {
+                    "required": "Orașul este obligatoriu",
+                    "matches": "Trebuie să conțină doar litere ale alfabetului"
+                },
+                "medium": {
+                    "url": "Introdu un URL valid"
+                },
+                "fb": {
+                    "url": "Introdu un URL valid"
+                },
+                "x": {
+                    "url": "Introdu un URL valid"
+                },
+                "insta": {
+                    "url": "Introdu un URL valid"
+                },
+                "profile_image": {
+                    "required": "Avatarul este obligatoriu"
+                }
+            },
+            "notes": {
+                "note": {
+                    "required": "Notele sunt obligatorii"
+                }
+            }
+        },
+        "product": {},
+        "brand": {
+            "name": {
+                "required": "Numele companiei este obligatoriu"
+            },
+            "address": {
+                "required": "Adresa este obligatorie"
+            },
+            "email": {
+                "required": "Adresa de email este obligatorie",
+                "email": "Adresa de email este obligatorie"
+            },
+            "sort_order": {
+                "required": "Ordinea de sortare este obligatorie",
+                "type": "Ordinea de sortare este obligatorie"
+            },
+            "section_id": {
+                "required": "Secțiunea este obligatorie"
+            },
+            "menu_name": {
+                "required": "Numele meniului este obligatoriu"
+            },
+            "title": {
+                "required": "Titlul este obligatoriu"
+            },
+            "url": {
+                "required": "URL-ul este obligatoriu"
+            },
+            "description": {
+                "required": "Descrierea este obligatorie"
+            }
+        },
+        "user_review": {
+            "rating": {
+                "required": "Evaluarea este obligatorie"
+            },
+            "product_id": {
+                "required": "Selectează un produs"
+            },
+            "comment": {
+                "required": "Recenzia este obligatorie"
+            },
+            "title": {
+                "required": "Titlul este obligatoriu"
+            },
+            "username": {
+                "required": "Numele de utilizator este obligatoriu"
+            }
+        },
+        "coupons": {
+            "name": {
+                "required": "Numele cuponului este obligatoriu"
+            },
+            "type": {
+                "required": "Tipul cuponului este obligatoriu"
+            },
+            "code": {
+                "required": "Codul este obligatoriu",
+                "matches": "Codul poate conține doar litere, numere, cratime și underscore"
+            },
+            "discount": {
+                "required": "Reducerea este obligatorie",
+                "type": "Reducerea este obligatorie",
+                "min": "Suma trebuie să fie cel puțin zero",
+                "maxi": "Ar trebui să fie mai mică decât suma totală",
+                "max": "Procentul nu trebuie să fie mai mare de 100"
+            },
+            "uses_per_coupon": {
+                "required": "Utilizatori per cupon este obligatoriu",
+                "type": "Utilizatori per cupon este obligatoriu",
+                "min": "Suma trebuie să fie cel puțin unu",
+                "integer": "Nu trebuie să conțină valori zecimale"
+            },
+            "uses_per_customer": {
+                "required": "Utilizări per client este obligatoriu",
+                "type": "Utilizări per client este obligatoriu",
+                "min": "Suma trebuie să fie cel puțin unu",
+                "integer": "Nu trebuie să conțină valori zecimale",
+                "max": "Ar trebui să fie mai mică sau egală cu utilizările per cupon"
+            },
+            "total_amount": {
+                "required": "Suma totală este obligatorie",
+                "type": "Suma totală este obligatorie",
+                "min": "Suma trebuie să fie cel puțin zero"
+            },
+            "start_date": {
+                "test": "Introdu o dată validă",
+                "valid": "Data de început nu trebuie să fie ulterioară datei de sfârșit"
+            },
+            "end_date": {
+                "test": "Introdu o dată validă",
+                "valid": "Data de sfârșit nu trebuie să fie anterioară datei de început"
+            }
+        },
+        "events": {
+            "product_id": {
+                "required": "Produsul este obligatoriu",
+                "min": "Produsul este obligatoriu"
+            },
+            "event_type": {
+                "required": "Tipul de eveniment este obligatoriu"
+            },
+            "location_url": {
+                "required": "Locația este obligatorie"
+            },
+            "description": {
+                "required": "Descrierea este obligatorie"
+            },
+            "time": {
+                "required": "Ora este obligatorie"
+            },
+            "hr": {
+                "required": "Ora este obligatorie"
+            },
+            "min": {
+                "required": "Minutul este obligatoriu"
+            },
+            "timezone": {
+                "required": "Fusul orar este obligatoriu"
+            },
+            "host": {
+                "required": "Numele gazdei este obligatoriu"
+            },
+            "topic": {
+                "required": "Subiectul este obligatoriu"
+            },
+            "zoom_password": {
+                "required": "Parola Zoom este obligatorie"
+            }
+        },
+        "date": {
+            "valid_start": {
+                "test": "Data de început nu ar trebui să fie mai mare decât data de sfârșit"
+            },
+            "valid_end": {
+                "test": "Data de sfârșit nu ar trebui să fie mai mare decât data de început"
+            },
+            "valid_date": {
+                "test": "Introdu o dată validă"
+            }
+        },
+        "material": {
+            "product_list": {
+                "min": "Selectează cel puțin un produs"
+            },
+            "category_id": {
+                "required": "Selectează o categorie"
+            },
+            "video": {
+                "matches": "Adaugă un video sau un document",
+                "url": "Introdu un URL valid, te rugăm"
+            },
+            "video_title": {
+                "required": "Titlul videoclipului este obligatoriu"
+            },
+            "video_access_time": {
+                "required": "Data expirării videoclipului este necesară",
+                "test": "Introdu o dată validă",
+                "type": "Data expirării videoclipului este necesară"
+            },
+            "doc": {
+                "test": "Adaugă un video sau un document"
+            },
+            "doc_title": {
+                "required": "Titlul documentului este obligatoriu"
+            },
+            "user_id": {
+                "required": "Utilizatorul este necesar"
+            },
+            "option_value": {
+                "required": "Produsul este necesar"
+            },
+            "rank_value": {
+                "required": "Rangul este necesar"
+            },
+            "doc_access_time": {
+                "test": "Introdu o dată validă",
+                "type": "Data expirării documentului este necesară",
+                "required": "Data expirării documentului este necesară"
+            }
+        },
+        "material_categories": {
+            "name": {
+                "required": "Numele categoriei este necesar"
+            },
+            "sort_order": {
+                "required": "Ordinea de sortare este necesară"
+            }
+        },
+        "product_document": {
+            "sample_doc": {
+                "required": "Selectează un document"
+            },
+            "doc": {
+                "required": "Selectează un document"
+            }
+        },
+        "product_question": {
+            "title": {
+                "required": "Titlul este necesar"
+            },
+            "description": {
+                "required": "Descrierea este necesară"
+            }
+        },
+        "register": {
+            "email": {
+                "email": "Emailul trebuie să fie o adresă de email validă",
+                "required": "Emailul este obligatoriu"
+            },
+            "username": {
+                "required": "Numele de utilizator este obligatoriu",
+                "matches": "Acest câmp nu poate conține caractere speciale sau spații albe"
+            },
+            "password": {
+                "required": "Parola nouă este obligatorie",
+                "min": "Parola trebuie să conțină cel puțin 8 caractere"
+            },
+            "repassword": {
+                "oneOf": "Parola trebuie să coincidă"
+            }
+        },
+        "login": {
+            "email": {
+                "email": "Emailul trebuie să fie o adresă de email validă",
+                "required": "Emailul este obligatoriu"
+            },
+            "password": {
+                "required": "Parola este obligatorie"
+            }
+        },
+        "sub_admin": {
+            "name": {
+                "required": "Numele este obligatoriu"
+            },
+            "reason": {
+                "required": "Motivul este necesar"
+            },
+            "description": {
+                "required": "Descrierea este obligatorie"
+            },
+            "username": {
+                "required": "Numele de utilizator este obligatoriu"
+            },
+            "group_id": {
+                "required": "Grupul de utilizatori este obligatoriu"
+            },
+            "mobile": {
+                "required": "Numărul de telefon mobil este obligatoriu",
+                "matches": "Trebuie să conțină doar cifre"
+            },
+            "email": {
+                "required": "Adresa de email este obligatorie",
+                "email": "Introdu o adresă de email validă"
+            },
+            "is_impersonation": {
+                "required": "Impersonarea este obligatorie",
+                "typeError": "Alege o valoare"
+            }
+        },
+        "email": {
+            "subject": {
+                "required": "Subiectul nu poate fi gol"
+            },
+            "message": {
+                "required": "Corpul emailului nu poate fi gol"
+            },
+            "to_users_id": {
+                "min": "Selectează cel puțin un utilizator"
+            }
+        },
+        "tools": {
+            "title": {
+                "required": "Titlul documentului este obligatoriu"
+            },
+            "sort_order": {
+                "required": "Ordinea de sortare este obligatorie",
+                "integer": "Ordinea de sortare trebuie să fie un număr întreg",
+                "typeError": "Trebuie să fie un număr"
+            },
+            "document_url": {
+                "test": "Documentul este obligatoriu"
+            },
+            "video": {
+                "title": {
+                    "required": "Titlul este obligatoriu"
+                },
+                "video_tool_url": {
+                    "required": "URL-ul videoclipului este obligatoriu",
+                    "matches": "Acest câmp acceptă doar URL-uri Vimeo sau un URL valid"
+                }
+            }
+        },
+        "member": {
+            "password": {
+                "username": {
+                    "required": "Numele de utilizator este obligatoriu"
+                },
+                "password": {
+                    "required": "Parola este obligatorie",
+                    "min": "Parola trebuie să conțină cel puțin 8 caractere"
+                },
+                "confirmPassword": {
+                    "oneOf": "Parolele trebuie să coincidă",
+                    "required": "Confirmarea parolei este obligatorie"
+                }
+            },
+            "username": {
+                "new_username": {
+                    "required": "Numele nou de utilizator este obligatoriu"
+                }
+            }
+        }
+    },
+    "evea": {
+        "current_week": "Săptămâna curentă",
+        "previous_week": "Săpt. precedentă",
+        "current_month": "Luna curentă",
+        "previous_month": "Luna precedentă",
+        "previous_period": "Perioada prec.",
+        "pending_weekly": "În așteptare săptămânal",
+        "pending_monthly": "În așteptare lunar",
+        "sale": "Vânzare",
+        "qualification": "Calificare",
+        "new_promoter": "Promoter nou",
+        "new_customer": "Client nou",
+        "new_mvp": "MVP nou",
+        "earnings": "Câștiguri",
+        "quick_access": "Acces rapid",
+        "your_team": "Echipa ta",
+        "shop": "Magazin",
+        "referral_link": "Linkul tău personal",
+        "wallet": "Portofel",
+        "orders": "Comenzi",
+        "coupons": "Cupoane",
+        "smartship": "Smartship",
+        "link_copied": "Link copiat!",
+        "reorder_rate": "Rată de recomandă",
+        "smartship_clients": "Clienți Smartship",
+        "active_promoters": "Promoteri activi",
+        "best_selling": "Cele mai vândute produse",
+        "clients": "Clienți",
+        "team": "Echipă",
+        "loyalty_path": "Traseu Fidelitate",
+        "loyalty_sub_v2": "-10% pentru totdeauna + un cadou care crește cu comanda ta, la fiecare 3 luni",
+        "loyalty_gift_hint_v2": "🎁 Mai multe comenzi, cadou mai mare. Un cupon la fiecare 3 luni, de folosit când vrei.",
+        "your_savings": "Economia ta până acum",
+        "copy_invite": "Copiază și invită acum",
+        "manage_subscription": "Gestionează abonamentul meu",
+        "friends_invited": "prieteni invitați",
+        "reward": "Recompensă",
+        "cycle": "Ciclu",
+        "friend": "Prieten",
+        "revenue_team": "Venit echipă",
+        "this_month": "Luna aceasta",
+        "buy": "Cumpără",
+        "recommended": "Recomandat",
+        "awaiting_approval": "În așteptarea aprobării",
+        "loyalty_active": "Reducere fidelitate activă — 10% la toate achizițiile tale",
+        "loyalty_active_sub": "Menține smartship-ul activ pentru a continua să economisești",
+        "loyalty_inactive": "Activează smartship-ul pentru a obține 10% la toate comenzile tale",
+        "loyalty_inactive_sub": "Abonează-te acum și economisește la fiecare achiziție",
+        "activate_now": "Activează acum",
+        "monthly_period": "Perioadă lunară",
+        "weekly_period": "Perioadă săptămânală",
+        "dsb_boost_expires": "DSB boost expiră",
+        "bonus_overview": "Panorama Bonus",
+        "evea_live": "EVEA LIVE",
+        "not_eligible": "Neeligibil",
+        "bonus_by_level": "Bonus pe Nivel",
+        "generations": "Generații",
+        "matching_levels": "Niveluri Matching",
+        "customer_details": "Detalii Clienți",
+        "week_restarts_tomorrow": "Săptămâna reîncepe mâine",
+        "week_ends_in": "Sfârșitul săptămânii în",
+        "month_ends_in": "Sfârșitul lunii în",
+        "days": "zile",
+        "day": "zi",
+        "period_expires": "Perioada expiră",
+        "users": "utilizatori",
+        "user_singular": "utilizator",
+        "no_users": "Niciun utilizator",
+        "total": "Total",
+        "top": "Top",
+        "inactive_members": "Membri inactivi",
+        "rank_advancement": "Avansare Rang",
+        "qv_month": "QV Lună",
+        "bv_month": "BV Lună",
+        "sponsor": "Sponsor",
+        "not_eligible_rsp": "Pentru a accesa Rock Solid MVP trebuie mai întâi să completezi și să obții aprobarea pentru Go MVP Bonus.",
+        "next_rank": "Rangul următor",
+        "free_shipping": "Livrare gratuită > €97",
+        "early_access": "Early Access",
+        "premium_content": "Premium Content",
+        "gift_evea": "Cadou EVEA",
+        "bonus_3ff": "Bonus 3 For Free",
+        "loyalty_sub": "-10% pentru totdeauna + un cadou care crește cu comanda ta, la fiecare 3 luni",
+        "loyalty_gift_hint": "🎁 Un cadou care crește cu comanda ta, la fiecare 3 luni. Livrare exclusă.",
+        "your_rewards": "Premiile tale",
+        "no_coupons": "Niciun cupon activ momentan",
+        "discounted_deliveries": "livrări cu reducere",
+        "first_delivery": "Prima livrare",
+        "full_price": "Preț întreg",
+        "start_subscription": "Începe abonamentul pentru a economisi în fiecare lună!",
+        "in_gift_coupons": "în cupoane cadou",
+        "income_report": "Raport Câștiguri",
+        "report": "Raport",
+        "report_subtitle": "Analiză detaliată a business-ului tău",
+        "report_income": "Câștiguri",
+        "report_team": "Echipă",
+        "report_customers": "Clienți",
+        "report_rank": "Rang",
+        "report_volume": "Volum",
+        "report_payout": "Plată",
+        "all_levels": "Toate nivelurile",
+        "first_line": "Prima linie",
+        "active": "Activi",
+        "inactive": "Inactivi",
+        "at_risk": "În risc",
+        "avg_spent": "Cheltuială medie",
+        "current_rank": "Rang curent",
+        "next_rank_colon": "Rangul următor",
+        "missing": "Lipsesc",
+        "rank_history": "Istoric Rang",
+        "upgrade": "Upgrade",
+        "downgrade": "Downgrade",
+        "no_rank_changes": "Nicio modificare de rang înregistrată",
+        "personal_vs_team": "QV Personal vs QV Echipă (6 luni)",
+        "top_contributors": "Top Contributori",
+        "monthly_volume": "Detalii Volum Lunar",
+        "earned_year": "Câștigat",
+        "wallet_balance": "Sold Portofel",
+        "monthly_earnings": "Câștiguri Lunare",
+        "payout_requests": "Cereri Plată",
+        "no_payout": "Nicio cerere de plată",
+        "no_customers": "Niciun client",
+        "no_team": "Niciun membru al echipei",
+        "no_data": "Niciun dat",
+        "transactions": "Tranzacții",
+        "weekly_trend": "Trend săptămânal",
+        "breakdown": "Detalii pe Bonus",
+        "birthdays": "Zile de naștere",
+        "this_week_filter": "Săptămâna aceasta",
+        "last_week_filter": "Săptămâna trecută",
+        "this_month_filter": "Luna aceasta",
+        "last_month_filter": "Luna trecută",
+        "this_year_filter": "Anul acesta",
+        "select_week": "Selectează săptămâna",
+        "select_month": "Selectează luna",
+        "select_year": "Selectează anul",
+        "qualifications": "Calificări",
+        "simulator": "Simulator"
+    },
+    "month_long": {
+        "jan": "Ianuarie",
+        "feb": "Februarie",
+        "mar": "Martie",
+        "apr": "Aprilie",
+        "may": "Mai",
+        "jun": "Iunie",
+        "jul": "Iulie",
+        "aug": "August",
+        "sep": "Septembrie",
+        "oct": "Octombrie",
+        "nov": "Noiembrie",
+        "dec": "Decembrie"
+    },
+    "month_short": {
+        "jan": "Ian",
+        "feb": "Feb",
+        "mar": "Mar",
+        "apr": "Apr",
+        "may": "Mai",
+        "jun": "Iun",
+        "jul": "Iul",
+        "aug": "Aug",
+        "sep": "Sep",
+        "oct": "Oct",
+        "nov": "Nov",
+        "dec": "Dec"
+    },
+    "promoter_dashboard": {
+        "page_title": "Dashboard",
+        "sign_letter_activate_account": "Semnează Contractul de mandat pentru a-ți activa contul",
+        "sign_letter_activate_account_sub": "Acceptă Contractul de mandat pentru a activa comisioane, link referral și genealogie.",
+        "complete_promoter_profile": "Completează-ți profilul de Promoter",
+        "steps_completed": "{{completed}}/{{total}} pași completați — click pentru a continua",
+        "greeting_morning": "Bună dimineața",
+        "greeting_afternoon": "Bună ziua",
+        "greeting_evening": "Bună seara",
+        "greeting_night": "Noapte bună",
+        "delta_in_network": "+{{n}} în rețea",
+        "urgency_days_left_prefix": "Au mai rămas",
+        "urgency_days_left_suffix": "până la sfârșitul perioadei",
+        "urgency_qv_needed_prefix": "mai ai nevoie de",
+        "days_count": "{{n}} zile",
+        "qv_count": "{{n}} QV",
+        "threeff_completed": "3 For Free finalizat! Ai câștigat",
+        "pool_founder_title": "Pool Founder — {{month}} {{year}}",
+        "pool_founder_estimate": "Estimat acumulat luna aceasta ({{quotas}} din {{total}} cote)",
+        "pool_revenue_month": "VENIT LUNĂ",
+        "pool_percent_label": "POOL ({{pct}}%)",
+        "pool_per_quota": "PE COTĂ",
+        "pool_your_quotas": "COTELE TALE",
+        "pool_disclaimer": "Estimare progresivă pentru luna curentă. Pool-ul se plătește la sfârșitul lunii pe baza venitului consolidat.",
+        "rank_current": "Rang curent",
+        "rank_recognition": "Rang recunoscut",
+        "rank_achieved": "Rang atins",
+        "rank_associate": "Associate",
+        "kit_starter_title": "Kit Starter",
+        "kit_buste_count": "{{n}} plicuri",
+        "upgrades_available": "Upgrade-uri disponibile",
+        "upgrade_now": "Upgrade acum",
+        "upgrade_to_silver": "Upgrade la Silver",
+        "upgrade_to_gold": "Upgrade la Gold",
+        "upgrade_window_prefix": "Ai",
+        "upgrade_window_suffix": "pentru a face upgrade la kitul superior",
+        "smart_alerts_title": "Notificări Smart",
+        "show_less": "Arată mai puțin",
+        "show_more_notifications": "Vezi încă {{n}} notificări",
+        "quiz_link": "Link Quiz",
+        "quiz_link_copied": "Link Quiz copiat!",
+        "opportunity_landing": "Landing Page Oportunitate",
+        "opportunity_link_copied": "Link Oportunitate copiat!",
+        "product_landing": "Landing Page Produs",
+        "product_link_copied": "Link Produs copiat!",
+        "sign_letter_activate_promoter_link": "Semnează Contractul de mandat pentru a-ți activa linkul de promoter",
+        "sign_letter_activate_quiz_link": "Semnează Contractul de mandat pentru a-ți activa linkul de quiz",
+        "sign_letter_share_opportunity": "Semnează Contractul de mandat pentru a distribui Landing Page Oportunitate",
+        "sign_letter_share_opportunity_short": "Semnează Contractul de mandat pentru a distribui landing Oportunitate",
+        "sign_letter_share_product": "Semnează Contractul de mandat pentru a distribui Landing Page Produs",
+        "sign_letter_share_product_short": "Semnează Contractul de mandat pentru a distribui landing Produs",
+        "not_active": "Neactiv",
+        "top_performer_month": "Top Performer al lunii",
+        "scope_my_team": "Echipa mea",
+        "scope_global": "Global",
+        "no_data": "Nicio dată",
+        "period_week": "Săpt",
+        "period_month": "Lună",
+        "period_quarter": "Trim",
+        "period_year": "An",
+        "new_customers": "Clienți noi",
+        "new_promoters": "Promoteri noi",
+        "team_total": "Echipă",
+        "team_direct": "Directi",
+        "team_active": "Activi",
+        "team_inactive": "Inactivi",
+        "inactive_members_count": "Membri inactivi ({{n}})",
+        "role_promoter": "Promoter",
+        "role_customer": "Client",
+        "days_inactive_short": "{{n}}z",
+        "never_ordered": "Niciodată comandat",
+        "top_referrals_period": "Top referrali în perioadă",
+        "invite_three_friends": "Invită 3 prieteni",
+        "three_for_free_bonus": "Bonus 3 For Free",
+        "activate_link_sign_letter": "Activează link — Semnează Contractul",
+        "rob_first_delivery": "Prima livrare",
+        "rob_start_subscription": "Începe abonamentul pentru a economisi în fiecare lună!",
+        "rob_discounts_amount": "€{{amount}} reduceri (-10%)",
+        "rob_discount_deliveries": "{{n}} {{label}} -10%",
+        "rob_delivery_singular": "livrare",
+        "rob_delivery_plural": "livrări",
+        "rob_in_coupons": "€{{amount}} în cupoane",
+        "goal_saved": "Obiectiv salvat!",
+        "goal_save_error": "Eroare la salvare",
+        "goal_month_title": "Obiectiv {{month}} {{year}}",
+        "goal_last_day": "Ultima zi!",
+        "goal_days_left": "Au mai rămas {{n}} zile",
+        "goal_edit": "Modifică",
+        "goal_set_short": "Setează obiectiv",
+        "goal_team_sales": "Vânzări echipă",
+        "goal_team_sales_input": "Vânzări echipă (€)",
+        "goal_pqv_target": "Țintă PQV",
+        "goal_pqv_missing": "(lipsesc {{n}} PQV)",
+        "goal_rank_target": "Țintă rang",
+        "goal_none": "Niciunul",
+        "goal_saving": "Se salvează...",
+        "goal_save_button": "Salvează obiectiv",
+        "goal_set_prompt": "Setează-ți obiectivele pentru această lună",
+        "coupons_empty_title": "Nu ai încă cupoane disponibile",
+        "coupons_empty_body_prefix": "Plasează o comandă smartship pentru a începe să câștigi cupoane din programul",
+        "coupons_empty_body_middle": "și din",
+        "go_to_shop": "Mergi la magazin",
+        "coupon_no_expiry": "Fără expirare",
+        "coupon_used": "Folosit",
+        "coupon_expires_on": "Expiră pe {{date}}",
+        "payout_awaiting_invoice": "Cerere payout în așteptarea facturii",
+        "payout_invoice_received": "Factură primită — transfer în procesare",
+        "payout_request_of": "Cerere #{{id}} din {{date}}",
+        "days_ago_short": "cu {{n}}z în urmă",
+        "payout_amount_to_invoice": "Suma de facturat către EVEA",
+        "payout_taxable_plus_vat": "Impozabil {{taxable}} + TVA 22% {{vat}}",
+        "payout_hide_detail": "Ascunde detaliul calculului",
+        "payout_show_detail": "Arată detaliul calculului",
+        "payout_gross_commission": "Comision brut",
+        "payout_taxable_78": "Impozabil (78%)",
+        "payout_vat_22": "TVA 22%",
+        "payout_withholding": "Reținere 23% (reținută de EVEA)",
+        "payout_inps_your_share": "INPS cota ta",
+        "payout_net_transfer": "Net transfer",
+        "payout_invoice_instructions": "Instrucțiuni pentru emiterea facturii",
+        "payout_ragione_sociale": "Denumire companie",
+        "payout_piva_destinatario": "CUI destinatar",
+        "payout_sdi_code": "Cod destinatar SDI",
+        "payout_pec_fallback": "PEC (fallback)",
+        "payout_causale": "Descriere",
+        "payout_causale_text": "Comisioane agent vânzări la domiciliu L. 173/2005",
+        "payout_invoice_amount": "Suma facturii",
+        "payout_once_received_prefix": "Odată ce factura este primită, EVEA va efectua transferul de",
+        "payout_once_received_suffix": "(net după reținere).",
+        "payout_your_invoice_prefix": "Factura ta",
+        "payout_invoice_number_short": "nr. {{n}}",
+        "payout_of_date": "din",
+        "payout_registered": "a fost înregistrată.",
+        "payout_transfer_processing": "Transfer în procesare",
+        "founder_limited_edition": "Ediție limitată · 100 locuri",
+        "become_founder_evea": "Devino Founder EVEA",
+        "founder_pack_desc": "Pachet Founder exclusiv: bonus FSB, pool venituri și cupoane lunare pentru 12 luni. Locuri limitate la 100.",
+        "buy_founder_pack": "Cumpără Founder Pack",
+        "section_top_performer": "Top Performer",
+        "section_your_coupons": "Cupoanele tale de recompensă"
+    },
+    "customer_dashboard": {
+        "page_title": "Dashboard",
+        "welcome_personal_area": "Bun venit în zona ta personală",
+        "badge_bronze_name": "Bronze Ambassador",
+        "badge_bronze_tooltip": "Finalizează prima ta comandă",
+        "badge_silver_name": "Silver Ambassador",
+        "badge_silver_tooltip": "Menține smartship-ul activ timp de 3 luni consecutive",
+        "badge_platinum_name": "Platinum Ambassador",
+        "badge_platinum_tooltip": "6 luni consecutive de smartship + invită 1 prieten",
+        "badge_gold_name": "Gold Ambassador",
+        "badge_gold_tooltip": "12 luni consecutive + invită 3 prieteni (3 For Free)",
+        "badge_legend_name": "Legend Ambassador",
+        "badge_legend_tooltip": "24 luni consecutive + invită 5 prieteni",
+        "badge_unlocked": "✓ Deblocat!",
+        "all_badges_unlocked": "Toate insignele deblocate! 🎉",
+        "next_label": "Următorul:",
+        "you_need": "ai nevoie de",
+        "month_singular": "lună",
+        "month_plural": "luni",
+        "friend_singular": "prieten",
+        "friend_plural": "prieteni",
+        "missing_first_order": "1 primă comandă",
+        "missing_months_smartship": "{{count}} {{label}} de smartship",
+        "missing_months": "{{count}} {{label}}",
+        "missing_friends": "{{count}} {{label}}",
+        "ticker_free_shipping": "Livrare gratuită la comenzi peste €97",
+        "ticker_smartship_discount": "-10% la fiecare comandă cu Smartship activ",
+        "ticker_invite_friends": "Invită 3 prieteni și câștigă până la €80 bonus",
+        "ticker_growing_gift": "Un cadou care crește cu comanda ta, la fiecare 3 luni",
+        "ticker_discover_products": "Descoperă produsele noastre wellness pe myevea.com",
+        "invite_three_friends": "Invită 3 prieteni",
+        "threeff_tooltip": "Adu 3 prieteni care comandă cel puțin €30 fiecare și primești un bonus de până la €80. Distribuie linkul tău!",
+        "bonus_label": "Bonus:",
+        "copy_your_link": "Copiază linkul tău",
+        "milestone_coupon_short": "-10% + 🎁",
+        "milestone_discount_short": "-10%",
+        "cycle_progress": "{{cycleLabel}} {{cycleNum}} · {{pos}}/{{total}}",
+        "discounts_amount": "€{{amount}} reduceri (-10%)",
+        "discount_deliveries": "{{count}} {{label}} -10%",
+        "delivery_singular": "livrare",
+        "delivery_plural": "livrări",
+        "in_coupons": "€{{amount}} în cupoane",
+        "recent_orders": "Comenzi recente",
+        "see_all": "Vezi toate",
+        "status_completed": "Finalizat",
+        "status_processing": "În procesare",
+        "status_refunded": "Rambursat",
+        "order_number": "Comandă #{{id}}",
+        "no_expiry": "Fără expirare",
+        "coupon_type_default": "CUPON",
+        "coupon_used": "Utilizat",
+        "coupon_expires_on": "Expiră pe {{date}}",
+        "product_landing_short": "Landing Produs",
+        "opportunity_landing_short": "Landing Oportunitate",
+        "discover_product_title": "Descoperă cafeaua eVea",
+        "discover_product_text": "Îți prezint cafeaua funcțională eVea — un ritual zilnic care îți schimbă ziua.",
+        "discover_opportunity_title": "Descoperă oportunitatea eVea",
+        "discover_opportunity_text": "Te invit să descoperi proiectul eVea și oportunitățile sale.",
+        "become_distributor_title": "Devino Distribuitor eVea",
+        "promoter_kit_price": "Kit Promotor €79",
+        "activate_short": "Activează",
+        "smartship_paused": "Smartship în pauză",
+        "discount_suspended": "Reducere 10% suspendată",
+        "resume": "Reia",
+        "on_all_smartship_purchases": "La toate achizițiile tale smartship",
+        "activate_smartship": "Activează Smartship-ul",
+        "get_10pct_every_order": "Obții 10% la fiecare comandă"
+    },
+    "bonus_widgets": {
+        "common": {
+            "promoter": "Promoter",
+            "kit": "Kit",
+            "bonus": "Bonus",
+            "status": "Status",
+            "username": "Username",
+            "status_pending": "În așteptare",
+            "status_on_hold": "On hold",
+            "status_approved": "Aprobat",
+            "status_cancelled": "Anulat",
+            "status_paid": "Plătit",
+            "yes": "Da",
+            "no": "Nu",
+            "weeks_ago": "acum {{n}} săptămâni",
+            "week_from_date": "Din {{d}}/{{m}}",
+            "current_label": "Curent",
+            "achieved_label": "Atins",
+            "qualified": "Calificat",
+            "not_yet": "Nu încă"
+        },
+        "fast_start": {
+            "recruits_month": "Recrutări luna aceasta",
+            "bonus_per_kit": "Bonus per kit",
+            "new_promoters_recruited": "Noi promoteri recrutați",
+            "empty_hint": "Invită un promoter nou care cumpără un starter kit pentru a-ți câștiga primul Fast Start Bonus"
+        },
+        "direct_sales": {
+            "active_customers": "Clienți activi",
+            "customer_details_title": "Detalii Clienți",
+            "customer": "Client",
+            "date": "Data",
+            "orders_count": "{{n}} comenzi"
+        },
+        "residual": {
+            "bonus_by_level": "Bonus pe Nivel",
+            "no_users_level": "Niciun utilizator la acest nivel",
+            "top_user": "Top: {{name}} (€{{amount}})",
+            "level_item": "Nivelul"
+        },
+        "isb": {
+            "generations": "Generații",
+            "generation": "Generația",
+            "no_users": "Niciun utilizator"
+        },
+        "residual_matching": {
+            "levels_matching": "Niveluri Matching",
+            "no_users": "Niciun utilizator"
+        },
+        "leadership": {
+            "no_leader_gen": "Niciun lider în Gen {{n}}",
+            "no_bv_detail": "Niciun detaliu BV"
+        },
+        "level_collapsible": {
+            "total": "Total: €{{amount}}",
+            "user_singular": "utilizator",
+            "user_plural": "utilizatori",
+            "top_summary": "Top: {{name}} (€{{amount}})"
+        },
+        "recurring_order": {
+            "cycle_badge": "Ciclu {{cycle}} · {{pos}}/{{total}}",
+            "first_delivery": "Prima livrare",
+            "label_discount": "-10%",
+            "label_discount_gift": "-10% + 🎁",
+            "your_savings": "Economia ta până acum",
+            "start_subscription": "Începe abonamentul pentru a economisi în fiecare lună!",
+            "discount_deliveries": "livrări cu reducere",
+            "in_gift_coupons": "în cupoane cadou",
+            "gift_hint": "🎁 Mai multe comenzi, cadou mai mare. Un cupon la fiecare 3 luni, de folosit când vrei."
+        },
+        "three_for_free": {
+            "friend_slot": "Prieten {{n}}",
+            "friends_invited": "prieteni invitați",
+            "prize": "Recompensă",
+            "tab_current_month": "Luna curentă",
+            "tab_previous_month": "Luna precedentă"
+        },
+        "rank_progress": {
+            "current_chip": "Curent",
+            "achieved_chip": "Atins"
+        },
+        "sixty_rule": {
+            "unbalanced": "Max {{n}}% — Dezechilibrat",
+            "ok": "Max {{n}}% — OK"
+        },
+        "countdown": {
+            "days_remaining": "Zile rămase",
+            "expired": "Expirat",
+            "days_over_total": "{{current}} / {{total}} zile"
+        },
+        "week_chips": {
+            "current_week": "Săptămâna curentă",
+            "current_month": "Luna curentă",
+            "in_approval": "În așteptarea aprobării",
+            "tooltip_current_week": "Bonus câștigat săptămâna aceasta (lun-dum). Sumă actualizată în fiecare seară prin Dynamic Compression; finalizată duminică seara.",
+            "tooltip_current_month": "Bonus câștigat luna aceasta. Încă actualizabil până la sfârșitul lunii.",
+            "tooltip_previous_week": "Bonusuri din săptămânile precedente, finalizate. Plată automată după 15 zile de la creare.",
+            "tooltip_previous_month": "Bonusuri din lunile precedente în așteptarea plății (15 zile)."
+        },
+        "status_chip": {
+            "in_attesa": "În așteptare",
+            "oggi": "Astăzi",
+            "days_short": "{{n}} z",
+            "tooltip_generic": "Comision în așteptarea aprobării automate (15 zile de la creare).",
+            "tooltip_today": "Auto-aprobare până la sfârșitul zilei.",
+            "tooltip_days_one": "Auto-aprobare în {{n}} zi.",
+            "tooltip_days_other": "Auto-aprobare în {{n}} zile.",
+            "note_isb_current": " Săptămâna curentă: nivel încă recalculabil până duminică seara (Dynamic Compression).",
+            "note_dsb_current": " Săptămâna curentă: recalculabil până duminică seara dacă un client devine promoter.",
+            "note_default_current": " Săptămâna curentă: sumă încă actualizabilă până duminică seara.",
+            "note_closed": " Sumă finalizată (săptămână închisă)."
+        },
+        "mvp": {
+            "package_purchased": "Pachet achiziționat"
+        },
+        "ritual": {
+            "evolving_chip": "Evolving"
+        }
+    },
+    "my_leads": {
+        "title": "Lead-urile mele",
+        "subtitle": "Lead-uri din quiz, pagina de produs și pagina de oportunitate — sortate după prioritatea apelului",
+        "view": {
+            "list": "Listă",
+            "kanban": "Kanban"
+        },
+        "button": {
+            "add_lead": "Adaugă lead",
+            "csv": "CSV",
+            "cancel": "Anulează",
+            "delete": "Șterge",
+            "hide": "Ascunde",
+            "save": "Salvează",
+            "remove": "Elimină",
+            "whatsapp": "WhatsApp",
+            "call": "Sună",
+            "email": "Email",
+            "saving": "Se salvează…"
+        },
+        "status": {
+            "new": "Nou",
+            "contacted": "Contactat",
+            "in_progress": "În negociere",
+            "converted": "Convertit",
+            "lost": "Pierdut"
+        },
+        "source": {
+            "quiz": "Quiz",
+            "landing-prodotto": "Produs",
+            "landing-opportunita": "Oportunitate",
+            "manual": "Manual"
+        },
+        "source_full": {
+            "landing_opportunita": "Oportunitate"
+        },
+        "source_plural": {
+            "manual": "Manuale"
+        },
+        "heat": {
+            "hot": "călduri",
+            "warm": "călduț",
+            "cold": "reci"
+        },
+        "heat_adj": {
+            "hot": "cald",
+            "warm": "călduț",
+            "cold": "rece"
+        },
+        "heat_why": "De ce este {{adj}} ({{score}}):",
+        "heat_factor": {
+            "video_ended": "A terminat videoul (+40)",
+            "video_started": "A început videoul (+15)",
+            "app_installed": "Are aplicația instalată (+30)",
+            "chose_app": "A ales să descarce aplicația (+15)",
+            "chose_browser": "A ales browser (+5)",
+            "active_7d": "Activ în ultimele 7 zile (+20)",
+            "new_3d": "Înscris în ultimele 3 zile (+10)"
+        },
+        "fuzzy": {
+            "now": "acum",
+            "min_ago": "acum {{n}} min",
+            "hours_ago": "acum {{n}}h",
+            "days_ago_short": "acum {{n}}z",
+            "months_ago": "acum {{n}} luni"
+        },
+        "video": {
+            "finished_tooltip": "Video terminat",
+            "finished_label": "Video ✓",
+            "started_tooltip": "Video început {{when}}",
+            "in_progress": "Video în curs",
+            "no_video_tooltip": "Nu a văzut încă videoul",
+            "no_video_label": "Fără video"
+        },
+        "badge": {
+            "browser": "Browser"
+        },
+        "chip": {
+            "today": "📅 Azi",
+            "overdue": "⚠️ Întârziat"
+        },
+        "duplicates_tooltip": "Același contact în alte {{n}} surse",
+        "registered_prefix": "Înscris",
+        "contacted_prefix": "Contactat",
+        "recontact_prefix": "Recontactează",
+        "notes_marker": "📝 Note",
+        "tooltip": {
+            "call": "Sună",
+            "whatsapp_direct": "WhatsApp direct",
+            "whatsapp": "WhatsApp",
+            "copy_email": "Copiază email",
+            "copy_number": "Copiază numărul",
+            "detail_notes": "Detaliu / Note",
+            "delete_lead": "Șterge lead",
+            "hide_lead": "Ascunde lead (marcat ca pierdut)"
+        },
+        "stats": {
+            "month": "Lead-uri luna aceasta",
+            "contacted": "Contactați",
+            "converted": "Convertiți",
+            "conversion": "CONVERSIE",
+            "follow_up_today": "FOLLOW-UP AZI"
+        },
+        "best_source_prefix": "🏆 Sursă cu cele mai multe conversii:",
+        "toast": {
+            "saved": "Salvat ✓",
+            "save_error": "Eroare la salvare",
+            "email_copied": "Email copiat",
+            "number_copied": "Număr copiat",
+            "copy_failed": "Copierea a eșuat",
+            "link_copied": "Link copiat",
+            "lead_deleted": "Lead șters",
+            "lead_hidden": "Lead ascuns (marcat ca pierdut)",
+            "delete_error": "Eroare la ștergere",
+            "nothing_to_export": "Niciun lead de exportat",
+            "exported": "Exportat {{n}} lead-uri"
+        },
+        "detail": {
+            "product": "Produs",
+            "profile": "Profil",
+            "registered": "Înscris",
+            "last_activity": "Ultima activitate",
+            "phone": "Telefon",
+            "email_click_copy": "Email — click pentru a copia",
+            "where_met": "Unde ne-am întâlnit",
+            "same_contact_sources": "Același contact în {{n}} altă sursă",
+            "contacted": "Contactat",
+            "next_followup": "Următorul follow-up",
+            "activity": "Activitate",
+            "personal_notes": "Note personale",
+            "saving": "Se salvează…",
+            "saved_check": "✓ Salvat",
+            "notes_placeholder": "Adaugă note despre lead, rezultatul apelului, pașii următori…",
+            "timeline": "📜 Timeline",
+            "loading": "Se încarcă…",
+            "no_activity": "Nicio activitate înregistrată (acțiunile viitoare vor apărea aici)."
+        },
+        "activity": {
+            "created": "Lead creat{{suffix}}",
+            "status_changed": "Stare: {{from}} → {{to}}",
+            "note_updated": "Note actualizate",
+            "followup_set": "Follow-up setat pentru {{date}}",
+            "followup_cleared": "Follow-up eliminat",
+            "contacted": "Contactat"
+        },
+        "mail": {
+            "subject_ritual": "Ritualul tău {{product}}",
+            "subject_hello": "Salut de la eVea"
+        },
+        "add": {
+            "title": "Adaugă lead manual",
+            "subtitle": "Persoană întâlnită la un eveniment, discuție, contact informal.",
+            "name_label": "Nume și prenume *",
+            "phone_label": "Telefon",
+            "email_label": "Email",
+            "where_met_label": "Unde v-ați întâlnit",
+            "where_met_placeholder": "Eveniment X, sală, bar…",
+            "notes_label": "Note (opționale)",
+            "notes_placeholder": "Interesat de…, are copii, merge la sală, a spus că…",
+            "followup_label": "Următorul follow-up",
+            "name_required": "Numele este obligatoriu",
+            "added_ok": "Lead adăugat ✓",
+            "create_error": "Eroare la crearea lead-ului"
+        },
+        "kanban": {
+            "new": "Noi",
+            "contacted": "Contactați",
+            "in_progress": "În negociere",
+            "converted": "Convertiți",
+            "empty": "Niciun lead",
+            "tel": "tel"
+        },
+        "search_placeholder": "Caută nume / email / telefon / note…",
+        "sort": {
+            "label": "Sortează după",
+            "hottest": "🔥 Cei mai calzi",
+            "next_followup": "📞 Următoarele follow-up",
+            "newest": "🕒 Cele mai recente",
+            "oldest": "Cele mai vechi"
+        },
+        "show_all_sources": "Arată toate sursele",
+        "quick_filters": "Filtre rapide:",
+        "filter": {
+            "all": "Toate",
+            "with_phone": "📞 Cu telefon",
+            "not_contacted": "⏳ De contactat",
+            "video_ended": "🎥 Video terminat",
+            "lost_visible": "👁 Pierduți vizibili",
+            "show_lost": "🚫 Arată pierduți"
+        },
+        "empty": {
+            "title": "Niciun lead deocamdată",
+            "subtitle": "Distribuie linkul tău personal pentru a începe să colectezi lead-uri.",
+            "copy_link": "Copiază linkul tău /scopri/{{username}}"
+        },
+        "section": {
+            "overdue": "⚠️ Follow-up întârziate ({{n}})",
+            "today": "📅 Follow-up de azi ({{n}})",
+            "hot": "🔥 De sunat azi ({{n}})",
+            "other": "Alte lead-uri ({{n}})"
+        },
+        "delete_dialog": {
+            "title_manual": "Ștergi lead-ul manual?",
+            "title_hide": "Ascunzi lead-ul?",
+            "body_manual_prefix": "Lead-ul",
+            "body_manual_suffix": "va fi șters definitiv împreună cu notele și follow-up. Nu se poate recupera.",
+            "body_hide_prefix": "Lead-ul",
+            "body_hide_suffix": "va fi marcat ca „pierdut\" și ascuns din listă. Îl poți vedea din nou activând „Arată pierduți\"."
+        },
+        "csv": {
+            "name": "Nume",
+            "email": "Email",
+            "phone": "Telefon",
+            "source": "Sursă",
+            "heat": "Heat",
+            "status": "Stare",
+            "video": "Video",
+            "app": "App",
+            "registered": "Înscris",
+            "last_activity": "Ultima activitate",
+            "contacted": "Contactat",
+            "followup": "Follow-up",
+            "notes": "Note"
+        },
+        "template": {
+            "warm_mocha": "Salut {{name}}! Sunt {{promoter}}, Specialist EVEA. Am văzut că ai completat quiz-ul și ritualul tău este Mocha — o alegere excelentă pentru cine caută o cafea învăluitoare. Pot să-ți povestesc două detalii despre produs și cum să începi?",
+            "warm_black": "Salut {{name}}! Sunt {{promoter}}, Specialist EVEA. Ai făcut quiz-ul și ți-a ieșit Black — cafeaua noastră cea mai intensă. Pot să-ți spun două lucruri despre produs și cum să începi?",
+            "warm_latte": "Salut {{name}}! Sunt {{promoter}}, Specialist EVEA. Ai făcut quiz-ul și ți-a ieșit Latte — perfect pentru cine iubește o cafea cremoasă. Pot să-ți povestesc două detalii?",
+            "warm_greentea": "Salut {{name}}! Sunt {{promoter}}, Specialist EVEA. Ai făcut quiz-ul și ți-a ieșit Green Tea — excelent pentru cine caută o alternativă mai blândă la cofeină. Pot să-ți spun cum să începi?",
+            "cold_mocha": "Salut {{name}}, sunt {{promoter}} de la EVEA. Ai făcut quiz-ul și ritualul tău a ieșit Mocha — o cafea cu ciuperci funcționale, catifelată și învăluitoare. Pot să-ți trimit un scurt video introductiv?",
+            "cold_black": "Salut {{name}}, sunt {{promoter}} de la EVEA. Ai făcut quiz-ul și ritualul tău a ieșit Black — cafeaua noastră cu ciuperci funcționale cea mai intensă. Pot să-ți trimit un scurt video introductiv?",
+            "cold_latte": "Salut {{name}}, sunt {{promoter}} de la EVEA. Ai făcut quiz-ul și ritualul tău a ieșit Latte — cremoasă, ușoară, cu ciuperci funcționale. Pot să-ți trimit un scurt video introductiv?",
+            "cold_greentea": "Salut {{name}}, sunt {{promoter}} de la EVEA. Ai făcut quiz-ul și ritualul tău a ieșit Green Tea — o excelentă poartă de intrare în lumea ciupercilor funcționale, fără cofeină puternică. Pot să-ți trimit un scurt video introductiv?",
+            "landing-prodotto_ended": "Salut {{name}}, sunt {{promoter}} de la EVEA. Am văzut că ai urmărit videoul despre cafeaua noastră funcțională — mulțumesc pentru timp! Pot să răspund la eventuale întrebări și să te las să încerci ritualul?",
+            "landing-prodotto_started": "Salut {{name}}, sunt {{promoter}} de la EVEA. Am văzut că ai început să urmărești videoul despre cafea — dacă vrei să-l termini în liniște, nicio problemă. Când ai un moment, îmi spui ce părere ai?",
+            "landing-prodotto_not_started": "Salut {{name}}, sunt {{promoter}} de la EVEA. Îți mulțumesc că ți-ai lăsat contactul pe pagina produsului. Vrei să-ți trimit scurtul video introductiv al ritualului eVea?",
+            "landing-opportunita_ended": "Salut {{name}}, sunt {{promoter}} de la EVEA. Am văzut că ai urmărit videoul despre oportunitatea eVea — super! Dacă vrei, putem vorbi 10 minute să vedem dacă te poate interesa ca proiect.",
+            "landing-opportunita_started": "Salut {{name}}, sunt {{promoter}} de la EVEA. Văd că ai început videoul despre oportunitatea eVea. Când termini, îmi spui ce părere ai? Dacă vrei, ne auzim să aprofundăm.",
+            "landing-opportunita_not_started": "Salut {{name}}, sunt {{promoter}} de la EVEA. Mulțumesc că ți-ai lăsat contactul pe pagina Oportunitate — dacă vrei, îți explic în 2 minute cum funcționează și evaluăm împreună dacă e pentru tine.",
+            "manual": "Salut {{name}}! Sunt {{promoter}} de la eVea. Am vrut să te salut după întâlnirea noastră{{whereMetSuffix}} și, dacă îți face plăcere, să-ți povestesc mai mult despre produsele / oportunitatea noastră."
+        }
+    },
+    "onboarding": {
+        "page_title": "Onboarding",
+        "welcome": "Bine ai venit la EVEA",
+        "welcome_subtitle": "Completează profilul pentru a deveni Promoter",
+        "pct_completed": "{{pct}}% completat",
+        "step": {
+            "personal": "Date personale",
+            "fiscal": "Date fiscale",
+            "residence": "Reședință",
+            "document": "Document",
+            "bank": "Date bancare",
+            "letter": "Contract de mandat"
+        },
+        "button": {
+            "back": "Înapoi",
+            "save_continue": "Salvează și continuă",
+            "skip_for_now": "Sari peste deocamdată",
+            "upload_continue": "Încarcă și continuă"
+        },
+        "form": {
+            "first_name": "Prenume *",
+            "last_name": "Nume *",
+            "date_of_birth": "Data nașterii *",
+            "must_be_adult": "Trebuie să fii major (18+ ani) pentru a te înregistra ca Promoter.",
+            "gender": "Sex *",
+            "gender_male": "Masculin",
+            "gender_female": "Feminin",
+            "foreign_short": "Străinătate",
+            "birthplace_or_country": "Localitate sau țară străină de naștere *",
+            "type_to_search": "Începe să tastezi...",
+            "birthplace_helper": "Dacă te-ai născut în străinătate caută Țara (ex. Peru), nu orașul.",
+            "nationality": "Cetățenie *",
+            "add_co_holder": "Adaugă un co-titular (ex. soț/soție, rudă)",
+            "co_holder_note": "Co-titularul este o figură informativă (ex. soț/soție): comisioanele, reținerile și notele de compensare rămân doar pe numele titularului principal.",
+            "co_holder_first_name": "Prenume co-titular",
+            "co_holder_last_name": "Nume co-titular",
+            "co_holder_date_of_birth": "Data nașterii co-titular",
+            "codice_fiscale": "Cod fiscal (CNP) *",
+            "no": "Nu",
+            "yes": "Da",
+            "ivd_amount": "Sumă netă totală (€)",
+            "vat_number": "Cod TVA",
+            "codice_sdi": "Cod SDI (opțional)",
+            "pec": "PEC (opțional)",
+            "address": "Adresă *",
+            "zipcode": "Cod poștal *",
+            "city": "Oraș *",
+            "province": "Județ *",
+            "document_type": "Tip document *",
+            "document_number": "Număr document *",
+            "document_number_placeholder": "ex. CA12345AB",
+            "document_issuer": "Emis de *",
+            "document_issuer_placeholder": "ex. Primăria Roma / Poliția Verona",
+            "document_issued_at": "Data emiterii *",
+            "document_expires_at": "Data expirării *",
+            "iban": "IBAN *",
+            "iban_helper": "Format european SEPA — obligatoriu pentru a primi plăți",
+            "bic_swift_foreign": "BIC/SWIFT (obligatoriu pentru IBAN ne-italian)",
+            "account_holder": "Titular cont *"
+        },
+        "nationality": {
+            "it": "Italiană",
+            "fr": "Franceză",
+            "de": "Germană",
+            "es": "Spaniolă",
+            "ch": "Elvețiană",
+            "at": "Austriacă",
+            "gb": "Britanică",
+            "us": "Americană",
+            "other": "Altă"
+        },
+        "err": {
+            "name_required": "Numele și prenumele sunt obligatorii.",
+            "dob_required": "Data nașterii este obligatorie.",
+            "must_be_adult_short": "Trebuie să fii major pentru a te înregistra ca Promoter.",
+            "gender_required": "Sexul este obligatoriu.",
+            "birthplace_required": "Locul nașterii este obligatoriu: selectează localitatea sau, dacă te-ai născut în străinătate, țara.",
+            "co_holder_required": "Numele și prenumele co-titularului sunt obligatorii (sau debifează opțiunea).",
+            "cf_required": "Codul fiscal este obligatoriu.",
+            "criminal_record_required": "Declarația privind cazierul este obligatorie.",
+            "nulla_osta_required": "Avizul este obligatoriu pentru angajații publici.",
+            "address_required": "Toate câmpurile adresei sunt obligatorii.",
+            "iban_required": "IBAN este obligatoriu pentru a primi plăți",
+            "bic_required_foreign": "BIC/SWIFT obligatoriu pentru IBAN ne-italian"
+        },
+        "toast": {
+            "saved": "Salvat!",
+            "save_error": "Eroare la salvare",
+            "completed_downloading": "Onboarding finalizat! Se descarcă contractul...",
+            "letter_saved_later": "Contract salvat. Poți să-l descarci mai târziu din profil.",
+            "sign_error": "Eroare la semnare. Reîncearcă."
+        },
+        "otp": {
+            "sent_to_email": "Cod trimis pe email",
+            "sent_notice": "Cod trimis. Valabil 15 minute: folosește ultimul primit, cele anterioare nu mai sunt valabile.",
+            "send_error": "Eroare la trimiterea codului"
+        },
+        "cf": {
+            "computed_prefix": "Calculat din datele tale personale:",
+            "use_this": "Folosește acesta",
+            "mismatch_prefix": "Codul fiscal introdus nu corespunde cu datele personale. Așteptat:",
+            "homocode_note": "Dacă ai un caz de omocodie (cod recalculat de Agenția Veniturilor pentru a evita duplicatele) poți ignora acest mesaj. Altfel, verifică datele.",
+            "recompute": "Recalculează din datele personale",
+            "invalid": "Cod fiscal formal invalid (verificarea caracterului de control a eșuat)."
+        },
+        "fiscal": {
+            "title": "Date fiscale și declarații",
+            "q_ivd": "În anul calendaristic curent, ai primit compensații din activitatea de Agent de vânzări la domiciliu — adică vânzări din poartă în poartă sau la domiciliul clienților (L. 173/2005) — la alte companii?",
+            "q_piva": "Ai deja cod TVA pentru activitatea de vânzări la domiciliu?",
+            "regime_label": "Regim fiscal:",
+            "regime_piva": "Agent cu TVA",
+            "regime_occasional": "Agent ocazional",
+            "framework_title": "Cadrul fiscal și de asigurări sociale",
+            "irpef_intro": "EVEA reține automat impozitul IRPEF din câștigurile tale și îl plătește pentru tine către Agenția Veniturilor.",
+            "irpef_occasional": "Pentru Agenții ocazionali nu trebuie să le declari în declarația 730: sunt deja închise aici.",
+            "irpef_piva": "Pentru cei cu cod TVA este reținere în cont și se compensează în declarația anuală cu contabilul tău.",
+            "q_other_job": "Ai un alt loc de muncă sau o pensie?",
+            "opt_none": "Nu, nu am alte locuri de muncă sau pensie",
+            "opt_none_sub": "(ex. șomer, student, în căutare de loc de muncă, sau Network Marketing este singurul tău venit)",
+            "opt_none_inps": "Reținere INPS mai mare (nu ai alte acoperiri sociale)",
+            "opt_other_position": "Da, am un loc de muncă sau altă activitate",
+            "opt_other_position_sub": "(ex. angajat la firmă, liber-profesionist)",
+            "opt_other_position_inps": "Reținere INPS redusă (ești deja acoperit în altă parte)",
+            "opt_retired": "Sunt pensionar",
+            "opt_retired_inps": "Reținere INPS redusă (ești deja acoperit de pensie)",
+            "example_title": "Exemplu pe €100 comision",
+            "gross_commission": "Comision brut",
+            "irpef_row": "− IRPEF",
+            "stamp_row": "− Timbru fiscal",
+            "to_your_account": "În contul tău",
+            "inps_threshold_note": "Peste €5.000 net/an se aplică și INPS",
+            "inps_pct_line": "~€{{pct}} la fiecare €100",
+            "inps_pct_suffix": "doar pe partea care depășește",
+            "taxable_78": "Impozabil (78%)",
+            "vat_22": "+ TVA 22%",
+            "irpef_acconto": "− IRPEF (avans)",
+            "evea_transfer": "Transfer EVEA",
+            "vat_note_prefix": "TVA-ul",
+            "vat_note_suffix": "îl plătești tu la Agenția Veniturilor.",
+            "inps_gestione_prefix": "",
+            "inps_gestione": "INPS Gestiune Separată",
+            "inps_gestione_suffix": "îl gestionezi cu contabilul tău (EVEA nu reține).",
+            "q_public_employee": "Ești angajat al Administrației Publice?",
+            "upload_nulla_osta_title": "Încarcă avizul instituției tale (obligatoriu)",
+            "upload_nulla_osta_button": "Încarcă aviz",
+            "criminal_record_decl": "Declar că nu am cazier judiciar nici proceduri penale în curs (art. 71 D.Lgs. 59/2010) *",
+            "inps_threshold_info": "Pragul de €5.000,00 net este cumulativ pe toate compensațiile primite ca Agent de vânzări la domiciliu în anul calendaristic, indiferent de numărul companiilor mandante. Ești obligat să comunici orice modificare în termen de 10 zile la info@myevea.com."
+        },
+        "residence": {
+            "title": "Adresa de reședință"
+        },
+        "document": {
+            "title": "Document de identitate",
+            "warning": "Documentul este obligatoriu în termen de 30 de zile pentru eliberarea Cardului de recunoaștere (D.Lgs. 114/1998).",
+            "id_card": "Carte de identitate",
+            "passport": "Pașaport",
+            "driver_license": "Permis de conducere",
+            "front": "Față",
+            "back": "Verso",
+            "already_uploaded": "✓ Deja încărcat",
+            "upload_front": "Încarcă față",
+            "upload_back": "Încarcă verso",
+            "photo_error": "Nu se poate citi fotografia. Reîncearcă sau folosește JPG/PDF.",
+            "uploaded": "Document încărcat!",
+            "upload_error": "Eroare upload"
+        },
+        "letter": {
+            "title": "Contract de mandat",
+            "must_accept_all": "Trebuie să accepți toate documentele obligatorii și clauzele abuzive.",
+            "otp_6_digits": "Introdu codul OTP din 6 cifre primit prin email.",
+            "read_full": "Citește textul complet al Contractului de mandat înainte de a accepta",
+            "open_pdf": "Deschide PDF →",
+            "summary_title": "Rezumatul datelor tale",
+            "summary_name": "Nume și prenume",
+            "summary_cf": "Cod fiscal",
+            "summary_address": "Adresă",
+            "summary_iban": "IBAN",
+            "summary_regime": "Regim fiscal",
+            "docs_accept_title": "Acceptarea documentelor contractuale",
+            "read_accept_prefix": "Am citit și accept",
+            "read_link": "Citește →",
+            "allegato_a_name": "Codul de conduită al Promoterului (Anexa A)",
+            "allegato_b_name": "Planul de compensații (Anexa B)",
+            "allegato_c_prefix": "Am citit",
+            "allegato_c_name": "Informarea de confidențialitate (Anexa C)",
+            "allegato_c_suffix": "și autorizez prelucrarea datelor",
+            "optional_consents_title": "Consimțăminte opționale",
+            "marketing_subscribed": "Ești abonat/ă la comunicările eVea (ritualuri, povești din Fujian, oferte exclusive). Debifează pentru a revoca consimțământul.",
+            "marketing_subscribe": "Abonează-mă la comunicările eVea prin email: ritualuri, povești din Fujian și oferte exclusive. (opțional)",
+            "image_consent": "Autorizez utilizarea imaginii mele pentru materiale promoționale (opțional)",
+            "unfair_clauses_title": "Aprobarea clauzelor abuzive (art. 1341-1342 c.c.)",
+            "unfair_clauses_list": "Clauze de reziliere și încetare automată — Absența zonei exclusive — Interzicerea încasării — Interzicerea e-commerce — Clawback comisioane — Modificarea unilaterală a documentelor contractuale — Pierderea comisioanelor indirecte la reziliere — Forul Roma — Cross-sponsoring interzis — Inactivitate și închiderea codului — Reguli schimbare sponsor — Confidențialitate trienală post-reziliere — Interzicerea chargeback.",
+            "unfair_clauses_accept": "Aprob în mod specific clauzele enumerate mai sus în temeiul art. 1341 și 1342 c.c. *",
+            "identity_check_title": "Verificare identitate (Semnătură electronică)",
+            "identity_check_desc": "Pentru a semna digital Contractul de mandat, primești un cod de verificare prin email și îl introduci mai jos. Această procedură conferă valoare legală semnăturii tale electronice.",
+            "sending": "Se trimite...",
+            "send_code_email": "Trimite codul prin email",
+            "code_sent_check_inbox": "✓ Cod trimis. Verifică căsuța de email (inclusiv spam).",
+            "otp_input_label": "Introdu codul OTP din 6 cifre",
+            "resend_code": "Retrimite codul",
+            "sign_complete": "Semnează și finalizează Onboarding"
+        }
+    }
+}

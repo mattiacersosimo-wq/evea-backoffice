@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Stack, Tooltip, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 
 // WeekChipsHeader: header standard per widget bonus weekly. Mostra due box
@@ -33,15 +34,18 @@ const WeekChipsHeader = ({
   extraBox = null,
   cycle = "weekly",
 }) => {
+  const { t } = useTranslation();
   const isWeekly = cycle === "weekly";
-  const currentLabel = isWeekly ? "Settimana corrente" : "Mese corrente";
-  const previousLabel = isWeekly ? "In approvazione" : "In approvazione";
+  const currentLabel = isWeekly
+    ? t("bonus_widgets.week_chips.current_week", "Settimana corrente")
+    : t("bonus_widgets.week_chips.current_month", "Mese corrente");
+  const previousLabel = t("bonus_widgets.week_chips.in_approval", "In approvazione");
   const currentTooltip = isWeekly
-    ? "Bonus maturato questa settimana (lun-dom). Importo aggiornato ogni sera per Dynamic Compression; cristallizzato domenica sera."
-    : "Bonus maturato questo mese. Ancora aggiornabile fino a fine mese.";
+    ? t("bonus_widgets.week_chips.tooltip_current_week", "Bonus maturato questa settimana (lun-dom). Importo aggiornato ogni sera per Dynamic Compression; cristallizzato domenica sera.")
+    : t("bonus_widgets.week_chips.tooltip_current_month", "Bonus maturato questo mese. Ancora aggiornabile fino a fine mese.");
   const previousTooltip = isWeekly
-    ? "Bonus di settimane precedenti, cristallizzati. Pagamento automatico dopo 15 giorni dalla creazione."
-    : "Bonus di mesi precedenti in coda per pagamento (15 giorni).";
+    ? t("bonus_widgets.week_chips.tooltip_previous_week", "Bonus di settimane precedenti, cristallizzati. Pagamento automatico dopo 15 giorni dalla creazione.")
+    : t("bonus_widgets.week_chips.tooltip_previous_month", "Bonus di mesi precedenti in coda per pagamento (15 giorni).");
 
   return (
     <Stack direction="row" spacing={1.5} sx={{ mb: 1 }}>

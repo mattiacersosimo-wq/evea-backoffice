@@ -4,7 +4,12 @@ import Map from "src/components/map";
 import Scrollbar from "src/components/Scrollbar";
 import DataHandlerTable from "src/components/data-handler/table";
 
-const headers = ["S.No", "Username", "Rank", "BV"];
+const headers = [
+  "affiliate_dashboard.s_no",
+  "affiliate_dashboard.username",
+  "affiliate_dashboard.rank",
+  "affiliate_dashboard.bv",
+];
 
 const Level_One_BV_Users = ({ bv_users = [], state, open }) => {
   const { data, ...dataProps } = state;

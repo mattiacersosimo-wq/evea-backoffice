@@ -39,7 +39,7 @@ const Progress = ({ higherRank = [], state }) => {
                     €{rank?.bonus_amount || 0}
                   </Typography>
                   {rank?.is_evolving_bonus_achived === 1 && (
-                    <Chip label="Evolving" size="small" sx={{ mt: 0.5, height: 18, fontSize: "0.58rem", bgcolor: alpha("#43A047", 0.1), color: "#43A047" }} />
+                    <Chip label={t("bonus_widgets.ritual.evolving_chip", "Evolving")} size="small" sx={{ mt: 0.5, height: 18, fontSize: "0.58rem", bgcolor: alpha("#43A047", 0.1), color: "#43A047" }} />
                   )}
                   {rank?.achieved_count > 0 && (
                     <Chip label={`x${rank.achieved_count}`} size="small" sx={{ mt: 0.5, ml: 0.5, height: 18, fontSize: "0.58rem", bgcolor: alpha(ORO, 0.1), color: ORO }} />

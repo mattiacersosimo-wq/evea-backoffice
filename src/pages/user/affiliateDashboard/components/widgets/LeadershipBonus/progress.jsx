@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 
 const ORO = "#B8963B";
 
-const GenCard = ({ label, ok, children }) => (
+const GenCard = ({ label, ok, children, t }) => (
   <Box
     sx={{
       p: 1.5, borderRadius: 2, height: "100%",
@@ -27,7 +27,7 @@ const GenCard = ({ label, ok, children }) => (
         {label}
       </Typography>
       <Chip
-        label={ok ? "Qualified" : "Not yet"}
+        label={ok ? t("bonus_widgets.common.qualified", "Qualificato") : t("bonus_widgets.common.not_yet", "Non ancora")}
         size="small"
         sx={{
           ml: "auto", height: 20, fontSize: "0.6rem", fontWeight: 700,
@@ -72,12 +72,12 @@ const Progress = ({ higherRank, state }) => {
         then={
           <Grid container spacing={1.5}>
             <Grid item xs={12} md={6}>
-              <GenCard label={t("affiliate_dashboard.generation_1")} ok={higherRank?.eligibility?.gen_1 === 1}>
+              <GenCard t={t} label={t("affiliate_dashboard.generation_1")} ok={higherRank?.eligibility?.gen_1 === 1}>
                 <Level_One state={state} level_one={higherRank?.level_1} />
               </GenCard>
             </Grid>
             <Grid item xs={12} md={6}>
-              <GenCard label={t("affiliate_dashboard.generation_2")} ok={higherRank?.eligibility?.gen_2 === 1}>
+              <GenCard t={t} label={t("affiliate_dashboard.generation_2")} ok={higherRank?.eligibility?.gen_2 === 1}>
                 <Level_Two state={state} level_two={higherRank?.level_2} />
               </GenCard>
             </Grid>

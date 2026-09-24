@@ -28,10 +28,10 @@ const Progress = ({ higherRank }) => {
       <Box sx={{ py: 3, textAlign: "center" }}>
         <Iconify icon="mdi:lock-outline" width={36} sx={{ color: "#E8DDCA", mb: 1 }} />
         <Typography sx={{ fontSize: "0.9rem", fontWeight: 600, color: "#5C4A3A" }}>
-          Non elegibile
+          {t("evea.not_eligible", "Non elegibile")}
         </Typography>
         <Typography sx={{ fontSize: "0.75rem", color: "#7A6A5C", mt: 0.5 }}>
-          Per accedere al Rock Solid MVP devi prima completare e ottenere l'approvazione del Go MVP Bonus.
+          {t("evea.not_eligible_rsp", "Per accedere al Rock Solid MVP devi prima completare e ottenere l'approvazione del Go MVP Bonus.")}
         </Typography>
       </Box>
     );
