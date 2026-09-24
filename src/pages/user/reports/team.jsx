@@ -38,16 +38,16 @@ const TeamReport = () => {
       <Stack direction="row" spacing={1.5} mb={2}>
         <Select size="small" value={level} onChange={(e) => setLevel(e.target.value)}
           sx={{ minWidth: 130, bgcolor: "#fff", borderRadius: 2, "& .MuiSelect-select": { py: 0.8, fontSize: "0.82rem" } }}>
-          <MenuItem value={0}>All Levels</MenuItem>
-          <MenuItem value={1}>1st Line</MenuItem>
-          <MenuItem value={2}>1st + 2nd</MenuItem>
-          <MenuItem value={3}>1st-3rd</MenuItem>
+          <MenuItem value={0}>{t("reports.team.filter_all_levels")}</MenuItem>
+          <MenuItem value={1}>{t("reports.team.first_line")}</MenuItem>
+          <MenuItem value={2}>{t("reports.team.first_second")}</MenuItem>
+          <MenuItem value={3}>{t("reports.team.first_third")}</MenuItem>
         </Select>
         <Select size="small" value={status} onChange={(e) => setStatus(e.target.value)}
           sx={{ minWidth: 120, bgcolor: "#fff", borderRadius: 2, "& .MuiSelect-select": { py: 0.8, fontSize: "0.82rem" } }}>
-          <MenuItem value="all">All</MenuItem>
-          <MenuItem value="active">Active</MenuItem>
-          <MenuItem value="inactive">Inactive</MenuItem>
+          <MenuItem value="all">{t("common.all")}</MenuItem>
+          <MenuItem value="active">{t("common.active")}</MenuItem>
+          <MenuItem value="inactive">{t("common.inactive")}</MenuItem>
         </Select>
       </Stack>
 
@@ -57,7 +57,7 @@ const TeamReport = () => {
           { label: t("evea.total"), value: totals.total, icon: "mdi:account-group", color: ESPRESSO },
           { label: t("evea.active"), value: totals.active, icon: "mdi:account-check", color: "#4A5C3A" },
           { label: t("evea.inactive"), value: totals.inactive, icon: "mdi:account-clock", color: "#EF9F27" },
-          { label: "Promoters", value: totals.promoters, icon: "mdi:account-tie", color: ORO },
+          { label: t("reports.team.promoters"), value: totals.promoters, icon: "mdi:account-tie", color: ORO },
           { label: t("evea.report_customers"), value: totals.customers, icon: "mdi:account", color: "#2196F3" },
           { label: "Smartship", value: totals.smartship, icon: "mdi:refresh-circle", color: "#8BC34A" },
         ].map((c) => (
@@ -77,7 +77,7 @@ const TeamReport = () => {
           <Table size="small">
             <TableHead>
               <TableRow>
-                {["Username", "Name", "Type", "Rank", "QV Month", "Last Order", "Status"].map((h) => (
+                {[t("reports.customers.username"), t("common.name"), t("common.type"), t("reports.team.col_rank"), t("reports.team.qv_month"), t("reports.customers.last_order"), t("common.status")].map((h) => (
                   <TableCell key={h} sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED }}>{h}</TableCell>
                 ))}
               </TableRow>
@@ -91,13 +91,13 @@ const TeamReport = () => {
                   <TableCell sx={{ fontSize: "0.75rem" }}>{m.rank}</TableCell>
                   <TableCell sx={{ fontSize: "0.78rem", fontWeight: 700, color: m.qv_month > 0 ? ORO : "#ccc" }}>{m.qv_month}</TableCell>
                   <TableCell sx={{ fontSize: "0.72rem", color: MUTED }}>{formatDate(m.last_order)}</TableCell>
-                  <TableCell><Chip label={m.active ? "Active" : "Inactive"} size="small" sx={{ height: 20, fontSize: "0.6rem", fontWeight: 600, bgcolor: m.active ? alpha("#4A5C3A", 0.1) : alpha("#EF9F27", 0.1), color: m.active ? "#4A5C3A" : "#EF9F27" }} /></TableCell>
+                  <TableCell><Chip label={m.active ? t("common.active") : t("common.inactive")} size="small" sx={{ height: 20, fontSize: "0.6rem", fontWeight: 600, bgcolor: m.active ? alpha("#4A5C3A", 0.1) : alpha("#EF9F27", 0.1), color: m.active ? "#4A5C3A" : "#EF9F27" }} /></TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         ) : (
-          <Typography sx={{ textAlign: "center", py: 3, color: MUTED }}>No team members</Typography>
+          <Typography sx={{ textAlign: "center", py: 3, color: MUTED }}>{t("reports.team.no_team_members")}</Typography>
         )}
       </Card>
     </Box>

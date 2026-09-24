@@ -10,8 +10,7 @@ const ESPRESSO = "#2C1A0E";
 const MUTED = "#7A6A5C";
 
 const CommunityRedirect = () => {
-  const { i18n } = useTranslation();
-  const isIt = i18n.language?.startsWith("it");
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [opened, setOpened] = useState(false);
   const [error, setError] = useState(false);
@@ -77,20 +76,14 @@ const CommunityRedirect = () => {
     >
       {!opened && !error && <CircularProgress sx={{ color: ORO }} />}
       <Typography sx={{ fontSize: "1.1rem", fontWeight: 700, color: ESPRESSO }}>
-        {isIt ? "Community EVEA" : "EVEA Community"}
+        {t("community.title")}
       </Typography>
       <Typography sx={{ fontSize: "0.9rem", color: MUTED, maxWidth: 420 }}>
         {opened
-          ? isIt
-            ? "Community aperta in una nuova scheda. Se non la vedi, controlla che il browser non l'abbia bloccata."
-            : "Community opened in a new tab. If you don't see it, check that your browser hasn't blocked it."
+          ? t("community.opened_message")
           : error
-            ? isIt
-              ? "Apertura automatica bloccata dal browser. Clicca sul pulsante qui sotto."
-              : "Auto-open was blocked by the browser. Click the button below."
-            : isIt
-              ? "Stiamo aprendo la community in una nuova scheda..."
-              : "Opening the community in a new tab..."}
+            ? t("community.blocked_message")
+            : t("community.opening_message")}
       </Typography>
       {(opened || error) && (
         <Box sx={{ display: "flex", gap: 1.5, mt: 1, flexWrap: "wrap", justifyContent: "center" }}>
@@ -99,14 +92,14 @@ const CommunityRedirect = () => {
             onClick={() => openCommunity()}
             sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700 }}
           >
-            {isIt ? "Apri Community" : "Open Community"}
+            {t("community.open_community")}
           </Button>
           <Button
             variant="outlined"
             onClick={() => navigate("/user/dashboard")}
             sx={{ borderColor: ORO, color: ORO }}
           >
-            {isIt ? "Torna alla Dashboard" : "Back to Dashboard"}
+            {t("community.back_to_dashboard")}
           </Button>
         </Box>
       )}

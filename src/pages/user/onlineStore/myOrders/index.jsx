@@ -34,34 +34,33 @@ const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
 const MUTED = "#7A6A5C";
 
-const getStatusBadge = (row) => {
+const getStatusBadge = (row, t) => {
   const os = (row?.order_status || "").toLowerCase();
   const fs = (row?.fulfillment_status || "").toLowerCase();
-  if (os === "refunded" || os === "cancelled") return { label: "Rimborsato", bgcolor: "#FCEBEB", color: "#A32D2D" };
-  if (os === "partially_refunded") return { label: "Parzialmente rimborsato", bgcolor: "#FFF3E0", color: "#E65100" };
-  if (fs === "delivered") return { label: "Consegnato", bgcolor: "#EAF3DE", color: "#27500A" };
-  if (fs === "fulfilled" || fs === "success") return { label: "Spedito", bgcolor: "#FAF3E0", color: "#854F0B" };
-  if (os === "finished" || os === "paid" || os === "complete") return { label: "Pagato", bgcolor: "#E6F1FB", color: "#0C447C" };
-  if (os === "processing") return { label: "In lavorazione", bgcolor: "#FFF8E1", color: "#7A6A5C" };
-  return { label: "In attesa", bgcolor: "#E8DDCA", color: "#5C4A3A" };
+  if (os === "refunded" || os === "cancelled") return { label: t("my_orders.status_refunded"), bgcolor: "#FCEBEB", color: "#A32D2D" };
+  if (os === "partially_refunded") return { label: t("my_orders.status_partially_refunded"), bgcolor: "#FFF3E0", color: "#E65100" };
+  if (fs === "delivered") return { label: t("my_orders.status_delivered"), bgcolor: "#EAF3DE", color: "#27500A" };
+  if (fs === "fulfilled" || fs === "success") return { label: t("my_orders.status_shipped"), bgcolor: "#FAF3E0", color: "#854F0B" };
+  if (os === "finished" || os === "paid" || os === "complete") return { label: t("my_orders.status_paid"), bgcolor: "#E6F1FB", color: "#0C447C" };
+  if (os === "processing") return { label: t("my_orders.status_processing"), bgcolor: "#FFF8E1", color: "#7A6A5C" };
+  return { label: t("common.pending"), bgcolor: "#E8DDCA", color: "#5C4A3A" };
 };
 
 const MyOrders = () => {
   const navigate = useNavigate();
-  const { i18n } = useTranslation();
-  const isIt = i18n.language?.startsWith("it");
+  const { t } = useTranslation();
   const L = {
-    title: isIt ? "I miei Ordini" : "My Orders",
-    subtitle: isIt ? "Storico completo dei tuoi acquisti" : "Complete purchase history",
+    title: t("my_orders.title"),
+    subtitle: t("my_orders.subtitle"),
     no: "#",
-    invoice: isIt ? "Fattura" : "Invoice",
-    product: isIt ? "Prodotto" : "Product",
-    payment: isIt ? "Pagamento" : "Payment",
-    date: isIt ? "Data" : "Date",
-    total: isIt ? "Totale" : "Total",
-    status: isIt ? "Stato" : "Status",
-    tracking: "Tracking",
-    action: isIt ? "Azioni" : "Actions",
+    invoice: t("my_orders.invoice"),
+    product: t("global.product"),
+    payment: t("my_orders.payment"),
+    date: t("common.date"),
+    total: t("common.total"),
+    status: t("common.status"),
+    tracking: t("my_orders.tracking"),
+    action: t("common.actions"),
   };
   const headers = [L.no, L.invoice, L.product, L.payment, L.date, L.total, L.status, L.tracking, L.action];
 
@@ -112,7 +111,7 @@ const MyOrders = () => {
                       <Box sx={{ display: "flex", alignItems: "center" }}>
                         <Ternary
                           when={row?.purchase_type === "coupon_purchase"}
-                          then={isIt ? "Acquisto Coupon" : "Coupon Purchase"}
+                          then={t("my_orders.coupon_purchase")}
                           otherwise={row?.user_purchase_products[0]?.product?.name}
                         />
                         {row?.user_purchase_products?.product?.name}
@@ -127,7 +126,7 @@ const MyOrders = () => {
                     <TableCell><ParseDate date={row.date} /></TableCell>
                     <TableCell><Currency>{row.total_amount}</Currency></TableCell>
                     <TableCell>
-                      {(() => { const s = getStatusBadge(row); return <Chip label={s.label} size="small" sx={{ bgcolor: s.bgcolor, color: s.color, fontWeight: 700, fontSize: "0.7rem", height: 24 }} />; })()}
+                      {(() => { const s = getStatusBadge(row, t); return <Chip label={s.label} size="small" sx={{ bgcolor: s.bgcolor, color: s.color, fontWeight: 700, fontSize: "0.7rem", height: 24 }} />; })()}
                     </TableCell>
                     <TableCell>
                       {row.tracking_number ? (
@@ -159,16 +158,16 @@ const MyOrders = () => {
         <TableMenu open={openMenu} onClose={handleCloseMenu}>
           <MenuItem onClick={() => setOpenCombo(true)} name="combo">
             <Iconify icon="mdi:eye-outline" />
-            {isIt ? "Combo" : "Combo"}
+            {t("my_orders.combo")}
           </MenuItem>
           <MenuItem onClick={() => navigate("view")} name="view">
             <Iconify icon="mdi:eye-outline" />
-            {isIt ? "Visualizza" : "View"}
+            {t("global.View")}
           </MenuItem>
         </TableMenu>
 
         <Dialog open={openCombo} onClose={() => setOpenCombo(false)} TransitionComponent={Transition}>
-          <DialogTitle>{isIt ? "Dettaglio Combo" : "Combo Details"}</DialogTitle>
+          <DialogTitle>{t("my_orders.combo_details")}</DialogTitle>
         </Dialog>
       </Box>
     </Page>

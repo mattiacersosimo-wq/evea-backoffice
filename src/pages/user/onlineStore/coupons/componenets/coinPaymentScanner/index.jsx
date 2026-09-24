@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import moment from "moment";
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import useCountDown from "src/hooks/use-count-down";
 
@@ -24,6 +25,7 @@ import Transition from "src/utils/dialog-animation";
 import Translate from "src/components/translate";
 
 const useCountDowner = (timeout) => {
+  const { t } = useTranslation();
   const format = "YYYY-MM-DD HH:mm:ss";
 
   const expiryDate = useMemo(
@@ -32,10 +34,11 @@ const useCountDowner = (timeout) => {
   );
   const { days, hours, minutes, seconds } = useCountDown(expiryDate);
 
-  return `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
+  return t("coupons.crypto.expires_in", { days, hours, minutes, seconds });
 };
 
 export const ScannerDialog = ({ open, paymentData, onClose, onSuccess }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const {
     payment_address,
@@ -91,7 +94,7 @@ export const ScannerDialog = ({ open, paymentData, onClose, onSuccess }) => {
           <Typography>
             {/* Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. */}
-            Make sure to send enough to cover any coin transaction fees!
+            {t("coupons.crypto.enough_fee_hint")}
           </Typography>
           <Typography variant="caption">{expiresInTimer}</Typography>
           <Typography></Typography>
@@ -101,27 +104,18 @@ export const ScannerDialog = ({ open, paymentData, onClose, onSuccess }) => {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Typography variant="body1">What to do next?</Typography>
+              <Typography variant="body1">{t("coupons.crypto.what_next_title")}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography variant="body2" paragraph>
-                1) Please send{" "}
+                {t("coupons.crypto.step1_prefix")}{" "}
                 <strong>
                   {amount_btc} {coin_type}
                 </strong>{" "}
-                to address <strong>{payment_address}</strong>. (Make sure to
-                send enough to cover any coin transaction fees!) You will need
-                to initiate the payment using your software or online wallet and
-                copy/paste the address and payment amount into it. We will email
-                you when all funds have been received
+                {t("coupons.crypto.step1_address_prefix")} <strong>{payment_address}</strong>. {t("coupons.crypto.step1_suffix")}
               </Typography>
               <Typography variant="body2" paragraph>
-                2) After sending payment, review the status of your transaction
-                on this page. Once the payment is confirmed several times in the
-                block chain, the payment will be completed and the merchant will
-                be notified. The confirmation process usually takes 10-45
-                minutes but varies based on the coin's target block time and
-                number of block confirms required.
+                {t("coupons.crypto.step2")}
               </Typography>
             </AccordionDetails>
           </Accordion>
@@ -132,14 +126,12 @@ export const ScannerDialog = ({ open, paymentData, onClose, onSuccess }) => {
               id="panel1a-header"
             >
               <Typography variant="body1">
-                What if I accidentally don't send enough?
+                {t("coupons.crypto.not_enough_title")}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography variant="body2" paragraph>
-                If you don't send enough, that is OK. Just send the remainder
-                and we will combine them for you. You can also send from
-                multiple wallets/accounts.
+                {t("coupons.crypto.not_enough_body")}
               </Typography>
             </AccordionDetails>
           </Accordion>

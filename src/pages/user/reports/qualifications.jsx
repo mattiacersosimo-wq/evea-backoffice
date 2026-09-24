@@ -10,11 +10,11 @@ const cs = { bgcolor: "#fff", borderRadius: 3, border: "1px solid #f0ece6", boxS
 
 // Ready = TUTTI i requisiti al 100% (piano Sez.2: per raggiungere un rank
 // servono tutti e 3 i requisiti PQV+TV+GV soddisfatti, non la media).
-const getBadge = (pct, allSatisfied = false) => {
-  if (allSatisfied) return { label: "Ready!", color: "#4A5C3A", bg: "#EAF3DE" };
-  if (pct >= 90) return { label: "Quasi!", color: ORO, bg: alpha(ORO, 0.1) };
-  if (pct >= 70) return { label: "In corsa", color: ORO, bg: alpha(ORO, 0.08) };
-  return { label: "In progress", color: MUTED, bg: "#f5f5f5" };
+const getBadge = (pct, allSatisfied, t) => {
+  if (allSatisfied) return { label: t("reports.qualifications.badge_ready"), color: "#4A5C3A", bg: "#EAF3DE" };
+  if (pct >= 90) return { label: t("reports.qualifications.badge_almost"), color: ORO, bg: alpha(ORO, 0.1) };
+  if (pct >= 70) return { label: t("reports.qualifications.badge_running"), color: ORO, bg: alpha(ORO, 0.08) };
+  return { label: t("reports.qualifications.badge_in_progress"), color: MUTED, bg: "#f5f5f5" };
 };
 
 // Verifica se tutti e 3 i requisiti del rank sono al 100% (o non richiesti)
@@ -72,7 +72,7 @@ const QualificationsReport = ({ initialViewAs = null }) => {
               <Stack direction="row" alignItems="center" spacing={1} mb={1.5}>
                 <Iconify icon="mdi:bell-ring" width={20} sx={{ color: ORO }} />
                 <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO }}>
-                  {isIt ? "Notifiche Smart" : "Smart Alerts"}
+                  {t("reports.qualifications.smart_alerts")}
                 </Typography>
                 <Chip label={alerts.length} size="small" sx={{ height: 22, fontWeight: 700, bgcolor: alpha(ORO, 0.1), color: ORO }} />
               </Stack>
@@ -90,7 +90,7 @@ const QualificationsReport = ({ initialViewAs = null }) => {
                   <Button size="small" onClick={() => setAlertsExpanded(!alertsExpanded)}
                     startIcon={<Iconify icon={alertsExpanded ? "mdi:chevron-up" : "mdi:chevron-down"} />}
                     sx={{ color: MUTED, textTransform: "none", fontWeight: 600, fontSize: "0.78rem", alignSelf: "flex-start", mt: 0.5 }}>
-                    {alertsExpanded ? (isIt ? "Mostra meno" : "Show less") : (isIt ? `Vedi altre ${alerts.length - 4} notifiche` : `Show ${alerts.length - 4} more`)}
+                    {alertsExpanded ? t("reports.qualifications.show_less") : t("reports.qualifications.show_more", { count: alerts.length - 4 })}
                   </Button>
                 )}
               </Stack>
@@ -102,30 +102,30 @@ const QualificationsReport = ({ initialViewAs = null }) => {
             <Stack direction="row" alignItems="center" spacing={1} mb={2}>
               <Iconify icon="mdi:rocket-launch" width={22} sx={{ color: "#4CAF50" }} />
               <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ESPRESSO }}>
-                {isIt ? "Avanzamento Go MVP del Team" : "Team Go MVP Progress"}
+                {t("reports.qualifications.team_go_mvp")}
               </Typography>
               <Chip label={mvp.length} size="small" sx={{ height: 22, fontWeight: 700, bgcolor: alpha("#4CAF50", 0.1), color: "#4CAF50" }} />
             </Stack>
 
             {mvp.length === 0 ? (
               <Typography sx={{ textAlign: "center", py: 3, color: MUTED }}>
-                {isIt ? "Tutti i promoter hanno già raggiunto il Go MVP o non hanno ancora il kit" : "All promoters already have Go MVP or no starter kit yet"}
+                {t("reports.qualifications.all_have_mvp")}
               </Typography>
             ) : (
               <Stack spacing={1.5}>
                 {mvp.map((m) => {
-                  const badge = getBadge(m.avg_pct, isMvpReady(m));
+                  const badge = getBadge(m.avg_pct, isMvpReady(m), t);
                   return (
                     <Box key={m.user_id} sx={{ p: 2, borderRadius: 2, bgcolor: m.expired ? alpha("#E24B4A", 0.03) : "#fafafa", border: `1px solid ${m.expired ? alpha("#E24B4A", 0.15) : "#f0ece6"}` }}>
                       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1.2}>
                         <Stack direction="row" alignItems="center" spacing={1}>
                           <Typography sx={{ fontSize: "0.85rem", fontWeight: 700, color: ESPRESSO }}>{m.username}</Typography>
                           <Chip label={badge.label} size="small" sx={{ height: 20, fontSize: "0.6rem", fontWeight: 700, bgcolor: badge.bg, color: badge.color }} />
-                          {m.expired && <Chip label="Expired" size="small" sx={{ height: 20, fontSize: "0.6rem", fontWeight: 700, bgcolor: alpha("#E24B4A", 0.1), color: "#E24B4A" }} />}
+                          {m.expired && <Chip label={t("reports.qualifications.expired")} size="small" sx={{ height: 20, fontSize: "0.6rem", fontWeight: 700, bgcolor: alpha("#E24B4A", 0.1), color: "#E24B4A" }} />}
                         </Stack>
                         <Stack direction="row" alignItems="center" spacing={1}>
                           <Typography sx={{ fontSize: "1.1rem", fontWeight: 800, color: m.avg_pct >= 70 ? "#4CAF50" : MUTED }}>{m.avg_pct}%</Typography>
-                          {!m.expired && <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{m.days_left}d left</Typography>}
+                          {!m.expired && <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{t("reports.qualifications.days_left", { count: m.days_left })}</Typography>}
                         </Stack>
                       </Stack>
                       <Grid container spacing={1.5}>
@@ -136,7 +136,7 @@ const QualificationsReport = ({ initialViewAs = null }) => {
                           <ProgressBar label="DQV" value={m.dqv || 0} max={m.dqv_required || 0} pct={m.dqv_pct || 0} color={ORO} />
                         </Grid>
                         <Grid item xs={4}>
-                          <ProgressBar label={isIt ? "Clienti" : "Customers"} value={m.customers || 0} max={m.customers_required || 0} pct={m.customers_pct || 0} color="#2196F3" />
+                          <ProgressBar label={t("reports.qualifications.customers_label")} value={m.customers || 0} max={m.customers_required || 0} pct={m.customers_pct || 0} color="#2196F3" />
                         </Grid>
                       </Grid>
                     </Box>
@@ -151,18 +151,18 @@ const QualificationsReport = ({ initialViewAs = null }) => {
             <Stack direction="row" alignItems="center" spacing={1} mb={2}>
               <Iconify icon="mdi:trophy-outline" width={22} sx={{ color: ORO }} />
               <Typography sx={{ fontSize: "0.95rem", fontWeight: 700, color: ESPRESSO }}>
-                {isIt ? "Avanzamento Rank del Team" : "Team Rank Progress"}
+                {t("reports.qualifications.team_rank_progress")}
               </Typography>
             </Stack>
 
             {rank.length === 0 ? (
               <Typography sx={{ textAlign: "center", py: 3, color: MUTED }}>
-                {isIt ? "Nessun dato" : "No data"}
+                {t("common.no_data")}
               </Typography>
             ) : (
               <Stack spacing={1.5}>
                 {rank.map((r) => {
-                  const badge = getBadge(r.avg_pct, isRankReady(r));
+                  const badge = getBadge(r.avg_pct, isRankReady(r), t);
                   return (
                     <Box key={r.user_id} sx={{ p: 2, borderRadius: 2, bgcolor: "#fafafa", border: "1px solid #f0ece6" }}>
                       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1.2}>

@@ -50,8 +50,8 @@ const VolumeReport = () => {
                   })}
                 </Box>
                 <Stack direction="row" spacing={2} justifyContent="center" mt={1}>
-                  <Stack direction="row" alignItems="center" spacing={0.5}><Box sx={{ width: 10, height: 10, bgcolor: ORO, borderRadius: 1 }} /><Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Personal QV</Typography></Stack>
-                  <Stack direction="row" alignItems="center" spacing={0.5}><Box sx={{ width: 10, height: 10, bgcolor: "#4A5C3A", borderRadius: 1 }} /><Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Team QV</Typography></Stack>
+                  <Stack direction="row" alignItems="center" spacing={0.5}><Box sx={{ width: 10, height: 10, bgcolor: ORO, borderRadius: 1 }} /><Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{t("reports.volume.personal_qv")}</Typography></Stack>
+                  <Stack direction="row" alignItems="center" spacing={0.5}><Box sx={{ width: 10, height: 10, bgcolor: "#4A5C3A", borderRadius: 1 }} /><Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{t("reports.volume.team_qv")}</Typography></Stack>
                 </Stack>
               </Card>
             </Grid>
@@ -68,7 +68,7 @@ const VolumeReport = () => {
                       <Typography sx={{ fontSize: "0.82rem", fontWeight: 700, color: ORO }}>{Number(c.qv).toFixed(0)} QV</Typography>
                     </Stack>
                   ))}
-                  {topC.length === 0 && <Typography sx={{ fontSize: "0.78rem", color: MUTED, textAlign: "center" }}>No data</Typography>}
+                  {topC.length === 0 && <Typography sx={{ fontSize: "0.78rem", color: MUTED, textAlign: "center" }}>{t("common.no_data")}</Typography>}
                 </Stack>
               </Card>
             </Grid>
@@ -80,7 +80,7 @@ const VolumeReport = () => {
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  {["Month", "Personal QV", "Personal BV", "Team QV"].map((h) => (
+                  {[t("common.month"), t("reports.volume.personal_qv"), t("reports.volume.personal_bv"), t("reports.volume.team_qv")].map((h) => (
                     <TableCell key={h} sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED }}>{h}</TableCell>
                   ))}
                 </TableRow>

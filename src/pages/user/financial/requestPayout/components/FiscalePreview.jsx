@@ -1,30 +1,32 @@
 import { Alert, Box, CircularProgress, Typography } from "@mui/material";
 import { useEffect, useState, useRef } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import axiosInstance from "src/utils/axios";
 import useAuth from "src/hooks/useAuth";
 
 const SOGLIA_INPS = 6410.26;
 
-const getThresholdAlert = (maturato, residuo) => {
+const getThresholdAlert = (maturato, residuo, t) => {
   if (maturato < 5000) return null;
   if (maturato <= 6000)
     return {
       severity: "info",
-      text: "Hai maturato \u20AC" + maturato.toFixed(2) + " lordi quest'anno. Ti stai avvicinando alla soglia INPS di \u20AC6.410,26.",
+      text: t("financial.fiscale.approaching_threshold", { maturato: maturato.toFixed(2) }),
     };
   if (maturato < SOGLIA_INPS)
     return {
       severity: "warning",
-      text: "Attenzione: hai maturato \u20AC" + maturato.toFixed(2) + " su \u20AC6.410,26 lordi annui. Residuo richiedibile senza P.IVA: \u20AC" + (residuo || 0).toFixed(2) + ".",
+      text: t("financial.fiscale.warning_threshold", { maturato: maturato.toFixed(2), residuo: (residuo || 0).toFixed(2) }),
     };
   return {
     severity: "error",
-    text: "Hai superato la soglia annua di \u20AC6.410,26 (maturato \u20AC" + maturato.toFixed(2) + "). I prossimi prelievi senza P.IVA verranno cappati al residuo.",
+    text: t("financial.fiscale.threshold_exceeded", { maturato: maturato.toFixed(2) }),
   };
 };
 
 const FiscalePreview = () => {
+  const { t } = useTranslation();
   const { control } = useFormContext();
   const { user } = useAuth();
   const amount = useWatch({ control, name: "amount" });
@@ -85,7 +87,7 @@ const FiscalePreview = () => {
         setFlusso(null);
         // Mostra il messaggio del backend (es. 422 KYC incompleto) invece di silenziare l'errore.
         const apiMsg = err?.response?.data?.error || err?.response?.data?.message;
-        setErrorMsg(apiMsg || "Impossibile calcolare il riepilogo fiscale. Riprova.");
+        setErrorMsg(apiMsg || t("financial.fiscale.calc_error"));
       }
       setLoading(false);
     }, 500);
@@ -98,7 +100,7 @@ const FiscalePreview = () => {
 
   // Banner sempre visibile (anche prima di digitare amount) se utente non-P.IVA si avvicina/supera soglia.
   // Si basa sul maturato annuo (commissioni in wallet), non solo sui prelievi.
-  const baseAlert = hasTotaleData ? getThresholdAlert(maturatoAnno, residuoSoglia) : null;
+  const baseAlert = hasTotaleData ? getThresholdAlert(maturatoAnno, residuoSoglia, t) : null;
   const willCap = parsed > 0 && residuoSoglia > 0 && parsed > residuoSoglia;
   const blockedTotal = hasTotaleData && residuoSoglia <= 0;
 
@@ -149,41 +151,41 @@ const FiscalePreview = () => {
     // INPS Gestione Separata gestita dal promoter sulla propria posizione
     // (e' professionista con P.IVA, conferma commercialista 2026-05-30).
     rows = [
-      { label: "Imponibile (78%)", value: calcolo.imponibile },
-      { label: "IVA 22%", value: calcolo.iva, positive: true, prefix: "+" },
-      { label: "Ritenuta 23% (trattenuta EVEA)", value: -calcolo.ritenuta, deduction: true },
-      { label: "Totale da fatturare a EVEA", value: calcolo.esborso_evea, separator: true },
+      { label: t("financial.fiscale.imponibile"), value: calcolo.imponibile },
+      { label: t("financial.fiscale.iva_22"), value: calcolo.iva, positive: true, prefix: "+" },
+      { label: t("financial.fiscale.ritenuta_23_evea"), value: -calcolo.ritenuta, deduction: true },
+      { label: t("financial.fiscale.totale_da_fatturare"), value: calcolo.esborso_evea, separator: true },
     ];
     if (adminFee > 0) {
-      rows.push({ label: "Commissione bonifico (costo SEPA)", value: -adminFee, deduction: true });
+      rows.push({ label: t("financial.fiscale.admin_fee_sepa"), value: -adminFee, deduction: true });
     }
-    rows.push({ label: "Netto bonifico al promoter", value: nettoBonifico, highlight: true });
+    rows.push({ label: t("financial.fiscale.netto_bonifico_promoter"), value: nettoBonifico, highlight: true });
   } else {
     // \u2500\u2500 Ramo OCCASIONALE (has_piva_ivd=0) \u2500\u2500
     rows = [
-      { label: "Imponibile (78%)", value: calcolo.imponibile },
+      { label: t("financial.fiscale.imponibile"), value: calcolo.imponibile },
     ];
 
     if (calcolo.ritenuta > 0) {
-      rows.push({ label: "Ritenuta d'acconto (23%)", value: -calcolo.ritenuta, deduction: true });
+      rows.push({ label: t("financial.fiscale.ritenuta_acconto_23"), value: -calcolo.ritenuta, deduction: true });
     } else {
-      rows.push({ label: "Ritenuta d'acconto", value: 0, note: "esente (< \u20AC25,82)" });
+      rows.push({ label: t("financial.fiscale.ritenuta_acconto"), value: 0, note: t("financial.fiscale.ritenuta_esente") });
     }
 
     if (calcolo.inps_quota_promoter > 0) {
       const aliqPct = calcolo.aliquota_inps ? (calcolo.aliquota_inps * 100).toFixed(2) + "%" : "";
-      rows.push({ label: `INPS quota promoter ${aliqPct ? "(" + aliqPct + " \u00D7 \u2153)" : ""}`, value: -calcolo.inps_quota_promoter, deduction: true });
+      rows.push({ label: t("financial.fiscale.inps_quota_promoter", { aliq: aliqPct }), value: -calcolo.inps_quota_promoter, deduction: true });
     }
 
     if (calcolo.bollo > 0) {
-      rows.push({ label: "Imposta di bollo", value: -calcolo.bollo, deduction: true });
+      rows.push({ label: t("financial.fiscale.imposta_bollo"), value: -calcolo.bollo, deduction: true });
     }
 
     if (adminFee > 0) {
-      rows.push({ label: "Commissione bonifico (costo SEPA)", value: -adminFee, deduction: true });
+      rows.push({ label: t("financial.fiscale.admin_fee_sepa"), value: -adminFee, deduction: true });
     }
 
-    rows.push({ label: "Netto accreditato", value: nettoBonifico, highlight: true });
+    rows.push({ label: t("financial.fiscale.netto_accreditato"), value: nettoBonifico, highlight: true });
   }
 
   return (
@@ -196,13 +198,13 @@ const FiscalePreview = () => {
 
       {!isAbituale && blockedTotal && (
         <Alert severity="error" sx={{ mb: 2 }}>
-          Hai raggiunto la soglia annua di €6.410,26. La richiesta verrà rifiutata: apri Partita IVA per ricevere altri payout.
+          {t("financial.fiscale.threshold_reached_open_piva")}
         </Alert>
       )}
 
       {!isAbituale && willCap && !blockedTotal && (
         <Alert severity="warning" sx={{ mb: 2 }}>
-          <strong>Cap automatico al residuo soglia:</strong> verrai pagato solo €{residuoSoglia.toFixed(2)} (residuo INPS). I restanti €{(parsed - residuoSoglia).toFixed(2)} resteranno nel wallet finché non apri Partita IVA.
+          <strong>{t("financial.fiscale.auto_cap_label")}</strong> {t("financial.fiscale.auto_cap_text", { residuo: residuoSoglia.toFixed(2), remain: (parsed - residuoSoglia).toFixed(2) })}
         </Alert>
       )}
 
@@ -238,18 +240,17 @@ const FiscalePreview = () => {
 
       {calcolo.soglia_inps_superata && (
         <Typography variant="caption" sx={{ display: "block", mt: 1, color: "#E65100", fontWeight: 600 }}>
-          Soglia INPS superata — contributi applicati sull'eccedenza
+          {t("financial.fiscale.soglia_superata_note")}
         </Typography>
       )}
 
       {isAbituale ? (
         <Typography variant="caption" sx={{ display: "block", mt: 1, color: "text.secondary" }}>
-          Riceverai il bonifico dopo aver emesso fattura elettronica verso EVEA Global S.r.l. (P.IVA 18499281006, codice destinatario SDI <strong>KRRH6B9</strong>, PEC fallback eveaglobal@pec.it). La ritenuta è versata da EVEA all'Agenzia delle Entrate per tuo conto.
+          {t("financial.fiscale.footer_abituale_prefix")} <strong>KRRH6B9</strong>{t("financial.fiscale.footer_abituale_suffix")}
         </Typography>
       ) : (
         <Typography variant="caption" sx={{ display: "block", mt: 1, color: "text.secondary" }}>
-          Le ritenute vengono versate da EVEA all'Agenzia delle Entrate per tuo conto.
-          Operazione fuori campo IVA ai sensi dell'art. 25-bis co. 6 DPR 600/73.
+          {t("financial.fiscale.footer_occasionale")}
         </Typography>
       )}
     </Box>

@@ -47,21 +47,21 @@ const PayoutHistoryReport = () => {
               <Card sx={{ ...cs, p: 2, textAlign: "center" }}>
                 <Iconify icon="mdi:cash-check" width={28} sx={{ color: "#4A5C3A", mb: 0.5 }} />
                 <Typography sx={{ fontSize: "1.3rem", fontWeight: 800, color: "#4A5C3A" }}>{"\u20AC"}{(data?.yearly_total || 0).toFixed(2)}</Typography>
-                <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Earned {year}</Typography>
+                <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{t("reports.payout_history.earned_year", { year })}</Typography>
               </Card>
             </Grid>
             <Grid item xs={6} md={3}>
               <Card sx={{ ...cs, p: 2, textAlign: "center" }}>
                 <Iconify icon="mdi:wallet-outline" width={28} sx={{ color: ORO, mb: 0.5 }} />
                 <Typography sx={{ fontSize: "1.3rem", fontWeight: 800, color: ORO }}>{"\u20AC"}{(data?.wallet_balance || 0).toFixed(2)}</Typography>
-                <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>Wallet Balance</Typography>
+                <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>{t("evea.wallet_balance")}</Typography>
               </Card>
             </Grid>
           </Grid>
 
           {/* Monthly chart */}
           <Card sx={{ ...cs, p: 2.5, mb: 2 }}>
-            <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>Monthly Earnings {year}</Typography>
+            <Typography sx={{ fontSize: "0.9rem", fontWeight: 700, color: ESPRESSO, mb: 2 }}>{t("reports.payout_history.monthly_earnings", { year })}</Typography>
             <Box sx={{ display: "flex", alignItems: "flex-end", justifyContent: "center", gap: 1.5, height: 160 }}>
               {Array.from({ length: 12 }, (_, i) => {
                 const match = monthly.find((m) => m.m === i + 1);
@@ -85,15 +85,15 @@ const PayoutHistoryReport = () => {
               <Table size="small">
                 <TableHead>
                   <TableRow>
-                    {["Date", "Requested", "Released", "Status"].map((h) => (
+                    {[t("common.date"), t("reports.payout_history.requested"), t("reports.payout_history.released"), t("common.status")].map((h) => (
                       <TableCell key={h} sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED }}>{h}</TableCell>
                     ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {payouts.map((p) => {
-                    const st = p.status === "approved" ? { label: "Approved", color: "#4A5C3A", bg: "#EAF3DE" }
-                      : p.status === "pending" ? { label: "Pending", color: "#EF9F27", bg: "#FFF3E0" }
+                    const st = p.status === "approved" ? { label: t("common.approved"), color: "#4A5C3A", bg: "#EAF3DE" }
+                      : p.status === "pending" ? { label: t("common.pending"), color: "#EF9F27", bg: "#FFF3E0" }
                       : { label: p.status, color: MUTED, bg: "#f5f5f5" };
                     return (
                       <TableRow key={p.id}>
@@ -107,7 +107,7 @@ const PayoutHistoryReport = () => {
                 </TableBody>
               </Table>
             ) : (
-              <Typography sx={{ textAlign: "center", py: 3, color: MUTED }}>No payout requests for {year}</Typography>
+              <Typography sx={{ textAlign: "center", py: 3, color: MUTED }}>{t("reports.payout_history.no_payout_for_year", { year })}</Typography>
             )}
           </Card>
         </>

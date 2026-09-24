@@ -87,7 +87,7 @@ const RankHistoryReport = () => {
               <Table size="small">
                 <TableHead>
                   <TableRow>
-                    {["Date", "From", "To", "Type"].map((h) => (
+                    {[t("common.date"), t("common.from"), t("common.to"), t("common.type")].map((h) => (
                       <TableCell key={h} sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED }}>{h}</TableCell>
                     ))}
                   </TableRow>
@@ -107,7 +107,7 @@ const RankHistoryReport = () => {
                 </TableBody>
               </Table>
             ) : (
-              <Typography sx={{ textAlign: "center", py: 3, color: MUTED }}>No rank changes recorded</Typography>
+              <Typography sx={{ textAlign: "center", py: 3, color: MUTED }}>{t("evea.no_rank_changes")}</Typography>
             )}
           </Card>
         </>

@@ -37,33 +37,32 @@ const ORO = "#B8963B";
 const ESPRESSO = "#2C1A0E";
 const MUTED = "#7A6A5C";
 
-const getStatusBadge = (row) => {
+const getStatusBadge = (row, t) => {
   const os = (row?.order_status || "").toLowerCase();
-  if (os === "refunded" || os === "cancelled") return { label: "Rimborsato", bgcolor: "#FCEBEB", color: "#A32D2D" };
-  if (os === "partially_refunded") return { label: "Parzialmente rimborsato", bgcolor: "#FFF3E0", color: "#E65100" };
-  if (os === "finished" || os === "paid" || os === "complete") return { label: "Completato", bgcolor: "#EAF3DE", color: "#27500A" };
-  if (os === "processing") return { label: "In lavorazione", bgcolor: "#FFF8E1", color: "#7A6A5C" };
-  return { label: "In attesa", bgcolor: "#E8DDCA", color: "#5C4A3A" };
+  if (os === "refunded" || os === "cancelled") return { label: t("my_orders.status_refunded"), bgcolor: "#FCEBEB", color: "#A32D2D" };
+  if (os === "partially_refunded") return { label: t("my_orders.status_partially_refunded"), bgcolor: "#FFF3E0", color: "#E65100" };
+  if (os === "finished" || os === "paid" || os === "complete") return { label: t("team_orders.status_completed"), bgcolor: "#EAF3DE", color: "#27500A" };
+  if (os === "processing") return { label: t("my_orders.status_processing"), bgcolor: "#FFF8E1", color: "#7A6A5C" };
+  return { label: t("common.pending"), bgcolor: "#E8DDCA", color: "#5C4A3A" };
 };
 
 const TeamOrders = () => {
   const methods = useFilter();
   const navigate = useNavigate();
-  const { i18n } = useTranslation();
-  const isIt = i18n.language?.startsWith("it");
+  const { t } = useTranslation();
   const L = {
-    title: isIt ? "Ordini Team" : "Team Orders",
-    subtitle: isIt ? "Acquisti della tua downline" : "Your downline purchases",
+    title: t("team_orders.title"),
+    subtitle: t("team_orders.subtitle"),
     no: "#",
-    user: isIt ? "Utente" : "User",
-    product: isIt ? "Prodotto" : "Product",
+    user: t("team_orders.user"),
+    product: t("global.product"),
     bv: "BV",
     qv: "QV",
     ev: "EV",
-    payment: isIt ? "Pagamento" : "Payment",
-    date: isIt ? "Data" : "Date",
-    total: isIt ? "Totale" : "Total",
-    status: isIt ? "Stato" : "Status",
+    payment: t("my_orders.payment"),
+    date: t("common.date"),
+    total: t("common.total"),
+    status: t("common.status"),
   };
   const headers = [L.no, L.user, L.product, L.bv, L.qv, L.ev, L.payment, L.date, L.total, L.status];
 
@@ -122,7 +121,7 @@ const TeamOrders = () => {
                     <TableCell>
                       {(() => {
                         if (row?.purchase_type === "coupon_purchase") {
-                          return <span>{isIt ? "Acquisto Coupon" : "Coupon Purchase"}</span>;
+                          return <span>{t("my_orders.coupon_purchase")}</span>;
                         }
                         // Usa cart_details (ha quantity reale) come fonte primaria.
                         // Fallback su user_purchase_products se cart_details non c'e.
@@ -150,7 +149,7 @@ const TeamOrders = () => {
                             </Typography>
                             {extraCount > 0 && (
                               <Chip
-                                label={`+${extraCount} ${isIt ? "altri" : "more"}`}
+                                label={`+${extraCount} ${t("team_orders.more")}`}
                                 size="small"
                                 onClick={() => setOrderDetail({ row, items })}
                                 sx={{
@@ -173,7 +172,7 @@ const TeamOrders = () => {
                     <TableCell><ParseDate date={row.date} /></TableCell>
                     <TableCell><Currency>{row.total_amount}</Currency></TableCell>
                     <TableCell>
-                      {(() => { const s = getStatusBadge(row); return <Chip label={s.label} size="small" sx={{ bgcolor: s.bgcolor, color: s.color, fontWeight: 700, fontSize: "0.7rem", height: 24 }} />; })()}
+                      {(() => { const s = getStatusBadge(row, t); return <Chip label={s.label} size="small" sx={{ bgcolor: s.bgcolor, color: s.color, fontWeight: 700, fontSize: "0.7rem", height: 24 }} />; })()}
                     </TableCell>
                   </TableRow>
                 )}
@@ -186,16 +185,16 @@ const TeamOrders = () => {
         <TableMenu open={openMenu} onClose={handleCloseMenu}>
           <MenuItem onClick={() => setOpenCombo(true)} name="combo">
             <Iconify icon="mdi:eye-outline" />
-            {isIt ? "Combo" : "Combo"}
+            {t("my_orders.combo")}
           </MenuItem>
           <MenuItem onClick={() => navigate("view")} name="view">
             <Iconify icon="mdi:eye-outline" />
-            {isIt ? "Visualizza" : "View"}
+            {t("global.View")}
           </MenuItem>
         </TableMenu>
 
         <Dialog open={openCombo} onClose={() => setOpenCombo(false)} TransitionComponent={Transition}>
-          <DialogTitle>{isIt ? "Dettaglio Combo" : "Combo Details"}</DialogTitle>
+          <DialogTitle>{t("my_orders.combo_details")}</DialogTitle>
         </Dialog>
 
         {/* Dialog dettaglio multi-prodotto ordine team */}
@@ -203,7 +202,7 @@ const TeamOrders = () => {
           <DialogTitle sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #f0ece6" }}>
             <Box>
               <Typography sx={{ fontSize: "1rem", fontWeight: 700, color: ESPRESSO }}>
-                {isIt ? "Prodotti dell'ordine" : "Order products"}
+                {t("team_orders.order_products")}
               </Typography>
               <Typography sx={{ fontSize: "0.72rem", color: MUTED }}>
                 {orderDetail?.row?.user?.username} · <ParseDate date={orderDetail?.row?.date} />
@@ -221,8 +220,8 @@ const TeamOrders = () => {
                         {it.name}
                       </Typography>
                       <Typography sx={{ fontSize: "0.7rem", color: MUTED }}>
-                        {isIt ? "Quantità" : "Qty"}: <strong>{it.qty}</strong>
-                        {it.unit > 0 && (<> · {isIt ? "Prezzo unitario" : "Unit price"}: <Currency>{it.unit}</Currency></>)}
+                        {t("team_orders.quantity")}: <strong>{it.qty}</strong>
+                        {it.unit > 0 && (<> · {t("team_orders.unit_price")}: <Currency>{it.unit}</Currency></>)}
                       </Typography>
                     </Box>
                     {it.total > 0 && (
@@ -236,7 +235,7 @@ const TeamOrders = () => {
             </Stack>
             <Divider sx={{ my: 2 }} />
             <Stack direction="row" justifyContent="space-between" alignItems="center">
-              <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>{isIt ? "Totale ordine" : "Order total"}</Typography>
+              <Typography sx={{ fontSize: "0.8rem", color: MUTED }}>{t("team_orders.order_total")}</Typography>
               <Typography sx={{ fontSize: "1rem", fontWeight: 800, color: ESPRESSO }}>
                 <Currency>{orderDetail?.row?.total_amount || 0}</Currency>
               </Typography>

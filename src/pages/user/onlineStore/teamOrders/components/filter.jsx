@@ -14,8 +14,7 @@ const MUTED = "#7A6A5C";
 const fmt = (d) => d.toISOString().split("T")[0];
 
 const DataFilter = ({ methods, onFilter }) => {
-  const { i18n } = useTranslation();
-  const isIt = i18n.language?.startsWith("it");
+  const { t } = useTranslation();
   const { setValue, formState: { isSubmitting }, handleSubmit } = methods;
 
   const applyPreset = (preset) => {
@@ -46,12 +45,12 @@ const DataFilter = ({ methods, onFilter }) => {
   };
 
   const presets = [
-    { k: "today", l: isIt ? "Oggi" : "Today" },
-    { k: "7d", l: isIt ? "7 giorni" : "7 days" },
-    { k: "30d", l: isIt ? "30 giorni" : "30 days" },
-    { k: "month", l: isIt ? "Mese corrente" : "Current month" },
-    { k: "prevMonth", l: isIt ? "Mese scorso" : "Last month" },
-    { k: "year", l: isIt ? "Anno" : "Year" },
+    { k: "today", l: t("team_orders.preset_today") },
+    { k: "7d", l: t("team_orders.preset_7d") },
+    { k: "30d", l: t("team_orders.preset_30d") },
+    { k: "month", l: t("team_orders.preset_current_month") },
+    { k: "prevMonth", l: t("team_orders.preset_last_month") },
+    { k: "year", l: t("common.year") },
   ];
 
   return (
@@ -60,7 +59,7 @@ const DataFilter = ({ methods, onFilter }) => {
         {/* Preset rapidi */}
         <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2, flexWrap: "wrap", gap: 0.8 }}>
           <Typography sx={{ fontSize: "0.72rem", color: MUTED, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.4, mr: 0.5 }}>
-            {isIt ? "Periodo rapido" : "Quick range"}
+            {t("team_orders.quick_range")}
           </Typography>
           {presets.map((p) => (
             <Chip key={p.k} label={p.l} size="small"
@@ -83,9 +82,9 @@ const DataFilter = ({ methods, onFilter }) => {
             alignItems: "end",
           }}
         >
-          <RHFDatePicker name="start_date" label={isIt ? "Dal" : "From"} size="small" />
-          <RHFDatePicker name="end_date" label={isIt ? "Al" : "To"} size="small" />
-          <Users label={isIt ? "Utente" : "User"} name="user_id" size="small" />
+          <RHFDatePicker name="start_date" label={t("team_orders.from_date")} size="small" />
+          <RHFDatePicker name="end_date" label={t("team_orders.to_date")} size="small" />
+          <Users label={t("team_orders.user")} name="user_id" size="small" />
           <LoadingButton
             type="submit"
             variant="contained"
@@ -94,7 +93,7 @@ const DataFilter = ({ methods, onFilter }) => {
             startIcon={<Iconify icon="mdi:filter-outline" />}
             sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none", borderRadius: 2, height: 40, px: 2.5 }}
           >
-            {isIt ? "Filtra" : "Filter"}
+            {t("common.filter")}
           </LoadingButton>
           <Button
             onClick={resetFilter}
@@ -102,7 +101,7 @@ const DataFilter = ({ methods, onFilter }) => {
             startIcon={<Iconify icon="mdi:refresh" />}
             sx={{ color: MUTED, fontWeight: 600, textTransform: "none", borderRadius: 2, height: 40, px: 2, "&:hover": { bgcolor: alpha(MUTED, 0.08) } }}
           >
-            {isIt ? "Reset" : "Reset"}
+            {t("common.reset")}
           </Button>
         </Box>
       </FormProvider>

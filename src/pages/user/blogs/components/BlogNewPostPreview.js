@@ -10,6 +10,7 @@ import {
   Typography,
   DialogActions,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 // components
 import Image from "src/components/Image";
 import Markdown from "src/components/Markdown";
@@ -36,6 +37,7 @@ export default function BlogNewPostPreview({
   onClose,
   onSubmit,
 }) {
+  const { t } = useTranslation();
   const { title, content, description } = values;
 
   const cover = isString(values.cover) ? values.cover : values.cover?.preview;
@@ -48,9 +50,9 @@ export default function BlogNewPostPreview({
     <DialogAnimate fullScreen open={isOpen} onClose={onClose}>
       <DialogActions sx={{ py: 2, px: 3 }}>
         <Typography variant="subtitle1" sx={{ flexGrow: 1 }}>
-          Anteprima post
+          {t("blogs.preview_post")}
         </Typography>
-        <Button onClick={onClose}>Annulla</Button>
+        <Button onClick={onClose}>{t("common.cancel")}</Button>
         <LoadingButton
           type="submit"
           variant="contained"
@@ -58,7 +60,7 @@ export default function BlogNewPostPreview({
           loading={isSubmitting}
           onClick={onSubmit}
         >
-          Post
+          {t("blogs.post")}
         </LoadingButton>
       </DialogActions>
 
@@ -75,7 +77,7 @@ export default function BlogNewPostPreview({
           </Container>
         </Scrollbar>
       ) : (
-        <EmptyContent title="Empty content" />
+        <EmptyContent title={t("blogs.empty_content")} />
       )}
     </DialogAnimate>
   );

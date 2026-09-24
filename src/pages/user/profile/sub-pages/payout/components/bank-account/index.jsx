@@ -1,12 +1,14 @@
 import { LoadingButton } from "@mui/lab";
 import { Box, Card, Grid, Typography } from "@mui/material";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { FormProvider, RHFTextField } from "src/components/hook-form";
 import { useWatch } from "react-hook-form";
 import Translate from "src/components/translate";
 import useUpdateBank from "./hooks/use-update-bank";
 
 const BankAccount = () => {
+  const { t } = useTranslation();
   const { methods, onSubmit } = useUpdateBank();
   const iban = useWatch({ control: methods.control, name: "iban" });
   const isItalian = !iban || iban.toUpperCase().startsWith("IT");
@@ -31,7 +33,7 @@ const BankAccount = () => {
 
         {isItalian && (
           <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: "block" }}>
-            Per IBAN italiano il BIC/SWIFT non serve.
+            {t("profile.payout.italian_iban_no_bic")}
           </Typography>
         )}
 
@@ -41,7 +43,7 @@ const BankAccount = () => {
             loading={methods.formState.isSubmitting}
             variant="contained"
           >
-            Salva
+            {t("common.save")}
           </LoadingButton>
         </Box>
       </FormProvider>

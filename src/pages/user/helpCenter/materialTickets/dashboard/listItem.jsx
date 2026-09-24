@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 import Scrollbar from "src/components/Scrollbar";
 import { Link as RouterLink } from "react-router-dom";
 import { PATH_USER } from "src/routes/paths";
@@ -41,6 +42,7 @@ const WrapStyle = styled(Link)(({ theme }) => ({
 }));
 
 const ListItem = ({ data, isDense, ...other }) => {
+  const { t } = useTranslation();
   return (
     <>
       <RootStyle {...other}>
@@ -54,13 +56,13 @@ const ListItem = ({ data, isDense, ...other }) => {
               <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Ticket Number </TableCell>
-                    <TableCell align="left">Date</TableCell>
-                    <TableCell align="left">Subject</TableCell>
-                    <TableCell align="left">Status</TableCell>
-                    <TableCell align="left">Priority</TableCell>
-                    <TableCell align="left">Department</TableCell>
-                    <TableCell align="left">Actions</TableCell>
+                    <TableCell>{t("help_center.table.tkt_no")} </TableCell>
+                    <TableCell align="left">{t("help_center.table.date")}</TableCell>
+                    <TableCell align="left">{t("help_center.table.subject")}</TableCell>
+                    <TableCell align="left">{t("help_center.table.status")}</TableCell>
+                    <TableCell align="left">{t("help_center.table.priority")}</TableCell>
+                    <TableCell align="left">{t("help_center.table.department")}</TableCell>
+                    <TableCell align="left">{t("help_center.table.action")}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -98,7 +100,7 @@ const ListItem = ({ data, isDense, ...other }) => {
                           component={RouterLink}
                           to={`${PATH_USER.helpCenter.createTicket.new}/test`}
                         >
-                          view
+                          {t("help_center.actions.view")}
                         </Button>
                       </TableCell>
                     </TableRow>

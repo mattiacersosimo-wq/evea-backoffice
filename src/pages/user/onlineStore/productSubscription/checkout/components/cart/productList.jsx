@@ -7,6 +7,7 @@ import {
   TableRow,
 } from "@mui/material";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 import Scrollbar from "src/components/Scrollbar";
 import Map from "src/components/map";
 
@@ -15,6 +16,7 @@ import Item from "./Item";
 import useRemoveFromCart from "./hooks/useRemoveFromCart";
 
 const ProductList = () => {
+  const { t } = useTranslation();
   const cartList = useCartData() || [];
   const removeFromCart = useRemoveFromCart();
   return (
@@ -23,12 +25,12 @@ const ProductList = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>{"userOnlineStore.product"} </TableCell>
-              <TableCell align="left">{"userOnlineStore.price"}</TableCell>
+              <TableCell>{t("global.product")} </TableCell>
+              <TableCell align="left">{t("global.total_price")}</TableCell>
               <TableCell align="center">
-                {"userOnlineStore.subscription"}
+                {t("global.subscription")}
               </TableCell>
-              <TableCell align="center">Action</TableCell>
+              <TableCell align="center">{t("common.actions")}</TableCell>
             </TableRow>
           </TableHead>
 

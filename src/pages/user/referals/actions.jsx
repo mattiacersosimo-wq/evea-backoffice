@@ -1,12 +1,13 @@
 import { MenuItem } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
-import Translate from "src/components/translate";
 
 const Actions = ({ openSponsor, status }) => {
+  const { t } = useTranslation();
   return (
     <MenuItem onClick={openSponsor} name="sponsor">
       <Iconify icon={"mdi:handshake"} />
-      <Translate>Sponsor</Translate>
+      {t("referrals.sponsor")}
     </MenuItem>
   );
 };

@@ -7,11 +7,13 @@ import {
   Typography,
 } from "@mui/material";
 import { paramCase } from "change-case";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Currency } from "src/components/with-prefix";
 import { PATH_USER } from "src/routes/paths";
 
 const PackageCouponCard = ({ product }) => {
+  const { t } = useTranslation();
   const { name, package_price, id, product_image } = product;
 
   return (
@@ -61,7 +63,7 @@ const PackageCouponCard = ({ product }) => {
               <Currency>{package_price.price}</Currency>
             </Typography>
             <Typography variant="subtitle2" sx={{ fontSize: "1.2rem" }}>
-              <span style={{ fontSize: "15px" }}>Package Name</span> : {name}
+              <span style={{ fontSize: "15px" }}>{t("coupons.package_name")}</span> : {name}
             </Typography>
           </Box>
           <Box sx={{ justifyContent: "center", display: "flex" }}>
@@ -80,7 +82,7 @@ const PackageCouponCard = ({ product }) => {
                 },
               }}
             >
-              Buy Now
+              {t("coupons.buy_now")}
             </Button>
           </Box>
         </CardContent>

@@ -10,20 +10,7 @@ import {
 import { useTranslation } from "react-i18next";
 import amountTypeOptions from "src/components/e-wallet-amount-types/_options";
 
-var MONTHS = [
-  "Gennaio",
-  "Febbraio",
-  "Marzo",
-  "Aprile",
-  "Maggio",
-  "Giugno",
-  "Luglio",
-  "Agosto",
-  "Settembre",
-  "Ottobre",
-  "Novembre",
-  "Dicembre",
-];
+var MONTH_KEYS = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
 
 var YEARS = [2024, 2025, 2026];
 
@@ -54,16 +41,16 @@ var DataFilter = function (props) {
         }}
       >
         <FormControl size="small">
-          <InputLabel>Mese</InputLabel>
+          <InputLabel>{t("common.month")}</InputLabel>
           <Select
             value={month}
-            label="Mese"
+            label={t("common.month")}
             onChange={function (e) { onMonthChange(e.target.value); }}
           >
-            {MONTHS.map(function (m, i) {
+            {MONTH_KEYS.map(function (k, i) {
               return (
                 <MenuItem key={i} value={i + 1}>
-                  {m}
+                  {t("month_long." + k)}
                 </MenuItem>
               );
             })}
@@ -71,10 +58,10 @@ var DataFilter = function (props) {
         </FormControl>
 
         <FormControl size="small">
-          <InputLabel>Anno</InputLabel>
+          <InputLabel>{t("common.year")}</InputLabel>
           <Select
             value={year}
-            label="Anno"
+            label={t("common.year")}
             onChange={function (e) { onYearChange(e.target.value); }}
           >
             {YEARS.map(function (y) {
@@ -113,7 +100,7 @@ var DataFilter = function (props) {
             "&:hover": { backgroundColor: "#967A2F" },
           }}
         >
-          Applica
+          {t("common.apply")}
         </Button>
       </Box>
     </Grid>

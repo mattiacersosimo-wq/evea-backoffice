@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import moment from "moment";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import HeaderBreadcrumbs from "src/components/HeaderBreadcrumbs";
 import Page from "src/components/Page";
 import Scrollbar from "src/components/Scrollbar";
@@ -71,9 +72,16 @@ var buildFilter = function (month, year, paymentType) {
   };
 };
 
-var exportCSV = function (data) {
+var exportCSV = function (data, t) {
   if (!data || data.length === 0) return;
-  var csvHeaders = ["Username", "Da", "Tipo", "Tipo Pagamento", "Importo", "Data"];
+  var csvHeaders = [
+    t("reports.customers.username"),
+    t("common.from"),
+    t("common.type"),
+    t("global.payment_type"),
+    t("common.amount"),
+    t("common.date"),
+  ];
   var rows = data.map(function (row) {
     return [
       row.user ? row.user.username || "" : "",
@@ -131,6 +139,8 @@ var exportPDF = function (data, totale) {
 };
 
 var PendingCommissions = function () {
+  var _tr = useTranslation();
+  var t = _tr.t;
   var now = new Date();
   var initMonth = now.getMonth() + 1;
   var initYear = now.getFullYear();
@@ -196,12 +206,12 @@ var PendingCommissions = function () {
         <Grid container spacing={2} sx={{ mb: 3 }}>
           <Grid item xs={12} sm={6}>
             <StatCard
-              label="Totale Commissioni"
+              label={t("financial.pending.total_commissions")}
               value={"\u20AC" + stats.totale.toFixed(2)}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <StatCard label="Numero Transazioni" value={stats.count} />
+            <StatCard label={t("financial.pending.transactions_count")} value={stats.count} />
           </Grid>
         </Grid>
 
@@ -227,7 +237,7 @@ var PendingCommissions = function () {
               <Button
                 size="small"
                 variant="outlined"
-                onClick={function () { exportCSV(data); }}
+                onClick={function () { exportCSV(data, t); }}
                 sx={{
                   color: "#B8963B",
                   borderColor: "#B8963B",
@@ -310,7 +320,7 @@ var PendingCommissions = function () {
                     colSpan={4}
                     sx={{ color: "#7A6A5C", fontWeight: 700 }}
                   >
-                    Totale
+                    {t("common.total")}
                   </TableCell>
                   <TableCell sx={{ color: "#B8963B", fontWeight: 700 }}>
                     {"\u20AC"}{stats.totale.toFixed(2)}

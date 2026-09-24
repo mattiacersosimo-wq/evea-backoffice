@@ -73,7 +73,7 @@ const ChangeSponsor = ({ sponsor, onClose, fetchData, selectedId, open }) => {
       TransitionComponent={Transition}
     >
       <DialogTitle id="change-username">
-        <Translate>Sponsor Change</Translate>
+        <Translate>referrals.change_sponsor</Translate>
       </DialogTitle>
       <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
         <DialogContent>

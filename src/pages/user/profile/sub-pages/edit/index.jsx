@@ -23,6 +23,7 @@ import ProfilePicture from "./components/ProfilePicture";
 import useUser from "./hooks/useUser";
 
 const ChangeEmailDialog = ({ open, onClose, currentEmail }) => {
+    const { t } = useTranslation();
     const { enqueueSnackbar } = useSnackbar();
     const [step, setStep] = useState(1); // 1=new email, 2=otp
     const [newEmail, setNewEmail] = useState("");
@@ -30,18 +31,18 @@ const ChangeEmailDialog = ({ open, onClose, currentEmail }) => {
     const [loading, setLoading] = useState(false);
 
     const handleRequestOtp = async () => {
-        if (!newEmail || !newEmail.includes("@")) { enqueueSnackbar("Inserisci un'email valida", { variant: "error" }); return; }
+        if (!newEmail || !newEmail.includes("@")) { enqueueSnackbar(t("profile.edit_extra.enter_valid_email"), { variant: "error" }); return; }
         setLoading(true);
         try {
             const { data } = await axiosInstance.post("api/request-email-change", { new_email: newEmail });
             if (data.status) { enqueueSnackbar(data.message, { variant: "success" }); setStep(2); }
             else enqueueSnackbar(data.message, { variant: "error" });
-        } catch (err) { enqueueSnackbar(err?.response?.data?.message || "Errore", { variant: "error" }); }
+        } catch (err) { enqueueSnackbar(err?.response?.data?.message || t("common.error"), { variant: "error" }); }
         setLoading(false);
     };
 
     const handleVerify = async () => {
-        if (otp.length !== 6) { enqueueSnackbar("Inserisci il codice a 6 cifre", { variant: "error" }); return; }
+        if (otp.length !== 6) { enqueueSnackbar(t("profile.edit_extra.enter_6_digit_code"), { variant: "error" }); return; }
         setLoading(true);
         try {
             const { data } = await axiosInstance.post("api/verify-email-change", { otp });
@@ -50,7 +51,7 @@ const ChangeEmailDialog = ({ open, onClose, currentEmail }) => {
                 onClose(true); // true = email changed
                 setStep(1); setNewEmail(""); setOtp("");
             } else enqueueSnackbar(data.message, { variant: "error" });
-        } catch (err) { enqueueSnackbar(err?.response?.data?.message || "Codice non valido", { variant: "error" }); }
+        } catch (err) { enqueueSnackbar(err?.response?.data?.message || t("profile.edit_extra.invalid_code"), { variant: "error" }); }
         setLoading(false);
     };
 
@@ -58,38 +59,38 @@ const ChangeEmailDialog = ({ open, onClose, currentEmail }) => {
 
     return (
         <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth>
-            <DialogTitle sx={{ fontWeight: 700 }}>Cambia indirizzo email</DialogTitle>
+            <DialogTitle sx={{ fontWeight: 700 }}>{t("profile.edit_extra.change_email_title")}</DialogTitle>
             <DialogContent>
                 {step === 1 ? (
                     <Stack spacing={2} sx={{ mt: 1 }}>
                         <Typography sx={{ fontSize: "0.85rem", color: "#666" }}>
-                            Email attuale: <b>{currentEmail}</b>
+                            {t("profile.edit_extra.current_email")}: <b>{currentEmail}</b>
                         </Typography>
-                        <MuiTextField fullWidth size="small" label="Nuova email" type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
+                        <MuiTextField fullWidth size="small" label={t("profile.edit_extra.new_email")} type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
                         <Typography sx={{ fontSize: "0.75rem", color: "#999" }}>
-                            Un codice di verifica verra' inviato alla tua email attuale per confermare il cambio.
+                            {t("profile.edit_extra.verification_code_sent_hint")}
                         </Typography>
                     </Stack>
                 ) : (
                     <Stack spacing={2} sx={{ mt: 1 }}>
                         <Typography sx={{ fontSize: "0.85rem", color: "#666" }}>
-                            Abbiamo inviato un codice a 6 cifre a <b>{currentEmail}</b>. Inseriscilo qui sotto.
+                            {t("profile.edit_extra.otp_sent_prefix")} <b>{currentEmail}</b>. {t("profile.edit_extra.otp_enter_below")}
                         </Typography>
-                        <MuiTextField fullWidth size="small" label="Codice OTP" value={otp} onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                        <MuiTextField fullWidth size="small" label={t("profile.edit_extra.otp_code")} value={otp} onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
                             inputProps={{ maxLength: 6, style: { letterSpacing: 8, fontSize: "1.2rem", textAlign: "center", fontWeight: 700 } }} />
-                        <Chip label={`Nuova email: ${newEmail}`} size="small" sx={{ alignSelf: "flex-start" }} />
+                        <Chip label={t("profile.edit_extra.new_email_chip", { email: newEmail })} size="small" sx={{ alignSelf: "flex-start" }} />
                     </Stack>
                 )}
             </DialogContent>
             <DialogActions sx={{ px: 3, pb: 2 }}>
-                <Button onClick={handleClose} sx={{ color: "#999", textTransform: "none" }}>Annulla</Button>
+                <Button onClick={handleClose} sx={{ color: "#999", textTransform: "none" }}>{t("common.cancel")}</Button>
                 {step === 1 ? (
                     <Button onClick={handleRequestOtp} variant="contained" disabled={loading} sx={{ textTransform: "none", bgcolor: "#B8963B", "&:hover": { bgcolor: "#9A7B2F" } }}>
-                        {loading ? <CircularProgress size={18} sx={{ color: "#fff" }} /> : "Invia codice"}
+                        {loading ? <CircularProgress size={18} sx={{ color: "#fff" }} /> : t("profile.edit_extra.send_code")}
                     </Button>
                 ) : (
                     <Button onClick={handleVerify} variant="contained" disabled={loading} sx={{ textTransform: "none", bgcolor: "#B8963B", "&:hover": { bgcolor: "#9A7B2F" } }}>
-                        {loading ? <CircularProgress size={18} sx={{ color: "#fff" }} /> : "Verifica e cambia"}
+                        {loading ? <CircularProgress size={18} sx={{ color: "#fff" }} /> : t("profile.edit_extra.verify_and_change")}
                     </Button>
                 )}
             </DialogActions>
@@ -98,6 +99,7 @@ const ChangeEmailDialog = ({ open, onClose, currentEmail }) => {
 };
 
 const CoHolderSection = () => {
+    const { t } = useTranslation();
     const { control, register, setValue } = useFormContext();
     const hasCoHolder = useWatch({ control, name: "has_co_holder" });
 
@@ -119,18 +121,18 @@ const CoHolderSection = () => {
                         sx={{ color: "#B8963B", "&.Mui-checked": { color: "#B8963B" } }}
                     />
                 }
-                label={<Typography sx={{ fontWeight: 600 }}>Aggiungi un co-intestatario (es. coniuge, familiare)</Typography>}
+                label={<Typography sx={{ fontWeight: 600 }}>{t("profile.edit_extra.co_holder_label")}</Typography>}
             />
             <Typography variant="caption" sx={{ display: "block", color: "#7A6A5C", mt: 0.5, fontSize: "0.75rem", fontStyle: "italic" }}>
-                Il co-intestatario e&apos; una figura informativa indicata sulla lettera d&apos;incarico. Il codice fiscale e l&apos;eventuale Partita IVA restano intestati al titolare principale.
+                {t("profile.edit_extra.co_holder_hint")}
             </Typography>
             {hasCoHolder && (
                 <Box sx={{ display: "grid", columnGap: 2, rowGap: 2, gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr 1fr" }, mt: 2 }}>
-                    <RHFTextField name="co_holder_first_name" label="Nome co-intestatario" />
-                    <RHFTextField name="co_holder_last_name" label="Cognome co-intestatario" />
+                    <RHFTextField name="co_holder_first_name" label={t("profile.edit_extra.co_holder_first_name")} />
+                    <RHFTextField name="co_holder_last_name" label={t("profile.edit_extra.co_holder_last_name")} />
                     <RHFTextField
                         name="co_holder_date_of_birth"
-                        label="Data di nascita"
+                        label={t("profile.edit_extra.date_of_birth")}
                         type="date"
                         InputLabelProps={{ shrink: true }}
                     />
@@ -143,6 +145,7 @@ const CoHolderSection = () => {
 };
 
 const PartitaIvaFields = () => {
+    const { t } = useTranslation();
     const { control } = useFormContext();
     const regime = useWatch({ control, name: "regime_fiscale" });
 
@@ -152,12 +155,12 @@ const PartitaIvaFields = () => {
         <>
             <RHFTextField
                 name="vat_number"
-                label="Partita IVA"
+                label={t("profile.edit.vat_number")}
                 InputLabelProps={{ shrink: true }}
             />
             <RHFTextField
                 name="codice_sdi"
-                label="Codice SDI (7 caratteri)"
+                label={t("profile.edit_extra.codice_sdi_label")}
                 inputProps={{ maxLength: 7 }}
             />
             <RHFTextField
@@ -197,18 +200,18 @@ const EditInfo = () => {
         if (!isCustomerOnly) return;
         const trimmed = (watchedUsername || "").trim();
         if (!trimmed) { setUsernameCheck({ status: "idle", message: "" }); return; }
-        if (trimmed === user?.username) { setUsernameCheck({ status: "current", message: "Username attuale" }); return; }
-        if (!/^[a-zA-Z0-9]+$/.test(trimmed)) { setUsernameCheck({ status: "invalid", message: "Solo lettere e numeri, senza spazi" }); return; }
-        if (trimmed.length < 3) { setUsernameCheck({ status: "invalid", message: "Almeno 3 caratteri" }); return; }
+        if (trimmed === user?.username) { setUsernameCheck({ status: "current", message: t("profile.edit_extra.username_current") }); return; }
+        if (!/^[a-zA-Z0-9]+$/.test(trimmed)) { setUsernameCheck({ status: "invalid", message: t("profile.edit_extra.username_invalid_chars") }); return; }
+        if (trimmed.length < 3) { setUsernameCheck({ status: "invalid", message: t("profile.edit_extra.username_min_length") }); return; }
 
-        setUsernameCheck({ status: "checking", message: "Verifico..." });
+        setUsernameCheck({ status: "checking", message: t("profile.edit_extra.username_checking") });
         const timer = setTimeout(async () => {
             try {
                 const { data } = await axiosInstance.post("/api/wp/validate-username", { username: trimmed });
                 if (data?.available) {
-                    setUsernameCheck({ status: "available", message: `Disponibile — nuovo link: community.myevea.com/scopri/${trimmed}` });
+                    setUsernameCheck({ status: "available", message: t("profile.edit_extra.username_available", { username: trimmed }) });
                 } else {
-                    setUsernameCheck({ status: "taken", message: "Questo username è già in uso" });
+                    setUsernameCheck({ status: "taken", message: t("profile.edit_extra.username_taken") });
                 }
             } catch (e) {
                 setUsernameCheck({ status: "idle", message: "" });
@@ -266,7 +269,7 @@ const EditInfo = () => {
                                     error={isCustomerOnly && (usernameCheck.status === "taken" || usernameCheck.status === "invalid")}
                                     helperText={
                                         isCustomerOnly
-                                            ? (usernameCheck.message || "Puoi cambiare il tuo username. Dev'essere univoco.")
+                                            ? (usernameCheck.message || t("profile.edit_extra.username_help"))
                                             : undefined
                                     }
                                     InputProps={{
@@ -292,23 +295,23 @@ const EditInfo = () => {
                                 label="profile.edit.first_name"
                                 onBlur={onBlur}
                                 disabled={!isCustomerOnly}
-                                helperText={isCustomerOnly ? undefined : "Dato fissato in onboarding (legato al Codice Fiscale). Per modifiche contatta l'assistenza."}
+                                helperText={isCustomerOnly ? undefined : t("profile.edit_extra.fixed_by_onboarding_cf")}
                             />
                             <RHFTextField
                                 name="last_name"
                                 label="profile.edit.last_name"
                                 onBlur={onBlur}
                                 disabled={!isCustomerOnly}
-                                helperText={isCustomerOnly ? undefined : "Dato fissato in onboarding (legato al Codice Fiscale). Per modifiche contatta l'assistenza."}
+                                helperText={isCustomerOnly ? undefined : t("profile.edit_extra.fixed_by_onboarding_cf")}
                             />
 
                             <RHFTextField
                                 name="date_of_birth"
-                                label="Data di Nascita"
+                                label={t("profile.edit_extra.date_of_birth")}
                                 type="date"
                                 InputLabelProps={{ shrink: true }}
                                 disabled
-                                helperText="Dato fissato in onboarding (legato al Codice Fiscale). Per modifiche contatta l'assistenza."
+                                helperText={t("profile.edit_extra.fixed_by_onboarding_cf")}
                             />
                             <Countries type="alpha_2" />
 
@@ -339,7 +342,7 @@ const EditInfo = () => {
                                     fontSize: "0.7rem",
                                 }}
                             >
-                                L'indirizzo verr&agrave; aggiornato anche per i tuoi prossimi ordini su Shopify
+                                {t("profile.edit_extra.address_updated_shopify")}
                             </Typography>
 
                             <RHFTextField
@@ -350,7 +353,7 @@ const EditInfo = () => {
                                 }}
                                 inputProps={{ maxLength: 16, style: { textTransform: "uppercase" } }}
                                 disabled
-                                helperText="Dato fissato in onboarding e collegato a IRPEF/INPS. Per modifiche contatta l'assistenza."
+                                helperText={t("profile.edit_extra.fixed_by_onboarding_irpef")}
                             />
 
                             {/* Co-intestatario: solo promoter — e' informazione */}
@@ -361,13 +364,13 @@ const EditInfo = () => {
                             <>
                             <RHFSelect
                                 name="regime_fiscale"
-                                label="Regime Fiscale"
+                                label={t("profile.edit_extra.regime_fiscale")}
                             >
                                 <option value="incaricato_occasionale">
-                                    Incaricato Occasionale
+                                    {t("profile.edit_extra.incaricato_occasionale")}
                                 </option>
                                 <option value="partita_iva">
-                                    Partita IVA
+                                    {t("profile.edit.vat_number")}
                                 </option>
                             </RHFSelect>
 
@@ -381,8 +384,7 @@ const EditInfo = () => {
                                     mt: -2,
                                 }}
                             >
-                                Se hai Partita IVA, compila anche Partita IVA, Codice SDI e
-                                PEC per la fatturazione elettronica
+                                {t("profile.edit_extra.partita_iva_hint")}
                             </Typography>
                             </>
                             )}
@@ -411,7 +413,7 @@ const EditInfo = () => {
                                                 sx={{ mt: 1, textTransform: "none", color: "#B8963B", fontWeight: 600, whiteSpace: "nowrap" }}
                                                 startIcon={<Iconify icon="mdi:email-edit-outline" width={16} />}
                                             >
-                                                Cambia
+                                                {t("profile.edit_extra.change_button")}
                                             </Button>
                                         </Stack>
                                     ) : (

@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import HeaderBreadcrumbs from "src/components/HeaderBreadcrumbs";
 import Page from "src/components/Page";
 import Scrollbar from "src/components/Scrollbar";
@@ -24,21 +25,21 @@ import axiosInstance from "src/utils/axios";
 
 const YEARS = [2024, 2025, 2026];
 
-const headers = [
-  "N° Fattura",
-  "Data",
-  "Lordo",
-  "Imponibile",
-  "Ritenuta",
-  "Netto",
-  "Stato",
-  "Azioni",
+const getHeaders = (t) => [
+  t("financial.autofatture.invoice_number"),
+  t("common.date"),
+  t("financial.autofatture.gross"),
+  t("financial.fiscale.imponibile"),
+  t("financial.autofatture.withholding"),
+  t("financial.autofatture.net"),
+  t("common.status"),
+  t("common.actions"),
 ];
 
-const STATUS_CONFIG = {
-  generata: { label: "Generata", color: "success" },
-  in_attesa: { label: "In attesa", color: "warning" },
-};
+const getStatusConfig = (t) => ({
+  generata: { label: t("financial.autofatture.status_generated"), color: "success" },
+  in_attesa: { label: t("common.pending"), color: "warning" },
+});
 
 const StatCard = ({ label, value }) => (
   <Box
@@ -71,7 +72,10 @@ const StatCard = ({ label, value }) => (
 );
 
 const Autofatture = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
+  const headers = useMemo(() => getHeaders(t), [t]);
+  const STATUS_CONFIG = useMemo(() => getStatusConfig(t), [t]);
   const [year, setYear] = useState(new Date().getFullYear());
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -149,22 +153,22 @@ const Autofatture = () => {
 
   return (
     <div>
-      <Page title="Le Mie Note di Compenso">
+      <Page title={t("financial.autofatture.title")}>
         <HeaderBreadcrumbs
-          heading="Le Mie Note di Compenso"
+          heading={t("financial.autofatture.title")}
           links={[
             { name: "global.dashboard", href: PATH_USER.root },
-            { name: "Le Mie Note di Compenso" },
+            { name: t("financial.autofatture.title") },
           ]}
         />
 
         {/* Year selector */}
         <Box sx={{ display: "flex", gap: 2, mb: 3, alignItems: "center" }}>
           <FormControl size="small" sx={{ minWidth: 120 }}>
-            <InputLabel>Anno</InputLabel>
+            <InputLabel>{t("common.year")}</InputLabel>
             <Select
               value={year}
-              label="Anno"
+              label={t("common.year")}
               onChange={(e) => setYear(e.target.value)}
             >
               {YEARS.map((y) => (
@@ -180,18 +184,18 @@ const Autofatture = () => {
         <Grid container spacing={2} sx={{ mb: 3 }}>
           <Grid item xs={12} md={4}>
             <StatCard
-              label="Totale Lordo"
+              label={t("financial.autofatture.total_gross")}
               value={`€${stats.lordo.toFixed(2)}`}
             />
           </Grid>
           <Grid item xs={12} md={4}>
             <StatCard
-              label="Totale Netto"
+              label={t("financial.autofatture.total_net")}
               value={`€${stats.netto.toFixed(2)}`}
             />
           </Grid>
           <Grid item xs={12} md={4}>
-            <StatCard label="N° Fatture" value={stats.count} />
+            <StatCard label={t("financial.autofatture.invoice_count")} value={stats.count} />
           </Grid>
         </Grid>
 

@@ -1078,6 +1078,52 @@
         "pendingcommission": {
             "title": "Pending Commission"
         },
+        "pending": {
+            "total_commissions": "Total Commissions",
+            "transactions_count": "Transactions Count"
+        },
+        "autofatture": {
+            "title": "My Compensation Notes",
+            "invoice_number": "Invoice No.",
+            "gross": "Gross",
+            "withholding": "Withholding",
+            "net": "Net",
+            "status_generated": "Generated",
+            "total_gross": "Total Gross",
+            "total_net": "Total Net",
+            "invoice_count": "Invoice Count"
+        },
+        "payout_otp": {
+            "security_check": "Security check",
+            "enter_code_hint": "Enter the 6-digit code from your Authenticator app to confirm the withdrawal.",
+            "verify_and_withdraw": "Verify and withdraw",
+            "invalid_code": "Invalid code. Retry."
+        },
+        "fiscale": {
+            "approaching_threshold": "You have accrued €{{maturato}} gross this year. You are approaching the INPS threshold of €6,410.26.",
+            "warning_threshold": "Warning: you have accrued €{{maturato}} of €6,410.26 annual gross. Remaining requestable without VAT number: €{{residuo}}.",
+            "threshold_exceeded": "You have exceeded the annual threshold of €6,410.26 (accrued €{{maturato}}). Next withdrawals without VAT number will be capped to the remainder.",
+            "calc_error": "Unable to compute the fiscal preview. Please retry.",
+            "imponibile": "Taxable (78%)",
+            "iva_22": "VAT 22%",
+            "ritenuta_23_evea": "Withholding 23% (retained by EVEA)",
+            "totale_da_fatturare": "Total to invoice EVEA",
+            "admin_fee_sepa": "Bank transfer fee (SEPA cost)",
+            "netto_bonifico_promoter": "Net transfer to promoter",
+            "ritenuta_acconto_23": "Withholding tax (23%)",
+            "ritenuta_acconto": "Withholding tax",
+            "ritenuta_esente": "exempt (< €25.82)",
+            "inps_quota_promoter": "INPS promoter share {{aliq}}",
+            "imposta_bollo": "Stamp duty",
+            "netto_accreditato": "Net credited",
+            "threshold_reached_open_piva": "You reached the annual threshold of €6,410.26. The request will be rejected: open a VAT number to receive further payouts.",
+            "auto_cap_label": "Auto cap to remaining threshold:",
+            "auto_cap_text": "you will be paid only €{{residuo}} (INPS remaining). The remaining €{{remain}} will stay in the wallet until you open a VAT number.",
+            "soglia_superata_note": "INPS threshold exceeded — contributions applied on the excess",
+            "footer_abituale_prefix": "You will receive the bank transfer after issuing an electronic invoice to EVEA Global S.r.l. (VAT 18499281006, SDI destination code ",
+            "footer_abituale_suffix": ", PEC fallback eveaglobal@pec.it). The withholding is paid by EVEA to the Revenue Agency on your behalf.",
+            "footer_occasionale": "Withholdings are paid by EVEA to the Revenue Agency on your behalf. Transaction outside the VAT scope pursuant to art. 25-bis para. 6 DPR 600/73."
+        },
         "e_wallet": {
             "amount_type": "Amount Type",
             "title": "E-wallet",
@@ -1245,7 +1291,27 @@
             "menu": {
                 "video": "Videos",
                 "document": "Documents"
+            },
+            "videos": {
+                "title": "Videos",
+                "no_videos": "No videos available"
+            },
+            "events": {
+                "title": "Events",
+                "no_events": "No upcoming events",
+                "register": "Register",
+                "join": "Join",
+                "when": "When",
+                "where": "Where",
+                "online": "Online",
+                "upcoming": "Upcoming Events",
+                "past": "Past Events"
             }
+        },
+        "order_history": {
+            "title": "Order History",
+            "no": "No",
+            "recurring_enabled": "Recurring Enabled"
         }
     },
     "actions": {
@@ -1255,6 +1321,9 @@
     },
     "blogs": {
         "title": "Blogs",
+        "preview_post": "Post preview",
+        "post": "Post",
+        "empty_content": "Empty content",
         "tabs": {
             "published": "Published",
             "drafts": "Drafts"
@@ -1644,6 +1713,12 @@
         },
         "video": {
             "title": "Video"
+        },
+        "faq": {
+            "still_have_questions": "Still have questions?",
+            "if_you_have": "If you need further assistance, contact us",
+            "we_are_always": "We are always ready to help you",
+            "contact_support": "Contact Support"
         }
     },
     "articles": {
@@ -2225,6 +2300,44 @@
             "status": "Public / Private",
             "social_scope": "Social Media Scope",
             "update": "Save Changes"
+        },
+        "payout": {
+            "italian_iban_no_bic": "For Italian IBAN, BIC/SWIFT is not needed."
+        },
+        "edit_extra": {
+            "enter_valid_email": "Enter a valid email",
+            "enter_6_digit_code": "Enter the 6-digit code",
+            "invalid_code": "Invalid code",
+            "change_email_title": "Change email address",
+            "current_email": "Current email",
+            "new_email": "New email",
+            "verification_code_sent_hint": "A verification code will be sent to your current email to confirm the change.",
+            "otp_sent_prefix": "We sent a 6-digit code to",
+            "otp_enter_below": "Enter it below.",
+            "otp_code": "OTP Code",
+            "new_email_chip": "New email: {{email}}",
+            "send_code": "Send code",
+            "verify_and_change": "Verify and change",
+            "co_holder_label": "Add a co-holder (e.g. spouse, family member)",
+            "co_holder_hint": "The co-holder is informational and appears on the assignment letter. The tax code and any VAT number remain in the name of the main holder.",
+            "co_holder_first_name": "Co-holder first name",
+            "co_holder_last_name": "Co-holder last name",
+            "date_of_birth": "Date of Birth",
+            "codice_sdi_label": "SDI Code (7 characters)",
+            "username_current": "Current username",
+            "username_invalid_chars": "Only letters and numbers, no spaces",
+            "username_min_length": "At least 3 characters",
+            "username_checking": "Checking...",
+            "username_available": "Available — new link: community.myevea.com/scopri/{{username}}",
+            "username_taken": "This username is already taken",
+            "username_help": "You can change your username. It must be unique.",
+            "fixed_by_onboarding_cf": "Set during onboarding (linked to Tax Code). For changes contact support.",
+            "fixed_by_onboarding_irpef": "Set during onboarding and linked to IRPEF/INPS. For changes contact support.",
+            "address_updated_shopify": "The address will also be updated for your future Shopify orders",
+            "regime_fiscale": "Tax Regime",
+            "incaricato_occasionale": "Occasional Assignee",
+            "partita_iva_hint": "If you have a VAT number, also fill in VAT Number, SDI Code and PEC for electronic invoicing",
+            "change_button": "Change"
         }
     },
     "user": {
@@ -2647,6 +2760,27 @@
             "from": "From",
             "to": "To",
             "submit": "Submit"
+        },
+        "package_name": "Package Name",
+        "buy_now": "Buy Now",
+        "scan_wallet_address": "Scan the code for your wallet address",
+        "wallet_address": "Wallet Address",
+        "or_paste_address": "Or paste the address here",
+        "package_details": "Package Details",
+        "coupons_name": "Coupons Name",
+        "number_of_coupons": "Number Of Coupons",
+        "total_amount": "TOTAL AMOUNT",
+        "checkout": "Checkout",
+        "crypto": {
+            "expires_in": "{{days}} days {{hours}} hours {{minutes}} minutes {{seconds}} seconds",
+            "enough_fee_hint": "Make sure to send enough to cover any coin transaction fees!",
+            "what_next_title": "What to do next?",
+            "step1_prefix": "1) Please send",
+            "step1_address_prefix": "to address",
+            "step1_suffix": "(Make sure to send enough to cover any coin transaction fees!) You will need to initiate the payment using your software or online wallet and copy/paste the address and payment amount into it. We will email you when all funds have been received.",
+            "step2": "2) After sending payment, review the status of your transaction on this page. Once the payment is confirmed several times in the block chain, the payment will be completed and the merchant will be notified. The confirmation process usually takes 10-45 minutes but varies based on the coin's target block time and number of block confirms required.",
+            "not_enough_title": "What if I accidentally don't send enough?",
+            "not_enough_body": "If you don't send enough, that is OK. Just send the remainder and we will combine them for you. You can also send from multiple wallets/accounts."
         }
     },
     "lead_capture": {
@@ -4405,7 +4539,67 @@
             "tv_contributes": "TV (contributes)",
             "status_label": "Status",
             "inactive_word": "Inactive",
-            "no_results": "No results"
+            "no_results": "No results",
+            "filter_all_levels": "All Levels",
+            "first_line": "1st Line",
+            "first_second": "1st + 2nd",
+            "first_third": "1st-3rd",
+            "promoters": "Promoters",
+            "qv_month": "QV Month",
+            "no_team_members": "No team members"
+        },
+        "customers": {
+            "with_app": "With app",
+            "no_app": "No app",
+            "username": "Username",
+            "orders": "Orders",
+            "spending": "Spending",
+            "last_order": "Last order",
+            "days": "Days",
+            "app": "App",
+            "action": "Action",
+            "invite": "Invite",
+            "no_customers": "No customers",
+            "invite_msg": "Hi {{name}}! Download the eVea app to manage your orders, see the latest news and unlock bonuses:\n\niOS: {{iosUrl}}\nAndroid: {{androidUrl}}"
+        },
+        "payout_history": {
+            "no_payouts": "No payouts",
+            "columns": {
+                "date": "Date",
+                "amount": "Amount",
+                "status": "Status",
+                "method": "Method"
+            },
+            "earned_year": "Earned {{year}}",
+            "monthly_earnings": "Monthly Earnings {{year}}",
+            "requested": "Requested",
+            "released": "Released",
+            "no_payout_for_year": "No payout requests for {{year}}"
+        },
+        "volume": {
+            "no_volume": "No volume",
+            "personal_volume": "Personal Volume",
+            "team_volume": "Team Volume",
+            "group_volume": "Group Volume",
+            "personal_qv": "Personal QV",
+            "team_qv": "Team QV",
+            "personal_bv": "Personal BV"
+        },
+        "qualifications": {
+            "no_qualifications": "No qualifications",
+            "badge_ready": "Ready!",
+            "badge_almost": "Almost!",
+            "badge_running": "Running",
+            "badge_in_progress": "In progress",
+            "smart_alerts": "Smart Alerts",
+            "show_less": "Show less",
+            "show_more": "Show {{count}} more",
+            "team_go_mvp": "Team Go MVP Progress",
+            "all_have_mvp": "All promoters already have Go MVP or no starter kit yet",
+            "expired": "Expired",
+            "days_left": "{{count}}d left",
+            "customers_label": "Customers",
+            "team_rank_progress": "Team Rank Progress"
         },
         "leaderboard": {
             "month": "Month",
@@ -4510,6 +4704,7 @@
         "confirm_change": "Confirm change"
     },
     "subscriptions": {
+        "update_your_card": "Update your card",
         "page_title": "My subscriptions",
         "hero_sub": "Loyalty Path — manage your subscriptions",
         "smartship_label": "Smartship",
@@ -4758,5 +4953,135 @@
         "legal_line_1": "Under Italian Law of 17 August 2005, No. 173",
         "legal_line_2": "Art. 3 — Door-to-door sales assignee",
         "footer_company": "EVEA Global S.r.l. — VAT 00000000000"
+    },
+    "team_orders": {
+        "title": "Team Orders",
+        "subtitle": "Your downline purchases",
+        "user": "User",
+        "preset_today": "Today",
+        "preset_7d": "7 days",
+        "preset_30d": "30 days",
+        "preset_current_month": "Current month",
+        "preset_last_month": "Last month",
+        "quick_range": "Quick range",
+        "from_date": "From",
+        "to_date": "To",
+        "status_completed": "Completed",
+        "more": "more",
+        "order_products": "Order products",
+        "quantity": "Qty",
+        "unit_price": "Unit price",
+        "order_total": "Order total"
+    },
+    "my_orders": {
+        "title": "My Orders",
+        "subtitle": "Complete purchase history",
+        "invoice": "Invoice",
+        "payment": "Payment",
+        "tracking": "Tracking",
+        "coupon_purchase": "Coupon Purchase",
+        "combo": "Combo",
+        "combo_details": "Combo Details",
+        "status_refunded": "Refunded",
+        "status_partially_refunded": "Partially refunded",
+        "status_delivered": "Delivered",
+        "status_shipped": "Shipped",
+        "status_paid": "Paid",
+        "status_processing": "Processing"
+    },
+    "dashboard": {
+        "benefits": {
+            "label": "{{rank}}: Benefits",
+            "business_builder_active": "Business Builder Active: YES",
+            "revenue_plan": "Revenue Plan"
+        }
+    },
+    "community": {
+        "title": "eVea Community",
+        "opened_message": "Community opened in a new tab. If you don't see it, check that your browser hasn't blocked it.",
+        "blocked_message": "Auto-open was blocked by the browser. Click the button below.",
+        "opening_message": "Opening the community in a new tab...",
+        "open_community": "Open Community",
+        "back_to_dashboard": "Back to Dashboard"
+    },
+    "referrals": {
+        "sponsor": "Sponsor",
+        "change_sponsor": "Change Sponsor",
+        "new_sponsor": "New Sponsor",
+        "current_sponsor": "Current Sponsor",
+        "referral_link": "Your referral link",
+        "referral_code": "Referral code",
+        "sign_lettera_hint": "Sign the Assignment Letter to activate your promoter link",
+        "locked_unavailable": "🔒 Not available",
+        "share_referral_link": "Share Referral Link"
+    },
+    "common": {
+        "cancel": "Cancel",
+        "save": "Save",
+        "close": "Close",
+        "confirm": "Confirm",
+        "delete": "Delete",
+        "edit": "Edit",
+        "add": "Add",
+        "new": "New",
+        "active": "Active",
+        "inactive": "Inactive",
+        "approved": "Approved",
+        "rejected": "Rejected",
+        "pending": "Pending",
+        "month": "Month",
+        "year": "Year",
+        "week": "Week",
+        "day": "Day",
+        "total": "Total",
+        "date": "Date",
+        "name": "Name",
+        "last_name": "Last name",
+        "email": "Email",
+        "phone": "Phone",
+        "address": "Address",
+        "city": "City",
+        "zip": "ZIP",
+        "no_data": "No data",
+        "no_data_available": "No data available",
+        "loading": "Loading",
+        "error": "Error",
+        "success": "Success",
+        "continue": "Continue",
+        "back": "Back",
+        "next": "Next",
+        "previous": "Previous",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copy_link": "Copy link",
+        "from": "From",
+        "to": "To",
+        "type": "Type",
+        "status": "Status",
+        "amount": "Amount",
+        "actions": "Actions",
+        "search": "Search",
+        "filter": "Filter",
+        "reset": "Reset",
+        "apply": "Apply",
+        "yes": "Yes",
+        "no": "No",
+        "select": "Select",
+        "all": "All",
+        "none": "None",
+        "reason": "Reason",
+        "note": "Note",
+        "notes": "Notes",
+        "description": "Description",
+        "title": "Title",
+        "category": "Category",
+        "tag": "Tag",
+        "download": "Download",
+        "upload": "Upload",
+        "preview": "Preview",
+        "publish": "Publish",
+        "draft": "Draft",
+        "created_at": "Created at",
+        "updated_at": "Updated at"
     }
 }

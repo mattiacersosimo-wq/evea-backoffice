@@ -1,9 +1,11 @@
 import { Box, Card, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Outlet, useNavigate } from "react-router";
 import TopPanel from "./topPanel";
 
 const Events = () => {
+  const { t } = useTranslation();
   const [value, setValue] = useState("upcoming-events");
   const navigate = useNavigate();
   const handleChange = (_, newValue) => {
@@ -14,7 +16,7 @@ const Events = () => {
   return (
     <Stack spacing={2}>
       <Card sx={{ padding: "2rem" }}>
-        <Typography variant="h6">Events</Typography>
+        <Typography variant="h6">{t("business_builder.materials.events.title")}</Typography>
         <TopPanel />
       </Card>
 
@@ -25,8 +27,8 @@ const Events = () => {
             onChange={handleChange}
             aria-label="basic tabs example"
           >
-            <Tab value="upcoming-events" label="Upcoming Events" />
-            <Tab value="past-events" label="Past Events" />
+            <Tab value="upcoming-events" label={t("business_builder.materials.events.upcoming")} />
+            <Tab value="past-events" label={t("business_builder.materials.events.past")} />
           </Tabs>
         </Box>
 

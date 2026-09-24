@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { createContext, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { FormProvider, RHFTextField } from "src/components/hook-form";
 import Translate from "src/components/translate";
 import { Currency } from "src/components/with-prefix";
@@ -23,6 +24,7 @@ const openDialog = createContext(null);
 export const useOpenDialog = () => useContext(openDialog);
 
 const PackageForm = () => {
+  const { t } = useTranslation();
   const { scannerData, closeScanner, methods, onSubmit } = useCouponPurchase();
   const {
     handleSubmit,
@@ -41,7 +43,7 @@ const PackageForm = () => {
               <CardHeader
                 title={
                   <Typography variant="subtitle2">
-                    <Translate>Package Details</Translate>
+                    {t("coupons.package_details")}
                   </Typography>
                 }
               />
@@ -58,12 +60,12 @@ const PackageForm = () => {
                     },
                   }}
                 >
-                  <RHFTextField name="name" label="Coupons Name" />
-                  <RHFTextField name="no_of_coupon" label="Number Of Coupons" />
+                  <RHFTextField name="name" label={t("coupons.coupons_name")} />
+                  <RHFTextField name="no_of_coupon" label={t("coupons.number_of_coupons")} />
                 </Box>
                 <Box sx={{ mt: 4 }}>
                   <Typography>
-                    TOTAL AMOUNT :{" "}
+                    {t("coupons.total_amount")} :{" "}
                     <Currency style={{ fontWeight: "bold" }}>
                       {totalAmount}
                     </Currency>
@@ -85,7 +87,7 @@ const PackageForm = () => {
                 loading={isSubmitting}
                 name="review"
               >
-                checkout
+                {t("coupons.checkout")}
               </LoadingButton>
             </Stack>
           </Grid>

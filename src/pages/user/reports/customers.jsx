@@ -10,15 +10,15 @@ const cs = { bgcolor: "#fff", borderRadius: 3, border: "1px solid #f0ece6", boxS
 
 const APP_STORE_URL = "https://apps.apple.com/app/id0";
 const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.evea.backoffice";
-const APP_INVITE_MSG = (name, iosUrl, androidUrl) =>
-  `Ciao ${name || ""}! Scarica l'app eVea per gestire i tuoi ordini, vedere le novità e sbloccare i bonus:\n\niOS: ${iosUrl}\nAndroid: ${androidUrl}`;
+const APP_INVITE_MSG = (name, iosUrl, androidUrl, t) =>
+  t("reports.customers.invite_msg", { name: name || "", iosUrl, androidUrl });
 const normalizePhone = (p) => (p || "").replace(/[^\d+]/g, "");
 
-const AppChip = ({ status }) => {
+const AppChip = ({ status, t }) => {
   if (status === "ios+android") return <Chip icon={<Iconify icon="mdi:cellphone" width={12} sx={{ color: "#6A1B9A !important" }} />} label="iOS+Andr." size="small" sx={{ height: 20, fontSize: "0.62rem", fontWeight: 700, bgcolor: alpha("#6A1B9A", 0.1), color: "#6A1B9A" }} />;
   if (status === "ios") return <Chip icon={<Iconify icon="mdi:apple" width={12} sx={{ color: "#4527A0 !important" }} />} label="iOS" size="small" sx={{ height: 20, fontSize: "0.62rem", fontWeight: 700, bgcolor: alpha("#4527A0", 0.1), color: "#4527A0" }} />;
   if (status === "android") return <Chip icon={<Iconify icon="mdi:android" width={12} sx={{ color: "#2E7D32 !important" }} />} label="Android" size="small" sx={{ height: 20, fontSize: "0.62rem", fontWeight: 700, bgcolor: alpha("#2E7D32", 0.1), color: "#2E7D32" }} />;
-  return <Chip label="Non ha app" size="small" sx={{ height: 20, fontSize: "0.62rem", fontWeight: 600, bgcolor: "#f5f5f5", color: "#9e9e9e" }} />;
+  return <Chip label={t("reports.customers.no_app")} size="small" sx={{ height: 20, fontSize: "0.62rem", fontWeight: 600, bgcolor: "#f5f5f5", color: "#9e9e9e" }} />;
 };
 
 const CustomerReport = () => {
@@ -33,7 +33,7 @@ const CustomerReport = () => {
   const formatDate = (d) => d ? new Date(d).toLocaleDateString("it-IT", { day: "2-digit", month: "short", year: "numeric" }) : "—";
 
   const inviteToApp = (c) => {
-    const msg = APP_INVITE_MSG(c.name || c.username, APP_STORE_URL, PLAY_STORE_URL);
+    const msg = APP_INVITE_MSG(c.name || c.username, APP_STORE_URL, PLAY_STORE_URL, t);
     const phone = normalizePhone(c.phone).replace(/^\+/, "");
     const url = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(msg)}` : `https://wa.me/?text=${encodeURIComponent(msg)}`;
     window.open(url, "_blank", "noopener,noreferrer");
@@ -45,7 +45,7 @@ const CustomerReport = () => {
         {[
           { label: t("evea.report_customers"), value: totals.total, color: "#2196F3", icon: "mdi:account-group" },
           { label: "Smartship", value: totals.smartship, color: "#8BC34A", icon: "mdi:refresh-circle" },
-          { label: "Con app", value: totals.has_app ?? 0, color: "#6A1B9A", icon: "mdi:cellphone-check" },
+          { label: t("reports.customers.with_app"), value: totals.has_app ?? 0, color: "#6A1B9A", icon: "mdi:cellphone-check" },
           { label: t("evea.at_risk"), value: totals.at_risk, color: "#E24B4A", icon: "mdi:alert-circle" },
           { label: t("evea.avg_spent"), value: `€${totals.avg_spent || 0}`, color: ORO, icon: "mdi:cash" },
         ].map((c) => (
@@ -64,7 +64,7 @@ const CustomerReport = () => {
           <Table size="small">
             <TableHead>
               <TableRow>
-                {["Username", "Nome", "Ordini", "Spesa", "Ultimo ordine", "Giorni", "Smartship", "App", "Azione"].map((h) => (
+                {[t("reports.customers.username"), t("common.name"), t("reports.customers.orders"), t("reports.customers.spending"), t("reports.customers.last_order"), t("reports.customers.days"), "Smartship", t("reports.customers.app"), t("reports.customers.action")].map((h) => (
                   <TableCell key={h} sx={{ fontSize: "0.72rem", fontWeight: 600, color: MUTED }}>{h}</TableCell>
                 ))}
               </TableRow>
@@ -79,10 +79,10 @@ const CustomerReport = () => {
                   <TableCell sx={{ fontSize: "0.72rem", color: MUTED }}>{formatDate(c.last_order)}</TableCell>
                   <TableCell sx={{ fontSize: "0.78rem", color: c.at_risk ? "#E24B4A" : MUTED, fontWeight: c.at_risk ? 700 : 400 }}>{c.days_since_last ?? "—"}</TableCell>
                   <TableCell>{c.smartship ? <Iconify icon="mdi:check-circle" sx={{ color: "#8BC34A" }} width={18} /> : <Iconify icon="mdi:close-circle-outline" sx={{ color: "#ddd" }} width={18} />}</TableCell>
-                  <TableCell><AppChip status={c.app_status || "none"} /></TableCell>
+                  <TableCell><AppChip status={c.app_status || "none"} t={t} /></TableCell>
                   <TableCell>
                     {!c.has_app ? (
-                      <Chip label="Invita" size="small" icon={<Iconify icon="mdi:whatsapp" width={12} sx={{ color: "#25D366 !important" }} />}
+                      <Chip label={t("reports.customers.invite")} size="small" icon={<Iconify icon="mdi:whatsapp" width={12} sx={{ color: "#25D366 !important" }} />}
                         onClick={() => inviteToApp(c)}
                         sx={{ cursor: "pointer", height: 22, fontSize: "0.6rem", fontWeight: 700, bgcolor: alpha("#25D366", 0.1), color: "#25D366", "&:hover": { bgcolor: alpha("#25D366", 0.2) } }} />
                     ) : (
@@ -94,7 +94,7 @@ const CustomerReport = () => {
             </TableBody>
           </Table>
         ) : (
-          <Typography sx={{ textAlign: "center", py: 3, color: MUTED }}>No customers</Typography>
+          <Typography sx={{ textAlign: "center", py: 3, color: MUTED }}>{t("reports.customers.no_customers")}</Typography>
         )}
       </Card>
     </Box>

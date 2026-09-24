@@ -1046,6 +1046,52 @@
         "pendingcommission": {
             "title": "Commissione pendente"
         },
+        "pending": {
+            "total_commissions": "Totale Commissioni",
+            "transactions_count": "Numero Transazioni"
+        },
+        "autofatture": {
+            "title": "Le Mie Note di Compenso",
+            "invoice_number": "N° Fattura",
+            "gross": "Lordo",
+            "withholding": "Ritenuta",
+            "net": "Netto",
+            "status_generated": "Generata",
+            "total_gross": "Totale Lordo",
+            "total_net": "Totale Netto",
+            "invoice_count": "N° Fatture"
+        },
+        "payout_otp": {
+            "security_check": "Verifica di sicurezza",
+            "enter_code_hint": "Inserisci il codice a 6 cifre dalla tua app Authenticator per confermare il prelievo.",
+            "verify_and_withdraw": "Verifica e preleva",
+            "invalid_code": "Codice non valido. Riprova."
+        },
+        "fiscale": {
+            "approaching_threshold": "Hai maturato €{{maturato}} lordi quest'anno. Ti stai avvicinando alla soglia INPS di €6.410,26.",
+            "warning_threshold": "Attenzione: hai maturato €{{maturato}} su €6.410,26 lordi annui. Residuo richiedibile senza P.IVA: €{{residuo}}.",
+            "threshold_exceeded": "Hai superato la soglia annua di €6.410,26 (maturato €{{maturato}}). I prossimi prelievi senza P.IVA verranno cappati al residuo.",
+            "calc_error": "Impossibile calcolare il riepilogo fiscale. Riprova.",
+            "imponibile": "Imponibile (78%)",
+            "iva_22": "IVA 22%",
+            "ritenuta_23_evea": "Ritenuta 23% (trattenuta EVEA)",
+            "totale_da_fatturare": "Totale da fatturare a EVEA",
+            "admin_fee_sepa": "Commissione bonifico (costo SEPA)",
+            "netto_bonifico_promoter": "Netto bonifico al promoter",
+            "ritenuta_acconto_23": "Ritenuta d'acconto (23%)",
+            "ritenuta_acconto": "Ritenuta d'acconto",
+            "ritenuta_esente": "esente (< €25,82)",
+            "inps_quota_promoter": "INPS quota promoter {{aliq}}",
+            "imposta_bollo": "Imposta di bollo",
+            "netto_accreditato": "Netto accreditato",
+            "threshold_reached_open_piva": "Hai raggiunto la soglia annua di €6.410,26. La richiesta verrà rifiutata: apri Partita IVA per ricevere altri payout.",
+            "auto_cap_label": "Cap automatico al residuo soglia:",
+            "auto_cap_text": "verrai pagato solo €{{residuo}} (residuo INPS). I restanti €{{remain}} resteranno nel wallet finché non apri Partita IVA.",
+            "soglia_superata_note": "Soglia INPS superata — contributi applicati sull'eccedenza",
+            "footer_abituale_prefix": "Riceverai il bonifico dopo aver emesso fattura elettronica verso EVEA Global S.r.l. (P.IVA 18499281006, codice destinatario SDI ",
+            "footer_abituale_suffix": ", PEC fallback eveaglobal@pec.it). La ritenuta è versata da EVEA all'Agenzia delle Entrate per tuo conto.",
+            "footer_occasionale": "Le ritenute vengono versate da EVEA all'Agenzia delle Entrate per tuo conto. Operazione fuori campo IVA ai sensi dell'art. 25-bis co. 6 DPR 600/73."
+        },
         "e_wallet": {
             "amount_type": "Tipo di Importo",
             "title": "Portafoglio Elettronico",
@@ -1213,7 +1259,27 @@
             "menu": {
                 "video": "Video",
                 "document": "Documenti"
+            },
+            "videos": {
+                "title": "Video",
+                "no_videos": "Nessun video disponibile"
+            },
+            "events": {
+                "title": "Eventi",
+                "no_events": "Nessun evento in programma",
+                "register": "Iscriviti",
+                "join": "Partecipa",
+                "when": "Quando",
+                "where": "Dove",
+                "online": "Online",
+                "upcoming": "Prossimi Eventi",
+                "past": "Eventi Passati"
             }
+        },
+        "order_history": {
+            "title": "Cronologia Ordini",
+            "no": "No",
+            "recurring_enabled": "Ricorrente Attivo"
         }
     },
     "actions": {
@@ -1223,6 +1289,9 @@
     },
     "blogs": {
         "title": "Blog",
+        "preview_post": "Anteprima post",
+        "post": "Post",
+        "empty_content": "Contenuto vuoto",
         "tabs": {
             "published": "Pubblicati",
             "drafts": "Bozze"
@@ -1612,6 +1681,12 @@
         },
         "video": {
             "title": "Video"
+        },
+        "faq": {
+            "still_have_questions": "Hai ancora domande?",
+            "if_you_have": "Se hai bisogno di ulteriore assistenza, contattaci",
+            "we_are_always": "Siamo sempre pronti ad aiutarti",
+            "contact_support": "Contatta l'assistenza"
         }
     },
     "articles": {
@@ -2185,6 +2260,44 @@
             "status": "Pubblico / Privato",
             "social_scope": "Ambito Social Media",
             "update": "Salva Modifiche"
+        },
+        "payout": {
+            "italian_iban_no_bic": "Per IBAN italiano il BIC/SWIFT non serve."
+        },
+        "edit_extra": {
+            "enter_valid_email": "Inserisci un'email valida",
+            "enter_6_digit_code": "Inserisci il codice a 6 cifre",
+            "invalid_code": "Codice non valido",
+            "change_email_title": "Cambia indirizzo email",
+            "current_email": "Email attuale",
+            "new_email": "Nuova email",
+            "verification_code_sent_hint": "Un codice di verifica verrà inviato alla tua email attuale per confermare il cambio.",
+            "otp_sent_prefix": "Abbiamo inviato un codice a 6 cifre a",
+            "otp_enter_below": "Inseriscilo qui sotto.",
+            "otp_code": "Codice OTP",
+            "new_email_chip": "Nuova email: {{email}}",
+            "send_code": "Invia codice",
+            "verify_and_change": "Verifica e cambia",
+            "co_holder_label": "Aggiungi un co-intestatario (es. coniuge, familiare)",
+            "co_holder_hint": "Il co-intestatario è una figura informativa indicata sulla lettera d'incarico. Il codice fiscale e l'eventuale Partita IVA restano intestati al titolare principale.",
+            "co_holder_first_name": "Nome co-intestatario",
+            "co_holder_last_name": "Cognome co-intestatario",
+            "date_of_birth": "Data di Nascita",
+            "codice_sdi_label": "Codice SDI (7 caratteri)",
+            "username_current": "Username attuale",
+            "username_invalid_chars": "Solo lettere e numeri, senza spazi",
+            "username_min_length": "Almeno 3 caratteri",
+            "username_checking": "Verifico...",
+            "username_available": "Disponibile — nuovo link: community.myevea.com/scopri/{{username}}",
+            "username_taken": "Questo username è già in uso",
+            "username_help": "Puoi cambiare il tuo username. Dev'essere univoco.",
+            "fixed_by_onboarding_cf": "Dato fissato in onboarding (legato al Codice Fiscale). Per modifiche contatta l'assistenza.",
+            "fixed_by_onboarding_irpef": "Dato fissato in onboarding e collegato a IRPEF/INPS. Per modifiche contatta l'assistenza.",
+            "address_updated_shopify": "L'indirizzo verrà aggiornato anche per i tuoi prossimi ordini su Shopify",
+            "regime_fiscale": "Regime Fiscale",
+            "incaricato_occasionale": "Incaricato Occasionale",
+            "partita_iva_hint": "Se hai Partita IVA, compila anche Partita IVA, Codice SDI e PEC per la fatturazione elettronica",
+            "change_button": "Cambia"
         }
     },
     "user": {
@@ -2588,6 +2701,27 @@
             "from": "Da",
             "to": "A",
             "submit": "Invia"
+        },
+        "package_name": "Nome Pacchetto",
+        "buy_now": "Acquista ora",
+        "scan_wallet_address": "Scansiona il codice per il tuo indirizzo wallet",
+        "wallet_address": "Indirizzo Wallet",
+        "or_paste_address": "Oppure incolla l'indirizzo qui",
+        "package_details": "Dettagli pacchetto",
+        "coupons_name": "Nome coupon",
+        "number_of_coupons": "Numero di coupon",
+        "total_amount": "IMPORTO TOTALE",
+        "checkout": "Checkout",
+        "crypto": {
+            "expires_in": "{{days}} giorni {{hours}} ore {{minutes}} minuti {{seconds}} secondi",
+            "enough_fee_hint": "Assicurati di inviare abbastanza per coprire le commissioni di transazione!",
+            "what_next_title": "Cosa fare dopo?",
+            "step1_prefix": "1) Invia",
+            "step1_address_prefix": "all'indirizzo",
+            "step1_suffix": "(Assicurati di inviare abbastanza per coprire eventuali commissioni!) Devi avviare il pagamento dal tuo wallet o software wallet e copiare/incollare l'indirizzo e l'importo. Ti invieremo un'email quando tutti i fondi saranno stati ricevuti.",
+            "step2": "2) Dopo l'invio, controlla lo stato della tua transazione in questa pagina. Una volta confermato più volte nella blockchain, il pagamento verrà completato e il merchant sarà notificato. La conferma di solito richiede 10-45 minuti a seconda della coin.",
+            "not_enough_title": "E se accidentalmente non invio abbastanza?",
+            "not_enough_body": "Se non invii abbastanza, va bene. Invia semplicemente il residuo e li combineremo per te. Puoi anche inviare da più wallet/account."
         }
     },
     "lead_capture": {
@@ -4331,7 +4465,67 @@
             "tv_contributes": "TV (concorre)",
             "status_label": "Stato",
             "inactive_word": "Inattivo",
-            "no_results": "Nessun risultato"
+            "no_results": "Nessun risultato",
+            "filter_all_levels": "Tutti i livelli",
+            "first_line": "1° linea",
+            "first_second": "1° + 2°",
+            "first_third": "1°-3°",
+            "promoters": "Promoter",
+            "qv_month": "QV Mese",
+            "no_team_members": "Nessun membro nel team"
+        },
+        "customers": {
+            "with_app": "Con app",
+            "no_app": "Non ha app",
+            "username": "Username",
+            "orders": "Ordini",
+            "spending": "Spesa",
+            "last_order": "Ultimo ordine",
+            "days": "Giorni",
+            "app": "App",
+            "action": "Azione",
+            "invite": "Invita",
+            "no_customers": "Nessun cliente",
+            "invite_msg": "Ciao {{name}}! Scarica l'app eVea per gestire i tuoi ordini, vedere le novità e sbloccare i bonus:\n\niOS: {{iosUrl}}\nAndroid: {{androidUrl}}"
+        },
+        "payout_history": {
+            "no_payouts": "Nessun payout",
+            "columns": {
+                "date": "Data",
+                "amount": "Importo",
+                "status": "Stato",
+                "method": "Metodo"
+            },
+            "earned_year": "Guadagnato {{year}}",
+            "monthly_earnings": "Guadagni mensili {{year}}",
+            "requested": "Richiesti",
+            "released": "Erogati",
+            "no_payout_for_year": "Nessuna richiesta di payout per {{year}}"
+        },
+        "volume": {
+            "no_volume": "Nessun volume",
+            "personal_volume": "Volume Personale",
+            "team_volume": "Volume Team",
+            "group_volume": "Volume Gruppo",
+            "personal_qv": "QV Personale",
+            "team_qv": "QV Team",
+            "personal_bv": "BV Personale"
+        },
+        "qualifications": {
+            "no_qualifications": "Nessuna qualifica",
+            "badge_ready": "Pronto!",
+            "badge_almost": "Quasi!",
+            "badge_running": "In corsa",
+            "badge_in_progress": "In corso",
+            "smart_alerts": "Notifiche Smart",
+            "show_less": "Mostra meno",
+            "show_more": "Vedi altre {{count}} notifiche",
+            "team_go_mvp": "Avanzamento Go MVP del Team",
+            "all_have_mvp": "Tutti i promoter hanno già raggiunto il Go MVP o non hanno ancora il kit",
+            "expired": "Scaduto",
+            "days_left": "{{count}}gg rimanenti",
+            "customers_label": "Clienti",
+            "team_rank_progress": "Avanzamento Rank del Team"
         },
         "leaderboard": {
             "month": "Mese",
@@ -4436,6 +4630,7 @@
         "confirm_change": "Conferma modifica"
     },
     "subscriptions": {
+        "update_your_card": "Aggiorna la tua carta",
         "page_title": "I miei abbonamenti",
         "hero_sub": "Percorso Fedeltà — gestisci i tuoi abbonamenti",
         "smartship_label": "Smartship",
@@ -4684,5 +4879,135 @@
         "legal_line_1": "Ai sensi della Legge 17 agosto 2005, n. 173",
         "legal_line_2": "Art. 3 — Incaricato alla vendita a domicilio",
         "footer_company": "EVEA Global S.r.l. — P.IVA 00000000000"
+    },
+    "team_orders": {
+        "title": "Ordini Team",
+        "subtitle": "Acquisti della tua downline",
+        "user": "Utente",
+        "preset_today": "Oggi",
+        "preset_7d": "7 giorni",
+        "preset_30d": "30 giorni",
+        "preset_current_month": "Mese corrente",
+        "preset_last_month": "Mese scorso",
+        "quick_range": "Periodo rapido",
+        "from_date": "Dal",
+        "to_date": "Al",
+        "status_completed": "Completato",
+        "more": "altri",
+        "order_products": "Prodotti dell'ordine",
+        "quantity": "Quantità",
+        "unit_price": "Prezzo unitario",
+        "order_total": "Totale ordine"
+    },
+    "my_orders": {
+        "title": "I miei Ordini",
+        "subtitle": "Storico completo dei tuoi acquisti",
+        "invoice": "Fattura",
+        "payment": "Pagamento",
+        "tracking": "Tracking",
+        "coupon_purchase": "Acquisto Coupon",
+        "combo": "Combo",
+        "combo_details": "Dettaglio Combo",
+        "status_refunded": "Rimborsato",
+        "status_partially_refunded": "Parzialmente rimborsato",
+        "status_delivered": "Consegnato",
+        "status_shipped": "Spedito",
+        "status_paid": "Pagato",
+        "status_processing": "In lavorazione"
+    },
+    "dashboard": {
+        "benefits": {
+            "label": "{{rank}}: Benefit",
+            "business_builder_active": "Business Builder Attivo: SÌ",
+            "revenue_plan": "Piano Compensi"
+        }
+    },
+    "community": {
+        "title": "Community eVea",
+        "opened_message": "Community aperta in una nuova scheda. Se non la vedi, controlla che il browser non l'abbia bloccata.",
+        "blocked_message": "Apertura automatica bloccata dal browser. Clicca sul pulsante qui sotto.",
+        "opening_message": "Stiamo aprendo la community in una nuova scheda...",
+        "open_community": "Apri Community",
+        "back_to_dashboard": "Torna alla Dashboard"
+    },
+    "referrals": {
+        "sponsor": "Sponsor",
+        "change_sponsor": "Cambia Sponsor",
+        "new_sponsor": "Nuovo Sponsor",
+        "current_sponsor": "Sponsor attuale",
+        "referral_link": "Il tuo link referral",
+        "referral_code": "Codice Referral",
+        "sign_lettera_hint": "Firma la Lettera di Incarico per attivare il tuo link promotore",
+        "locked_unavailable": "🔒 Non disponibile",
+        "share_referral_link": "Condividi link referral"
+    },
+    "common": {
+        "cancel": "Annulla",
+        "save": "Salva",
+        "close": "Chiudi",
+        "confirm": "Conferma",
+        "delete": "Elimina",
+        "edit": "Modifica",
+        "add": "Aggiungi",
+        "new": "Nuovo",
+        "active": "Attivo",
+        "inactive": "Inattivo",
+        "approved": "Approvato",
+        "rejected": "Rifiutato",
+        "pending": "In attesa",
+        "month": "Mese",
+        "year": "Anno",
+        "week": "Settimana",
+        "day": "Giorno",
+        "total": "Totale",
+        "date": "Data",
+        "name": "Nome",
+        "last_name": "Cognome",
+        "email": "Email",
+        "phone": "Telefono",
+        "address": "Indirizzo",
+        "city": "Città",
+        "zip": "CAP",
+        "no_data": "Nessun dato",
+        "no_data_available": "Nessun dato disponibile",
+        "loading": "Caricamento",
+        "error": "Errore",
+        "success": "Successo",
+        "continue": "Continua",
+        "back": "Indietro",
+        "next": "Avanti",
+        "previous": "Precedente",
+        "copy": "Copia",
+        "copied": "Copiato",
+        "copy_link": "Copia link",
+        "from": "Da",
+        "to": "A",
+        "type": "Tipo",
+        "status": "Stato",
+        "amount": "Importo",
+        "actions": "Azioni",
+        "search": "Cerca",
+        "filter": "Filtro",
+        "reset": "Reset",
+        "apply": "Applica",
+        "yes": "Sì",
+        "no": "No",
+        "select": "Seleziona",
+        "all": "Tutti",
+        "none": "Nessuno",
+        "reason": "Motivo",
+        "note": "Nota",
+        "notes": "Note",
+        "description": "Descrizione",
+        "title": "Titolo",
+        "category": "Categoria",
+        "tag": "Tag",
+        "download": "Scarica",
+        "upload": "Carica",
+        "preview": "Anteprima",
+        "publish": "Pubblica",
+        "draft": "Bozza",
+        "created_at": "Creato il",
+        "updated_at": "Aggiornato il"
     }
 }

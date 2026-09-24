@@ -1046,6 +1046,52 @@
         "pendingcommission": {
             "title": "Comision în așteptare"
         },
+        "pending": {
+            "total_commissions": "Total comisioane",
+            "transactions_count": "Număr tranzacții"
+        },
+        "autofatture": {
+            "title": "Notele mele de compensare",
+            "invoice_number": "Nr. factură",
+            "gross": "Brut",
+            "withholding": "Reținere",
+            "net": "Net",
+            "status_generated": "Generată",
+            "total_gross": "Total brut",
+            "total_net": "Total net",
+            "invoice_count": "Număr facturi"
+        },
+        "payout_otp": {
+            "security_check": "Verificare de securitate",
+            "enter_code_hint": "Introdu codul din 6 cifre din aplicația Authenticator pentru a confirma retragerea.",
+            "verify_and_withdraw": "Verifică și retrage",
+            "invalid_code": "Cod invalid. Reîncearcă."
+        },
+        "fiscale": {
+            "approaching_threshold": "Ai acumulat €{{maturato}} brut anul acesta. Te apropii de pragul INPS de €6.410,26.",
+            "warning_threshold": "Atenție: ai acumulat €{{maturato}} din €6.410,26 brut anual. Rest solicitabil fără P.IVA: €{{residuo}}.",
+            "threshold_exceeded": "Ai depășit pragul anual de €6.410,26 (acumulat €{{maturato}}). Următoarele retrageri fără P.IVA vor fi limitate la rest.",
+            "calc_error": "Nu se poate calcula rezumatul fiscal. Reîncearcă.",
+            "imponibile": "Impozabil (78%)",
+            "iva_22": "TVA 22%",
+            "ritenuta_23_evea": "Reținere 23% (reținută EVEA)",
+            "totale_da_fatturare": "Total de facturat către EVEA",
+            "admin_fee_sepa": "Comision transfer (cost SEPA)",
+            "netto_bonifico_promoter": "Net transferat promoterului",
+            "ritenuta_acconto_23": "Reținere la sursă (23%)",
+            "ritenuta_acconto": "Reținere la sursă",
+            "ritenuta_esente": "scutit (< €25,82)",
+            "inps_quota_promoter": "Cota INPS promoter {{aliq}}",
+            "imposta_bollo": "Taxă timbru",
+            "netto_accreditato": "Net creditat",
+            "threshold_reached_open_piva": "Ai atins pragul anual de €6.410,26. Cererea va fi respinsă: deschide P.IVA pentru a primi alte plăți.",
+            "auto_cap_label": "Cap automat la rest prag:",
+            "auto_cap_text": "vei primi doar €{{residuo}} (rest INPS). Restul de €{{remain}} rămâne în portofel până când deschizi P.IVA.",
+            "soglia_superata_note": "Prag INPS depășit — contribuții aplicate pe surplus",
+            "footer_abituale_prefix": "Vei primi transferul după emiterea facturii electronice către EVEA Global S.r.l. (P.IVA 18499281006, cod destinatar SDI ",
+            "footer_abituale_suffix": ", PEC fallback eveaglobal@pec.it). Reținerea este vărsată de EVEA la Agenția Fiscală în numele tău.",
+            "footer_occasionale": "Reținerile sunt vărsate de EVEA la Agenția Fiscală în numele tău. Operațiune în afara TVA conform art. 25-bis alin. 6 DPR 600/73."
+        },
         "e_wallet": {
             "amount_type": "Tip de sumă",
             "title": "Portofel electronic",
@@ -1213,7 +1259,27 @@
             "menu": {
                 "video": "Video",
                 "document": "Documente"
+            },
+            "videos": {
+                "title": "Video",
+                "no_videos": "Niciun video disponibil"
+            },
+            "events": {
+                "title": "Evenimente",
+                "no_events": "Niciun eveniment programat",
+                "register": "Înscrie-te",
+                "join": "Participă",
+                "when": "Când",
+                "where": "Unde",
+                "online": "Online",
+                "upcoming": "Evenimente viitoare",
+                "past": "Evenimente trecute"
             }
+        },
+        "order_history": {
+            "title": "Istoric Comenzi",
+            "no": "Nr",
+            "recurring_enabled": "Recurent activ"
         }
     },
     "actions": {
@@ -1223,6 +1289,9 @@
     },
     "blogs": {
         "title": "Blog",
+        "preview_post": "Previzualizare post",
+        "post": "Postează",
+        "empty_content": "Conținut gol",
         "tabs": {
             "published": "Publicate",
             "drafts": "Ciorne"
@@ -1612,6 +1681,12 @@
         },
         "video": {
             "title": "Video"
+        },
+        "faq": {
+            "still_have_questions": "Mai ai întrebări?",
+            "if_you_have": "Dacă ai nevoie de asistență suplimentară, contactează-ne",
+            "we_are_always": "Suntem întotdeauna pregătiți să te ajutăm",
+            "contact_support": "Contactează asistența"
         }
     },
     "articles": {
@@ -2185,6 +2260,44 @@
             "status": "Public / Privat",
             "social_scope": "Scop social media",
             "update": "Salvează modificările"
+        },
+        "payout": {
+            "italian_iban_no_bic": "Pentru IBAN italian nu este nevoie de BIC/SWIFT."
+        },
+        "edit_extra": {
+            "enter_valid_email": "Introdu un email valid",
+            "enter_6_digit_code": "Introdu codul din 6 cifre",
+            "invalid_code": "Cod invalid",
+            "change_email_title": "Schimbă adresa de email",
+            "current_email": "Email curent",
+            "new_email": "Email nou",
+            "verification_code_sent_hint": "Un cod de verificare va fi trimis pe emailul tău curent pentru a confirma schimbarea.",
+            "otp_sent_prefix": "Am trimis un cod din 6 cifre la",
+            "otp_enter_below": "Introdu-l mai jos.",
+            "otp_code": "Cod OTP",
+            "new_email_chip": "Email nou: {{email}}",
+            "send_code": "Trimite codul",
+            "verify_and_change": "Verifică și schimbă",
+            "co_holder_label": "Adaugă un co-titular (ex. soț/soție, familie)",
+            "co_holder_hint": "Co-titularul este o figură informativă indicată pe scrisoarea de mandat. Codul fiscal și eventualul CUI rămân pe numele titularului principal.",
+            "co_holder_first_name": "Nume co-titular",
+            "co_holder_last_name": "Prenume co-titular",
+            "date_of_birth": "Data nașterii",
+            "codice_sdi_label": "Cod SDI (7 caractere)",
+            "username_current": "Nume de utilizator curent",
+            "username_invalid_chars": "Doar litere și cifre, fără spații",
+            "username_min_length": "Cel puțin 3 caractere",
+            "username_checking": "Verific...",
+            "username_available": "Disponibil — link nou: community.myevea.com/scopri/{{username}}",
+            "username_taken": "Acest nume de utilizator este deja folosit",
+            "username_help": "Poți schimba numele de utilizator. Trebuie să fie unic.",
+            "fixed_by_onboarding_cf": "Date stabilite la onboarding (legate de codul fiscal). Pentru modificări contactează asistența.",
+            "fixed_by_onboarding_irpef": "Date stabilite la onboarding și legate de IRPEF/INPS. Pentru modificări contactează asistența.",
+            "address_updated_shopify": "Adresa va fi actualizată și pentru comenzile tale viitoare pe Shopify",
+            "regime_fiscale": "Regim fiscal",
+            "incaricato_occasionale": "Împuternicit ocazional",
+            "partita_iva_hint": "Dacă ai CUI, completează și CUI, cod SDI și PEC pentru facturarea electronică",
+            "change_button": "Schimbă"
         }
     },
     "user": {
@@ -2588,6 +2701,27 @@
             "from": "De la",
             "to": "Către",
             "submit": "Trimite"
+        },
+        "package_name": "Nume pachet",
+        "buy_now": "Cumpără acum",
+        "scan_wallet_address": "Scanează codul pentru adresa portofelului",
+        "wallet_address": "Adresă portofel",
+        "or_paste_address": "Sau lipește aici adresa",
+        "package_details": "Detalii pachet",
+        "coupons_name": "Nume cupoane",
+        "number_of_coupons": "Număr de cupoane",
+        "total_amount": "SUMĂ TOTALĂ",
+        "checkout": "Finalizare",
+        "crypto": {
+            "expires_in": "{{days}} zile {{hours}} ore {{minutes}} minute {{seconds}} secunde",
+            "enough_fee_hint": "Asigură-te că trimiți suficient pentru a acoperi comisioanele!",
+            "what_next_title": "Ce urmează?",
+            "step1_prefix": "1) Trimite",
+            "step1_address_prefix": "la adresa",
+            "step1_suffix": "(Asigură-te că trimiți suficient pentru a acoperi comisioanele!) Trebuie să inițiezi plata din portofel/software wallet și să copiezi/lipești adresa și suma. Îți vom trimite un email când vor fi primite toate fondurile.",
+            "step2": "2) După ce trimiți plata, verifică statusul tranzacției pe această pagină. Odată confirmată de mai multe ori pe blockchain, plata va fi finalizată și comerciantul notificat. Confirmarea durează de obicei 10-45 minute, în funcție de coin.",
+            "not_enough_title": "Ce se întâmplă dacă din greșeală nu trimit destul?",
+            "not_enough_body": "Dacă nu trimiți destul, e ok. Trimite restul și le vom combina. Poți trimite și din mai multe portofele/conturi."
         }
     },
     "lead_capture": {
@@ -4331,7 +4465,67 @@
             "tv_contributes": "TV (contribuie)",
             "status_label": "Stare",
             "inactive_word": "Inactiv",
-            "no_results": "Niciun rezultat"
+            "no_results": "Niciun rezultat",
+            "filter_all_levels": "Toate nivelurile",
+            "first_line": "Linia 1",
+            "first_second": "Linia 1 + 2",
+            "first_third": "Linia 1-3",
+            "promoters": "Promoteri",
+            "qv_month": "QV Lună",
+            "no_team_members": "Niciun membru în echipă"
+        },
+        "customers": {
+            "with_app": "Cu aplicație",
+            "no_app": "Fără aplicație",
+            "username": "Nume utilizator",
+            "orders": "Comenzi",
+            "spending": "Cheltuieli",
+            "last_order": "Ultima comandă",
+            "days": "Zile",
+            "app": "Aplicație",
+            "action": "Acțiune",
+            "invite": "Invită",
+            "no_customers": "Niciun client",
+            "invite_msg": "Bună {{name}}! Descarcă aplicația eVea pentru a-ți gestiona comenzile, a vedea noutățile și a debloca bonusuri:\n\niOS: {{iosUrl}}\nAndroid: {{androidUrl}}"
+        },
+        "payout_history": {
+            "no_payouts": "Nicio plată",
+            "columns": {
+                "date": "Data",
+                "amount": "Sumă",
+                "status": "Stare",
+                "method": "Metodă"
+            },
+            "earned_year": "Câștigat {{year}}",
+            "monthly_earnings": "Câștiguri lunare {{year}}",
+            "requested": "Solicitat",
+            "released": "Eliberat",
+            "no_payout_for_year": "Nicio cerere de plată pentru {{year}}"
+        },
+        "volume": {
+            "no_volume": "Niciun volum",
+            "personal_volume": "Volum Personal",
+            "team_volume": "Volum Echipă",
+            "group_volume": "Volum Grup",
+            "personal_qv": "QV Personal",
+            "team_qv": "QV Echipă",
+            "personal_bv": "BV Personal"
+        },
+        "qualifications": {
+            "no_qualifications": "Nicio calificare",
+            "badge_ready": "Gata!",
+            "badge_almost": "Aproape!",
+            "badge_running": "În cursă",
+            "badge_in_progress": "În curs",
+            "smart_alerts": "Notificări Smart",
+            "show_less": "Arată mai puțin",
+            "show_more": "Vezi alte {{count}} notificări",
+            "team_go_mvp": "Progres Go MVP al Echipei",
+            "all_have_mvp": "Toți promoterii au deja Go MVP sau nu au încă kitul",
+            "expired": "Expirat",
+            "days_left": "{{count}} zile rămase",
+            "customers_label": "Clienți",
+            "team_rank_progress": "Progres Rang al Echipei"
         },
         "leaderboard": {
             "month": "Lună",
@@ -4436,6 +4630,7 @@
         "confirm_change": "Confirmă modificarea"
     },
     "subscriptions": {
+        "update_your_card": "Actualizează cardul",
         "page_title": "Abonamentele mele",
         "hero_sub": "Traseul Fidelității — gestionează abonamentele",
         "smartship_label": "Smartship",
@@ -4684,5 +4879,135 @@
         "legal_line_1": "Conform Legii italiene din 17 august 2005, nr. 173",
         "legal_line_2": "Art. 3 — Împuternicit pentru vânzări la domiciliu",
         "footer_company": "EVEA Global S.r.l. — CUI 00000000000"
+    },
+    "team_orders": {
+        "title": "Comenzi echipă",
+        "subtitle": "Achizițiile downline-ului tău",
+        "user": "Utilizator",
+        "preset_today": "Astăzi",
+        "preset_7d": "7 zile",
+        "preset_30d": "30 zile",
+        "preset_current_month": "Luna curentă",
+        "preset_last_month": "Luna trecută",
+        "quick_range": "Perioadă rapidă",
+        "from_date": "De la",
+        "to_date": "Până la",
+        "status_completed": "Finalizat",
+        "more": "altele",
+        "order_products": "Produsele comenzii",
+        "quantity": "Cantitate",
+        "unit_price": "Preț unitar",
+        "order_total": "Total comandă"
+    },
+    "my_orders": {
+        "title": "Comenzile mele",
+        "subtitle": "Istoric complet al achizițiilor",
+        "invoice": "Factură",
+        "payment": "Plată",
+        "tracking": "Tracking",
+        "coupon_purchase": "Cumpărare cupon",
+        "combo": "Combo",
+        "combo_details": "Detalii combo",
+        "status_refunded": "Rambursat",
+        "status_partially_refunded": "Rambursat parțial",
+        "status_delivered": "Livrat",
+        "status_shipped": "Expediat",
+        "status_paid": "Plătit",
+        "status_processing": "În procesare"
+    },
+    "dashboard": {
+        "benefits": {
+            "label": "{{rank}}: Beneficii",
+            "business_builder_active": "Business Builder Activ: DA",
+            "revenue_plan": "Plan de venituri"
+        }
+    },
+    "community": {
+        "title": "Comunitate eVea",
+        "opened_message": "Comunitatea a fost deschisă într-un tab nou. Dacă nu o vezi, verifică că browserul nu a blocat-o.",
+        "blocked_message": "Deschiderea automată a fost blocată de browser. Apasă butonul de mai jos.",
+        "opening_message": "Deschidem comunitatea într-un tab nou...",
+        "open_community": "Deschide Comunitatea",
+        "back_to_dashboard": "Înapoi la Dashboard"
+    },
+    "referrals": {
+        "sponsor": "Sponsor",
+        "change_sponsor": "Schimbă Sponsor",
+        "new_sponsor": "Sponsor nou",
+        "current_sponsor": "Sponsor curent",
+        "referral_link": "Linkul tău de referral",
+        "referral_code": "Cod de referral",
+        "sign_lettera_hint": "Semnează scrisoarea de mandat pentru a activa linkul de promoter",
+        "locked_unavailable": "🔒 Indisponibil",
+        "share_referral_link": "Distribuie linkul de referral"
+    },
+    "common": {
+        "cancel": "Anulează",
+        "save": "Salvează",
+        "close": "Închide",
+        "confirm": "Confirmă",
+        "delete": "Șterge",
+        "edit": "Editează",
+        "add": "Adaugă",
+        "new": "Nou",
+        "active": "Activ",
+        "inactive": "Inactiv",
+        "approved": "Aprobat",
+        "rejected": "Respins",
+        "pending": "În așteptare",
+        "month": "Lună",
+        "year": "An",
+        "week": "Săptămână",
+        "day": "Zi",
+        "total": "Total",
+        "date": "Data",
+        "name": "Nume",
+        "last_name": "Prenume",
+        "email": "Email",
+        "phone": "Telefon",
+        "address": "Adresă",
+        "city": "Oraș",
+        "zip": "Cod poștal",
+        "no_data": "Nicio dată",
+        "no_data_available": "Nicio dată disponibilă",
+        "loading": "Se încarcă",
+        "error": "Eroare",
+        "success": "Succes",
+        "continue": "Continuă",
+        "back": "Înapoi",
+        "next": "Următorul",
+        "previous": "Precedent",
+        "copy": "Copiază",
+        "copied": "Copiat",
+        "copy_link": "Copiază linkul",
+        "from": "De la",
+        "to": "Către",
+        "type": "Tip",
+        "status": "Stare",
+        "amount": "Sumă",
+        "actions": "Acțiuni",
+        "search": "Caută",
+        "filter": "Filtru",
+        "reset": "Resetează",
+        "apply": "Aplică",
+        "yes": "Da",
+        "no": "Nu",
+        "select": "Selectează",
+        "all": "Toate",
+        "none": "Niciunul",
+        "reason": "Motiv",
+        "note": "Notă",
+        "notes": "Note",
+        "description": "Descriere",
+        "title": "Titlu",
+        "category": "Categorie",
+        "tag": "Etichetă",
+        "download": "Descarcă",
+        "upload": "Încarcă",
+        "preview": "Previzualizare",
+        "publish": "Publică",
+        "draft": "Schiță",
+        "created_at": "Creat la",
+        "updated_at": "Actualizat la"
     }
 }

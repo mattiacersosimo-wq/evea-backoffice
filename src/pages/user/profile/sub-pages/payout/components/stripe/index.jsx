@@ -144,7 +144,7 @@ const Stripe = () => {
             type="submit"
             variant="contained"
           >
-            update
+            {t("help_center.form.update")}
           </LoadingButton>
         </Box>
       </FormProvider>

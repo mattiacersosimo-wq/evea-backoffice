@@ -14,6 +14,7 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { STRIPE_PK } from "src/config";
 import axiosInstance from "src/utils/axios";
 
@@ -31,6 +32,7 @@ const submitToken = async (token) => {
 };
 
 const CardInput = ({ closeDialog, reload }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
@@ -62,7 +64,7 @@ const CardInput = ({ closeDialog, reload }) => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <DialogTitle>Update your card</DialogTitle>
+      <DialogTitle>{t("subscriptions.update_your_card")}</DialogTitle>
       <DialogContent sx={{ mt: 3 }}>
         <CardElement
           options={{
@@ -79,10 +81,10 @@ const CardInput = ({ closeDialog, reload }) => {
 
       <DialogActions>
         <Button onClick={closeDialog} variant="outlined" color="warning">
-          Cancel
+          {t("common.cancel")}
         </Button>
         <LoadingButton loading={loading} variant="contained" type="submit">
-          Save
+          {t("common.save")}
         </LoadingButton>
       </DialogActions>
     </form>

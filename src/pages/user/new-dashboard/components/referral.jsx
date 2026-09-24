@@ -9,6 +9,7 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   FacebookIcon,
   FacebookShareButton,
@@ -31,6 +32,7 @@ import buildPath from "src/utils/build-path";
 import Transition from "src/utils/dialog-animation";
 
 const Referral = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { rank_name } = useAuthUserRank();
   const { isActive } = useOnboardingStatus();
@@ -45,9 +47,9 @@ const Referral = () => {
 
   const { enqueueSnackbar } = useSnackbar();
   const copy = async () => {
-    if (!isActive) { enqueueSnackbar("Firma la Lettera di Incarico per attivare il tuo link promotore", { variant: "warning" }); return; }
+    if (!isActive) { enqueueSnackbar(t("referrals.sign_lettera_hint"), { variant: "warning" }); return; }
     await navigator.clipboard.writeText(referralLink);
-    enqueueSnackbar("Copied to clipboard");
+    enqueueSnackbar(t("common.copied"));
   };
   const [openShare, setOpenShare] = useState(false);
   const isDark = useIsDarkMode();
@@ -145,7 +147,7 @@ const Referral = () => {
                   userSelect: isActive ? "auto" : "none",
                 }}
               >
-                {isActive ? referralLink : referralLink || "🔒 Non disponibile"}
+                {isActive ? referralLink : referralLink || t("referrals.locked_unavailable")}
               </Typography>
 
               <Box sx={{ width: "70px", display: "flex" }}>
@@ -221,7 +223,7 @@ const Referral = () => {
             }}
           >
             <Box>
-              <Typography variant="subtitle2">Share Referral Link</Typography>
+              <Typography variant="subtitle2">{t("referrals.share_referral_link")}</Typography>
             </Box>
             <Box sx={{ textAlign: "right" }}>
               <IconButton

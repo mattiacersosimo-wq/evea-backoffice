@@ -1,5 +1,6 @@
 import { Box, Card, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 import { NavLink as RouterLink } from "react-router-dom";
 import Iconify from "src/components/Iconify";
 import { IconButtonAnimate } from "src/components/animate";
@@ -8,12 +9,13 @@ import { PATH_USER } from "src/routes/paths";
 
 const Footer = () => {
   const { palette } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <Stack sx={{ marginTop: "3rem" }} spacing={3}>
       <Stack sx={{ textAlign: "center" }} spacing={1}>
-        <Typography variant="h3">{"userHelpCenter.faq.youStill"}</Typography>
-        <Typography>{"userHelpCenter.faq.ifYou"}</Typography>
+        <Typography variant="h3">{t("help_center.faq.still_have_questions")}</Typography>
+        <Typography>{t("help_center.faq.if_you_have")}</Typography>
       </Stack>
       <Box
         sx={{
@@ -36,7 +38,7 @@ const Footer = () => {
             />
             <Typography variant="h5">+ (91) 1234 5678</Typography>
             <Typography variant="caption">
-              {"userHelpCenter.faq.weAreAlways"}
+              {t("help_center.faq.we_are_always")}
             </Typography>
           </Stack>
         </Card>
@@ -54,9 +56,9 @@ const Footer = () => {
                 }}
               />
             </IconButtonAnimate>
-            <Typography variant="h5">Contact Support</Typography>
+            <Typography variant="h5">{t("help_center.faq.contact_support")}</Typography>
             <Typography variant="caption">
-              {"userHelpCenter.faq.weAreAlways"}
+              {t("help_center.faq.we_are_always")}
             </Typography>
           </Stack>
         </Card>

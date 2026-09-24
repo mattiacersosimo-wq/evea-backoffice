@@ -9,11 +9,13 @@ import {
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { FormProvider, RHFTextField } from "src/components/hook-form";
 import axiosInstance from "src/utils/axios";
 import Transition from "src/utils/dialog-animation";
 
 const PayoutOtpDialog = ({ open, onClose, onVerified }) => {
+  const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const [verifying, setVerifying] = useState(false);
   const methods = useForm({ defaultValues: { code: "" } });
@@ -30,7 +32,7 @@ const PayoutOtpDialog = ({ open, onClose, onVerified }) => {
       }
     } catch (err) {
       enqueueSnackbar(
-        err?.message || "Codice non valido. Riprova.",
+        err?.message || t("financial.payout_otp.invalid_code"),
         { variant: "error" }
       );
     } finally {
@@ -46,17 +48,16 @@ const PayoutOtpDialog = ({ open, onClose, onVerified }) => {
       maxWidth="xs"
       fullWidth
     >
-      <DialogTitle sx={{ pb: 1 }}>Verifica di sicurezza</DialogTitle>
+      <DialogTitle sx={{ pb: 1 }}>{t("financial.payout_otp.security_check")}</DialogTitle>
       <FormProvider methods={methods} onSubmit={methods.handleSubmit(onSubmit)}>
         <DialogContent>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Inserisci il codice a 6 cifre dalla tua app Authenticator per
-            confermare il prelievo.
+            {t("financial.payout_otp.enter_code_hint")}
           </Typography>
           <Stack spacing={2}>
             <RHFTextField
               autoFocus
-              label="Codice OTP"
+              label={t("profile.edit_extra.otp_code")}
               type="number"
               name="code"
               placeholder="000000"
@@ -67,7 +68,7 @@ const PayoutOtpDialog = ({ open, onClose, onVerified }) => {
               variant="contained"
               fullWidth
             >
-              Verifica e preleva
+              {t("financial.payout_otp.verify_and_withdraw")}
             </LoadingButton>
           </Stack>
         </DialogContent>
