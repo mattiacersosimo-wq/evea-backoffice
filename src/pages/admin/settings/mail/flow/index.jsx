@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   Box,
   Button,
@@ -130,16 +131,19 @@ const typeColor = (type) => {
   return "default";
 };
 
-const FlowTable = ({ flow, timedColumn = "Giorno", templateMap }) => (
+const FlowTable = ({ flow, timedColumn, templateMap }) => {
+  const { t } = useTranslation();
+  const col = timedColumn || t("admin.mail.col_day", "Giorno");
+  return (
   <TableContainer component={Paper} elevation={0}>
     <Table size="small">
       <TableHead>
         <TableRow>
-          <TableCell width={160}>{timedColumn}</TableCell>
-          <TableCell>Email</TableCell>
-          <TableCell width={140}>Sorgente</TableCell>
-          <TableCell width={120}>Tipo</TableCell>
-          <TableCell width={90} align="center">Azione</TableCell>
+          <TableCell width={160}>{col}</TableCell>
+          <TableCell>{t("admin.mail.col_email", "Email")}</TableCell>
+          <TableCell width={140}>{t("admin.mail.col_source", "Sorgente")}</TableCell>
+          <TableCell width={120}>{t("admin.mail.col_type", "Tipo")}</TableCell>
+          <TableCell width={90} align="center">{t("admin.mail.col_action", "Azione")}</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -161,7 +165,7 @@ const FlowTable = ({ flow, timedColumn = "Giorno", templateMap }) => (
                 )}
                 {row.trigger && !row.key && (
                   <Typography variant="caption" sx={{ color: "text.secondary" }}>
-                    trigger: {row.trigger}
+                    {t("admin.mail.trigger_prefix", "trigger:")} {row.trigger}
                   </Typography>
                 )}
               </TableCell>
@@ -173,21 +177,21 @@ const FlowTable = ({ flow, timedColumn = "Giorno", templateMap }) => (
               </TableCell>
               <TableCell align="center">
                 {editUrl ? (
-                  <Tooltip title="Modifica template">
+                  <Tooltip title={t("admin.mail.edit_template", "Modifica template")}>
                     <IconButton size="small" component={Link} to={editUrl} sx={{ color: "#B8963B" }}>
                       <Iconify icon="material-symbols:edit-outline" />
                     </IconButton>
                   </Tooltip>
                 ) : row.source === "Brevo" ? (
-                  <Tooltip title="Gestita su Brevo automation">
+                  <Tooltip title={t("admin.mail.managed_brevo", "Gestita su Brevo automation")}>
                     <Chip label="Brevo" size="small" variant="outlined" sx={{ fontSize: 10 }} />
                   </Tooltip>
                 ) : row.source === "Shopify" ? (
-                  <Tooltip title="Gestita da Shopify Admin > Notifications">
+                  <Tooltip title={t("admin.mail.managed_shopify", "Gestita da Shopify Admin > Notifications")}>
                     <Chip label="Shopify" size="small" variant="outlined" sx={{ fontSize: 10 }} />
                   </Tooltip>
                 ) : row.source === "Backend blade" ? (
-                  <Tooltip title="Template blade hardcoded — modifica via codice">
+                  <Tooltip title={t("admin.mail.managed_blade", "Template blade hardcoded — modifica via codice")}>
                     <Chip label="Blade" size="small" variant="outlined" sx={{ fontSize: 10 }} />
                   </Tooltip>
                 ) : (
@@ -200,9 +204,11 @@ const FlowTable = ({ flow, timedColumn = "Giorno", templateMap }) => (
       </TableBody>
     </Table>
   </TableContainer>
-);
+  );
+};
 
 const EmailFlow = () => {
+  const { t } = useTranslation();
   const [tab, setTab] = useState("client");
   const [templates, setTemplates] = useState([]);
 
@@ -230,22 +236,22 @@ const EmailFlow = () => {
   }, [templates]);
 
   return (
-    <Page title="Flusso Email">
+    <Page title={t("admin.mail.page_title_flow", "Flusso Email")}>
       <Box>
         <HeaderBreadcrumbs
-          heading="Flusso Email eVea"
+          heading={t("admin.mail.heading_flow", "Flusso Email eVea")}
           links={[
-            { name: "Dashboard", href: PATH_DASHBOARD.root },
-            { name: "Email", href: PATH_DASHBOARD.settings.email_settings.root },
-            { name: "Flusso" },
+            { name: t("admin.mail.crumb_dashboard", "Dashboard"), href: PATH_DASHBOARD.root },
+            { name: t("admin.mail.crumb_email", "Email"), href: PATH_DASHBOARD.settings.email_settings.root },
+            { name: t("admin.mail.crumb_flow", "Flusso") },
           ]}
           action={
             <Stack direction="row" spacing={1}>
               <Button variant="outlined" component={Link} to={PATH_DASHBOARD.settings.email_settings.root}>
-                Template
+                {t("admin.mail.btn_templates", "Template")}
               </Button>
               <Button variant="outlined" component={Link} to={PATH_DASHBOARD.settings.email_settings.analytics}>
-                Analytics
+                {t("admin.mail.btn_analytics", "Analytics")}
               </Button>
             </Stack>
           }
@@ -254,24 +260,24 @@ const EmailFlow = () => {
         <Card sx={{ mb: 2 }}>
           <CardContent>
             <Typography variant="body2" color="text.secondary">
-              Timeline di tutte le email inviate day-by-day, organizzate per audience. Clicca l'icona <b>Modifica</b> per aprire il template nell'editor. Le mail Brevo si gestiscono da Brevo automation, le Shopify da Shopify Admin, le "blade" da codice.
+              {t("admin.mail.flow_intro", "Timeline di tutte le email inviate day-by-day, organizzate per audience. Clicca l'icona Modifica per aprire il template nell'editor. Le mail Brevo si gestiscono da Brevo automation, le Shopify da Shopify Admin, le \"blade\" da codice.")}
             </Typography>
           </CardContent>
         </Card>
 
         <Tabs value={tab} onChange={(_, v) => setTab(v)} sx={{ mb: 2 }} variant="scrollable" scrollButtons="auto">
-          <Tab value="client" label={`Cliente puro (${CLIENT_FLOW.length})`} />
-          <Tab value="promoter" label={`Promoter puro (${PROMOTER_FLOW.length})`} />
-          <Tab value="promoter_prod" label={`Promoter + prodotti (${PROMOTER_WITH_PRODUCTS_FLOW.length})`} />
-          <Tab value="lp_product" label={`LP Prodotto (${LP_PRODUCT_FLOW.length})`} />
-          <Tab value="lp_opportunity" label={`LP Opportunità (${LP_OPPORTUNITY_FLOW.length})`} />
-          <Tab value="event" label={`Da evento (${EVENT_EMAILS.length})`} />
+          <Tab value="client" label={`${t("admin.mail.tab_client", "Cliente puro")} (${CLIENT_FLOW.length})`} />
+          <Tab value="promoter" label={`${t("admin.mail.tab_promoter", "Promoter puro")} (${PROMOTER_FLOW.length})`} />
+          <Tab value="promoter_prod" label={`${t("admin.mail.tab_promoter_prod", "Promoter + prodotti")} (${PROMOTER_WITH_PRODUCTS_FLOW.length})`} />
+          <Tab value="lp_product" label={`${t("admin.mail.tab_lp_product", "LP Prodotto")} (${LP_PRODUCT_FLOW.length})`} />
+          <Tab value="lp_opportunity" label={`${t("admin.mail.tab_lp_opportunity", "LP Opportunità")} (${LP_OPPORTUNITY_FLOW.length})`} />
+          <Tab value="event" label={`${t("admin.mail.tab_event", "Da evento")} (${EVENT_EMAILS.length})`} />
         </Tabs>
 
         {tab === "client" && (
           <Card>
             <CardContent>
-              <Typography variant="h6" sx={{ mb: 2 }}>Flusso cliente puro (dal primo ordine Shopify)</Typography>
+              <Typography variant="h6" sx={{ mb: 2 }}>{t("admin.mail.section_client_title", "Flusso cliente puro (dal primo ordine Shopify)")}</Typography>
               <FlowTable flow={CLIENT_FLOW} templateMap={templateMap} />
             </CardContent>
           </Card>
@@ -280,7 +286,7 @@ const EmailFlow = () => {
         {tab === "promoter" && (
           <Card>
             <CardContent>
-              <Typography variant="h6" sx={{ mb: 2 }}>Flusso promoter puro (Kit €79, mai prodotti eVea)</Typography>
+              <Typography variant="h6" sx={{ mb: 2 }}>{t("admin.mail.section_promoter_title", "Flusso promoter puro (Kit €79, mai prodotti eVea)")}</Typography>
               <FlowTable flow={PROMOTER_FLOW} templateMap={templateMap} />
             </CardContent>
           </Card>
@@ -289,9 +295,9 @@ const EmailFlow = () => {
         {tab === "promoter_prod" && (
           <Card>
             <CardContent>
-              <Typography variant="h6" sx={{ mb: 2 }}>Promoter + prodotti eVea (riceve entrambe le serie)</Typography>
+              <Typography variant="h6" sx={{ mb: 2 }}>{t("admin.mail.section_promoter_prod_title", "Promoter + prodotti eVea (riceve entrambe le serie)")}</Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                Il promoter che compra anche prodotti eVea (non solo Kit) riceve la serie promoter <b>dal signup Kit</b> + la serie cliente <b>dal primo ordine con prodotti</b>. Zero doppioni: C-APP e P-APP sono branch separate.
+                {t("admin.mail.section_promoter_prod_desc", "Il promoter che compra anche prodotti eVea (non solo Kit) riceve la serie promoter dal signup Kit + la serie cliente dal primo ordine con prodotti. Zero doppioni: C-APP e P-APP sono branch separate.")}
               </Typography>
               <FlowTable flow={PROMOTER_WITH_PRODUCTS_FLOW} templateMap={templateMap} />
             </CardContent>
@@ -301,9 +307,9 @@ const EmailFlow = () => {
         {tab === "lp_product" && (
           <Card>
             <CardContent>
-              <Typography variant="h6" sx={{ mb: 2 }}>Flusso LP Prodotto — AUTO-LP #12 (lead nurture pre-cliente)</Typography>
+              <Typography variant="h6" sx={{ mb: 2 }}>{t("admin.mail.section_lp_product_title", "Flusso LP Prodotto — AUTO-LP #12 (lead nurture pre-cliente)")}</Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                Trigger: contatto aggiunto a lista AUTO-LP dopo compilazione form landing page prodotto (con GDPR_CONSENT=true). Ogni email preceduta da suddivisione condizione <code>STATO_MARKETING = LP</code>. A fine serie l'attributo passa a <code>D</code> (dormant) e il contatto esce dal flusso. Tutte le mail sono gestite su Brevo automation — <b>non modificabili qui</b>.
+                {t("admin.mail.section_lp_product_desc", "Trigger: contatto aggiunto a lista AUTO-LP dopo compilazione form landing page prodotto (con GDPR_CONSENT=true). Ogni email preceduta da suddivisione condizione STATO_MARKETING = LP. A fine serie l'attributo passa a D (dormant) e il contatto esce dal flusso. Tutte le mail sono gestite su Brevo automation — non modificabili qui.")}
               </Typography>
               <FlowTable flow={LP_PRODUCT_FLOW} templateMap={templateMap} />
             </CardContent>
@@ -313,9 +319,9 @@ const EmailFlow = () => {
         {tab === "lp_opportunity" && (
           <Card>
             <CardContent>
-              <Typography variant="h6" sx={{ mb: 2 }}>Flusso LP Opportunità — AUTO-LO #13 (lead nurture pre-promoter)</Typography>
+              <Typography variant="h6" sx={{ mb: 2 }}>{t("admin.mail.section_lp_opportunity_title", "Flusso LP Opportunità — AUTO-LO #13 (lead nurture pre-promoter)")}</Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                Trigger: contatto aggiunto a lista AUTO-LO dopo compilazione form landing page opportunità/business. Ogni email preceduta da suddivisione condizione <code>STATO_MARKETING = LO</code>. Firma founder <b>Tommaso</b>, tono personale (non brand-voice). A fine serie l'attributo passa a <code>D</code> (dormant). Tutte gestite su Brevo automation — <b>non modificabili qui</b>.
+                {t("admin.mail.section_lp_opportunity_desc", "Trigger: contatto aggiunto a lista AUTO-LO dopo compilazione form landing page opportunità/business. Ogni email preceduta da suddivisione condizione STATO_MARKETING = LO. Firma founder Tommaso, tono personale (non brand-voice). A fine serie l'attributo passa a D (dormant). Tutte gestite su Brevo automation — non modificabili qui.")}
               </Typography>
               <FlowTable flow={LP_OPPORTUNITY_FLOW} templateMap={templateMap} />
             </CardContent>
@@ -325,8 +331,8 @@ const EmailFlow = () => {
         {tab === "event" && (
           <Card>
             <CardContent>
-              <Typography variant="h6" sx={{ mb: 2 }}>Email da evento (trigger non temporizzato)</Typography>
-              <FlowTable flow={EVENT_EMAILS.map((e) => ({ ...e, day: "evento", type: "transazionale" }))} timedColumn="Trigger" templateMap={templateMap} />
+              <Typography variant="h6" sx={{ mb: 2 }}>{t("admin.mail.section_event_title", "Email da evento (trigger non temporizzato)")}</Typography>
+              <FlowTable flow={EVENT_EMAILS.map((e) => ({ ...e, day: t("admin.mail.event_day", "evento"), type: "transazionale" }))} timedColumn={t("admin.mail.col_trigger", "Trigger")} templateMap={templateMap} />
             </CardContent>
           </Card>
         )}

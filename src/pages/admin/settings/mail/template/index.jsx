@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { capitalCase } from "change-case";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import HeaderBreadcrumbs from "src/components/HeaderBreadcrumbs";
 import Page from "src/components/Page";
@@ -27,6 +28,7 @@ import { PATH_DASHBOARD } from "src/routes/paths";
 import useUpdateTemplate from "./hooks/use-update-template";
 
 const Template = () => {
+  const { t } = useTranslation();
   const { methods, onSubmit } = useUpdateTemplate();
   const {
     formState: { isSubmitting },
@@ -79,7 +81,7 @@ const Template = () => {
               onClick={() => setShowPreview(true)}
               sx={{ color: "#B8963B", borderColor: "#B8963B" }}
             >
-              Anteprima
+              {t("admin.mail.btn_preview", "Anteprima")}
             </Button>
           }
         />
@@ -95,16 +97,16 @@ const Template = () => {
               />
             </Grid>
             <Grid item md={12}>
-              <Typography variant="subtitle1">Placeholder disponibili:</Typography>
+              <Typography variant="subtitle1">{t("admin.mail.placeholders_available", "Placeholder disponibili:")}</Typography>
               <Stack spacing={0.5}>
                 <Typography variant="caption">
-                  <code>[nome]</code>: nome utente destinatario
+                  <code>[nome]</code>: {t("admin.mail.ph_name", "nome utente destinatario")}
                 </Typography>
                 <Typography variant="caption">
-                  <code>[email]</code>: email destinatario
+                  <code>[email]</code>: {t("admin.mail.ph_email", "email destinatario")}
                 </Typography>
                 <Typography variant="caption">
-                  <code>[year]</code>: anno corrente
+                  <code>[year]</code>: {t("admin.mail.ph_year", "anno corrente")}
                 </Typography>
               </Stack>
             </Grid>
@@ -116,7 +118,7 @@ const Template = () => {
                 sx={{ mb: 1 }}
               >
                 <Typography variant="subtitle2" sx={{ color: "text.secondary" }}>
-                  {showHtmlSource ? "HTML source (safe per email complesse)" : "Editor visuale (⚠️ pericoloso su tabelle inline)"}
+                  {showHtmlSource ? t("admin.mail.html_source_safe", "HTML source (safe per email complesse)") : t("admin.mail.visual_editor_dangerous", "Editor visuale (pericoloso su tabelle inline)")}
                 </Typography>
                 <Button
                   size="small"
@@ -125,7 +127,7 @@ const Template = () => {
                   onClick={handleToggleEditor}
                   sx={{ color: "#B8963B", borderColor: "#B8963B" }}
                 >
-                  {showHtmlSource ? "Editor visuale" : "Torna a HTML"}
+                  {showHtmlSource ? t("admin.mail.visual_editor", "Editor visuale") : t("admin.mail.back_to_html", "Torna a HTML")}
                 </Button>
               </Stack>
               {showHtmlSource ? (
@@ -134,7 +136,7 @@ const Template = () => {
                   multiline
                   minRows={20}
                   maxRows={40}
-                  placeholder="HTML raw..."
+                  placeholder={t("admin.mail.html_raw_placeholder", "HTML raw...")}
                   sx={{
                     "& .MuiInputBase-input": {
                       fontFamily: "'Courier New', monospace",
@@ -146,8 +148,7 @@ const Template = () => {
               ) : (
                 <>
                   <Alert severity="warning" sx={{ mb: 1 }}>
-                    <b>Attenzione</b>: l'editor visuale può strippare tabelle inline styles.
-                    Se il template è complesso (email marketing con tabelle nested), usa HTML source.
+                    {t("admin.mail.wysiwyg_warning_inline", "Attenzione: l'editor visuale può strippare tabelle inline styles. Se il template è complesso (email marketing con tabelle nested), usa HTML source.")}
                   </Alert>
                   <RHFEditor
                     label="email_template.form.content"
@@ -170,7 +171,7 @@ const Template = () => {
       <Dialog open={showPreview} onClose={() => setShowPreview(false)} maxWidth="md" fullWidth>
         <DialogTitle>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <span>Anteprima email</span>
+            <span>{t("admin.mail.preview_email", "Anteprima email")}</span>
             <IconButton onClick={() => setShowPreview(false)}>
               <Iconify icon="material-symbols:close" />
             </IconButton>
@@ -178,7 +179,7 @@ const Template = () => {
         </DialogTitle>
         <DialogContent dividers>
           <iframe
-            title="Anteprima email"
+            title={t("admin.mail.preview_email", "Anteprima email")}
             srcDoc={contentValue}
             style={{ width: "100%", height: "70vh", border: "1px solid #e0e0e0", borderRadius: 4 }}
             sandbox=""
@@ -188,19 +189,18 @@ const Template = () => {
 
       {/* Modal warning switch a WYSIWYG */}
       <Dialog open={showWysiwygWarning} onClose={() => setShowWysiwygWarning(false)} maxWidth="sm">
-        <DialogTitle>⚠️ Attenzione</DialogTitle>
+        <DialogTitle>{t("admin.mail.warning_title", "Attenzione")}</DialogTitle>
         <DialogContent>
           <Alert severity="error" sx={{ mb: 2 }}>
-            L'editor visuale <b>può distruggere</b> template HTML complessi (tabelle nested, inline styles).
-            Le mail eVea usano tabelle con stili inline per essere compatibili con Outlook/Gmail — l'editor visuale li strippa.
+            {t("admin.mail.wysiwyg_warning_destroy", "L'editor visuale può distruggere template HTML complessi (tabelle nested, inline styles). Le mail eVea usano tabelle con stili inline per essere compatibili con Outlook/Gmail — l'editor visuale li strippa.")}
           </Alert>
           <Typography variant="body2">
-            Se il template è semplice (testo + link) puoi usare il visuale in sicurezza. Se è un template email con tabelle nested (welcome, T3, T4, C-APP, ecc.) <b>NON salvare in modalità visuale</b> o distruggerai il rendering.
+            {t("admin.mail.wysiwyg_warning_advice", "Se il template è semplice (testo + link) puoi usare il visuale in sicurezza. Se è un template email con tabelle nested (welcome, T3, T4, C-APP, ecc.) NON salvare in modalità visuale o distruggerai il rendering.")}
           </Typography>
           <Stack direction="row" spacing={1} justifyContent="flex-end" sx={{ mt: 2 }}>
-            <Button onClick={() => setShowWysiwygWarning(false)}>Annulla</Button>
+            <Button onClick={() => setShowWysiwygWarning(false)}>{t("common.cancel", "Annulla")}</Button>
             <Button onClick={confirmSwitchToWysiwyg} color="warning" variant="contained">
-              Passa a visuale
+              {t("admin.mail.switch_to_visual", "Passa a visuale")}
             </Button>
           </Stack>
         </DialogContent>

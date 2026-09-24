@@ -1,29 +1,30 @@
 import { LoadingButton } from "@mui/lab";
 import { Alert, Box, Stack, Switch, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Scrollbar from "src/components/Scrollbar";
 import DataHandlerList from "src/components/data-handler/list";
 import Map from "src/components/map";
 import useGetData from "./hooks/useGetData";
 
 const FastStartBonus = () => {
+  const { t } = useTranslation();
   const { state, handleUpdate, onSubmit } = useGetData();
   const { data, ...dataProps } = state;
 
   return (
     <Scrollbar>
       <Alert severity="info" sx={{ mb: 2 }}>
-        Fast Start Bonus: pagato allo sponsor quando un nuovo utente compra uno starter pack.
-        L'importo è fisso per kit (Bronze/Silver/Gold) e viene pagato in <b>weekly</b> (auto-approve dopo 15 giorni).
+        {t("admin.settings.network.fsb_info", "Fast Start Bonus: pagato allo sponsor quando un nuovo utente compra uno starter pack. L'importo è fisso per kit (Bronze/Silver/Gold) e viene pagato in weekly (auto-approve dopo 15 giorni).")}
       </Alert>
 
       <DataHandlerList dataProps={{ ...dataProps }}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Pack</TableCell>
-              <TableCell>Importo bonus (€)</TableCell>
-              <TableCell>Attivo</TableCell>
+              <TableCell>{t("admin.settings.network.pack", "Pack")}</TableCell>
+              <TableCell>{t("admin.settings.network.bonus_amount", "Importo bonus (€)")}</TableCell>
+              <TableCell>{t("admin.settings.network.active", "Attivo")}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -43,7 +44,7 @@ const FastStartBonus = () => {
         <Box textAlign="right">
           <Stack alignItems="flex-end" sx={{ mt: 3 }}>
             <LoadingButton onClick={onSubmit} variant="contained">
-              Salva
+              {t("common.save", "Salva")}
             </LoadingButton>
           </Stack>
         </Box>

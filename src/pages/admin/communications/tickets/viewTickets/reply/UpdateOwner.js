@@ -10,6 +10,7 @@ import {
 import { FormProvider } from "src/components/hook-form";
 
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import UsersSearch from "src/components/autoComplete/users";
 import useUpdateOwner from "../hook/useUpdateOwner";
 import Transition from "src/utils/dialog-animation";
@@ -21,6 +22,7 @@ const UpdateOwner = ({
   selectedId,
   ticketNumber,
 }) => {
+  const { t } = useTranslation();
   const { methods, onSubmit } = useUpdateOwner((id) => {
     fetchTicket(id);
     onCloseDialogue();
@@ -40,7 +42,7 @@ const UpdateOwner = ({
         TransitionComponent={Transition}
       >
         <DialogTitle id="delete-Subscription">
-          Change Owner For Ticket : {ticketNumber}
+          {t("admin.tickets.change_owner_title", "Change Owner For Ticket")} : {ticketNumber}
         </DialogTitle>
         <FormProvider methods={methods} onSubmit={onSubmit}>
           <DialogContent>
@@ -62,9 +64,9 @@ const UpdateOwner = ({
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={onCloseDialogue}>Annulla</Button>
+            <Button onClick={onCloseDialogue}>{t("common.cancel", "Annulla")}</Button>
             <Button variant="contained" type="submit">
-              Aggiorna
+              {t("admin.tickets.update", "Aggiorna")}
             </Button>
           </DialogActions>
         </FormProvider>

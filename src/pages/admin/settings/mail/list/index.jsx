@@ -1,5 +1,6 @@
 import { Box, Button, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import HeaderBreadcrumbs from "src/components/HeaderBreadcrumbs";
 import Page from "src/components/Page";
 import DataHandlerTable from "src/components/data-handler/table";
@@ -18,6 +19,7 @@ const headers = [
 ];
 
 const Mail = () => {
+  const { t } = useTranslation();
   const { state } = useGetTemplates();
 
   const { data, ...dataProps } = state;
@@ -38,14 +40,14 @@ const Mail = () => {
                 component={Link}
                 to={PATH_DASHBOARD.settings.email_settings.flow}
               >
-                Flusso
+                {t("admin.mail.crumb_flow", "Flusso")}
               </Button>
               <Button
                 variant="outlined"
                 component={Link}
                 to={PATH_DASHBOARD.settings.email_settings.analytics}
               >
-                Analytics
+                {t("admin.mail.btn_analytics", "Analytics")}
               </Button>
               <Button
                 variant="contained"
@@ -53,7 +55,7 @@ const Mail = () => {
                 to={PATH_DASHBOARD.settings.email_settings.new}
                 sx={{ background: "#B8963B", "&:hover": { background: "#a08333" } }}
               >
-                + Nuova email
+                {t("admin.mail.btn_new_email", "+ Nuova email")}
               </Button>
             </Stack>
           }

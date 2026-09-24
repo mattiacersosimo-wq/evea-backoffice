@@ -31,16 +31,17 @@ import {
   CartesianGrid,
   Legend,
 } from "recharts";
+import { useTranslation } from "react-i18next";
 import HeaderBreadcrumbs from "src/components/HeaderBreadcrumbs";
 import Page from "src/components/Page";
 import { PATH_DASHBOARD } from "src/routes/paths";
 import axiosInstance from "src/utils/axios";
 
-const RANGE_OPTIONS = [
-  { value: "7", label: "Ultimi 7 giorni" },
-  { value: "30", label: "Ultimi 30 giorni" },
-  { value: "90", label: "Ultimi 90 giorni" },
-  { value: "all", label: "Sempre" },
+const getRangeOptions = (t) => [
+  { value: "7", label: t("admin.mail.range_7d", "Ultimi 7 giorni") },
+  { value: "30", label: t("admin.mail.range_30d", "Ultimi 30 giorni") },
+  { value: "90", label: t("admin.mail.range_90d", "Ultimi 90 giorni") },
+  { value: "all", label: t("admin.mail.range_all", "Sempre") },
 ];
 
 const StatCard = ({ label, value, sub }) => (
@@ -62,6 +63,8 @@ const StatCard = ({ label, value, sub }) => (
 );
 
 const EmailAnalytics = () => {
+  const { t } = useTranslation();
+  const RANGE_OPTIONS = getRangeOptions(t);
   const [range, setRange] = useState("30");
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -111,14 +114,14 @@ const EmailAnalytics = () => {
   const timeline = data?.timeline || [];
 
   return (
-    <Page title="Email Analytics">
+    <Page title={t("admin.mail.analytics_page_title", "Email Analytics")}>
       <Box>
         <HeaderBreadcrumbs
-          heading="Analytics Email transazionali"
+          heading={t("admin.mail.analytics_heading", "Analytics Email transazionali")}
           links={[
-            { name: "Dashboard", href: PATH_DASHBOARD.root },
-            { name: "Email", href: PATH_DASHBOARD.settings.email_settings.root },
-            { name: "Analytics" },
+            { name: t("admin.mail.crumb_dashboard", "Dashboard"), href: PATH_DASHBOARD.root },
+            { name: t("admin.mail.crumb_email", "Email"), href: PATH_DASHBOARD.settings.email_settings.root },
+            { name: t("admin.mail.btn_analytics", "Analytics") },
           ]}
           action={
             <Stack direction="row" spacing={1}>
@@ -127,14 +130,14 @@ const EmailAnalytics = () => {
                 component={Link}
                 to={PATH_DASHBOARD.settings.email_settings.root}
               >
-                Template
+                {t("admin.mail.btn_templates", "Template")}
               </Button>
               <Button
                 variant="outlined"
                 component={Link}
                 to={PATH_DASHBOARD.settings.email_settings.flow}
               >
-                Flusso
+                {t("admin.mail.crumb_flow", "Flusso")}
               </Button>
             </Stack>
           }
@@ -164,24 +167,24 @@ const EmailAnalytics = () => {
           <>
             <Grid container spacing={2} sx={{ mb: 3 }}>
               <Grid item xs={12} sm={6} md={3}>
-                <StatCard label="Email inviate" value={totals.sent} />
+                <StatCard label={t("admin.mail.stat_sent", "Email inviate")} value={totals.sent} />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <StatCard label="Aperture totali" value={totals.opens_total} sub={`${totals.unique_opens} uniche`} />
+                <StatCard label={t("admin.mail.stat_opens_total", "Aperture totali")} value={totals.opens_total} sub={t("admin.mail.stat_unique_suffix", "{{n}} uniche", { n: totals.unique_opens })} />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <StatCard label="Open rate" value={`${totals.open_rate_pct}%`} sub="uniche / inviate" />
+                <StatCard label={t("admin.mail.stat_open_rate", "Open rate")} value={`${totals.open_rate_pct}%`} sub={t("admin.mail.stat_open_rate_sub", "uniche / inviate")} />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <StatCard label="Template attivi" value={perTemplate.length} />
+                <StatCard label={t("admin.mail.stat_active_templates", "Template attivi")} value={perTemplate.length} />
               </Grid>
             </Grid>
 
             <Card sx={{ mb: 3 }}>
               <CardContent>
-                <Typography variant="h6" sx={{ mb: 2 }}>Andamento invii / aperture (ultimi 30gg)</Typography>
+                <Typography variant="h6" sx={{ mb: 2 }}>{t("admin.mail.chart_trend_title", "Andamento invii / aperture (ultimi 30gg)")}</Typography>
                 {timeline.length === 0 ? (
-                  <Typography color="text.secondary">Nessun dato disponibile.</Typography>
+                  <Typography color="text.secondary">{t("admin.mail.no_data_available", "Nessun dato disponibile.")}</Typography>
                 ) : (
                   <ResponsiveContainer width="100%" height={300}>
                     <LineChart data={timeline}>
@@ -190,8 +193,8 @@ const EmailAnalytics = () => {
                       <YAxis allowDecimals={false} />
                       <Tooltip />
                       <Legend />
-                      <Line type="monotone" dataKey="sent" name="Inviate" stroke="#2C1A0E" strokeWidth={2} />
-                      <Line type="monotone" dataKey="opens" name="Aperture" stroke="#B8963B" strokeWidth={2} />
+                      <Line type="monotone" dataKey="sent" name={t("admin.mail.legend_sent", "Inviate")} stroke="#2C1A0E" strokeWidth={2} />
+                      <Line type="monotone" dataKey="opens" name={t("admin.mail.legend_opens", "Aperture")} stroke="#B8963B" strokeWidth={2} />
                     </LineChart>
                   </ResponsiveContainer>
                 )}
@@ -200,9 +203,9 @@ const EmailAnalytics = () => {
 
             <Card sx={{ mb: 3 }}>
               <CardContent>
-                <Typography variant="h6" sx={{ mb: 2 }}>Open rate per template</Typography>
+                <Typography variant="h6" sx={{ mb: 2 }}>{t("admin.mail.chart_open_rate_title", "Open rate per template")}</Typography>
                 {perTemplate.length === 0 ? (
-                  <Typography color="text.secondary">Nessun dato disponibile.</Typography>
+                  <Typography color="text.secondary">{t("admin.mail.no_data_available", "Nessun dato disponibile.")}</Typography>
                 ) : (
                   <ResponsiveContainer width="100%" height={Math.max(300, perTemplate.length * 40)}>
                     <BarChart data={perTemplate} layout="vertical">
@@ -210,7 +213,7 @@ const EmailAnalytics = () => {
                       <XAxis type="number" domain={[0, 100]} unit="%" />
                       <YAxis dataKey="template_key" type="category" width={220} />
                       <Tooltip />
-                      <Bar dataKey="open_rate_pct" name="Open rate %" fill="#B8963B" />
+                      <Bar dataKey="open_rate_pct" name={t("admin.mail.chart_open_rate_bar", "Open rate %")} fill="#B8963B" />
                     </BarChart>
                   </ResponsiveContainer>
                 )}
@@ -220,18 +223,18 @@ const EmailAnalytics = () => {
             <Card sx={{ mb: 3 }}>
               <CardContent>
                 <Stack direction={{ xs: "column", sm: "row" }} spacing={2} alignItems={{ sm: "center" }} sx={{ mb: 2 }}>
-                  <Typography variant="h6" sx={{ flexGrow: 1 }}>Ultimi destinatari</Typography>
+                  <Typography variant="h6" sx={{ flexGrow: 1 }}>{t("admin.mail.last_recipients_title", "Ultimi destinatari")}</Typography>
                   <TextField
                     select
                     size="small"
                     value={recipientTemplate}
                     onChange={(e) => setRecipientTemplate(e.target.value)}
-                    label="Template"
+                    label={t("admin.mail.filter_template", "Template")}
                     sx={{ minWidth: 260 }}
                   >
-                    <MenuItem value="">Tutti i template</MenuItem>
-                    {perTemplate.map((t) => (
-                      <MenuItem key={t.template_key} value={t.template_key}>{t.template_key}</MenuItem>
+                    <MenuItem value="">{t("admin.mail.filter_all_templates", "Tutti i template")}</MenuItem>
+                    {perTemplate.map((tpl) => (
+                      <MenuItem key={tpl.template_key} value={tpl.template_key}>{tpl.template_key}</MenuItem>
                     ))}
                   </TextField>
                 </Stack>
@@ -244,12 +247,12 @@ const EmailAnalytics = () => {
                     <Table size="small">
                       <TableHead>
                         <TableRow>
-                          <TableCell>Destinatario</TableCell>
-                          <TableCell>Template</TableCell>
-                          <TableCell>Lingua</TableCell>
-                          <TableCell>Inviata il</TableCell>
-                          <TableCell>Aperta</TableCell>
-                          <TableCell align="right">N° open</TableCell>
+                          <TableCell>{t("admin.mail.col_recipient", "Destinatario")}</TableCell>
+                          <TableCell>{t("admin.mail.filter_template", "Template")}</TableCell>
+                          <TableCell>{t("admin.mail.col_language", "Lingua")}</TableCell>
+                          <TableCell>{t("admin.mail.col_sent_at", "Inviata il")}</TableCell>
+                          <TableCell>{t("admin.mail.col_opened", "Aperta")}</TableCell>
+                          <TableCell align="right">{t("admin.mail.col_opens_count", "N° open")}</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -280,7 +283,7 @@ const EmailAnalytics = () => {
                         {recipients.length === 0 && (
                           <TableRow>
                             <TableCell colSpan={6} align="center" sx={{ color: "text.secondary" }}>
-                              Nessun destinatario nel periodo.
+                              {t("admin.mail.no_recipients", "Nessun destinatario nel periodo.")}
                             </TableCell>
                           </TableRow>
                         )}
@@ -293,18 +296,18 @@ const EmailAnalytics = () => {
 
             <Card>
               <CardContent>
-                <Typography variant="h6" sx={{ mb: 2 }}>Dettaglio per template</Typography>
+                <Typography variant="h6" sx={{ mb: 2 }}>{t("admin.mail.per_template_title", "Dettaglio per template")}</Typography>
                 <TableContainer component={Paper} elevation={0}>
                   <Table size="small">
                     <TableHead>
                       <TableRow>
-                        <TableCell>Template</TableCell>
-                        <TableCell align="right">Inviate</TableCell>
-                        <TableCell align="right">Aperture tot</TableCell>
-                        <TableCell align="right">Aperture uniche</TableCell>
-                        <TableCell align="right">Open rate</TableCell>
-                        <TableCell align="right">Click</TableCell>
-                        <TableCell align="right">Unsub</TableCell>
+                        <TableCell>{t("admin.mail.filter_template", "Template")}</TableCell>
+                        <TableCell align="right">{t("admin.mail.col_sent", "Inviate")}</TableCell>
+                        <TableCell align="right">{t("admin.mail.col_opens_total", "Aperture tot")}</TableCell>
+                        <TableCell align="right">{t("admin.mail.col_unique_opens", "Aperture uniche")}</TableCell>
+                        <TableCell align="right">{t("admin.mail.stat_open_rate", "Open rate")}</TableCell>
+                        <TableCell align="right">{t("admin.mail.col_clicks", "Click")}</TableCell>
+                        <TableCell align="right">{t("admin.mail.col_unsub", "Unsub")}</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -326,7 +329,7 @@ const EmailAnalytics = () => {
                       {perTemplate.length === 0 && (
                         <TableRow>
                           <TableCell colSpan={7} align="center" sx={{ color: "text.secondary" }}>
-                            Nessuna email tracciata nel periodo.
+                            {t("admin.mail.no_emails_tracked", "Nessuna email tracciata nel periodo.")}
                           </TableCell>
                         </TableRow>
                       )}

@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import axiosInstance from "src/utils/axios";
 import { PATH_DASHBOARD } from "src/routes/paths";
 
 const useCreateTemplate = () => {
+  const { t } = useTranslation();
   const methods = useForm({
     defaultValues: {
       email: "",
@@ -25,7 +27,7 @@ const useCreateTemplate = () => {
         subject: inputData.subject,
         content: inputData.content,
       });
-      enqueueSnackbar(data.message || "Template creato");
+      enqueueSnackbar(data.message || t("admin.mail.msg_template_created", "Template creato"));
       const newId = data?.data?.id;
       if (newId) {
         navigate(PATH_DASHBOARD.settings.email_settings.view(newId, { name: inputData.email }));
