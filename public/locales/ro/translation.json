@@ -1311,6 +1311,40 @@
             "recurring_enabled": "Recurent activ"
         }
     },
+    "sidebar": {
+        "subscriptions": "Abonamente",
+        "my_wallet": "Portofelul meu",
+        "dashboard_bonus": "Dashboard Bonus",
+        "my_orders": "Comenzile mele",
+        "team_orders": "Comenzi echipă",
+        "orders": "Comenzi",
+        "report": "Rapoarte",
+        "report_overview": "Prezentare generală",
+        "report_smartship": "SmartShip",
+        "community": "Community",
+        "my_leads": "Lead-urile mele",
+        "genealogy": "Genealogie",
+        "control_center": "Centru de Control",
+        "sustainability": "Sustenabilitate",
+        "my_compensation_notes": "Notele mele de compensare",
+        "compensation_notes": "Note de compensare",
+        "orphan_leads": "Lead-uri orfane",
+        "ivd_payments": "Plăți IVD-Ocazionale",
+        "tree": "Arbore",
+        "team": "Echipă",
+        "albero": "Arbore"
+    },
+    "dashboard": {
+        "greeting_morning": "Bună dimineața",
+        "greeting_afternoon": "Bună ziua",
+        "greeting_evening": "Bună seara",
+        "greeting_night": "Noapte bună",
+        "benefits": {
+            "label": "{{rank}}: Beneficii",
+            "business_builder_active": "Business Builder Activ: DA",
+            "revenue_plan": "Plan de venituri"
+        }
+    },
     "actions": {
         "edit": "Editează",
         "delete": "Șterge",
@@ -5400,13 +5434,6 @@
         "status_shipped": "Expediat",
         "status_paid": "Plătit",
         "status_processing": "În procesare"
-    },
-    "dashboard": {
-        "benefits": {
-            "label": "{{rank}}: Beneficii",
-            "business_builder_active": "Business Builder Activ: DA",
-            "revenue_plan": "Plan de venituri"
-        }
     },
     "community": {
         "title": "Comunitate eVea",

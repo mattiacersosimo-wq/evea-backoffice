@@ -42,10 +42,11 @@ const INTERVAL_KEYS = {
   year: { singular: "subscriptions.interval_year", singularFallback: "anno", plural: "subscriptions.interval_year_plural", pluralFallback: "anni" },
 };
 
-const formatDate = (dateStr) => {
+const formatDate = (dateStr, locale) => {
   if (!dateStr) return "\u2014";
   try {
-    return new Date(dateStr).toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" });
+    const loc = locale === "ro" ? "ro-RO" : locale === "en" ? "en-US" : "it-IT";
+    return new Date(dateStr).toLocaleDateString(loc, { day: "numeric", month: "long", year: "numeric" });
   } catch (e) { return dateStr; }
 };
 
@@ -54,7 +55,7 @@ const formatDate = (dateStr) => {
 // Seal API does not support item modification via API — user must use Seal's customer portal.
 // ═══════════════════════════════════════
 const ItemsManager = ({ open, onClose, sub }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const items = sub?.items || [];
   const portalUrl = sub?.edit_url;
 
@@ -116,7 +117,7 @@ const ItemsManager = ({ open, onClose, sub }) => {
 // SEAL SUBSCRIPTION CARD
 // ═══════════════════════════════════════
 const SealCard = ({ sub, onAction }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [showHistory, setShowHistory] = useState(false);
   const [history, setHistory] = useState(null);
   const [historyLoading, setHistoryLoading] = useState(false);
@@ -183,12 +184,12 @@ const SealCard = ({ sub, onAction }) => {
               </Typography>
               {sub.next_billing_date && sub.status === "active" && (
                 <Typography sx={{ fontSize: "0.78rem", color: "#7A6A5C" }}>
-                  {t("subscriptions.next_renewal_colon", "Prossimo rinnovo:")} <b style={{ color: ESPRESSO }}>{formatDate(sub.next_billing_date)}</b>
+                  {t("subscriptions.next_renewal_colon", "Prossimo rinnovo:")} <b style={{ color: ESPRESSO }}>{formatDate(sub.next_billing_date, i18n.resolvedLanguage)}</b>
                 </Typography>
               )}
             </Stack>
             <Typography sx={{ fontSize: "0.65rem", color: "#aaa", mt: 0.3 }}>
-              {t("subscriptions.active_from", "Attivo dal {{date}}", { date: formatDate(sub.created_at) })}
+              {t("subscriptions.active_from", "Attivo dal {{date}}", { date: formatDate(sub.created_at, i18n.resolvedLanguage) })}
             </Typography>
           </Box>
 
@@ -250,7 +251,7 @@ const SealCard = ({ sub, onAction }) => {
                     : { color: WARNING, bg: alpha(WARNING, 0.1), label: t("subscriptions.payment_scheduled", "Programmato") };
                   return (
                     <TableRow key={h.id || i}>
-                      <TableCell sx={{ fontSize: "0.75rem" }}>{formatDate(h.date)}</TableCell>
+                      <TableCell sx={{ fontSize: "0.75rem" }}>{formatDate(h.date, i18n.resolvedLanguage)}</TableCell>
                       <TableCell sx={{ fontSize: "0.75rem", fontWeight: 600 }}>
                         {h.type === "log" ? <Typography sx={{ fontSize: "0.7rem", color: "#7A6A5C" }}>{h.note}</Typography> : `\u20AC${Number(h.amount).toFixed(2)}`}
                       </TableCell>
@@ -297,7 +298,7 @@ const SealCard = ({ sub, onAction }) => {
 // SEAL SECTION
 // ═══════════════════════════════════════
 const SealSection = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [subs, setSubs] = useState([]);
   const [loading, setLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
@@ -377,7 +378,7 @@ const SealSection = () => {
 // MAIN PAGE — Seal + Internal subscriptions
 // ═══════════════════════════════════════
 const RecurringOrder = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const isPromoter = user?.is_promoter === 1;
   const { state: mySubState, fetchData: mySubFetch, ...mySubRest } = useMySubFetch();
@@ -423,8 +424,8 @@ const RecurringOrder = () => {
               const st = status === "active" ? { label: t("subscriptions.status_active", "Attivo"), color: MUSCHIO, bg: alpha(MUSCHIO, 0.1) }
                 : status === "expired" ? { label: t("subscriptions.status_expired", "Scaduto"), color: DANGER, bg: alpha(DANGER, 0.1) }
                 : { label: product?.active_status || status, color: WARNING, bg: alpha(WARNING, 0.1) };
-              const purchaseDate = product?.created_at ? formatDate(product.created_at) : null;
-              const expiryDate = product?.effective_until ? formatDate(product.effective_until) : null;
+              const purchaseDate = product?.created_at ? formatDate(product.created_at, i18n.resolvedLanguage) : null;
+              const expiryDate = product?.effective_until ? formatDate(product.effective_until, i18n.resolvedLanguage) : null;
               return (
                 <Card key={product?.id} sx={{ bgcolor: "#fff", border: `1px solid ${SABBIA}`, borderRadius: 3, overflow: "hidden", mb: 2 }}>
                   <Box sx={{ p: 2.5 }}>

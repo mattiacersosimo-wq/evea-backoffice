@@ -158,6 +158,50 @@ const injectMenuItems = (menu, extraMenuItems) => {
   });
 };
 
+// Traduce titoli menu leaf che arrivano hardcoded dal backend
+// (voci del DB memorizzate in IT). Il match e' case-insensitive
+// sul title normalizzato.
+const RAW_TITLE_TRANSLATIONS = {
+  "albero": "sidebar.tree",
+  "team": "sidebar.team",
+  "coupon": "user_nav.coupons.list",
+  "coupons": "user_nav.coupons.list",
+  "cupon": "user_nav.coupons.list",
+  "cupoane": "user_nav.coupons.list",
+  "i miei lead": "sidebar.my_leads",
+  "abbonamenti": "sidebar.subscriptions",
+  "il mio wallet": "sidebar.my_wallet",
+  "ordini": "sidebar.orders",
+  "i miei ordini": "sidebar.my_orders",
+  "ordini team": "sidebar.team_orders",
+  "dashboard bonus": "sidebar.dashboard_bonus",
+  "genealogia": "sidebar.genealogy",
+  "report": "sidebar.report",
+  "panoramica": "sidebar.report_overview",
+  "smartship": "sidebar.report_smartship",
+  "community": "sidebar.community",
+  "profilo": "user_nav.my_profile",
+  "il mio profilo": "user_nav.my_profile",
+  "centro assistenza": "user_nav.help_center.help_center",
+};
+
+const translateTitle = (t, title) => {
+  if (!title || typeof title !== "string") return title;
+  const key = RAW_TITLE_TRANSLATIONS[title.trim().toLowerCase()];
+  return key ? t(key, title) : title;
+};
+
+const translateItemTitles = (items, t) => {
+  if (!Array.isArray(items)) return items;
+  return items.map((item) => {
+    const next = { ...item, title: translateTitle(t, item.title) };
+    if (Array.isArray(item.children)) {
+      next.children = translateItemTitles(item.children, t);
+    }
+    return next;
+  });
+};
+
 const filterMenu = (menu, isPromoter, t) => {
   if (!Array.isArray(menu)) return menu;
   return menu.map((group) => {
@@ -283,6 +327,8 @@ const filterMenu = (menu, isPromoter, t) => {
       const only = item.children[0];
       return { ...item, path: only.path || item.path, children: undefined };
     });
+    // Traduzione titoli leaf che arrivano dal DB backend in italiano
+    items = translateItemTitles(items, t);
     return { ...group, items };
   });
 };

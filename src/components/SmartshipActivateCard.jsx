@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import Iconify from "src/components/Iconify";
 import { WP_URL } from "src/config";
 
@@ -10,6 +11,7 @@ const ORO = "#B8963B";
 // interno che possiamo ottenere solo se il cliente ha gia' completato un
 // checkout subscription su Shopify - non fattibile per clienti spot.
 const SmartshipActivateCard = ({ renderTrigger }) => {
+  const { t } = useTranslation();
   const targetUrl = `${WP_URL.replace(/\/$/, "")}/collections/all`;
 
   const handleClick = () => window.open(targetUrl, "_blank");
@@ -26,7 +28,7 @@ const SmartshipActivateCard = ({ renderTrigger }) => {
       startIcon={<Iconify icon="mdi:storefront-outline" />}
       sx={{ bgcolor: ORO, "&:hover": { bgcolor: "#A07E2F" }, fontWeight: 700, textTransform: "none", borderRadius: 2, px: 3 }}
     >
-      Attiva smartship
+      {t("subscriptions.activate_smartship", "Attiva smartship")}
     </Button>
   );
 };

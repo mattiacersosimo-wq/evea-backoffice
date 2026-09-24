@@ -1311,6 +1311,40 @@
             "recurring_enabled": "Ricorrente Attivo"
         }
     },
+    "sidebar": {
+        "subscriptions": "Abbonamenti",
+        "my_wallet": "Il mio Wallet",
+        "dashboard_bonus": "Dashboard Bonus",
+        "my_orders": "I miei Ordini",
+        "team_orders": "Ordini Team",
+        "orders": "Ordini",
+        "report": "Report",
+        "report_overview": "Panoramica",
+        "report_smartship": "SmartShip",
+        "community": "Community",
+        "my_leads": "I miei Lead",
+        "genealogy": "Genealogia",
+        "control_center": "Centro Controllo",
+        "sustainability": "Sostenibilità",
+        "my_compensation_notes": "Le Mie Note di Compenso",
+        "compensation_notes": "Note di Compenso",
+        "orphan_leads": "Lead Orfani",
+        "ivd_payments": "Pagamenti IVD-Abituali",
+        "tree": "Albero",
+        "team": "Team",
+        "albero": "Albero"
+    },
+    "dashboard": {
+        "greeting_morning": "Buongiorno",
+        "greeting_afternoon": "Buon pomeriggio",
+        "greeting_evening": "Buonasera",
+        "greeting_night": "Buonanotte",
+        "benefits": {
+            "label": "{{rank}}: Benefit",
+            "business_builder_active": "Business Builder Attivo: SÌ",
+            "revenue_plan": "Piano Compensi"
+        }
+    },
     "actions": {
         "edit": "Modifica",
         "delete": "Elimina",
@@ -5400,13 +5434,6 @@
         "status_shipped": "Spedito",
         "status_paid": "Pagato",
         "status_processing": "In lavorazione"
-    },
-    "dashboard": {
-        "benefits": {
-            "label": "{{rank}}: Benefit",
-            "business_builder_active": "Business Builder Attivo: SÌ",
-            "revenue_plan": "Piano Compensi"
-        }
     },
     "community": {
         "title": "Community eVea",

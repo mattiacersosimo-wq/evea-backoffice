@@ -1343,6 +1343,40 @@
             "recurring_enabled": "Recurring Enabled"
         }
     },
+    "sidebar": {
+        "subscriptions": "Subscriptions",
+        "my_wallet": "My Wallet",
+        "dashboard_bonus": "Dashboard Bonus",
+        "my_orders": "My Orders",
+        "team_orders": "Team Orders",
+        "orders": "Orders",
+        "report": "Report",
+        "report_overview": "Overview",
+        "report_smartship": "SmartShip",
+        "community": "Community",
+        "my_leads": "My Leads",
+        "genealogy": "Genealogy",
+        "control_center": "Control Center",
+        "sustainability": "Sustainability",
+        "my_compensation_notes": "My Compensation Notes",
+        "compensation_notes": "Compensation Notes",
+        "orphan_leads": "Orphan Leads",
+        "ivd_payments": "IVD Payments",
+        "tree": "Tree",
+        "team": "Team",
+        "albero": "Tree"
+    },
+    "dashboard": {
+        "greeting_morning": "Good morning",
+        "greeting_afternoon": "Good afternoon",
+        "greeting_evening": "Good evening",
+        "greeting_night": "Good night",
+        "benefits": {
+            "label": "{{rank}}: Benefits",
+            "business_builder_active": "Business Builder Active: YES",
+            "revenue_plan": "Revenue Plan"
+        }
+    },
     "actions": {
         "edit": "Edit",
         "delete": "Delete",
@@ -5474,13 +5508,6 @@
         "status_shipped": "Shipped",
         "status_paid": "Paid",
         "status_processing": "Processing"
-    },
-    "dashboard": {
-        "benefits": {
-            "label": "{{rank}}: Benefits",
-            "business_builder_active": "Business Builder Active: YES",
-            "revenue_plan": "Revenue Plan"
-        }
     },
     "community": {
         "title": "eVea Community",
