@@ -2056,12 +2056,14 @@ const PromoterDashboard = () => {
           {!preLaunchActive && <PoolFounderCard />}
 
           {user?.is_promoter === 1 && heroData && !preLaunchActive && (() => {
+            // Ai Founder i kit Bronze/Silver/Gold non danno alcun boost DSB
+            // (Allegato Founder: 30% per 6 mesi, "non cumulabile con il DSB
+            // potenziato degli Starter Kit"): mostrarli come upgrade era
+            // fuorviante, quindi la sezione e' nascosta.
+            if (isFounder || Number(user?.is_founder) === 1) return null;
             const pkgLevel = PACKAGE_ID_TO_LEVEL[heroData.package_id] || 0;
             const daysRemaining = heroData.upgrade_days_remaining;
             // hasKit basato solo su pkgLevel (Bronze/Silver/Gold mappati).
-            // Founder Pack NON conta come starter perche' e' tier separato -
-            // un Founder puo' comunque comprare Bronze/Silver/Gold se vuole
-            // avere piu prodotti fisicamente o attivare il DSB boost mappato.
             const hasKit = pkgLevel > 0;
             const isGold = pkgLevel === 3;
             const canUpgrade = hasKit && !isGold && daysRemaining !== null && daysRemaining > 0;
