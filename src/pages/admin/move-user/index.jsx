@@ -244,7 +244,7 @@ const MoveUser = () => {
           </DialogTitle>
           <DialogContent>
             <Alert severity="warning" sx={{ mb: 2 }}>
-              <span dangerouslySetInnerHTML={{ __html: t("admin.move_user.dlg_confirm_warning", "Stai per spostare <b>{{user}}</b> (e {{n}} membri del team) da <b>@{{oldSponsor}}</b> a <b>@{{newSponsor}}</b>.", { user: preview?.user?.username, n: preview?.descendants_count, oldSponsor: preview?.old_sponsor?.username, newSponsor: preview?.new_sponsor?.username }) }} />
+              <span dangerouslySetInnerHTML={{ __html: t("admin.move_user.dlg_confirm_warning", "Stai per spostare <b>{{user}}</b> (e {{n}} membri del team) da <b>@{{oldSponsor}}</b> a <b>@{{newSponsor}}</b>.", { user: preview?.user?.username, n: preview?.descendants_count, oldSponsor: preview?.old_sponsor?.username, newSponsor: preview?.new_sponsor?.username, interpolation: { escapeValue: true } }) }} />
               <br /><br />
               <span dangerouslySetInnerHTML={{ __html: t("admin.move_user.dlg_irreversible", "Questa operazione è <b>irreversibile</b> senza un altro spostamento manuale.") }} />
             </Alert>

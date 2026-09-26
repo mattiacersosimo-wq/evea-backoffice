@@ -398,7 +398,7 @@ const PayoutFatture = () => {
           <DialogContent>
             <Stack spacing={2} sx={{ pt: 1 }}>
               <Alert severity="warning" sx={{ borderRadius: 2 }}>
-                <span dangerouslySetInnerHTML={{ __html: t("admin.financial.payout_dlg_cancel_warning", "L'annullamento <b>ricrediterà {{amount}}</b> nel wallet del promoter. Operazione tracciata nei log.", { amount: fmtEuro(annDlg.payout?.amount) }) }} />
+                <span dangerouslySetInnerHTML={{ __html: t("admin.financial.payout_dlg_cancel_warning", "L'annullamento <b>ricrediterà {{amount}}</b> nel wallet del promoter. Operazione tracciata nei log.", { amount: fmtEuro(annDlg.payout?.amount), interpolation: { escapeValue: true } }) }} />
               </Alert>
               <TextField fullWidth size="small" required label={t("admin.financial.payout_field_cancel_reason", "Motivo annullamento")} multiline rows={3} value={annMotivo} onChange={(e) => setAnnMotivo(e.target.value)} placeholder={t("admin.financial.payout_cancel_placeholder", "Es. fattura non emessa entro i termini contrattuali")} />
             </Stack>
