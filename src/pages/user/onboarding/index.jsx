@@ -857,7 +857,7 @@ const OnboardingWizard = () => {
                 />
                 <FormControlLabel
                   control={<Checkbox checked={allegato_b} onChange={(e) => setAllegatoB(e.target.checked)} sx={{ "&.Mui-checked": { color: ORO } }} />}
-                  label={<Stack direction="row" alignItems="center" spacing={1}><Typography sx={{ fontSize: "0.85rem" }}>{t("onboarding.letter.read_accept_prefix", "Ho letto e accetto il")} <strong>{t("onboarding.letter.allegato_b_name", "Piano Compensi (Allegato B)")}</strong> *</Typography><Button size="small" href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/EVEA_Piano_Compensi_v1.8.pdf?v=1789583847" target="_blank" rel="noreferrer" sx={{ color: ORO, fontSize: "0.75rem", p: 0, minWidth: 0 }}>{t("onboarding.letter.read_link", "Leggi →")}</Button></Stack>}
+                  label={<Stack direction="row" alignItems="center" spacing={1}><Typography sx={{ fontSize: "0.85rem" }}>{t("onboarding.letter.read_accept_prefix", "Ho letto e accetto il")} <strong>{t("onboarding.letter.allegato_b_name", "Piano Compensi (Allegato B)")}</strong> *</Typography><Button size="small" href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/EVEA_Piano_Compensi_v1.9.pdf?v=1790459052" target="_blank" rel="noreferrer" sx={{ color: ORO, fontSize: "0.75rem", p: 0, minWidth: 0 }}>{t("onboarding.letter.read_link", "Leggi →")}</Button></Stack>}
                 />
                 <FormControlLabel
                   control={<Checkbox checked={allegato_c} onChange={(e) => setAllegatoC(e.target.checked)} sx={{ "&.Mui-checked": { color: ORO } }} />}

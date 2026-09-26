@@ -448,7 +448,7 @@ const SimulatorReport = () => {
           <Box sx={{ mb: 1.5, p: 1.2, borderRadius: 2, bgcolor: "#fff8e1", border: "1px solid #ffe082", display: "flex", alignItems: "center", gap: 1 }}>
             <Iconify icon="mdi:information-outline" width={16} sx={{ color: "#f57c00", flexShrink: 0 }} />
             <Typography sx={{ fontSize: "0.68rem", color: "#5d4037", lineHeight: 1.35 }}>
-              {t("reports.simulator.compliance_banner_prefix", "Stima")} <strong>{t("reports.simulator.compliance_banner_indicative", "indicativa")}</strong> {t("reports.simulator.compliance_banner_middle", "non garantita. I risultati dipendono da impegno individuale, mercato e capacità di reclutamento. Fa fede il")} <a href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/EVEA_Piano_Compensi_v1.8.pdf?v=1789583847" target="_blank" rel="noreferrer" style={{ color: "#B8963B", fontWeight: 700 }}>{t("reports.simulator.compliance_banner_link", "Piano Compensi ufficiale")}</a>.
+              {t("reports.simulator.compliance_banner_prefix", "Stima")} <strong>{t("reports.simulator.compliance_banner_indicative", "indicativa")}</strong> {t("reports.simulator.compliance_banner_middle", "non garantita. I risultati dipendono da impegno individuale, mercato e capacità di reclutamento. Fa fede il")} <a href="https://cdn.shopify.com/s/files/1/1013/1629/7050/files/EVEA_Piano_Compensi_v1.9.pdf?v=1790459052" target="_blank" rel="noreferrer" style={{ color: "#B8963B", fontWeight: 700 }}>{t("reports.simulator.compliance_banner_link", "Piano Compensi ufficiale")}</a>.
             </Typography>
           </Box>
 
